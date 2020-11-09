@@ -76,6 +76,9 @@ namespace Scripts
             Target("compile", DependsOn("restore"), () =>
                 Run("dotnet", $"build -c {buildConfig} --no-restore"));
             
+             Target("test", DependsOn("compile"), () =>
+                Run("dotnet", $"test -c {buildConfig}", workingDirectory: @"tests/Miru.Tests"));
+            
             Target("pack", DependsOn("compile"), () =>
             {
                 foreach (var releasable in Packages)
@@ -84,7 +87,7 @@ namespace Scripts
                 }
             });
             
-            Target("publish-dev", DependsOn("export-stubs", "pack"), () =>
+            Target("publish-dev", DependsOn("export-stubs", "compile", "test", "mong-test", "pack"), () =>
             {
                 PushPackages(option.Key, "https://f.feedz.io/miru/miru/nuget");
             });
@@ -176,6 +179,12 @@ namespace Scripts
 
         private static void PushPackages(string serverApiKey, string serverUrl)
         {
+            if (string.IsNullOrEmpty(serverApiKey))
+            {
+                Console.WriteLine("No Nuget API key found. Skip publishing");
+                return;
+            }
+            
             var param = $" -s {serverUrl} -k {serverApiKey} --skip-duplicate";
                 
             var paramNoSymbols = $" -s {serverUrl} -k {serverApiKey} --skip-duplicate";
