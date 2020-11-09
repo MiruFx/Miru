@@ -1,0 +1,17 @@
+﻿@model Area
+
+<template data-page-update="prepend#areas">
+    
+    <div id="area_@Model.Id" class="mb-4" data-area-name="@Model.Name">
+    
+        <div id="area-edit_@Model.Id" class="mb-1"></div>
+
+        <partial name="_Area" model="Model"/>
+
+    </div>
+    
+</template>
+
+<template data-page-update="clear#area-new"></template>
+
+<template data-page-update="show#area-new-link"></template>

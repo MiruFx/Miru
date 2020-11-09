@@ -1,0 +1,15 @@
+{
+  "name": "miru-docs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "markdown-it-vuepress-code-snippet-enhanced": "^1.0.1",
+    "vuepress": "^0.14.4"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  }
+}

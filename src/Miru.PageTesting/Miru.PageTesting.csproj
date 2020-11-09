@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+        <PackageReference Include="Selenium.Support" Version="3.141.0" />
+        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="85.0.4183.8700" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Miru.Testing\Miru.Testing.csproj" />
+      <ProjectReference Include="..\Miru\Miru.csproj" />
+    </ItemGroup>
+
+</Project>

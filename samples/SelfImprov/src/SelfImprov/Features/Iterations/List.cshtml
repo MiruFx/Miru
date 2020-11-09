@@ -1,0 +1,42 @@
+@model IterationList.Result
+
+<div class="row justify-content-center">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+
+                <h3>Iterations</h3>
+                
+                <miru-table for="Iterations" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <miru-th for="Iterations[0].Number">Iteration #</miru-th>
+                            <miru-th for="Iterations[0].PercentAchieved">% Achieved</miru-th>
+                            <miru-th for="Iterations[0].CreatedAt">Reviewed At</miru-th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                     
+                    @{ var i = 0; }
+                    @foreach (var it in Model.Iterations)
+                    {
+                        <tr>
+                            <miru-td for="Iterations[i].Number">
+                                <a for="new IterationShow.Query { Id = it.Id }">
+                                    Iteration #<md for="Iterations[i].Number"/>
+                                </a>
+                            </miru-td>
+                            <miru-td for="Iterations[i].PercentAchieved" />
+                            <miru-td for="Iterations[i].CreatedAt"/>
+                        </tr>
+                        i++;
+                    }
+                
+                    </tbody>
+                </miru-table>
+
+                
+            </div>
+        </div>
+    </div>
+</div>

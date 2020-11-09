@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
+
+    <ItemGroup>
+        
+        <!-- Core -->
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0-rc.2.*" />
+        <PackageReference Include="Oakton" Version="2.0.4" />
+        <PackageReference Include="NetEscapades.Configuration.Yaml" Version="2.0.1" />
+        <PackageReference Include="YamlDotNet" Version="8.1.2" />
+        <PackageReference Include="Scrutor" Version="3.2.2" />
+        <PackageReference Include="Scriban" Version="2.1.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.0-rc.2.*" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.0-rc.2.*" />
+        <PackageReference Include="Humanizer.Core" Version="2.8.26" />
+        
+        <!-- Data -->
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-rc.2.*" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0-rc.2.*" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0-rc.2.*" />
+        <PackageReference Include="FluentMigrator" Version="3.2.9" />
+        <PackageReference Include="FluentMigrator.Runner" Version="3.2.9" />
+        
+        <!-- Features -->
+        <PackageReference Include="MediatR" Version="9.0.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+        <PackageReference Include="FluentValidation" Version="9.2.0" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.2.0" />
+        
+        <!-- Email -->
+        <PackageReference Include="FluentEmail.Core" Version="2.8.0" />
+        <PackageReference Include="FluentEmail.Smtp" Version="2.8.0" />
+        <PackageReference Include="Westwind.AspNetCore.Markdown" Version="3.4.0" />
+        
+        <!-- View -->
+        <PackageReference Include="HtmlTags" Version="8.0.0" />
+        <PackageReference Include="Vereyon.Web.FlashMessage" Version="2.0.0" />
+        
+        <!-- Logging -->
+        <PackageReference Include="Serilog" Version="2.9.0" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+        <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
+        <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
+        
+        <!-- Queuing -->
+        <PackageReference Include="Hangfire.Core" Version="1.7.16" />
+        <PackageReference Include="Hangfire.AspNetCore" Version="1.7.16" />
+        <PackageReference Include="Hangfire.LiteDB" Version="0.3.1" />
+
+    </ItemGroup>
+    
+    <ItemGroup>
+        <ProjectReference Include="..\Miru.Core\Miru.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Include="**/*.stub" />
+    </ItemGroup>
+
+</Project>

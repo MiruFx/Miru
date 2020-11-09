@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Build.cs" />
+    <Compile Include="ExportStubs.cs" />
+    <Compile Include="TestNewSolution.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bullseye" Version="3.5.0" />
+    <PackageReference Include="SimpleExec" Version="6.2.0" />
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="MiruNewTest\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="MiruNewTest\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\Miru.Core\Miru.Core.csproj" />
+    <ProjectReference Include="..\src\Miru\Miru.csproj" />
+  </ItemGroup>
+
+</Project>

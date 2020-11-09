@@ -1,0 +1,24 @@
+using System.CommandLine;
+using System.CommandLine.Invocation;
+using Miru.Core;
+using Miru.Core.Makers;
+
+namespace MiruCli
+{
+    public class NewCommand : Command
+    {
+        public NewCommand(string commandName) : base(commandName)
+        {
+            AddArgument(new Argument<string>("name"));
+            
+            Handler = CommandHandler.Create((string name) => Execute(name));
+        }
+
+        private void Execute(string name)
+        {
+            var m = new Maker(new MiruSolution(A.Path(name)));
+
+            m.New(name);
+        }
+    }
+}

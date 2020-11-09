@@ -1,0 +1,20 @@
+using System;
+using Miru.Testing;
+using {{ Solution.Name }}.Database;
+using {{ Solution.Name }}.Domain;
+
+namespace {{ Solution.Name }}.Tests
+{
+    public static class Extensions
+    {
+        public static TReturn Db<TReturn>(this ITestFixture fixture, Func<{{ Solution.Name }}DbContext, TReturn> func)
+        {
+            return fixture.WithDb(func);
+        }
+        
+        public static {{ Solution.Name }}Fabricator Fab(this ITestFixture fixture)
+        {
+            return fixture.Get<{{ Solution.Name }}Fabricator>();
+        }
+    }
+}

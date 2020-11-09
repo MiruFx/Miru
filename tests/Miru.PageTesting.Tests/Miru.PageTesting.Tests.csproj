@@ -1,0 +1,30 @@
+﻿<!--
+Has to be .Sdk.Web to allow unit test asp.net components correctly 
+-->
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <IsPackable>false</IsPackable>
+    <GenerateProgramFile>false</GenerateProgramFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+    
+    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.27.0" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="85.0.4183.8700" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Miru.PageTesting.Chrome\Miru.PageTesting.Chrome.csproj" />
+    <ProjectReference Include="..\..\src\Miru.PageTesting.Firefox\Miru.PageTesting.Firefox.csproj" />
+    <ProjectReference Include="..\..\src\Miru.PageTesting\Miru.PageTesting.csproj" />
+    <ProjectReference Include="..\..\src\Miru.Testing\Miru.Testing.csproj" />
+  </ItemGroup>
+
+</Project>

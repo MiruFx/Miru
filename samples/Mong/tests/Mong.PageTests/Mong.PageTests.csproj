@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <GenerateProgramFile>false</GenerateProgramFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+        <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.27.0" />
+        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="86.0.4240.2200" />
+        <PackageReference Include="Selenium.InternetExplorer.WebDriver" Version="3.150.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\..\src\Miru.PageTesting.Chrome\Miru.PageTesting.Chrome.csproj" />
+        <ProjectReference Include="..\..\..\..\src\Miru.PageTesting.Firefox\Miru.PageTesting.Firefox.csproj" />
+        <ProjectReference Include="..\..\..\..\src\Miru.PageTesting\Miru.PageTesting.csproj" />
+        <ProjectReference Include="..\..\tests\Mong.Tests\Mong.Tests.csproj" />
+        <ProjectReference Include="..\..\src\Mong\Mong.csproj" />
+    </ItemGroup>
+    
+</Project>

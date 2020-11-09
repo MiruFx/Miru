@@ -1,0 +1,29 @@
+{
+  "name": "miru-core",
+  "version": "0.1.10-dev",
+  "description": "Javascript features for Miru.NET",
+  "main": "dist/miru-core.js",
+  "repository": "https://github.com/mirufx",
+  "scripts": {
+    "unminified": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "minified": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run unminified -- --watch",
+    "build": "npm run unminified",
+    "compile": "npm run minified"
+  },
+  "author": {
+    "name": "Joao Carlos Clementoni"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "laravel-mix": "^5.0.4",
+    "vue-template-compiler": "^2.6.11",
+    "@rails/ujs": "^6.0.3-1",
+    "turbolinks": "^5.2.0"
+  },
+  "peerDependencies": {
+    "@rails/ujs": "^6.0.3-1",
+    "turbolinks": "^5.2.0"
+  }
+}

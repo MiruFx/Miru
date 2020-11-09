@@ -1,0 +1,10 @@
+@{
+    if (ViewContext.View.Path.EndsWith("Mail.cshtml"))
+    {
+        Layout = "/Features/Shared/Mailing/_EmailLayout.cshtml";
+    }
+    else
+    {
+        Layout = "/Features/Shared/_Layout.cshtml";
+    }
+}

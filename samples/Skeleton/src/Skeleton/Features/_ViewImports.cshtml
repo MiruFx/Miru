@@ -1,0 +1,14 @@
+@using Miru
+@using Miru.Mvc
+@using Miru.Html
+@using HtmlTags
+@using Skeleton.Domain
+
+@namespace Skeleton.Features
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, HtmlTags
+@addTagHelper Miru.Html.Tags.*, Miru
+@addTagHelper *, Vereyon.Web.FlashMessage
+
+@inherits MiruRazorPage<TModel>

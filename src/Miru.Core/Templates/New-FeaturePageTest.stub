@@ -1,0 +1,26 @@
+using Miru.PageTesting;
+using Miru.Testing;
+using NUnit.Framework;
+using {{ Solution.Name }}.Domain;
+using {{ Solution.Name }}.Features.{{ input.In }};
+
+namespace {{ Solution.Name }}.PageTests.Pages.{{ input.In }}
+{
+    public class {{ input.Name }}NewPageTest : PageTest
+    {
+        [Test]
+        public void Can_make_new_{{ string.downcase input.Name }}()
+        {
+            _.Visit(new {{ input.Name }}New());
+
+            _.Form<{{ input.Name }}New.Command>((f, command) =>
+            {
+                f.Input(m => m.Name, command.Name);
+                
+                f.Submit();
+            });
+            
+            _.ShouldHaveText("{{ input.Name }} successfully saved");
+        }
+    }
+}

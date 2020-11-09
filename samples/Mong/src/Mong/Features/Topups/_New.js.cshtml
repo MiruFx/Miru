@@ -1,0 +1,13 @@
+@model TopupNew.Command
+
+<template data-page-update-target>
+  
+  <div class="form-summary alert alert-success" role="alert">
+    <h5>Topup successful!</h5> 
+  </div>
+
+  <p>Shortly the phone number <mark>@Model.PhoneNumber</mark> will receive a sms with the confirmation of the credit</p>
+
+  <p><a for="@(new TopupNew.Command())">Would you like to Topup another mobile?</a></p>
+  
+</template>

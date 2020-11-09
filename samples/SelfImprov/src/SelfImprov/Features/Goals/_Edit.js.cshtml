@@ -1,0 +1,9 @@
+@model GoalEdit.Result
+
+<template data-page-update="clear#goal-edit_@Model.Goal.Id"></template>
+
+<template data-page-update="replace#goal-@Model.Goal.Id">
+    <partial name="_Goal" model="Model.Goal" />
+</template>
+
+<template data-page-update="show#goal-@Model.Goal.Id"></template>

@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <IsPackable>true</IsPackable>
+    <PackAsTool>true</PackAsTool>
+    <PackageId>MiruCli</PackageId>
+    <Authors>joaofx</Authors>
+    <Product>Miru</Product>
+    <IncludeSymbols>false</IncludeSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.CommandLine.Experimental" Version="0.3.0-alpha.19577.1" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="miru.cmd" />
+    <EmbeddedResource Include="miru.sh" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Miru.Core\Miru.Core.csproj" />
+  </ItemGroup>
+
+</Project>

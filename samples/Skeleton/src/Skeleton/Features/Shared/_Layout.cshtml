@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <miru-antiforgery name="csrf-token" />
+
+    <title>@App.Name</title>
+
+    <script mix-src="/js/app.js" defer></script>
+    <link mix-href="/css/app.css" rel="stylesheet" />
+    
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+        
+</head>
+<body>
+
+    <div id="app">
+    
+        <partial name="_Nav" />
+        
+        <main class="py-4">
+            <div class="container">
+                <flash dismissable="true" />
+                
+                @RenderBody()
+            </div>
+        </main>
+        
+    </div>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

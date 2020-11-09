@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <GenerateProgramFile>false</GenerateProgramFile>
+  </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+        <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+        <PackageReference Include="Hangfire.MemoryStorage" Version="1.7.0" />
+        
+        <PackageReference Include="Miru.Testing" Version="{{ MiruVersion }}" />
+        <PackageReference Include="Miru.Fabrication" Version="{{ MiruVersion }}" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\{{ Solution.Name }}\{{ Solution.Name }}.csproj" />
+    </ItemGroup>
+
+</Project>

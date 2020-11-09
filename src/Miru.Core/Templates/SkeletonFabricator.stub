@@ -1,0 +1,18 @@
+using System;
+using Miru.Fabrication;
+using Miru.FixtureConventions;
+using {{ Solution.Name }}.Domain;
+
+namespace {{ Solution.Name }}.Tests
+{
+    public class {{ Solution.Name }}Fabricator : Fabricator
+    {
+        public {{ Solution.Name }}Fabricator(FabSupport context) : base(context)
+        {
+            Fixture.AddConvention(cfg =>
+            {
+                cfg.IfPropertyNameIs("Name").Use(f => f.Name.FullName());
+            });
+        }
+    }
+}

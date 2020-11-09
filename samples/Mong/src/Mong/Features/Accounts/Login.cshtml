@@ -1,0 +1,57 @@
+@using Mong.Features.Password
+@model AccountLogin.Command
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">Login</div>
+
+            <div class="card-body">
+                
+                <miru-form>
+                
+                    <miru-summary />
+                    
+                    <mi for="ReturnUrl" type="hidden" />
+                    
+                    <div class="form-group row">
+                        <ml for="Email" />
+                        
+                        <div class="col-md-6">
+                            <mi for="Email" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <ml for="Password" />
+
+                        <div class="col-md-6">
+                            <mi for="Password" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-6 offset-md-4">
+                            <div class="form-check">
+                                <mi for="Remember" class="form-check-input" />
+                                <ml for="Remember" set-class="form-check-label" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-0">
+                        <div class="col-md-8 offset-md-4">
+                            <miru-submit value="Login" />
+
+                            <a class="btn btn-link" for="@(new PasswordForgot.Command())">
+                                Forgot Your Password?
+                            </a>
+                        </div>
+                    </div>
+                
+                </miru-form>
+                
+            </div>
+        </div>
+    </div>
+</div>

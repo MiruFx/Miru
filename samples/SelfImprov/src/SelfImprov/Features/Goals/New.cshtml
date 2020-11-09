@@ -1,0 +1,34 @@
+@model GoalNew.Command
+
+<template data-page-update="hide#goal-new-area-link_@Model.AreaId"></template>
+
+<template data-page-update="update#goal-new-area_@Model.AreaId">
+
+    <miru-form>
+
+        <miru-summary />
+        
+        <mi for="AreaId" type="hidden" />
+
+        <div class="row">
+            
+            <div class="col-sm-12 col-lg-6">
+                <mi for="Name" placeholder="Your goal..." />
+            </div>
+                            
+            <div class="col-sm-12 col-lg-6">
+                
+                <miru-submit value="Save" data-disable-with="Saving..." />
+                        
+                <a href="#" data-page-update="clear#goal-new-area_@Model.AreaId, show#goal-new-area-link_@Model.AreaId">
+                    Cancel
+                </a>
+               
+            </div>
+        </div>
+        
+    </miru-form>
+
+</template>
+
+<template data-page-update="focus#Name"></template>

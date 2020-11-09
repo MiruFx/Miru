@@ -1,0 +1,35 @@
+@model ProductEdit.Command
+
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-body">
+                    
+                <h3>Edit Product</h3>
+                
+                <miru-form>
+
+                    <miru-summary />
+                    
+                    <miru-input for="Id"/>
+                    
+                    <div class="form-group row">
+                        <miru-label for="Name" class="col-md-4 col-form-label text-md-right" />
+
+                        <div class="col-md-6">
+                            <miru-input for="Name" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            <miru-submit value="Save" />
+                        </div>
+                    </div>
+                    
+                </miru-form>
+                   
+            </div>
+        </div>
+    </div>
+</div>

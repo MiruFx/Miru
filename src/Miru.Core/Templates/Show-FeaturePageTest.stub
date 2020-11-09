@@ -1,0 +1,21 @@
+using Miru.PageTesting;
+using Miru.Testing;
+using NUnit.Framework;
+using {{ Solution.Name }}.Domain;
+using {{ Solution.Name }}.Features.{{ input.In }};
+
+namespace {{ Solution.Name }}.PageTests.Pages.{{ input.In }}
+{
+    public class {{ input.Name }}ShowPageTest : PageTest
+    {
+        [Test]
+        public void Can_show_{{ string.downcase input.Name }}()
+        {
+            var {{ string.downcase input.Name }} = _.MakeSaving<{{ input.Name }}>();
+            
+            _.Visit(new {{ input.Name }}Show.Query { Id = {{ string.downcase input.Name }}.Id });
+
+            _.ShouldHaveText({{ string.downcase input.Name }}.Name);
+        }
+    }
+}

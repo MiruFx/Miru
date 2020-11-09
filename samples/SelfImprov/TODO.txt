@@ -1,0 +1,46 @@
+TODO SELFIMPROV
+
+- Implement IterationShowPageTest
+
+- Implement IterationEdit
+
+- Edit Area
+    - Add AreaEditTest: miru make:feature Areas Area Edit --tests
+    - Unique name validation is failing
+
+- Add side bar in /Goals for
+    Last Iterations
+        #13 - Good
+        #12 - OK
+        #11 - Not Good
+        See All Iterations
+        
+- Press esc hides current 'Add Area' or 'Add Goal'
+
+==============================================================
+    
+TODO MIRU
+    
+- Review "TODO" and "FIXME" in the code
+
+- Make sure that html generation is configured by HtmlConfig?
+    - When dealing with names, use ElementNaming
+      
+    - New Area
+        - Validation [OK]
+        - Loading... change style (gray and no underline)
+
+    - Remove Area
+        - If error when removing, show form-summary
+
+- Namings:
+    @model AreaNew.Command
+    form -> area-new-form
+    summary -> area-new-summary
+    
+- <mi for="@areaNew.Name" placeholder="Area name"/>
+    id: areaNew-Name
+    name: Name
+    
+- Export IBelongToUser filter to Miru
+    services.AddBelongsToUser

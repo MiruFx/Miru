@@ -1,0 +1,19 @@
+@using Mong.Features.Topups
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                Welcome to @App.Name
+                
+                <h4 class="mt-4">Current Offers</h4>
+                            
+                <p>
+                    <strong>Four</strong> is giving <mark>$10</mark> for each topup of $50
+                </p>
+                
+                <p><a href="@(Url.Build<TopupNew.Command>())">Topup!</a></p>
+            </div>
+        </div>
+    </div>
+</div>

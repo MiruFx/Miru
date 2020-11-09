@@ -1,0 +1,13 @@
+@using Miru
+@using Miru.Mvc
+@using Miru.Html
+@using HtmlTags
+
+@namespace Mong.Features
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper Miru.Html.Tags.*, Miru
+@addTagHelper *, Vereyon.Web.FlashMessage
+@addTagHelper *, Westwind.AspNetCore.Markdown
+
+@inherits MiruRazorPage<TModel>

@@ -1,0 +1,62 @@
+@using SelfImprov.Features.Iterations
+@model GoalList.Result
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+
+                <h3>Your Current Goals</h3>
+
+                <div class="row">
+                    <div class="col-md-12 mb-4">
+
+                        <a for="@new AreaNew.Command()"
+                           data-remote="true"
+                           data-disable-with="Loading...">
+                            New Area
+                        </a>
+
+                        <div id="area-new">
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div id="areas">
+                            @foreach (var area in Model.Areas)
+                            {
+                                <div id="area_@area.Id" class="mb-4" data-area-name="@area.Name">
+
+                                    <div id="area-edit_@area.Id" class="mb-1"></div>
+
+                                    <partial name="_Area" model="area"/>
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+         <div class="card">
+            <div class="card-body">
+                
+                <h5>Current Iteration</h5>
+                
+                <div class="mt-4 mb-4">
+                    <a for="@new IterationReview()">Set Results</a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+</div>

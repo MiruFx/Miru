@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+
+    <RepositoryUrl>https://github.com/MiruFx/Miru</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/MiruFx/Miru</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>miru asp.net .net fullstack framework</PackageTags>
+
+    <Authors>Joao Carlos Clementoni</Authors>
+    <Copyright>Copyright (c) 2020 Joao Clementoni</Copyright>
+    
+  </PropertyGroup>
+
+<!--  <PropertyGroup Condition="$(IsPackable) == 'true'">-->
+  <PropertyGroup>
+    
+    <PackageOutputPath>..\..\packages</PackageOutputPath>
+    <IncludeSymbols>true</IncludeSymbols>
+
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+
+    <MinVerSkip Condition="'$(Configuration)' == 'Debug'">true</MinVerSkip>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+  
+  <ItemGroup Condition="$(IsPackable) == 'true'">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="MinVer" Version="2.3.1" PrivateAssets="All" />
+  </ItemGroup>
+  
+</Project>

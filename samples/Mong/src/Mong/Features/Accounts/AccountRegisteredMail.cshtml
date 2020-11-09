@@ -1,0 +1,13 @@
+@model Mong.Domain.User
+
+<markdown>
+## Mong
+
+Hello!
+
+[Click here to activate your account](@Url.Full(new AccountActivate.Query { Token = Model.ConfirmationToken })
+
+Regards,
+
+Mong Team
+</markdown>

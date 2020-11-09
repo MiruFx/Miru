@@ -1,0 +1,34 @@
+@model Goal
+
+<li id="goal-@Model.Id" class="list-group-item">
+    
+    <div id="goal-edit_@Model.Id"></div>
+    
+    <div id="goal-show_@Model.Id">
+        <div class="row hover-highlight">
+            <div class="col-6">
+                @Model.Name
+            </div>
+            
+            <div class="col-6 text-right">
+                <a for="@new GoalEdit.Query {Id = Model.Id}"
+                   class="ml-5"
+                   data-remote="true"
+                   data-disable-with="Loading...">
+                    Edit
+                </a>
+
+                <strong>·</strong>
+
+                <a for="@new GoalRemove.Command {Id = Model.Id}"
+                   class="text-danger"
+                   data-remote="true"
+                   data-method="post"
+                   data-disable-with="Removing...">
+                    Remove
+                </a>
+            </div>
+        </div>
+
+    </div>
+</li>

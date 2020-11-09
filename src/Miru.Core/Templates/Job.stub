@@ -1,0 +1,22 @@
+using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
+using Miru.Queuing;
+
+namespace {{ Solution.Name }}.Features.{{ input.In }}
+{
+    public class {{ input.Name }}{{ input.Action }}
+    {
+        public class Job : IJob
+        {
+        }
+
+        public class Handler : IRequestHandler<Job>
+        {
+            public Task<Unit> Handle(Job request, CancellationToken ct)
+            {
+                return Unit.Task;
+            }
+        }
+    }
+}

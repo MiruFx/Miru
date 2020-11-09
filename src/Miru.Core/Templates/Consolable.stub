@@ -1,0 +1,21 @@
+using System.Threading.Tasks;
+using Miru.Consolables;
+using Oakton;
+
+namespace {{ Solution.Name }}.Consolables
+{
+    [Description("Description what this consolable does", Name = "{{ string.downcase input.Name }}")]
+    public class {{ input.Name }}Consolable : Consolable<{{ input.Name }}Consolable.Input>
+    {
+        public class Input
+        {
+        }
+
+        public override Task<bool> Execute(Input input)
+        {
+            // do the task
+            
+            return Task.FromResult(true); 
+        }
+    }
+}
