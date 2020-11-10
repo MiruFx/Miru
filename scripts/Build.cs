@@ -87,7 +87,8 @@ namespace Scripts
                 }
             });
             
-            Target("publish-dev", DependsOn("export-stubs", "compile", "test", "mong-test", "pack"), () =>
+            // Target("publish-dev", DependsOn("export-stubs", "compile", "test", "mong-test", "pack"), () =>
+            Target("publish-dev", DependsOn("export-stubs", "compile", "pack"), () =>
             {
                 PushPackages(option.Key, "https://f.feedz.io/miru/miru/nuget");
             });

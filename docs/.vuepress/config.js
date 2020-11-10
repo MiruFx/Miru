@@ -1,6 +1,6 @@
 module.exports = {
     title: 'Miru',
-    description: 'Ready to go fullstack open-source framework for developing ASP.NET Core applications!',
+    description: 'Ready to go full stack open-source framework for developing ASP.NET Core applications',
     markdown: {
         toc: {
             includeLevel: [1,2,3] 

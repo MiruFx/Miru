@@ -27,7 +27,7 @@ namespace Scripts
             
             // New
             ExportFile(_dir / "Skeleton.sln", "Solution.sln");
-            ExportFile(_dir / ".gitignore", ".gitignore");
+            ExportFile(_dir / "gitignore", ".gitignore", destinationFile: ".gitignore");
             ExportFile(_dir / "nuget.config");
             ExportFile(_dir / "global.json");
             
@@ -145,7 +145,7 @@ namespace Scripts
             }
         }
         
-        private static void ExportFile(string file, string stub = null, string templateKey = "")
+        private static void ExportFile(string file, string stub = null, string templateKey = "", string destinationFile = null)
         {
             var stubFileName = BuildStubName(file, stub);
                 
@@ -199,7 +199,7 @@ namespace Scripts
             File.WriteAllLines(stubPath, fileContent);
 
             if (_map)
-                NewSolutionFiles.Add(Path.GetRelativePath(_dir, file), stubFileName);
+                NewSolutionFiles.Add(Path.GetRelativePath(_dir, destinationFile ?? file), stubFileName);
         }
 
         private static string BuildStubName(string file, string stub)

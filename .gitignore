@@ -5,6 +5,7 @@
 
 # Miru solution files and directories
 Config*.yml
+!samples/Skeleton/config/Config*.yml
 *.db
 storage/
 temp/

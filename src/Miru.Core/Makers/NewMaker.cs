@@ -21,10 +21,9 @@ namespace Miru.Core.Makers
             
             var map = Maker.ReadEmbedded("_New.yml").FromYml<Dictionary<string, string>>();
 
-            foreach (var item in map)
+            foreach (var (key, stub) in map)
             {
-                var stub = item.Value;
-                var destination = item.Key
+                var destination = key
                     .Replace("Skeleton", name)
                     .Replace('\\', Path.DirectorySeparatorChar);
                 
