@@ -106,7 +106,7 @@ For example, the Page test [UserListPageTest](/samples/Mong/tests/Mong.PageTests
 
 ## Example
 
-There are a lot of examples in [Samples](https://github.com/joaofx/miru/tree/master/samples) folder.
+There are a lot of examples in [Samples](https://github.com/mirufx/miru/tree/master/samples) folder.
 
 This example, test the `TopupNew` page in `Mong` solution:
 

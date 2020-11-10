@@ -4,6 +4,7 @@ A Feature
     feature folders  [ok]
     two levels /Admin/Users and /Users
   structure (class, subclasses)  [ok]
+  make:feature
 Request & Response
   request: IRequest [ok]
   response [ok]

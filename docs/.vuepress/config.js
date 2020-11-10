@@ -18,7 +18,7 @@ module.exports = {
         },
         {
             text: 'Github',
-            link: 'https://www.github.com/joaofx/Miru'
+            link: 'https://www.github.com/mirufx/miru'
         }],
         sidebar: [{
                 title: 'Introduction',

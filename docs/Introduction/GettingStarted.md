@@ -17,7 +17,7 @@ TODO: References
 </p>
 
 ::: warning
-Miru is in an early stage of development. It can change a lot before 1.0. **It's not recommended to use in real projects yet**.
+Miru is at an early stage of development. It can change a lot before 1.0. **It's not recommended to use it in real projects yet**.
 
 This documentation is a draft. It will be filled with more information as Miru goes towards version 1.0.
 :::
@@ -33,8 +33,8 @@ For now, the two ways to check how it looks like are:
 * Having a [First Look](/Introduction/FirstLook.html) developing a new Solution.
 * Taking a look into the samples:
   * [Supportreon](https://github.com/joaofx/Supportreon)
-  * [Mong](https://github.com/joaofx/miru/tree/master/samples/Mong)
-  * [SelfImprov](https://github.com/joaofx/miru/tree/master/samples/SelfImprov)
+  * [Mong](https://github.com/mirufx/miru/tree/master/samples/Mong)
+  * [SelfImprov](https://github.com/mirufx/miru/tree/master/samples/SelfImprov)
 
 ## Installing
 
