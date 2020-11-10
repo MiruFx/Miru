@@ -1,5 +1,5 @@
 using System.Collections.ObjectModel;
-using Miru.FixtureConventions;
+using Miru.Fabrication.FixtureConventions;
 
 namespace Miru.Fabrication
 {

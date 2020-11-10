@@ -2,9 +2,8 @@ using System;
 using Miru;
 using Miru.Domain;
 using Miru.Fabrication;
-using Miru.FixtureConventions;
+using Miru.Fabrication.FixtureConventions;
 using Miru.Userfy;
-using SelfImprov.Domain;
 
 namespace SelfImprov.Tests
 {

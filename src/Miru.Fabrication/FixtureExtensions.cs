@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using AutoFixture;
 using Baseline.Dates;
 using Bogus;
 using Miru.Domain;
-using Miru.FixtureConventions;
+using Miru.Fabrication.FixtureConventions;
 using Miru.Userfy;
 
 namespace Miru.Fabrication
@@ -48,7 +47,7 @@ namespace Miru.Fabrication
                 _.IfPropertyNameIs(nameof(ICanBeAdmin.IsAdmin)).Use(() => false);
                 
                 // CreditCard
-                _.IfPropertyNameIs("CreditCard").Use(faker => faker.Finance.CreditCardNumber());
+                _.IfPropertyNameIs("CreditCard").Use(f => f.Finance.CreditCardNumber());
             });
             
             return fixture;

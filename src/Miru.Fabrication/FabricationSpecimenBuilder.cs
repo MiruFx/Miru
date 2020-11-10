@@ -2,7 +2,7 @@ using System.Reflection;
 using AutoFixture;
 using AutoFixture.Kernel;
 using Miru.Domain;
-using Miru.FixtureConventions;
+using Miru.Fabrication.FixtureConventions;
 
 namespace Miru.Fabrication
 {
@@ -41,7 +41,7 @@ namespace Miru.Fabrication
                     return singleton;
             }
             
-            var instance = _fixture.Create(propertyInfo.PropertyType);
+            var instance = _fixture.CreateByType(propertyInfo.PropertyType);
 
             if (propertyIsEntity && instance != null)
                 _session.AddSingleton(propertyInfo.PropertyType, instance);

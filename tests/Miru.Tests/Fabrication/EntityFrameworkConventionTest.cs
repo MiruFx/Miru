@@ -3,7 +3,7 @@ using AutoFixture;
 using Bogus;
 using Miru.Domain;
 using Miru.Fabrication;
-using Miru.FixtureConventions;
+using Miru.Fabrication.FixtureConventions;
 using NUnit.Framework;
 using Shouldly;
 

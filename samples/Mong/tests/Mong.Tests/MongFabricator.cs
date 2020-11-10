@@ -1,6 +1,6 @@
 using System;
 using Miru.Fabrication;
-using Miru.FixtureConventions;
+using Miru.Fabrication.FixtureConventions;
 using Mong.Domain;
 
 namespace Mong.Tests

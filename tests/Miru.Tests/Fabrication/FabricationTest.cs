@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Domain;
 using Miru.Fabrication;
-using Miru.FixtureConventions;
+using Miru.Fabrication.FixtureConventions;
 using NUnit.Framework;
 using Shouldly;
 

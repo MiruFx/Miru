@@ -1,7 +1,7 @@
 using System;
 using System.Linq.Expressions;
 using HtmlTags.Reflection;
-using Miru.FixtureConventions;
+using Miru.Fabrication.FixtureConventions;
 
 namespace Miru.Fabrication
 {

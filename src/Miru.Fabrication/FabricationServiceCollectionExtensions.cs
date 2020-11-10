@@ -1,12 +1,8 @@
 using System;
 using AutoFixture;
 using Bogus;
-using FluentValidation;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Miru.Databases.EntityFramework;
-using Miru.FixtureConventions;
-using Miru.Validation;
+using Miru.Fabrication.FixtureConventions;
 
 namespace Miru.Fabrication
 {

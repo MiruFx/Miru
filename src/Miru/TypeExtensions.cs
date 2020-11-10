@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using MediatR;
 
 namespace Miru
 {
@@ -45,7 +44,8 @@ namespace Miru
         public static bool ImplementsGenericOf(this Type type, Type otherType)
         {
             return (type.IsGenericType && type.GetGenericTypeDefinition() == otherType) || 
-                   type.GetInterfaces().Any(t => t.IsGenericType && t.GetGenericTypeDefinition() == otherType);
+                   (type.GetInterfaces().Any(t => t.IsGenericType && t.GetGenericTypeDefinition() == otherType)) ||
+                   (type.BaseType != null && type.BaseType.IsGenericType && type.BaseType?.GetGenericTypeDefinition() == otherType);
         }
         
         public static bool ImplementsEnumerableOfSomething(this Type type)
