@@ -1,7 +1,8 @@
 <!--
 Getting Started
     TODO: addconsolables
-    TODO: root, miru @app, miru @test, miru @pagetest
+TODO: Miru command 
+    TODO: @app, @test, and @pagetest
 Environment
 Consolables
     TODO: location

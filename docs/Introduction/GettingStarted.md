@@ -3,6 +3,7 @@ What Miru is?
 Overview
   samples
   TODO: video
+TODO: Update packages
 TODO: References
 -->
 # Getting Started
@@ -40,7 +41,7 @@ For now, the two ways to check how it looks like are:
 
 ### Requirements
 
-* [.NET 5](https://dotnet.microsoft.com/download/dotnet-core) or higher
+* [.NET 5.0](https://dotnet.microsoft.com/download/dotnet/5.0) or higher
 * [Node.js](https://nodejs.org/en/)
 * [npm](https://www.npmjs.com/get-npm)
 

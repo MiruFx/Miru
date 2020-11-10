@@ -28,7 +28,6 @@ namespace Scripts
             // New
             ExportFile(_dir / "Skeleton.sln", "Solution.sln");
             ExportFile(_dir / "gitignore", ".gitignore", destinationFile: ".gitignore");
-            ExportFile(_dir / "nuget.config");
             ExportFile(_dir / "global.json");
             
             ExportDir(_dir / "config");
