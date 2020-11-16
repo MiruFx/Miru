@@ -1,6 +1,5 @@
 Skeleton.sln: Solution.sln.stub
 .gitignore: .gitignore.stub
-nuget.config: nuget.config.stub
 global.json: global.json.stub
 config\Config.Development.yml: Config.Development.yml.stub
 config\Config.Production.yml: Config.Production.yml.stub
