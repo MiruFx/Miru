@@ -64,7 +64,7 @@ namespace Scripts
             Target("compile", DependsOn("restore", "export-stubs"), () =>
                 Run("dotnet", $"build -c {buildConfig} --no-restore"));
             
-             Target("test", DependsOn("compile"), () =>
+            Target("test", DependsOn("compile"), () =>
                 Run("dotnet", $"test -c {buildConfig} --no-build", workingDirectory: @"tests/Miru.Tests"));
             
             Target("pack", DependsOn("compile"), () =>
@@ -75,13 +75,14 @@ namespace Scripts
                 }
             });
             
-            Target("publish-dev", DependsOn("compile", "test", "pack"), () =>
-            // Target("publish-dev", DependsOn("export-stubs", "compile", "pack"), () =>
+            Target("test-ci", DependsOn("test", "mong-test"));
+
+            Target("publish-dev", DependsOn("test-ci", "pack"), () =>
             {
                 PushPackages(option.Key, "https://f.feedz.io/miru/miru/nuget");
             });
             
-            Target("publish-nuget", DependsOn("export-stubs", "pack"), () =>
+            Target("publish-nuget", DependsOn("test-ci", "pack"), () =>
             {
                 PushPackages(option.Key, "https://api.nuget.org/v3/index.json");
             });
