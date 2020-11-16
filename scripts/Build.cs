@@ -99,7 +99,7 @@ namespace Scripts
 
             Target("mong-test", () =>
             {
-                Run("dotnet", "test", workingDirectory: @"samples\Mong\tests\Mong.Tests");
+                Run("dotnet", "test", workingDirectory: @"samples/Mong/tests/Mong.Tests");
             });
             
             Target("mong-test-all", () =>
