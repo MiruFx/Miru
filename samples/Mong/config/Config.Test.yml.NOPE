@@ -1,0 +1,2 @@
+Database:
+  ConnectionString: "DataSource={{ db_dir }}Mong_test.db"

@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Miru.Foundation.Hosting;
+using Miru.Settings;
 using NUnit.Framework;
 using Shouldly;
 
@@ -30,6 +31,14 @@ namespace Miru.Tests.Hosting
             var sp = MiruHost.CreateMiruHost("-e", "Test").Build().Services;
             
             sp.GetService<IHostEnvironment>().EnvironmentName.ShouldBe("Test");
+        }
+        
+        [Test]
+        public void Run_host_with_configuration_from_command_line_args()
+        {
+            var sp = MiruHost.CreateMiruHost("--Database:ConnectionString=DataSource={{ db_dir }}App_dev.db").Build().Services;
+            
+            sp.GetService<DatabaseOptions>().ConnectionString.ShouldBe("DataSource={{ db_dir }}App_dev.db");
         }
     }
 }

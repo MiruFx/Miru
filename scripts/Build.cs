@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using CommandLine;
+using Miru;
 using static Bullseye.Targets;
 using static SimpleExec.Command;
 
@@ -38,9 +39,9 @@ namespace Scripts
         private static int Main(string[] args)
         {
             var success = true;
-            
-            Parser.Default.ParseArguments<Options>(args)
-                .WithParsed(RunBuild)
+
+            new Parser(with => with.EnableDashDash = true).ParseArguments<Options>(args)
+                .WithParsed(option => RunBuild(option, args))
                 .WithNotParsed(e =>
                 {
                     success = false;
@@ -49,7 +50,7 @@ namespace Scripts
             return success ? 0 : -1;
         }
 
-        public static void RunBuild(Options option)
+        public static void RunBuild(Options option, string[] args)
         {
             var buildConfig = option.Debug ? "Debug" : "Release";
 
@@ -99,7 +100,7 @@ namespace Scripts
 
             Target("mong-test", () =>
             {
-                Run("dotnet", "test", workingDirectory: @"samples/Mong/tests/Mong.Tests");
+                Run("dotnet", $"test {args.Join(" ")}", workingDirectory: @"samples/Mong/tests/Mong.Tests");
             });
             
             Target("mong-test-all", () =>
