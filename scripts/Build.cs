@@ -39,7 +39,7 @@ namespace Scripts
         private static int Main(string[] args)
         {
             var success = true;
-
+            
             new Parser(with => with.EnableDashDash = true).ParseArguments<Options>(args)
                 .WithParsed(option => RunBuild(option, args))
                 .WithNotParsed(e =>
