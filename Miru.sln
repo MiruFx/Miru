@@ -42,6 +42,7 @@ ProjectSection(SolutionItems) = preProject
 	.github\workflows\release.yml = .github\workflows\release.yml
 	.gitignore = .gitignore
 	README.md = README.md
+	ROADMAP.md = ROADMAP.md
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scripts", "scripts\Scripts.csproj", "{635CC582-9202-4CEC-924B-2A6E8A40579F}"
