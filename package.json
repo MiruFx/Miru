@@ -5,6 +5,8 @@
   "license": "UNLICENSED",
   "private": true,
   "devDependencies": {
+    "@vuepress/plugin-google-analytics": "^1.7.1",
+    "bootstrap": "^4.5.3",
     "markdown-it-vuepress-code-snippet-enhanced": "^1.0.1",
     "vuepress": "^0.14.4"
   },

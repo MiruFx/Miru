@@ -1,11 +1,10 @@
 <!--
 Configuration
-
+TODO: Command Line args
+TODO: Environment variables
 Config.yml
   TODO: same as appconfig.json
 -->
-
-Ready to go full-stack open-source framework for developing ASP.NET Core web applications
 
 # Configuration
 
