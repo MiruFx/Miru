@@ -5,17 +5,14 @@
 
     <RepositoryUrl>https://github.com/MiruFx/Miru</RepositoryUrl>
     <PackageProjectUrl>https://github.com/MiruFx/Miru</PackageProjectUrl>
+    <PackageIconUrl>https://mirufx.github.io/Miru-Logo.png</PackageIconUrl>
+    
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <PackageTags>miru asp.net .net fullstack framework</PackageTags>
 
     <Authors>Joao Carlos Clementoni</Authors>
     <Copyright>Copyright (c) 2020 Joao Carlos Clementoni</Copyright>
-    
-  </PropertyGroup>
-
-<!--  <PropertyGroup Condition="$(IsPackable) == 'true'">-->
-  <PropertyGroup>
     
     <PackageOutputPath>..\..\packages</PackageOutputPath>
     <IncludeSymbols>true</IncludeSymbols>

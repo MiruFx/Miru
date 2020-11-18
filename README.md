@@ -1,12 +1,11 @@
-Miru
-====
-  
-<p style="text-align: center">
+<p align="center">
     <img src="https://mirufx.github.io/Miru-Logo-Text.png" />
 </p>
 
 [![NuGet](https://img.shields.io/nuget/vpre/miru.svg)](https://www.nuget.org/packages/miru)
 ![Build](https://github.com/mirufx/miru/workflows/CI/badge.svg)
+
+## About Miru
 
 Miru is an open-source opinionated full stack framework for developing ASP.NET Core web applications.
 
