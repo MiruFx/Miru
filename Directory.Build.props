@@ -5,7 +5,7 @@
 
     <RepositoryUrl>https://github.com/MiruFx/Miru</RepositoryUrl>
     <PackageProjectUrl>https://github.com/MiruFx/Miru</PackageProjectUrl>
-    <PackageIconUrl>https://mirufx.github.io/Miru-Logo.png</PackageIconUrl>
+    <PackageIcon>Miru-Logo.png</PackageIcon>
     
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
@@ -29,6 +29,7 @@
   </PropertyGroup>
   
   <ItemGroup Condition="$(IsPackable) == 'true'">
+    <None Include="..\..\docs\.vuepress\public\Miru-Logo.png" Pack="true" PackagePath="\"/>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
     <PackageReference Include="MinVer" Version="2.3.1" PrivateAssets="All" />
   </ItemGroup>
