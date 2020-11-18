@@ -1,6 +1,7 @@
 <!--
 Configuration
-
+TODO: Command Line args
+TODO: Environment variables
 Config.yml
   TODO: same as appconfig.json
 -->

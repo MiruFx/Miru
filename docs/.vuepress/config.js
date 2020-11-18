@@ -1,6 +1,7 @@
 module.exports = {
     title: 'Miru',
-    description: 'Ready to go full stack open-source framework for developing ASP.NET Core applications',
+    tagline: false,
+    description: 'Ready to go full-stack open-source framework for developing ASP.NET Core web applications',
     markdown: {
         toc: {
             includeLevel: [1,2,3] 
@@ -9,6 +10,14 @@ module.exports = {
             md.use(require('markdown-it-vuepress-code-snippet-enhanced'))
         }
     },
+    plugins: [
+        [
+          '@vuepress/google-analytics',
+          {
+            'ga': 'UA-56632357-4' // UA-00000000-0
+          }
+        ]
+      ],
     themeConfig: {
         sidebarDepth: 0,
         displayAllHeaders: true,

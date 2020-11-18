@@ -198,7 +198,7 @@ namespace Scripts
             File.WriteAllLines(stubPath, fileContent);
 
             if (_map)
-                NewSolutionFiles.Add(Path.GetRelativePath(_dir, destinationFile ?? file), stubFileName);
+                NewSolutionFiles.Add(destinationFile ?? Path.GetRelativePath(_dir, file), stubFileName);
         }
 
         private static string BuildStubName(string file, string stub)

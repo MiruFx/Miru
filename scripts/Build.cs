@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.CommandLine;
-using System.CommandLine.Invocation;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using CommandLine;
 using Miru;
 using static Bullseye.Targets;
@@ -43,22 +40,14 @@ namespace Scripts
         {
             var success = true;
             
-            Parser.Default.ParseArguments<Options>(args)
-                .WithParsed(o =>
-                {
-                    RunBuild(o, args);
-                })
+            new Parser(with => with.EnableDashDash = true).ParseArguments<Options>(args)
+                .WithParsed(option => RunBuild(option, args))
                 .WithNotParsed(e =>
                 {
                     success = false;
                 });
 
             return success ? 0 : -1;
-        }
-
-        private static void HandleErrors(IEnumerable<Error> obj)
-        {
-            throw new NotImplementedException();
         }
 
         public static void RunBuild(Options option, string[] args)
@@ -73,11 +62,11 @@ namespace Scripts
             Target("restore", DependsOn("clean"), () =>
                 Run("dotnet", "restore"));
 
-            Target("compile", DependsOn("restore"), () =>
+            Target("compile", DependsOn("restore", "export-stubs"), () =>
                 Run("dotnet", $"build -c {buildConfig} --no-restore"));
             
-             Target("test", DependsOn("compile"), () =>
-                Run("dotnet", $"test -c {buildConfig}", workingDirectory: @"tests/Miru.Tests"));
+            Target("test", DependsOn("compile"), () =>
+                Run("dotnet", $"test -c {buildConfig} --no-build", workingDirectory: @"tests/Miru.Tests"));
             
             Target("pack", DependsOn("compile"), () =>
             {
@@ -87,13 +76,14 @@ namespace Scripts
                 }
             });
             
-            // Target("publish-dev", DependsOn("export-stubs", "compile", "test", "mong-test", "pack"), () =>
-            Target("publish-dev", DependsOn("export-stubs", "compile", "pack"), () =>
+            Target("test-ci", DependsOn("test", "mong-test"));
+
+            Target("publish-dev", DependsOn("test-ci", "pack"), () =>
             {
                 PushPackages(option.Key, "https://f.feedz.io/miru/miru/nuget");
             });
             
-            Target("publish-nuget", DependsOn("export-stubs", "pack"), () =>
+            Target("publish-nuget", DependsOn("test-ci", "pack"), () =>
             {
                 PushPackages(option.Key, "https://api.nuget.org/v3/index.json");
             });
@@ -110,7 +100,7 @@ namespace Scripts
 
             Target("mong-test", () =>
             {
-                Run("dotnet", "test", workingDirectory: @"samples\Mong\tests\Mong.Tests");
+                Run("dotnet", "test", workingDirectory: @"samples/Mong/tests/Mong.Tests");
             });
             
             Target("mong-test-all", () =>
@@ -118,17 +108,11 @@ namespace Scripts
                 Run("dotnet", "test", workingDirectory: @"samples\Mong");
             });
             
-            Target("export-stubs", () =>
-            {
-                ExportStubs.Export();
-            });
+            Target("export-stubs", ExportStubs.Export);
             
-            Target("test-new-solution", () =>
-            {
-                TestNewSolution.Test();
-            });
+            Target("test-new-solution", TestNewSolution.Test);
             
-            Target("deep-clean", () => DeepClean());
+            Target("deep-clean", DeepClean);
             
             RunTargetsAndExit(new[] { option.Target });
         }

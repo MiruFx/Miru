@@ -37,6 +37,9 @@ namespace Miru.Foundation.Hosting
                 .UseSolution()
                 .ConfigureAppConfiguration((hostingContext, cfg) =>
                 {
+                    cfg.AddEnvironmentVariables(prefix: "Miru_");
+                    cfg.AddCommandLine(args);
+                    cfg.AddEnvironmentVariables();
                     cfg.AddConfigYml(hostingContext.HostingEnvironment.EnvironmentName);
                 })
                 .ConfigureServices((host, services) =>    

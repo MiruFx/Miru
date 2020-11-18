@@ -1,7 +1,5 @@
-using System;
 using Miru.Fabrication;
-using Miru.FixtureConventions;
-using {{ Solution.Name }}.Domain;
+using Miru.Fabrication.FixtureConventions;
 
 namespace {{ Solution.Name }}.Tests
 {
