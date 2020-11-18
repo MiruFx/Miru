@@ -5,17 +5,14 @@
 
     <RepositoryUrl>https://github.com/MiruFx/Miru</RepositoryUrl>
     <PackageProjectUrl>https://github.com/MiruFx/Miru</PackageProjectUrl>
+    <PackageIcon>Miru-Logo.png</PackageIcon>
+    
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <PackageTags>miru asp.net .net fullstack framework</PackageTags>
 
     <Authors>Joao Carlos Clementoni</Authors>
     <Copyright>Copyright (c) 2020 Joao Carlos Clementoni</Copyright>
-    
-  </PropertyGroup>
-
-<!--  <PropertyGroup Condition="$(IsPackable) == 'true'">-->
-  <PropertyGroup>
     
     <PackageOutputPath>..\..\packages</PackageOutputPath>
     <IncludeSymbols>true</IncludeSymbols>
@@ -32,6 +29,7 @@
   </PropertyGroup>
   
   <ItemGroup Condition="$(IsPackable) == 'true'">
+    <None Include="..\..\docs\.vuepress\public\Miru-Logo.png" Pack="true" PackagePath="\"/>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
     <PackageReference Include="MinVer" Version="2.3.1" PrivateAssets="All" />
   </ItemGroup>

@@ -108,6 +108,7 @@
     border-top 1px solid $borderColor
     text-align center
     color $textColor
+    font-size 80%
 
 @media (max-width: $MQMobile)
   .home
