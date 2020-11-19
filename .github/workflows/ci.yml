@@ -41,7 +41,10 @@ jobs:
       
   build-windows:
     runs-on: windows-latest
-
+    defaults:
+      run:
+        working-directory: samples\SelfImprov\src\SelfImprov
+        
     steps:
       - uses: actions/checkout@v1
         with:
@@ -73,12 +76,10 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install Npm Packages
-        run: miru @app npm install
-        working-directory: samples\SelfImprov
+        run: npm install
         
       - name: Bundle Frontend Assets
-        run: miru @app npm run dev --no-progress
-        working-directory: samples\SelfImprov
+        run: npm run dev --no-progress
         
       - name: Build & Test
         env:
