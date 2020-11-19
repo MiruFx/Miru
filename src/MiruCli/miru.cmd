@@ -19,6 +19,8 @@ if "%~1"=="new" goto :run_cli
 if "%~1"=="@app" goto :run_at_app
 if "%~1"=="@test" goto :run_at_test
 if "%~1"=="@pagetest" goto :run_at_pagetest
+if "%~1"=="--version" goto :run_version
+if "%~1"=="-v" goto :run_version
 
 goto :miru
 
@@ -46,6 +48,10 @@ goto :miru
     
 :run_cli
     MiruCli %~1 %~2 %~3 %~4 %~5 %~6 %~7 %~8 %~9
+    exit /b 0
+
+:run_version
+    MiruCli --version
     exit /b 0
     
 :run_test

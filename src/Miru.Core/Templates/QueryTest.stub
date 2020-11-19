@@ -16,7 +16,7 @@ namespace {{ Solution.Name }}.Tests.Features.{{ input.In }}
             var {{ string.downcase input.In }} = _.MakeManySaving<{{ input.Name }}>();
             
             // act
-            var result = await _.Send(new {{ input.Name }}{{ input.Action }}.Query());
+            var result = await _.SendAsync(new {{ input.Name }}{{ input.Action }}.Query());
             
             // assert
             result.Items.ShouldCount({{ string.downcase input.In }}.Count());

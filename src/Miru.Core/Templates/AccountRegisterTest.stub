@@ -19,7 +19,7 @@ namespace {{ Solution.Name }}.Tests.Features.Accounts
             var command = _.Make<AccountRegister.Command>();
 
             // act
-            await _.Send(command);
+            await _.SendAsync(command);
 
             // assert
             var saved = _.Db(db => db.Users.First());

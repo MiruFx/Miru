@@ -14,7 +14,7 @@ namespace {{ Solution.Name }}.Tests.Features.{{ input.In }}
             var command = _.Make<{{ input.Name }}{{ input.Action }}.Job>();
             
             // act
-            await _.Send(command);
+            await _.SendAsync(command);
             
             // assert
         }

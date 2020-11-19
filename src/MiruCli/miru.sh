@@ -18,6 +18,11 @@ runCli()
     MiruCli $*
 }
 
+runVersion()
+{
+    MiruCli --version
+}
+
 runMiru()
 {
     project_dir=$(MiruCli $project) && dotnet run -p $project_dir --no-build miru $*
@@ -37,5 +42,7 @@ case $1 in
     "run-pagetest") project="pagetests"; runTest $*;;
     "@pagetest") project="pagetests"; runAt $*;;
     "new") runCli $*;;
+    "--version") runVersion $*;;
+    "-v") runVersion $*;;
     *) project="app"; runMiru $*;;
 esac
