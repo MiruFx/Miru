@@ -21,4 +21,6 @@ jobs:
         dotnet-version: "5.0.100"
 
     - name: Build & Publish
+      env:
+        Miru_Database__ConnectionString: "DataSource={{ db_dir }}Mong_test.db"
       run: ./build publish-nuget --key ${{ secrets.NUGET_KEY }}

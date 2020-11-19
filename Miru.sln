@@ -64,9 +64,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skeleton.PageTests", "samples\Skeleton\tests\Skeleton.PageTests\Skeleton.PageTests.csproj", "{F0076054-E669-40CD-8863-5C075E2C0232}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Skeleton", "Skeleton", "{47A03D9D-2402-4BBA-813C-FB793CBA8032}"
-ProjectSection(SolutionItems) = preProject
-	samples\Skeleton\global.json = samples\Skeleton\global.json
-EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SelfImprov", "SelfImprov", "{B7AE39E4-1863-4B1F-852D-140C4F664CF9}"
 ProjectSection(SolutionItems) = preProject
