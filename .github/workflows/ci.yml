@@ -61,7 +61,7 @@ jobs:
 
       - name: Build & Test
         env:
-          Miru_Database__ConnectionString: "DataSource={{ db_dir }}Mong_test.db"
+          Miru_Database__ConnectionString: "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=selfimprov_test;Integrated Security=SSPI;"
         run: dotnet test
         working-directory: samples\SelfImprov
         
