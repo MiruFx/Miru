@@ -71,7 +71,7 @@ Good luck!
 Check the installed version using:
 
 ```
-MiruCli --version
+miru --version
 ```
 
 ### Update

@@ -45,7 +45,7 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
         public class {{ input.In }}Controller : MiruController
         {
             [Route("/{{ input.In }}/{id:long}")]
-            public async Task<Result> Show(Query request) => await Send(request);
+            public async Task<Result> Show(Query request) => await SendAsync(request);
         }
     }
 }

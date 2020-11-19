@@ -65,10 +65,10 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
         public class {{ input.In }}Controller : MiruController
         {
             [Route("/{{ input.In }}/New")]
-            public async Task<Command> New(Query query) => await Send(query);
+            public async Task<Command> New(Query query) => await SendAsync(query);
 
             [HttpPost, Route("/{{ input.In }}/New")]
-            public async Task<Result> New(Command command) => await Send(command);
+            public async Task<Result> New(Command command) => await SendAsync(command);
         }
     }
 }

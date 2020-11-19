@@ -11,7 +11,7 @@ TODO: add link to david fowler's gist structure organization
 MiruCli should be used to create a new Solution:
 
 ```sh
-MiruCli new Supportreon
+miru new Supportreon
 ```
 
 It will create a ```/Supportreon``` directory with a solution, projects and default directories will be explained soon.
@@ -30,7 +30,7 @@ By default, a Miru solution is created with 3 projects:
 
 ## Directories
 
-```MiruCli new``` creates the following directory structure tree:
+```miru new``` creates the following directory structure tree:
 
 ![](/CreatingNewSolution-Directories.png)
 

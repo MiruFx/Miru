@@ -12,7 +12,7 @@ This article will show how to create a Solution named ```Supportreon```, with a 
 The best way to create a new solution is using MiruCli:
 
 ```shell
-MiruCli new Supportreon
+miru new Supportreon
 ```
 
 MiruCli will create a directory with the Solution's skeleton:

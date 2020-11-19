@@ -71,10 +71,10 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
         public class {{ input.In }}Controller : MiruController
         {
             [Route("/{{ input.In }}/{id:long}/{{ input.Action }}")]
-            public async Task<Command> {{ input.Action }}(Query query) => await Send(query);
+            public async Task<Command> {{ input.Action }}(Query query) => await SendAsync(query);
 
             [HttpPost, Route("/{{ input.In }}/{{ input.Action }}")]
-            public async Task<Result> {{ input.Action }}(Command command) => await Send(command);
+            public async Task<Result> {{ input.Action }}(Command command) => await SendAsync(command);
         }
     }
 }
