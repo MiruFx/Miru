@@ -14,7 +14,7 @@ namespace SelfImprov.Tests.Config
         {
             services
                 .AddFeatureTesting()
-                .AddSqliteDatabaseCleaner();
+                .AddSqlServerDatabaseCleaner();
                 
             services.AddFabrication<SelfImprovFabricator>();
 

@@ -3,7 +3,7 @@
 </p>
 
 [![NuGet](https://img.shields.io/nuget/vpre/miru.svg)](https://www.nuget.org/packages/miru)
-![Build](https://github.com/mirufx/miru/workflows/CI/badge.svg)
+[![Build](https://github.com/MiruFx/Miru/workflows/CI/badge.svg)](https://github.com/MiruFx/Miru/actions?query=workflow%3ACI)
 
 ## About Miru
 

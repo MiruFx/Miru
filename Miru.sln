@@ -79,6 +79,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfImprov.Tests", "samples
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfImprov.PageTests", "samples\SelfImprov\tests\SelfImprov.PageTests\SelfImprov.PageTests.csproj", "{FA446683-5572-47A9-89D9-51EF5EEC4814}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{5498808A-EED5-48E6-A352-66DFCFD7F36F}"
+ProjectSection(SolutionItems) = preProject
+	samples\SelfImprov\config\Config.Development.yml = samples\SelfImprov\config\Config.Development.yml
+	samples\SelfImprov\config\Config.Test.yml = samples\SelfImprov\config\Config.Test.yml
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -187,6 +193,7 @@ Global
 		{95CC293D-9C29-490A-B0A8-A129C89910B1} = {B7AE39E4-1863-4B1F-852D-140C4F664CF9}
 		{8D92BE61-E12E-4639-9419-BD2F88F96FDE} = {B7AE39E4-1863-4B1F-852D-140C4F664CF9}
 		{FA446683-5572-47A9-89D9-51EF5EEC4814} = {B7AE39E4-1863-4B1F-852D-140C4F664CF9}
+		{5498808A-EED5-48E6-A352-66DFCFD7F36F} = {B7AE39E4-1863-4B1F-852D-140C4F664CF9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61193018-93E9-471E-B8AE-1A5B27D527F3}
