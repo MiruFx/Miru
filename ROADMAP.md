@@ -4,14 +4,15 @@ The roadmap can change in the future.
 
 ### 0.4 - Async suffix, sample with SqlServer, Queueing, miru new
 
+- Invert methods suffix adding Async and removing Sync
 - SelfImprov:
     - Use SqlServer instead of Sqlite
 - Command Line:
     - 'miru new' instead of 'mirucli new'
     - 'miru --version' instead of 'mirucli --version'
 - Makers
-    - Add maker for Email: "miru make:email" (Mailing) (Maker)
-    - Add maker for Job: "miru make:job" (Queueing) (Maker)
+    - Add maker for Email: "miru make:email"
+    - Add maker for Job: "miru make:job"
 
 ### 0.5 - Queueing, Storage, Consolable, Better Url To Model
 
@@ -65,10 +66,9 @@ The roadmap can change in the future.
         - Remove expose-loader
         - Remove some package.json dependencies
 
-### 0.8 - Other ORM
+### 0.8
 
-- Support other ORMs rather than EfCore
-    - Marten
+
 
 ### 0.9 - C# 9, Build script
 
@@ -118,7 +118,7 @@ Default configurations (Log, Database, Criptography)
     Staging
     Production
     
-### 1.0 - December/2020
+### 1.0 - December/2021 - Ready for Production
 
 - Update to .NET 6
     
@@ -129,3 +129,9 @@ Default configurations (Log, Database, Criptography)
     - Run page tests over published        
     - Running from compiled
     - Minimized frontend resources Production
+    
+### Future
+
+- Support other ORMs rather than EfCore
+    - Marten
+    - NHibernate?

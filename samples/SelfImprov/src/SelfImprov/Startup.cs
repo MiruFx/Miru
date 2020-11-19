@@ -30,7 +30,7 @@ namespace SelfImprov
                 .AddDefaultPipeline<Startup>()
 
                 // database
-                .AddEfCoreSqlite<SelfImprovDbContext>()
+                .AddEfCoreSqlServer<SelfImprovDbContext>()
 
                 // user security
                 .AddUserfy<User>(options =>
