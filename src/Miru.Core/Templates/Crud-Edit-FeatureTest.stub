@@ -1,10 +1,10 @@
-using System.Linq;
 using System.Threading.Tasks;
 using Miru.Testing;
 using NUnit.Framework;
-using Shouldly;
-using {{ Solution.Name }}.Domain;
 using {{ Solution.Name }}.Features.{{ input.In }};
+using Shouldly;
+using System.Linq;
+using {{ Solution.Name }}.Domain;
 
 namespace {{ Solution.Name }}.Tests.Features.{{ input.In }}
 {

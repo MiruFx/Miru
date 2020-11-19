@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Miru.Testing;
 using NUnit.Framework;
@@ -10,7 +11,7 @@ namespace {{ Solution.Name }}.Tests.Features.{{ input.In }}
     public class {{ input.Name }}ShowTest : FeatureTest
     {
         [Test]
-        public async Task Can_show_{{ string.downcase input.In }}()
+        public async Task Can_show_{{ string.downcase input.Name }}()
         {
             // arrange
             var {{ string.downcase input.Name }} = _.MakeSaving<{{ input.Name }}>();

@@ -1,9 +1,9 @@
 using Miru;
 using Miru.PageTesting;
-using Miru.Testing;
 using NUnit.Framework;
-using {{ Solution.Name }}.Domain;
 using {{ Solution.Name }}.Features.{{ input.In }};
+using Miru.Testing;
+using {{ Solution.Name }}.Domain;
 
 namespace {{ Solution.Name }}.PageTests.Pages.{{ input.In }}
 {
@@ -16,7 +16,7 @@ namespace {{ Solution.Name }}.PageTests.Pages.{{ input.In }}
             
             _.Visit<{{ input.Name }}{{ input.Action }}>();
             
-            _.ShouldHaveText("{{ input.Name }}");
+            _.ShouldHaveText("{{ input.In }}");
 
             _.Display<{{ input.Name }}{{ input.Action }}.Result>(x =>
             {

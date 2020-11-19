@@ -4,5 +4,5 @@
     <div class="alert alert-success">
         {{ input.Name }} successfully saved
     </div>
-    <a href="#">← {{ input.In }}</a>
+    <a for="@(new {{ input.Name }}List())">← {{ input.In }}</a>
 </template>

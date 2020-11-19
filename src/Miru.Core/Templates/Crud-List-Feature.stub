@@ -1,24 +1,30 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Miru;
+using Microsoft.EntityFrameworkCore;
 using Miru.Mvc;
 using {{ Solution.Name }}.Database;
-using {{ Solution.Name }}.Domain;
 
 namespace {{ Solution.Name }}.Features.{{ input.In }}
 {
-    public class {{ input.Name }}Show
+    public class {{ input.Name }}{{ input.Action }}
     {
         public class Query : IRequest<Result>
         {
-            public long Id { get; set; }
         }
 
         public class Result
+        {    
+            public IReadOnly{{ input.Action }}<Item> Items { get; set; } = new {{ input.Action }}<Item>();
+        }
+
+        public class Item
         {
-            public {{ input.Name }} {{ input.Name }} { get; set; }
+            public long Id { get; set; }
+            public string Name { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, Result>
@@ -34,15 +40,21 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
             {
                 return new Result
                 {
-                    {{ input.Name }} = await _db.{{ input.In }}.ByIdOrFailAsync(request.Id, ct)
+                    Items = await _db.{{ input.In }}
+                        .Select(m => new Item
+                        {
+                            Id = m.Id,
+                            Name = m.Name
+                        })
+                        .To{{ input.Action }}Async(ct)
                 };
             }
         }
         
         public class {{ input.In }}Controller : MiruController
         {
-            [Route("/{{ input.In }}/{id:long}")]
-            public async Task<Result> Show(Query request) => await SendAsync(request);
+            [Route("/{{ input.In }}")]
+            public async Task<Result> {{ input.Action }}(Query request) => await SendAsync(request);
         }
     }
 }

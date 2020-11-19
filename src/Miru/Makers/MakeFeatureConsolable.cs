@@ -27,6 +27,7 @@ namespace Miru.Makers
             public bool EditFlag { get; set; }
             public bool ShowFlag { get; set; }
             public bool ListFlag { get; set; }
+            public bool CrudFlag { get; set; }
             
             [IgnoreOnCommandLine]
             public string Template {
@@ -36,6 +37,7 @@ namespace Miru.Makers
                     if (ShowFlag) return "Show";
                     if (ListFlag) return "List";
                     if (EditFlag) return "Edit";
+                    if (EditFlag) return "Crud";
                     return string.Empty;
                 }}
         }
@@ -53,11 +55,22 @@ namespace Miru.Makers
                 Console2.WhiteLine("--show");
                 Console2.WhiteLine("--list");
                 Console2.WhiteLine("--edit");
+                Console2.WhiteLine("--crud");
                 
                 return false;
             }
-            
-            make.Feature(input.In, input.Name, input.Action, input.Template);
+
+            if (input.Template.Equals("--crud"))
+            {
+                make.Feature(input.In, input.Name, input.Action, "Crud-New");
+                make.Feature(input.In, input.Name, input.Action, "Crud-Edit");
+                make.Feature(input.In, input.Name, input.Action, "Crud-Show");
+                make.Feature(input.In, input.Name, input.Action, "Crud-List");
+            }
+            else
+            {
+                make.Feature(input.In, input.Name, input.Action, input.Template);
+            }
             
             Console2.BreakLine();
             

@@ -5,11 +5,11 @@ using Oakton;
 namespace Miru.Makers
 {
     [Description("Make a new Mailable", Name = "make:mail")]
-    public class MakeEmailConsolable : ConsolableSync<MakeEmailConsolable.Input>
+    public class MakeMailConsolable : ConsolableSync<MakeMailConsolable.Input>
     {
         private readonly MiruSolution _solution;
 
-        public MakeEmailConsolable(MiruSolution solution)
+        public MakeMailConsolable(MiruSolution solution)
         {
             _solution = solution;
         }
@@ -19,8 +19,6 @@ namespace Miru.Makers
             public string In { get; set; }
 
             public string Name { get; set; }
-            
-            public string Action { get; set; }
         }
         
         public override bool Execute(Input input)
@@ -29,7 +27,7 @@ namespace Miru.Makers
             
             Console2.BreakLine();
 
-            make.Email(input.In, input.Name, input.Action);
+            make.Mail(input.In, input.Name);
             
             return true;
         }

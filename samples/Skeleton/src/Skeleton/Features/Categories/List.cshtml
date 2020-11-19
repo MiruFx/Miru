@@ -1,17 +1,17 @@
-@model {{ input.Name }}{{ input.Action }}.Result
+@model CategoryList.Result
 
 <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
 
-                <h3>{{ input.In }}</h3>
+                <h3>Categories</h3>
                 
                 <div class="mb-4">
-                    <a href="#">New {{ input.Name }}</a>
+                    <a href="#">New Category</a>
                 </div>
                 
-                <div miru-if-empty="@Model.Items" class="alert alert-warning">There are no {{ input.In }} to show</div>
+                <div miru-if-empty="@Model.Items" class="alert alert-warning">There are no Categories to show</div>
                 
                 <miru-table for="Items" class="table table-striped">
                     <thead>

@@ -4,12 +4,12 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Miru;
 using Miru.Mvc;
-using {{ Solution.Name }}.Database;
-using {{ Solution.Name }}.Domain;
+using Skeleton.Database;
+using Skeleton.Domain;
 
-namespace {{ Solution.Name }}.Features.{{ input.In }}
+namespace Skeleton.Features.Categories
 {
-    public class {{ input.Name }}Show
+    public class CategoryShow
     {
         public class Query : IRequest<Result>
         {
@@ -18,14 +18,14 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
 
         public class Result
         {
-            public {{ input.Name }} {{ input.Name }} { get; set; }
+            public Category Category { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, Result>
         {
-            private readonly {{ Solution.Name }}DbContext _db;
+            private readonly SkeletonDbContext _db;
             
-            public Handler({{ Solution.Name }}DbContext db)
+            public Handler(SkeletonDbContext db)
             {
                 _db = db;
             }
@@ -34,14 +34,14 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
             {
                 return new Result
                 {
-                    {{ input.Name }} = await _db.{{ input.In }}.ByIdOrFailAsync(request.Id, ct)
+                    Category = await _db.Categories.ByIdOrFailAsync(request.Id, ct)
                 };
             }
         }
         
-        public class {{ input.In }}Controller : MiruController
+        public class CategoriesController : MiruController
         {
-            [Route("/{{ input.In }}/{id:long}")]
+            [Route("/Categories/{id:long}")]
             public async Task<Result> Show(Query request) => await SendAsync(request);
         }
     }

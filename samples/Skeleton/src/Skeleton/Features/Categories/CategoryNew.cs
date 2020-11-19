@@ -4,12 +4,12 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Miru.Mvc;
-using {{ Solution.Name }}.Database;
-using {{ Solution.Name }}.Domain;
+using Skeleton.Database;
+using Skeleton.Domain;
 
-namespace {{ Solution.Name }}.Features.{{ input.In }}
+namespace Skeleton.Features.Categories
 {
-    public class {{ input.Name }}New
+    public class CategoryNew
     {
         public class Query : IRequest<Command>
         {
@@ -28,9 +28,9 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
             IRequestHandler<Query, Command>, 
             IRequestHandler<Command, Result>
         {
-            private readonly {{ Solution.Name }}DbContext _db;
+            private readonly SkeletonDbContext _db;
             
-            public Handler({{ Solution.Name }}DbContext db)
+            public Handler(SkeletonDbContext db)
             {
                 _db = db;
             }
@@ -42,12 +42,12 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
             
             public async Task<Result> Handle(Command request, CancellationToken ct)
             {
-                var {{ string.downcase input.Name }} = new {{ input.Name }}
+                var category = new Category
                 {
                     Name = request.Name
                 };
 
-                await _db.{{ input.In }}.AddAsync({{ string.downcase input.Name }}, ct);
+                await _db.Categories.AddAsync(category, ct);
 
                 return new Result();
             }
@@ -61,12 +61,12 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
             }
         }
         
-        public class {{ input.In }}Controller : MiruController
+        public class CategoriesController : MiruController
         {
-            [Route("/{{ input.In }}/New")]
+            [Route("/Categories/New")]
             public async Task<Command> New(Query query) => await SendAsync(query);
 
-            [HttpPost, Route("/{{ input.In }}/New")]
+            [HttpPost, Route("/Categories/New")]
             public async Task<Result> New(Command command) => await SendAsync(command);
         }
     }

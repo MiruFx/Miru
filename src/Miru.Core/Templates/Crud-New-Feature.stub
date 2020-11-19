@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Miru;
 using Miru.Mvc;
 using {{ Solution.Name }}.Database;
 using {{ Solution.Name }}.Domain;

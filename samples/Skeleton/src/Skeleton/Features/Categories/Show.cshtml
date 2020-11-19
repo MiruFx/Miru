@@ -1,21 +1,21 @@
-@model {{ input.Name }}Show.Result
+@model CategoryShow.Result
 
 <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
 
-                <h3>{{ input.Name }}</h3>
+                <h3>Category</h3>
                 
-                <a href="#">← {{ input.In }}</a> | 
+                <a href="#">← Products</a> | 
                 <a href="#">Edit</a>
                 
                 <dl class="dl-horizontal mt-4" miru-id="@Model">
                     <dt>
-                        <mdl for="{{ input.Name }}.Name" />
+                        <mdl for="Category.Name" />
                     </dt>
                     <dd>
-                        <md for="{{ input.Name }}.Name"/>
+                        <md for="Category.Name"/>
                     </dd>
                 </dl>
 

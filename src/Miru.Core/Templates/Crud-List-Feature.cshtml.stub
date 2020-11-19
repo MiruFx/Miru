@@ -8,7 +8,7 @@
                 <h3>{{ input.In }}</h3>
                 
                 <div class="mb-4">
-                    <a href="#">New {{ input.Name }}</a>
+                    <a for="@(new {{ input.Name }}New())">New {{ input.Name }}</a>
                 </div>
                 
                 <div miru-if-empty="@Model.Items" class="alert alert-warning">There are no {{ input.In }} to show</div>
@@ -27,12 +27,12 @@
                     {
                         <tr>
                             <td>
-                                <a href="#">
+                                <a for="@(new {{ input.Name }}Show.Query { Id = item.Id })">
                                     <md for="Items[i].Name"/>
                                 </a>
                             </td>
                             <td>
-                                <a href="#">Edit</a>
+                                <a for="@(new {{ input.Name }}Edit.Query { Id = item.Id })">Edit</a>
                             </td>
                         </tr>
                         

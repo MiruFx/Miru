@@ -179,7 +179,7 @@ namespace Scripts
                     Run("dotnet", $"nuget push {Path.Combine("packages", package)}.*.nupkg {param}", noEcho: true);
                 }
                 else
-                    Run("dotnet", $"nuget push {Path.Combine("packages", package)}.*.nupkg {param} --no-symbol", noEcho: true);
+                    Run("dotnet", $"nuget push {Path.Combine("packages", package)}.*.nupkg {param} --no-symbols", noEcho: true);
             }
         }
     }

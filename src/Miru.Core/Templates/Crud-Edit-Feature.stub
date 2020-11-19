@@ -3,20 +3,22 @@ using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Miru;
 using Miru.Mvc;
 using {{ Solution.Name }}.Database;
-using {{ Solution.Name }}.Domain;
 
 namespace {{ Solution.Name }}.Features.{{ input.In }}
 {
-    public class {{ input.Name }}New
+    public class {{ input.Name }}{{ input.Action }}
     {
         public class Query : IRequest<Command>
         {
+            public long Id { get; set; }
         }
         
         public class Command : IRequest<Result>
         {
+            public long Id { get; set; }
             public string Name { get; set; }
         }
 
@@ -35,20 +37,23 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
                 _db = db;
             }
             
-            public Task<Command> Handle(Query request, CancellationToken ct)
+            public async Task<Command> Handle(Query request, CancellationToken ct)
             {
-                return Task.FromResult(new Command());
+                var {{ string.downcase input.Name }} = await _db.{{ input.In }}.ByIdOrFailAsync(request.Id, ct);
+                
+                return new Command
+                {
+                    Id = {{ string.downcase input.Name }}.Id,
+                    Name = {{ string.downcase input.Name }}.Name
+                };
             }
             
             public async Task<Result> Handle(Command request, CancellationToken ct)
             {
-                var {{ string.downcase input.Name }} = new {{ input.Name }}
-                {
-                    Name = request.Name
-                };
+                var {{ string.downcase input.Name }} = await _db.{{ input.In }}.ByIdOrFailAsync(request.Id, ct);
 
-                await _db.{{ input.In }}.AddAsync({{ string.downcase input.Name }}, ct);
-
+                {{ string.downcase input.Name }}.Name = request.Name;
+                
                 return new Result();
             }
         }
@@ -57,17 +62,19 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
         {
             public Validator()
             {
+                RuleFor(m => m.Id).NotEmpty();
+                
                 RuleFor(m => m.Name).NotEmpty();
             }
         }
         
         public class {{ input.In }}Controller : MiruController
         {
-            [Route("/{{ input.In }}/New")]
-            public async Task<Command> New(Query query) => await SendAsync(query);
+            [Route("/{{ input.In }}/{id:long}/{{ input.Action }}")]
+            public async Task<Command> {{ input.Action }}(Query query) => await SendAsync(query);
 
-            [HttpPost, Route("/{{ input.In }}/New")]
-            public async Task<Result> New(Command command) => await SendAsync(command);
+            [HttpPost, Route("/{{ input.In }}/{{ input.Action }}")]
+            public async Task<Result> {{ input.Action }}(Command command) => await SendAsync(command);
         }
     }
 }
