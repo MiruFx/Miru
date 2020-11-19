@@ -54,7 +54,7 @@ namespace Mong.Features.Accounts
 
                 _db.Users.Add(user);
 
-                await _mailer.SendLater(new AccountRegisteredMail(user));
+                await _mailer.SendLaterAsync(new AccountRegisteredMail(user));
                 
                 return new Result
                 {
@@ -87,7 +87,7 @@ namespace Mong.Features.Accounts
             public Command Register() => new Command();
 
             [HttpPost]
-            public async Task<Result> Register(Command command) => await Send(command);
+            public async Task<Result> Register(Command command) => await SendAsync(command);
         }
     }
 }

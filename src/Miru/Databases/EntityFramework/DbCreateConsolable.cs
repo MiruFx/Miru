@@ -15,7 +15,7 @@ namespace Miru.Databases.EntityFramework
             _databaseCreator = databaseCreator;
         }
 
-        public override async Task Execute()
+        public override async Task ExecuteAsync()
         {
             Console2.Line("Creating database");
 

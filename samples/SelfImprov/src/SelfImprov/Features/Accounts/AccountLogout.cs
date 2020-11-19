@@ -34,7 +34,7 @@ namespace SelfImprov.Features.Accounts
         public class AccountsController : MiruController
         {
             [HttpPost]
-            public async Task<Command> Logout(Command command) => await Send(command);
+            public async Task<Command> Logout(Command command) => await SendAsync(command);
         }
     }
 }

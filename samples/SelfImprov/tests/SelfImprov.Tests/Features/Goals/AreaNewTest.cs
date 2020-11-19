@@ -18,7 +18,7 @@ namespace SelfImprov.Tests.Features.Goals
             var command = _.Make<AreaNew.Command>();
 
             // act
-            await _.Send(command);
+            await _.SendAsync(command);
 
             // assert
             var saved = _.Db(db => db.Areas.First());

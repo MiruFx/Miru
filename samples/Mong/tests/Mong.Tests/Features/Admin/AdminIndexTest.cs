@@ -20,7 +20,7 @@ namespace Mong.Tests.Features.Admin
         private IEnumerable<Topup> _thisWeek;
         private AdminIndex.Result _result;
 
-        public override async Task Given()
+        public override async Task GivenAsync()
         {
             // _.MakeSavingLogin(_.Fab().Users.Admin().Make());
                 
@@ -30,9 +30,9 @@ namespace Mong.Tests.Features.Admin
             _lastWeek = _.MakeMany<Topup>(3, m => m.PaidAt = DateTime.Now.AddDays(-10));
             _thisWeek = _.MakeMany<Topup>(2, m => m.PaidAt = DateTime.Now);
             
-            await _.Save(_lastMonth, _thisMonth, _lastWeek, _thisWeek);
+            await _.SaveAsync(_lastMonth, _thisMonth, _lastWeek, _thisWeek);
             
-            _result = await _.Send(new AdminIndex.Query());
+            _result = await _.SendAsync(new AdminIndex.Query());
         }
 
         [Test]

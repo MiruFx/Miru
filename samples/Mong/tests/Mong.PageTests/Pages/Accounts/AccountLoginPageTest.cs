@@ -13,7 +13,7 @@ namespace Mong.PageTests.Pages.Accounts
     {
         private User _user;
 
-        public override void GivenSync()
+        public override void Given()
         {
             _user = _.MakeSaving<User>(m => m.HashedPassword = Hash.Create("123456"));
         }

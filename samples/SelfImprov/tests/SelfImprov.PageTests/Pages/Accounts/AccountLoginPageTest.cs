@@ -18,7 +18,7 @@ namespace SelfImprov.PageTests.Pages.Accounts
             _.Visit<AccountLogin>();
         }
 
-        public override void GivenSync()
+        public override void Given()
         {
             _user = _.MakeSaving<User>();
         }

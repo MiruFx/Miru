@@ -14,7 +14,7 @@ namespace Mong.PageTests.Pages.Admin.Users
     {
         private IEnumerable<User> _users;
 
-        public override void GivenSync()
+        public override void Given()
         {
             _users = _.MakeManySaving<User>();
             

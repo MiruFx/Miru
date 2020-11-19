@@ -78,7 +78,7 @@ group BY
         
         public class AdminController : MiruController
         {
-            public async Task<Result> Index(Query query) => await Send(query);
+            public async Task<Result> Index(Query query) => await SendAsync(query);
         }
     }
 }

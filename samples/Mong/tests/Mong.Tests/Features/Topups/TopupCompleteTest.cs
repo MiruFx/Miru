@@ -16,14 +16,14 @@ namespace Mong.Tests.Features.Topups
         private TopupComplete _command;
         private Topup _topup;
 
-        public override async Task Given()
+        public override async Task GivenAsync()
         {
             // arrange
             _topup = _.MakeSaving<Topup>(m => m.Status = TopupStatus.Paid);
             _command = _.Make<TopupComplete>(m => m.TopupId = _topup.Id);
 
             // act
-            await _.Send(_command);
+            await _.SendAsync(_command);
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace Mong.Tests.Features.Topups
                     m.Name = user.Name;
                 });
 
-                await _.Save(user, topup);
+                await _.SaveAsync(user, topup);
                 
                 var command = _.Make<TopupComplete>(m => m.TopupId = topup.Id);
                 
@@ -74,7 +74,7 @@ namespace Mong.Tests.Features.Topups
                     .Do(m => throw new Exception("Mobile provider failed to topup phone number"));
                 
                 // act
-                await _.Send(command);
+                await _.SendAsync(command);
                 
                 // assert
                 var saved = _.Db(db => db.Topups.First());

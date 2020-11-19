@@ -16,19 +16,19 @@ namespace Miru.PageTesting
         }
         
 #pragma warning disable 1998
-        public virtual async Task Given()
+        public virtual async Task GivenAsync()
 #pragma warning restore 1998
         {
         }
         
-        public virtual void GivenSync()
+        public virtual void Given()
         {
         }
 
         [OneTimeSetUp]
-        public async Task PageTestOneTimeSetup() => await Given();
+        public async Task PageTestOneTimeSetupAsync() => await GivenAsync();
         
         [OneTimeSetUp]
-        public void PageTestOneTimeSetupSync() => GivenSync();
+        public void PageTestOneTimeSetup() => Given();
     }
 }

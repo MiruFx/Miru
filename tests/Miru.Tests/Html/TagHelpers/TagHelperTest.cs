@@ -30,7 +30,7 @@ namespace Miru.Tests.Html.TagHelpers
             ServiceProvider = services.BuildServiceProvider();
         }
 
-        protected TagHelperOutput ProcessTagSync<TTag>(TTag tag, string html, string childContent = "") where TTag : TagHelper
+        protected TagHelperOutput ProcessTag<TTag>(TTag tag, string html, string childContent = "") where TTag : TagHelper
         {
             var context = new TagHelperContext(
                 new TagHelperAttributeList(),
@@ -51,7 +51,7 @@ namespace Miru.Tests.Html.TagHelpers
             return output;
         }
         
-        protected async Task<TagHelperOutput> ProcessTag<TTag>(TTag tag, string tagName, string childContent = "") where TTag : TagHelper
+        protected async Task<TagHelperOutput> ProcessTagAsync<TTag>(TTag tag, string tagName, string childContent = "") where TTag : TagHelper
         {
             var context = new TagHelperContext(
                 new TagHelperAttributeList(),

@@ -71,10 +71,10 @@ namespace Skeleton.Features.Products
         public class ProductsController : MiruController
         {
             [Route("/Products/{id:long}/Edit")]
-            public async Task<Command> Edit(Query query) => await Send(query);
+            public async Task<Command> Edit(Query query) => await SendAsync(query);
 
             [HttpPost, Route("/Products/Edit")]
-            public async Task<Result> Edit(Command command) => await Send(command);
+            public async Task<Result> Edit(Command command) => await SendAsync(command);
         }
     }
 }

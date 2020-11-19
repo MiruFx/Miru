@@ -46,7 +46,7 @@ namespace SelfImprov.Features.Iterations
         public class IterationsController : MiruController
         {
             [Route("/Iterations")]
-            public async Task<Result> List(Query request) => await Send(request);
+            public async Task<Result> List(Query request) => await SendAsync(request);
         }
     }
 }

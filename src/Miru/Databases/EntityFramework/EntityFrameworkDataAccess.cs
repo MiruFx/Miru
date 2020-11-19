@@ -14,7 +14,7 @@ namespace Miru.Databases.EntityFramework
             _db = db;
         }
 
-        public void PersistSync(object[] entities)
+        public void Persist(object[] entities)
         {
             using (var tx = _db.Database.BeginTransaction())
             {

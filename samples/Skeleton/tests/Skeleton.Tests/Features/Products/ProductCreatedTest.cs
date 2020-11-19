@@ -14,7 +14,7 @@ namespace Skeleton.Tests.Features.Products
             var command = _.Make<ProductCreated.Job>();
             
             // act
-            await _.Send(command);
+            await _.SendAsync(command);
             
             // assert
         }

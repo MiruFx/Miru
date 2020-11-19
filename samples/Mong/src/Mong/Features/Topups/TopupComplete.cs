@@ -50,7 +50,7 @@ namespace Mong.Features.Topups
                     
                     topup.Complete();
                 
-                    await _mailer.SendNow(new TopupCompletedMail(topup));
+                    await _mailer.SendNowAsync(new TopupCompletedMail(topup));
                 }
                 catch (Exception ex)
                 {
@@ -58,7 +58,7 @@ namespace Mong.Features.Topups
 
                     topup.Error();
                     
-                    await _mailer.SendNow(new TopupFailedMail(topup));
+                    await _mailer.SendNowAsync(new TopupFailedMail(topup));
                 }
 
                 return Unit.Value;

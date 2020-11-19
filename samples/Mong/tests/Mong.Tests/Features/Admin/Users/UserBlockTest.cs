@@ -19,7 +19,7 @@ namespace Mong.Tests.Features.Admin.Users
             var user = _.MakeSaving<User>(m => m.BlockedAt = null);
             
             // act
-            await _.Send(new UserBlockUnblock.Command { UserId = user.Id });
+            await _.SendAsync(new UserBlockUnblock.Command { UserId = user.Id });
             
             // assert
             var saved = _.Db(db => db.Users.First(m => m.Id == user.Id));
@@ -33,7 +33,7 @@ namespace Mong.Tests.Features.Admin.Users
             var user = _.MakeSaving<User>(m => m.BlockedAt = DateTime.Today);
             
             // act
-            await _.Send(new UserBlockUnblock.Command { UserId = user.Id });
+            await _.SendAsync(new UserBlockUnblock.Command { UserId = user.Id });
             
             // assert
             var saved = _.Db(db => db.Users.First(m => m.Id == user.Id));

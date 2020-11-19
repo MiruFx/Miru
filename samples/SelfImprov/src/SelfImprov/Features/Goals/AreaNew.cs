@@ -57,7 +57,7 @@ namespace SelfImprov.Features.Goals
             public Command AreaNew() => new Command();
             
             [HttpPost, Route("/Areas/New")]
-            public async Task<Area> AreaNew(Command request) => await Send(request);
+            public async Task<Area> AreaNew(Command request) => await SendAsync(request);
         }
         
         public class Mapper : Profile

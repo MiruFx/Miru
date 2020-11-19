@@ -17,7 +17,7 @@ namespace Skeleton.Tests.Features.Products
             var product = _.MakeSaving<Product>();
             
             // act
-            var response = await _.Send(new ProductShow.Query { Id = product.Id });
+            var response = await _.SendAsync(new ProductShow.Query { Id = product.Id });
             
             // assert
             response.Product.ShouldBe(product);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Miru
 {
@@ -12,6 +13,19 @@ namespace Miru
         public static bool IsEmpty<T>(this IList<T> list)
         {
             return list.Count == 0;
+        }
+        
+        public static int FindIndex<T>(this IList<T> list, Predicate<T> match, int startIndex = 0)
+        {
+            for (int i = startIndex; i < list.Count; i++)
+            {
+                if (match(list[i]))
+                {
+                    return i;
+                }
+            }
+            
+            return -1;
         }
     }
 }

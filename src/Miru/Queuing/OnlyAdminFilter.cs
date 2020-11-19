@@ -13,7 +13,7 @@ namespace Miru.Queuing
             if (userSession.IsAnonymous)
                 return false;
                 
-            return userSession.User().GetAwaiter().GetResult().IsAdmin;
+            return userSession.GetUserAsync().GetAwaiter().GetResult().IsAdmin;
         }
     }
 }

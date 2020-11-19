@@ -23,7 +23,7 @@ namespace Mong.Tests.Features.Password
             var user = _.MakeSavingLogin<User>(m => m.HashedPassword = Hash.Create("123456"));
 
             // act
-            await _.Send(new PasswordEdit.Command
+            await _.SendAsync(new PasswordEdit.Command
             {
                 CurrentPassword = "123456",
                 Password = "NewPassword",

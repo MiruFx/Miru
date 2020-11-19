@@ -16,9 +16,9 @@ namespace Mong.PageTests.Pages.Topups
     {
         private TopupBasic _fix;
 
-        public override async Task Given()
+        public override async Task GivenAsync()
         {
-            _fix = await _.Scenario<TopupBasic>();
+            _fix = await _.ScenarioAsync<TopupBasic>();
         }
 
         [Test]

@@ -51,7 +51,7 @@ namespace Mong.Features.Admin.Users
         [Route("Admin/Users")]
         public class UsersController : MiruController
         {
-            public async Task<Query> List(Query request) => await Send(request);
+            public async Task<Query> List(Query request) => await SendAsync(request);
         }
     }
 }

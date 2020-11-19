@@ -66,7 +66,7 @@ namespace Mong.Features.Admin.Topups
         [Route("Admin/Topups")]
         public class TopupsController : MiruController
         {
-            public async Task<Query> List(Query request) => await Send(request);
+            public async Task<Query> List(Query request) => await SendAsync(request);
         }
     }
 }

@@ -78,10 +78,10 @@ namespace SelfImprov.Features.Goals
         public class GoalsController : MiruController
         {
             [Route("/Areas/{AreaId}/Goals/New")]
-            public async Task<Command> New(Query query) => await Send(query);
+            public async Task<Command> New(Query query) => await SendAsync(query);
 
             [HttpPost, Route("/Goals/New")]
-            public async Task<Result> New(Command command) => await Send(command);
+            public async Task<Result> New(Command command) => await SendAsync(command);
         }
     }
 }

@@ -155,7 +155,7 @@ For example, some tests need to fabricate an `User`, save, and login:
 ```csharp
 // arrange
 var user = _.Make<User>();
-await _.Save(user);
+await _.SaveAsync(user);
 _.LoginAs(user);
 ```
 
@@ -174,7 +174,7 @@ public static TUser MakeSavingLogin<TUser>(this ITestFixture fixture, TUser user
 {
     MiruTest.Log.Debug(() => $"Saving: {user}");
     
-    fixture.SaveSync(user);
+    fixture.Save(user);
     
     fixture.LoginAs(user);
 

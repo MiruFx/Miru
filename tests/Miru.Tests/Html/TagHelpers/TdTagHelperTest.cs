@@ -34,7 +34,7 @@ namespace Miru.Tests.Html.TagHelpers
             };
 
             // act
-            var output = await ProcessTag(tag, "miru-td");
+            var output = await ProcessTagAsync(tag, "miru-td");
             
             // assert
             output.TagName.ShouldBeNull();
@@ -52,7 +52,7 @@ namespace Miru.Tests.Html.TagHelpers
             };
 
             // act
-            var output = await ProcessTag(tag, "miru-td", "Hi");
+            var output = await ProcessTagAsync(tag, "miru-td", "Hi");
             
             // assert
             output.TagName.ShouldBeNull();
@@ -70,7 +70,7 @@ namespace Miru.Tests.Html.TagHelpers
             };
 
             // act
-            var output = await ProcessTag(tag, "miru-td");
+            var output = await ProcessTagAsync(tag, "miru-td");
             
             // assert
             output.TagName.ShouldBeNull();

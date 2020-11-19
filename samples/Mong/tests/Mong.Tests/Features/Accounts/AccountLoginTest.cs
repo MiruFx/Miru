@@ -29,7 +29,7 @@ namespace Mong.Tests.Features.Accounts
             };
 
             // act
-            await _.Send(command);
+            await _.SendAsync(command);
 
             // assert
             _.Get<IUserSession>().CurrentUserId.ShouldBe(user.Id);
@@ -52,7 +52,7 @@ namespace Mong.Tests.Features.Accounts
             };
 
             // act
-            await Should.ThrowAsync<NotFoundException>(async () => await _.Send(command));
+            await Should.ThrowAsync<NotFoundException>(async () => await _.SendAsync(command));
 
             // assert
             _.Get<IUserSession>().IsLogged.ShouldBeFalse();

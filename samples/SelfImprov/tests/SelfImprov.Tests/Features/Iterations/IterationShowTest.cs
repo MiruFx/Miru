@@ -16,12 +16,12 @@ namespace SelfImprov.Tests.Features.Iterations
         private Iteration _iteration;
         private IterationShow.Result _result;
 
-        public override async Task Given()
+        public override async Task GivenAsync()
         {
             // TODO: Change this syntax. I can't compose scenarios
             // Would be nice to compose with another scenario that sets Achievements
             
-            _fix = await _.Scenario<AreasAndGoalsFixture>();
+            _fix = await _.ScenarioAsync<AreasAndGoalsFixture>();
             
             var ach1 = _.Make<Achievement>(x => x.GoalId = _fix.Goal1.Id, x => x.Achieved = true);
             var ach2 = _.Make<Achievement>(x => x.GoalId = _fix.Goal2.Id, x => x.Achieved = true);
@@ -35,10 +35,10 @@ namespace SelfImprov.Tests.Features.Iterations
                 ach1, ach2, ach3, ach4, achDeletedArea, achDeletedArea1
             });
 
-            await _.Save(_iteration, ach1, ach2, ach3, ach4, achDeletedArea, achDeletedArea1);
+            await _.SaveAsync(_iteration, ach1, ach2, ach3, ach4, achDeletedArea, achDeletedArea1);
             
             // act
-            _result = await _.Send(new IterationShow.Query { Id = _iteration.Id });
+            _result = await _.SendAsync(new IterationShow.Query { Id = _iteration.Id });
         }
 
         [Test]

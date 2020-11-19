@@ -15,14 +15,14 @@ namespace Mong.Tests.Features.Topups
         private User _userWithNoTopups;
         private IEnumerable<Topup> _topups;
 
-        public override async Task Given()
+        public override async Task GivenAsync()
         {
             _user = _.Make<User>();
             _userWithNoTopups = _.Make<User>();
 
             _topups = _.MakeMany<Topup>(m => m.User = _user);
 
-            await _.Save(_user, _userWithNoTopups, _topups);
+            await _.SaveAsync(_user, _userWithNoTopups, _topups);
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace Mong.Tests.Features.Topups
             _.LoginAs(_user);
 
             // act
-            var result = await _.Send(new TopupList.Query());
+            var result = await _.SendAsync(new TopupList.Query());
            
             // assert
             result.Results.Count.ShouldBe(_topups.Count());
@@ -45,7 +45,7 @@ namespace Mong.Tests.Features.Topups
             _.LoginAs(_userWithNoTopups);
             
             // act
-            var result = await _.Send(new TopupList.Query());
+            var result = await _.SendAsync(new TopupList.Query());
            
             // assert
             result.Results.Count.ShouldBe(0);

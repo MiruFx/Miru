@@ -48,7 +48,7 @@ namespace SelfImprov.Features.Accounts
 
                 await _db.Users.AddAsync(user, ct);
 
-                await _mailer.SendLater(new AccountRegisteredMail(user));
+                await _mailer.SendLaterAsync(new AccountRegisteredMail(user));
                 
                 return new Result
                 {
@@ -80,7 +80,7 @@ namespace SelfImprov.Features.Accounts
             public Command Register() => new Command();
 
             [HttpPost]
-            public async Task<Result> Register(Command command) => await Send(command);
+            public async Task<Result> Register(Command command) => await SendAsync(command);
         }
     }
 }

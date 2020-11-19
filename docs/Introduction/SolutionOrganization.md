@@ -1,15 +1,4 @@
 <!--
-Introduction
-Solution
-    create
-    name
-    location
-    projects
-Projects
-    app, tests, pagetests
-Directories
-    root name
-    all dirs from /
 TODO: add link to david fowler's gist structure organization
 -->
 

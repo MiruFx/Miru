@@ -19,7 +19,7 @@ namespace Mong.Config
         {
             if (feature.IsIn("Admin"))
             {
-                if (_userSession.IsAnonymous || (await _userSession.User())?.IsAdmin == false)
+                if (_userSession.IsAnonymous || (await _userSession.GetUserAsync())?.IsAdmin == false)
                 {
                     return AuthorizationResult.Fail("Unauthorized access");
                 }

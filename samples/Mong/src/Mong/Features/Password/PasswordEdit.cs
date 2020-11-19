@@ -30,7 +30,7 @@ namespace Mong.Features.Password
 
             public async Task<Unit> Handle(Command request, CancellationToken ct)
             {
-                var user = await _currentUser.User();
+                var user = await _currentUser.GetUserAsync();
 
                 user.ChangePassword(request);
                 
@@ -55,7 +55,7 @@ namespace Mong.Features.Password
             public Command Edit() => new Command();
 
             [HttpPost]
-            public async Task<Unit> Edit(Command command) => await Send(command);
+            public async Task<Unit> Edit(Command command) => await SendAsync(command);
         }
     }
 }

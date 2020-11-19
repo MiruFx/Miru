@@ -12,13 +12,13 @@ namespace Mong.PageTests.Pages.Password
     {
         private TopupBasic _fix;
 
-        public override async Task Given()
+        public override async Task GivenAsync()
         {
-            _fix = await _.Scenario<TopupBasic>();
+            _fix = await _.ScenarioAsync<TopupBasic>();
             
             _fix.User.RequestedPasswordReset();
             
-            await _.Save(_fix.User);
+            await _.SaveAsync(_fix.User);
         }
 
         [Test]

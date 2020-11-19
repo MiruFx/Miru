@@ -52,7 +52,7 @@ namespace SelfImprov.Features.Goals
         public class GoalsController : MiruController
         {
             [HttpPost, Route("/Goals/Remove/{Id}")]
-            public async Task<Result> Remove(Command command) => await Send(command);
+            public async Task<Result> Remove(Command command) => await SendAsync(command);
         }
     }
 }

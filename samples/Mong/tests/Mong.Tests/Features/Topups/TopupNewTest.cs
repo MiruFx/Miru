@@ -18,7 +18,7 @@ namespace Mong.Tests.Features.Topups
         private TopupNew.Command _command;
         private PayPauResult _payment;
 
-        public override async Task Given()
+        public override async Task GivenAsync()
         {
             // arrange
             var provider = _.MakeSaving<Provider>(m => m.Amounts = "20");
@@ -33,7 +33,7 @@ namespace Mong.Tests.Features.Topups
             _.Get<IPayPau>().Charge(_command.CreditCard, _command.Amount).Returns(_payment);
 
             // act
-            await _.Send(_command);
+            await _.SendAsync(_command);
         }
 
         [Test]
@@ -82,7 +82,7 @@ namespace Mong.Tests.Features.Topups
                     .Do(m => throw new DomainException("Payment failed"));
                 
                 // act
-                await Should.ThrowAsync<DomainException>(async () => await _.Send(command));
+                await Should.ThrowAsync<DomainException>(async () => await _.SendAsync(command));
                 
                 // assert
                 _.Db(db => db.Topups.ToList()).ShouldBeEmpty();
@@ -98,11 +98,11 @@ namespace Mong.Tests.Features.Topups
                 var providers = _.MakeMany<Provider>();
                 var user = _.Make<User>();
 
-                _.SaveSync(providers, user);
+                _.Save(providers, user);
                 _.LoginAs(user);
             
                 // act
-                var command = await _.Send(new TopupNew.Query());
+                var command = await _.SendAsync(new TopupNew.Query());
             
                 // assert
                 command.Name.ShouldBe(user.Name);
@@ -115,7 +115,7 @@ namespace Mong.Tests.Features.Topups
         {
             private TopupNew.Command _request;
 
-            public override void GivenSync()
+            public override void Given()
             {
                 _request = _.Make<TopupNew.Command>();
             }

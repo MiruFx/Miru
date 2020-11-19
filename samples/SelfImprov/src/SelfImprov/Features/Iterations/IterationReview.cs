@@ -102,10 +102,10 @@ namespace SelfImprov.Features.Iterations
         public class IterationsController : MiruController
         {
             [Route("/Iterations/Review")]
-            public async Task<Command> Review(Query query) => await Send(query);
+            public async Task<Command> Review(Query query) => await SendAsync(query);
 
             [HttpPost, Route("/Iterations/Review")]
-            public async Task<Iteration> Review(Command command) => await Send(command);
+            public async Task<Iteration> Review(Command command) => await SendAsync(command);
         }
     }
 }

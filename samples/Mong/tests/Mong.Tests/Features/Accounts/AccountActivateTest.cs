@@ -22,7 +22,7 @@ namespace Mong.Tests.Features.Accounts
             var user = _.MakeSaving<User>();
 
             // act
-            await _.Send(new AccountActivate.Query
+            await _.SendAsync(new AccountActivate.Query
             {
                 Token = user.ConfirmationToken
             });

@@ -7,7 +7,7 @@ namespace Miru.Mvc
 {
     public abstract class MiruController : Controller
     {
-        protected async Task<TResponse> Send<TResponse>(IRequest<TResponse> request)
+        protected async Task<TResponse> SendAsync<TResponse>(IRequest<TResponse> request)
         {
             return await ControllerContext.HttpContext.RequestServices.GetService<IMediator>().Send(request);
         }

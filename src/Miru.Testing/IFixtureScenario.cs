@@ -4,6 +4,6 @@ namespace Miru.Testing
 {
     public interface IFixtureScenario
     {
-        Task Build(ITestFixture _);
+        Task BuildAsync(ITestFixture _);
     }
 }

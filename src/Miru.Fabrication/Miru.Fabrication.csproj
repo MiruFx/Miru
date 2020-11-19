@@ -12,7 +12,6 @@
         <PackageReference Include="AutoFixture" Version="4.11.0" />
         <PackageReference Include="Bogus" Version="29.0.1" />
         <PackageReference Include="Baseline" Version="2.1.0" />
-        <PackageReference Include="Miru.Support" Version="0.1.1" />
     </ItemGroup>
     
 </Project>

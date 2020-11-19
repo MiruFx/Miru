@@ -17,7 +17,7 @@ namespace SelfImprov.PageTests.Pages.Goals
         public Goal GoalAreaToRemove { get; set; }
         public Area AreaToEdit { get; set; }
         
-        public async Task Build(ITestFixture _)
+        public async Task BuildAsync(ITestFixture _)
         {
             User = _.MakeSavingLogin<User>();
             
@@ -34,7 +34,7 @@ namespace SelfImprov.PageTests.Pages.Goals
             
             AreaToEdit = _.Make<Area>();
             
-            await _.Save(
+            await _.SaveAsync(
                 Work, WorkLess, 
                 Health, DrinkWater, GoalEdit, GoalRemove,
                 AreaToRemove, GoalAreaToRemove,

@@ -24,11 +24,11 @@ namespace Miru.Consolables
     
     public abstract class Consolable : OaktonAsyncCommand<ConsolableInput>, IConsolable
     {
-        public abstract Task Execute();
+        public abstract Task ExecuteAsync();
         
         public override async Task<bool> Execute(ConsolableInput input)
         {
-            await Execute();
+            await ExecuteAsync();
             return true;
         }
     }

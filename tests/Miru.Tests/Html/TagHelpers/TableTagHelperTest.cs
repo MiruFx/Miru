@@ -28,7 +28,7 @@ namespace Miru.Tests.Html.TagHelpers
             };
 
             // act
-            var output = ProcessTagSync(tag, "miru-table");
+            var output = ProcessTag(tag, "miru-table");
             
             // arrange
             output.TagName.ShouldBe("table");

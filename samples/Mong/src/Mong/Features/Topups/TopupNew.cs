@@ -83,7 +83,7 @@ namespace Mong.Features.Topups
                 
                 App.Log.Debug("Save db and enqueue job");
                 
-                await _db.AddSaving(topup);
+                await _db.AddSavingAsync(topup);
                 
                 _jobs.PerformLater(new TopupComplete { TopupId = topup.Id });
                 
@@ -113,10 +113,10 @@ namespace Mong.Features.Topups
 
             public TopupsController(MongDbContext db) => _db = db;
 
-            public async Task<Command> New(Query request) => await Send(request);
+            public async Task<Command> New(Query request) => await SendAsync(request);
             
             [HttpPost]
-            public async Task<Command> New(Command request) => await Send(request);
+            public async Task<Command> New(Command request) => await SendAsync(request);
 
             public async Task<HtmlTag> Amounts(AmountByProvider query)
             {

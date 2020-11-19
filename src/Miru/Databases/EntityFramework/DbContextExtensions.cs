@@ -13,7 +13,7 @@ namespace Miru.Databases.EntityFramework
             CancellationToken ct = default) where TEntity : class, IEntity
         {
             if (entity.IsNew())
-                await db.AddSaving(entity);
+                await db.AddSavingAsync(entity);
         }
     }
 }

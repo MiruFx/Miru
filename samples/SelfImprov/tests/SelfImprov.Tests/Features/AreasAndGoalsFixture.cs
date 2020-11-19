@@ -17,7 +17,7 @@ namespace SelfImprov.Tests.Features
         public Goal DeletedGoal { get; set; }
         public Goal DeletedGoalArea1 { get; set; }
         
-        public async Task Build(ITestFixture _)
+        public async Task BuildAsync(ITestFixture _)
         {
             Area1 = _.Make<Area>();
             Area2 = _.Make<Area>();
@@ -31,7 +31,7 @@ namespace SelfImprov.Tests.Features
             DeletedGoalArea1 = _.Make<Goal>(m => { m.Area = Area1; m.IsInactive = true; });
 
             // TODO: _.SaveMade()
-            await _.Save(Area1, Area2, Goal1, Goal2, Goal3, Goal4, DeletedArea, DeletedGoal, DeletedGoalArea1);
+            await _.SaveAsync(Area1, Area2, Goal1, Goal2, Goal3, Goal4, DeletedArea, DeletedGoal, DeletedGoalArea1);
         }
     }
 }

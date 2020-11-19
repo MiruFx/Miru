@@ -64,7 +64,7 @@ namespace Miru.Tests.Mailing
         public void Email_with_default_parameters()
         {
             // act
-            _mailer.SendNow(new NullMail());
+            _mailer.SendNowAsync(new NullMail());
             
             // assert
             var emailSent = _emailsSent.Last();
@@ -84,7 +84,7 @@ namespace Miru.Tests.Mailing
             };
             
             // act
-            _mailer.SendNow(new ConfirmMail(user));
+            _mailer.SendNowAsync(new ConfirmMail(user));
             
             // assert
             var emailSent = _emailsSent.Last();
@@ -107,7 +107,7 @@ namespace Miru.Tests.Mailing
             };
             
             // act
-            await _mailer.SendNow(new WelcomeMail(user));
+            await _mailer.SendNowAsync(new WelcomeMail(user));
             
             // assert
             var emailSent = _emailsSent.Last();

@@ -31,7 +31,7 @@ namespace Mong.Features.Topups
 
             public async Task<Query> Handle(Query request, CancellationToken ct)
             {
-                var user = await _currentUser.User();
+                var user = await _currentUser.GetUserAsync();
                 
                 request.Results = await _db.Topups
                     .Where(m => m.UserId == user.Id)
@@ -45,7 +45,7 @@ namespace Mong.Features.Topups
         
         public class TopupsController : MiruController
         {
-            public async Task<Query> List(Query request) => await Send(request);
+            public async Task<Query> List(Query request) => await SendAsync(request);
         }
     }
 }

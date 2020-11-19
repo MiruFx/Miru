@@ -4,7 +4,6 @@ The roadmap can change in the future.
 
 ### 0.4 - Async suffix, sample with SqlServer, Queueing, miru new
 
-- Invert methods suffix adding Async and removing Sync
 - SelfImprov:
     - Use SqlServer instead of Sqlite
 - Command Line:
@@ -66,7 +65,10 @@ The roadmap can change in the future.
         - Remove expose-loader
         - Remove some package.json dependencies
 
-### 0.8
+### 0.8 - Other ORM
+
+- Support other ORMs rather than EfCore
+    - Marten
 
 ### 0.9 - C# 9, Build script
 
@@ -109,8 +111,14 @@ The roadmap can change in the future.
 - Gzip assets
     
 ### 0.15 - Documentation & Onboard
+
+Default configurations (Log, Database, Criptography)
+    Development
+    Test
+    Staging
+    Production
     
-### 1.0
+### 1.0 - December/2020
 
 - Update to .NET 6
     
