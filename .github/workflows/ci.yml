@@ -59,6 +59,27 @@ jobs:
           SqlLocalDB info MSSQLLocalDB
           sqlcmd -S "(localdb)\MSSQLLocalDB" -Q "create database selfimprov_test;"
 
+      - name: Install MiruCli
+        run:  dotnet tool install MiruCli -g &&
+          MiruCli --version &&
+          MiruCli setup
+
+      - name: Restore Npm Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install Npm Packages
+        run: miru @app npm install
+        working-directory: samples\SelfImprov
+        
+      - name: Bundle Frontend Assets
+        run: miru @app npm run dev --no-progress
+        working-directory: samples\SelfImprov
+        
       - name: Build & Test
         env:
           Miru_Database__ConnectionString: "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=selfimprov_test;Integrated Security=SSPI;"
