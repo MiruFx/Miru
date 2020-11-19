@@ -63,7 +63,7 @@ jobs:
         env:
           Miru_Database__ConnectionString: "DataSource={{ db_dir }}Mong_test.db"
         run: dotnet test
-          working-directory: samples\SelfImprov
+        working-directory: samples\SelfImprov
         
 #    - name: Artifacts
 #      uses: actions/upload-artifact@v2
