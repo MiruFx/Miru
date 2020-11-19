@@ -19,16 +19,52 @@ jobs:
       with:
         fetch-depth: 0
         
-    - name: Setup .NET Core
+    - name: Setup .NET 5
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: "5.0.100"
 
-    - name: Build & Publish
+    - name: Build & Test
       env:
         Miru_Database__ConnectionString: "DataSource={{ db_dir }}Mong_test.db"
       run: ./build publish-dev --key ${{ secrets.FEEDZ_KEY }}
 
+    - name: Test Mong
+      env:
+        Miru_Database__ConnectionString: "DataSource={{ db_dir }}Mong_test.db"
+      run: ./build publish-dev --key ${{ secrets.FEEDZ_KEY }}
+      
+    - name: Test SelfImprov
+      env:
+        Miru_Database__ConnectionString: "DataSource={{ db_dir }}Mong_test.db"
+      run: ./build publish-dev --key ${{ secrets.FEEDZ_KEY }}
+      
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Setup .NET 5
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "5.0.100"
+
+      - name: Setup SQLServer
+        run: |
+          # MSSQLLocalDB is the default SQL LocalDB instance
+          SqlLocalDB start MSSQLLocalDB
+          SqlLocalDB info MSSQLLocalDB
+          sqlcmd -S "(localdb)\MSSQLLocalDB" -Q "create database selfimprov_test;"
+
+      - name: Build & Test
+        env:
+          Miru_Database__ConnectionString: "DataSource={{ db_dir }}Mong_test.db"
+        run: dotnet test
+          working-directory: samples\SelfImprov
+        
 #    - name: Artifacts
 #      uses: actions/upload-artifact@v2
 #      with:
