@@ -33,7 +33,7 @@ namespace Miru.Testing
         {
             var entity = fixture.Make(customizations);
 
-            fixture.SaveSync(entity);
+            fixture.Save(entity);
 
             return entity;
         }
@@ -60,7 +60,7 @@ namespace Miru.Testing
             
             MiruTest.Log.Debug(() => $"Saving the {howMany} entities");
             
-            fixture.SaveSync(entities);
+            fixture.Save(entities);
 
             return entities; 
         }
@@ -85,7 +85,7 @@ namespace Miru.Testing
         {
             MiruTest.Log.Debug(() => $"Saving: {user}");
             
-            fixture.SaveSync(user);
+            fixture.Save(user);
             
             fixture.LoginAs(user);
 

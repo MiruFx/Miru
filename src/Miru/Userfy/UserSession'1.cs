@@ -19,7 +19,7 @@ namespace Miru.Userfy
             _logger = logger;
         }
 
-        public async Task<TUser> User()
+        public async Task<TUser> GetUserAsync()
         {
             try
             {

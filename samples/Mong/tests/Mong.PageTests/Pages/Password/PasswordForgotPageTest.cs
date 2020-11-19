@@ -12,7 +12,7 @@ namespace Mong.PageTests.Pages.Password
     {
         private User _user;
 
-        public override void GivenSync()
+        public override void Given()
         {
             _user = _.MakeSaving<User>();
         }

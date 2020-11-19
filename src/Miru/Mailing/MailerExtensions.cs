@@ -10,18 +10,18 @@ namespace Miru.Mailing
             IReceivesEmail to, 
             TMailable mailable) where TMailable : Mailable
         {
-            await mailer.SendNow(mailable, email =>
+            await mailer.SendNowAsync(mailable, email =>
             {
                 email.To(to.Email, to.Name);
             });
         }
         
-        public static async Task SendLaterTo<TMailable>(
+        public static async Task SendLaterAsync<TMailable>(
             this IMailer mailer, 
             IReceivesEmail to, 
             TMailable mailable) where TMailable : Mailable
         {
-            await mailer.SendLater(mailable, email =>
+            await mailer.SendLaterAsync(mailable, email =>
             {
                 email.To(to.Email, to.Name);
             });

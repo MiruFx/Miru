@@ -16,7 +16,7 @@ namespace Miru.Queuing
             _app = app;
         }
 
-        public override async Task Execute()
+        public override async Task ExecuteAsync()
         {
             using (var server = _app.Get<BackgroundJobServer>())
             {

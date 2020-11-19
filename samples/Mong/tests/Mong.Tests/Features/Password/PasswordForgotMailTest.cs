@@ -21,7 +21,7 @@ namespace Mong.Tests.Features.Password
             var user = _.Make<User>(m => m.ResetPasswordToken = "Token");
 
             // act
-            _.Get<IMailer>().SendNow(new PasswordForgot.PasswordForgotMail(user));
+            _.Get<IMailer>().SendNowAsync(new PasswordForgot.PasswordForgotMail(user));
             
             // assert
             var emailSent = _.LastEmailSent().Data;

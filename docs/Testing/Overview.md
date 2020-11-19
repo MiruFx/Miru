@@ -47,7 +47,7 @@ public async Task Can_activate_account()
 {
     var user = _.MakeSaving<User>();
 
-    await _.Send(new AccountActivate.Query { Token = user.ConfirmationToken });
+    await _.SendAsync(new AccountActivate.Query { Token = user.ConfirmationToken });
 
     _.Db(db => db.Users.First()).ConfirmationToken.ShouldBeNull();
 }
@@ -97,7 +97,7 @@ public async Task Block_user()
     var user = _.MakeSaving<User>(m => m.BlockedAt = null);
     
     // act
-    await _.Send(new UserBlockUnblock.Command { UserId = user.Id });
+    await _.SendAsync(new UserBlockUnblock.Command { UserId = user.Id });
     
     // assert
     var saved = _.Db(db => db.Users.First(m => m.Id == user.Id));

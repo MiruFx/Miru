@@ -11,7 +11,7 @@ namespace Miru.Testing
             this ITestFixture _, 
             IRequest<TResult> request)
         {
-            await Should.ThrowAsync<UnauthorizedException>(async () => await _.Send(request));
+            await Should.ThrowAsync<UnauthorizedException>(async () => await _.SendAsync(request));
         }
     }
 }

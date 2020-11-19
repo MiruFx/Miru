@@ -16,7 +16,7 @@ namespace Skeleton.Tests.Features.Products
             var command = _.Make<ProductNew.Command>();
             
             // act
-            var result = await _.Send(command);
+            var result = await _.SendAsync(command);
             
             // assert
             var saved = _.Db(db => db.Products.First());

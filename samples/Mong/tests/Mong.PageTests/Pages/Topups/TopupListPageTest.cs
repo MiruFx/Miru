@@ -17,7 +17,7 @@ namespace Mong.PageTests.Pages.Topups
     {
         private IEnumerable<Topup> _topups;
 
-        public override void GivenSync()
+        public override void Given()
         {
             _topups = _.MakeManySaving<Topup>(m => m.UserId = _.CurrentUserId());
             

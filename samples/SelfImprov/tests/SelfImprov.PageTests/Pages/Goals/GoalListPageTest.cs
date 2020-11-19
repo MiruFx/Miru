@@ -11,9 +11,9 @@ namespace SelfImprov.PageTests.Pages.Goals
     {
         private GoalsFixture _fix;
 
-        public override async Task Given()
+        public override async Task GivenAsync()
         {
-            _fix = await _.Scenario<GoalsFixture>();
+            _fix = await _.ScenarioAsync<GoalsFixture>();
             
             _.Visit<GoalList>();
         }

@@ -16,13 +16,13 @@ namespace Miru.AcceptanceTests.Authorization
         private User _admin;
         private User _customer;
 
-        public override async Task Given()
+        public override async Task GivenAsync()
         {
             // arrange
             _admin = _.Fab().Users.Admin().Make();
             _customer = _.Fab().Users.Customer().Make();
 
-            await _.Save(_admin, _customer);
+            await _.SaveAsync(_admin, _customer);
         }
 
         [Test]

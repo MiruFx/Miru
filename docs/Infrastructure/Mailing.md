@@ -49,8 +49,8 @@ Send email is done using ```Miru.Mailing.IMailer```:
 var user = _db.Users.ById(id);
 
 // send now synchronously
-await _mailer.SendNow(new AccountRegisteredMail(user));
+await _mailer.SendNowAsync(new AccountRegisteredMail(user));
 
 // queue to send asynchronously
-await _mailer.SendLater(new AccountRegisteredMail(user));
+await _mailer.SendLaterAsync(new AccountRegisteredMail(user));
 ```

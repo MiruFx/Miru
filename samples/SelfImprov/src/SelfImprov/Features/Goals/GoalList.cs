@@ -46,7 +46,7 @@ namespace SelfImprov.Features.Goals
         public class GoalsController : MiruController
         {
             [Route("/Goals")]
-            public async Task<Result> List(Query request) => await Send(request);
+            public async Task<Result> List(Query request) => await SendAsync(request);
         }
     }
 }

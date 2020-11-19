@@ -25,7 +25,7 @@ var topup = new Topup(request, user, provider);
                 
 App.Log.Debug("Saving db and enqueue job");
 
-await _db.AddSaving(topup);
+await _db.AddSavingAsync(topup);
 
 _jobs.PerformLater(new TopupComplete { TopupId = topup.Id });
 

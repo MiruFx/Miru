@@ -16,15 +16,15 @@ namespace SelfImprov.Tests.Features.Iterations
     {
         private AreasAndGoalsFixture _fix;
 
-        public override async Task Given()
+        public override async Task GivenAsync()
         {
-            _fix = await _.Scenario<AreasAndGoalsFixture>();
+            _fix = await _.ScenarioAsync<AreasAndGoalsFixture>();
         }
 
         [Test]
         public async Task Can_query_new_iteration_review()
         {
-            var result = await _.Send(new IterationReview.Query());
+            var result = await _.SendAsync(new IterationReview.Query());
 
             // assert
             result.Areas.Count.ShouldBe(2);
@@ -69,7 +69,7 @@ namespace SelfImprov.Tests.Features.Iterations
                 }
             };
 
-            await _.Send(command);
+            await _.SendAsync(command);
 
             // assert
             var iteration = _.Db(db => db.Iterations

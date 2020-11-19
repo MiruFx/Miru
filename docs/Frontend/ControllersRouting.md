@@ -24,10 +24,10 @@ public class DonationNew : IMustBeAuthenticated
   public class DonationsController : MiruController
   {
     [Route("/Projects/{ProjectId:long}/Donations/New")]
-    public async Task<Command> New(Query query) => await Send(query);
+    public async Task<Command> New(Query query) => await SendAsync(query);
 
     [HttpPost, Route("/Projects/{ProjectId:long}/Donations/New")]
-    public async Task<Result> New(Command command) => await Send(command);
+    public async Task<Result> New(Command command) => await SendAsync(command);
   }
 }
 ```
@@ -48,7 +48,7 @@ public class TopupNew : IMustBeAuthenticated
 
     public class TopupsController : MiruController
     {
-      public async Task<Command> New(Query request) => await Send(request);
+      public async Task<Command> New(Query request) => await SendAsync(request);
     }
 }
 ```

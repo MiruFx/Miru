@@ -20,7 +20,7 @@ namespace Mong.Consolables
             _db = db;
         }
 
-        public override async Task Execute()
+        public override async Task ExecuteAsync()
         {
             Console2.White("Seeding Users... ");
 

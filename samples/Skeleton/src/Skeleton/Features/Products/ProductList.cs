@@ -54,7 +54,7 @@ namespace Skeleton.Features.Products
         public class ProductsController : MiruController
         {
             [Route("/Products")]
-            public async Task<Result> List(Query request) => await Send(request);
+            public async Task<Result> List(Query request) => await SendAsync(request);
         }
     }
 }

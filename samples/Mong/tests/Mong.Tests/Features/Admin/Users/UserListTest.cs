@@ -15,12 +15,12 @@ namespace Mong.Tests.Features.Admin.Users
         private IEnumerable<User> _users;
         private User _admin;
 
-        public override async Task Given()
+        public override async Task GivenAsync()
         {
             _users = _.MakeMany<User>(2, m => m.IsAdmin = false);
             _admin = _.Make<User>(m => m.IsAdmin = true);
             
-            await _.Save(_users, _admin);
+            await _.SaveAsync(_users, _admin);
         }
 
         [Test]
@@ -28,7 +28,7 @@ namespace Mong.Tests.Features.Admin.Users
         {
             _.LoginAs(_admin);
             
-            var result = await _.Send(new UserList.Query());
+            var result = await _.SendAsync(new UserList.Query());
             
             result.CountTotal.ShouldBe(3);
         }
@@ -38,7 +38,7 @@ namespace Mong.Tests.Features.Admin.Users
         {
             _.LoginAs(_users.First());
 
-            await Should.ThrowAsync<UnauthorizedException>(async () => await _.Send(new UserList.Query()));
+            await Should.ThrowAsync<UnauthorizedException>(async () => await _.SendAsync(new UserList.Query()));
         }
     }
 }

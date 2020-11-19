@@ -84,10 +84,10 @@ namespace Mong.Features.Accounts
         
         public class AccountsController : MiruController
         {
-            public async Task<Command> Login(Query query) => await Send(query);
+            public async Task<Command> Login(Query query) => await SendAsync(query);
 
             [HttpPost]
-            public async Task<Result> Login(Command command) => await Send(command);
+            public async Task<Result> Login(Command command) => await SendAsync(command);
         }
     }
 }

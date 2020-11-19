@@ -11,12 +11,12 @@ namespace Mong.PageTests.Fixtures
         public User User { get; set; }
         public Provider Provider { get; set; }
         
-        public async Task Build(ITestFixture _)
+        public async Task BuildAsync(ITestFixture _)
         {
             User = _.Make<User>(m => m.HashedPassword = Hash.Create("123456"));
             Provider = _.Make<Provider>(m => m.Amounts = "10,20");
 
-            await _.Save(User, Provider);
+            await _.SaveAsync(User, Provider);
             
             _.LoginAs(User);
         }

@@ -32,9 +32,9 @@ namespace Miru.Mailing
             _razorRenderer = razorRenderer;
         }
         
-        public async Task SendNow<TMailable>(TMailable mailable, Action<Email> emailBuilder = null) where TMailable : Mailable
+        public async Task SendNowAsync<TMailable>(TMailable mailable, Action<Email> emailBuilder = null) where TMailable : Mailable
         {
-            var deliverableEmail = await BuildEmailFrom(mailable, emailBuilder);
+            var deliverableEmail = await BuildEmailFromAsync(mailable, emailBuilder);
 
             await _sender.SendAsync(new FluentEmail.Core.Email { Data = deliverableEmail });
             
@@ -45,14 +45,14 @@ namespace Miru.Mailing
         /// <summary>
         /// It builds the email using all the passed parameters/services, then queue the only email message object 
         /// </summary>
-        public async Task SendLater<TMailable>(TMailable mailable, Action<Email> emailBuilder = null) where TMailable : Mailable
+        public async Task SendLaterAsync<TMailable>(TMailable mailable, Action<Email> emailBuilder = null) where TMailable : Mailable
         {
-            var fluentMail = await BuildEmailFrom(mailable, emailBuilder);
+            var fluentMail = await BuildEmailFromAsync(mailable, emailBuilder);
 
             Enqueue(fluentMail);
         }
 
-        public async Task<Email> BuildEmailFrom<TMailable>(TMailable mailable, Action<Email> emailBuilder) where TMailable : Mailable
+        public async Task<Email> BuildEmailFromAsync<TMailable>(TMailable mailable, Action<Email> emailBuilder) where TMailable : Mailable
         {
             mailable.MailingOptions = _options;
 

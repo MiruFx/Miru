@@ -16,7 +16,7 @@ namespace Skeleton.Tests.Features.Products
             var products = _.MakeManySaving<Product>();
             
             // act
-            var result = await _.Send(new ProductList.Query());
+            var result = await _.SendAsync(new ProductList.Query());
             
             // assert
             result.Items.ShouldCount(products.Count());

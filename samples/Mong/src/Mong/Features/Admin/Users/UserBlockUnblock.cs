@@ -44,7 +44,7 @@ namespace Mong.Features.Admin.Users
         public class UsersController : MiruController
         {
             [HttpPost]
-            public async Task<Result> BlockUnblock(Command request) => await Send(request);
+            public async Task<Result> BlockUnblock(Command request) => await SendAsync(request);
         }
     }
 }

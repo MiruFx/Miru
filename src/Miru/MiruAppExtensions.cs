@@ -19,7 +19,7 @@ namespace Miru
             return string.Empty;
         }
 
-        public static async Task<TResult> Send<TResult>(this IMiruApp app, IRequest<TResult> message)
+        public static async Task<TResult> SendAsync<TResult>(this IMiruApp app, IRequest<TResult> message)
         {
             using (var scope = app.WithScope())
             {

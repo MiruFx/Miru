@@ -19,7 +19,7 @@ namespace Mong.Tests.Features.Password
             var user = _.MakeSaving<User>();
 
             // act
-            await _.Send(new PasswordForgot.Command
+            await _.SendAsync(new PasswordForgot.Command
             {
                 Email = user.Email
             });
@@ -38,7 +38,7 @@ namespace Mong.Tests.Features.Password
         {
             private PasswordForgot.Command _request;
 
-            public override void GivenSync()
+            public override void Given()
             {
                 _request = _.Fab().Make<PasswordForgot.Command>();   
             }

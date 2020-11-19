@@ -19,7 +19,7 @@ namespace SelfImprov.Tests.Features.Goals
             var goal = _.MakeSaving<Goal>();
 
             // act
-            await _.Send(new GoalRemove.Command
+            await _.SendAsync(new GoalRemove.Command
             {
                 Id = goal.Id
             });

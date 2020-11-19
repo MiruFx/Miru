@@ -4,7 +4,6 @@ using System.Text;
 using AutoFixture;
 using AutoFixture.Kernel;
 using Bogus;
-using Miru.Support;
 
 namespace Miru.Fabrication.FixtureConventions
 {

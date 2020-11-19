@@ -35,12 +35,12 @@ public class AccountLogin
     public class AccountsController : MiruController
     {
         [HttpPost]
-        public async Task<Result> Login(Command command) => await Send(command);
+        public async Task<Result> Login(Command command) => await SendAsync(command);
     }
 }
 ```
 
-When `await Send(command)` is called, the object `AccountLogin.Command` will pass through a [chain of responsability](https://refactoring.guru/design-patterns/chain-of-responsibility). It means that `AccountLogin.Command` will pass through a chain of `Behaviors`, for example Logging, Database Transaction, Authorization, Validation, etc.
+When `await SendAsync(command)` is called, the object `AccountLogin.Command` will pass through a [chain of responsability](https://refactoring.guru/design-patterns/chain-of-responsibility). It means that `AccountLogin.Command` will pass through a chain of `Behaviors`, for example Logging, Database Transaction, Authorization, Validation, etc.
 
 ## Pipeline
 

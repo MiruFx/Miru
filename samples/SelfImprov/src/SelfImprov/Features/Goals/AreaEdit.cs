@@ -73,10 +73,10 @@ namespace SelfImprov.Features.Goals
         public class AreasController : MiruController
         {
             [Route("/Areas/{id:long}/Edit")]
-            public async Task<Command> AreaEdit(Query query) => await Send(query);
+            public async Task<Command> AreaEdit(Query query) => await SendAsync(query);
 
             [HttpPost, Route("/Areas/Edit")]
-            public async Task<Result> AreaEdit(Command command) => await Send(command);
+            public async Task<Result> AreaEdit(Command command) => await SendAsync(command);
         }
     }
 }

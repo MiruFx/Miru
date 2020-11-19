@@ -41,7 +41,7 @@ namespace Mong.Features.Password
 
                 user.RequestedPasswordReset();
 
-                await _mailer.SendLater(new PasswordForgotMail(user));
+                await _mailer.SendLaterAsync(new PasswordForgotMail(user));
 
                 return new Result();
             }
@@ -74,7 +74,7 @@ namespace Mong.Features.Password
             public Command Forgot() => new Command();
 
             [HttpPost]
-            public async Task<Result> Forgot(Command command) => await Send(command);
+            public async Task<Result> Forgot(Command command) => await SendAsync(command);
         }
     }
 }

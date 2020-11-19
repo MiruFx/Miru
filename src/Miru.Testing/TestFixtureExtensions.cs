@@ -25,9 +25,9 @@ namespace Miru.Testing
     /// </summary>
     public static class TestFixtureExtensions
     {
-        public static async Task<TResult> Send<TResult>(this ITestFixture fixture, IRequest<TResult> message)
+        public static async Task<TResult> SendAsync<TResult>(this ITestFixture fixture, IRequest<TResult> message)
         {
-            return await fixture.App.Send(message);
+            return await fixture.App.SendAsync(message);
         }
         
         public static TResult SendSync<TResult>(this ITestFixture fixture, IRequest<TResult> message)
@@ -35,7 +35,7 @@ namespace Miru.Testing
             return fixture.App.SendSync(message);
         }
         
-        public static void SaveSync(this ITestFixture fixture, params object[] entities)
+        public static void Save(this ITestFixture fixture, params object[] entities)
         {
             ThrowExceptionIfNotEntities(entities);
             
@@ -47,7 +47,7 @@ namespace Miru.Testing
             }
         }
         
-        public static TEntity SaveSync<TEntity>(this ITestFixture fixture, TEntity entity)
+        public static TEntity Save<TEntity>(this ITestFixture fixture, TEntity entity)
         {
             using (var scope = fixture.App.WithScope())
             {
@@ -59,7 +59,7 @@ namespace Miru.Testing
             return entity;
         }
 
-        public static async Task Save(this ITestFixture fixture, params object[] entities)
+        public static async Task SaveAsync(this ITestFixture fixture, params object[] entities)
         {
             ThrowExceptionIfNotEntities(entities);
             
@@ -71,18 +71,18 @@ namespace Miru.Testing
             }
         }
         
-        public static async Task<TScenario> Scenario<TScenario>(this ITestFixture fixture) where TScenario : IFixtureScenario, new()
+        public static async Task<TScenario> ScenarioAsync<TScenario>(this ITestFixture fixture) where TScenario : IFixtureScenario, new()
         {
             MiruTest.Log.Information($"Loading Scenario {typeof(TScenario)}");
             
             var scenario = new TScenario();
 
-            await scenario.Build(fixture);
+            await scenario.BuildAsync(fixture);
 
             return scenario;
         }
         
-        public static async Task Save<T>(this ITestFixture fixture, IEnumerable<T> entities) where T : IEntity
+        public static async Task SaveAsync<T>(this ITestFixture fixture, IEnumerable<T> entities) where T : IEntity
         {
             using (var scope = fixture.App.WithScope())
             {
@@ -138,7 +138,7 @@ namespace Miru.Testing
         
         public static TUser CurrentUser<TUser>(this ITestFixture fixture) where TUser : IUser
         {
-            return fixture.Get<IUserSession<TUser>>().User().GetAwaiter().GetResult();
+            return fixture.Get<IUserSession<TUser>>().GetUserAsync().GetAwaiter().GetResult();
         }
         
         public static long CurrentUserId(this ITestFixture fixture)

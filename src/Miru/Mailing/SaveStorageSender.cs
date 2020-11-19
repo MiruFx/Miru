@@ -31,11 +31,11 @@ namespace Miru.Mailing
         public async Task<SendResponse> SendAsync(IFluentEmail email, CancellationToken? token = null)
         {
             var response = new SendResponse();
-            await SaveEmailToDisk(email);
+            await SaveEmailToDiskAsync(email);
             return response;
         }
 
-        private async Task SaveEmailToDisk(IFluentEmail email)
+        private async Task SaveEmailToDiskAsync(IFluentEmail email)
         {
             var emailFile = _storage.Temp() / "emails" / $"{email.Data.Subject}-{DateTime.Now:yyyy-MM-dd_HH-mm-ss.fff}.txt";
             

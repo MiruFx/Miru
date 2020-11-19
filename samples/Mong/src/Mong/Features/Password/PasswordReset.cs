@@ -66,7 +66,7 @@ namespace Mong.Features.Password
                 
                 user.ResetPassword(Hash.Create(command.Password));
 
-                await _mailer.SendLaterTo(user, new PasswordResetMail());
+                await _mailer.SendLaterAsync(user, new PasswordResetMail());
                 
                 return new Result();
             }
@@ -86,10 +86,10 @@ namespace Mong.Features.Password
         
         public class PasswordController : MiruController
         {
-            public async Task<Command> Reset(Query query) => await Send(query);
+            public async Task<Command> Reset(Query query) => await SendAsync(query);
 
             [HttpPost]
-            public async Task<Result> Reset(Command command) => await Send(command);
+            public async Task<Result> Reset(Command command) => await SendAsync(command);
         }
         
         public class PasswordResetMail : Mailable

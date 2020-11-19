@@ -6,19 +6,19 @@ namespace Miru.Testing
     public abstract class OneCaseFeatureTest : MiruTest, ICasePerFeatureTest
     {
 #pragma warning disable 1998
-        public virtual async Task Given()
+        public virtual async Task GivenAsync()
 #pragma warning restore 1998
         {
         }
         
-        public virtual void GivenSync()
+        public virtual void Given()
         {
         }
 
         [OneTimeSetUp]
-        public async Task OneTimeSetup() => await Given();
+        public async Task OneTimeSetupAsync() => await GivenAsync();
         
         [OneTimeSetUp]
-        public void OneTimeSetupSync() => GivenSync();
+        public void OneTimeSetup() => Given();
     }
 }
