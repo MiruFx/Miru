@@ -19,6 +19,7 @@ Feature Types [ok]
 Handlers [ok]
   handler [ok]
   validator
+
 -->
 # Overview
 
@@ -202,9 +203,42 @@ public class OrderApplyDiscount
         }
     }
 }
+```
 
 ### Other Handlers
 
 Depending of the concern and the library being used, is possible to add other Handlers. An example within Miru is Validation:
 
 @[code lang=csharp transcludeWith=#validator](@/samples/Mong/src/Mong/Features/Accounts/AccountLogin.cs)
+
+## Create A Feature
+
+A Feature can be created using `miru make:feature`. It's required to choose one of these templates:
+
+|    Template      |  Flag | Description|
+|-----------------|-----------|------------|
+| New  | `--new` | Add an Entity |
+| Edit | `--edit` | Retrieve to edit an Entity |
+| Show | `--show` | Show an Entity |
+| List | `--list` | List Entities |
+| All above | `--all` | Creates `new`, `edit`, `show`, and `list` |
+
+```sh
+miru make:feature Orders Order New --new
+```
+
+The files that will be created depends on the template type. For example, `--new` creates these files:
+
+* `/src/{AppName}/Features/Orders/OrderNew.cs`
+* `/src/{AppName}/Features/Orders/New.cshtml`
+* `/src/{AppName}/Features/Orders/_New_.js.cshtml`
+* `/tests/{AppName}.Tests/Features/Orders/OrderNewTest.cs`
+* `/tests/{AppName}.PageTests/Pages/Orders/OrderNewPageTest.cs`
+
+### Create All Actions
+
+To create at once all actions (`new`, `edit`, `show`, `list`) for a Feature, use `miru make:feature:all`:
+
+```sh
+miru make:feature:all Products Product
+```

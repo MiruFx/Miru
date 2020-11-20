@@ -83,7 +83,15 @@ namespace Scripts
                 PushPackages(option.Key, "https://f.feedz.io/miru/miru/nuget");
             });
             
-            Target("publish-nuget", DependsOn("test-ci", "pack"), () =>
+            Target("pack-quick", () =>
+            {
+                foreach (var releasable in Packages)
+                {
+                    Run("dotnet", $"pack src\\{releasable.Key} -c {buildConfig} --nologo");
+                }
+            });
+            
+            Target("publish-nuget", DependsOn("compile", "pack"), () =>
             {
                 PushPackages(option.Key, "https://api.nuget.org/v3/index.json");
             });
@@ -171,18 +179,10 @@ namespace Scripts
             }
             
             var param = $" -s {serverUrl} -k {serverApiKey} --skip-duplicate";
-                
-            var paramNoSymbols = $" -s {serverUrl} -k {serverApiKey} --skip-duplicate";
-                
+            
             foreach (var (package, withSymbols) in Packages)
             {
-                if (withSymbols)
-                {
-                    Run("dotnet", $"nuget push {Path.Combine("packages", package)}.*.nupkg {param}", noEcho: true);
-                    Run("dotnet", $"nuget push {Path.Combine("packages", package)}.*.snupkg {paramNoSymbols}", noEcho: true);
-                }
-                else
-                    Run("dotnet", $"nuget push {Path.Combine("packages", package)}.*.nupkg {paramNoSymbols}", noEcho: true);
+                Run("dotnet", $"nuget push {Path.Combine("packages", package)}.*.nupkg {param}", noEcho: true);
             }
         }
     }

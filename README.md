@@ -22,6 +22,9 @@ comes with [Bootstrap](https://mirufx.github.io/Frontend/JavascriptCssAssets.htm
 and [much more](https://mirufx.github.io/Introduction/GettingStarted.html). 
 It's <a href="https://github.com/MiruFx/Miru" target="_blank">open-source</a> with MIT license.
 
+| Miru is in an early stage. It might change a lot before 1.0. Don't consider using it in production yet |
+| --- |
+
 ## Getting Started
 
 The best way is going through the [Documentation](https://mirufx.github.io/Introduction/GettingStarted.html)

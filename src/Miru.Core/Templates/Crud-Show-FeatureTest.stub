@@ -1,0 +1,26 @@
+using System.Linq;
+using System.Threading.Tasks;
+using Miru.Testing;
+using NUnit.Framework;
+using Shouldly;
+using {{ Solution.Name }}.Domain;
+using {{ Solution.Name }}.Features.{{ input.In }};
+
+namespace {{ Solution.Name }}.Tests.Features.{{ input.In }}
+{
+    public class {{ input.Name }}ShowTest : FeatureTest
+    {
+        [Test]
+        public async Task Can_show_{{ string.downcase input.Name }}()
+        {
+            // arrange
+            var {{ string.downcase input.Name }} = _.MakeSaving<{{ input.Name }}>();
+            
+            // act
+            var response = await _.SendAsync(new {{ input.Name }}Show.Query { Id = {{ string.downcase input.Name }}.Id });
+            
+            // assert
+            response.{{ input.Name }}.ShouldBe({{ string.downcase input.Name }});
+        }
+    }
+}

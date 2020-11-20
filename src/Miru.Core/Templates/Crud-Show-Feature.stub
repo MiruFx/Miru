@@ -1,0 +1,51 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Miru;
+using Miru.Mvc;
+using {{ Solution.Name }}.Database;
+using {{ Solution.Name }}.Domain;
+
+namespace {{ Solution.Name }}.Features.{{ input.In }}
+{
+    public class {{ input.Name }}Show
+    {
+        public class Query : IRequest<Result>
+        {
+            public long Id { get; set; }
+        }
+
+        public class Result
+        {
+            public {{ input.Name }} {{ input.Name }} { get; set; }
+        }
+
+        public class Handler : IRequestHandler<Query, Result>
+        {
+            private readonly {{ Solution.Name }}DbContext _db;
+            
+            public Handler({{ Solution.Name }}DbContext db)
+            {
+                _db = db;
+            }
+            
+            public async Task<Result> Handle(Query request, CancellationToken ct)
+            {
+                return new Result
+                {
+                    {{ input.Name }} = await _db.{{ input.In }}.ByIdOrFailAsync(request.Id, ct)
+                };
+            }
+        }
+        
+        public class {{ input.In }}Controller : MiruController
+        {
+            [Route("/{{ input.In }}/{id:long}")]
+            public async Task<Result> Show(Query request) => await SendAsync(request);
+        }
+    }
+}

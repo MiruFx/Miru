@@ -7,8 +7,8 @@
 
                 <h3>{{ input.Name }}</h3>
                 
-                <a for="@(new {{ input.Name }}List())">← {{ input.In }}</a> | 
-                <a for="@(new {{ input.Name }}Edit.Query { Id = Model.{{ input.Name }}.Id })">Edit</a>
+                <a href="#">← {{ input.In }}</a> | 
+                <a href="#">Edit</a>
                 
                 <dl class="dl-horizontal mt-4" miru-id="@Model">
                     <dt>

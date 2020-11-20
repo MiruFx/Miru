@@ -1,0 +1,8 @@
+@model {{ input.Name }}New.Result
+
+<template data-page-update-target>
+    <div class="alert alert-success">
+        {{ input.Name }} successfully saved
+    </div>
+    <a for="@(new {{ input.Name }}List())">← {{ input.In }}</a>
+</template>

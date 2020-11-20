@@ -26,9 +26,9 @@ namespace Scripts
             Directory.CreateDirectory(_stubDir);
             
             // New
+            ExportFile(_rootDir / "global.json");
             ExportFile(_dir / "Skeleton.sln", "Solution.sln");
             ExportFile(_dir / "gitignore", ".gitignore", destinationFile: ".gitignore");
-            ExportFile(_dir / "global.json");
             
             ExportDir(_dir / "config");
             
@@ -101,30 +101,53 @@ namespace Scripts
             ExportFile(_dir / "config" / "_Config.Example.yml", "Config");
             
             // Feature-New
-            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "ProductNew.cs", "New-Feature");
-            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "New.cshtml", "New-Feature.cshtml");
-            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "_New.js.cshtml", "New-_Feature.js.cshtml");
-            ExportFile(_dir / "tests" / "Skeleton.Tests" / "Features" / "Products" / "ProductNewTest.cs", "New-FeatureTest");
-            ExportFile(_dir / "tests" / "Skeleton.PageTests" / "Pages" / "Products" / "ProductNewPageTest.cs", "New-FeaturePageTest");
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Categories" / "CategoryNew.cs", "New-Feature");
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Categories" / "New.cshtml", "New-Feature.cshtml");
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Categories" / "_New.js.cshtml", "New-_Feature.js.cshtml");
+            ExportFile(_dir / "tests" / "Skeleton.Tests" / "Features" / "Categories" / "CategoryNewTest.cs", "New-FeatureTest");
+            ExportFile(_dir / "tests" / "Skeleton.PageTests" / "Pages" / "Categories" / "CategoryNewPageTest.cs", "New-FeaturePageTest");
             
             // Feature-Edit
-            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "ProductEdit.cs", "Edit-Feature", templateKey: "Edit");
-            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "Edit.cshtml", "Edit-Feature.cshtml", templateKey: "Edit");
-            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "_Edit.js.cshtml", "Edit-_Feature.js.cshtml", templateKey: "Edit");
-            ExportFile(_dir / "tests" / "Skeleton.Tests" / "Features" / "Products" / "ProductEditTest.cs", "Edit-FeatureTest", templateKey: "Edit");
-            ExportFile(_dir / "tests" / "Skeleton.PageTests" / "Pages" / "Products" / "ProductEditPageTest.cs", "Edit-FeaturePageTest", templateKey: "Edit");
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Categories" / "CategoryEdit.cs", "Edit-Feature", templateKey: "Edit");
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Categories" / "Edit.cshtml", "Edit-Feature.cshtml", templateKey: "Edit");
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Categories" / "_Edit.js.cshtml", "Edit-_Feature.js.cshtml", templateKey: "Edit");
+            ExportFile(_dir / "tests" / "Skeleton.Tests" / "Features" / "Categories" / "CategoryEditTest.cs", "Edit-FeatureTest", templateKey: "Edit");
+            ExportFile(_dir / "tests" / "Skeleton.PageTests" / "Pages" / "Categories" / "CategoryEditPageTest.cs", "Edit-FeaturePageTest", templateKey: "Edit");
             
             // Feature-Show
-            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "ProductShow.cs", "Show-Feature", templateKey: "Show");
-            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "Show.cshtml", "Show-Feature.cshtml", templateKey: "Show");
-            ExportFile(_dir / "tests" / "Skeleton.Tests" / "Features" / "Products" / "ProductShowTest.cs", "Show-FeatureTest", templateKey: "Show");
-            ExportFile(_dir / "tests" / "Skeleton.PageTests" / "Pages" / "Products" / "ProductShowPageTest.cs", "Show-FeaturePageTest", templateKey: "Show");
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Categories" / "CategoryShow.cs", "Show-Feature", templateKey: "Show");
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Categories" / "Show.cshtml", "Show-Feature.cshtml", templateKey: "Show");
+            ExportFile(_dir / "tests" / "Skeleton.Tests" / "Features" / "Categories" / "CategoryShowTest.cs", "Show-FeatureTest", templateKey: "Show");
+            ExportFile(_dir / "tests" / "Skeleton.PageTests" / "Pages" / "Categories" / "CategoryShowPageTest.cs", "Show-FeaturePageTest", templateKey: "Show");
             
             // Feature-List
-            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "ProductList.cs", "List-Feature", templateKey: "List");
-            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "List.cshtml", "List-Feature.cshtml", templateKey: "List");
-            ExportFile(_dir / "tests" / "Skeleton.Tests" / "Features" / "Products" / "ProductListTest.cs", "List-FeatureTest", templateKey: "List");
-            ExportFile(_dir / "tests" / "Skeleton.PageTests" / "Pages" / "Products" / "ProductListPageTest.cs", "List-FeaturePageTest", templateKey: "List");
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Categories" / "CategoryList.cs", "List-Feature", templateKey: "List");
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Categories" / "List.cshtml", "List-Feature.cshtml", templateKey: "List");
+            ExportFile(_dir / "tests" / "Skeleton.Tests" / "Features" / "Categories" / "CategoryListTest.cs", "List-FeatureTest", templateKey: "List");
+            ExportFile(_dir / "tests" / "Skeleton.PageTests" / "Pages" / "Categories" / "CategoryListPageTest.cs", "List-FeaturePageTest", templateKey: "List");
+            
+            // Feature-Crud
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "ProductNew.cs", "Crud-New-Feature");
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "New.cshtml", "Crud-New-Feature.cshtml");
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "_New.js.cshtml", "Crud-New-_Feature.js.cshtml");
+            ExportFile(_dir / "tests" / "Skeleton.Tests" / "Features" / "Products" / "ProductNewTest.cs", "Crud-New-FeatureTest");
+            ExportFile(_dir / "tests" / "Skeleton.PageTests" / "Pages" / "Products" / "ProductNewPageTest.cs", "Crud-New-FeaturePageTest");
+            
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "ProductEdit.cs", "Crud-Edit-Feature", templateKey: "Edit");
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "Edit.cshtml", "Crud-Edit-Feature.cshtml", templateKey: "Edit");
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "_Edit.js.cshtml", "Crud-Edit-_Feature.js.cshtml", templateKey: "Edit");
+            ExportFile(_dir / "tests" / "Skeleton.Tests" / "Features" / "Products" / "ProductEditTest.cs", "Crud-Edit-FeatureTest", templateKey: "Edit");
+            ExportFile(_dir / "tests" / "Skeleton.PageTests" / "Pages" / "Products" / "ProductEditPageTest.cs", "Crud-Edit-FeaturePageTest", templateKey: "Edit");
+            
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "ProductShow.cs", "Crud-Show-Feature", templateKey: "Show");
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "Show.cshtml", "Crud-Show-Feature.cshtml", templateKey: "Show");
+            ExportFile(_dir / "tests" / "Skeleton.Tests" / "Features" / "Products" / "ProductShowTest.cs", "Crud-Show-FeatureTest", templateKey: "Show");
+            ExportFile(_dir / "tests" / "Skeleton.PageTests" / "Pages" / "Products" / "ProductShowPageTest.cs", "Crud-Show-FeaturePageTest", templateKey: "Show");
+            
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "ProductList.cs", "Crud-List-Feature", templateKey: "List");
+            ExportFile(_dir / "src" / "Skeleton" / "Features" / "Products" / "List.cshtml", "Crud-List-Feature.cshtml", templateKey: "List");
+            ExportFile(_dir / "tests" / "Skeleton.Tests" / "Features" / "Products" / "ProductListTest.cs", "Crud-List-FeatureTest", templateKey: "List");
+            ExportFile(_dir / "tests" / "Skeleton.PageTests" / "Pages" / "Products" / "ProductListPageTest.cs", "Crud-List-FeaturePageTest", templateKey: "List");
         }
 
         private static void SaveMapForNewSolution()
@@ -172,13 +195,23 @@ namespace Scripts
                 .Replace(
                     @"<ProjectReference Include=""..\..\..\..\src\Miru.PageTesting.Chrome\Miru.PageTesting.Chrome.csproj"" />",
                     @"<PackageReference Include=""Miru.PageTesting.Chrome"" Version=""{{ MiruVersion }}"" />")
-                .Replace("public DbSet<Product> Products { get; set; }", "// public DbSet<Product> Products { get; set; }")
-                .Replace("@using Skeleton.Features.Products", string.Empty)
+                
                 .Replace("Skeleton", "{{ Solution.Name }}")
+                
+                .Replace("public DbSet<Product> Products { get; set; }", "// public DbSet<Product> Products { get; set; }")
                 .Replace("Products", "{{ input.In }}")
                 .Replace("products", "{{ string.downcase input.In }}")
                 .Replace("Product", "{{ input.Name }}")
                 .Replace("product", "{{ string.downcase input.Name }}")
+                .Replace("@using Skeleton.Features.Products", string.Empty)
+                
+                .Replace("public DbSet<Category> Categories { get; set; }", string.Empty)
+                .Replace("Categories", "{{ input.In }}")
+                .Replace("categories", "{{ string.downcase input.In }}")
+                .Replace("Category", "{{ input.Name }}")
+                .Replace("category", "{{ string.downcase input.Name }}")
+                .Replace("@using Skeleton.Features.Category", string.Empty)
+                
                 .Replace("Seed", "{{ input.Name }}")
                 .Replace("seed", "{{ string.downcase input.Name }}")
                 .ReplaceIf(templateKey == "New", "New", "{{ input.Action }}")
@@ -191,8 +224,11 @@ namespace Scripts
                 .ReplaceIf(templateKey == "Edit", "edit", "{{ string.downcase input.Action }}")
                 .ReplaceIf(templateKey == "List", "List", "{{ input.Action }}")
                 .ReplaceIf(templateKey == "List", "list", "{{ string.downcase input.Action }}")
+                
+                // migration
                 .Replace("999999999999", "{{ input.Version }}")
                 .Replace("CreateCards", "{{ input.Name }}")
+                .Replace("TableName", "{{ input.Table }}")
             );
 
             File.WriteAllLines(stubPath, fileContent);

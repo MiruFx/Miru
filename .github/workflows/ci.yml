@@ -29,11 +29,6 @@ jobs:
         Miru_Database__ConnectionString: "DataSource={{ db_dir }}Mong_test.db"
       run: ./build publish-dev --key ${{ secrets.FEEDZ_KEY }}
 
-    - name: Test Mong
-      env:
-        Miru_Database__ConnectionString: "DataSource={{ db_dir }}Mong_test.db"
-      run: ./build publish-dev --key ${{ secrets.FEEDZ_KEY }}
-      
   build-windows:
     runs-on: windows-latest
     defaults:

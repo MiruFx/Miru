@@ -4,6 +4,7 @@ using Miru.Testing;
 using NUnit.Framework;
 using {{ Solution.Name }}.Domain;
 using {{ Solution.Name }}.Features.{{ input.In }};
+using {{ Solution.Name }}.Features.{{ input.In }};
 
 namespace {{ Solution.Name }}.Tests.Features.{{ input.In }}
 {
