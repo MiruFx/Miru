@@ -64,10 +64,9 @@ The roadmap can change in the future.
     - Update to Boostrap 5
         - Remove jQuery
         - Remove expose-loader
-        - Remove some package.json dependencies
+    - Review package.json dependencies dependencies
 
 ### 0.8
-
 
 
 ### 0.9 - C# 9, Build script

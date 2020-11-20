@@ -30,6 +30,8 @@ namespace Miru.Makers
             make.FeatureAll(input.In, input.Name);
             
             Console2.BreakLine();
+            Console2.WhiteLine($"Consider creating an Entity and a Migration for {input.Name}");
+            Console2.BreakLine();
             
             return true;
         }

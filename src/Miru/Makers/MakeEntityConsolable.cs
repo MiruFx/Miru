@@ -28,7 +28,7 @@ namespace Miru.Makers
 
             Console2.BreakLine();
             
-            Console2.GreyLine("\tAdd to your DbContext:");
+            Console2.GreyLine("\tConsider adding to your DbContext:");
             Console2.BreakLine();
             Console2.WhiteLine($"\t\tpublic DbSet<{input.Name}> {input.Name.Pluralize()} {{ get; set; }}");
             

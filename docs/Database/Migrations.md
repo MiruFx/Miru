@@ -31,6 +31,12 @@ miru make:migration CreateWithdraws
 
 Migrations can be located at ```/src/App/Database/Migrations```.
 
+It's possible to pass with table is being manipulated:
+
+```shell
+miru make:migration CreateWithdraws --table Withdraws
+```
+
 ## Migration
 
 Migration is a class that sets a version of the schema change and the changes:
