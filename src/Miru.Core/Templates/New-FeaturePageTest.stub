@@ -1,7 +1,5 @@
 using Miru.PageTesting;
-using Miru.Testing;
 using NUnit.Framework;
-using {{ Solution.Name }}.Domain;
 using {{ Solution.Name }}.Features.{{ input.In }};
 
 namespace {{ Solution.Name }}.PageTests.Pages.{{ input.In }}

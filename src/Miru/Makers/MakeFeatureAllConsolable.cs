@@ -4,12 +4,12 @@ using Oakton;
 
 namespace Miru.Makers
 {
-    [Description("Make a new Mailable", Name = "make:mail")]
-    public class MakeEmailConsolable : ConsolableSync<MakeEmailConsolable.Input>
+    [Description("Make new, edit, show, and list Features ", Name = "make:feature:all")]
+    public class MakeFeatureAllConsolable : ConsolableSync<MakeFeatureAllConsolable.Input>
     {
         private readonly MiruSolution _solution;
 
-        public MakeEmailConsolable(MiruSolution solution)
+        public MakeFeatureAllConsolable(MiruSolution solution)
         {
             _solution = solution;
         }
@@ -19,8 +19,6 @@ namespace Miru.Makers
             public string In { get; set; }
 
             public string Name { get; set; }
-            
-            public string Action { get; set; }
         }
         
         public override bool Execute(Input input)
@@ -29,7 +27,11 @@ namespace Miru.Makers
             
             Console2.BreakLine();
 
-            make.Email(input.In, input.Name, input.Action);
+            make.FeatureAll(input.In, input.Name);
+            
+            Console2.BreakLine();
+            Console2.WhiteLine($"Consider creating an Entity and a Migration for {input.Name}");
+            Console2.BreakLine();
             
             return true;
         }

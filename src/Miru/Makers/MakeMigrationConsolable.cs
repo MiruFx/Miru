@@ -12,6 +12,8 @@ namespace Miru.Makers
         public class Input
         {
             public string Name { get; set; }
+            
+            public string TableFlag { get; set; }
         }
         
         public MakeMigrationConsolable(Maker maker)
@@ -21,7 +23,9 @@ namespace Miru.Makers
 
         public override bool Execute(Input input)
         {
-            _maker.Migration(input.Name);
+            Console2.BreakLine();
+            
+            _maker.Migration(input.Name, table: input.TableFlag);
 
             return true;
         }

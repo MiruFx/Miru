@@ -1,4 +1,5 @@
-﻿using Miru.Core;
+﻿using Humanizer;
+using Miru.Core;
 using Miru.Makers;
 using Miru.Testing;
 using NUnit.Framework;

@@ -29,7 +29,23 @@ namespace Miru.Tests.Makers
                 .ShouldExistAndContains(
                     "namespace Shopifu.Database.Migrations",
                     $"[Migration(123)]",
-                    "public class CreateTopup");
+                    "public class CreateTopup",
+                    "Create.Table(\"TableName\")");
+        }
+        
+        [Test]
+        public void Make_migration_with_table_name()
+        {
+            var m = new Maker(new MiruSolution(_solutionDir));
+            
+            m.Migration("CreateTeams", "456", table: "Teams");
+            
+            (_solutionDir / "src" / "Shopifu" / "Database" / "Migrations" / "456_CreateTeams.cs")
+                .ShouldExistAndContains(
+                    "namespace Shopifu.Database.Migrations",
+                    $"[Migration(456)]",
+                    "public class CreateTeams",
+                    "Create.Table(\"Teams\")");
         }
     }
 }

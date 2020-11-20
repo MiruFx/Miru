@@ -42,7 +42,7 @@ namespace Miru.Tests.Makers
             
             (m.Solution.FeaturesDir / "Goals" / "GoalList.cs").ShouldExist();
             (m.Solution.FeaturesDir / "Goals" / "List.cshtml").ShouldExistAndContains(
-                "<a for=\"@(new GoalEdit.Query { Id = item.Id })\">Edit</a>");
+                "<a href=\"#\">Edit</a>");
             
             (m.Solution.AppTestsDir / "Features" / "Goals" / "GoalListTest.cs").ShouldExist();
             (m.Solution.AppPageTestsDir / "Pages" / "Goals" / "GoalListPageTest.cs").ShouldExist();

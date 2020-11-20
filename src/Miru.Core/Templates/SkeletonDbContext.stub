@@ -17,5 +17,6 @@ namespace {{ Solution.Name }}.Database
         
         // Your entities
         // public DbSet<{{ input.Name }}> {{ input.In }} { get; set; } 
+         
     }
 }

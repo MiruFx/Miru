@@ -8,7 +8,7 @@ namespace {{ Solution.Name }}.Database.Migrations
     {
         public override void Up()
         {
-            Create.Table("TableName")
+            Create.Table("{{ input.Table }}")
                 .WithColumn("Id").AsId()
                 .WithColumn("Name").AsString(64);
         }
