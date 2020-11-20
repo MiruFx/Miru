@@ -2,9 +2,9 @@ using Miru.Core;
 
 namespace Miru.Makers
 {
-    public static class CrudMaker
+    public static class FeatureAllMaker
     {
-        public static void Crud(this Maker maker, string @in, string name)
+        public static void FeatureAll(this Maker maker, string @in, string name)
         {
             maker.Feature(@in, name, "New", "Crud-New");
             maker.Feature(@in, name, "Edit", "Crud-Edit");

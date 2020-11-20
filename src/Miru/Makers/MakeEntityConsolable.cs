@@ -1,3 +1,4 @@
+using Humanizer;
 using Miru.Consolables;
 using Miru.Core;
 using Oakton;
@@ -26,6 +27,10 @@ namespace Miru.Makers
             _maker.Entity(input.Name);
 
             Console2.BreakLine();
+            
+            Console2.GreyLine("\tAdd to your DbContext:");
+            Console2.BreakLine();
+            Console2.WhiteLine($"\t\tpublic DbSet<{input.Name}> {input.Name.Pluralize()} {{ get; set; }}");
             
             return true;
         }

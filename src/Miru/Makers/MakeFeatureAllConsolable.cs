@@ -4,12 +4,12 @@ using Oakton;
 
 namespace Miru.Makers
 {
-    [Description("Make new, edit, show, and list Features ", Name = "make:crud")]
-    public class MakeCrudConsolable : ConsolableSync<MakeCrudConsolable.Input>
+    [Description("Make new, edit, show, and list Features ", Name = "make:feature:all")]
+    public class MakeFeatureAllConsolable : ConsolableSync<MakeFeatureAllConsolable.Input>
     {
         private readonly MiruSolution _solution;
 
-        public MakeCrudConsolable(MiruSolution solution)
+        public MakeFeatureAllConsolable(MiruSolution solution)
         {
             _solution = solution;
         }
@@ -27,7 +27,7 @@ namespace Miru.Makers
             
             Console2.BreakLine();
 
-            make.Crud(input.In, input.Name);
+            make.FeatureAll(input.In, input.Name);
             
             Console2.BreakLine();
             
