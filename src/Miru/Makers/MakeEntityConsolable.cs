@@ -21,8 +21,12 @@ namespace Miru.Makers
 
         public override bool Execute(Input input)
         {
+            Console2.BreakLine();
+            
             _maker.Entity(input.Name);
 
+            Console2.BreakLine();
+            
             return true;
         }
     }

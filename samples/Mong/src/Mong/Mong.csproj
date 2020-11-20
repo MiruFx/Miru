@@ -11,5 +11,14 @@
   <ItemGroup>  
     <ProjectReference Include="..\..\..\..\src\Miru\Miru.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Features\Teams\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Features\Teams\List.cshtml" />
+    <_ContentIncludedByDefault Remove="Features\Teams\New.cshtml" />
+    <_ContentIncludedByDefault Remove="Features\Teams\Show.cshtml" />
+    <_ContentIncludedByDefault Remove="Features\Teams\_Edit.js.cshtml" />
+    <_ContentIncludedByDefault Remove="Features\Teams\_New.js.cshtml" />
+  </ItemGroup>
 
 </Project>
