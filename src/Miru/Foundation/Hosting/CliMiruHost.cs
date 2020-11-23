@@ -11,13 +11,11 @@ namespace Miru.Foundation.Hosting
     public class CliMiruHost : IMiruHost
     {
         private readonly IMiruApp _app;
-        private readonly MiruCommandCreator _commandCreator;
         private readonly ArgsConfiguration _argsConfig;
 
-        public CliMiruHost(IMiruApp app, MiruCommandCreator commandCreator, ArgsConfiguration argsConfig)
+        public CliMiruHost(IMiruApp app, ArgsConfiguration argsConfig)
         {
             _app = app;
-            _commandCreator = commandCreator;
             _argsConfig = argsConfig;
         }
 
@@ -29,20 +27,24 @@ namespace Miru.Foundation.Hosting
         public async Task RunAsync(string args)
         {
             System.Console.OutputEncoding = System.Text.Encoding.UTF8;
-            
-            var factory = GetCommandFactory();
 
-            var executor = new CommandExecutor(factory);
+            using (var scope = _app.WithScope())
+            {
+                var commandCreator = new MiruCommandCreator(scope);
+                var factory = GetCommandFactory(commandCreator);
+
+                var executor = new CommandExecutor(factory);
             
-            if (args.IsNotEmpty())
-                await executor.ExecuteAsync(args);
-            else
-                await executor.ExecuteAsync(_argsConfig.CliArgs);
+                if (args.IsNotEmpty())
+                    await executor.ExecuteAsync(args);
+                else
+                    await executor.ExecuteAsync(_argsConfig.CliArgs);
+            }
         }
 
-        private MiruCommandFactory GetCommandFactory()
+        private MiruCommandFactory GetCommandFactory(MiruCommandCreator commandCreator)
         {
-            var factory = new MiruCommandFactory(_commandCreator);
+            var factory = new MiruCommandFactory(commandCreator);
 
             RegisterAllTasks(factory);
 

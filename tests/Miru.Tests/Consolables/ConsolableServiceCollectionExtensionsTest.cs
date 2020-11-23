@@ -27,7 +27,7 @@ namespace Miru.Tests.Consolables
         {
             var consolableTypes = new ServiceCollection()
                 .AddServiceCollection()
-                .AddCliCommand<TestConsolable>() // act
+                .AddConsolable<TestConsolable>() // act
                 .BuildServiceProvider()
                 .GetRegisteredServices<IConsolable>();
             

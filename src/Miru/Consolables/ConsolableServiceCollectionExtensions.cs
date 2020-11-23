@@ -5,11 +5,11 @@ namespace Miru.Consolables
 {
     public static class ServiceTaskExtensions
     {
-        public static IServiceCollection AddCliCommand<TCliCommand>(this IServiceCollection services) 
-            where TCliCommand : class, IConsolable
+        public static IServiceCollection AddConsolable<TConsolable>(this IServiceCollection services) 
+            where TConsolable : class, IConsolable
         {
-            services.AddTransient<IConsolable, TCliCommand>();
-            services.AddTransient<TCliCommand>();
+            services.AddScoped<IConsolable, TConsolable>();
+            services.AddScoped<TConsolable>();
         
             return services;
         }
@@ -24,9 +24,9 @@ namespace Miru.Consolables
                 })
                 .AsSelf()
                 .AsImplementedInterfaces()
-                .WithTransientLifetime());
+                .WithScopedLifetime());
 
-            services.AddSingleton<HelpCommand>();
+            services.AddScoped<HelpCommand>();
 
             return services;
         }

@@ -5,16 +5,16 @@ namespace Miru.Consolables
 {
     public class MiruCommandCreator : ICommandCreator
     {
-        private readonly IMiruApp _app;
+        private readonly ScopedServices _scope;
 
-        public MiruCommandCreator(IMiruApp app)
+        public MiruCommandCreator(ScopedServices scope)
         {
-            _app = app;
+            _scope = scope;
         }
 
         public IOaktonCommand CreateCommand(Type commandType)
         {
-            return (IOaktonCommand)_app.Get(commandType);
+            return (IOaktonCommand)_scope.Get(commandType);
         }
 
         public object CreateModel(Type modelType)

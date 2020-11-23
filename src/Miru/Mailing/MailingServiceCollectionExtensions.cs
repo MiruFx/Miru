@@ -17,7 +17,7 @@ namespace Miru.Mailing
             if (setupAction != null)
                 services.Configure(setupAction);
             
-            services.AddSingleton<IMailer, FluentEmailMailer>();
+            services.AddScoped<IMailer, FluentEmailMailer>();
 
             FluentEmail.Core.Email.DefaultSender = null;
 
@@ -30,7 +30,7 @@ namespace Miru.Mailing
 
         public static IServiceCollection AddSenderStorage(this IServiceCollection services)
         {
-            services.AddSingleton<ISender, SaveStorageSender>();
+            services.AddScoped<ISender, SaveStorageSender>();
 
             return services;
         }

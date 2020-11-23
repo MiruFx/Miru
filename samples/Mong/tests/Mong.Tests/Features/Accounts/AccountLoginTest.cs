@@ -63,11 +63,8 @@ namespace Mong.Tests.Features.Accounts
             [Test]
             public void Email_is_required_and_valid_and_unique()
             {
-                var existentUser = _.MakeSaving<User>();
-
                 ShouldBeValid(m => m.Email, Request.Email);
 
-                ShouldBeInvalid(m => m.Email, existentUser.Email);
                 ShouldBeInvalid(m => m.Email, string.Empty);
                 ShouldBeInvalid(m => m.Email, "admin!.admin");
             }

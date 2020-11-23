@@ -76,7 +76,7 @@ namespace Scripts
                 }
             });
             
-            Target("test-ci", DependsOn("test", "mong-test"));
+            Target("test-ci", DependsOn("test", "mong-test-all"));
 
             Target("publish-dev", DependsOn("test-ci", "pack"), () =>
             {
@@ -113,7 +113,7 @@ namespace Scripts
             
             Target("mong-test-all", () =>
             {
-                Run("dotnet", "test", workingDirectory: @"samples\Mong");
+                Run("dotnet", "test", workingDirectory: @"samples/Mong");
             });
             
             Target("export-stubs", ExportStubs.Export);
