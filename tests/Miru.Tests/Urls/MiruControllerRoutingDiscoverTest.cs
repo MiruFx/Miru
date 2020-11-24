@@ -11,7 +11,9 @@ namespace Miru.Tests.Urls
 {
     public class MiruControllerRoutingDiscoverTest : IDisposable
     {
-        private readonly SystemUnderTest _system = new SystemUnderTest(new MiruTestWebHost(MiruHost.CreateMiruHost()).GetConfiguredHostBuilder());
+        private readonly SystemUnderTest _system = new SystemUnderTest(
+            new MiruTestWebHost(MiruHost.CreateMiruHost()).GetConfiguredHostBuilder());
+            
         private UrlLookup UrlLookup => _system.Services.GetService<UrlLookup>();
 
         public void Dispose() => _system?.Dispose();

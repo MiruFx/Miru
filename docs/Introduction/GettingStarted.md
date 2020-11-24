@@ -4,6 +4,7 @@ Overview
   samples
   TODO: video
 TODO: Update packages
+  TODO: Update Selenium
 TODO: References
 TODO: Roadmap and Vision link
 -->

@@ -11,7 +11,7 @@
 
         <ProjectReference Include="..\..\..\..\src\Miru.PageTesting\Miru.PageTesting.csproj" />
         <ProjectReference Include="..\..\..\..\src\Miru.PageTesting.Chrome\Miru.PageTesting.Chrome.csproj" />
-        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="85.0.4183.8700" />
+        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="87.0.4280.2000" />
     </ItemGroup>
 
     <ItemGroup>

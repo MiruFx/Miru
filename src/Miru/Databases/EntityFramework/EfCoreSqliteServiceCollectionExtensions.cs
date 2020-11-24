@@ -2,10 +2,7 @@ using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Miru.Core;
 using Miru.Databases.Migrations;
-using Miru.Databases.Migrations.FluentMigrator;
-using Miru.Foundation.Bootstrap;
 using Miru.Foundation.Hosting;
 using Miru.Settings;
 
@@ -29,28 +26,7 @@ namespace Miru.Databases.EntityFramework
                 }
             });
 
-            services.AddSingleton(sp => new ServiceCollection()
-                .AddFluentMigratorCore()
-                .ConfigureRunner(rb => rb
-                    .AddSQLite()
-                    .WithGlobalConnectionString(sp.GetService<DatabaseOptions>().ConnectionString)
-                    .ScanIn(typeof(TDbContext).Assembly).For.All())
-                .AddLogging(lb => lb.AddFluentMigratorConsole())
-                .BuildServiceProvider(false)
-                .GetService<IMigrationRunner>());
-
-            services.AddTransient<IDatabaseMigrator, FluentDatabaseMigrator>();
-            
-            // ConnectionString transformation
-            services.PostConfigureAll<DatabaseOptions>(settings =>
-            {
-                var dbDir = App.Solution.StorageDir / "db" / ".";
-                
-                settings.ConnectionString = 
-                    settings.ConnectionString?.Replace("{{ db_dir }}", dbDir);
-                
-                Directories.CreateIfNotExists(dbDir);
-            });
+            services.AddMigrator<TDbContext>(mb => mb.AddSQLite());
             
             return services;
         }

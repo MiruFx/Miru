@@ -17,13 +17,13 @@ namespace Miru.Mailing
             if (setupAction != null)
                 services.Configure(setupAction);
             
-            services.AddScoped<IMailer, FluentEmailMailer>();
+            services.AddTransient<IMailer, FluentEmailMailer>();
 
             FluentEmail.Core.Email.DefaultSender = null;
 
             services.AddSingleton(sp => sp.GetService<IOptions<MailingOptions>>().Value);
 
-            services.AddScoped<RazorViewToStringRenderer>();
+            services.AddTransient<RazorViewToStringRenderer>();
 
             return services;
         }

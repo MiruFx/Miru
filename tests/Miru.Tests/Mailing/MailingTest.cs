@@ -18,34 +18,7 @@ namespace Miru.Tests.Mailing
 {
     public class MailingTest
     {
-        private readonly MiruTestWebHost _host = new MiruTestWebHost(MiruHost.CreateMiruHost(), 
-            services =>
-            {
-                services
-                    .AddStorage()
-                    .AddMiruMvc()
-                    .AddMiruUrls()
-                    .AddLogging()
-                    .AddSerilogConfig()
-                    .AddSingleton<IUrlMaps, StubUrlMaps>()
-                    .AddMailing(options =>
-                    {
-                        options.EmailDefaults(email =>
-                        {
-                            email.From("mailing@test.com", "Mailing Test");
-                            email.ReplyTo("noreply@test.com");
-                        });
-
-                        options.AppUrl = "http://www.contoso.com";
-
-                        options.TemplatePath = new SolutionFinder().FromCurrentDir().Solution.AppTestsDir;
-                    })
-                    .AddSenderMemory()
-                    .AddSingleton<MiruSolution, MiruTestSolution>()
-                    .AddQueuing((sp, cfg) => cfg.UseMemoryStorage())
-                    .AddMediatR(typeof(MailingTest).Assembly)
-                    .BuildServiceProvider();
-            });
+        private readonly MiruTestWebHost _host;
         
         private readonly IMailer _mailer;
         private readonly MemorySender _emailsSent;
@@ -53,6 +26,34 @@ namespace Miru.Tests.Mailing
 
         public MailingTest()
         {
+            _host = new MiruTestWebHost(MiruHost.CreateMiruHost(), 
+                services =>
+                {
+                    services
+                        .AddStorage()
+                        .AddMiruMvc()
+                        .AddMiruUrls()
+                        .AddLogging()
+                        .AddSerilogConfig()
+                        .AddSingleton<IUrlMaps, StubUrlMaps>()
+                        .AddMailing(options =>
+                        {
+                            options.EmailDefaults(email =>
+                            {
+                                email.From("mailing@test.com", "Mailing Test");
+                                email.ReplyTo("noreply@test.com");
+                            });
+
+                            options.AppUrl = "http://www.contoso.com";
+
+                            options.TemplatePath = new SolutionFinder().FromCurrentDir().Solution.AppTestsDir;
+                        })
+                        .AddSenderMemory()
+                        .AddSingleton<MiruSolution, MiruTestSolution>()
+                        .AddQueuing((sp, cfg) => cfg.UseMemoryStorage())
+                        .AddMediatR(typeof(MailingTest).Assembly);
+                });
+            
             _sp = _host.Services;
             
             _mailer = _sp.GetService<IMailer>();

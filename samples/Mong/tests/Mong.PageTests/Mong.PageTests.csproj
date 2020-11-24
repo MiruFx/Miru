@@ -8,9 +8,8 @@
     <ItemGroup>
         <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
-        <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.27.0" />
-        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="86.0.4240.2200" />
-        <PackageReference Include="Selenium.InternetExplorer.WebDriver" Version="3.150.1" />
+        <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.28.0" />
+        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="87.0.4280.2000" />
     </ItemGroup>
 
     <ItemGroup>

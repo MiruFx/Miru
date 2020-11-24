@@ -1,9 +1,12 @@
+using FluentMigrator.Runner;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Miru;
+using Miru.Consolables;
 using Miru.Databases.EntityFramework;
+using Miru.Databases.Migrations;
 using Miru.Foundation.Hosting;
 using Miru.Foundation.Logging;
 using Miru.Mailing;
@@ -27,11 +30,6 @@ namespace Mong
         {
             services.AddMiru<Startup>()
             
-                // .AddSerilogConfig(config =>
-                // {
-                //     config.MinimumLevel.Override("SolutionName", LogEventLevel.Debug);
-                // })
-                
                 // pipeline
                 .AddDefaultPipeline<Startup>()
 

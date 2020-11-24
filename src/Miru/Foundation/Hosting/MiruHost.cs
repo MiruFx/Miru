@@ -13,6 +13,7 @@ using Miru.Foundation.Bootstrap;
 using Miru.Foundation.Logging;
 using Miru.Mailing;
 using Miru.Settings;
+using Oakton.Help;
 using Serilog;
 using Serilog.Events;
 
@@ -57,10 +58,7 @@ namespace Miru.Foundation.Hosting
                     services.AddSingleton<IMiruHost, CliMiruHost>();
 
                     // Consolables
-                    services.AddSingleton<MiruCommandCreator>();
-                    services.AddConsolables<CliMiruHost>();
-                    services.AddSingleton<IFileSystem, FileSystem>();
-                    services.AddSingleton<Maker, Maker>();
+                    services.AddConsolableHost();
                     
                     // AppConfig
                     services.Configure<DatabaseOptions>(host.Configuration.GetSection("Database"));
