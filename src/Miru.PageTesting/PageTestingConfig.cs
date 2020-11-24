@@ -12,7 +12,7 @@ namespace Miru.PageTesting
 
         public bool StartLocalServer { get; set; } = true;
 
-        public TimeSpan TimeOut { get; set; } = 3.Seconds();
+        public TimeSpan TimeOut { get; set; } = 5.Seconds();
         
         public bool OnFailureScreenshot { get; set; } = true;
         

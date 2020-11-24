@@ -3,6 +3,7 @@ using Miru.Config;
 using Miru.Consolables;
 using Miru.Databases.Migrations;
 using Miru.Foundation.Hosting;
+using Miru.Makers;
 using NUnit.Framework;
 using Shouldly;
 
@@ -27,7 +28,7 @@ namespace Miru.Tests.Consolables
         {
             var consolableTypes = new ServiceCollection()
                 .AddServiceCollection()
-                .AddCliCommand<TestConsolable>() // act
+                .AddConsolable<TestConsolable>() // act
                 .BuildServiceProvider()
                 .GetRegisteredServices<IConsolable>();
             
@@ -35,16 +36,18 @@ namespace Miru.Tests.Consolables
         }
         
         [Test]
-        public void Miru_host_should_have_miru_consolables()
+        public void Miru_host_should_have_miru_default_consolables()
         {
+            // act
             var consolableTypes = MiruHost
                 .CreateMiruHost()
                 .Build()
                 .Services
-                .GetRegisteredServices<IConsolable>(); // act
+                .GetRegisteredServices<IConsolable>();
                 
+            // assert
             consolableTypes.ShouldContain(m => m == typeof(ConfigShowConsolable));
-            consolableTypes.ShouldContain(m => m == typeof(DbMigrateConsolable));
+            consolableTypes.ShouldContain(m => m == typeof(MakeConsolableConsolable));
         }
 
         public class TestConsolable : ConsolableSync 

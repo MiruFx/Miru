@@ -16,7 +16,7 @@
         <PackageReference Include="NetEscapades.Configuration.Yaml" Version="2.0.1" />
         <PackageReference Include="YamlDotNet" Version="8.1.2" />
         <PackageReference Include="Scrutor" Version="3.3.0" />
-        <PackageReference Include="Scriban" Version="2.1.4" />
+        <PackageReference Include="Scriban" Version="3.0.2" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.0" />
         <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.0" />
         <PackageReference Include="Humanizer.Core" Version="2.8.26" />

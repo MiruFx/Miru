@@ -113,7 +113,7 @@ namespace Scripts
             
             Target("mong-test-all", () =>
             {
-                Run("dotnet", "test", workingDirectory: @"samples\Mong");
+                Run("dotnet", "test", workingDirectory: @"samples/Mong");
             });
             
             Target("export-stubs", ExportStubs.Export);

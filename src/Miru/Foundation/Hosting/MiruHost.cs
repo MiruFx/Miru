@@ -13,6 +13,7 @@ using Miru.Foundation.Bootstrap;
 using Miru.Foundation.Logging;
 using Miru.Mailing;
 using Miru.Settings;
+using Oakton.Help;
 using Serilog;
 using Serilog.Events;
 
@@ -23,7 +24,8 @@ namespace Miru.Foundation.Hosting
         private static IConfigurationRoot _config;
 
         public static IHostBuilder CreateMiruHost(params string[] args) =>
-            new HostBuilder()
+            // new HostBuilder()
+            Host.CreateDefaultBuilder()
                 .UseEnvironmentFromArgs(args)
                 .ConfigureSerilog(config =>
                 {
@@ -56,10 +58,7 @@ namespace Miru.Foundation.Hosting
                     services.AddSingleton<IMiruHost, CliMiruHost>();
 
                     // Consolables
-                    services.AddSingleton<MiruCommandCreator>();
-                    services.AddConsolables<CliMiruHost>();
-                    services.AddSingleton<IFileSystem, FileSystem>();
-                    services.AddSingleton<Maker, Maker>();
+                    services.AddConsolableHost();
                     
                     // AppConfig
                     services.Configure<DatabaseOptions>(host.Configuration.GetSection("Database"));
@@ -79,16 +78,17 @@ namespace Miru.Foundation.Hosting
         
         public static IHostBuilder AddWebHost<TStartup>(this IHostBuilder builder, string[] args) 
             where TStartup : class =>
-                builder.ConfigureWebHost(webBuilder =>
+                // builder.ConfigureWebHost(webBuilder =>
+                builder.ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
                         .UseEnvironmentFromArgs(args)
                         .UseStartup<TStartup>()
-                        .UseKestrel(cfg =>
-                        {
-                            if (_config["port"] != null)
-                                cfg.Listen(IPAddress.Loopback, _config["port"].ToInt());
-                        })
+                        // .UseKestrel(cfg =>
+                        // {
+                        //     if (_config["port"] != null)
+                        //         cfg.Listen(IPAddress.Loopback, _config["port"].ToInt());
+                        // })
                         .UseContentRoot(App.Solution.AppDir);
                 });
 

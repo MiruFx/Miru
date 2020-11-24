@@ -7,11 +7,11 @@
 
     <ItemGroup>
         <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
 
         <ProjectReference Include="..\..\..\..\src\Miru.PageTesting\Miru.PageTesting.csproj" />
         <ProjectReference Include="..\..\..\..\src\Miru.PageTesting.Chrome\Miru.PageTesting.Chrome.csproj" />
-        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="85.0.4183.8700" />
+        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="86.0.4240.2200" />
     </ItemGroup>
 
     <ItemGroup>

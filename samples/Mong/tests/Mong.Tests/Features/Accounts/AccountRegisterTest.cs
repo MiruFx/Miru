@@ -1,6 +1,8 @@
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using Miru;
+using Miru.Domain;
 using Miru.Mailing;
 using Miru.Testing;
 using Mong.Domain;
@@ -36,17 +38,25 @@ namespace Mong.Tests.Features.Accounts
             job.ShouldContain("Activate Your Mong Account");
             job.ShouldContain(saved.ConfirmationToken);
         }
+        
+        [Test]
+        public async Task Email_should_be_unique()
+        {
+            // arrange
+            var existentUser = _.MakeSaving<User>();
+            var command = _.Make<AccountRegister.Command>(m => m.Email = existentUser.Email);
+
+            // act & assert
+            await Should.ThrowAsync<DomainException>(() => _.SendAsync(command));
+        }
 
         public class Validations : ValidationTest<AccountRegister.Command>
         {
             [Test]
-            public void Email_is_required_and_valid_and_unique()
+            public void Email_is_required_and_valid()
             {
-                var existentUser = _.MakeSaving<User>();
-
                 ShouldBeValid(m => m.Email, Request.Email);
 
-                ShouldBeInvalid(m => m.Email, existentUser.Email);
                 ShouldBeInvalid(m => m.Email, string.Empty);
                 ShouldBeInvalid(m => m.Email, "admin!&admin");
             }

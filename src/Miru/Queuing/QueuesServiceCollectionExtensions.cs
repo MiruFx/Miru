@@ -1,6 +1,7 @@
 using System;
 using Hangfire;
 using Microsoft.Extensions.DependencyInjection;
+using Miru.Consolables;
 
 namespace Miru.Queuing
 {
@@ -29,6 +30,8 @@ namespace Miru.Queuing
                 new BackgroundJobServerOptions(),
                 sp.GetService<JobStorage>()));
 
+            services.AddConsolable<QueueRunConsolable>();
+            
             return services.AddSingleton<Jobs>();
         }
 
@@ -55,6 +58,8 @@ namespace Miru.Queuing
 
             services.AddSingleton<Jobs>();
 
+            services.AddConsolable<QueueRunConsolable>();
+            
             return services;
         }
     }

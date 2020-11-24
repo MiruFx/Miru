@@ -21,7 +21,7 @@ namespace Miru.Tests.Hosting
                 .ConfigureServices(services =>
                 {
                     services
-                        .AddCliCommand<TestAssertConsolable>()
+                        .AddConsolable<TestAssertConsolable>()
                         .AddConsolables<HostBuilderExtensionsTest>()
                         .AddSingleton(services);
                 });
