@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Miru;
+using Miru.Domain;
 using Miru.Mailing;
 using Miru.Mvc;
 using SelfImprov.Database;
@@ -39,6 +41,9 @@ namespace SelfImprov.Features.Accounts
 
             public async Task<Result> Handle(Command command, CancellationToken ct)
             {
+                if (await _db.Users.AnyAsync(x => x.Email == command.Email, ct))
+                    throw new DomainException("Email is already in use. It should be unique");
+                
                 var user = new User
                 {
                     Name = command.Name,
@@ -59,15 +64,11 @@ namespace SelfImprov.Features.Accounts
 
         public class Validator : AbstractValidator<Command>
         {
-            public Validator(SelfImprovDbContext db)
+            public Validator()
             {
                 RuleFor(x => x.Name).NotEmpty();
-                
-                RuleFor(x => x.Email)
-                    .NotEmpty()
-                    .EmailAddress()
-                    .MustAsync(async (s, ct) => await db.Users.NoneAsync(x => x.Email == s, ct))
-                        .WithMessage("Email is already in use. It should be unique");
+
+                RuleFor(x => x.Email).NotEmpty().EmailAddress();
 
                 RuleFor(x => x.Password).NotEmpty().Equal(x => x.PasswordConfirmation).WithMessage("The password and confirmation password do not match");
                 

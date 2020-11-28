@@ -3,6 +3,7 @@ using Hangfire;
 using Hangfire.MemoryStorage;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Databases;
+using Miru.Queuing;
 using Miru.Urls;
 using Miru.Userfy;
 using NSubstitute;
@@ -18,23 +19,17 @@ namespace Miru.Testing
                 .AddSenderMemory()
                 .AddSingleton<IUrlMaps, StubUrlMaps>();
             
-            services.AddHangfire((sp, configuration) => configuration
-                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-                .UseSimpleAssemblyNameTypeSerializer()
-                .UseRecommendedSerializerSettings()
-                .UseMemoryStorage());
-            
             return services;
         }
 
         public static IServiceCollection AddSqlServerDatabaseCleaner(this IServiceCollection services)
         {
-            return services.AddSingleton<IDatabaseCleaner, SqlServerDatabaseCleaner>();
+            return services.AddTransient<IDatabaseCleaner, SqlServerDatabaseCleaner>();
         }
         
         public static IServiceCollection AddSqliteDatabaseCleaner(this IServiceCollection services)
         {
-            return services.AddSingleton<IDatabaseCleaner, SqliteDatabaseCleaner>();
+            return services.AddTransient<IDatabaseCleaner, SqliteDatabaseCleaner>();
         }
 
         public static IServiceCollection Mock<TService>(this IServiceCollection services) where TService : class

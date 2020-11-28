@@ -4,7 +4,9 @@ using AutoMapper;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Miru;
+using Miru.Domain;
 using Miru.Mvc;
 using SelfImprov.Database;
 using SelfImprov.Domain;
@@ -31,6 +33,10 @@ namespace SelfImprov.Features.Goals
 
             public async Task<Area> Handle(Command request, CancellationToken ct)
             {
+                // TODO: unique per user
+                if (await _db.Areas.AnyAsync(x => x.Name == request.Name, ct))
+                    throw new DomainException("Name is already in use. It should be unique");
+                
                 var area = _mapper.Map<Area>(request);
                 
                 await _db.Areas.AddAsync(area, ct);
@@ -41,13 +47,9 @@ namespace SelfImprov.Features.Goals
 
         public class Validator : AbstractValidator<Command>
         {
-            public Validator(SelfImprovDbContext db)
+            public Validator()
             {
-                RuleFor(x => x.Name)
-                    .NotEmpty()
-                    // TODO: unique per user
-                    .MustAsync(async (s, ct) => await db.Areas.NoneAsync(x => x.Name == s, ct))
-                    .WithMessage("Name is already in use. It should be unique");
+                RuleFor(x => x.Name).NotEmpty();
             }
         }
         

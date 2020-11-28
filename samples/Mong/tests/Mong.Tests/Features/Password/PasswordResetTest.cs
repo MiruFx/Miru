@@ -49,10 +49,11 @@ namespace Mong.Tests.Features.Password
             var saved = _.Db(db => db.Users.First());
             saved.HashedPassword.ShouldBe(Hash.Create("321"));
 
-            var job = _.EnqueuedRawJob<EmailJob>();
-            job.ShouldContain(user.Email);
-            job.ShouldContain("Reset Password");
-            job.ShouldContain("Your password has been reset.");
+            var job = _.EnqueuedJob<EmailJob>();
+            
+            job.Email.ToAddresses.ShouldContain(m => m.EmailAddress == user.Email);
+            job.Email.Subject.ShouldContain("Reset Password");
+            job.Email.Body.ShouldContain("Your password has been reset.");
         }
 
         [Test]

@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\Miru.SqlServer\Miru.SqlServer.csproj" />
     <ProjectReference Include="..\..\..\..\src\Miru\Miru.csproj" />
   </ItemGroup>
 </Project>

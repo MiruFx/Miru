@@ -6,6 +6,7 @@ using Miru.Databases;
 using Miru.Databases.EntityFramework;
 using Miru.Foundation.Hosting;
 using Miru.Settings;
+using Miru.SqlServer;
 using NUnit.Framework;
 
 namespace Miru.Tests.EntityFramework

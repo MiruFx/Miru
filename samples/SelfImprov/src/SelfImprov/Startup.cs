@@ -11,6 +11,7 @@ using Miru.Mailing;
 using Miru.Mvc;
 using Miru.Pipeline;
 using Miru.Queuing;
+using Miru.SqlServer;
 using Miru.Turbolinks;
 using Miru.Userfy;
 using SelfImprov.Config;
@@ -49,14 +50,9 @@ namespace SelfImprov
                 // queuing
                 .AddQueuing(_ =>
                 {
-                    _.UseLiteDb();
+                    _.UseSqlServer();
                 })
                 .AddHangfireServer()
-
-                .AddSerilogConfig(cfg =>
-                {
-                    cfg.EfCoreSql(LogEventLevel.Debug);
-                })
 
                 // ui
                 .AddTurbolinks()
@@ -90,6 +86,7 @@ namespace SelfImprov
             app.UseExceptionLogging();
 
             app.UseHangfireDashboard();
+            
             app.UseRouting();
             app.UseAuthentication();
             

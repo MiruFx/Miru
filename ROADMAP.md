@@ -13,9 +13,15 @@ The roadmap can change in the future.
 - Makers
     - Add maker for Email: "miru make:email"
     - Add maker for Job: "miru make:job"
+- Queueing:  
+    - Support Hangfire.SqlServer
 
+    
 ### 0.5 - Queueing, Storage, Consolable, Better Url To Model
 
+- EfCore:
+    - Split SqlServer and Sqlite
+    
 - Queueing:      
     - Different pipeline for _mediator.Send(job)
     - Schedule jobs by time

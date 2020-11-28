@@ -2,11 +2,12 @@ using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Miru.Databases.EntityFramework;
 using Miru.Databases.Migrations;
 using Miru.Foundation.Hosting;
 using Miru.Settings;
 
-namespace Miru.Databases.EntityFramework
+namespace Miru.SqlServer
 {
     public static class EfCoreSqlServerServiceCollectionExtensions
     {

@@ -11,6 +11,8 @@ namespace Miru.Queuing
             this IServiceCollection services,
             Action<QueuingBuilder> queuingBuilder)
         {
+            services.AddSingleton<QueueOptions>();
+            
             services.AddHangfire((sp, configuration) =>
             {
                 configuration
@@ -19,7 +21,7 @@ namespace Miru.Queuing
                     .UseRecommendedSerializerSettings()
                     .UseActivator(sp.GetService<MiruJobActivator>());
                 
-                var builder = new QueuingBuilder(sp, configuration);
+                var builder = new QueuingBuilder(sp, configuration, services);
                 
                 queuingBuilder.Invoke(builder);
             });
@@ -31,6 +33,8 @@ namespace Miru.Queuing
                 sp.GetService<JobStorage>()));
 
             services.AddConsolable<QueueRunConsolable>();
+            
+            services.AddQueueCleaner<NullQueueCleaner>();
             
             return services.AddSingleton<Jobs>();
         }
@@ -59,6 +63,14 @@ namespace Miru.Queuing
             services.AddSingleton<Jobs>();
 
             services.AddConsolable<QueueRunConsolable>();
+            
+            return services;
+        }
+        
+        public static IServiceCollection AddQueueCleaner<TQueueCleaner>(this IServiceCollection services)
+            where TQueueCleaner : class, IQueueCleaner
+        {
+            services.ReplaceTransient<IQueueCleaner, TQueueCleaner>();
             
             return services;
         }

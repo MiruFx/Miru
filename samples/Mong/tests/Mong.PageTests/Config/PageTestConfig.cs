@@ -27,7 +27,7 @@ namespace Mong.PageTests.Config
             services.AddPageTesting(options =>
             {
                 if (OS.IsWindows)
-                    options.UseChrome(new ChromeOptions().Incognito());
+                    options.UseFirefox(new FirefoxOptions());
                 else
                     options.UseFirefox(new FirefoxOptions().Headless()); 
             });

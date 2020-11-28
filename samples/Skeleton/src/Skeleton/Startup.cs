@@ -9,6 +9,7 @@ using Miru.Mailing;
 using Miru.Mvc;
 using Miru.Pipeline;
 using Miru.Queuing;
+using Miru.Sqlite;
 using Miru.Turbolinks;
 using Miru.Userfy;
 using Skeleton.Config;

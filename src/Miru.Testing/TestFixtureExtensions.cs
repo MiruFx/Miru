@@ -138,7 +138,10 @@ namespace Miru.Testing
         
         public static TUser CurrentUser<TUser>(this ITestFixture fixture) where TUser : IUser
         {
-            return fixture.Get<IUserSession<TUser>>().GetUserAsync().GetAwaiter().GetResult();
+            using (var scope = fixture.App.WithScope())
+            {
+                return scope.Get<IUserSession<TUser>>().GetUserAsync().GetAwaiter().GetResult();
+            }
         }
         
         public static long CurrentUserId(this ITestFixture fixture)
@@ -178,13 +181,9 @@ namespace Miru.Testing
         public static ITestFixture ClearQueue(this ITestFixture fixture)
         {
             MiruTest.Log.Information($"Running _.{nameof(ClearQueue)}()");
-            
-            var storage = fixture.Get<JobStorage>().As<MemoryStorage>();
-            
-            var jobs = storage.Data.GetEnumeration<JobDto>();
-            
-            storage.Data.Delete(jobs);
 
+            fixture.Get<IQueueCleaner>().Clear();
+            
             return fixture;
         }
         
@@ -234,52 +233,6 @@ namespace Miru.Testing
             //         "The App's Server has no http addresses associated to it. Maybe the App is already running in another process?");
             
             return fixture;
-        }
-        
-        public static int EnqueuedCount(this ITestFixture fixture)
-        {
-            return fixture.Get<JobStorage>()
-                .As<MemoryStorage>()
-                .Data
-                .GetEnumeration<JobDto>()
-                .Count();
-        }
-
-        public static bool EnqueuedOneJobFor<TJob>(this ITestFixture fixture) where TJob : IJob
-        {
-            return fixture.Get<JobStorage>()
-                .As<MemoryStorage>()
-                .Data
-                .GetEnumeration<JobDto>()
-                .Count(job => job.InvocationData.Contains(typeof(TJob).FullName!)) == 1;
-        }
-        
-        public static string EnqueuedRawJob<TJob>(this ITestFixture fixture) where TJob : IJob
-        {
-            var job = fixture.Get<JobStorage>().As<MemoryStorage>()
-                .Data
-                .GetEnumeration<JobDto>()
-                .FirstOrDefault(job => job.InvocationData.Contains(typeof(TJob).FullName!));
-            
-            if (job == null)
-                throw new ShouldAssertException($"No job queued found of type {typeof(TJob).FullName}");
-
-            return job.InvocationData;
-        }
-        
-        public static IEnumerable<string> EnqueuedRawJobs<TJob>(this ITestFixture fixture) where TJob : IJob
-        {
-            var jobs = fixture.Get<JobStorage>().As<MemoryStorage>()
-                .Data
-                .GetEnumeration<JobDto>()
-                .Where(job => job.InvocationData.Contains(typeof(TJob).FullName!))
-                .Select(job => job.InvocationData)
-                .ToList();
-            
-            if (jobs.Count == 0)
-                throw new ShouldAssertException($"No job queued found of type {typeof(TJob).FullName}");
-
-            return jobs;
         }
     }
 }

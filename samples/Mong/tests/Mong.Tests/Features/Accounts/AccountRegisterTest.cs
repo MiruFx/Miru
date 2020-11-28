@@ -33,10 +33,11 @@ namespace Mong.Tests.Features.Accounts
             saved.ConfirmationSentAt.ShouldBeSecondsAgo();
             saved.ConfirmationToken.ShouldNotBeNull();
 
-            var job = _.EnqueuedRawJob<EmailJob>();
-            job.ShouldContain(command.Email);
-            job.ShouldContain("Activate Your Mong Account");
-            job.ShouldContain(saved.ConfirmationToken);
+            var job = _.EnqueuedJob<EmailJob>();
+            
+            job.Email.ToAddresses.ShouldContain(m => m.EmailAddress == command.Email);
+            job.Email.Subject.ShouldContain("Activate Your Mong Account");
+            job.Email.Body.ShouldContain(saved.ConfirmationToken);
         }
         
         [Test]

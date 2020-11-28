@@ -3,6 +3,8 @@ using Microsoft.Extensions.Hosting;
 using Miru.Fabrication;
 using Miru.Foundation.Hosting;
 using Miru.Foundation.Logging;
+using Miru.Queuing;
+using Miru.Sqlite;
 using Miru.Testing;
 using Miru.Testing.Userfy;
 using Mong.Domain;
@@ -17,6 +19,7 @@ namespace Mong.Tests.Config
         {
             services.AddFeatureTesting()
                 .AddSqliteDatabaseCleaner()
+                .AddQueueCleaner<LiteDbQueueCleaner>()
                 .AddFabrication<MongFabricator>();
 
             services.Mock<IPayPau>();
