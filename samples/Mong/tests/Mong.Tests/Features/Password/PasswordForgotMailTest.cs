@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using Miru;
 using Miru.Mailing;
 using Miru.Testing;
 using Mong.Domain;
@@ -15,14 +17,14 @@ namespace Mong.Tests.Features.Password
         /// Check when is delivering 
         /// </summary>
         [Test]
-        public void Reset_password_mail()
+        public async Task Reset_password_mail()
         {
             // arrange
             var user = _.Make<User>(m => m.ResetPasswordToken = "Token");
 
             // act
-            _.Get<IMailer>().SendNowAsync(new PasswordForgot.PasswordForgotMail(user));
-            
+            await _.SendEmailNowAsync(new PasswordForgot.PasswordForgotMail(user));
+
             // assert
             var emailSent = _.LastEmailSent().Data;
             emailSent.Body.ShouldContain($"Hello, {user.Name}");

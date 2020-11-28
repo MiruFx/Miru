@@ -2,6 +2,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Miru.Fabrication;
 using Miru.Foundation.Hosting;
+using Miru.Queuing;
+using Miru.Sqlite;
 using Miru.Testing;
 
 namespace Skeleton.Tests.Config
@@ -13,6 +15,7 @@ namespace Skeleton.Tests.Config
             services
                 .AddFeatureTesting()
                 .AddSqliteDatabaseCleaner()
+                .AddQueueCleaner<LiteDbQueueCleaner>()
                 .AddFabrication<SkeletonFabricator>();
 
             // Mock your services that talk with external apps

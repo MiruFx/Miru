@@ -4,10 +4,12 @@ using Microsoft.Extensions.Hosting;
 using Miru.Core;
 using Miru.PageTesting;
 using Miru.PageTesting.Chrome;
+using Miru.PageTesting.Firefox;
 using Miru.Storages;
 using Miru.Testing;
 using Miru.Testing.Userfy;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 using SelfImprov.Domain;
 using SelfImprov.Tests.Config;
 
@@ -22,12 +24,10 @@ namespace SelfImprov.PageTests.Config
             
             services.AddPageTesting(options =>
             {
-                options.TimeOut = 3.Seconds();
-                
                 if (OS.IsWindows)
-                    options.UseChrome(new ChromeOptions().Incognito());
+                    options.UseFirefox(new FirefoxOptions());
                 else
-                    options.UseChrome(new ChromeOptions().Incognito().Headless());
+                    options.UseFirefox(new FirefoxOptions().Headless());
             });
         }
 

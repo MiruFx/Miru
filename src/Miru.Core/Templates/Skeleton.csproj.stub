@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\Miru.Sqlite\Miru.Sqlite.csproj" />
     <PackageReference Include="Miru" Version="{{ MiruVersion }}" />
   </ItemGroup>
 

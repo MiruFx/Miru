@@ -23,8 +23,7 @@
         
         <!-- Data -->
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.0" />
         <PackageReference Include="FluentMigrator" Version="3.2.9" />
         <PackageReference Include="FluentMigrator.Runner" Version="3.2.9" />
         
@@ -52,7 +51,6 @@
         <!-- Queuing -->
         <PackageReference Include="Hangfire.Core" Version="1.7.16" />
         <PackageReference Include="Hangfire.AspNetCore" Version="1.7.16" />
-        <PackageReference Include="Hangfire.LiteDB" Version="0.4.0" />
 
     </ItemGroup>
     

@@ -20,7 +20,7 @@ namespace Miru.Databases.EntityFramework
 
         public async Task<TResponse> Handle(TRequest message, CancellationToken ct, RequestHandlerDelegate<TResponse> next)
         {
-            await using var transaction = await _db.Database.BeginTransactionAsync(IsolationLevel.ReadCommitted, ct);
+            await using var transaction = await _db.Database.BeginTransactionAsync(ct);
             
             _logger.LogDebug($"Started transaction #{transaction.GetHashCode()}");
 

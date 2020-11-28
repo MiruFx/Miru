@@ -28,9 +28,9 @@ namespace SelfImprov.Tests.Features.Accounts
             saved.Name.ShouldBe(command.Name);
             saved.HashedPassword.ShouldBe(Hash.Create(command.Password));
             
-            var job = _.EnqueuedRawJob<EmailJob>();
-            job.ShouldContain(command.Email);
-            job.ShouldContain("Welcome To SelfImprov");
+            var job = _.EnqueuedJob<EmailJob>();
+            job.Email.ToAddresses.ShouldContain(m => m.EmailAddress == command.Email);
+            job.Email.Body.ShouldContain("Welcome To SelfImprov");
         }
 
         public class Validations : ValidationTest<AccountRegister.Command>
@@ -38,11 +38,8 @@ namespace SelfImprov.Tests.Features.Accounts
             [Test]
             public void Email_is_required_and_valid_and_unique()
             {
-                var existentUser = _.MakeSaving<User>();
-
                 ShouldBeValid(m => m.Email, Request.Email);
 
-                ShouldBeInvalid(m => m.Email, existentUser.Email);
                 ShouldBeInvalid(m => m.Email, string.Empty);
                 ShouldBeInvalid(m => m.Email, "admin!.admin");
             }

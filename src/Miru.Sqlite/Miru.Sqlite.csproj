@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0" />
+        <PackageReference Include="Hangfire.Core" Version="1.7.16" />
+        <PackageReference Include="Hangfire.LiteDB" Version="0.4.0" />
+        <PackageReference Include="Hangfire.Storage.SQLite" Version="0.2.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Miru\Miru.csproj" />
+    </ItemGroup>
+
+</Project>

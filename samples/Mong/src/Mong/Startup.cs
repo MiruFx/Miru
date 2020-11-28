@@ -1,25 +1,20 @@
-using FluentMigrator.Runner;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Miru;
-using Miru.Consolables;
-using Miru.Databases.EntityFramework;
-using Miru.Databases.Migrations;
 using Miru.Foundation.Hosting;
-using Miru.Foundation.Logging;
 using Miru.Mailing;
 using Miru.Mvc;
 using Miru.Pipeline;
 using Miru.Queuing;
+using Miru.Sqlite;
 using Miru.Turbolinks;
 using Miru.Userfy;
 using Mong.Config;
 using Mong.Database;
 using Mong.Domain;
 using Mong.Payments;
-using Serilog.Events;
 
 // #startup
 namespace Mong
@@ -55,7 +50,6 @@ namespace Mong
                 // queuing
                 .AddQueuing(_ => 
                 {
-                    // _.UseSqlite();
                     _.UseLiteDb();
                 })
                 .AddHangfireServer()

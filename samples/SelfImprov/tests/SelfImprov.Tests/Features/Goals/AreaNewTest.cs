@@ -1,5 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
+using Miru.Domain;
 using Miru.Testing;
 using Miru.Testing.Userfy;
 using NUnit.Framework;
@@ -27,21 +29,29 @@ namespace SelfImprov.Tests.Features.Goals
             saved.CreatedAt.ShouldBeSecondsAgo();
             saved.UpdatedAt.ShouldBeSecondsAgo();
         }
+        
+        [Test]
+        public async Task Area_name_should_be_unique_per_user()
+        {
+            // arrange
+            var user = _.MakeSavingLogin<User>();
+            var existentArea = _.MakeSaving<Area>(m => m.UserId = user.Id);
+
+            await _.SaveAsync(user, existentArea);
+            
+            var command = _.Make<AreaNew.Command>(m => m.Name = existentArea.Name);
+
+            // act
+            await Should.ThrowAsync<DomainException>(() => _.SendAsync(command));
+        }
 
         public class Validations : ValidationTest<AreaNew.Command>, IRequiresAuthenticatedUser
         {
             [Test]
-            public void Name_is_required_and_unique_per_user()
+            public void Name_is_required()
             {
-                var otherUser = _.MakeSaving<User>();
-                var existentOtherUser = _.MakeSaving<Area>(m => m.UserId = otherUser.Id);
-                
-                var existent = _.MakeSaving<Area>();
-
                 ShouldBeValid(m => m.Name, Request.Name);
-                ShouldBeValid(m => m.Name, existentOtherUser.Name);
                 
-                ShouldBeInvalid(m => m.Name, existent.Name);
                 ShouldBeInvalid(m => m.Name, string.Empty);
             }
         }

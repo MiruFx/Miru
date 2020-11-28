@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Miru.Fabrication;
 using Miru.Foundation.Hosting;
+using Miru.Queuing;
 using Miru.Testing;
 using Miru.Testing.Userfy;
 using SelfImprov.Domain;
@@ -15,7 +16,7 @@ namespace SelfImprov.Tests.Config
             services
                 .AddFeatureTesting()
                 .AddSqlServerDatabaseCleaner();
-                
+
             services.AddFabrication<SelfImprovFabricator>();
 
             Shouldly.ShouldlyConfiguration.DefaultFloatingPointTolerance = 0.01f;

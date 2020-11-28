@@ -44,6 +44,10 @@ namespace Miru.Foundation.Hosting
                     cfg.AddEnvironmentVariables();
                     cfg.AddConfigYml(hostingContext.HostingEnvironment.EnvironmentName);
                 })
+                .UseDefaultServiceProvider((context, options) =>
+                {
+                    options.ValidateScopes = context.HostingEnvironment.IsDevelopmentOrTest();
+                })
                 .ConfigureServices((host, services) =>    
                 {
                     var argsConfig = new ArgsConfiguration(args);

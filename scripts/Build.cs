@@ -29,6 +29,8 @@ namespace Scripts
             { "Miru.Core", true },
             { "Miru", true },
             { "Miru.Fabrication", true },
+            { "Miru.SqlServer", true },
+            { "Miru.Sqlite", true },
             { "Miru.Testing", true },
             { "Miru.PageTesting", true }, 
             { "Miru.PageTesting.Chrome", true }, 

@@ -88,6 +88,10 @@ ProjectSection(SolutionItems) = preProject
 	samples\Skeleton\config\Config.Test.yml = samples\Skeleton\config\Config.Test.yml
 EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.SqlServer", "src\Miru.SqlServer\Miru.SqlServer.csproj", "{29B3365E-2579-40D7-82EA-1A7EFDD1334A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.Sqlite", "src\Miru.Sqlite\Miru.Sqlite.csproj", "{BF40CCBF-3274-4B8F-B3C5-EA18DCB5CFA2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -178,6 +182,14 @@ Global
 		{FA446683-5572-47A9-89D9-51EF5EEC4814}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA446683-5572-47A9-89D9-51EF5EEC4814}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA446683-5572-47A9-89D9-51EF5EEC4814}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29B3365E-2579-40D7-82EA-1A7EFDD1334A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29B3365E-2579-40D7-82EA-1A7EFDD1334A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29B3365E-2579-40D7-82EA-1A7EFDD1334A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29B3365E-2579-40D7-82EA-1A7EFDD1334A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF40CCBF-3274-4B8F-B3C5-EA18DCB5CFA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF40CCBF-3274-4B8F-B3C5-EA18DCB5CFA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF40CCBF-3274-4B8F-B3C5-EA18DCB5CFA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF40CCBF-3274-4B8F-B3C5-EA18DCB5CFA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

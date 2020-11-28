@@ -50,10 +50,10 @@ namespace Miru.Userfy
                     });
             
             // miru services setup
-            services.AddSingleton<IUserSession, WebUserSession>();
-            services.AddSingleton<ISessionStore, HttpSessionStore>();
-            services.AddScoped<Authorizer>();
-            services.AddScoped<IUserSession<TUser>, UserSession<TUser>>();
+            services.AddTransient<IUserSession, WebUserSession>();
+            services.AddTransient<ISessionStore, HttpSessionStore>();
+            services.AddTransient<Authorizer>();
+            services.AddTransient<IUserSession<TUser>, UserSession<TUser>>();
 
             services.AddSingleton(userfyOptions);
             
