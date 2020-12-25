@@ -24,7 +24,6 @@ namespace Miru.Foundation.Hosting
         private static IConfigurationRoot _config;
 
         public static IHostBuilder CreateMiruHost(params string[] args) =>
-            // new HostBuilder()
             Host.CreateDefaultBuilder()
                 .UseEnvironmentFromArgs(args)
                 .ConfigureSerilog(config =>
@@ -82,7 +81,6 @@ namespace Miru.Foundation.Hosting
         
         public static IHostBuilder AddWebHost<TStartup>(this IHostBuilder builder, string[] args) 
             where TStartup : class =>
-                // builder.ConfigureWebHost(webBuilder =>
                 builder.ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder

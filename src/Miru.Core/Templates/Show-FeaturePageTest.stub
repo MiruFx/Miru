@@ -6,14 +6,14 @@ using {{ Solution.Name }}.Features.{{ input.In }};
 
 namespace {{ Solution.Name }}.PageTests.Pages.{{ input.In }}
 {
-    public class {{ input.Name }}ShowPageTest : PageTest
+    public class {{ input.Name }}{{ input.Action }}PageTest : PageTest
     {
         [Test]
-        public void Can_show_{{ string.downcase input.Name }}()
+        public void Can_{{ string.downcase input.Action }}_{{ string.downcase input.Name }}()
         {
             var {{ string.downcase input.Name }} = _.MakeSaving<{{ input.Name }}>();
             
-            _.Visit(new {{ input.Name }}Show.Query { Id = {{ string.downcase input.Name }}.Id });
+            _.Visit(new {{ input.Name }}{{ input.Action }}.Query { Id = {{ string.downcase input.Name }}.Id });
 
             _.ShouldHaveText({{ string.downcase input.Name }}.Name);
         }

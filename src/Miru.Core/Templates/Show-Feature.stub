@@ -9,7 +9,7 @@ using {{ Solution.Name }}.Domain;
 
 namespace {{ Solution.Name }}.Features.{{ input.In }}
 {
-    public class {{ input.Name }}Show
+    public class {{ input.Name }}{{ input.Action }}
     {
         public class Query : IRequest<Result>
         {
@@ -42,7 +42,7 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
         public class {{ input.In }}Controller : MiruController
         {
             [Route("/{{ input.In }}/{id:long}")]
-            public async Task<Result> Show(Query request) => await SendAsync(request);
+            public async Task<Result> {{ input.Action }}(Query request) => await SendAsync(request);
         }
     }
 }

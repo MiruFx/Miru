@@ -224,6 +224,8 @@ namespace Scripts
                 .ReplaceIf(templateKey == "Edit", "edit", "{{ string.downcase input.Action }}")
                 .ReplaceIf(templateKey == "List", "List", "{{ input.Action }}")
                 .ReplaceIf(templateKey == "List", "list", "{{ string.downcase input.Action }}")
+                .ReplaceIf(templateKey == "Show", "Show", "{{ input.Action }}")
+                .ReplaceIf(templateKey == "Show", "show", "{{ string.downcase input.Action }}")
                 
                 // migration
                 .Replace("999999999999", "{{ input.Version }}")

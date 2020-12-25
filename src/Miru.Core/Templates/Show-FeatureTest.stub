@@ -7,16 +7,16 @@ using {{ Solution.Name }}.Features.{{ input.In }};
 
 namespace {{ Solution.Name }}.Tests.Features.{{ input.In }}
 {
-    public class {{ input.Name }}ShowTest : FeatureTest
+    public class {{ input.Name }}{{ input.Action }}Test : FeatureTest
     {
         [Test]
-        public async Task Can_show_{{ string.downcase input.In }}()
+        public async Task Can_{{ string.downcase input.Action }}_{{ string.downcase input.In }}()
         {
             // arrange
             var {{ string.downcase input.Name }} = _.MakeSaving<{{ input.Name }}>();
             
             // act
-            var response = await _.SendAsync(new {{ input.Name }}Show.Query { Id = {{ string.downcase input.Name }}.Id });
+            var response = await _.SendAsync(new {{ input.Name }}{{ input.Action }}.Query { Id = {{ string.downcase input.Name }}.Id });
             
             // assert
             response.{{ input.Name }}.ShouldBe({{ string.downcase input.Name }});
