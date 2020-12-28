@@ -1,4 +1,4 @@
-..\..\global.json: global.json.stub
+global.json: global.json.stub
 Skeleton.sln: Solution.sln.stub
 .gitignore: .gitignore.stub
 config\Config.Development.yml: Config.Development.yml.stub

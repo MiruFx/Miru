@@ -29,6 +29,7 @@ namespace Miru.Tests.Makers
 
             // check some main files
             File.Exists(_tempDir / "StackOverflow" / ".gitignore").ShouldBeTrue();
+            File.Exists(_tempDir / "StackOverflow" / "global.json").ShouldBeTrue();
             
             File.ReadAllText(_tempDir / "StackOverflow" / "config" / "Config.Development.yml").ShouldContain("{{ db_dir }}StackOverflow_dev");
         }

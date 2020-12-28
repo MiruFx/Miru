@@ -26,7 +26,7 @@ namespace Scripts
             Directory.CreateDirectory(_stubDir);
             
             // New
-            ExportFile(_rootDir / "global.json");
+            ExportFile(_rootDir / "global.json", destinationFile: "global.json");
             ExportFile(_dir / "Skeleton.sln", "Solution.sln");
             ExportFile(_dir / "gitignore", ".gitignore", destinationFile: ".gitignore");
             

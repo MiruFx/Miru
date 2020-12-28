@@ -39,7 +39,7 @@ namespace Miru.Html
             {
                 var naming = m.Get<ElementNaming>();
 
-                m.CurrentTag.Id($"{naming.Id(m.Model)}-summary");
+                m.CurrentTag.Id(naming.SummaryId(m.Model));
             });
                         
             Forms.Always.ModifyWith(m =>
