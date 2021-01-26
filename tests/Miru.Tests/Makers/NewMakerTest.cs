@@ -13,7 +13,7 @@ namespace Miru.Tests.Makers
         private MiruPath _tempDir;
 
         [SetUp]
-        [TearDown]
+        //[TearDown]
         public void Setup()
         {
             _tempDir = A.TempPath("Miru");
@@ -44,6 +44,9 @@ namespace Miru.Tests.Makers
 
             (m.Solution.RootDir / ".gitignore").ShouldExist();
             (m.Solution.RootDir / "global.json").ShouldExist();
+            
+            (m.Solution.RootDir / "StackExchange.StackOverflow.sln")
+                .ShouldContain(@"""StackExchange.StackOverflow"", ""src\StackExchange.StackOverflow\StackExchange.StackOverflow.csproj""");
             
             (m.Solution.RootDir / "config" / "Config.Development.yml").ShouldContain("{{ db_dir }}StackOverflow_dev");
         }
