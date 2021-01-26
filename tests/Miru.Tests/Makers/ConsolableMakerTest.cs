@@ -29,7 +29,7 @@ namespace Miru.Tests.Makers
             
             // assert
             (m.Solution.AppDir / "Consolables" / "BackupConsolable.cs")
-                .ShouldExistAndContains(
+                .ShouldContain(
                     "namespace Shopifu.Consolables",
                     "public class BackupConsolable");
         }

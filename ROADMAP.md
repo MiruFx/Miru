@@ -2,33 +2,34 @@
 
 The roadmap can change in the future.
 
+## Phases
+
+2020/12: 0.3 - Publish github with basic features
+2021/12: 1.0 - Ready for production and feedback
+2022/12: 2.0 - Fixes feedback
+
+## Roadmap
+
 ### 0.4 - Async suffix, sample with SqlServer, Queueing, miru new
 
-- Invert methods suffix adding Async and removing Sync
-- SelfImprov:
+[OK] - Invert methods suffix adding Async and removing Sync
+[OK] - SelfImprov:
     - Use SqlServer instead of Sqlite
-- Command Line:
+[OK] - Command Line:
     - 'miru new' instead of 'mirucli new'
     - 'miru --version' instead of 'mirucli --version'
-- Makers
+[OK] - Makers
     - Add maker for Email: "miru make:email"
     - Add maker for Job: "miru make:job"
-- Queueing:  
+[OK] - Queueing:  
     - Support Hangfire.SqlServer
 
     
 ### 0.5 - Queueing, Storage, Consolable, Better Url To Model
 
-- EfCore:
+[OK] - EfCore:
     - Split SqlServer and Sqlite
-    
-- Queueing:      
-    - Different pipeline for _mediator.Send(job)
-    - Schedule jobs by time
-    - Support Hangfire.SqlServer
-    - Automated tests for Queueing features
-    - Consider using https://github.com/xavierjefferson/Hangfire.FluentNHibernateStorage?
-        
+
 - Storage: Local
     - Upload images/files - Supportreon: project's image add/edit
         - Validation
@@ -44,8 +45,14 @@ The roadmap can change in the future.
 - Urls:
     - Import FubuMvc 'object to url'
 
-### 0.6 - Identity, Seed Data
-  
+### 0.6 - Identity, Seed Data, Queueing
+
+- Queueing:
+  - Different pipeline for _mediator.Send(job)
+  - Schedule jobs by time
+  - Automated tests for Queueing features
+  - Consider using https://github.com/xavierjefferson/Hangfire.FluentNHibernateStorage?
+
 - Identity:
     - Use whatever is possible from Identity
     - Extract Miru.Userfy?
@@ -97,6 +104,8 @@ The roadmap can change in the future.
 - Localization and Internationalization
     - Dates and Timezones
     
+- SystemClock? Utc
+
 - Tables:
     - Sort
     - Filter multiselect
@@ -104,12 +113,23 @@ The roadmap can change in the future.
         
 - Flash messages
 
-### 0.12 - Ajax, Turbolinks
+### 0.12 - Ajax, Turbo
 
+- Adopt Hotwire
+  - hotwire.dev
+  
 - Turbolinks:
     - Full Turbolinks: https://khalidabuhakmeh.com/use-aspnet-with-turbolinks-5
-        
-### 0.13
+
+### 0.13 - Abstraction for components
+
+- Abstraction for components
+    - Orm
+    - Queueing
+    - Mailing
+    
+- Azure support
+
 ### 0.14 - Performance
 
 - Caching

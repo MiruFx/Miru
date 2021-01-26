@@ -1,5 +1,5 @@
 Database:
-  ConnectionString: "DataSource={%{{{ db_dir }}}%}{{ Solution.Name }}_prod.db"
+  ConnectionString: "DataSource={%{{{ db_dir }}}%}{{ Solution.ShortName }}_prod.db"
   
 # Mailing:
 #

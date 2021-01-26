@@ -8,17 +8,17 @@ namespace Miru.Tests.Html.TagHelpers
 {
     public class TableCellTagHelperTest : TagHelperTest
     {
-        private Skeleton.Features.Products.ProductList.Result _viewModel;
+        private Corpo.Skeleton.Features.Products.ProductList.Result _viewModel;
 
         [SetUp]
         public void Setup()
         {
-            _viewModel = new Skeleton.Features.Products.ProductList.Result
+            _viewModel = new Corpo.Skeleton.Features.Products.ProductList.Result
             {
-                Items = new List<Skeleton.Features.Products.ProductList.Item>()
+                Items = new List<Corpo.Skeleton.Features.Products.ProductList.Item>()
                 {
-                    new Skeleton.Features.Products.ProductList.Item() {Id = 1, Name = "iPhone"},
-                    new Skeleton.Features.Products.ProductList.Item() {Id = 2, Name = "Samsung"}
+                    new Corpo.Skeleton.Features.Products.ProductList.Item() {Id = 1, Name = "iPhone"},
+                    new Corpo.Skeleton.Features.Products.ProductList.Item() {Id = 2, Name = "Samsung"}
                 }
             };
         }

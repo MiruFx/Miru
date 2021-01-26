@@ -1,18 +1,15 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Miru;
-using Miru.Mvc;
 using {{ Solution.Name }}.Database;
 using {{ Solution.Name }}.Domain;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Miru;
+using Miru.Mvc;
 
 namespace {{ Solution.Name }}.Features.{{ input.In }}
 {
-    public class {{ input.Name }}Show
+    public class {{ input.Name }}{{ input.Action }}
     {
         public class Query : IRequest<Result>
         {
@@ -26,9 +23,9 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
 
         public class Handler : IRequestHandler<Query, Result>
         {
-            private readonly {{ Solution.Name }}DbContext _db;
+            private readonly {{ Solution.ShortName }}DbContext _db;
             
-            public Handler({{ Solution.Name }}DbContext db)
+            public Handler({{ Solution.ShortName }}DbContext db)
             {
                 _db = db;
             }
@@ -45,7 +42,7 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
         public class {{ input.In }}Controller : MiruController
         {
             [Route("/{{ input.In }}/{id:long}")]
-            public async Task<Result> Show(Query request) => await SendAsync(request);
+            public async Task<Result> {{ input.Action }}(Query request) => await SendAsync(request);
         }
     }
 }

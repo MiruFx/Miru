@@ -1,13 +1,26 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
 namespace Miru.Validation
 {
+    public class MiruValidationException : ValidationException
+    {
+        public object Model { get; private set; }
+        
+        public MiruValidationException(object model, IEnumerable<ValidationFailure> errors) : base(errors)
+        {
+            Model = model;
+        }
+    }
+
     public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {
         private readonly IValidator<TRequest> _validator;
@@ -34,7 +47,7 @@ namespace Miru.Validation
                     _logger.LogDebug(
                         $"{request.GetType().ActionName()} is an invalid request:{failures.Join2(x => $"{Environment.NewLine}\t{x}")}");
                     
-                    throw new ValidationException(failures);
+                    throw new MiruValidationException(request, failures);
                 }
             }
 

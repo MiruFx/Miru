@@ -1,9 +1,9 @@
+using {{ Solution.Name }}.Domain;
+using {{ Solution.Name }}.Features.{{ input.In }};
 using Miru;
 using Miru.PageTesting;
-using NUnit.Framework;
-using {{ Solution.Name }}.Features.{{ input.In }};
 using Miru.Testing;
-using {{ Solution.Name }}.Domain;
+using NUnit.Framework;
 
 namespace {{ Solution.Name }}.PageTests.Pages.{{ input.In }}
 {

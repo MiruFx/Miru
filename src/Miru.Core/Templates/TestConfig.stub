@@ -16,7 +16,7 @@ namespace {{ Solution.Name }}.Tests.Config
                 .AddFeatureTesting()
                 .AddSqliteDatabaseCleaner()
                 .AddQueueCleaner<LiteDbQueueCleaner>()
-                .AddFabrication<{{ Solution.Name }}Fabricator>();
+                .AddFabrication<{{ Solution.ShortName }}Fabricator>();
 
             // Mock your services that talk with external apps
             // services.Mock<IService>();

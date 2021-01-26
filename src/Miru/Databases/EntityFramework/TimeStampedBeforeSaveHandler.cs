@@ -15,7 +15,9 @@ namespace Miru.Databases.EntityFramework
 
             foreach (var entityBeingCreated in entitiesBeingCreated)
             {
-                entityBeingCreated.CreatedAt = DateTime.Now;
+                if (entityBeingCreated.CreatedAt == default)
+                    entityBeingCreated.CreatedAt = DateTime.Now;
+                
                 entityBeingCreated.UpdatedAt = DateTime.Now;
             }
 

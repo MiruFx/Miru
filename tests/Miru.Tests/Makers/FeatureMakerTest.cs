@@ -41,11 +41,31 @@ namespace Miru.Tests.Makers
             m.Feature("Goals", "Goal", "List", "List");
             
             (m.Solution.FeaturesDir / "Goals" / "GoalList.cs").ShouldExist();
-            (m.Solution.FeaturesDir / "Goals" / "List.cshtml").ShouldExistAndContains(
+            (m.Solution.FeaturesDir / "Goals" / "List.cshtml").ShouldContain(
                 "<a href=\"#\">Edit</a>");
             
             (m.Solution.AppTestsDir / "Features" / "Goals" / "GoalListTest.cs").ShouldExist();
             (m.Solution.AppPageTestsDir / "Pages" / "Goals" / "GoalListPageTest.cs").ShouldExist();
+        }
+        
+        [Test]
+        public void Make_feature_for_show()
+        {
+            // arrange
+            var m = new Maker(new MiruSolution(_solutionDir));
+            
+            // act
+            m.Feature("Goals", "Goal", "Details", template: "Show");
+            
+            // assert
+            (m.Solution.FeaturesDir / "Goals" / "GoalDetails.cs").ShouldContain(
+                "public class GoalDetails");
+            
+            (m.Solution.FeaturesDir / "Goals" / "Details.cshtml").ShouldContain(
+                "<a href=\"#\">Edit</a>");
+            
+            (m.Solution.AppTestsDir / "Features" / "Goals" / "GoalDetailsTest.cs").ShouldExist();
+            (m.Solution.AppPageTestsDir / "Pages" / "Goals" / "GoalDetailsPageTest.cs").ShouldExist();
         }
     }
 }

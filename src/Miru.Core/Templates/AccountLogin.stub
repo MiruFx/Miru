@@ -1,15 +1,14 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using {{ Solution.Name }}.Database;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Miru;
 using Miru.Behaviors;
-using Miru.Domain;
 using Miru.Mvc;
 using Miru.Userfy;
-using {{ Solution.Name }}.Database;
 
 namespace {{ Solution.Name }}.Features.Accounts
 {
@@ -35,10 +34,10 @@ namespace {{ Solution.Name }}.Features.Accounts
         
         public class Handler : RequestHandler<Query, Command>, IRequestHandler<Command, Result>
         {
-            private readonly {{ Solution.Name }}DbContext _db;
+            private readonly {{ Solution.ShortName }}DbContext _db;
             private readonly IUserSession _userSession;
 
-            public Handler({{ Solution.Name }}DbContext db, IUserSession userSession)
+            public Handler({{ Solution.ShortName }}DbContext db, IUserSession userSession)
             {
                 _db = db;
                 _userSession = userSession;

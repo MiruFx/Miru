@@ -29,22 +29,22 @@ namespace Miru.Tests.Makers
             
             // assert
             (m.Solution.FeaturesDir / "Users" / "UserShow.cs")
-                .ShouldExistAndContains(
+                .ShouldContain(
                     "namespace Shopifu.Features.Users",
                     "public class UserShow");
             
             (m.Solution.FeaturesDir / "Users" / "Show.cshtml")
-                .ShouldExistAndContains(
+                .ShouldContain(
                     "@model UserShow.Result");
             
             (m.Solution.AppTestsDir / "Features" / "Users" / "UserShowTest.cs")
-                .ShouldExistAndContains(
+                .ShouldContain(
                     "namespace Shopifu.Tests.Features.Users",
                     "public class UserShowTest : FeatureTest",
                     "public async Task Can_show_users()");
             
             (m.Solution.AppPageTestsDir / "Pages" / "Users" / "UserShowPageTest.cs")
-                .ShouldExistAndContains(
+                .ShouldContain(
                     "namespace Shopifu.PageTests.Pages.Users",
                     "public class UserShowPageTest : PageTest",
                     "public void Can_show_users()");
@@ -61,7 +61,7 @@ namespace Miru.Tests.Makers
             
             // assert
             (m.Solution.FeaturesDir / "Admin" / "Report" / "Sales" / "SaleOverview.cs")
-                .ShouldExistAndContains(
+                .ShouldContain(
                     "namespace Shopifu.Features.Admin.Report.Sale",
                     "public class SaleOverview");
         }

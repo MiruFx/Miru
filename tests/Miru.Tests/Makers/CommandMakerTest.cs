@@ -29,12 +29,12 @@ namespace Miru.Tests.Makers
             
             // assert
             (m.Solution.FeaturesDir / "Carts" / "CartNew.cs")
-                .ShouldExistAndContains(
+                .ShouldContain(
                     "namespace Shopifu.Features.Carts",
                     "public class CartNew");
             
             (m.Solution.FeaturesDir / "Carts" / "New.cshtml")
-                .ShouldExistAndContains(
+                .ShouldContain(
                     "@model CartNew.Command");
             
             (m.Solution.FeaturesDir / "Carts" / "_New.js.cshtml").ShouldExist();
@@ -42,7 +42,7 @@ namespace Miru.Tests.Makers
             (m.Solution.AppTestsDir / "Features" / "Carts" / "CartNewTest.cs").ShouldExist();
             
             (m.Solution.AppPageTestsDir / "Pages" / "Carts" / "CartNewPageTest.cs")
-                .ShouldExistAndContains(
+                .ShouldContain(
                     "namespace Shopifu.PageTests.Pages.Carts",
                     "public class CartNewPageTest : PageTest");
         }
@@ -58,7 +58,7 @@ namespace Miru.Tests.Makers
             
             // assert
             (m.Solution.FeaturesDir / "Admin" / "Catalogue" / "Products" / "ProductNew.cs")
-                .ShouldExistAndContains(
+                .ShouldContain(
                     "namespace Shopifu.Features.Admin.Catalogue.Products",
                     "public class ProductNew");
         }

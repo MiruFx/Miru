@@ -23,8 +23,9 @@ namespace Miru.Core.Makers
 
             foreach (var (key, stub) in map)
             {
+                // FIXME: Use same tokens replacement as m.Template
                 var destination = key
-                    .Replace("Skeleton", name)
+                    .Replace("Corpo.Skeleton", name)
                     .Replace('\\', Path.DirectorySeparatorChar);
                 
                 m.Template(stub, destination);

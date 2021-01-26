@@ -8,14 +8,14 @@
         </div>
         
         <div class="col-6 text-right">
-            <a for="@new AreaEdit.Query { Id = Model.Id }" 
+            <a for="new AreaEdit.Query { Id = Model.Id }" 
                                class="ml-5"
                                data-remote="true"
                                data-disable-with="Loading...">Edit</a>
                         
             <strong>·</strong>
         
-            <a for="@new AreaRemove.Command { Id = Model.Id }" 
+            <a for="new AreaRemove.Command { Id = Model.Id }" 
                class="text-danger"
                data-remote="true"
                data-method="post"

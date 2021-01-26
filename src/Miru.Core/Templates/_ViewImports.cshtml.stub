@@ -1,8 +1,5 @@
-@using Miru
 @using Miru.Mvc
-@using Miru.Html
-@using HtmlTags
-@using {{ Solution.Name }}.Domain
+@using Miru
 
 @namespace {{ Solution.Name }}.Features
 

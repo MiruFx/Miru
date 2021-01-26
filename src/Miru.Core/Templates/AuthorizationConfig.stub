@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
+using {{ Solution.Name }}.Domain;
 using Miru;
 using Miru.Security;
 using Miru.Userfy;
-using {{ Solution.Name }}.Domain;
 
 namespace {{ Solution.Name }}.Config
 {

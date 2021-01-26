@@ -1,5 +1,5 @@
-using Miru.Mailing;
 using {{ Solution.Name }}.Domain;
+using Miru.Mailing;
 
 namespace {{ Solution.Name }}.Features.{{ input.In }}
 {

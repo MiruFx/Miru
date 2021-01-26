@@ -26,7 +26,7 @@ namespace Miru.Tests.Makers
             m.Migration("CreateTopup", "123");
             
             (_solutionDir / "src" / "Shopifu" / "Database" / "Migrations" / "123_CreateTopup.cs")
-                .ShouldExistAndContains(
+                .ShouldContain(
                     "namespace Shopifu.Database.Migrations",
                     $"[Migration(123)]",
                     "public class CreateTopup",
@@ -41,7 +41,7 @@ namespace Miru.Tests.Makers
             m.Migration("CreateTeams", "456", table: "Teams");
             
             (_solutionDir / "src" / "Shopifu" / "Database" / "Migrations" / "456_CreateTeams.cs")
-                .ShouldExistAndContains(
+                .ShouldContain(
                     "namespace Shopifu.Database.Migrations",
                     $"[Migration(456)]",
                     "public class CreateTeams",

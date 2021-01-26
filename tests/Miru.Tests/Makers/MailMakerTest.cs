@@ -29,12 +29,12 @@ namespace Miru.Tests.Makers
             
             // assert
             (m.Solution.FeaturesDir / "Accounts" / "WelcomeMail.cs")
-                .ShouldExistAndContains(
+                .ShouldContain(
                     "namespace Shopifu.Features.Accounts",
                     "public class WelcomeMail : Mailable");
             
             (m.Solution.FeaturesDir / "Accounts" / "WelcomeMail.cshtml")
-                .ShouldExistAndContains(
+                .ShouldContain(
                     "@model Shopifu.Domain.User");
         }
     }
