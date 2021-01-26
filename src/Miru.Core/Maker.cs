@@ -61,8 +61,7 @@ namespace Miru.Core
             }
 
             Console2.YellowLine($"\tCreate\t{Solution.RootDir.Relative(destination)}");
-            // Console2.YellowLine($"\tCreate\t{destination}");
-           
+            
             var result = template.Render(new
             {
                 Solution,
