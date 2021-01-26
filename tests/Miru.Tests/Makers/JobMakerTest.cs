@@ -29,12 +29,12 @@ namespace Miru.Tests.Makers
             
             // assert
             (m.Solution.FeaturesDir / "Orders" / "OrderPlaced.cs")
-                .ShouldExistAndContains(
+                .ShouldContain(
                     "namespace Shopifu.Features.Orders",
                     "public class OrderPlaced");
             
             (m.Solution.AppTestsDir / "Features" / "Orders" / "OrderPlacedTest.cs")
-                .ShouldExistAndContains(
+                .ShouldContain(
                     "namespace Shopifu.Tests.Features.Orders",
                     "public class OrderPlacedTest : FeatureTest",
                     "public async Task Can_handle_placed_order_job()");

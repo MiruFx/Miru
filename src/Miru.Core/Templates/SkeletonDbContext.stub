@@ -1,15 +1,13 @@
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
+using {{ Solution.Name }}.Domain;
 using Microsoft.EntityFrameworkCore;
 using Miru.Databases.EntityFramework;
-using {{ Solution.Name }}.Domain;
 
 namespace {{ Solution.Name }}.Database
 {
-    public class {{ Solution.Name }}DbContext : MiruDbContext
+    public class {{ Solution.ShortName }}DbContext : MiruDbContext
     {
-        public {{ Solution.Name }}DbContext(DbContextOptions options, IEnumerable<IBeforeSaveHandler> handlers) : base(options, handlers)
+        public {{ Solution.ShortName }}DbContext(DbContextOptions options, IEnumerable<IBeforeSaveHandler> handlers) : base(options, handlers)
         {
         }
         

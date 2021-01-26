@@ -1,13 +1,13 @@
 @model {{ Solution.Name }}.Domain.User
 
 <markdown>
-## {{ Solution.Name }}
+## {{ Solution.ShortName }}
 
 Hello!
 
-Welcome to {{ Solution.Name }}!
+Welcome to {{ Solution.ShortName }}!
 
 Regards,
 
-{{ Solution.Name }} Team
+{{ Solution.ShortName }} Team
 </markdown>

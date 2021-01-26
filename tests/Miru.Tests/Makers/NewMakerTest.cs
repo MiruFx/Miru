@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using Miru.Core;
 using Miru.Core.Makers;
+using Miru.Testing;
 using NUnit.Framework;
 using Shouldly;
 
@@ -32,6 +33,19 @@ namespace Miru.Tests.Makers
             File.Exists(_tempDir / "StackOverflow" / "global.json").ShouldBeTrue();
             
             File.ReadAllText(_tempDir / "StackOverflow" / "config" / "Config.Development.yml").ShouldContain("{{ db_dir }}StackOverflow_dev");
+        }
+        
+        [Test]
+        public void Make_new_solution_named_with_dots()
+        {
+            var m = Maker.For(_tempDir, "StackExchange.StackOverflow");
+
+            m.New("StackExchange.StackOverflow");
+
+            (m.Solution.RootDir / ".gitignore").ShouldExist();
+            (m.Solution.RootDir / "global.json").ShouldExist();
+            
+            (m.Solution.RootDir / "config" / "Config.Development.yml").ShouldContain("{{ db_dir }}StackOverflow_dev");
         }
         
         [Test]

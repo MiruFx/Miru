@@ -1,0 +1,35 @@
+using System.Threading.Tasks;
+using Corpo.Skeleton.Domain;
+using Miru;
+using Miru.Security;
+using Miru.Userfy;
+
+namespace Corpo.Skeleton.Config
+{
+    public class AuthorizationConfig : IAuthorizationRules
+    {
+        private readonly IUserSession<User> _userSession;
+
+        public AuthorizationConfig(IUserSession<User> userSession)
+        {
+            _userSession = userSession;
+        }
+
+        public Task<AuthorizationResult> Evaluate<TRequest>(TRequest request, FeatureInfo feature)
+        {
+            // Examples of rules:
+            
+            // if (feature.IsIn("Admin") && (await _userSession.User())?.IsAdmin == false)
+            // {
+            //     return AuthorizationResult.Fail();
+            // }
+            
+            // if (feature.Implements<IMustBeAuthenticated>() && _userSession.IsAnonymous)
+            // {
+            //     return AuthorizationResult.Fail("Authentication is required");
+            // }
+            
+            return Task.FromResult(AuthorizationResult.Succeed());
+        }
+    }
+}

@@ -37,7 +37,7 @@ ProjectSection(SolutionItems) = preProject
 	nuget.config = nuget.config
 	Directory.Build.props = Directory.Build.props
 	global.json = global.json
-	samples\Skeleton\config\_Config.Example.yml = samples\Skeleton\config\_Config.Example.yml
+	samples\Corpo.Skeleton\config\_Config.Example.yml = samples\Corpo.Skeleton\config\_Config.Example.yml
 	.github\workflows\ci.yml = .github\workflows\ci.yml
 	.github\workflows\release.yml = .github\workflows\release.yml
 	.gitignore = .gitignore
@@ -57,13 +57,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.PageTesting.Chrome", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{82032D85-4BA1-4F07-89CE-F95685393764}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skeleton", "samples\Skeleton\src\Skeleton\Skeleton.csproj", "{085DD7EC-76B4-4936-BE31-B1DD0FEC97E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Corpo.Skeleton", "samples\Corpo.Skeleton\src\Corpo.Skeleton\Corpo.Skeleton.csproj", "{085DD7EC-76B4-4936-BE31-B1DD0FEC97E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skeleton.Tests", "samples\Skeleton\tests\Skeleton.Tests\Skeleton.Tests.csproj", "{2C7626E8-92E2-4CB8-8517-4864A8FC885F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Corpo.Skeleton.Tests", "samples\Corpo.Skeleton\tests\Corpo.Skeleton.Tests\Corpo.Skeleton.Tests.csproj", "{2C7626E8-92E2-4CB8-8517-4864A8FC885F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skeleton.PageTests", "samples\Skeleton\tests\Skeleton.PageTests\Skeleton.PageTests.csproj", "{F0076054-E669-40CD-8863-5C075E2C0232}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Corpo.Skeleton.PageTests", "samples\Corpo.Skeleton\tests\Corpo.Skeleton.PageTests\Corpo.Skeleton.PageTests.csproj", "{F0076054-E669-40CD-8863-5C075E2C0232}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Skeleton", "Skeleton", "{47A03D9D-2402-4BBA-813C-FB793CBA8032}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Corpo.Skeleton", "Corpo.Skeleton", "{47A03D9D-2402-4BBA-813C-FB793CBA8032}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SelfImprov", "SelfImprov", "{B7AE39E4-1863-4B1F-852D-140C4F664CF9}"
 ProjectSection(SolutionItems) = preProject
@@ -84,8 +84,8 @@ EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{9AE2E2E5-D808-4FF7-809C-F9B9E0413B63}"
 ProjectSection(SolutionItems) = preProject
-	samples\Skeleton\config\Config.Development.yml = samples\Skeleton\config\Config.Development.yml
-	samples\Skeleton\config\Config.Test.yml = samples\Skeleton\config\Config.Test.yml
+	samples\Corpo.Skeleton\config\Config.Development.yml = samples\Corpo.Skeleton\config\Config.Development.yml
+	samples\Corpo.Skeleton\config\Config.Test.yml = samples\Corpo.Skeleton\config\Config.Test.yml
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.SqlServer", "src\Miru.SqlServer\Miru.SqlServer.csproj", "{29B3365E-2579-40D7-82EA-1A7EFDD1334A}"

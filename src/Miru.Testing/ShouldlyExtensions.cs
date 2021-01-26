@@ -92,7 +92,7 @@ namespace Miru.Testing
             }
         }
         
-        public static void ShouldExistAndContains(this MiruPath fileName, params string[] lines)
+        public static void ShouldContain(this MiruPath fileName, params string[] lines)
         {
             var file = File.ReadAllText(fileName);
 

@@ -41,7 +41,7 @@ namespace Miru.Tests.Makers
             m.Feature("Goals", "Goal", "List", "List");
             
             (m.Solution.FeaturesDir / "Goals" / "GoalList.cs").ShouldExist();
-            (m.Solution.FeaturesDir / "Goals" / "List.cshtml").ShouldExistAndContains(
+            (m.Solution.FeaturesDir / "Goals" / "List.cshtml").ShouldContain(
                 "<a href=\"#\">Edit</a>");
             
             (m.Solution.AppTestsDir / "Features" / "Goals" / "GoalListTest.cs").ShouldExist();
@@ -58,10 +58,10 @@ namespace Miru.Tests.Makers
             m.Feature("Goals", "Goal", "Details", template: "Show");
             
             // assert
-            (m.Solution.FeaturesDir / "Goals" / "GoalDetails.cs").ShouldExistAndContains(
+            (m.Solution.FeaturesDir / "Goals" / "GoalDetails.cs").ShouldContain(
                 "public class GoalDetails");
             
-            (m.Solution.FeaturesDir / "Goals" / "Details.cshtml").ShouldExistAndContains(
+            (m.Solution.FeaturesDir / "Goals" / "Details.cshtml").ShouldContain(
                 "<a href=\"#\">Edit</a>");
             
             (m.Solution.AppTestsDir / "Features" / "Goals" / "GoalDetailsTest.cs").ShouldExist();

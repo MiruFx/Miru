@@ -1,5 +1,5 @@
-using Miru.PageTesting;
 using {{ Solution.Name }}.Features.Accounts;
+using Miru.PageTesting;
 using NUnit.Framework;
 
 namespace {{ Solution.Name }}.PageTests.Pages.Accounts

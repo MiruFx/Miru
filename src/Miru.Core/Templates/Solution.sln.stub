@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "{{ Solution.Name }}", "src\{{ Solution.Name }}\{{ Solution.Name }}.csproj", "{8951446F-2722-4843-98B2-0ED64E2F10AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "{{ Solution.ShortName }}", "src\{{ Solution.ShortName }}\{{ Solution.ShortName }}.csproj", "{8951446F-2722-4843-98B2-0ED64E2F10AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "{{ Solution.Name }}.Tests", "tests\{{ Solution.Name }}.Tests\{{ Solution.Name }}.Tests.csproj", "{8EDD574A-9530-4569-8111-21005CF09118}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "{{ Solution.ShortName }}.Tests", "tests\{{ Solution.ShortName }}.Tests\{{ Solution.ShortName }}.Tests.csproj", "{8EDD574A-9530-4569-8111-21005CF09118}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "{{ Solution.Name }}.PageTests", "tests\{{ Solution.Name }}.PageTests\{{ Solution.Name }}.PageTests.csproj", "{4FDC1237-8E13-4685-9F02-0F5E5CE990F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "{{ Solution.ShortName }}.PageTests", "tests\{{ Solution.ShortName }}.PageTests\{{ Solution.ShortName }}.PageTests.csproj", "{4FDC1237-8E13-4685-9F02-0F5E5CE990F0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2B570CAD-E055-4055-BCF9-A246A1FB4F5E}"
 	ProjectSection(SolutionItems) = preProject

@@ -26,11 +26,11 @@ namespace Miru.Tests.Makers
             m.Entity("Topup");
             
             (_solutionDir / "src" / "Mong" / "Domain" / "Topup.cs")
-                .ShouldExistAndContains(
+                .ShouldContain(
                     "public class Topup : Entity");
             
             (_solutionDir / "tests" / "Mong.Tests" / "Domain" / "TopupTest.cs")
-                .ShouldExistAndContains(
+                .ShouldContain(
                     "public class TopupTest : DomainTest");
         }
     }

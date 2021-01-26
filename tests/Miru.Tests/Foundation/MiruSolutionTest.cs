@@ -12,6 +12,8 @@ namespace Miru.Tests.Foundation
             var solution = new MiruSolution(A.Path("Projects", "StackOverflow"));
 
             solution.Name.ShouldBe("StackOverflow");
+            solution.ShortName.ShouldBe("StackOverflow");
+            
             solution.RootDir.ShouldBe(A.Path("Projects", "StackOverflow"));
             solution.SrcDir.ShouldBe(A.Path("Projects", "StackOverflow", "src"));
             solution.ConfigDir.ShouldBe(A.Path("Projects", "StackOverflow", "config"));
@@ -51,28 +53,14 @@ namespace Miru.Tests.Foundation
             var solution = new MiruSolution(A.TempPath("Miru", "ContosoUniversity"), "ContosoWeb");
             solution.Relative(m => m.ConfigDir).ShouldBe("config");
         }
-        
-        // [Test]
-        // public void Whole_structure()
-        // {
-        //     // var solution = new Solution(A.Dir("D:", "Projects", "Shoppers"));
-        //     var solution = Solution.Find(currentDir: A.Dir("D:", "Projects", "Shoppers"));
-        //     
-        //     solution.CurrentDir.ShouldBe(A.Dir("D:", "Projects", "Shoppers"));
-        //     solution.SrcDir.ShouldBe(A.Dir("D:", "Projects", "Shoppers", "src"));
-        //     solution.CurrentProject.ShouldBeEmpty();
-        //     solution.RootDir.ShouldBe(A.Dir("D:", "Projects", "Shoppers"));
-        //     solution.ConfigDir.ShouldBe(A.Dir("D:", "Projects", "Shoppers", "src", "Config"));
-        //     
-        //     solution.Projects.App.ShouldBe("Shoppers");
-        //     solution.Projects.AppDir.ShouldBe(A.Dir("D:", "Projects", "Shoppers", "src", "Shoppers"));
-        //     
-        //     solution.Projects.Tests.ShouldBe("Shoppers.Tests");
-        //     solution.Projects.TestsDir.ShouldBe(A.Dir("D:", "Projects", "Shoppers", "src", "Shoppers.Tests"));
-        //     
-        //     solution.Projects.PageTests.ShouldBe("Shoppers.PageTests");
-        //     solution.Projects.PageTestsDir.ShouldBe(A.Dir("D:", "Projects", "Shoppers", "src", "Shoppers.PageTests"));
-        // }
+
+        [Test]
+        public void When_solution_name_is_composed_can_extract_short_name()
+        {
+            var solution = new MiruSolution(A.TempPath("Projects"), "Microsoft.Dynamics");
+            solution.Name.ShouldBe("Microsoft.Dynamics");
+            solution.ShortName.ShouldBe("Dynamics");
+        }
         
         // [Test]
         // public void Find_root()

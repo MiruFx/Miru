@@ -18,7 +18,7 @@ Has to be .Sdk.Web to allow unit test asp.net components correctly
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\samples\Skeleton\src\Skeleton\Skeleton.csproj" />
+    <ProjectReference Include="..\..\samples\Corpo.Skeleton\src\Corpo.Skeleton\Corpo.Skeleton.csproj" />
     <ProjectReference Include="..\..\samples\Mong\src\Mong\Mong.csproj" />
     <ProjectReference Include="..\..\samples\Mong\tests\Mong.Tests\Mong.Tests.csproj" />
     <ProjectReference Include="..\..\src\Miru.Fabrication\Miru.Fabrication.csproj" />
@@ -48,12 +48,5 @@ Has to be .Sdk.Web to allow unit test asp.net components correctly
   <ItemGroup>
     <Folder Include="PageTesting" />
   </ItemGroup>
-
-<!--  <ItemGroup>-->
-<!--    <Content Update="Mailing\Welcome.mail.cshtml">-->
-<!--      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>-->
-<!--      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>-->
-<!--    </Content>-->
-<!--  </ItemGroup>-->
 
 </Project>

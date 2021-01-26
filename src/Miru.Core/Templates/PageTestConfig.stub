@@ -1,3 +1,4 @@
+using {{ Solution.Name }}.Tests.Config;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Miru.Core;
@@ -5,7 +6,6 @@ using Miru.PageTesting;
 using Miru.PageTesting.Chrome;
 using Miru.Testing;
 using OpenQA.Selenium.Chrome;
-using {{ Solution.Name }}.Tests.Config;
 
 namespace {{ Solution.Name }}.PageTests.Config
 {
@@ -13,7 +13,7 @@ namespace {{ Solution.Name }}.PageTests.Config
     {
         public void ConfigureTestServices(IServiceCollection services)
         {
-            // import services from {{ Solution.Name }}.Tests
+            // import services from {{ Solution.ShortName }}.Tests
             services.AddFrom<TestsConfig>();
             
             services.AddPageTesting(options =>

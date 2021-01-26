@@ -3,9 +3,9 @@ using Miru.Fabrication.FixtureConventions;
 
 namespace {{ Solution.Name }}.Tests
 {
-    public class {{ Solution.Name }}Fabricator : Fabricator
+    public class {{ Solution.ShortName }}Fabricator : Fabricator
     {
-        public {{ Solution.Name }}Fabricator(FabSupport context) : base(context)
+        public {{ Solution.ShortName }}Fabricator(FabSupport context) : base(context)
         {
             Fixture.AddConvention(cfg =>
             {

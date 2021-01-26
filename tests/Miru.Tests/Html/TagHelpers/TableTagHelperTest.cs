@@ -12,12 +12,12 @@ namespace Miru.Tests.Html.TagHelpers
         public void Should_render_table()
         {
             // arrange
-            var viewModel = new Skeleton.Features.Products.ProductList.Result
+            var viewModel = new Corpo.Skeleton.Features.Products.ProductList.Result
             {
-                Items = new List<Skeleton.Features.Products.ProductList.Item>()
+                Items = new List<Corpo.Skeleton.Features.Products.ProductList.Item>()
                 {
-                    new Skeleton.Features.Products.ProductList.Item() {Id = 1, Name = "iPhone"},
-                    new Skeleton.Features.Products.ProductList.Item() {Id = 2, Name = "Samsung"}
+                    new Corpo.Skeleton.Features.Products.ProductList.Item() {Id = 1, Name = "iPhone"},
+                    new Corpo.Skeleton.Features.Products.ProductList.Item() {Id = 2, Name = "Samsung"}
                 }
             };
 

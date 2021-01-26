@@ -1,9 +1,11 @@
+using {{ Solution.Name }}.Config;
+using {{ Solution.Name }}.Database;
+using {{ Solution.Name }}.Domain;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Miru;
-using Miru.Databases.EntityFramework;
 using Miru.Foundation.Hosting;
 using Miru.Mailing;
 using Miru.Mvc;
@@ -12,9 +14,6 @@ using Miru.Queuing;
 using Miru.Sqlite;
 using Miru.Turbolinks;
 using Miru.Userfy;
-using {{ Solution.Name }}.Config;
-using {{ Solution.Name }}.Database;
-using {{ Solution.Name }}.Domain;
 
 namespace {{ Solution.Name }}
 {
@@ -28,7 +27,7 @@ namespace {{ Solution.Name }}
                 .AddDefaultPipeline<Startup>()
                 
                 // database
-                .AddEfCoreSqlite<{{ Solution.Name }}DbContext>()
+                .AddEfCoreSqlite<{{ Solution.ShortName }}DbContext>()
                 
                 // user security
                 .AddUserfy<User>(options =>
@@ -40,7 +39,7 @@ namespace {{ Solution.Name }}
                 // mailing
                 .AddMailing(_ =>
                 {
-                    _.EmailDefaults(email => email.From("noreply@{{ Solution.Name }}.com", "{{ Solution.Name }}"));
+                    _.EmailDefaults(email => email.From("noreply@{{ Solution.ShortName }}.com", "{{ Solution.ShortName }}"));
                 })
                 .AddSenderStorage()
                 

@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
+using {{ Solution.Name }}.Features.{{ input.In }};
 using Miru.Testing;
 using NUnit.Framework;
-using {{ Solution.Name }}.Features.{{ input.In }};
 
 namespace {{ Solution.Name }}.Tests.Features.{{ input.In }}
 {

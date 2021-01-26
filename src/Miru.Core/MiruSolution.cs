@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Baseline;
 
@@ -27,6 +28,11 @@ namespace Miru.Core
         
         public string Name { get;}
         
+        /// <summary>
+        /// Last part of a composed solution name, eg: "Microsoft.Dynamics" short name will be "Dynamics" 
+        /// </summary>
+        public string ShortName { get; set; }
+
         /// <summary>
         /// Current dir is the same as Directory.GetCurrentDirectory()
         /// </summary>
@@ -57,6 +63,7 @@ namespace Miru.Core
             CurrentDir = MiruPath.CurrentPath;
             RootDir = rootDir;
             Name = appName ?? Path.GetFileName(RootDir);
+            ShortName = Name.Split(".").Last();
             
             SrcDir = A.Path(RootDir, "src");
             ConfigDir = A.Path(RootDir, "config");
@@ -77,7 +84,7 @@ namespace Miru.Core
 
             StorageDir = RootDir / "storage";
         }
-
+        
         public string Relative(Func<MiruSolution, string> func)
         {
             var dir = func(this);
