@@ -13,7 +13,7 @@ namespace Miru.Tests.Makers
         private MiruPath _tempDir;
 
         [SetUp]
-        // [TearDown]
+        [TearDown]
         public void Setup()
         {
             _tempDir = A.TempPath("Miru");
