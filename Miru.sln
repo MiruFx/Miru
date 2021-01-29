@@ -92,6 +92,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.SqlServer", "src\Miru.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.Sqlite", "src\Miru.Sqlite\Miru.Sqlite.csproj", "{BF40CCBF-3274-4B8F-B3C5-EA18DCB5CFA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.Postgres", "src\Miru.Postgres\Miru.Postgres.csproj", "{AF43C3D1-DCAF-460B-BB29-FA00F91E62FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -190,6 +192,10 @@ Global
 		{BF40CCBF-3274-4B8F-B3C5-EA18DCB5CFA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF40CCBF-3274-4B8F-B3C5-EA18DCB5CFA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF40CCBF-3274-4B8F-B3C5-EA18DCB5CFA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF43C3D1-DCAF-460B-BB29-FA00F91E62FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF43C3D1-DCAF-460B-BB29-FA00F91E62FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF43C3D1-DCAF-460B-BB29-FA00F91E62FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF43C3D1-DCAF-460B-BB29-FA00F91E62FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
