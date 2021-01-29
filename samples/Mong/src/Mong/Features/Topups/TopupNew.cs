@@ -113,8 +113,13 @@ namespace Mong.Features.Topups
 
             public TopupsController(MongDbContext db) => _db = db;
 
-            public async Task<Command> New(Query request) => await SendAsync(request);
-            
+            public async Task<Command> New(Query request)
+            {
+                var response = await SendAsync(request);
+                ViewBag.Title = "New Topup"; 
+                return response;
+            }
+
             [HttpPost]
             public async Task<Command> New(Command request) => await SendAsync(request);
 

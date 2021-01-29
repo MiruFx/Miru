@@ -195,6 +195,12 @@ namespace Scripts
                 .Replace(
                     @"<ProjectReference Include=""..\..\..\..\src\Miru.PageTesting.Chrome\Miru.PageTesting.Chrome.csproj"" />",
                     @"<PackageReference Include=""Miru.PageTesting.Chrome"" Version=""{{ MiruVersion }}"" />")
+                .Replace(
+                    @"<ProjectReference Include=""..\..\..\..\src\Miru.Sqlite\Miru.Sqlite.csproj"" />",
+                    @"<PackageReference Include=""Miru.Sqlite"" Version=""{{ MiruVersion }}"" />")
+                .Replace(
+                    @"<ProjectReference Include=""..\..\..\..\src\Miru.SqlServer\Miru.SqlServer.csproj"" />",
+                    @"<PackageReference Include=""Miru.SqlServer"" Version=""{{ MiruVersion }}"" />")
                 
                 .Replace("Corpo.Skeleton", "{{ Solution.Name }}")
                 .Replace("Skeleton", "{{ Solution.ShortName }}")

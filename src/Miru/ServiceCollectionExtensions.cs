@@ -38,6 +38,7 @@ namespace Miru
                 {
                     opt.Filters.Add(typeof(AutoValidateAntiforgeryTokenAttribute));
                     opt.Filters.Add(typeof(ExceptionFilter));
+                    opt.Filters.Add(typeof(ViewDataFilter));
 
                     mvc?.Invoke(opt);
                 })

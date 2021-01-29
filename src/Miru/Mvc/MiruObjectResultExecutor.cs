@@ -25,7 +25,7 @@ namespace Miru.Mvc
                 Response = context.HttpContext.Response,
                 Model = objectResult.Value,
                 ObjectResult = objectResult,
-                ActionContext = context
+                ActionContext = context,
             };
 
             var config = ctx.GetService<ObjectResultConfiguration>();

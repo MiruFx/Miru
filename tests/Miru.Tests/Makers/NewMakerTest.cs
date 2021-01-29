@@ -49,6 +49,8 @@ namespace Miru.Tests.Makers
                 .ShouldContain(@"""StackExchange.StackOverflow"", ""src\StackExchange.StackOverflow\StackExchange.StackOverflow.csproj""");
             
             (m.Solution.RootDir / "config" / "Config.Development.yml").ShouldContain("{{ db_dir }}StackOverflow_dev");
+            (m.Solution.RootDir / "config" / "Config.Production.yml").ShouldContain("{{ db_dir }}StackOverflow_prod");
+            (m.Solution.RootDir / "config" / "Config.Test.yml").ShouldContain("{{ db_dir }}StackOverflow_test");
         }
         
         [Test]

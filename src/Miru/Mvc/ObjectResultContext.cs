@@ -13,6 +13,7 @@ namespace Miru.Mvc
         public ObjectResult ObjectResult { get; set; }
         public HttpResponse Response { get; set; }
         public ActionContext ActionContext { get; set; }
+        public ViewDataDictionary ViewData { get; set; }
 
         public T GetService<T>() => Request.HttpContext.RequestServices.GetService<T>();
     }
@@ -21,12 +22,16 @@ namespace Miru.Mvc
     {
         public static ViewDataDictionary GetViewData(this ObjectResultContext ctx)
         {
-            var metalDataProvider = ctx.GetService<IModelMetadataProvider>();
+            var viewData = (ViewDataDictionary) ctx.ActionContext.HttpContext.Items["Miru_ViewData"];
 
-            var viewData = new ViewDataDictionary(metalDataProvider, ctx.ActionContext.ModelState)
+            if (viewData == null)
             {
-                Model = ctx.Model
-            };
+                var metalDataProvider = ctx.GetService<IModelMetadataProvider>();
+
+                viewData = new ViewDataDictionary(metalDataProvider, ctx.ActionContext.ModelState);
+            }
+
+            viewData.Model = ctx.Model;
             
             return viewData;
         }
