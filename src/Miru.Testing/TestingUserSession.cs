@@ -16,7 +16,9 @@ namespace Miru.Testing
             CurrentUser = null;
         }
 
-        public long CurrentUserId => CurrentUser?.Id ?? 0;
+        // FIXME
+        // public long CurrentUserId => CurrentUser?.Id ?? 0;
+        public long CurrentUserId => 0;
         
         public string Display => CurrentUser?.Display ?? string.Empty;
         

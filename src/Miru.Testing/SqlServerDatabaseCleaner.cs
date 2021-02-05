@@ -28,7 +28,7 @@ namespace Miru.Testing
             _dbOptions = appSettings.Value;
         }
 
-        public async Task Clear()
+        public async Task ClearAsync()
         {
             await Checkpoint.Reset(_dbOptions.ConnectionString);
         }

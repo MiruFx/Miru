@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using Baseline;
 using AreaFeatureFolderOptions = Miru.Mvc.FeaturesFolder.AreaFeatureFolderOptions;
 using FeatureControllerModelConvention = Miru.Mvc.FeaturesFolder.FeatureControllerModelConvention;
 using FeatureFolderOptions = Miru.Mvc.FeaturesFolder.FeatureFolderOptions;
@@ -44,12 +46,17 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddRazorViewEngine(o =>
             {
+                var current = o.AreaViewLocationFormats.ToList();
+                
                 o.AreaViewLocationFormats.Clear();
+                
                 o.AreaViewLocationFormats.Add(options.DefaultAreaViewLocation);
                 o.AreaViewLocationFormats.Add(options.AreaFolderName + @"\{2}\{1}\{0}.cshtml");
                 o.AreaViewLocationFormats.Add(options.AreaFolderName + @"\{2}\Shared\{0}.cshtml");
                 o.AreaViewLocationFormats.Add(options.AreaFolderName + @"\Shared\{0}.cshtml");
                 o.AreaViewLocationFormats.Add(options.FeatureFolderName + @"\Shared\{0}.cshtml");
+
+                o.AreaViewLocationFormats.AddRange(current);
             });
 
             return services;

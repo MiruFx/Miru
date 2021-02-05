@@ -14,7 +14,8 @@ namespace MiruCli
                 new ShowProjectCommand("tests", m => m.AppTestsDir),
                 new ShowProjectCommand("pagetests", m => m.AppPageTestsDir),
                 new SetupCommand("setup"),
-                new NewCommand("new")
+                new NewCommand("new"),
+                new WatchCommand("watch", m => m.AppDir),
             };
 
             rootCommand.Name = "miru";

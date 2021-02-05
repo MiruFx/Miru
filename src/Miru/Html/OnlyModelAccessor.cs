@@ -48,7 +48,7 @@ namespace Miru.Html
 
         public PropertyInfo InnerProperty => null;
         
-        public Type DeclaringType => _model.GetType();
+        public Type DeclaringType => _model?.GetType();
         
         public string Name => _model.GetType().Name;
 

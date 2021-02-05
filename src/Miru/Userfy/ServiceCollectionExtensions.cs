@@ -18,7 +18,7 @@ namespace Miru.Userfy
         }
 
         public static IServiceCollection AddUserfy<TUser>(this IServiceCollection services, Action<UserfyOptions> setupAction)
-            where TUser : class, IUser, IEntity
+            where TUser : class, IUser
         {
             var userfyOptions = new UserfyOptions();
 
@@ -35,19 +35,19 @@ namespace Miru.Userfy
             //     opt.Cookie.Name = userfyOptions.CookieName;
             // });
             
-            services.AddDistributedMemoryCache();
-            services.AddMemoryCache();
-            
-            services
-                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
-                    options =>
-                    {
-                        options.Cookie.SameSite = SameSiteMode.Strict;
-                        options.Cookie.HttpOnly = true;
-                        options.Cookie.Name = userfyOptions.CookieName;
-                        options.LoginPath = new PathString(userfyOptions.LoginPath);
-                    });
+            // services.AddDistributedMemoryCache();
+            // services.AddMemoryCache();
+            //
+            // services
+            //     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+            //         options =>
+            //         {
+            //             options.Cookie.SameSite = SameSiteMode.Strict;
+            //             options.Cookie.HttpOnly = true;
+            //             options.Cookie.Name = userfyOptions.CookieName;
+            //             options.LoginPath = new PathString(userfyOptions.LoginPath);
+            //         });
             
             // miru services setup
             services.AddTransient<IUserSession, WebUserSession>();

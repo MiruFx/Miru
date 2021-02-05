@@ -24,9 +24,10 @@ namespace Miru.Html.Tags
 
             if (Lookup != null)
             {
-                var items = Lookup.Model as IEnumerable<ILookupable>;
-
-                items.Each(item => selectTag.Option(item.Display, item.Value));
+                if (Lookup.Model is IEnumerable<ILookupable> lookupables)
+                {
+                    lookupables.Each(item => selectTag.Option(item.Display, item.Value));
+                }
             }
 
             var currentValue = For.Model;

@@ -18,7 +18,7 @@ namespace Miru.Mvc
         /// <summary>
         /// Return current model if is type T or create a new T
         /// </summary>
-        public object ThisModelOrNew<T>() where T : new()
+        public object BindOrNew<T>() where T : new()
         {
             return Model is T ? (object) Model : new T();
         }

@@ -124,7 +124,9 @@ namespace Miru.Testing
         
         public static void LoginAs(this ITestFixture fixture, IUser user)
         {
-            MiruTest.Log.Information($"Login as #{user.Id}-{user.Display}");
+            // FIXME
+            // MiruTest.Log.Information($"Login as #{user.Id}-{user.Display}");
+            MiruTest.Log.Information($"Login as #___-{user.Display}");
 
             fixture.Get<IUserSession>().Login(user);
         }
@@ -173,7 +175,7 @@ namespace Miru.Testing
 
             using var scope = fixture.App.WithScope();
             
-            scope.Get<IDatabaseCleaner>().Clear();
+            scope.Get<IDatabaseCleaner>().ClearAsync();
 
             return fixture;
         }

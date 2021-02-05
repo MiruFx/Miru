@@ -5,7 +5,12 @@ namespace Miru.Foundation.Logging
 {
     public static class LoggerConfigurationExtensions
     {
-        public static LoggerConfiguration EfCoreSql(this LoggerConfiguration config, LogEventLevel level)
+        public static LoggerConfiguration Authentication(this LoggerConfiguration config, LogEventLevel level)
+        {
+            return config.MinimumLevel.Override("Microsoft.AspNetCore.Authentication", level);
+        }
+
+        public static LoggerConfiguration EntityFrameworkSql(this LoggerConfiguration config, LogEventLevel level)
         {
             return config.MinimumLevel.Override("Microsoft.EntityFrameworkCore.Database.Command", level);
         }

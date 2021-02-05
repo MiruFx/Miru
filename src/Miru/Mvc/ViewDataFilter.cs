@@ -7,9 +7,11 @@ namespace Miru.Mvc
     {
         public override void OnResultExecuting(ResultExecutingContext context)
         {
-            var controller = (Controller) context.Controller;
-
-            context.HttpContext.Items["Miru_ViewData"] = controller.ViewData;
+            if (context.Controller is Controller controller)
+            {
+                context.HttpContext.Items["Miru_ViewData"] = controller.ViewData;
+                context.HttpContext.Items["Miru_TempData"] = controller.TempData;    
+            }
             
             base.OnResultExecuting(context);
         }

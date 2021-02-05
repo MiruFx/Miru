@@ -6,7 +6,7 @@ using Miru.Domain;
 namespace Miru.Userfy
 {
     public class UserSession<TUser> : IUserSession<TUser> 
-        where TUser : class, IEntity, IUser
+        where TUser : class, IUser
     {
         private readonly IUserSession _userSession;
         private readonly DbContext _db;
@@ -25,8 +25,9 @@ namespace Miru.Userfy
             {
                 if (CurrentUserId == 0)
                     return null;
-                
-                return await _db.Set<TUser>().ByIdOrFailAsync(CurrentUserId);
+
+                return null;
+                // return await _db.Set<TUser>().ByIdOrFailAsync(CurrentUserId);
             }
             catch (NotFoundException ex)
             {

@@ -13,14 +13,23 @@ namespace Miru.Pipeline
 {
     public static class PipelineServiceCollectionExtensions
     {
+        public static IServiceCollection AddHandlers<TAssemblyOfType>(this IServiceCollection services) 
+        {
+            services.AddMediatR(typeof(TAssemblyOfType));
+            services.AddValidators<TAssemblyOfType>();
+            services.AddAuthorizersInAssemblyOf<TAssemblyOfType>();
+            
+            return services;
+        }
+        
         public static IServiceCollection AddPipeline<TAssemblyOfType>(
             this IServiceCollection services, 
-            Action<PipelineBuilder> builder) 
+            Action<PipelineBuilder> builder = null) 
         {
             services.AddMediatR(typeof(TAssemblyOfType), typeof(EmailJob));
             
             var pipeline = new PipelineBuilder(services);
-            builder.Invoke(pipeline);
+            builder?.Invoke(pipeline);
             
             services.AddValidators<TAssemblyOfType>();
             services.AddAuthorizersInAssemblyOf<TAssemblyOfType>();

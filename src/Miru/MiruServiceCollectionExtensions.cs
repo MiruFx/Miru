@@ -6,6 +6,7 @@ using Miru.Foundation;
 using Miru.Foundation.Logging;
 using Miru.Html;
 using Miru.Mvc;
+using Miru.Storages;
 using Miru.Urls;
 using Serilog.Events;
 using Vereyon.Web;
@@ -46,6 +47,8 @@ namespace Miru
             services.AddMiruUrls();
             services.AddConsolables<TStartup>();
             services.AddSingleton<IJsonConverter, JsonConverter>();
+
+            services.AddStorage();
             
             return services;
         }

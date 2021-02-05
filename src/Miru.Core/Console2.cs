@@ -69,6 +69,13 @@ namespace Miru.Core
             Console.WriteLine(message, args);
             Console.ResetColor();
         }
+        
+        public static void Green(string message, params object[] args)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(message, args);
+            Console.ResetColor();
+        }
 
         public static void BreakLine()
         {

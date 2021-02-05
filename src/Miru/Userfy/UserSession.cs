@@ -34,7 +34,7 @@ namespace Miru.Userfy
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Display),
-                new Claim(ClaimTypes.Sid, user.Id.ToString())
+                // new Claim(ClaimTypes.Sid, user.Id.ToString())
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -53,7 +53,7 @@ namespace Miru.Userfy
             _httpContextAccessor.HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme, userPrincipal, authProperties);
             
-            _logger.LogDebug($"Logged in User #{user.Id} - {user.Display}");
+            // _logger.LogDebug($"Logged in User #{user.Id} - {user.Display}");
         }
 
         public void Logout()

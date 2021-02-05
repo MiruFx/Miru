@@ -42,13 +42,6 @@ namespace Miru.Html
                 m.CurrentTag.Id(naming.SummaryId(m.Model));
             });
                         
-            Forms.Always.ModifyWith(m =>
-            {
-                var naming = m.Get<ElementNaming>();
-                
-                m.CurrentTag.Data("feature", naming.Id(m.Model));
-            });
-            
             Cells.Always.BuildBy<CellBuilder>();
             
             TableHeader.Always.BuildBy<TableHeaderBuilder>();
