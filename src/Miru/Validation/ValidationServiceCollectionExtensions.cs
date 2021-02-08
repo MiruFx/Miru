@@ -11,7 +11,7 @@ namespace Miru.Validation
                 .FromAssemblies(typeof(TAssemblyOfType).Assembly)
                 .AddClasses(classes => classes.AssignableTo(typeof(IValidator<>)))
                 .AsImplementedInterfaces()
-                .WithTransientLifetime());
+                .WithScopedLifetime());
 
             services.AddSingleton<ValidatorFactory>();
             

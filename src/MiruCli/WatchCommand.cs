@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Baseline;
+using ImTools;
 using Miru.Core;
 using Miru.Core.Makers;
 using MiruCli.Process;
@@ -21,7 +22,6 @@ namespace MiruCli
         public WatchCommand(string commandName, Func<MiruSolution, string> func) : base(commandName)
         {
             Handler = CommandHandler.Create(() => WatchRun(func));
-            IsHidden = true;
             
             _console = PhysicalConsole.Singleton;
             _cts = new CancellationTokenSource();
@@ -72,7 +72,7 @@ namespace MiruCli
             {
                 Executable = "c:\\Program Files\\nodejs\\npm.cmd",
                 WorkingDirectory = solution.Solution.AppDir,
-                Arguments = new[] { "--prefix", solution.Solution.AppDir, "run", "watch" },
+                Arguments = new[] { "--prefix", solution.Solution.AppDir.ToString(), "run", "watch" },
             };
             
             var dotnet = new ProcessSpec()

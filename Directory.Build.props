@@ -22,8 +22,9 @@
     
   </PropertyGroup>
   
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <MinVerSkip>true</MinVerSkip>
+<!--  <PropertyGroup Condition="'$(Configuration)' == 'Release'">-->
+  <PropertyGroup>
+    <MinVerSkip Condition="'$(Configuration)' == 'Debug'">true</MinVerSkip>
     <MinVerTagPrefix>v</MinVerTagPrefix>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>

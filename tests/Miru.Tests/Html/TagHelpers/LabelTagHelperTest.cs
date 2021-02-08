@@ -17,23 +17,23 @@ namespace Miru.Tests.Html.TagHelpers
             _request = new Command();
         }
         
-        [Test]
-        public async Task Should_render_label()
-        {
-            // arrange
-            var tag = new LabelTagHelper
-            {
-                For = MakeExpression(_request, m => m.Name),
-                RequestServices = ServiceProvider
-            };
-
-            // act
-            var output = await ProcessTagAsync(tag, "miru-label");
-            
-            // assert
-            output.TagName.ShouldBeNull();
-            output.PreElement.GetContent().ShouldBe("<label for=\"Name\">Name</label>");
-        }
+        // [Test]
+        // public async Task Should_render_label()
+        // {
+        //     // arrange
+        //     var tag = new LabelTagHelper
+        //     {
+        //         For = MakeExpression(_request, m => m.Name),
+        //         RequestServices = ServiceProvider
+        //     };
+        //
+        //     // act
+        //     var output = await ProcessTagAsync(tag, "miru-label");
+        //     
+        //     // assert
+        //     output.TagName.ShouldBeNull();
+        //     output.PreElement.GetContent().ShouldBe("<label for=\"Name\">Name</label>");
+        // }
      
         public class Command
         {
