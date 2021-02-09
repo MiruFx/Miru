@@ -7,16 +7,28 @@ namespace Miru.Queuing
 {
     public class MiruJobActivator : AspNetCoreJobActivator
     {
-        private readonly IMediator _mediator;
+        // private readonly IMediator _mediator;
+        //
+        // public MiruJobActivator(IServiceScopeFactory serviceScopeFactory, IMediator mediator) : base(serviceScopeFactory)
+        // {
+        //     _mediator = mediator;
+        // }
+        //
+        // public override object ActivateJob(Type type)
+        // {
+        //     return Activator.CreateInstance(type, _mediator);
+        // }
+        
+        // private readonly IMediator _mediator;
 
-        public MiruJobActivator(IServiceScopeFactory serviceScopeFactory, IMediator mediator) : base(serviceScopeFactory)
+        public MiruJobActivator(IServiceScopeFactory serviceScopeFactory) : base(serviceScopeFactory)
         {
-            _mediator = mediator;
+            // _mediator = mediator;
         }
         
         public override object ActivateJob(Type type)
         {
-            return Activator.CreateInstance(type, _mediator);
+            return Activator.CreateInstance(type);
         }
     }
 }

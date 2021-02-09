@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Miru.Core;
+using Miru.Domain;
 using Miru.Pagination;
 
 namespace Miru.Urls
@@ -28,7 +29,9 @@ namespace Miru.Urls
                 !prop.Name.StartsWith("Result.") && 
                 !prop.Name.StartsWith("Results.") && 
                 !prop.Name.CaseCmp("Result") && 
-                !prop.Name.CaseCmp("Results"));
+                !prop.Name.CaseCmp("Results") && 
+                !prop.Name.StartsWith("_") &&
+                !prop.PropertyType.Implements<IEntity>());
 
             IgnoreModifiedWhen(prop =>
                 prop.DeclaringType.Implements<IPageable>() && prop.Name.Equals(nameof(IPageable.Page)) ||

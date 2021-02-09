@@ -41,6 +41,8 @@ namespace Miru.Mvc
 
             if (result != null)
             {
+                App.Framework.Error(ctx.Exception, "Exception handled from the application");
+                
                 context.Result = result;
                 context.ExceptionHandled = true;
             }

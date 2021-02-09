@@ -16,6 +16,7 @@ namespace Miru.Consolables
             services.AddSingleton<Maker>();
             
             services.AddConsolable<ConfigShowConsolable>();
+            services.AddConsolable<ConfigServicesConsolable>();
             
             services.Scan(scan => scan
                 .FromAssemblies(typeof(ServiceTaskExtensions).Assembly)

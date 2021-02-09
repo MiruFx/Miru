@@ -13,7 +13,9 @@ namespace Miru.PageTesting
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddPageTesting(this IServiceCollection services, Action<PageTestingConfig> setupAction = null)
+        public static IServiceCollection AddPageTesting<TUser>(
+            this IServiceCollection services, Action<PageTestingConfig> setupAction = null)
+                where TUser : UserfyUser
         {
             var config = new PageTestingConfig() { Services = services };
             
@@ -30,7 +32,7 @@ namespace Miru.PageTesting
             
             services.AddSingleton<IStartupFilter, PageTestingStartupFilter>();
 
-            services.AddSingleton<IUserSession, TestingUserSession>();
+            services.AddTransient<IUserSession, TestingUserSession<TUser>>();
 
             services.AddSingleton<Storage>();
             

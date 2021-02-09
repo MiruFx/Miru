@@ -15,7 +15,7 @@ namespace Miru.Testing
             _dbContext = dbContext;
         }
 
-        public async Task Clear()
+        public async Task ClearAsync()
         {
             var sqlGetTables = @"
 pragma foreign_keys = OFF;

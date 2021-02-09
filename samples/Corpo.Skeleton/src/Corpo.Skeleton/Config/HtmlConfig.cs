@@ -10,8 +10,6 @@ namespace Corpo.Skeleton.Config
             this.AddTwitterBootstrap();
             
             this.AddMiruBootstrapLayout();
-            
-            this.AddRailsUjs();
         }
     }
 }

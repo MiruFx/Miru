@@ -40,6 +40,7 @@ namespace Miru.Tests.Html
         }
         
         [Test]
+        [Ignore("Only when data-turbo is false")]
         public void Form_should_have_anti_forgery_input()
         {
             var antiForgery = _sp.GetService<IAntiforgeryAccessor>();
@@ -50,6 +51,18 @@ namespace Miru.Tests.Html
             input.TagName().ShouldBe("input");
             input.Name().ShouldBe(antiForgery.FormFieldName);
             input.Value().ShouldBe(antiForgery.RequestToken);
+        }
+        
+        [Test]
+        [Ignore("Only when Turbo is enabled")]
+        public void Form_should_have_summary_field_name_input()
+        {
+            var form = _htmlGenerator.FormFor(new AccountRegister.Command());
+            var input = form.FirstChild();
+            
+            input.TagName().ShouldBe("input");
+            input.Name().ShouldBe("__Summary");
+            input.Value().ShouldBe("account-register-summary");
         }
     }
 

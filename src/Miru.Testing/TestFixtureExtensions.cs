@@ -114,46 +114,52 @@ namespace Miru.Testing
 
         public static TReturn WithDb<TDbContext, TReturn>(this ITestFixture fixture, Func<TDbContext, TReturn> func)
         {
-            using (var scope = fixture.App.WithScope())
-            {
-                var db = scope.Get<TDbContext>();
+            using var scope = fixture.App.WithScope();
+            
+            var db = scope.Get<TDbContext>();
                 
-                return func(db);
-            }
+            return func(db);
         }
         
-        public static void LoginAs(this ITestFixture fixture, IUser user)
+        public static void LoginAs<TUser>(this ITestFixture fixture, TUser user) where TUser : UserfyUser
         {
             MiruTest.Log.Information($"Login as #{user.Id}-{user.Display}");
 
-            fixture.Get<IUserSession>().Login(user);
+            using var scope = fixture.App.WithScope();
+            
+            scope.Get<IUserSession>().As<TestingUserSession<TUser>>().Login(user);
         }
 
         public static void Logout(this ITestFixture fixture)
         {
             MiruTest.Log.Information("Logging out the current user");
+
+            using var scope = fixture.App.WithScope();
             
-            fixture.Get<IUserSession>().Logout();
+            scope.Get<IUserSession>().LogoutAsync().GetAwaiter().GetResult();
         }
         
-        public static TUser CurrentUser<TUser>(this ITestFixture fixture) where TUser : IUser
+        public static TUser CurrentUser<TUser>(this ITestFixture fixture) where TUser : UserfyUser
         {
-            using (var scope = fixture.App.WithScope())
-            {
-                return scope.Get<IUserSession<TUser>>().GetUserAsync().GetAwaiter().GetResult();
-            }
+            using var scope = fixture.App.WithScope();
+            
+            return scope.Get<IUserSession<TUser>>().GetUserAsync().GetAwaiter().GetResult();
         }
         
         public static long CurrentUserId(this ITestFixture fixture)
         {
-            return fixture.Get<IUserSession>().CurrentUserId;
+            using var scope = fixture.App.WithScope();
+            
+            return scope.Get<IUserSession>().CurrentUserId;
         }
         
         public static ITestFixture MigrateDatabase(this ITestFixture fixture)
         {
             MiruTest.Log.Information($"Running _.{nameof(MigrateDatabase)}()");
             
-            fixture.Get<IDatabaseMigrator>().UpdateSchema();
+            using var scope = fixture.App.WithScope();
+            
+            scope.Get<IDatabaseMigrator>().UpdateSchema();
             
             return fixture;
         }
@@ -162,7 +168,9 @@ namespace Miru.Testing
         {
             MiruTest.Log.Information($"Running _.{nameof(ClearFabricator)}()");
             
-            fixture.Get<Fabricator>().Clear();
+            using var scope = fixture.App.WithScope();
+            
+            scope.Get<Fabricator>().Clear();
             
             return fixture;
         }
@@ -173,7 +181,7 @@ namespace Miru.Testing
 
             using var scope = fixture.App.WithScope();
             
-            scope.Get<IDatabaseCleaner>().Clear();
+            scope.Get<IDatabaseCleaner>().ClearAsync();
 
             return fixture;
         }
@@ -182,7 +190,9 @@ namespace Miru.Testing
         {
             MiruTest.Log.Information($"Running _.{nameof(ClearQueue)}()");
 
-            fixture.Get<IQueueCleaner>().Clear();
+            using var scope = fixture.App.WithScope();
+            
+            scope.Get<IQueueCleaner>().Clear();
             
             return fixture;
         }

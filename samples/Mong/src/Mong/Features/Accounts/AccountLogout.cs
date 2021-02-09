@@ -22,7 +22,7 @@ namespace Mong.Features.Accounts
 
             protected override Command Handle(Command request)
             {
-                _userSession.Logout();
+                _userSession.Logout(); 
 
                 request.RedirectTo = "/";
                 

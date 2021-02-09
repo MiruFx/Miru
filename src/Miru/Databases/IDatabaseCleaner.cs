@@ -4,6 +4,6 @@ namespace Miru.Databases
 {
     public interface IDatabaseCleaner
     {
-        Task Clear();
+        Task ClearAsync();
     }
 }

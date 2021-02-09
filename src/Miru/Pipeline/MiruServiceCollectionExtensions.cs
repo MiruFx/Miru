@@ -5,6 +5,7 @@ using Miru.Databases.EntityFramework;
 using Miru.Foundation.Logging;
 using Miru.Html;
 using Miru.Mailing;
+using Miru.Scoping;
 using Miru.Security;
 using Miru.Userfy;
 using Miru.Validation;
@@ -13,18 +14,52 @@ namespace Miru.Pipeline
 {
     public static class PipelineServiceCollectionExtensions
     {
-        public static IServiceCollection AddPipeline<TAssemblyOfType>(
-            this IServiceCollection services, 
-            Action<PipelineBuilder> builder) 
+        public static IServiceCollection AddHandlers<TAssemblyOfType>(this IServiceCollection services) 
         {
-            services.AddMediatR(typeof(TAssemblyOfType), typeof(EmailJob));
-            
-            var pipeline = new PipelineBuilder(services);
-            builder.Invoke(pipeline);
-            
+            services.AddMediatR(typeof(TAssemblyOfType));
             services.AddValidators<TAssemblyOfType>();
             services.AddAuthorizersInAssemblyOf<TAssemblyOfType>();
             
+            return services;
+        }
+        
+        public static IServiceCollection AddPipeline<TAssemblyOfType>(
+            this IServiceCollection services, 
+            Action<PipelineBuilder> builder = null) 
+        {
+            // services.AddMediatR(typeof(TAssemblyOfType), typeof(EmailJob));
+            services.AddMediatR(cfg =>
+            {
+                cfg.AsScoped();
+                
+            }, typeof(TAssemblyOfType), typeof(EmailJob));
+            
+            var pipeline = new PipelineBuilder(services);
+            builder?.Invoke(pipeline);
+            
+            services.AddValidators<TAssemblyOfType>();
+            services.AddAuthorizersInAssemblyOf<TAssemblyOfType>();
+            services.AddScopes<TAssemblyOfType>();
+            
+            return services;
+        }
+        
+        public static IServiceCollection AddScopes<TAssemblyOfType>(this IServiceCollection services)
+        {
+            services.AddScoped<MiruViewData>();
+            
+            services.Scan(scan => scan
+                .FromAssemblies(typeof(TAssemblyOfType).Assembly)
+                .AddClasses(classes => classes.AssignableTo(typeof(IScopeFor<>)))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime());
+            
+            services.Scan(scan => scan
+                .FromAssemblies(typeof(TAssemblyOfType).Assembly)
+                .AddClasses(classes => classes.AssignableTo(typeof(IScope)))
+                .AsSelf()
+                .WithScopedLifetime());
+
             return services;
         }
         
@@ -38,6 +73,7 @@ namespace Miru.Pipeline
                 _.UseBehavior(typeof(TransactionBehavior<,>));
                 _.UseBehavior(typeof(AuthorizationBehavior<,>));
                 _.UseBehavior(typeof(ValidationBehavior<,>));
+                _.UseBehavior(typeof(ScopeBehavior<,>));
             });
         }
     }

@@ -6,6 +6,7 @@ using Miru.Foundation;
 using Miru.Foundation.Logging;
 using Miru.Html;
 using Miru.Mvc;
+using Miru.Storages;
 using Miru.Urls;
 using Serilog.Events;
 using Vereyon.Web;
@@ -34,7 +35,7 @@ namespace Miru
                 configFinder.Find<ObjectResultConfiguration>() as ObjectResultConfiguration ?? new DefaultObjectResultConfig());
             
             services.AddSingleton(
-                configFinder.Find<ExceptionResultConfiguration>() as ExceptionResultConfiguration ?? new DefaultExceptionConfig());
+                configFinder.Find<ExceptionResultConfiguration>() as ExceptionResultConfiguration ?? new DefaultExceptionResultConfig());
                 
             // default logging level for app is Information
             services.AddSerilogConfig(config =>
@@ -46,6 +47,10 @@ namespace Miru
             services.AddMiruUrls();
             services.AddConsolables<TStartup>();
             services.AddSingleton<IJsonConverter, JsonConverter>();
+
+            services.AddSingleton<ISessionStore, HttpSessionStore>();
+            
+            services.AddStorage();
             
             return services;
         }

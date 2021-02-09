@@ -5,8 +5,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Miru\Miru.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.2" />
-        <PackageReference Include="Miru" Version="0.4.6" />
         <PackageReference Include="Respawn" Version="3.3.0" />
     </ItemGroup>
     

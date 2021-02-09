@@ -17,7 +17,7 @@ namespace Mong.Features.Accounts
         {
             mail.To(_user.Email, _user.Name)
                 .Subject("Activate Your Mong Account")
-                .Template(_user);
+                .Template("_Registered", _user);
         }
     }
     // #mailable

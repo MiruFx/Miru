@@ -30,16 +30,13 @@ namespace Corpo.Skeleton
                 .AddEfCoreSqlite<SkeletonDbContext>()
                 
                 // user security
-                .AddUserfy<User>(options =>
-                {
-                    options.LoginPath = "/Accounts/Login";
-                })
+                .AddUserfy<User, Role, SkeletonDbContext>()
                 .AddAuthorization<AuthorizationConfig>()
                 
                 // mailing
                 .AddMailing(_ =>
                 {
-                    _.EmailDefaults(email => email.From("noreply@Skeleton.com", "Skeleton"));
+                    _.EmailDefaults(email => email.From("noreply@skeleton.com", "Skeleton"));
                 })
                 .AddSenderStorage()
                 
@@ -48,10 +45,7 @@ namespace Corpo.Skeleton
                 {
                     _.UseLiteDb();
                 })
-                .AddHangfireServer()
-                
-                // ui
-                .AddTurbolinks();
+                .AddHangfireServer();
             
                 // your app services
                 // services.AddSingleton<IService, Service>();

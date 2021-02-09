@@ -19,7 +19,7 @@ namespace Miru.Userfy
         {
             if (request is IBelongsToUser belongToUserRequest && _userSession.IsLogged)
             {
-                belongToUserRequest.UserId = _userSession.CurrentUserId;
+                belongToUserRequest.UserId = _userSession.CurrentUserId.ToLong();
             }
             
             return await next();

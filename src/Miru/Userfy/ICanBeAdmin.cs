@@ -1,6 +1,6 @@
 namespace Miru.Userfy
 {
-    public interface ICanBeAdmin : IUser
+    public interface ICanBeAdmin
     {
         bool IsAdmin { get; set; }
     }

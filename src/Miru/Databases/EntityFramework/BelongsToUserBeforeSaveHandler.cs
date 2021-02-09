@@ -26,7 +26,7 @@ namespace Miru.Databases.EntityFramework
             foreach (var entity in entities)
             {
                 if (entity.UserId == 0)
-                    entity.UserId = _userSession.CurrentUserId;
+                    entity.UserId = _userSession.CurrentUserId.ToLong();
             }
         }
     }

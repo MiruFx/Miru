@@ -32,23 +32,16 @@ namespace Miru.Html
         public HtmlConvention()
         {
             Submits.Always.BuildBy<SubmitBuilder>();;
-            
+
             FormSummaries.Always.BuildBy<FormSummaryBuilder>();
             
             FormSummaries.Always.ModifyWith(m =>
             {
                 var naming = m.Get<ElementNaming>();
 
-                m.CurrentTag.Id(naming.SummaryId(m.Model));
+                m.CurrentTag.Id(naming.FormSummaryId(m.Model));
             });
                         
-            Forms.Always.ModifyWith(m =>
-            {
-                var naming = m.Get<ElementNaming>();
-                
-                m.CurrentTag.Data("feature", naming.Id(m.Model));
-            });
-            
             Cells.Always.BuildBy<CellBuilder>();
             
             TableHeader.Always.BuildBy<TableHeaderBuilder>();
@@ -81,6 +74,21 @@ namespace Miru.Html
             
             Forms.Always.BuildBy<FormBuilder>();
 
+            Forms.Always.ModifyWith(m =>
+            {
+                if (m.CurrentTag.Attr("method").CaseCmp("get") == false)
+                {
+                    m.CurrentTag.Add("input", tag =>
+                    {
+                        var summaryId = m.Get<ElementNaming>().FormSummaryId(m.Model);
+
+                        tag.Attr("type", "hidden")
+                            .Attr("name", "__Summary")
+                            .Attr("value", summaryId);
+                    });
+                }
+            });
+            
             Forms
                 .If(m => m.Accessor.OwnerType.IsRequestCommand())
                 .ModifyWith(form =>

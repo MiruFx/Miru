@@ -18,12 +18,15 @@ namespace Scripts
 
         public static void Export()
         {
+            
             _rootDir = new SolutionFinder().FromCurrentDir().Solution.RootDir;
             _dir = _rootDir / "samples" / "Corpo.Skeleton";
             _stubDir = _rootDir / "src" / "Miru.Core" / "Templates";
             
             Directories.DeleteIfExists(_stubDir);
             Directory.CreateDirectory(_stubDir);
+            
+            // FIXME: use Solution to build the artifacts' path
             
             // New
             ExportFile(_rootDir / "global.json", destinationFile: "global.json");
@@ -67,35 +70,35 @@ namespace Scripts
             SaveMapForNewSolution();
             
             // Command
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Products" / "ProductEdit.cs", "Command", "Edit");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Products" / "Edit.cshtml", "Command.cshtml", "Edit");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Products" / "_Edit.js.cshtml", "_Command.js.cshtml", "Edit");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Products" / "ProductEditTest.cs", "CommandTest", "Edit");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Products" / "ProductEditPageTest.cs", "CommandPageTest", "Edit");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamEdit.cs", "Command", "Edit");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "Edit.cshtml", "Command.cshtml", "Edit");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "_Edit.js.cshtml", "_Command.js.cshtml", "Edit");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamEditTest.cs", "CommandTest", "Edit");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Teams" / "TeamEditPageTest.cs", "CommandPageTest", "Edit");
             
             // Query
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Products" / "ProductList.cs", "Query", "List");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Products" / "List.cshtml", "Query.cshtml", "List");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Products" / "ProductListTest.cs", "QueryTest", "List");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Products" / "ProductListPageTest.cs", "QueryPageTest", "List");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamList.cs", "Query", "List");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "List.cshtml", "Query.cshtml", "List");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamListTest.cs", "QueryTest", "List");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Teams" / "TeamListPageTest.cs", "QueryPageTest", "List");
             
             // Migration
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Database" / "Migrations" / "999999999999_CreateCards.cs", "Migration");
             
             // Entity
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Domain" / "Product.cs", "Entity");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Domain" / "ProductTest.cs", "EntityTest");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Domain" / "Team.cs", "Entity");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Domain" / "TeamTest.cs", "EntityTest");
             
             // Consolable
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Consolables" / "SeedConsolable.cs", "Consolable");
             
             // Job
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Products" / "ProductCreated.cs", "Job", templateKey: "Job");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Products" / "ProductCreatedTest.cs", "JobTest", templateKey: "Job");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamCreated.cs", "Job", templateKey: "Job");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamCreatedTest.cs", "JobTest", templateKey: "Job");
             
             // Email
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Products" / "ProductCreatedMail.cs", "Mailable", templateKey: "Email");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Products" / "ProductCreatedMail.cshtml", "MailTemplate", templateKey: "Email");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamCreatedMail.cs", "Mailable", templateKey: "Email");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamCreatedMail.cshtml", "MailTemplate", templateKey: "Email");
 
             // Config
             ExportFile(_dir / "config" / "_Config.Example.yml", "Config");
@@ -127,27 +130,27 @@ namespace Scripts
             ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Categories" / "CategoryListPageTest.cs", "List-FeaturePageTest", templateKey: "List");
             
             // Feature-Crud
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Products" / "ProductNew.cs", "Crud-New-Feature");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Products" / "New.cshtml", "Crud-New-Feature.cshtml");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Products" / "_New.js.cshtml", "Crud-New-_Feature.js.cshtml");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Products" / "ProductNewTest.cs", "Crud-New-FeatureTest");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Products" / "ProductNewPageTest.cs", "Crud-New-FeaturePageTest");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamNew.cs", "Crud-New-Feature");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "New.cshtml", "Crud-New-Feature.cshtml");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "_New.js.cshtml", "Crud-New-_Feature.js.cshtml");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamNewTest.cs", "Crud-New-FeatureTest");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Teams" / "TeamNewPageTest.cs", "Crud-New-FeaturePageTest");
             
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Products" / "ProductEdit.cs", "Crud-Edit-Feature", templateKey: "Edit");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Products" / "Edit.cshtml", "Crud-Edit-Feature.cshtml", templateKey: "Edit");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Products" / "_Edit.js.cshtml", "Crud-Edit-_Feature.js.cshtml", templateKey: "Edit");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Products" / "ProductEditTest.cs", "Crud-Edit-FeatureTest", templateKey: "Edit");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Products" / "ProductEditPageTest.cs", "Crud-Edit-FeaturePageTest", templateKey: "Edit");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamEdit.cs", "Crud-Edit-Feature", templateKey: "Edit");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "Edit.cshtml", "Crud-Edit-Feature.cshtml", templateKey: "Edit");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "_Edit.js.cshtml", "Crud-Edit-_Feature.js.cshtml", templateKey: "Edit");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamEditTest.cs", "Crud-Edit-FeatureTest", templateKey: "Edit");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Teams" / "TeamEditPageTest.cs", "Crud-Edit-FeaturePageTest", templateKey: "Edit");
             
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Products" / "ProductShow.cs", "Crud-Show-Feature", templateKey: "Show");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Products" / "Show.cshtml", "Crud-Show-Feature.cshtml", templateKey: "Show");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Products" / "ProductShowTest.cs", "Crud-Show-FeatureTest", templateKey: "Show");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Products" / "ProductShowPageTest.cs", "Crud-Show-FeaturePageTest", templateKey: "Show");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamShow.cs", "Crud-Show-Feature", templateKey: "Show");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "Show.cshtml", "Crud-Show-Feature.cshtml", templateKey: "Show");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamShowTest.cs", "Crud-Show-FeatureTest", templateKey: "Show");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Teams" / "TeamShowPageTest.cs", "Crud-Show-FeaturePageTest", templateKey: "Show");
             
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Products" / "ProductList.cs", "Crud-List-Feature", templateKey: "List");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Products" / "List.cshtml", "Crud-List-Feature.cshtml", templateKey: "List");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Products" / "ProductListTest.cs", "Crud-List-FeatureTest", templateKey: "List");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Products" / "ProductListPageTest.cs", "Crud-List-FeaturePageTest", templateKey: "List");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamList.cs", "Crud-List-Feature", templateKey: "List");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "List.cshtml", "Crud-List-Feature.cshtml", templateKey: "List");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamListTest.cs", "Crud-List-FeatureTest", templateKey: "List");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Teams" / "TeamListPageTest.cs", "Crud-List-FeaturePageTest", templateKey: "List");
         }
 
         private static void SaveMapForNewSolution()
@@ -205,12 +208,12 @@ namespace Scripts
                 .Replace("Corpo.Skeleton", "{{ Solution.Name }}")
                 .Replace("Skeleton", "{{ Solution.ShortName }}")
                 
-                .Replace("public DbSet<Product> Products { get; set; }", "// public DbSet<Product> Products { get; set; }")
-                .Replace("Products", "{{ input.In }}")
-                .Replace("products", "{{ string.downcase input.In }}")
-                .Replace("Product", "{{ input.Name }}")
-                .Replace("product", "{{ string.downcase input.Name }}")
-                .Replace("@using Corpo.Skeleton.Features.Products", string.Empty)
+                .Replace("public DbSet<Team> Teams { get; set; }", "// public DbSet<Team> Teams { get; set; }")
+                .Replace("Teams", "{{ input.In }}")
+                .Replace("teams", "{{ string.downcase input.In }}")
+                .Replace("Team", "{{ input.Name }}")
+                .Replace("team", "{{ string.downcase input.Name }}")
+                .Replace("@using Corpo.Skeleton.Features.Teams", string.Empty)
                 
                 .Replace("public DbSet<Category> Categories { get; set; }", string.Empty)
                 .Replace("Categories", "{{ input.In }}")

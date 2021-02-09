@@ -1,20 +1,25 @@
-using System.Collections.Generic;
 using Corpo.Skeleton.Domain;
 using Microsoft.EntityFrameworkCore;
-using Miru.Databases.EntityFramework;
+using Miru.Userfy;
 
 namespace Corpo.Skeleton.Database
 {
-    public class SkeletonDbContext : MiruDbContext
+    public class SkeletonDbContext : UserfyDbContext<User, Role>
     {
-        public SkeletonDbContext(DbContextOptions options, IEnumerable<IBeforeSaveHandler> handlers) : base(options, handlers)
+        public SkeletonDbContext(DbContextOptions options) : base(options)
         {
         }
         
-        public DbSet<User> Users { get; set; } 
-        
         // Your entities
-        public DbSet<Product> Products { get; set; } 
-        public DbSet<Category> Categories { get; set; } 
+        public DbSet<Team> Teams { get; set; } 
+        public DbSet<Category> Categories { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            // it should be before .UseIdentity
+            base.OnModelCreating(builder);
+            
+            builder.UseIdentity<User, Role>();
+        }
     }
 }

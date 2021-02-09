@@ -5,7 +5,7 @@ namespace Miru.Testing
 {
     public class NoDatabaseCleaner : IDatabaseCleaner
     {
-        public Task Clear()
+        public Task ClearAsync()
         {
             return Task.CompletedTask;
         }

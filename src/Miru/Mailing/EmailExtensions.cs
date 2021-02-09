@@ -32,22 +32,11 @@ namespace Miru.Mailing
             return emailData;
         }
         
-        public static Email Template(this Email email, object model = null, bool isHtml = true)
+        public static Email Template(this Email email, string template, object model = null, bool isHtml = true)
         {
             email.Template = new EmailTemplate
             {
-                Model = model,
-                IsHtml = isHtml
-            };
-            
-            return email;
-        }
-        
-        public static Email Template(this Email email, string file, object model = null, bool isHtml = true)
-        {
-            email.Template = new EmailTemplate
-            {
-                File = file,
+                File = template,
                 Model = model,
                 IsHtml = isHtml
             };
