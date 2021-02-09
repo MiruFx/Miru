@@ -9,4 +9,9 @@
     <ProjectReference Include="..\..\..\..\src\Miru\Miru.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="wwwroot\**" />
+  </ItemGroup>
+  
 </Project>

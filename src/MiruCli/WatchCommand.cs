@@ -70,7 +70,7 @@ namespace MiruCli
             //  bash: which
             var webpack = new ProcessSpec()
             {
-                Executable = "c:\\Program Files\\nodejs\\npm.cmd",
+                Executable = OS.IsWindows ? "c:\\Program Files\\nodejs\\npm.cmd" : "npm",
                 WorkingDirectory = solution.Solution.AppDir,
                 Arguments = new[] { "--prefix", solution.Solution.AppDir.ToString(), "run", "watch" },
             };

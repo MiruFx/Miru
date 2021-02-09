@@ -1,3 +1,4 @@
+using Corpo.Skeleton.Domain;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Miru.Fabrication;
@@ -13,7 +14,7 @@ namespace Corpo.Skeleton.Tests.Config
         public virtual void ConfigureTestServices(IServiceCollection services)
         {
             services
-                .AddFeatureTesting()
+                .AddFeatureTesting<User>()
                 .AddSqliteDatabaseCleaner()
                 .AddQueueCleaner<LiteDbQueueCleaner>()
                 .AddFabrication<SkeletonFabricator>();

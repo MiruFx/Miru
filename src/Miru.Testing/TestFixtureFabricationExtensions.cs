@@ -65,12 +65,14 @@ namespace Miru.Testing
             return entities; 
         }
         
-        public static IEnumerable<T> MakeManySaving<T>(this ITestFixture fixture, Action<T> customizations) where T : class
+        public static IEnumerable<T> MakeManySaving<T>(this ITestFixture fixture, Action<T> customizations) 
+            where T : class
         {
             return fixture.MakeManySaving(3, customizations);
         }
         
-        public static TUser MakeSavingLogin<TUser>(this ITestFixture fixture, Action<TUser> customizations = null) where TUser : class, IUser
+        public static TUser MakeSavingLogin<TUser>(this ITestFixture fixture, Action<TUser> customizations = null) 
+            where TUser : UserfyUser
         {
             MiruTest.Log.Debug(() => $"Making {typeof(TUser).FullName}");
              
@@ -81,7 +83,8 @@ namespace Miru.Testing
             return fixture.MakeSavingLogin(user);
         }
         
-        public static TUser MakeSavingLogin<TUser>(this ITestFixture fixture, TUser user) where TUser : class, IUser
+        public static TUser MakeSavingLogin<TUser>(this ITestFixture fixture, TUser user) 
+            where TUser : UserfyUser
         {
             MiruTest.Log.Debug(() => $"Saving: {user}");
             

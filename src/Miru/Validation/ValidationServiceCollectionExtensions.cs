@@ -13,8 +13,6 @@ namespace Miru.Validation
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());
 
-            services.AddSingleton<ValidatorFactory>();
-            
             return services;
         }
     }

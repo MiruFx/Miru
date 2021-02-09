@@ -79,11 +79,12 @@ namespace Miru.Mailing
 
         private string GetFullFile(Mailable mailable, EmailTemplate emailTemplate)
         {
-            if (emailTemplate.File.IsEmpty())
-                emailTemplate.File = mailable.GetType().Name + ".cshtml";
+            string templateFile;
             
-            else if (emailTemplate.File.EndsWith(".cshtml") == false)
-                emailTemplate.File += ".cshtml";
+            if (emailTemplate.File.StartsWith("_"))
+                templateFile = $"{emailTemplate.File}.mail.cshtml";
+            else
+                templateFile = $"_{emailTemplate.File}.mail.cshtml";
 
             var type = mailable.GetType();
 
@@ -92,9 +93,9 @@ namespace Miru.Mailing
             var path = string.Join(Path.DirectorySeparatorChar, dirs);
 
             if (_options.TemplatePath.IsNotEmpty())
-                return A.Path(_options.TemplatePath) / path / emailTemplate.File;
+                return A.Path(_options.TemplatePath) / path / templateFile;
             
-            return A.Path(path) / emailTemplate.File;
+            return A.Path(path) / templateFile;
         }
         
         private void Enqueue(Email fluentMail)

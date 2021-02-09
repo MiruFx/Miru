@@ -170,7 +170,7 @@ Confirm your email clicking on the link below:
             {
                 mail.To(_user.Email)
                     .Subject($"Welcome {_user.Name}")
-                    .Template(_user);
+                    .Template("_Welcome", _user);
             }
         }
         

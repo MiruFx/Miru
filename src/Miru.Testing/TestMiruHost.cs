@@ -70,8 +70,6 @@ namespace Miru.Testing
                     
                 services.AddSingleton<ISessionStore, MemorySessionStore>();
                     
-                services.AddSingleton<IUserSession, TestingUserSession>();
-                    
                 services.AddSingleton<Faker, Faker>();
 
                 // services.ReplaceSingleton<ILogger>(sp => TestLoggerConfigurations.ForTests(sp.GetService<Storage>()));

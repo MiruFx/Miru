@@ -4,7 +4,7 @@ namespace Miru.Testing.Userfy
 {
     public static class TestRunConfigUserfyExtensions
     {
-        public static void UserfyRequires<TUser>(this TestRunConfig run) where TUser : class, IUser
+        public static void UserfyRequires<TUser>(this TestRunConfig run) where TUser : UserfyUser
         {
             run.BeforeCase<IRequiresAuthenticatedUser>(_ =>
             {
@@ -12,7 +12,7 @@ namespace Miru.Testing.Userfy
             });
         }
         
-        public static void UserfyRequiresAdmin<TUser>(this TestRunConfig run) where TUser : class, ICanBeAdmin
+        public static void UserfyRequiresAdmin<TUser>(this TestRunConfig run) where TUser : UserfyUser, ICanBeAdmin
         {
             run.BeforeCase<IRequiresAuthenticatedAdmin>(_ =>
             {

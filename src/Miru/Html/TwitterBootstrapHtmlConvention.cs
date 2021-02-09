@@ -7,7 +7,7 @@ namespace Miru.Html
         {
             cfg.Editors.Always.AddClass("form-control");
             
-            cfg.Selects.Always.AddClass("form-control");
+            cfg.Selects.Always.AddClass("form-select");
             
             cfg.Submits.Always.AddClass("btn btn-primary");
             
@@ -28,7 +28,8 @@ namespace Miru.Html
 
         public static HtmlConvention AddMiruBootstrapLayout(this HtmlConvention cfg)
         {
-            cfg.Labels.Always.AddClass("col-md-4 col-form-label text-md-right");
+            // only when form is horizontal?
+            // cfg.Labels.Always.AddClass("col-md-4 col-form-label text-md-right");
             
             cfg.Labels.IfPropertyIs<bool>().ModifyTag(tag => tag.Class("form-check-label"));
 

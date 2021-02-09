@@ -1,3 +1,4 @@
+using Corpo.Skeleton.Domain;
 using Corpo.Skeleton.Tests.Config;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,7 +17,7 @@ namespace Corpo.Skeleton.PageTests.Config
             // import services from Skeleton.Tests
             services.AddFrom<TestsConfig>();
             
-            services.AddPageTesting(options =>
+            services.AddPageTesting<User>(options =>
             {
                 if (OS.IsWindows)
                     options.UseChrome(new ChromeOptions().Incognito());

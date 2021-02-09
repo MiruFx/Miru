@@ -1,24 +1,47 @@
-﻿using Miru.Userfy;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Miru.Userfy;
 
 namespace Miru.Testing
 {
-    public class TestingUserSession : IUserSession
+    public class TestingUserSession<TUser> : IUserSession where TUser : UserfyUser
     {
-        public static IUser CurrentUser;
+        public static UserfyUser CurrentUser;
+        private DbContext _db;
 
-        public void Login(IUser user, bool remember)
+        public TestingUserSession(DbContext db)
+        {
+            _db = db;
+        }
+
+        // private readonly UserManager<TUser> _userManager;
+        //
+        // public TestingUserSession(UserManager<TUser> userManager)
+        // {
+        //     _userManager = userManager;
+        // }
+
+        public void Login(UserfyUser user)
         {
             CurrentUser = user;
         }
 
-        public void Logout()
+        public async Task<SignInResult> LoginAsync(string userName, string password, bool remember = false)
         {
-            CurrentUser = null;
+            var user = await _db.Set<TUser>().SingleOrDefaultAsync(x => x.UserName == userName);
+            Login(user);
+            return SignInResult.Success;
         }
 
-        // FIXME
-        // public long CurrentUserId => CurrentUser?.Id ?? 0;
-        public long CurrentUserId => 0;
+        public Task LogoutAsync()
+        {
+            CurrentUser = null;
+            return Task.CompletedTask;
+        }
+
+        public long CurrentUserId => CurrentUser.Id;
         
         public string Display => CurrentUser?.Display ?? string.Empty;
         

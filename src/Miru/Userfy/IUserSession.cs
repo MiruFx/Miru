@@ -1,17 +1,18 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace Miru.Userfy
 {
-    public interface IUserSession<TUser> : IUserSession where TUser : IUser
+    public interface IUserSession<TUser> : IUserSession where TUser : UserfyUser
     {
         Task<TUser> GetUserAsync();
     }
 
     public interface IUserSession
     {
-        void Login(IUser user, bool remember = false);
+        Task<SignInResult> LoginAsync(string userName, string password, bool remember = false);
         
-        void Logout();
+        Task LogoutAsync();
         
         long CurrentUserId { get; }
         

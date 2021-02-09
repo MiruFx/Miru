@@ -10,11 +10,6 @@ namespace Miru.Html
     {
         public bool Matches(ElementRequest elementRequest)
         {
-            // var validatorFactory = elementRequest.Get<ValidatorFactory>();
-            //
-            // if (validatorFactory == null)
-            //     return false;
-
             var validator = (IValidator) elementRequest.Get(typeof(IValidator<>).MakeGenericType(elementRequest.HolderType()));
 
             if (validator == null)

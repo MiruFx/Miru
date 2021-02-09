@@ -1,18 +1,16 @@
-﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Corpo.Skeleton.Database;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Miru;
-using Miru.Behaviors;
+using Miru.Domain;
 using Miru.Mvc;
 using Miru.Userfy;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Corpo.Skeleton.Features.Accounts
 {
-    public class AccountLogin 
+    public class AccountLogin
     {
         public class Query : IRequest<Command>
         {
@@ -22,44 +20,61 @@ namespace Corpo.Skeleton.Features.Accounts
         public class Command : IRequest<Result>
         {
             public string Email { get; set; }
-            public string Password { get; set; }  
-            public bool Remember { get; set; }
+            public string Password { get; set; }
+            public bool RememberMe { get; set; }
+            
             public string ReturnUrl { get; set; }
         }
 
-        public class Result : IRedirectResult
+        public class Result : IRedirect
         {
-            public string RedirectTo { get; set; }
+            public SignInResult SignInResult { get; set; }
+            public object RedirectTo { get; set; }
         }
         
-        public class Handler : RequestHandler<Query, Command>, IRequestHandler<Command, Result>
+        public class Handler :
+            IRequestHandler<Query, Command>,
+            IRequestHandler<Command, Result>
         {
-            private readonly SkeletonDbContext _db;
             private readonly IUserSession _userSession;
 
-            public Handler(SkeletonDbContext db, IUserSession userSession)
+            public Handler(IUserSession userSession)
             {
-                _db = db;
                 _userSession = userSession;
             }
 
-            protected override Command Handle(Query request)
+            public async Task<Command> Handle(Query request, CancellationToken ct)
             {
-                return new Command { ReturnUrl = request.ReturnUrl };
-            }
-            
-            public async Task<Result> Handle(Command command, CancellationToken ct)
-            {
-                var user = await _db.Users
-                    .Where(_ => _.Email == command.Email && _.HashedPassword == Hash.Create(command.Password))
-                    .SingleOrFailAsync("User and password not found", ct);
+                request.ReturnUrl ??= "/";
 
-                _userSession.Login(user, command.Remember);
-
-                return new Result
+                // Clear the existing external cookie to ensure a clean login process
+                await _userSession.LogoutAsync();
+                
+                return new Command
                 {
-                    RedirectTo = command.ReturnUrl.Or("/")
+                    ReturnUrl = request.ReturnUrl
                 };
+            }
+
+            public async Task<Result> Handle(Command request, CancellationToken ct)
+            {
+                request.ReturnUrl ??= "/";
+
+                var result = await _userSession.LoginAsync(
+                    request.Email, 
+                    request.Password, 
+                    request.RememberMe);
+                
+                if (result.Succeeded)
+                {
+                    return new Result
+                    {
+                        RedirectTo = request.ReturnUrl,
+                        SignInResult = result
+                    };
+                }
+                
+                throw new DomainException("User and password not found");
             }
         }
 
@@ -72,13 +87,14 @@ namespace Corpo.Skeleton.Features.Accounts
                 RuleFor(x => x.Password).NotEmpty();
             }
         }
-
+        
         public class AccountsController : MiruController
         {
-            public async Task<Command> Login(Query query) => await SendAsync(query);
-
-            [HttpPost]
-            public async Task<Result> Login(Command command) => await SendAsync(command);
+            [HttpGet("/Accounts/Login")]
+            public async Task<Command> Login(Query request) => await SendAsync(request);
+            
+            [HttpPost("/Accounts/Login")]
+            public async Task<Result> Login(Command request) => await SendAsync(request);
         }
     }
 }

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Corpo.Skeleton.Features.Products;
 using Miru.Html.Tags;
 using NUnit.Framework;
 using Shouldly;

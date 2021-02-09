@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Corpo.Skeleton.Features.Teams;
 using Miru.Html.Tags;
 using NUnit.Framework;
 using Shouldly;
@@ -12,12 +13,12 @@ namespace Miru.Tests.Html.TagHelpers
         public void Should_render_table()
         {
             // arrange
-            var viewModel = new Corpo.Skeleton.Features.Products.ProductList.Result
+            var viewModel = new TeamList.Result
             {
-                Items = new List<Corpo.Skeleton.Features.Products.ProductList.Item>()
+                Items = new List<TeamList.Item>()
                 {
-                    new Corpo.Skeleton.Features.Products.ProductList.Item() {Id = 1, Name = "iPhone"},
-                    new Corpo.Skeleton.Features.Products.ProductList.Item() {Id = 2, Name = "Samsung"}
+                    new TeamList.Item() {Id = 1, Name = "iPhone"},
+                    new TeamList.Item() {Id = 2, Name = "Samsung"}
                 }
             };
 
@@ -32,7 +33,7 @@ namespace Miru.Tests.Html.TagHelpers
             
             // arrange
             output.TagName.ShouldBe("table");
-            output.Attributes.Single(m => m.Name == "id").Value.ShouldBe("product-list");
+            output.Attributes.Single(m => m.Name == "id").Value.ShouldBe("team-list");
         }
     }
 }

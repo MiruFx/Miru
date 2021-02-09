@@ -62,8 +62,16 @@ namespace Miru
         
         public static async Task<TSource> SingleOrFailAsync<TSource>(
             this IQueryable<TSource> queryable,
-            Expression<Func<TSource, bool>> predicate = null,
-            string exceptionMessage = null,
+            Expression<Func<TSource, bool>> predicate,
+            CancellationToken cancellationToken = default)
+        {
+            return await queryable.SingleOrFailAsync(predicate, null, cancellationToken);
+        }
+        
+        public static async Task<TSource> SingleOrFailAsync<TSource>(
+            this IQueryable<TSource> queryable,
+            Expression<Func<TSource, bool>> predicate,
+            string exceptionMessage,
             CancellationToken cancellationToken = default)
         {
             TSource found;
