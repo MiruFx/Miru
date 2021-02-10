@@ -45,9 +45,7 @@ namespace Miru.Cli
             var rootCommand = new RootCommand
             {
                 new Option<bool>(new[] { "--verbose"}),
-                new Option(new[] { "--version", "-v"}),
                 new Option<string>(new[] { "--project", "-p"}),
-                
                 
                 new NewCommand("new"),
                 
