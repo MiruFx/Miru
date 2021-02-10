@@ -15,7 +15,7 @@ namespace SelfImprov.Tests
             {
                 _.IfPropertyNameIs("Name").Use(f => f.Name.FullName());
                 
-                _.IfPropertyImplements<IUser>().Ignore();
+                _.IfPropertyImplements<UserfyUser>().Ignore();
 
                 // TODO: Support IfPropertyIs<IInactivable>(m => m.IsInactive)
                 _.IfPropertyNameIs(nameof(IInactivable.IsInactive)).Use(false);

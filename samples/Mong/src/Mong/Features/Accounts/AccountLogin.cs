@@ -61,7 +61,7 @@ namespace Mong.Features.Accounts
                 if (user.IsBlocked())
                     throw new DomainException("Your account has been blocked. Contact support for details");
                 
-                _userSession.Login(user, command.Remember);
+                await _userSession.LoginAsync(command.Email, command.Password, command.Remember);
 
                 return new Result
                 {

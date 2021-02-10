@@ -19,8 +19,6 @@ Has to be .Sdk.Web to allow unit test asp.net components correctly
 
   <ItemGroup>
     <ProjectReference Include="..\..\samples\Corpo.Skeleton\src\Corpo.Skeleton\Corpo.Skeleton.csproj" />
-    <ProjectReference Include="..\..\samples\Mong\src\Mong\Mong.csproj" />
-    <ProjectReference Include="..\..\samples\Mong\tests\Mong.Tests\Mong.Tests.csproj" />
     <ProjectReference Include="..\..\src\Miru.Fabrication\Miru.Fabrication.csproj" />
     <ProjectReference Include="..\..\src\Miru.SqlServer\Miru.SqlServer.csproj" />
     <ProjectReference Include="..\..\src\Miru.Testing\Miru.Testing.csproj" />

@@ -17,7 +17,7 @@ namespace Mong.Tests.Config
     {
         public virtual void ConfigureTestServices(IServiceCollection services)
         {
-            services.AddFeatureTesting()
+            services.AddFeatureTesting<User>()
                 .AddSqliteDatabaseCleaner()
                 .AddQueueCleaner<LiteDbQueueCleaner>()
                 .AddFabrication<MongFabricator>();

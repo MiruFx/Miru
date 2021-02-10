@@ -36,7 +36,7 @@ namespace Mong.Features.Accounts
                     .Where(x => x.ConfirmationToken == request.Token)
                     .SingleOrFailAsync($"Could not find confirmation token {request.Token}", ct);
 
-                user.ConfirmActivation();
+                // user.ConfirmActivation();
                 
                 return new Result();
             }

@@ -14,7 +14,7 @@ namespace SelfImprov.Tests.Config
         public virtual void ConfigureTestServices(IServiceCollection services)
         {
             services
-                .AddFeatureTesting()
+                .AddFeatureTesting<User>()
                 .AddSqlServerDatabaseCleaner();
 
             services.AddFabrication<SelfImprovFabricator>();

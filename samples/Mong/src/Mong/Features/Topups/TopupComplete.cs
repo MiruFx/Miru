@@ -77,7 +77,7 @@ namespace Mong.Features.Topups
                 {
                     mail.To(_topup.Email, _topup.Name)
                         .Subject("Topup Successful")
-                        .Template(_topup);
+                        .Template(string.Empty, _topup);
                 }
             }
             
@@ -94,7 +94,7 @@ namespace Mong.Features.Topups
                 {
                     mail.To(_topup.Email, _topup.Name)
                         .Subject("Topup Failed")
-                        .Template(_topup);
+                        .Template(string.Empty, _topup);
                 }
             }
         }

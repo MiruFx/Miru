@@ -22,7 +22,7 @@ namespace SelfImprov.PageTests.Config
             // import services from SelfImprov.Tests
             services.AddFrom<TestsConfig>();
             
-            services.AddPageTesting(options =>
+            services.AddPageTesting<User>(options =>
             {
                 if (OS.IsWindows)
                     options.UseFirefox(new FirefoxOptions());

@@ -16,7 +16,7 @@ namespace Mong.PageTests.Pages.Password
         {
             _fix = await _.ScenarioAsync<TopupBasic>();
             
-            _fix.User.RequestedPasswordReset();
+            // _fix.User.RequestedPasswordReset();
             
             await _.SaveAsync(_fix.User);
         }

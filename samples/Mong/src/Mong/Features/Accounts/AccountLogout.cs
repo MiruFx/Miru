@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Miru.Behaviors;
@@ -14,15 +15,15 @@ namespace Mong.Features.Accounts
             public string RedirectTo { get; set; }
         }
         
-        public class Handler : RequestHandler<Command, Command>
+        public class Handler : IRequestHandler<Command, Command>
         {
             private readonly IUserSession _userSession;
 
             public Handler(IUserSession userSession) => _userSession = userSession;
 
-            protected override Command Handle(Command request)
+            public async Task<Command> Handle(Command request, CancellationToken cancellationToken)
             {
-                _userSession.Logout(); 
+                await _userSession.LogoutAsync(); 
 
                 request.RedirectTo = "/";
                 
