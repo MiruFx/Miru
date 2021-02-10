@@ -27,10 +27,9 @@ namespace Miru.Scoping
 
             foreach (var scopeType in scopeTypes)
             {
-                // IScope scope = (IScope) _serviceScopeFactory.CreateScope().ServiceProvider.GetService(scopeType);
-                IScope scope = (IScope) _serviceProvider.GetService(scopeType);
+                IScope scope = (IScope) _serviceProvider.GetRequiredService(scopeType);
 
-                scope.Handle(request, ct);
+                await scope.Handle(request, ct);
             }
 
             var miruViewData = _serviceProvider.GetRequiredService<MiruViewData>();

@@ -75,7 +75,7 @@ namespace Scripts
             {
                 foreach (var releasable in Packages)
                 {
-                    Run("dotnet", $"pack src\\{releasable.Key} -c {buildConfig} --no-build --nologo");
+                    Run("dotnet", $"pack src\\{releasable.Key} -c {buildConfig} --nologo");
                 }
             });
             

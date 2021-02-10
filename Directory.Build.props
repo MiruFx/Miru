@@ -6,6 +6,7 @@
     <RepositoryUrl>https://github.com/MiruFx/Miru</RepositoryUrl>
     <PackageProjectUrl>https://github.com/MiruFx/Miru</PackageProjectUrl>
     <PackageIcon>Miru-Logo.png</PackageIcon>
+    <Version>0.0.1</Version>
     
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
@@ -19,11 +20,7 @@
 
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
-    
-  </PropertyGroup>
-  
-<!--  <PropertyGroup Condition="'$(Configuration)' == 'Release'">-->
-  <PropertyGroup>
+
     <MinVerSkip Condition="'$(Configuration)' == 'Debug'">true</MinVerSkip>
     <MinVerTagPrefix>v</MinVerTagPrefix>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>

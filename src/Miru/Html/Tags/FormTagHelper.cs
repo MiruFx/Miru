@@ -20,7 +20,7 @@ namespace Miru.Html.Tags
             set;
         }
 
-        public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+        public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             var model = Model ?? (For != null ? For.Model : ViewContext.ViewData.Model);
             
@@ -28,10 +28,10 @@ namespace Miru.Html.Tags
 
             if (output.Attributes.ContainsName("action") == false)
             {
-                var url = RequestServices.GetService<UrlLookup>().For(model);
+                var url = RequestServices.GetRequiredService<UrlLookup>().For(model);
 
                 if (url.IsNotEmpty())
-                    output.Attributes.Add("action", RequestServices.GetService<UrlLookup>().For(model));
+                    output.Attributes.Add("action", url);
             }
 
             form.MergeAttributes(output.Attributes);
@@ -39,40 +39,6 @@ namespace Miru.Html.Tags
             output.TagName = null;
             output.PreElement.AppendHtml(form);
             output.PostElement.AppendHtml("</form>");
-        }
-    }
-    
-    [HtmlTargetElement("form", Attributes = "for")]
-    public class NewFormTagHelper : MiruForTagHelper
-    {
-        [HtmlAttributeName("model")]
-        public object Model
-        {
-            get;
-            set;
-        }
-
-        public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
-        {
-            var model = Model ?? (For != null ? For.Model : ViewContext.ViewData.Model);
-            
-            var form = HtmlGenerator.FormFor(model);
-            
-            if (output.Attributes.ContainsName("action") == false)
-            {
-                var url = RequestServices.GetService<UrlLookup>().For(model);
-
-                if (url.IsNotEmpty())
-                    output.Attributes.Add("action", RequestServices.GetService<UrlLookup>().For(model));
-            }
-
-            // output.MergeAttributes(output.Attributes);
-
-            var childrenContent = form.Children.Select(x => x.ToHtmlString()).Join(string.Empty);
-            
-            output.TagName = "form";
-            output.Content.SetHtmlContent(childrenContent);
-            // output.PostElement.SetHtmlContent();   
         }
     }
 }

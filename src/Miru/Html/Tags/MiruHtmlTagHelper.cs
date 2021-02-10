@@ -10,10 +10,6 @@ namespace Miru.Html.Tags
     public abstract class MiruHtmlTagHelper : HtmlTagTagHelper
     {
         private IServiceProvider _requestServices;
-                
-        [ViewContext]
-        [HtmlAttributeNotBound]
-        public ViewContext ViewContext { get; set; }
 
         [HtmlAttributeNotBound]
         public HtmlGenerator HtmlGenerator => RequestServices.GetService<HtmlGenerator>();

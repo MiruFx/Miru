@@ -1,10 +1,9 @@
 Database:
-  # SQLLite
-  ConnectionString: "DataSource={%{{{ db_dir }}}%}App_{%{{{ env }}}%}.db"
+  ConnectionString: "DataSource={%{{{ db_dir }}}%}{{ Solution.ShortName }}_dev.db"
   
-#Mailing:
+# Mailing:
 #
-#   # Links in the email will have this base url
+#   # base url where links will be generated in the emails
 #   AppUrl: http://localhost:5000
 #
 #   Smtp:
