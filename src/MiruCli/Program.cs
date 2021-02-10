@@ -20,6 +20,14 @@ namespace MiruCli
     {
         public string Executable { get; set; }
         public string[] Args { get; set; }
+        public string[] MiruArgs { get; set; }
+    }
+    
+    public class RunMiruOptions
+    {
+        public string Executable { get; set; }
+        public string[] Args { get; set; }
+        public string[] MiruArgs { get; set; }
     }
     
     public class Program
@@ -41,7 +49,7 @@ namespace MiruCli
                 new Option<bool>(new[] { "--verbose"}),
                 new Option(new[] { "--version", "-v"}),
                 new Option<string>(new[] { "--project", "-p"}),
-                new Argument<string[]>("args") { Arity = ArgumentArity.ZeroOrMore },
+                
                 
                 new NewCommand("new"),
                 
@@ -63,11 +71,15 @@ namespace MiruCli
                         RunAt(options, runOptions, s => s.AppPageTestsDir))
                 },
                 
-                new WatchCommand("watch", m => m.AppDir)
+                new WatchCommand("watch", m => m.AppDir),
+                
+                new Argument<string[]>("miru-args") { Arity = ArgumentArity.ZeroOrMore },
             };
- 
+
+            rootCommand.Name = "miru";
+            
             rootCommand.Handler = CommandHandler.Create(
-                (MiruCliOptions options, RunOptions runOptions) => 
+                (MiruCliOptions options, RunMiruOptions runOptions) => 
                     RunAppMiru(options, runOptions));
                 
             await rootCommand.InvokeAsync(args);
@@ -88,7 +100,7 @@ namespace MiruCli
 
             var solution = result.Solution;
             
-            var processRunner = new MiruProcessRunner(options.Verbose);
+            var processRunner = new MiruProcessRunner(options.Verbose, string.Empty);
 
             var proc = processRunner.RunAsync(new ProcessSpec()
             {
@@ -102,7 +114,7 @@ namespace MiruCli
         
         public void RunAppMiru(
             MiruCliOptions options,
-            RunOptions runOptions)
+            RunMiruOptions runMiruOptions)
         {
             var result = FindSolution(options);
             
@@ -120,8 +132,8 @@ namespace MiruCli
             
             mergedArgs.AddRange(new[] {"run", "--no-build", "--", "miru"});
             
-            if (runOptions.Args?.Length > 0)
-                mergedArgs.AddRange(runOptions.Args);
+            if (runMiruOptions.Args?.Length > 0)
+                mergedArgs.AddRange(runMiruOptions.Args);
         
             var proc = processRunner.RunAsync(new ProcessSpec
             {
