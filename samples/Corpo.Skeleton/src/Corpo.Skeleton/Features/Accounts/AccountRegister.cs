@@ -42,7 +42,6 @@ namespace Corpo.Skeleton.Features.Accounts
             IRequestHandler<Query, Command>,
             IRequestHandler<Command, Result>
         {
-            private readonly SignInManager<User> _signInManager;
             private readonly IUserStore<User> _userStore;
             private readonly IUserEmailStore<User> _emailStore;
             private readonly UserManager<User> _userManager;
@@ -56,7 +55,6 @@ namespace Corpo.Skeleton.Features.Accounts
                 IMailer mailer, 
                 IUserSession userSession)
             {
-                _signInManager = signInManager;
                 _userStore = userStore;
                 _emailStore = (IUserEmailStore<User>)_userStore;
                 _userManager = userManager;
@@ -88,7 +86,6 @@ namespace Corpo.Skeleton.Features.Accounts
                     await _mailer.SendLaterAsync(new AccountRegisteredMail(user));
 
                     await _userSession.LoginAsync(request.Email, request.Password);
-                    // await _signInManager.SignInAsync(user, isPersistent: false);
                 }
                 else
                 {
