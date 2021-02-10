@@ -5,13 +5,11 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Baseline;
-using ImTools;
+using Miru.Cli.Process;
 using Miru.Core;
-using Miru.Core.Makers;
-using MiruCli.Process;
-using IConsole = MiruCli.Process.IConsole;
+using IConsole = Miru.Cli.Process.IConsole;
 
-namespace MiruCli
+namespace Miru.Cli
 {
     public class WatchCommand : Command, IDisposable
     {

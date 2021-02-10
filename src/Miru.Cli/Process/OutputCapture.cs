@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace MiruCli.Process
+namespace Miru.Cli.Process
 {
     public class OutputCapture
     {

@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 
-namespace MiruCli.Process
+namespace Miru.Cli.Process
 {
     internal static class ProcessExtensions
     {

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MiruCli.Process
+namespace Miru.Cli.Process
 {
     public static class ArgumentEscaper
     {

@@ -4,7 +4,7 @@
 using System;
 using System.IO;
 
-namespace MiruCli.Process
+namespace Miru.Cli.Process
 {
     /// <summary>
     /// This API supports infrastructure and is not intended to be used

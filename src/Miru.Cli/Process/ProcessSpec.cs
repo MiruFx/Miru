@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 
-namespace MiruCli.Process
+namespace Miru.Cli.Process
 {
     public class ProcessSpec
     {

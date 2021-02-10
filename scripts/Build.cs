@@ -36,7 +36,7 @@ namespace Scripts
             { "Miru.PageTesting", true }, 
             { "Miru.PageTesting.Chrome", true }, 
             { "Miru.PageTesting.Firefox", true }, 
-            { "MiruCli", false }
+            { "Miru.Cli", false }
         };
 
         private static int Main(string[] args)
