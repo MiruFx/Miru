@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.IO;
@@ -16,6 +17,10 @@ namespace MiruCli
             // var result = new SolutionFinder().FromDir(@"D:\Intan\Temp\Intanext.Shopworld\src\Intanext.Shopworld");
             var result = new SolutionFinder().FromCurrentDir();
 
+            Console2.WhiteLine(MiruPath.CurrentPath);
+            Console2.WhiteLine(AppContext.BaseDirectory);
+            Console2.WhiteLine(Directory.GetCurrentDirectory());
+            
             if (result.FoundSolution == false)
             {
                 var rootCommand = new RootCommand
