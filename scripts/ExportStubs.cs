@@ -103,9 +103,9 @@ namespace Scripts
 
             // Config
             ExportFile(_dir / "config" / "_Config.Example.yml", "Config");
-            ExportFile(_dir / "config" / "Config.Development.yml", "Config");
-            ExportFile(_dir / "config" / "Config.Test.yml", "Config");
-            ExportFile(_dir / "config" / "Config.Production.yml", "Config");
+            ExportFile(_dir / "config" / "_Config.Example.yml", "Config", destinationFile: "Config.Development.yml");
+            ExportFile(_dir / "config" / "_Config.Example.yml", "Config", destinationFile: "Config.Test.yml");
+            ExportFile(_dir / "config" / "_Config.Example.yml", "Config", destinationFile: "Config.Production.yml");
             
             // Feature-New
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "CategoryNew.cs", "New-Feature");
