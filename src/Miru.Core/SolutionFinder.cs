@@ -31,7 +31,7 @@ namespace Miru.Core
                 var appName = Path.GetFileNameWithoutExtension(solutionPath);
                 var solution = new MiruSolution(Path.GetDirectoryName(solutionPath), appName);
                 
-                return new SolutionFinderResult(solution);
+                return new SolutionFinderResult(solution, currentDir);
             }
             
             return SolutionFinderResult.Empty;

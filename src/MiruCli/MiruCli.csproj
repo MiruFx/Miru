@@ -14,11 +14,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Miru.Core\Miru.Core.csproj"/>
+        <ProjectReference Include="..\Miru.Core\Miru.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Baseline" Version="2.1.0"/>
+        <PackageReference Include="Baseline" Version="2.1.0" />
     </ItemGroup>
 
 </Project>

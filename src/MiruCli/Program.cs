@@ -10,65 +10,132 @@ using MiruCli.Process;
 
 namespace MiruCli
 {
+    public class MiruCliOptions
+    {
+        public bool Verbose { get; set; }
+        public string Project { get; set; }
+    }
+    
+    public class RunOptions
+    {
+        public string Executable { get; set; }
+        public string[] Args { get; set; }
+    }
+    
     public class Program
     {
         public static async Task Main(string[] args)
         {
-            // var result = new SolutionFinder().FromDir(@"D:\Intan\Temp\Intanext.Shopworld\src\Intanext.Shopworld");
-            var result = new SolutionFinder().FromDir(Directory.GetCurrentDirectory());
-
-            if (result.FoundSolution == false)
-            {
-                var rootCommand = new RootCommand
-                {
-                    // new ShowProjectCommand("app", m => m.AppDir),
-                    // new ShowProjectCommand("tests", m => m.AppTestsDir),
-                    // new ShowProjectCommand("pagetests", m => m.AppPageTestsDir),
-                    // new SetupCommand("setup"),
-                    
-                    new NewCommand("new"),
-                };
-
-                rootCommand.Name = "miru";
-            
-                await rootCommand.InvokeAsync(args);
-            }
-            else
-            {
-                var solution = result.Solution;
-                
-                var rootCommand = new RootCommand
-                {
-                    new AtAppCommand("app", solution),
-                    new AtTestCommand("test", solution),
-                    new AtPageTestCommand("pagetest", solution),
-                    new WatchCommand("watch", m => m.AppDir),
-                };
-                
-                rootCommand.AddArgument(new Argument<string[]>("args") { Arity = ArgumentArity.ZeroOrMore });
-                rootCommand.Handler = CommandHandler.Create((string[] miruArgs) => Execute(solution, miruArgs));
-                
-                await rootCommand.InvokeAsync(args);
-            }
+            await new Program().RunAsync(args);
         }
 
-        public static void Execute(MiruSolution solution, string[] args)
+        private void Handle(MiruCliOptions options)
         {
-            var processRunner = new MiruProcessRunner(prefix: string.Empty);
-            var mergedArgs = new List<string>();
-            mergedArgs.AddRange(new[] {"run", "--no-build", "--", "miru"});
+            Console2.WhiteLine($"Verbose: {options.Verbose}");
+        }
+
+        private async Task RunAsync(string[] args)
+        {
+            var rootCommand = new RootCommand
+            {
+                new Option<bool>(new[] { "--verbose"}),
+                new Option<string>(new[] { "--project", "-p"}),
+                
+                new NewCommand("new"),
+                
+                new RunAtCommand("app") 
+                {
+                    Handler = CommandHandler.Create((MiruCliOptions options, RunOptions runOptions) => 
+                        RunAt(options, runOptions, s => s.AppDir))
+                },
+                
+                new RunAtCommand("test") 
+                {
+                    Handler = CommandHandler.Create((MiruCliOptions options, RunOptions runOptions) => 
+                        RunAt(options, runOptions, s => s.AppTestsDir))
+                },
+                
+                new RunAtCommand("pagetest") 
+                {
+                    Handler = CommandHandler.Create((MiruCliOptions options, RunOptions runOptions) => 
+                        RunAt(options, runOptions, s => s.AppPageTestsDir))
+                },
+                
+                new WatchCommand("watch", m => m.AppDir)
+            };
+ 
+            rootCommand.Handler = CommandHandler.Create(
+                (MiruCliOptions options, RunOptions runOptions) => 
+                    RunAppMiru(options, runOptions));
+                
+            await rootCommand.InvokeAsync(args);
+        }
+
+        public void RunAt(
+            MiruCliOptions options,
+            RunOptions runOptions,
+            Func<MiruSolution, MiruPath> directory)
+        {
+            var result = FindSolution(options);
             
-            if (args?.Length > 0)
-                mergedArgs.AddRange(args);
+            if (result.FoundSolution == false)
+            {
+                Console2.RedLine($"There is no Miru's Solution at {result.LookedAt}");
+                return;
+            }
+
+            var solution = result.Solution;
+            
+            var processRunner = new MiruProcessRunner(options.Verbose);
 
             var proc = processRunner.RunAsync(new ProcessSpec()
+            {
+                Executable = runOptions.Executable,
+                Arguments = runOptions.Args,
+                WorkingDirectory = directory(solution)
+            });
+        
+            Task.WaitAll(proc);
+        }
+        
+        public void RunAppMiru(
+            MiruCliOptions options,
+            RunOptions runOptions)
+        {
+            var result = FindSolution(options);
+            
+            if (result.FoundSolution == false)
+            {
+                Console2.RedLine($"There is no Miru's Solution at {result.LookedAt}");
+                return;
+            }
+            
+            var solution = result.Solution;
+            
+            var processRunner = new MiruProcessRunner(options.Verbose);
+            
+            var mergedArgs = new List<string>();
+            
+            mergedArgs.AddRange(new[] {"run", "--no-build", "--", "miru"});
+            
+            if (runOptions.Args?.Length > 0)
+                mergedArgs.AddRange(runOptions.Args);
+        
+            var proc = processRunner.RunAsync(new ProcessSpec
             {
                 Executable = "dotnet",
                 Arguments = mergedArgs,
                 WorkingDirectory = solution.AppDir
             });
-
+        
             Task.WaitAll(proc);
+        }
+        
+        private SolutionFinderResult FindSolution(MiruCliOptions options)
+        {
+            var solutionDir = options.Project.IsNotEmpty() ? options.Project : Directory.GetCurrentDirectory();
+        
+            return new SolutionFinder().FromDir(solutionDir);
         }
     }
 }
