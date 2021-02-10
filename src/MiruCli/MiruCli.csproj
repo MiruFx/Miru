@@ -11,6 +11,7 @@
         <Product>Miru</Product>
         <IncludeSymbols>false</IncludeSymbols>
         <ToolCommandName>miru</ToolCommandName>
+        <AssemblyName>miru</AssemblyName>
     </PropertyGroup>
 
     <ItemGroup>

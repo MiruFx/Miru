@@ -39,7 +39,9 @@ namespace MiruCli
             var rootCommand = new RootCommand
             {
                 new Option<bool>(new[] { "--verbose"}),
+                new Option(new[] { "--version", "-v"}),
                 new Option<string>(new[] { "--project", "-p"}),
+                new Argument<string[]>("args") { Arity = ArgumentArity.ZeroOrMore },
                 
                 new NewCommand("new"),
                 
