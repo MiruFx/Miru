@@ -15,7 +15,7 @@ namespace MiruCli
         public static async Task Main(string[] args)
         {
             // var result = new SolutionFinder().FromDir(@"D:\Intan\Temp\Intanext.Shopworld\src\Intanext.Shopworld");
-            var result = new SolutionFinder().FromCurrentDir();
+            var result = new SolutionFinder().FromDir(Directory.GetCurrentDirectory());
 
             Console2.WhiteLine(MiruPath.CurrentPath);
             Console2.WhiteLine(AppContext.BaseDirectory);
