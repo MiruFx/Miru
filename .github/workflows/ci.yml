@@ -29,53 +29,53 @@ jobs:
         Miru_Database__ConnectionString: "DataSource={{ db_dir }}Mong_test.db"
       run: ./build publish-dev --key ${{ secrets.FEEDZ_KEY }}
 
-  build-windows:
-    runs-on: windows-latest
-    defaults:
-      run:
-        working-directory: samples\SelfImprov\src\SelfImprov
-        
-    steps:
-      - uses: actions/checkout@v1
-        with:
-          fetch-depth: 1
-
-      - name: Setup .NET 5
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: "5.0.100"
-
-      - name: Setup SQLServer
-        run: |
-          # MSSQLLocalDB is the default SQL LocalDB instance
-          SqlLocalDB start MSSQLLocalDB
-          SqlLocalDB info MSSQLLocalDB
-          sqlcmd -S "(localdb)\MSSQLLocalDB" -Q "create database selfimprov_test;"
-
-      - name: Install MiruCli
-        run:  dotnet tool install MiruCli -g &&
-          MiruCli --version &&
-          MiruCli setup
-
-      - name: Restore Npm Cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install Npm Packages
-        run: npm install
-        
-      - name: Bundle Frontend Assets
-        run: npm run dev --no-progress
-        
-      - name: Build & Test
-        env:
-          Miru_Database__ConnectionString: "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=selfimprov_test;Integrated Security=SSPI;"
-        run: dotnet test
-        working-directory: samples\SelfImprov
+#  build-windows:
+#    runs-on: windows-latest
+#    defaults:
+#      run:
+#        working-directory: samples\SelfImprov\src\SelfImprov
+#        
+#    steps:
+#      - uses: actions/checkout@v1
+#        with:
+#          fetch-depth: 1
+#
+#      - name: Setup .NET 5
+#        uses: actions/setup-dotnet@v1
+#        with:
+#          dotnet-version: "5.0.100"
+#
+#      - name: Setup SQLServer
+#        run: |
+#          # MSSQLLocalDB is the default SQL LocalDB instance
+#          SqlLocalDB start MSSQLLocalDB
+#          SqlLocalDB info MSSQLLocalDB
+#          sqlcmd -S "(localdb)\MSSQLLocalDB" -Q "create database selfimprov_test;"
+#
+#      - name: Install MiruCli
+#        run:  dotnet tool install MiruCli -g &&
+#          MiruCli --version &&
+#          MiruCli setup
+#
+#      - name: Restore Npm Cache
+#        uses: actions/cache@v2
+#        with:
+#          path: ~/.npm
+#          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+#          restore-keys: |
+#            ${{ runner.os }}-node-
+#
+#      - name: Install Npm Packages
+#        run: npm install
+#        
+#      - name: Bundle Frontend Assets
+#        run: npm run dev --no-progress
+#        
+#      - name: Build & Test
+#        env:
+#          Miru_Database__ConnectionString: "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=selfimprov_test;Integrated Security=SSPI;"
+#        run: dotnet test
+#        working-directory: samples\SelfImprov
         
 #    - name: Artifacts
 #      uses: actions/upload-artifact@v2
