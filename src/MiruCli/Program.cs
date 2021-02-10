@@ -13,7 +13,8 @@ namespace MiruCli
     {
         public static async Task Main(string[] args)
         {
-            var result = new SolutionFinder().FromDir(@"D:\Intan\Temp\Intanext.Shopworld\src\Intanext.Shopworld");
+            // var result = new SolutionFinder().FromDir(@"D:\Intan\Temp\Intanext.Shopworld\src\Intanext.Shopworld");
+            var result = new SolutionFinder().FromCurrentDir();
 
             if (result.FoundSolution == false)
             {
@@ -54,7 +55,7 @@ namespace MiruCli
         {
             var processRunner = new MiruProcessRunner(prefix: string.Empty);
             var mergedArgs = new List<string>();
-            mergedArgs.AddRange(new[] {"run", "miru"});
+            mergedArgs.AddRange(new[] {"run", "--no-build", "--", "miru"});
             
             if (args?.Length > 0)
                 mergedArgs.AddRange(args);
