@@ -8,7 +8,7 @@ namespace Miru.Config
     {
         public static IConfigurationBuilder AddConfigYml(
             this IConfigurationBuilder builder,
-            string environment,
+            string environment = "",
             bool optional = true,
             bool reload = true)
         {

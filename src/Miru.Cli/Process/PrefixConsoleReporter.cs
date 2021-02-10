@@ -4,7 +4,7 @@
 using System;
 using System.IO;
 
-namespace MiruCli.Process
+namespace Miru.Cli.Process
 {
     public class PrefixConsoleReporter : ConsoleReporter
     {

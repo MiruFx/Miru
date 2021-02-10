@@ -3,7 +3,7 @@
 
 using System;
 
-namespace MiruCli.Process
+namespace Miru.Cli.Process
 {
     internal static class Ensure
     {

@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Miru.Testing", "src\Miru.Testing\Miru.Testing.csproj", "{700C232F-CEDF-4DDD-A259-2E557ABC19A5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiruCli", "src\MiruCli\MiruCli.csproj", "{80717CB7-5F6A-425D-ADC5-66A73411FA4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Miru.Cli", "src\Miru.Cli\Miru.Cli.csproj", "{80717CB7-5F6A-425D-ADC5-66A73411FA4C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Miru.Tests", "tests\Miru.Tests\Miru.Tests.csproj", "{E928AD7E-CA6B-445E-8841-01A1AC3AAF74}"
 EndProject

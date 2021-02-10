@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using HtmlTags;
 using Microsoft.AspNetCore.Mvc;
 using Miru.Behaviors;
@@ -7,6 +8,12 @@ namespace Miru.Mvc
 {
     public static class ObjectResultConfigurationExtensions
     {
+        public static void MiruJson(this ObjectResultConfiguration _)
+        {
+            _.When(m => m.Request.CanAccept(MediaTypeNames.Application.Xml))
+                .Respond(m => new JsonResult(m.Model));
+        }
+        
         public static void MiruDefault(this ObjectResultConfiguration _)
         {
             // Will execute the first match
