@@ -17,10 +17,6 @@ namespace MiruCli
             // var result = new SolutionFinder().FromDir(@"D:\Intan\Temp\Intanext.Shopworld\src\Intanext.Shopworld");
             var result = new SolutionFinder().FromDir(Directory.GetCurrentDirectory());
 
-            Console2.WhiteLine(MiruPath.CurrentPath);
-            Console2.WhiteLine(AppContext.BaseDirectory);
-            Console2.WhiteLine(Directory.GetCurrentDirectory());
-            
             if (result.FoundSolution == false)
             {
                 var rootCommand = new RootCommand
