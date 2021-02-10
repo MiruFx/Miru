@@ -56,7 +56,7 @@ namespace MiruCli
         }
         
         private static IReporter CreateReporter(bool verbose, bool quiet, IConsole console)
-            => new PrefixConsoleReporter("miru-watch : ", console, verbose || IsGlobalVerbose(), quiet);
+            => new PrefixConsoleReporter("miru: ", console, verbose || IsGlobalVerbose(), quiet);
         
         private void WatchRun(Func<MiruSolution, string> func)
         {

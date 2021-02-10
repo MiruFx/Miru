@@ -1,9 +1,10 @@
 global.json: global.json.stub
 Corpo.Skeleton.sln: Solution.sln.stub
 .gitignore: .gitignore.stub
-config\Config.Development.yml: Config.Development.yml.stub
-config\Config.Production.yml: Config.Production.yml.stub
+config\Config.Development.temp.yml: Config.Development.temp.yml.stub
+config\Config.Production.temp.yml: Config.Production.temp.yml.stub
 config\Config.Test.yml: Config.Test.yml.stub
+config\Config.yml: Config.yml.stub
 config\_Config.Example.yml: _Config.Example.yml.stub
 src\Corpo.Skeleton\webpack.mix.js: webpack.mix.js.stub
 src\Corpo.Skeleton\Startup.cs: Startup.stub
