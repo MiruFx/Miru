@@ -10,17 +10,17 @@ namespace Corpo.Skeleton.PageTests.Pages.Teams
     public class TeamListPageTest : PageTest
     {
         [Test]
-        public void Can_list_products()
+        public void Can_list_teams()
         {
-            var products = _.MakeManySaving<Team>();
+            var teams = _.MakeManySaving<Team>();
             
             _.Visit<TeamList>();
             
-            _.ShouldHaveText("Products");
+            _.ShouldHaveText("Teams");
 
             _.Display<TeamList.Result>(x =>
             {
-                x.ShouldHave(m => m.Items[0].Name, products.At(0).Name);
+                x.ShouldHave(m => m.Items[0].Name, teams.At(0).Name);
             });
         }
     }

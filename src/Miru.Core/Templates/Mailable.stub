@@ -14,9 +14,9 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
 
         public override void Build(Email mail)
         {
-            mail.To(_user.Email, _user.Name)
+            mail.To(_user.Email, _user.Email)
                 .Subject("Email Subject")
-                .Template();
+                .Template("_{{ input.Action }}");
         }
     }
 }

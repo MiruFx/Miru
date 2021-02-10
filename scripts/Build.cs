@@ -79,7 +79,8 @@ namespace Scripts
                 }
             });
             
-            Target("test-ci", DependsOn("test", "mong-test"));
+            // Target("test-ci", DependsOn("test", "mong-test"));
+            Target("test-ci", DependsOn("test"));
 
             Target("publish-dev", DependsOn("test-ci", "pack"), () =>
             {

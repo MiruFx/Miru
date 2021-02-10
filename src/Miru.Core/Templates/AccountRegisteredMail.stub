@@ -14,9 +14,9 @@ namespace {{ Solution.Name }}.Features.Accounts
 
         public override void Build(Email mail)
         {
-            mail.To(_user.Email, _user.Name)
+            mail.To(_user.Email, _user.Email)
                 .Subject("Welcome To {{ Solution.ShortName }}")
-                .Template();
+                .Template("_Registered");
         }
     }
 }

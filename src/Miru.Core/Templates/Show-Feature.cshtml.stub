@@ -7,7 +7,7 @@
 
                 <h3>{{ input.Name }}</h3>
                 
-                <a href="#">← {{ input.In }}</a> | 
+                <a href="#">← Products</a> | 
                 <a href="#">Edit</a>
                 
                 <dl class="dl-horizontal mt-4" miru-id="@Model">

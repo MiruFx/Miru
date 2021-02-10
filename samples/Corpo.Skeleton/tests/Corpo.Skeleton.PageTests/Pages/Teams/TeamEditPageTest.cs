@@ -9,11 +9,11 @@ namespace Corpo.Skeleton.PageTests.Pages.Teams
     public class TeamEditPageTest : PageTest
     {
         [Test]
-        public void Can_edit_product()
+        public void Can_edit_team()
         {
-            var product = _.MakeSaving<Team>();
+            var team = _.MakeSaving<Team>();
             
-            _.Visit(new TeamEdit.Query { Id = product.Id });
+            _.Visit(new TeamEdit.Query { Id = team.Id });
 
             _.Form<TeamEdit.Command>((f, command) =>
             {

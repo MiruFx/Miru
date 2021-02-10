@@ -9,5 +9,5 @@ Welcome to {{ Solution.ShortName }}!
 
 Regards,
 
-{{ Solution.ShortName }} Team
+{{ Solution.ShortName }} {{ input.Name }}
 </markdown>

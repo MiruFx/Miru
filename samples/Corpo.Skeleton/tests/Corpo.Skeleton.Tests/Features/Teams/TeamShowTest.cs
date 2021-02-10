@@ -7,19 +7,19 @@ using Shouldly;
 
 namespace Corpo.Skeleton.Tests.Features.Teams
 {
-    public class ProductShowTest : FeatureTest
+    public class TeamShowTest : FeatureTest
     {
         [Test]
-        public async Task Can_show_product()
+        public async Task Can_show_team()
         {
             // arrange
-            var product = _.MakeSaving<Team>();
+            var team = _.MakeSaving<Team>();
             
             // act
-            var response = await _.SendAsync(new TeamShow.Query { Id = product.Id });
+            var response = await _.SendAsync(new TeamShow.Query { Id = team.Id });
             
             // assert
-            response.Team.ShouldBe(product);
+            response.Team.ShouldBe(team);
         }
     }
 }
