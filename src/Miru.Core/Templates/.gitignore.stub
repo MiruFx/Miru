@@ -113,8 +113,8 @@ _ReSharper*/
 # JustCode is a .NET coding add-in
 .JustCode
 
-# TeamCity is a build add-in
-_TeamCity*
+# {{ input.Name }}City is a build add-in
+_{{ input.Name }}City*
 
 # DotCover is a Code Coverage Tool
 *.dotCover

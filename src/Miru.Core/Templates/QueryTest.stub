@@ -7,19 +7,19 @@ using NUnit.Framework;
 
 namespace {{ Solution.Name }}.Tests.Features.{{ input.In }}
 {
-    public class {{ input.Name }}{{ input.Action }}Test : FeatureTest
+    public class Product{{ input.Action }}Test : FeatureTest
     {
         [Test]
-        public async Task Can_{{ string.downcase input.Action }}_{{ string.downcase input.In }}()
+        public async Task Can_{{ string.downcase input.Action }}_products()
         {
             // arrange
-            var {{ string.downcase input.In }} = _.MakeManySaving<{{ input.Name }}>();
+            var products = _.MakeManySaving<{{ input.Name }}>();
             
             // act
             var result = await _.SendAsync(new {{ input.Name }}{{ input.Action }}.Query());
             
             // assert
-            result.Items.ShouldCount({{ string.downcase input.In }}.Count());
+            result.Items.ShouldCount(products.Count());
         }
     }
 }

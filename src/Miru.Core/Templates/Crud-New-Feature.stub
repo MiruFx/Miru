@@ -42,12 +42,12 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
             
             public async Task<Result> Handle(Command request, CancellationToken ct)
             {
-                var {{ string.downcase input.Name }} = new {{ input.Name }}
+                var product = new {{ input.Name }}
                 {
                     Name = request.Name
                 };
 
-                await _db.{{ input.In }}.AddAsync({{ string.downcase input.Name }}, ct);
+                await _db.{{ input.In }}.AddAsync(product, ct);
 
                 return new Result();
             }
@@ -61,12 +61,12 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
             }
         }
         
-        public class {{ input.In }}Controller : MiruController
+        public class ProductsController : MiruController
         {
-            [Route("/{{ input.In }}/New")]
+            [Route("/Products/New")]
             public async Task<Command> New(Query query) => await SendAsync(query);
 
-            [HttpPost, Route("/{{ input.In }}/New")]
+            [HttpPost, Route("/Products/New")]
             public async Task<Result> New(Command command) => await SendAsync(command);
         }
     }

@@ -30,16 +30,13 @@ namespace {{ Solution.Name }}
                 .AddEfCoreSqlite<{{ Solution.ShortName }}DbContext>()
                 
                 // user security
-                .AddUserfy<User>(options =>
-                {
-                    options.LoginPath = "/Accounts/Login";
-                })
+                .AddUserfy<User, Role, {{ Solution.ShortName }}DbContext>()
                 .AddAuthorization<AuthorizationConfig>()
                 
                 // mailing
                 .AddMailing(_ =>
                 {
-                    _.EmailDefaults(email => email.From("noreply@{{ Solution.ShortName }}.com", "{{ Solution.ShortName }}"));
+                    _.EmailDefaults(email => email.From("noreply@skeleton.com", "{{ Solution.ShortName }}"));
                 })
                 .AddSenderStorage()
                 
@@ -48,10 +45,7 @@ namespace {{ Solution.Name }}
                 {
                     _.UseLiteDb();
                 })
-                .AddHangfireServer()
-                
-                // ui
-                .AddTurbolinks();
+                .AddHangfireServer();
             
                 // your app services
                 // services.AddSingleton<IService, Service>();

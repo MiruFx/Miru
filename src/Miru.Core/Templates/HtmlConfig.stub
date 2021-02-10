@@ -10,8 +10,6 @@ namespace {{ Solution.Name }}.Config
             this.AddTwitterBootstrap();
             
             this.AddMiruBootstrapLayout();
-            
-            this.AddRailsUjs();
         }
     }
 }

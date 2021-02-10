@@ -51,9 +51,9 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
             }
         }
         
-        public class {{ input.In }}Controller : MiruController
+        public class ProductsController : MiruController
         {
-            [Route("/{{ input.In }}")]
+            [Route("/Products")]
             public async Task<Result> {{ input.Action }}(Query request) => await SendAsync(request);
         }
     }

@@ -1,20 +1,25 @@
-using System.Collections.Generic;
 using {{ Solution.Name }}.Domain;
 using Microsoft.EntityFrameworkCore;
-using Miru.Databases.EntityFramework;
+using Miru.Userfy;
 
 namespace {{ Solution.Name }}.Database
 {
-    public class {{ Solution.ShortName }}DbContext : MiruDbContext
+    public class {{ Solution.ShortName }}DbContext : UserfyDbContext<User, Role>
     {
-        public {{ Solution.ShortName }}DbContext(DbContextOptions options, IEnumerable<IBeforeSaveHandler> handlers) : base(options, handlers)
+        public {{ Solution.ShortName }}DbContext(DbContextOptions options) : base(options)
         {
         }
         
-        public DbSet<User> Users { get; set; } 
-        
         // Your entities
         // public DbSet<{{ input.Name }}> {{ input.In }} { get; set; } 
-         
+        
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            // it should be before .UseIdentity
+            base.OnModelCreating(builder);
+            
+            builder.UseIdentity<User, Role>();
+        }
     }
 }

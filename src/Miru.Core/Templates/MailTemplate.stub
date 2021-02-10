@@ -5,7 +5,7 @@
 <markdown>
 ### Sub Title
 
-Content in markdown, @Model.Name!
+Content in markdown, @Model.Email!
 
 Regards,
 

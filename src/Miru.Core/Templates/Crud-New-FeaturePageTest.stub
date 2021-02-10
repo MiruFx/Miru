@@ -7,7 +7,7 @@ namespace {{ Solution.Name }}.PageTests.Pages.{{ input.In }}
     public class {{ input.Name }}NewPageTest : PageTest
     {
         [Test]
-        public void Can_make_new_{{ string.downcase input.Name }}()
+        public void Can_make_new_product()
         {
             _.Visit(new {{ input.Name }}New());
 
@@ -18,7 +18,7 @@ namespace {{ Solution.Name }}.PageTests.Pages.{{ input.In }}
                 f.Submit();
             });
             
-            _.ShouldHaveText("{{ input.Name }} successfully saved");
+            _.ShouldHaveText("Product successfully saved");
         }
     }
 }

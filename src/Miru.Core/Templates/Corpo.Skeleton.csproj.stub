@@ -5,8 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\src\Miru.Sqlite\Miru.Sqlite.csproj" />
+    <PackageReference Include="Miru.Sqlite" Version="{{ MiruVersion }}" />
     <PackageReference Include="Miru" Version="{{ MiruVersion }}" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="wwwroot\**" />
+  </ItemGroup>
+  
 </Project>

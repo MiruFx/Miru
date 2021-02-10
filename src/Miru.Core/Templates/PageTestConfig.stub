@@ -1,3 +1,4 @@
+using {{ Solution.Name }}.Domain;
 using {{ Solution.Name }}.Tests.Config;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,7 +17,7 @@ namespace {{ Solution.Name }}.PageTests.Config
             // import services from {{ Solution.ShortName }}.Tests
             services.AddFrom<TestsConfig>();
             
-            services.AddPageTesting(options =>
+            services.AddPageTesting<User>(options =>
             {
                 if (OS.IsWindows)
                     options.UseChrome(new ChromeOptions().Incognito());

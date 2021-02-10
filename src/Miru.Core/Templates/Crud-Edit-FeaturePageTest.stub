@@ -9,11 +9,11 @@ namespace {{ Solution.Name }}.PageTests.Pages.{{ input.In }}
     public class {{ input.Name }}{{ input.Action }}PageTest : PageTest
     {
         [Test]
-        public void Can_{{ string.downcase input.Action }}_{{ string.downcase input.Name }}()
+        public void Can_{{ string.downcase input.Action }}_product()
         {
-            var {{ string.downcase input.Name }} = _.MakeSaving<{{ input.Name }}>();
+            var product = _.MakeSaving<{{ input.Name }}>();
             
-            _.Visit(new {{ input.Name }}{{ input.Action }}.Query { Id = {{ string.downcase input.Name }}.Id });
+            _.Visit(new {{ input.Name }}{{ input.Action }}.Query { Id = product.Id });
 
             _.Form<{{ input.Name }}{{ input.Action }}.Command>((f, command) =>
             {
@@ -22,7 +22,7 @@ namespace {{ Solution.Name }}.PageTests.Pages.{{ input.In }}
                 f.Submit();
             });
             
-            _.ShouldHaveText("{{ input.Name }} successfully saved");
+            _.ShouldHaveText("Product successfully saved");
         }
     }
 }

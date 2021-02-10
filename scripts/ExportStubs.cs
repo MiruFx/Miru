@@ -42,9 +42,10 @@ namespace Scripts
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "package.json");
 
             ExportDir(_dir / "src" / "Corpo.Skeleton" / "Config");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Database" / "Migrations" / "202006101850_CreateUsers.cs");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Database" / "Migrations" / "202001290120_CreateUserfy.cs");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Database" / "SkeletonDbContext.cs");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Domain" / "User.cs");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Domain" / "Role.cs");
             
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "_ViewImports.cshtml");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "_ViewStart.cshtml");
@@ -98,7 +99,7 @@ namespace Scripts
             
             // Email
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamCreatedMail.cs", "Mailable", templateKey: "Email");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamCreatedMail.cshtml", "MailTemplate", templateKey: "Email");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "_Created.mail.cshtml", "MailTemplate", templateKey: "Email");
 
             // Config
             ExportFile(_dir / "config" / "_Config.Example.yml", "Config");
