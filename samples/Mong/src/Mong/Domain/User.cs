@@ -6,11 +6,10 @@ using Mong.Features.Password;
 
 namespace Mong.Domain
 {
-    public class User : Entity, IUser, IRecoverable, IReceivesEmail, IConfirmable, ITimeStamped, ICanBeAdmin, IBlockable
+    public class User : UserfyUser, ICanBeAdmin
     {
-        public string Display => Email;
+        public override string Display => Email;
 
-        public string Email { get; set; }
         public string HashedPassword { get; set; }
         public string Name { get; set; }
         

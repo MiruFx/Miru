@@ -51,7 +51,7 @@ namespace Mong.Features.Password
                     .Where(m => m.ResetPasswordToken == request.Token)
                     .SingleOrFailAsync("Could not find token ", ct);
 
-                user.EnsureTokenIsValid(_userfyOptions.ResetPasswordWithin);
+                // user.EnsureTokenIsValid(_userfyOptions.ResetPasswordWithin);
                 
                 return new Command { Token = request.Token };
             }
@@ -62,11 +62,11 @@ namespace Mong.Features.Password
                     .Where(m => m.ResetPasswordToken == command.Token)
                     .SingleOrFailAsync($"Could not find token {command.Token}", ct);
 
-                user.EnsureTokenIsValid(_userfyOptions.ResetPasswordWithin);
-                
-                user.ResetPassword(Hash.Create(command.Password));
-
-                await _mailer.SendLaterAsync(user, new PasswordResetMail());
+                // user.EnsureTokenIsValid(_userfyOptions.ResetPasswordWithin);
+                //
+                // user.ResetPassword(Hash.Create(command.Password));
+                //
+                // await _mailer.SendLaterAsync(user, new PasswordResetMail());
                 
                 return new Result();
             }
@@ -97,7 +97,7 @@ namespace Mong.Features.Password
             public override void Build(Email mail)
             {
                 mail.Subject("Reset Password")
-                    .Template();
+                    .Template(string.Empty);
             }
         }
     }

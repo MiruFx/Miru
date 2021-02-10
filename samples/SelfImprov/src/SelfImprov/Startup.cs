@@ -34,10 +34,7 @@ namespace SelfImprov
                 .AddEfCoreSqlServer<SelfImprovDbContext>()
 
                 // user security
-                .AddUserfy<User>(options =>
-                {
-                    options.LoginPath = "/Accounts/Login";
-                })
+                // .AddUserfy<User, Role, >()
                 .AddAuthorization<AuthorizationConfig>()
 
                 // mailing

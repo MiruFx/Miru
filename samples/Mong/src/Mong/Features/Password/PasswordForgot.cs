@@ -39,7 +39,7 @@ namespace Mong.Features.Password
             {
                 var user =  await _db.Users.SingleOrFailAsync(x => x.Email == request.Email, $"Could not find email {request.Email}", ct);
 
-                user.RequestedPasswordReset();
+                // user.RequestedPasswordReset();
 
                 await _mailer.SendLaterAsync(new PasswordForgotMail(user));
 
@@ -65,7 +65,7 @@ namespace Mong.Features.Password
             {
                 mail.To(_user.Email)
                     .Subject("Reset Password")
-                    .Template(_user);
+                    .Template(string.Empty, _user);
             }
         }
         

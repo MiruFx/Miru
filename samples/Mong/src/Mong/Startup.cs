@@ -32,10 +32,7 @@ namespace Mong
                 .AddEfCoreSqlite<MongDbContext>()
                 
                 // user security
-                .AddUserfy<User>(options =>
-                {
-                    options.LoginPath = "/Accounts/Login";
-                })
+                .AddUserfy<User, Role, MongDbContext>()
                 .AddAuthorization<AuthorizationConfig>()
                 
                 // mailing

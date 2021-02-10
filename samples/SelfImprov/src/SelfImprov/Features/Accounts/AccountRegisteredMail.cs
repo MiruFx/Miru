@@ -16,7 +16,7 @@ namespace SelfImprov.Features.Accounts
         {
             mail.To(_user.Email, _user.Name)
                 .Subject("Welcome To SelfImprov")
-                .Template();
+                .Template(string.Empty);
         }
     }
 }

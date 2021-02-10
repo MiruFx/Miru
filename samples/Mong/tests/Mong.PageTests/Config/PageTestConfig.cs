@@ -24,7 +24,7 @@ namespace Mong.PageTests.Config
         {
             services.AddFrom<TestsConfig>();
             
-            services.AddPageTesting(options =>
+            services.AddPageTesting<User>(options =>
             {
                 if (OS.IsWindows)
                     options.UseFirefox(new FirefoxOptions());

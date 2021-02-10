@@ -55,7 +55,7 @@ namespace SelfImprov.Features.Accounts
                     .Where(_ => _.Email == command.Email && _.HashedPassword == Hash.Create(command.Password))
                     .SingleOrFailAsync("User and password not found", ct);
 
-                _userSession.Login(user, command.Remember);
+                // _userSession.Login(user, command.Remember);
 
                 return new Result
                 {
