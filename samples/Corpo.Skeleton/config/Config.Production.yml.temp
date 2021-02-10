@@ -1,0 +1,14 @@
+Database:
+  ConnectionString: "DataSource={{ db_dir }}Skeleton_prod.db"
+  
+# Mailing:
+#
+#   # base url where links will be generated in the emails
+#   AppUrl: http://localhost:5000
+#
+#   Smtp:
+#     Host: smtp.mailtrap.io
+#     Port: 25
+#     UserName: user_name
+#     Password: password
+#

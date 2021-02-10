@@ -41,6 +41,9 @@ namespace Miru.Foundation.Hosting
                     cfg.AddEnvironmentVariables(prefix: "Miru_");
                     cfg.AddCommandLine(args);
                     cfg.AddEnvironmentVariables();
+                    
+                    // add config.yml and then overrides with environment configs
+                    cfg.AddConfigYml();
                     cfg.AddConfigYml(hostingContext.HostingEnvironment.EnvironmentName);
                 })
                 .UseDefaultServiceProvider((context, options) =>
