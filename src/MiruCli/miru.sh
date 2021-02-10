@@ -1,5 +1,6 @@
 #!/bin/bash
-# ~/.dotnet/tools/miru
+
+# path: ~/.dotnet/tools/miru
 
 runApp()
 {
