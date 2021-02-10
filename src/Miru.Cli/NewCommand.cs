@@ -3,7 +3,7 @@ using System.CommandLine.Invocation;
 using Miru.Core;
 using Miru.Core.Makers;
 
-namespace MiruCli
+namespace Miru.Cli
 {
     public class NewCommand : Command
     {

@@ -17,9 +17,6 @@ namespace Miru.Html.Tags
                 var url = ViewContext.HttpContext.RequestServices.GetService<UrlLookup>();
                 
                 output.Attributes.SetAttribute("href", url.For(For));
-                
-                if (output.Attributes.ContainsName("id") == false)
-                    output.Attributes.SetAttribute("id", ElementNaming.Link(For));
             }
         }
     }

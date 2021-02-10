@@ -52,21 +52,7 @@ For now, the two ways to check how it looks like are:
 In any directory, run:
 
 ```
-dotnet tool install MiruCli -g
-```
-
-And then:
-
-```
-MiruCli setup
-```
-
-The output should be:
-
-```
-Miru setup successfully. From now use the command anywhere: miru
-
-Good luck!
+dotnet tool install Miru.Cli -g
 ```
 
 Check the installed version using:
@@ -78,9 +64,7 @@ miru --version
 ### Update
 
 ```
-dotnet tool update MiruCli -g
-
-MiruCli setup
+dotnet tool update Miru.Cli -g
 ```
 
 <!--

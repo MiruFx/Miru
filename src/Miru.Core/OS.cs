@@ -26,6 +26,8 @@ namespace Miru.Core
         public static string ShellName => IsWindows ? "cmd" : "/bin/bash";
         
         public static string ShellArguments => IsWindows ? "/c {0}" : "-c \"{0}\"";
+        
+        public static string BuildShellArgs(string args) => IsWindows ? $"/c {args}" : $"-c \"{args}\"";
 
         /// <summary>
         /// Executes a Shell command redirecting the output to the Console. If OS is windows, executes "cmd.exe /c ARGS",

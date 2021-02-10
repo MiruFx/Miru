@@ -19,10 +19,10 @@ Has to be .Sdk.Web to allow unit test asp.net components correctly
 
   <ItemGroup>
     <ProjectReference Include="..\..\samples\Corpo.Skeleton\src\Corpo.Skeleton\Corpo.Skeleton.csproj" />
+    <ProjectReference Include="..\..\src\Miru.Cli\Miru.Cli.csproj" />
     <ProjectReference Include="..\..\src\Miru.Fabrication\Miru.Fabrication.csproj" />
     <ProjectReference Include="..\..\src\Miru.SqlServer\Miru.SqlServer.csproj" />
     <ProjectReference Include="..\..\src\Miru.Testing\Miru.Testing.csproj" />
-    <ProjectReference Include="..\..\src\MiruCli\MiruCli.csproj" />
     <ProjectReference Include="..\..\src\Miru.Core\Miru.Core.csproj" />
     <ProjectReference Include="..\Miru.AcceptanceTests\Miru.AcceptanceTests.csproj" />
   </ItemGroup>
