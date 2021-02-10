@@ -25,8 +25,6 @@ namespace MiruCli
     
     public class RunMiruOptions
     {
-        public string Executable { get; set; }
-        public string[] Args { get; set; }
         public string[] MiruArgs { get; set; }
     }
     
@@ -132,8 +130,8 @@ namespace MiruCli
             
             mergedArgs.AddRange(new[] {"run", "--no-build", "--", "miru"});
             
-            if (runMiruOptions.Args?.Length > 0)
-                mergedArgs.AddRange(runMiruOptions.Args);
+            if (runMiruOptions.MiruArgs?.Length > 0)
+                mergedArgs.AddRange(runMiruOptions.MiruArgs);
         
             var proc = processRunner.RunAsync(new ProcessSpec
             {

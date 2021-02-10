@@ -87,11 +87,11 @@ namespace Scripts
                 PushPackages(option.Key, "https://f.feedz.io/miru/miru/nuget");
             });
             
-            Target("pack-quick", () =>
+            Target("pack-quick", DependsOn("compile"), () =>
             {
                 foreach (var releasable in Packages)
                 {
-                    Run("dotnet", $"pack src\\{releasable.Key} -c {buildConfig} --nologo");
+                    Run("dotnet", $"pack src\\{releasable.Key} -c {buildConfig} --nologo --no-build");
                 }
             });
             
