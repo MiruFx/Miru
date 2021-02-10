@@ -42,12 +42,12 @@ namespace Corpo.Skeleton.Features.Teams
             
             public async Task<Result> Handle(Command request, CancellationToken ct)
             {
-                var product = new Team
+                var team = new Team
                 {
                     Name = request.Name
                 };
 
-                await _db.Teams.AddAsync(product, ct);
+                await _db.Teams.AddAsync(team, ct);
 
                 return new Result();
             }

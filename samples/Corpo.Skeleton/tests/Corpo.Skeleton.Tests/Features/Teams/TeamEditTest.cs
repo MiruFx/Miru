@@ -8,14 +8,14 @@ using Shouldly;
 
 namespace Corpo.Skeleton.Tests.Features.Teams
 {
-    public class ProductEditTest : FeatureTest
+    public class TeamEditTest : FeatureTest
     {
         [Test]
-        public async Task Can_edit_product()
+        public async Task Can_edit_team()
         {
             // arrange
-            var product = _.MakeSaving<Team>();
-            var command = _.Make<TeamEdit.Command>(m => m.Id = product.Id);
+            var team = _.MakeSaving<Team>();
+            var command = _.Make<TeamEdit.Command>(m => m.Id = team.Id);
 
             // act
             var result = await _.SendAsync(command);

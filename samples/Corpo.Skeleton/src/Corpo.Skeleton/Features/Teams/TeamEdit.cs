@@ -39,20 +39,20 @@ namespace Corpo.Skeleton.Features.Teams
             
             public async Task<Command> Handle(Query request, CancellationToken ct)
             {
-                var product = await _db.Teams.ByIdOrFailAsync(request.Id, ct);
+                var team = await _db.Teams.ByIdOrFailAsync(request.Id, ct);
                 
                 return new Command
                 {
-                    Id = product.Id,
-                    Name = product.Name
+                    Id = team.Id,
+                    Name = team.Name
                 };
             }
             
             public async Task<Result> Handle(Command request, CancellationToken ct)
             {
-                var product = await _db.Teams.ByIdOrFailAsync(request.Id, ct);
+                var team = await _db.Teams.ByIdOrFailAsync(request.Id, ct);
 
-                product.Name = request.Name;
+                team.Name = request.Name;
                 
                 return new Result();
             }

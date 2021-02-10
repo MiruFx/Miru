@@ -7,10 +7,10 @@ using Shouldly;
 
 namespace {{ Solution.Name }}.Tests.Features.{{ input.In }}
 {
-    public class ProductNewTest : FeatureTest
+    public class {{ input.Name }}NewTest : FeatureTest
     {
         [Test]
-        public async Task Can_make_new_product()
+        public async Task Can_make_new_{{ string.downcase input.Name }}()
         {
             // arrange
             var command = _.Make<{{ input.Name }}New.Command>();

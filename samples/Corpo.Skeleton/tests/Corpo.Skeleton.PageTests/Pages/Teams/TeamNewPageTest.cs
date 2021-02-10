@@ -7,7 +7,7 @@ namespace Corpo.Skeleton.PageTests.Pages.Teams
     public class TeamNewPageTest : PageTest
     {
         [Test]
-        public void Can_make_new_product()
+        public void Can_make_new_team()
         {
             _.Visit(new TeamNew());
 
@@ -18,7 +18,7 @@ namespace Corpo.Skeleton.PageTests.Pages.Teams
                 f.Submit();
             });
             
-            _.ShouldHaveText("Product successfully saved");
+            _.ShouldHaveText("Team successfully saved");
         }
     }
 }

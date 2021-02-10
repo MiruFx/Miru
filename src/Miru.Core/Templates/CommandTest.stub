@@ -8,14 +8,14 @@ using Shouldly;
 
 namespace {{ Solution.Name }}.Tests.Features.{{ input.In }}
 {
-    public class Product{{ input.Action }}Test : FeatureTest
+    public class {{ input.Name }}{{ input.Action }}Test : FeatureTest
     {
         [Test]
-        public async Task Can_{{ string.downcase input.Action }}_product()
+        public async Task Can_{{ string.downcase input.Action }}_{{ string.downcase input.Name }}()
         {
             // arrange
-            var product = _.MakeSaving<{{ input.Name }}>();
-            var command = _.Make<{{ input.Name }}{{ input.Action }}.Command>(m => m.Id = product.Id);
+            var {{ string.downcase input.Name }} = _.MakeSaving<{{ input.Name }}>();
+            var command = _.Make<{{ input.Name }}{{ input.Action }}.Command>(m => m.Id = {{ string.downcase input.Name }}.Id);
 
             // act
             var result = await _.SendAsync(command);

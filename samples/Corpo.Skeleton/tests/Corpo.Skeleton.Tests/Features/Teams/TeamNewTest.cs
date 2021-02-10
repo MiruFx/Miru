@@ -7,10 +7,10 @@ using Shouldly;
 
 namespace Corpo.Skeleton.Tests.Features.Teams
 {
-    public class ProductNewTest : FeatureTest
+    public class TeamNewTest : FeatureTest
     {
         [Test]
-        public async Task Can_make_new_product()
+        public async Task Can_make_new_team()
         {
             // arrange
             var command = _.Make<TeamNew.Command>();

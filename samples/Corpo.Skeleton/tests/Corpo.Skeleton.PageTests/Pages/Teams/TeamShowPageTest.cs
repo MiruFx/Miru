@@ -9,13 +9,13 @@ namespace Corpo.Skeleton.PageTests.Pages.Teams
     public class TeamShowPageTest : PageTest
     {
         [Test]
-        public void Can_show_product()
+        public void Can_show_team()
         {
-            var product = _.MakeSaving<Team>();
+            var team = _.MakeSaving<Team>();
             
-            _.Visit(new TeamShow.Query { Id = product.Id });
+            _.Visit(new TeamShow.Query { Id = team.Id });
 
-            _.ShouldHaveText(product.Name);
+            _.ShouldHaveText(team.Name);
         }
     }
 }
