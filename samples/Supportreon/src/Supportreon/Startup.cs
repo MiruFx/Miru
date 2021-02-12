@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Miru;
+using Miru.Behaviors.BelongsToUser;
 using Miru.Foundation.Hosting;
 using Miru.Foundation.Logging;
 using Miru.Mailing;
@@ -33,6 +34,7 @@ namespace Supportreon
                 .AddDefaultPipeline<Startup>()
                 
                 .AddEfCoreSqlite<SupportreonDbContext>()
+                .AddBelongsToUser()
                 
                 .AddMailing(_ =>
                 {

@@ -8,12 +8,12 @@ namespace Supportreon.Config
 {
     public class AuthorizationConfig : IAuthorizationRules
     {
-        private readonly IUserSession<User> _userSession;
-
-        public AuthorizationConfig(IUserSession<User> userSession)
-        {
-            _userSession = userSession;
-        }
+        // private readonly IUserSession<User> _userSession;
+        //
+        // public AuthorizationConfig(IUserSession<User> userSession)
+        // {
+        //     _userSession = userSession;
+        // }
 
         public Task<AuthorizationResult> Evaluate<TRequest>(TRequest request, FeatureInfo feature)
         {
@@ -22,10 +22,10 @@ namespace Supportreon.Config
             //     return AuthorizationResult.Fail();
             // }
             
-            if (feature.Implements<IMustBeAuthenticated>() && _userSession.IsAnonymous)
-            {
-                return Task.FromResult(AuthorizationResult.Fail("Authentication is required"));
-            }
+            // if (feature.Implements<IMustBeAuthenticated>() && _userSession.IsAnonymous)
+            // {
+            //     return Task.FromResult(AuthorizationResult.Fail("Authentication is required"));
+            // }
             
             return Task.FromResult(AuthorizationResult.Succeed());
         }

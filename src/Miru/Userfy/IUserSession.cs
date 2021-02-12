@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Miru.Userfy
 {
-    public interface IUserSession<TUser> : IUserSession where TUser : UserfyUser
-    {
-        Task<TUser> GetUserAsync();
-    }
+    // public interface IUserSession<TUser> : IUserSession where TUser : UserfyUser
+    // {
+    //     
+    // }
 
     public interface IUserSession
     {

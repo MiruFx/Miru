@@ -10,34 +10,11 @@ using Miru.Core;
 
 namespace Miru.Cli
 {
-    public class MiruCliOptions
-    {
-        public bool Verbose { get; set; }
-        public string Project { get; set; }
-    }
-    
-    public class RunOptions
-    {
-        public string Executable { get; set; }
-        public string[] Args { get; set; }
-        public string[] MiruArgs { get; set; }
-    }
-    
-    public class RunMiruOptions
-    {
-        public string[] MiruArgs { get; set; }
-    }
-    
     public class Program
     {
         public static async Task Main(string[] args)
         {
             await new Program().RunAsync(args);
-        }
-
-        private void Handle(MiruCliOptions options)
-        {
-            Console2.WhiteLine($"Verbose: {options.Verbose}");
         }
 
         private async Task RunAsync(string[] args)
@@ -76,7 +53,7 @@ namespace Miru.Cli
             
             rootCommand.Handler = CommandHandler.Create(
                 (MiruCliOptions options, RunMiruOptions runOptions) => 
-                    RunAppMiru(options, runOptions));
+                    RunMiru(options, runOptions));
                 
             await rootCommand.InvokeAsync(args);
         }
@@ -95,12 +72,16 @@ namespace Miru.Cli
             }
 
             var solution = result.Solution;
-            
+
+            var exec = OS.IsWindows ? 
+                OS.WhereOrWhich(runOptions.Executable) :
+                runOptions.Executable;
+
             var processRunner = new MiruProcessRunner(options.Verbose, string.Empty);
 
             var proc = processRunner.RunAsync(new ProcessSpec()
             {
-                Executable = runOptions.Executable,
+                Executable = exec,
                 Arguments = runOptions.Args,
                 WorkingDirectory = directory(solution)
             });
@@ -108,7 +89,7 @@ namespace Miru.Cli
             Task.WaitAll(proc);
         }
         
-        public void RunAppMiru(
+        public void RunMiru(
             MiruCliOptions options,
             RunMiruOptions runMiruOptions)
         {
@@ -131,6 +112,7 @@ namespace Miru.Cli
             if (runMiruOptions.MiruArgs?.Length > 0)
                 mergedArgs.AddRange(runMiruOptions.MiruArgs);
         
+            // TODO: handle exception: error when running 'command'
             var proc = processRunner.RunAsync(new ProcessSpec
             {
                 Executable = "dotnet",

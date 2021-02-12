@@ -8,12 +8,12 @@ namespace Corpo.Skeleton.Config
 {
     public class AuthorizationConfig : IAuthorizationRules
     {
-        private readonly IUserSession<User> _userSession;
-
-        public AuthorizationConfig(IUserSession<User> userSession)
-        {
-            _userSession = userSession;
-        }
+        // private readonly IUserSession<User> _userSession;
+        //
+        // public AuthorizationConfig(IUserSession<User> userSession)
+        // {
+        //     _userSession = userSession;
+        // }
 
         public Task<AuthorizationResult> Evaluate<TRequest>(TRequest request, FeatureInfo feature)
         {

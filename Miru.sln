@@ -15,21 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.Core", "src\Miru.Core\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.PageTesting", "src\Miru.PageTesting\Miru.PageTesting.csproj", "{5494CF2C-4F4C-4E87-9D08-D90C8FFABC17}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mong", "Mong", "{A9B5ED9F-4C59-4E7D-A9A3-4087843CAF90}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mong", "samples\Mong\src\Mong\Mong.csproj", "{4250938C-4E79-4A35-9CC8-2083E9F61181}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mong.Tests", "samples\Mong\tests\Mong.Tests\Mong.Tests.csproj", "{ACF91FDC-B954-4590-8DBF-822A94684934}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mong.PageTests", "samples\Mong\tests\Mong.PageTests\Mong.PageTests.csproj", "{5A0B409B-483F-4A34-97A7-16EBCC6C32BA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{430FB315-C339-4A1A-A01F-44EB4FDFFA2E}"
-ProjectSection(SolutionItems) = preProject
-	samples\Mong\config\Config.Development.yml = samples\Mong\config\Config.Development.yml
-	samples\Mong\config\Config.Test.yml = samples\Mong\config\Config.Test.yml
-	samples\Mong\config\Config.Production.yml = samples\Mong\config\Config.Production.yml
-EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.Fabrication", "src\Miru.Fabrication\Miru.Fabrication.csproj", "{908FD985-BA09-4628-B627-FF2E709D6BC4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Misc", "_Misc", "{48637FD2-C267-46AF-B1AB-934BE1EE20FD}"
@@ -42,7 +27,6 @@ ProjectSection(SolutionItems) = preProject
 	.github\workflows\release.yml = .github\workflows\release.yml
 	.gitignore = .gitignore
 	README.md = README.md
-	ROADMAP.md = ROADMAP.md
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scripts", "scripts\Scripts.csproj", "{635CC582-9202-4CEC-924B-2A6E8A40579F}"
@@ -62,23 +46,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Corpo.Skeleton.PageTests", "samples\Corpo.Skeleton\tests\Corpo.Skeleton.PageTests\Corpo.Skeleton.PageTests.csproj", "{F0076054-E669-40CD-8863-5C075E2C0232}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Corpo.Skeleton", "Corpo.Skeleton", "{47A03D9D-2402-4BBA-813C-FB793CBA8032}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SelfImprov", "SelfImprov", "{B7AE39E4-1863-4B1F-852D-140C4F664CF9}"
-ProjectSection(SolutionItems) = preProject
-	samples\SelfImprov\TODO.txt = samples\SelfImprov\TODO.txt
-EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfImprov", "samples\SelfImprov\src\SelfImprov\SelfImprov.csproj", "{95CC293D-9C29-490A-B0A8-A129C89910B1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfImprov.Tests", "samples\SelfImprov\tests\SelfImprov.Tests\SelfImprov.Tests.csproj", "{8D92BE61-E12E-4639-9419-BD2F88F96FDE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfImprov.PageTests", "samples\SelfImprov\tests\SelfImprov.PageTests\SelfImprov.PageTests.csproj", "{FA446683-5572-47A9-89D9-51EF5EEC4814}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{5498808A-EED5-48E6-A352-66DFCFD7F36F}"
-ProjectSection(SolutionItems) = preProject
-	samples\SelfImprov\config\Config.Development.yml = samples\SelfImprov\config\Config.Development.yml
-	samples\SelfImprov\config\Config.Test.yml = samples\SelfImprov\config\Config.Test.yml
-EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{9AE2E2E5-D808-4FF7-809C-F9B9E0413B63}"
 ProjectSection(SolutionItems) = preProject
@@ -136,18 +103,6 @@ Global
 		{5494CF2C-4F4C-4E87-9D08-D90C8FFABC17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5494CF2C-4F4C-4E87-9D08-D90C8FFABC17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5494CF2C-4F4C-4E87-9D08-D90C8FFABC17}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4250938C-4E79-4A35-9CC8-2083E9F61181}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4250938C-4E79-4A35-9CC8-2083E9F61181}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4250938C-4E79-4A35-9CC8-2083E9F61181}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4250938C-4E79-4A35-9CC8-2083E9F61181}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ACF91FDC-B954-4590-8DBF-822A94684934}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ACF91FDC-B954-4590-8DBF-822A94684934}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ACF91FDC-B954-4590-8DBF-822A94684934}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ACF91FDC-B954-4590-8DBF-822A94684934}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5A0B409B-483F-4A34-97A7-16EBCC6C32BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A0B409B-483F-4A34-97A7-16EBCC6C32BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A0B409B-483F-4A34-97A7-16EBCC6C32BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A0B409B-483F-4A34-97A7-16EBCC6C32BA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{908FD985-BA09-4628-B627-FF2E709D6BC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{908FD985-BA09-4628-B627-FF2E709D6BC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{908FD985-BA09-4628-B627-FF2E709D6BC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -180,18 +135,6 @@ Global
 		{F0076054-E669-40CD-8863-5C075E2C0232}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0076054-E669-40CD-8863-5C075E2C0232}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0076054-E669-40CD-8863-5C075E2C0232}.Release|Any CPU.Build.0 = Release|Any CPU
-		{95CC293D-9C29-490A-B0A8-A129C89910B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{95CC293D-9C29-490A-B0A8-A129C89910B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{95CC293D-9C29-490A-B0A8-A129C89910B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{95CC293D-9C29-490A-B0A8-A129C89910B1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8D92BE61-E12E-4639-9419-BD2F88F96FDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D92BE61-E12E-4639-9419-BD2F88F96FDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D92BE61-E12E-4639-9419-BD2F88F96FDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D92BE61-E12E-4639-9419-BD2F88F96FDE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FA446683-5572-47A9-89D9-51EF5EEC4814}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FA446683-5572-47A9-89D9-51EF5EEC4814}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FA446683-5572-47A9-89D9-51EF5EEC4814}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FA446683-5572-47A9-89D9-51EF5EEC4814}.Release|Any CPU.Build.0 = Release|Any CPU
 		{29B3365E-2579-40D7-82EA-1A7EFDD1334A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{29B3365E-2579-40D7-82EA-1A7EFDD1334A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29B3365E-2579-40D7-82EA-1A7EFDD1334A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -221,19 +164,11 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{4250938C-4E79-4A35-9CC8-2083E9F61181} = {A9B5ED9F-4C59-4E7D-A9A3-4087843CAF90}
-		{ACF91FDC-B954-4590-8DBF-822A94684934} = {A9B5ED9F-4C59-4E7D-A9A3-4087843CAF90}
-		{5A0B409B-483F-4A34-97A7-16EBCC6C32BA} = {A9B5ED9F-4C59-4E7D-A9A3-4087843CAF90}
-		{430FB315-C339-4A1A-A01F-44EB4FDFFA2E} = {A9B5ED9F-4C59-4E7D-A9A3-4087843CAF90}
 		{FB8EF79C-31EA-4965-8388-9A57A6ADFE3B} = {82032D85-4BA1-4F07-89CE-F95685393764}
 		{E928AD7E-CA6B-445E-8841-01A1AC3AAF74} = {82032D85-4BA1-4F07-89CE-F95685393764}
 		{085DD7EC-76B4-4936-BE31-B1DD0FEC97E8} = {47A03D9D-2402-4BBA-813C-FB793CBA8032}
 		{F0076054-E669-40CD-8863-5C075E2C0232} = {47A03D9D-2402-4BBA-813C-FB793CBA8032}
 		{2C7626E8-92E2-4CB8-8517-4864A8FC885F} = {47A03D9D-2402-4BBA-813C-FB793CBA8032}
-		{95CC293D-9C29-490A-B0A8-A129C89910B1} = {B7AE39E4-1863-4B1F-852D-140C4F664CF9}
-		{8D92BE61-E12E-4639-9419-BD2F88F96FDE} = {B7AE39E4-1863-4B1F-852D-140C4F664CF9}
-		{FA446683-5572-47A9-89D9-51EF5EEC4814} = {B7AE39E4-1863-4B1F-852D-140C4F664CF9}
-		{5498808A-EED5-48E6-A352-66DFCFD7F36F} = {B7AE39E4-1863-4B1F-852D-140C4F664CF9}
 		{9AE2E2E5-D808-4FF7-809C-F9B9E0413B63} = {47A03D9D-2402-4BBA-813C-FB793CBA8032}
 		{E6109C93-AE88-4644-AC5E-74CC77D4BA34} = {97D02175-DB67-4730-A3DB-385D2921E0B4}
 		{D3C8AB49-6F85-4D9B-B5A0-51B7CE7966D3} = {97D02175-DB67-4730-A3DB-385D2921E0B4}

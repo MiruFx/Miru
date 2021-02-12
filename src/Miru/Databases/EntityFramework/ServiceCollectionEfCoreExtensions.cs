@@ -25,8 +25,6 @@ namespace Miru.Databases.EntityFramework
                 .AddBeforeSaveHandler<TimeStampedBeforeSaveHandler>()
                 .AddBeforeSaveHandler<BelongsToUserBeforeSaveHandler>();
 
-            services.AddTransient<IInterceptor, BelongsToUserInterceptor>();
-            
             return services;
         }
     }

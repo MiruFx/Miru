@@ -19,10 +19,10 @@ namespace Miru.Userfy
                 where TDbContext : UserfyDbContext<TUser>
         {
             // miru services setup
-            services.AddTransient<IUserSession, IdentityUserSession<TUser>>();
+            services.AddTransient<IUserSession, UserfyUserSession<TUser>>();
             services.AddTransient<ISessionStore, HttpSessionStore>();
             services.AddTransient<Authorizer>();
-            services.AddTransient<IUserSession<TUser>, UserSession<TUser>>();
+            services.AddTransient<ICurrentUser, UserfyCurrentUser>();
 
             // asp.net identity
             services.AddIdentity<TUser, IdentityRole<long>>(options =>
@@ -50,10 +50,10 @@ namespace Miru.Userfy
                 where TDbContext : UserfyDbContext<TUser, TRole>
         {
             // miru services setup
-            services.AddTransient<IUserSession, IdentityUserSession<TUser>>();
+            services.AddTransient<IUserSession, UserfyUserSession<TUser>>();
             services.AddTransient<ISessionStore, HttpSessionStore>();
             services.AddTransient<Authorizer>();
-            services.AddTransient<IUserSession<TUser>, UserSession<TUser>>();
+            services.AddTransient<ICurrentUser, UserfyCurrentUser>();
 
             // asp.net identity
             services.AddIdentity<TUser, TRole>(options =>

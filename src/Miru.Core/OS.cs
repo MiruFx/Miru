@@ -1,7 +1,9 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
+using Humanizer;
 
 namespace Miru.Core
 {
@@ -57,6 +59,36 @@ namespace Miru.Core
             proc.WaitForExit();
 
             return proc.ExitCode;
+        }
+
+        /// <summary>
+        /// It executes 'where' on Windows or 'which' on Linux/OSx and returns where
+        /// the command is
+        /// </summary>
+        public static string WhereOrWhich(string command)
+        {
+            using var process = new Process
+            {
+                StartInfo =
+                {
+                    UseShellExecute = false, 
+                    RedirectStandardOutput = true, 
+                    FileName = IsWindows ? "where" : "which",
+                    Arguments = command
+                }
+            };
+            
+            process.Start();
+
+            var output = process.StandardOutput.ReadToEnd();
+            
+            var commandLocation = IsWindows
+                ? output.Split(Environment.NewLine).FirstOrDefault(x => x.EndsWith(".exe") || x.EndsWith(".cmd"))
+                : output;
+            
+            process.WaitForExit();
+
+            return commandLocation;
         }
     }
 }

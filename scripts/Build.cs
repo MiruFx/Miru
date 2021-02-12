@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using CommandLine;
 using Miru;
+using Miru.Core;
 using static Bullseye.Targets;
 using static SimpleExec.Command;
 
@@ -110,15 +111,15 @@ namespace Scripts
                 Run("git", "push --set-upstream origin master -f", workingDirectory: @"docs/.vuepress/dist");
             });
 
-            Target("mong-test", () =>
-            {
-                Run("dotnet", "test", workingDirectory: @"samples/Mong/tests/Mong.Tests");
-            });
-            
-            Target("mong-test-all", () =>
-            {
-                Run("dotnet", "test", workingDirectory: @"samples/Mong");
-            });
+            // Target("mong-test", () =>
+            // {
+            //     Run("dotnet", "test", workingDirectory: @"samples/Mong/tests/Mong.Tests");
+            // });
+            //
+            // Target("mong-test-all", () =>
+            // {
+            //     Run("dotnet", "test", workingDirectory: @"samples/Mong");
+            // });
             
             Target("export-stubs", ExportStubs.Export);
             
@@ -141,8 +142,17 @@ namespace Scripts
             {
                 if (Directory.Exists(dir))
                 {
-                    Console.WriteLine($"Deleting {dir}");
-                    Directory.Delete(dir);
+                    Console2.White($"Deleting {dir}...");
+                    
+                    try
+                    {
+                        Directory.Delete(dir, true);
+                        Console2.GreenLine("Done");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console2.RedLine($"Failed: {ex.Message}");
+                    }
                 }
             }
         }

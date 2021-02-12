@@ -1,5 +1,6 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Miru.Behaviors.BelongsToUser;
 using Miru.Domain;
 using Miru.Userfy;
 
@@ -7,16 +8,16 @@ namespace Miru.Databases.EntityFramework
 {
     public class BelongsToUserBeforeSaveHandler : IBeforeSaveHandler
     {
-        private readonly IUserSession _userSession;
+        private readonly ICurrentUser _currentUser;
 
-        public BelongsToUserBeforeSaveHandler(IUserSession userSession)
+        public BelongsToUserBeforeSaveHandler(ICurrentUser currentUser)
         {
-            _userSession = userSession;
+            _currentUser = currentUser;
         }
 
         public void BeforeSaveChanges(DbContext db)
         {
-            if (_userSession.IsLogged == false)
+            if (_currentUser.IsLogged == false)
                 return;
 
             var entities = db.ChangeTracker.Entries<IBelongsToUser>()
@@ -26,7 +27,7 @@ namespace Miru.Databases.EntityFramework
             foreach (var entity in entities)
             {
                 if (entity.UserId == 0)
-                    entity.UserId = _userSession.CurrentUserId.ToLong();
+                    entity.UserId = _currentUser.Id.ToLong();
             }
         }
     }

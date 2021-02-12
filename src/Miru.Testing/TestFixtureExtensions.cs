@@ -135,8 +135,8 @@ namespace Miru.Testing
             MiruTest.Log.Information($"Login as #{user.Id}-{user.Display}");
 
             using var scope = fixture.App.WithScope();
-            
-            scope.Get<IUserSession>().As<TestingUserSession<TUser>>().Login(user);
+
+            TestingCurrentUser.User = user;
         }
 
         public static void Logout(this ITestFixture fixture)
@@ -148,17 +148,12 @@ namespace Miru.Testing
             scope.Get<IUserSession>().LogoutAsync().GetAwaiter().GetResult();
         }
         
-        public static TUser CurrentUser<TUser>(this ITestFixture fixture) where TUser : UserfyUser
-        {
-            using var scope = fixture.App.WithScope();
-            
-            return scope.Get<IUserSession<TUser>>().GetUserAsync().GetAwaiter().GetResult();
-        }
-
         public static IServiceCollection AddTestingUserSession<TUser>(this IServiceCollection services) 
             where TUser : UserfyUser
         {
-            return services.ReplaceTransient<IUserSession, TestingUserSession<TUser>>();
+            return services
+                .ReplaceTransient<IUserSession, TestingUserSession<TUser>>()
+                .ReplaceTransient<ICurrentUser, TestingCurrentUser>();
         }
 
         public static long CurrentUserId(this ITestFixture fixture)

@@ -34,10 +34,6 @@ namespace Supportreon.Tests.Features.Donations
         [Test]
         public async Task Can_make_new_donation()
         {
-            var donations = _.MakeMany<Donation>();
-
-            donations.DumpToConsole();
-            
             // arrange
             var owner = _.Make<User>();
             var project = _.Make<Project>(m => m.User = owner);
@@ -60,7 +56,7 @@ namespace Supportreon.Tests.Features.Donations
             savedDonation.ProjectId.ShouldBe(command.ProjectId);
             savedDonation.Amount.ShouldBe(command.Amount);
             savedDonation.CreditCard.ShouldBe(command.CreditCard);
-            savedDonation.UserId.ShouldBe(_.CurrentUser<User>().Id);
+            savedDonation.UserId.ShouldBe(_.CurrentUserId());
 
             var savedProject = _.Db(db => db.Projects.First());
             savedProject.TotalAmount.ShouldBe(project.TotalAmount + command.Amount);
