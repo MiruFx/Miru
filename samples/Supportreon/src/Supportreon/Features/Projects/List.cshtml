@@ -1,0 +1,80 @@
+@model ProjectList.Query
+
+<div class="row justify-content-center">
+
+    <div class="col-md-8">
+        <div class="card">
+
+            <div class="card-body">
+
+                <h3>Projects</h3>
+
+                <div miru-if-empty="@Model.Results" class="alert alert-warning">
+                    There are no Projects to show
+                </div>
+
+                <div miru-if-any="Model.Results" miru-id="@Model">
+                    
+                    <div class="mt-4">
+                        <p><em>Listing <strong>@Model.Results.Count</strong> project(s)</em></p>    
+                    </div>
+                    
+                    @for (var i = 0; Model.Results.Count > i; i++)
+                    {
+                        <div id="project-@Model.Results[i].Id" class="mt-4">
+                           
+                            <h4 class="lead text-left">
+                                <a for="@(new ProjectShow.Query { Id = Model.Results[i].Id })">
+                                    <md for="@Model.Results[i].Name" />
+                                </a>
+                            </h4>
+        
+                            <div><md for="@Model.Results[i].Description" /></div>
+                             
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                
+                 <div class="mb-3">
+                    <a for="@(new ProjectList.Query())">Show Active Projects</a>
+                </div>
+                
+                <div class="mb-4">
+                    <h5>Search</h5>
+                                    
+                    <miru-form method="get">
+                        <mi for="Search" placeholder="By Project name" />
+                    </miru-form>
+                    
+                    <div class="mt-3">
+                        <a for="@(new ProjectList.Query { Closed = true })">Closed Projects</a>
+                    </div>
+                    
+                </div>
+                
+                <div class="mb-4">
+                    <h5>Categories</h5>
+                    
+                    <ul class="list-unstyled" style="font-size: 120%">
+                        @for (var i = 0; Model.Categories.Count > i; i++)
+                        {
+                            <li>
+                                <a href="@(Url.Build(Model).With(m => m.Category, Model.Categories[i].Name))">
+                                    @Model.Categories[i].Name
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>

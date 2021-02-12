@@ -1,5 +1,6 @@
 using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Miru.Databases.Migrations;
@@ -19,10 +20,12 @@ namespace Miru.Databases.EntityFramework
             
             // Forward
             services.ForwardScoped<DbContext, TDbContext>();
-
+            
             services
                 .AddBeforeSaveHandler<TimeStampedBeforeSaveHandler>()
                 .AddBeforeSaveHandler<BelongsToUserBeforeSaveHandler>();
+
+            services.AddTransient<IInterceptor, BelongsToUserInterceptor>();
             
             return services;
         }

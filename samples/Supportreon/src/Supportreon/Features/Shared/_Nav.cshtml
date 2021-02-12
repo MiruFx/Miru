@@ -1,0 +1,62 @@
+@using Supportreon.Features.Accounts
+@using Supportreon.Features.Projects
+
+<nav class="navbar navbar-expand-md navbar-light navbar-miru">
+
+    <a class="navbar-brand" href="@Url.Content("/")">@App.Name</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+    <div class="collapse navbar-collapse" id="navbar-collapsible">
+
+        <!-- Left Side Of Navbar -->
+        <div class="nav-item mt-2 mt-lg-0">
+            <a class="nav-link" for="@(new ProjectList())">
+                Explore
+            </a>
+        </div>
+        <div class="nav-item mr-auto mt-2 mt-lg-0">
+            <div class="nav-item">
+                <a class="nav-link text-success" for="@(new ProjectNew())">
+                    Start a Project!
+                </a>
+            </div>
+        </div>
+
+        <!-- Right Side Of Navbar -->
+        @if (UserSession.IsAnonymous)
+        {
+            <div class="nav-item">
+                <a class="nav-link" for="@(new AccountLogin())">Login</a>
+            </div>
+
+            <div class="nav-item">
+                <a class="nav-link" for="@(new AccountRegister())">Register</a>
+            </div>
+        }
+        else
+        {
+            <div class="nav-item dropdown">
+
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @UserSession.Display <span class="caret"></span>
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                    <a for="new AccountLogout()" 
+                       class="dropdown-item"  
+                       data-remote="true"
+                       data-method="post">
+                        Logout
+                    </a>
+
+                </div>
+
+            </div>
+        }
+    </div>
+
+</nav>

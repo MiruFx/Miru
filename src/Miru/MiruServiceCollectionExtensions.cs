@@ -54,5 +54,12 @@ namespace Miru
             
             return services;
         }
+
+        public static IServiceCollection AddMiruApp(this IServiceCollection services)
+        {
+            return services
+                .AddSingleton<IMiruApp>(sp => new MiruApp(sp))
+                .AddTransient<ScopedServices, ScopedServices>();
+        }
     }
 }

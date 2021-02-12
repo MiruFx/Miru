@@ -13,6 +13,36 @@ namespace Miru.Userfy
             return services.AddScoped<IAuthorizationRules, TAuthorizationConfig>();
         }
 
+        public static IServiceCollection AddUserfy<TUser, TDbContext>(
+            this IServiceCollection services) 
+                where TUser : UserfyUser
+                where TDbContext : UserfyDbContext<TUser>
+        {
+            // miru services setup
+            services.AddTransient<IUserSession, IdentityUserSession<TUser>>();
+            services.AddTransient<ISessionStore, HttpSessionStore>();
+            services.AddTransient<Authorizer>();
+            services.AddTransient<IUserSession<TUser>, UserSession<TUser>>();
+
+            // asp.net identity
+            services.AddIdentity<TUser, IdentityRole<long>>(options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.Password.RequiredLength = 3;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireLowercase = false;
+                })
+                .AddEntityFrameworkStores<TDbContext>();
+
+            services.AddAuthorization();
+            
+            // in case of asp.net identity UI
+            services.AddRazorPages();
+            
+            return services;
+        }
+        
         public static IServiceCollection AddUserfy<TUser, TRole, TDbContext>(
             this IServiceCollection services) 
                 where TUser : UserfyUser
@@ -38,31 +68,7 @@ namespace Miru.Userfy
 
             services.AddAuthorization();
             
-            // in case of asp.net identity UI
-            // services.AddControllersWithViews();
             services.AddRazorPages();
-            
-            // .net core services setup
-            // services.AddSession(opt =>
-            // {
-            //     opt.Cookie.SameSite = SameSiteMode.Strict;
-            //     opt.Cookie.HttpOnly = true;
-            //     opt.Cookie.Name = userfyOptions.CookieName;
-            // });
-            
-            // services.AddDistributedMemoryCache();
-            // services.AddMemoryCache();
-            //
-            // services
-            //     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            //     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
-            //         options =>
-            //         {
-            //             options.Cookie.SameSite = SameSiteMode.Strict;
-            //             options.Cookie.HttpOnly = true;
-            //             options.Cookie.Name = userfyOptions.CookieName;
-            //             options.LoginPath = new PathString(userfyOptions.LoginPath);
-            //         });
             
             return services;
         }

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,44 +9,41 @@ namespace Miru.Testing
 {
     public class TestingUserSession<TUser> : IUserSession where TUser : UserfyUser
     {
-        public static UserfyUser CurrentUser;
-        private DbContext _db;
+        private readonly IMiruApp _app;
+        private static UserfyUser _currentUser;
 
-        public TestingUserSession(DbContext db)
+        public TestingUserSession(IMiruApp app)
         {
-            _db = db;
+            _app = app;
         }
-
-        // private readonly UserManager<TUser> _userManager;
-        //
-        // public TestingUserSession(UserManager<TUser> userManager)
-        // {
-        //     _userManager = userManager;
-        // }
 
         public void Login(UserfyUser user)
         {
-            CurrentUser = user;
+            _currentUser = user;
         }
 
         public async Task<SignInResult> LoginAsync(string userName, string password, bool remember = false)
         {
-            var user = await _db.Set<TUser>().SingleOrDefaultAsync(x => x.UserName == userName);
-            Login(user);
-            return SignInResult.Success;
+            _app.WithScope(scope =>
+            {
+                var user = scope.Get<DbContext>().Set<TUser>().SingleOrDefault(x => x.UserName == userName);
+                Login(user);
+            });
+            
+            return await Task.FromResult(SignInResult.Success);
         }
 
         public Task LogoutAsync()
         {
-            CurrentUser = null;
+            _currentUser = null;
             return Task.CompletedTask;
         }
 
-        public long CurrentUserId => CurrentUser.Id;
+        public long CurrentUserId => _currentUser.Id;
         
-        public string Display => CurrentUser?.Display ?? string.Empty;
+        public string Display => _currentUser?.Display ?? string.Empty;
         
-        public bool IsLogged => CurrentUser != null;
+        public bool IsLogged => _currentUser != null;
         
         public bool IsAnonymous => !IsLogged;
     }

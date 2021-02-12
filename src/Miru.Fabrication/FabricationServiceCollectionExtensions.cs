@@ -13,13 +13,18 @@ namespace Miru.Fabrication
             Action<ConventionExpression> conventions = null) 
             where TFabricator : Fabricator
         {
-            services.Scan(scan => scan
-                .FromAssemblies(typeof(TFabricator).Assembly)
-                .AddClasses(classes => classes.AssignableTo(typeof(ICustomFabricator<>)))
-                    .AsImplementedInterfaces()
-                    .As<ICustomFabricator>()
-                    .WithSingletonLifetime());
+            services.AddFabrication(conventions);
             
+            services.AddSingleton<TFabricator>();
+            services.ReplaceSingleton<Fabricator>(sp => sp.GetRequiredService<TFabricator>());
+            
+            return services;
+        }
+        
+        public static IServiceCollection AddFabrication(
+            this IServiceCollection services,
+            Action<ConventionExpression> conventions = null)
+        {
             services.AddSingleton<Faker>();
             
             services.AddSingleton<FabricatedSession, FabricatedSession>();
@@ -43,9 +48,7 @@ namespace Miru.Fabrication
 
             services.AddSingleton<FabSupport>();
             
-            services.AddSingleton<TFabricator>();
-
-            services.AddSingleton<Fabricator>(sp => sp.GetRequiredService<TFabricator>());
+            services.AddSingleton<Fabricator>();
 
             return services;
         }

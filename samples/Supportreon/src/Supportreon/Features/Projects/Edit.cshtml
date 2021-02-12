@@ -1,0 +1,23 @@
+@model ProjectEdit.Command
+
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card">
+
+            <div class="card-body">
+                
+                <h3>Edit Project</h3>
+                
+                @* TODO: action-url or miru-form for *@
+                <miru-form action="@(Url.For(new ProjectEdit.Command()))">
+                    
+                    <mi for="Id" type="hidden" />
+
+                    <partial name="_Form" model="Model" />
+                    
+                </miru-form>
+                   
+            </div>
+        </div>
+    </div>
+</div>

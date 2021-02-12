@@ -1,12 +1,16 @@
+using System.Collections.Generic;
 using Corpo.Skeleton.Domain;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Miru.Userfy;
 
 namespace Corpo.Skeleton.Database
 {
     public class SkeletonDbContext : UserfyDbContext<User, Role>
     {
-        public SkeletonDbContext(DbContextOptions options) : base(options)
+        public SkeletonDbContext(
+            DbContextOptions options,
+            IEnumerable<IInterceptor> interceptors) : base(options, interceptors)
         {
         }
         

@@ -12,11 +12,9 @@ namespace Miru.Testing
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddFeatureTesting<TUser>(this IServiceCollection services) 
-            where TUser : UserfyUser 
+        public static IServiceCollection AddFeatureTesting(this IServiceCollection services) 
         {
             services
-                .AddTransient<IUserSession, TestingUserSession<TUser>>()
                 .AddSenderMemory()
                 .AddSingleton<IUrlMaps, StubUrlMaps>();
             

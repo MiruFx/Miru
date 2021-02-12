@@ -1,0 +1,57 @@
+@model ProjectEdit.Command
+
+<miru-summary />
+
+<div class="form-group row">
+    <ml for="Name" class="col-md-4 col-form-label text-md-right" />
+
+    <div class="col-md-6">
+        <mi for="Name" />
+    </div>
+</div>
+
+<div class="form-group row">
+    <ml for="CategoryId" class="col-md-4 col-form-label text-md-right" />
+
+    <div class="col-md-6">
+        <miru-select for="CategoryId" lookup="Categories" empty-option />
+    </div>
+</div>
+
+<div class="form-group row">
+    <ml for="Description" class="col-md-4 col-form-label text-md-right" />
+
+    <div class="col-md-6">
+        <mi for="Description" cols="80" rows="10"/>
+    </div>
+</div>
+
+<div class="form-group row">
+    <ml for="MinimumDonation" class="col-md-4 col-form-label text-md-right" />
+
+    <div class="col-md-3">
+        <mi for="MinimumDonation" />
+    </div>
+</div>
+
+<div class="form-group row">
+    <ml for="Goal" class="col-md-4 col-form-label text-md-right" />
+
+    <div class="col-md-6">
+        <mi for="Goal" />
+    </div>
+</div>
+
+<div class="form-group row">
+    <ml for="EndDate" class="col-md-4 col-form-label text-md-right" />
+
+    <div class="col-md-6">
+        <mi for="EndDate" />
+    </div>
+</div>
+
+<div class="form-group row mb-0">
+    <div class="col-md-6 offset-md-4">
+        <miru-submit value="Save" />
+    </div>
+</div>

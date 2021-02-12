@@ -58,7 +58,6 @@ namespace Miru.Foundation.Hosting
                     services.AddServiceCollection();
                     services.AddSingleton(argsConfig);
                     services.AddSingleton(App.Solution);
-                    services.AddTransient<ScopedServices, ScopedServices>();
                     services.AddSingleton<MiruRunner>();
                     services.AddSingleton<IMiruHost, WebMiruHost>();
                     services.AddSingleton<IMiruHost, CliMiruHost>();
@@ -70,8 +69,8 @@ namespace Miru.Foundation.Hosting
                     services.Configure<DatabaseOptions>(host.Configuration.GetSection("Database"));
                     services.Configure<MailingOptions>(host.Configuration.GetSection("Mailing"));
                     services.AddSingleton(sp => sp.GetService<IOptions<DatabaseOptions>>().Value);
-                    
-                    services.AddSingleton<IMiruApp>(sp => new MiruApp(sp));
+
+                    services.AddMiruApp();
                 });
         
         public static IHostBuilder CreateMiruHost<TStartup>(params string[] args) where TStartup : class =>

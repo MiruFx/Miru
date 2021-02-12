@@ -56,5 +56,19 @@ namespace Miru
         {
             return app.Get<ScopedServices>();
         }
+        
+        public static void WithScope(this IMiruApp app, Action<ScopedServices> action)
+        {
+            using var scope = app.Get<ScopedServices>();
+
+            action(scope);
+        }
+        
+        public static TReturn WithScope<TReturn>(this IMiruApp app, Func<ScopedServices, TReturn> func)
+        {
+            using var scope = app.Get<ScopedServices>();
+
+            return func(scope);
+        }
     }
 }

@@ -9,6 +9,8 @@ using Hangfire;
 using Hangfire.MemoryStorage;
 using Hangfire.MemoryStorage.Dto;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Miru.Databases;
 using Miru.Databases.Migrations;
@@ -25,6 +27,11 @@ namespace Miru.Testing
     /// </summary>
     public static class TestFixtureExtensions
     {
+        public static ScopedServices WithScope(this ITestFixture fixture)
+        {
+            return fixture.Get<IMiruApp>().WithScope();
+        }
+        
         public static async Task<TResult> SendAsync<TResult>(this ITestFixture fixture, IRequest<TResult> message)
         {
             return await fixture.App.SendAsync(message);
@@ -53,7 +60,7 @@ namespace Miru.Testing
             {
                 var db = scope.Get<IDataAccess>();
                 
-                db.PersistAsync(new object[] { entity }).GetAwaiter().GetResult();
+                db.PersistAsync(new object[] {entity}).GetAwaiter().GetResult();
             }
 
             return entity;
@@ -112,7 +119,9 @@ namespace Miru.Testing
             }
         }
 
-        public static TReturn WithDb<TDbContext, TReturn>(this ITestFixture fixture, Func<TDbContext, TReturn> func)
+        public static TReturn WithDb<TDbContext, TReturn>(
+            this ITestFixture fixture, 
+            Func<TDbContext, TReturn> func)
         {
             using var scope = fixture.App.WithScope();
             
@@ -145,7 +154,13 @@ namespace Miru.Testing
             
             return scope.Get<IUserSession<TUser>>().GetUserAsync().GetAwaiter().GetResult();
         }
-        
+
+        public static IServiceCollection AddTestingUserSession<TUser>(this IServiceCollection services) 
+            where TUser : UserfyUser
+        {
+            return services.ReplaceTransient<IUserSession, TestingUserSession<TUser>>();
+        }
+
         public static long CurrentUserId(this ITestFixture fixture)
         {
             using var scope = fixture.App.WithScope();

@@ -92,6 +92,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.Sqlite", "src\Miru.Sql
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.Postgres", "src\Miru.Postgres\Miru.Postgres.csproj", "{AF43C3D1-DCAF-460B-BB29-FA00F91E62FB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Supportreon", "Supportreon", "{97D02175-DB67-4730-A3DB-385D2921E0B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supportreon", "samples\Supportreon\src\Supportreon\Supportreon.csproj", "{E6109C93-AE88-4644-AC5E-74CC77D4BA34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supportreon.Tests", "samples\Supportreon\tests\Supportreon.Tests\Supportreon.Tests.csproj", "{D3C8AB49-6F85-4D9B-B5A0-51B7CE7966D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supportreon.PageTests", "samples\Supportreon\tests\Supportreon.PageTests\Supportreon.PageTests.csproj", "{8F563854-75F3-4121-A223-D7A0D28136C5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{ABC877FD-8FCA-4283-A618-4DDD73A59621}"
+ProjectSection(SolutionItems) = preProject
+	samples\Supportreon\config\Config.Development.yml = samples\Supportreon\config\Config.Development.yml
+	samples\Supportreon\config\Config.Test.yml = samples\Supportreon\config\Config.Test.yml
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -190,6 +204,18 @@ Global
 		{AF43C3D1-DCAF-460B-BB29-FA00F91E62FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF43C3D1-DCAF-460B-BB29-FA00F91E62FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF43C3D1-DCAF-460B-BB29-FA00F91E62FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6109C93-AE88-4644-AC5E-74CC77D4BA34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6109C93-AE88-4644-AC5E-74CC77D4BA34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6109C93-AE88-4644-AC5E-74CC77D4BA34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6109C93-AE88-4644-AC5E-74CC77D4BA34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3C8AB49-6F85-4D9B-B5A0-51B7CE7966D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3C8AB49-6F85-4D9B-B5A0-51B7CE7966D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3C8AB49-6F85-4D9B-B5A0-51B7CE7966D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3C8AB49-6F85-4D9B-B5A0-51B7CE7966D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F563854-75F3-4121-A223-D7A0D28136C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F563854-75F3-4121-A223-D7A0D28136C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F563854-75F3-4121-A223-D7A0D28136C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F563854-75F3-4121-A223-D7A0D28136C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -209,6 +235,10 @@ Global
 		{FA446683-5572-47A9-89D9-51EF5EEC4814} = {B7AE39E4-1863-4B1F-852D-140C4F664CF9}
 		{5498808A-EED5-48E6-A352-66DFCFD7F36F} = {B7AE39E4-1863-4B1F-852D-140C4F664CF9}
 		{9AE2E2E5-D808-4FF7-809C-F9B9E0413B63} = {47A03D9D-2402-4BBA-813C-FB793CBA8032}
+		{E6109C93-AE88-4644-AC5E-74CC77D4BA34} = {97D02175-DB67-4730-A3DB-385D2921E0B4}
+		{D3C8AB49-6F85-4D9B-B5A0-51B7CE7966D3} = {97D02175-DB67-4730-A3DB-385D2921E0B4}
+		{8F563854-75F3-4121-A223-D7A0D28136C5} = {97D02175-DB67-4730-A3DB-385D2921E0B4}
+		{ABC877FD-8FCA-4283-A618-4DDD73A59621} = {97D02175-DB67-4730-A3DB-385D2921E0B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61193018-93E9-471E-B8AE-1A5B27D527F3}
