@@ -1,0 +1,14 @@
+@model ProjectEdit.Result
+
+<turbo-stream action="replace" target="project-edit-form">
+    <template>
+        <div class="alert alert-success">
+            <p>
+                Your Project has been saved
+            </p>
+            <p>
+                <a for="@(new ProjectShow.Query { Id = Model.Id })">Check it here</a>
+            </p>
+        </div>
+    </template>
+</turbo-stream>

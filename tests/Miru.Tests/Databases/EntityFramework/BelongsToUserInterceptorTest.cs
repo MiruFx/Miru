@@ -33,7 +33,7 @@ namespace Miru.Tests.Databases.EntityFramework
                 .AddTransient<IDatabaseCleaner, InMemoryDatabaseCleaner>()
                 
                 // being tested
-                .AddBelongsToUser()
+                .AddBelongsToUser<User>()
                 
                 .BuildServiceProvider()
                 .GetService<TestFixture>();    
@@ -53,7 +53,7 @@ namespace Miru.Tests.Databases.EntityFramework
             var user = _.MakeSavingLogin<User>();
             
             // act
-            var post = _.MakeSaving<Post>();
+            var post = _.MakeSaving<Post>(x => x.User = null);
             
             // assert
             var saved = _.App.WithScope(s => s.Get<FooDbContext>().Posts.First());
@@ -62,11 +62,49 @@ namespace Miru.Tests.Databases.EntityFramework
         }
 
         [Test]
+        public void Should_not_set_if_user_is_already_set()
+        {
+            // arrange
+            // no current user
+
+            // act
+            var post = _.MakeSaving<Post>(x =>
+            {
+                x.User = null;
+                x.UserId = 10;
+            });
+            
+            // assert
+            var saved = _.App.WithScope(s => s.Get<FooDbContext>().Posts.First());
+            saved.UserId.ShouldBe(10);
+            saved.ShouldBe(post);
+        }
+
+        [Test]
+        public void Should_not_set_if_user_id_is_already_set()
+        {
+            // arrange
+            // no current user
+            
+            // act
+            var post = _.MakeSaving<Post>();
+            
+            // assert
+            var saved = _.App.WithScope(s => s.Get<FooDbContext>().Posts.First());
+            saved.UserId.ShouldBe(post.User.Id);
+            saved.ShouldBe(post);
+        }
+
+        [Test]
         public void Throw_exception_if_current_user_is_anonymous()
         {
             // arrange
             // act
-            Should.Throw<UnauthorizedException>(() => _.MakeSaving<Post>());
+            Should.Throw<UnauthorizedException>(() => _.MakeSaving<Post>(x =>
+            {
+                x.User = null;
+                x.UserId = 0;
+            }));
             
             // assert
             _.App.WithScope(s => s.Get<FooDbContext>().Posts.Count().ShouldBe(0));
@@ -77,9 +115,10 @@ namespace Miru.Tests.Databases.EntityFramework
             public override string Display => UserName;
         }
         
-        public class Post : Entity, IBelongsToUser
+        public class Post : Entity, IBelongsToUser<User>
         {
             public long UserId { get; set; }
+            public User User { get; set; }
             public string Title { get; set; }
         }
 

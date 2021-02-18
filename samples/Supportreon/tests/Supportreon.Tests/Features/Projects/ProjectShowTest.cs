@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Threading.Tasks;
 using Miru;
 using Miru.Testing;
@@ -17,17 +16,13 @@ namespace Supportreon.Tests.Features.Projects
             // arrange
             var users = _.MakeMany<User>();
             var project = _.Make<Project>();
-            var donation = _.Make<Donation>();
-            
-            var donations = _.MakeManySaving<Donation>(10, m =>
+            var donations = _.MakeMany<Donation>(10, m =>
             {
                 m.Project = project;
                 m.User = _.Faker().PickRandom(users);
             });
 
-            donations.Select(m => new { m.Id, m.CreatedAt }).DumpToConsole();
-            
-            await _.SaveAsync(users, project, donation);
+            await _.SaveAsync(users, project, donations);
             
             // act
             var result = await _.SendAsync(new ProjectShow.Query { Id = project.Id });

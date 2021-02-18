@@ -4,7 +4,7 @@ using Miru.Domain;
 
 namespace Supportreon.Domain
 {
-    public class Project : Entity, ITimeStamped, IBelongsToUser
+    public class Project : Entity, ITimeStamped, IBelongsToUser<User>
     {
         public string Name { get; set; }
         public string Description { get; set; }

@@ -73,6 +73,11 @@ ProjectSection(SolutionItems) = preProject
 	samples\Supportreon\config\Config.Test.yml = samples\Supportreon\config\Config.Test.yml
 EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Misc", "_Misc", "{DF283AB9-BA12-452E-A717-AFFB96566653}"
+ProjectSection(SolutionItems) = preProject
+	samples\Supportreon\global.json = samples\Supportreon\global.json
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -174,6 +179,7 @@ Global
 		{D3C8AB49-6F85-4D9B-B5A0-51B7CE7966D3} = {97D02175-DB67-4730-A3DB-385D2921E0B4}
 		{8F563854-75F3-4121-A223-D7A0D28136C5} = {97D02175-DB67-4730-A3DB-385D2921E0B4}
 		{ABC877FD-8FCA-4283-A618-4DDD73A59621} = {97D02175-DB67-4730-A3DB-385D2921E0B4}
+		{DF283AB9-BA12-452E-A717-AFFB96566653} = {97D02175-DB67-4730-A3DB-385D2921E0B4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61193018-93E9-471E-B8AE-1A5B27D527F3}

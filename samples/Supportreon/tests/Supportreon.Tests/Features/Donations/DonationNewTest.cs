@@ -35,10 +35,7 @@ namespace Supportreon.Tests.Features.Donations
         public async Task Can_make_new_donation()
         {
             // arrange
-            var owner = _.Make<User>();
-            var project = _.Make<Project>(m => m.User = owner);
-            
-            await _.SaveAsync(owner, project);
+            var project = _.MakeSaving<Project>();
             
             // act
             var command = _.Make<DonationNew.Command>(m =>

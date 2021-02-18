@@ -31,10 +31,9 @@ namespace Supportreon.Features.Accounts
             public string ReturnUrl { get; set; }
         }
 
-        public class Result : IRedirect
+        public class Result
         {
             public IdentityResult IdentityResult { get; set; }
-            public object RedirectTo { get; set; }
         }
         
         public class Handler :
@@ -45,20 +44,16 @@ namespace Supportreon.Features.Accounts
             private readonly IUserEmailStore<User> _emailStore;
             private readonly UserManager<User> _userManager;
             private readonly IMailer _mailer;
-            private readonly IUserSession _userSession;
 
             public Handler(
-                SignInManager<User> signInManager, 
                 IUserStore<User> userStore, 
                 UserManager<User> userManager, 
-                IMailer mailer, 
-                IUserSession userSession)
+                IMailer mailer)
             {
                 _userStore = userStore;
                 _emailStore = (IUserEmailStore<User>)_userStore;
                 _userManager = userManager;
                 _mailer = mailer;
-                _userSession = userSession;
             }
 
             public async Task<Command> Handle(Query request, CancellationToken ct)
@@ -87,7 +82,8 @@ namespace Supportreon.Features.Accounts
                 {
                     await _mailer.SendLaterAsync(new AccountRegisteredMail(user));
 
-                    await _userSession.LoginAsync(request.Email, request.Password);
+                    // TODO: configurable LoginAfterRegister?
+                    // await _userSession.LoginAsync(request.Email, request.Password);
                 }
                 else
                 {
@@ -96,7 +92,6 @@ namespace Supportreon.Features.Accounts
 
                 return new Result
                 {
-                    RedirectTo = request.ReturnUrl,
                     IdentityResult = result
                 };
             }
@@ -106,6 +101,8 @@ namespace Supportreon.Features.Accounts
         {
             public Validator()
             {
+                RuleFor(x => x.Name).NotEmpty();
+                
                 RuleFor(x => x.Email).NotEmpty().EmailAddress();
 
                 RuleFor(x => x.Password).NotEmpty()
@@ -116,7 +113,7 @@ namespace Supportreon.Features.Accounts
             }
         }
         
-        public class AccountsController : MiruController
+        public class Controller : MiruController
         {
             [HttpGet("/Accounts/Register")]
             public async Task<Command> Register(Query request) => await SendAsync(request);

@@ -9,7 +9,7 @@ namespace Supportreon.PageTests.Pages.Accounts
         [Test]
         public void Can_register_new_user()
         {
-            _.Visit<AccountRegister.Command>();
+            _.Visit<AccountRegister>();
 
             _.Form<AccountRegister.Command>((f, command) =>
             {

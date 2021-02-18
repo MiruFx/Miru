@@ -1,57 +1,51 @@
 @model ProjectEdit.Command
 
-<miru-summary />
+<miru-summary/>
 
-<div class="form-group row">
-    <ml for="Name" class="col-md-4 col-form-label text-md-right" />
-
-    <div class="col-md-6">
-        <mi for="Name" />
+<div class="row mb-3">
+    <miru-label for="Name" class="col-sm-2 col-form-label"/>
+    <div class="col-sm-10">
+        <miru-input for="Name"/>
     </div>
 </div>
 
-<div class="form-group row">
-    <ml for="CategoryId" class="col-md-4 col-form-label text-md-right" />
-
-    <div class="col-md-6">
-        <miru-select for="CategoryId" lookup="Categories" empty-option />
+<div class="row mb-3">
+    <miru-label for="CategoryId" class="col-sm-2 col-form-label"/>
+    <div class="col-sm-10">
+        <miru-select for="CategoryId" lookup="Categories" empty-option/>
     </div>
 </div>
 
-<div class="form-group row">
-    <ml for="Description" class="col-md-4 col-form-label text-md-right" />
-
-    <div class="col-md-6">
-        <mi for="Description" cols="80" rows="10"/>
+<div class="row mb-3">
+    <miru-label for="Description" class="col-sm-2 col-form-label"/>
+    <div class="col-sm-10">
+        <miru-input for="Description" cols="80" rows="10"/>
     </div>
 </div>
 
-<div class="form-group row">
-    <ml for="MinimumDonation" class="col-md-4 col-form-label text-md-right" />
-
-    <div class="col-md-3">
-        <mi for="MinimumDonation" />
+<div class="row mb-3">
+    <miru-label for="MinimumDonation" class="col-sm-2 col-form-label"/>
+    <div class="col-sm-10">
+        <mi for="MinimumDonation"/>
     </div>
 </div>
 
-<div class="form-group row">
-    <ml for="Goal" class="col-md-4 col-form-label text-md-right" />
-
-    <div class="col-md-6">
-        <mi for="Goal" />
+<div class="row mb-3">
+    <miru-label for="Goal" class="col-sm-2 col-form-label"/>
+    <div class="col-sm-10">
+        <mi for="Goal"/>
     </div>
 </div>
 
-<div class="form-group row">
-    <ml for="EndDate" class="col-md-4 col-form-label text-md-right" />
-
-    <div class="col-md-6">
-        <mi for="EndDate" />
+<div class="row mb-3">
+    <miru-label for="EndDate" class="col-sm-2 col-form-label"/>
+    <div class="col-sm-10">
+        <mi for="EndDate"/>
     </div>
 </div>
 
-<div class="form-group row mb-0">
-    <div class="col-md-6 offset-md-4">
-        <miru-submit value="Save" />
+<div class="row mb-3">
+    <div class="offset-md-2">
+        <miru-submit value="Save"/>
     </div>
 </div>

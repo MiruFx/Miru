@@ -153,6 +153,7 @@ namespace Miru.Testing
         {
             return services
                 .ReplaceTransient<IUserSession, TestingUserSession<TUser>>()
+                .ReplaceTransient<IUserSession<TUser>, TestingUserSession<TUser>>()
                 .ReplaceTransient<ICurrentUser, TestingCurrentUser>();
         }
 

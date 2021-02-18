@@ -12,7 +12,7 @@ namespace Miru.Turbo
             _.When(m => m.Request.CanAccept(TurboStream.MimeType) && 
                         m.Request.IsGet()).Respond(m =>
             {
-                return new PartialViewResult
+                return new ViewResult
                 {
                     ViewName = m.GetCurrentActionName(),
                     ViewData = m.GetViewData()

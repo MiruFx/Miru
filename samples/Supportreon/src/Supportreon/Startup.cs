@@ -34,7 +34,6 @@ namespace Supportreon
                 .AddDefaultPipeline<Startup>()
                 
                 .AddEfCoreSqlite<SupportreonDbContext>()
-                .AddBelongsToUser()
                 
                 .AddMailing(_ =>
                 {
@@ -49,17 +48,28 @@ namespace Supportreon
                 .AddHangfireServer()
             
                 // user register, login, logout
-                .AddUserfy<User, SupportreonDbContext>()
-                    .AddAuthorization<AuthorizationConfig>();
+                .AddUserfy<User, SupportreonDbContext>(
+                    cookie: cfg =>
+                    {
+                        cfg.Cookie.Name = App.Name;
+                        cfg.Cookie.HttpOnly = true;
+                        cfg.ExpireTimeSpan = TimeSpan.FromHours(2);
+                        cfg.LoginPath = "/Accounts/Login";
+                    },
+                    options: cfg =>
+                    {
+                        cfg.SignIn.RequireConfirmedAccount = false;
+                        
+                        cfg.Password.RequiredLength = 3;
+                        cfg.Password.RequireUppercase = false;
+                        cfg.Password.RequireNonAlphanumeric = false;
+                        cfg.Password.RequireLowercase = false;
+                        
+                        cfg.User.RequireUniqueEmail = true;
+                    })
+                    .AddAuthorizationRules<AuthorizationRulesConfig>()
+                    .AddBelongsToUser<User>();
             
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.Cookie.Name = App.Name;
-                options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromHours(2);
-                options.LoginPath = "/Accounts/Login";
-            });
-
             services.AddSession();
             services.AddDistributedMemoryCache();
             services.AddMemoryCache();

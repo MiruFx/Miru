@@ -13,7 +13,7 @@ namespace Miru.Userfy
         }
 
         public long Id => 
-            _httpContextAccessor.HttpContext?.User.Claims.ByType(ClaimTypes.Sid).ToLong() ?? 0;
+            _httpContextAccessor.HttpContext?.User.Claims.ByType(ClaimTypes.NameIdentifier).ToLong() ?? 0;
         
         public string Display => _httpContextAccessor.HttpContext?.User.Identity?.Name;
 

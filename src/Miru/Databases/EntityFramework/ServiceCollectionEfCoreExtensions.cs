@@ -22,8 +22,7 @@ namespace Miru.Databases.EntityFramework
             services.ForwardScoped<DbContext, TDbContext>();
             
             services
-                .AddBeforeSaveHandler<TimeStampedBeforeSaveHandler>()
-                .AddBeforeSaveHandler<BelongsToUserBeforeSaveHandler>();
+                .AddBeforeSaveHandler<TimeStampedBeforeSaveHandler>();
 
             return services;
         }

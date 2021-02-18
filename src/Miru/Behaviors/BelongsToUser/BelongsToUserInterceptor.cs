@@ -9,7 +9,8 @@ using Miru.Userfy;
 
 namespace Miru.Behaviors.BelongsToUser
 {
-    public class BelongsToUserInterceptor : SaveChangesInterceptor
+    public class BelongsToUserInterceptor<TUser> : SaveChangesInterceptor
+        where TUser : UserfyUser
     {
         private readonly ICurrentUser _currentUser;
         
@@ -23,21 +24,28 @@ namespace Miru.Behaviors.BelongsToUser
             InterceptionResult<int> result,
             CancellationToken cancellationToken = default)
         {
-            var entities = @event.Context.ChangeTracker.Entries<IBelongsToUser>()
+            var entities = @event.Context.ChangeTracker.Entries<IBelongsToUser<TUser>>()
                 .Where(x => x.State == EntityState.Added)
                 .Select(x => x.Entity);
-            
-            if (entities.Any())
-                if (_currentUser.IsAnonymous)
-                    throw new UnauthorizedException($"Authenticated user is required");
-            
+
             foreach (var entity in entities)
             {
-                if (entity.UserId == 0)
+                if (entity.UserId == 0 && entity.User == null)
+                {
+                    CheckNotAnonymous(entity);
+                    
                     entity.UserId = _currentUser.Id;
+                }
             }
             
             return new ValueTask<InterceptionResult<int>>(result);
+        }
+
+        private void CheckNotAnonymous(IBelongsToUser<TUser> belongsToUser)
+        {
+            if (_currentUser.IsAnonymous || _currentUser.Id == 0)
+                throw new UnauthorizedException(
+                    $"The entity {belongsToUser.GetType().Name} has {nameof(IBelongsToUser<TUser>)}. User should be set in the entity or Authenticated user is required");
         }
     }
 }

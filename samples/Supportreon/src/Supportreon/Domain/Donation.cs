@@ -5,7 +5,7 @@ using Supportreon.Features.Donations;
 
 namespace Supportreon.Domain
 {
-    public class Donation : Entity, IBelongsToUser, ITimeStamped
+    public class Donation : Entity, IBelongsToUser<User>, ITimeStamped
     {
         public static decimal Minimum = 5;
         

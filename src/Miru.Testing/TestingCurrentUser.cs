@@ -7,7 +7,7 @@ using Miru.Userfy;
 
 namespace Miru.Testing
 {
-    public class TestingUserSession<TUser> : IUserSession where TUser : UserfyUser
+    public class TestingUserSession<TUser> : IUserSession<TUser> where TUser : UserfyUser
     {
         private readonly IMiruApp _app;
         private readonly ICurrentUser _currentUser;
@@ -17,6 +17,8 @@ namespace Miru.Testing
             _app = app;
             _currentUser = currentUser;
         }
+
+        public async Task<TUser> GetUser() => await Task.FromResult(TestingCurrentUser.User as TUser);
 
         public async Task<SignInResult> LoginAsync(string userName, string password, bool remember = false)
         {
@@ -36,7 +38,7 @@ namespace Miru.Testing
             return Task.CompletedTask;
         }
 
-        public long CurrentUserId => _currentUser.Id;
+        public long CurrentUserId => _currentUser?.Id ?? 0;
         
         public string Display => _currentUser.Display;
         

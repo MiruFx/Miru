@@ -7,6 +7,8 @@ namespace Supportreon.Tests
 {
     public class SupportreonFabricator : Fabricator
     {
+        public static string Password => "P@ssword1";
+
         public SupportreonFabricator(FabSupport context) : base(context)
         {
             Fixture.AddConvention(conv =>

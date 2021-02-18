@@ -1,5 +1,4 @@
 using Miru.Html;
-using Miru.RailsUjs;
 
 namespace Corpo.Skeleton.Config
 {
