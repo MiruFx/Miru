@@ -43,7 +43,7 @@ namespace Miru.Mailing
             
             await File.WriteAllTextAsync(emailFile, email.ToRawEmail());
 
-            _logger.LogDebug($"Email {email.Data.Subject} saved as {emailFile}");
+            _logger.LogInformation($"Email {email.Data.Subject} saved as {emailFile}");
         }
     }
 }

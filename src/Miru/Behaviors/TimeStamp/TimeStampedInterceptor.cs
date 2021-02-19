@@ -1,15 +1,21 @@
 using System;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Miru.Domain;
 
-namespace Miru.Databases.EntityFramework
+namespace Miru.Behaviors.TimeStamp
 {
-    public class TimeStampedBeforeSaveHandler : IBeforeSaveHandler
+    public class TimeStampedInterceptor : SaveChangesInterceptor
     {
-        public void BeforeSaveChanges(DbContext db)
+        public override ValueTask<InterceptionResult<int>> SavingChangesAsync(
+            DbContextEventData @event, 
+            InterceptionResult<int> result,
+            CancellationToken cancellationToken = default)
         {
-            var entitiesBeingCreated = db.ChangeTracker.Entries<ITimeStamped>()
+            var entitiesBeingCreated = @event.Context.ChangeTracker.Entries<ITimeStamped>()
                 .Where(p => p.State == EntityState.Added)
                 .Select(p => p.Entity);
 
@@ -21,7 +27,7 @@ namespace Miru.Databases.EntityFramework
                 entityBeingCreated.UpdatedAt = DateTime.Now;
             }
 
-            var entitiesBeingUpdated = db.ChangeTracker.Entries<ITimeStamped>()
+            var entitiesBeingUpdated = @event.Context.ChangeTracker.Entries<ITimeStamped>()
                 .Where(p => p.State == EntityState.Modified)
                 .Select(p => p.Entity);
 
@@ -29,6 +35,8 @@ namespace Miru.Databases.EntityFramework
             {
                 entityBeingUpdated.UpdatedAt = DateTime.Now;
             }
+            
+            return new ValueTask<InterceptionResult<int>>(result);
         }
     }
 }

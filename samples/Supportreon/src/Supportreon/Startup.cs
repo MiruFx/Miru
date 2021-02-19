@@ -30,23 +30,11 @@ namespace Supportreon
                     _.EntityFrameworkSql(LogEventLevel.Information);
                     _.Authentication(LogEventLevel.Information);
                 })
-                
-                .AddDefaultPipeline<Startup>()
-                
-                .AddEfCoreSqlite<SupportreonDbContext>()
-                
-                .AddMailing(_ =>
-                {
-                    _.EmailDefaults(email => email.From("noreply@Supportreon.com", "Supportreon"));
-                })
-                .AddSenderStorage()
 
-                .AddQueuing(_ => 
-                {
-                    _.UseLiteDb();
-                })
-                .AddHangfireServer()
-            
+                .AddDefaultPipeline<Startup>()
+
+                .AddEfCoreSqlite<SupportreonDbContext>()
+
                 // user register, login, logout
                 .AddUserfy<User, SupportreonDbContext>(
                     cookie: cfg =>
@@ -59,16 +47,28 @@ namespace Supportreon
                     options: cfg =>
                     {
                         cfg.SignIn.RequireConfirmedAccount = false;
-                        
+
                         cfg.Password.RequiredLength = 3;
                         cfg.Password.RequireUppercase = false;
                         cfg.Password.RequireNonAlphanumeric = false;
                         cfg.Password.RequireLowercase = false;
-                        
+
                         cfg.User.RequireUniqueEmail = true;
                     })
-                    .AddAuthorizationRules<AuthorizationRulesConfig>()
-                    .AddBelongsToUser<User>();
+                .AddAuthorizationRules<AuthorizationRulesConfig>()
+                .AddBelongsToUser<User>()
+
+                .AddMailing(_ =>
+                {
+                    _.EmailDefaults(email => email.From("noreply@Supportreon.com", "Supportreon"));
+                })
+                .AddSenderStorage()
+
+                .AddQueuing(_ =>
+                {
+                    _.UseLiteDb();
+                })
+                .AddHangfireServer();
             
             services.AddSession();
             services.AddDistributedMemoryCache();

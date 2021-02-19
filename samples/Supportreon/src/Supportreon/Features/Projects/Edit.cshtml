@@ -8,7 +8,7 @@
         @* TODO: action-url or miru-form for *@
         <miru-form action="@(Url.For(new ProjectEdit.Command()))">
 
-            <mi for="Id" type="hidden"/>
+            <miru-input for="Id" type="hidden"/>
 
             <partial name="_Form" model="Model"/>
 

@@ -1,3 +1,4 @@
+using Miru.Mailing;
 using NUnit.Framework;
 using Shouldly;
 
@@ -51,6 +52,21 @@ namespace Miru.Tests
 
             output.ShouldContain("Email: user@user.com");
             output.ShouldNotContain("Password");
+        }
+        
+        [Test]
+        public void Should_inspect_ignoring_emails_body()
+        {
+            var model = new EmailJob(new Email
+            {
+                Body = "Body",
+                Subject = "Hello"
+            });
+
+            var output = model.Inspect().DumpToConsole();
+
+            output.ShouldContain("Subject: Hello");
+            output.ShouldNotContain("Body");
         }
 
         public class User

@@ -74,28 +74,6 @@ namespace Miru.Html
             
             Forms.Always.BuildBy<FormBuilder>();
 
-            Forms.Always.ModifyWith(m =>
-            {
-                if (m.CurrentTag.Attr("method").CaseCmp("get") == false)
-                {
-                    m.CurrentTag.Add("input", tag =>
-                    {
-                        var summaryId = m.Get<ElementNaming>().FormSummaryId(m.Model);
-
-                        tag.Attr("type", "hidden")
-                            .Attr("name", "__Summary")
-                            .Attr("value", summaryId);
-                    });
-                }
-            });
-            
-            Forms
-                .If(m => m.Accessor.OwnerType.IsRequestCommand())
-                .ModifyWith(form =>
-                {
-                    form.AppendAntiForgeryInput();
-                });
-            
             Forms
                 .If(m => m.Accessor.OwnerType.IsRequestQuery())
                 .ModifyWith(m => m.CurrentTag.Attr("method", "get"));

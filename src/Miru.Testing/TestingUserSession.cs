@@ -6,7 +6,7 @@ namespace Miru.Testing
     {
         public static UserfyUser User;
         
-        public long Id => User.Id;
+        public long Id => User?.Id ?? 0;
         
         public string Display => User?.Display ?? string.Empty;
         

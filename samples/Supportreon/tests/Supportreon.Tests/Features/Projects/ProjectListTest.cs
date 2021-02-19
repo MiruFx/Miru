@@ -43,7 +43,7 @@ namespace Supportreon.Tests.Features.Projects
         {
             var result = await _.SendAsync(new ProjectList.Query { Closed = true });
             
-            result.Results.ShouldContainIds(_closedProject);
+            result.Results.ShouldMatchIds(_closedProject);
         }
         
         [Test]
@@ -51,7 +51,7 @@ namespace Supportreon.Tests.Features.Projects
         {
             var result = await _.SendAsync(new ProjectList.Query { Category = _art.Name });
             
-            result.Results.ShouldContainIds(_artProjects);
+            result.Results.ShouldMatchIds(_artProjects);
         }
         
         [Test]
@@ -59,7 +59,7 @@ namespace Supportreon.Tests.Features.Projects
         {
             var result = await _.SendAsync(new ProjectList.Query { Search = _artProjects.At(0).Name });
             
-            result.Results.ShouldContainIds(_artProjects.At(0));
+            result.Results.ShouldMatchIds(_artProjects.At(0));
         }
     }
 }

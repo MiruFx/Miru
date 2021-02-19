@@ -2,10 +2,12 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Baseline;
+using HtmlTags;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.DependencyInjection;
+using Miru.Core;
 using Miru.Urls;
 
 namespace Miru.Html.Tags
@@ -22,6 +24,7 @@ namespace Miru.Html.Tags
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
+            // FIXME: send upper to base
             var model = Model ?? (For != null ? For.Model : ViewContext.ViewData.Model);
             
             var form = HtmlGenerator.FormFor(model);
@@ -33,7 +36,30 @@ namespace Miru.Html.Tags
                 if (url.IsNotEmpty())
                     output.Attributes.Add("action", url);
             }
+            else if (output.Attributes["action"].ToString().CaseCmp("get") == false)
+            {
+                var antiforgeryAccessor = RequestServices.GetService<IAntiforgeryAccessor>();
 
+                if (antiforgeryAccessor.HasToken)
+                {
+                    var input = new HtmlTag("input")
+                        .Attr("type", "hidden")
+                        .Name(antiforgeryAccessor.FormFieldName)
+                        .Value(antiforgeryAccessor.RequestToken);
+                
+                    form.Append(input);
+                }
+                
+                form.Add("input", tag =>
+                {
+                    var summaryId = ElementNaming.FormSummaryId(model);
+
+                    tag.Attr("type", "hidden")
+                        .Attr("name", "__Summary")
+                        .Attr("value", summaryId);
+                });
+            }
+            
             form.MergeAttributes(output.Attributes);
             
             output.TagName = null;

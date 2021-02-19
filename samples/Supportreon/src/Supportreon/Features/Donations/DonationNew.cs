@@ -14,9 +14,9 @@ namespace Supportreon.Features.Donations
 {
     public class DonationNew : IMustBeAuthenticated
     {
-        public class Query : IRequest<Command>
+        public record Query : IRequest<Command>
         {
-            public long ProjectId { get; set; }
+            public long ProjectId { get; init; }
         }
         
         public class Command : IRequest<Result>

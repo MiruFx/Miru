@@ -14,9 +14,4 @@ namespace Miru.Html.Tags
         [HtmlAttributeName("set-class")]
         protected string SetClass { get; set; }
     }
-    
-    [HtmlTargetElement("ml", Attributes = "for", TagStructure = TagStructure.NormalOrSelfClosing)]
-    public class MlTagHelper : LabelTagHelper
-    {
-    }
 }
