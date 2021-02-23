@@ -13,6 +13,13 @@ namespace Miru.Fabrication
             Action<ConventionExpression> conventions = null) 
             where TFabricator : Fabricator
         {
+            services.Scan(scan => scan
+                .FromAssemblies(typeof(TFabricator).Assembly)
+                .AddClasses(classes => classes.AssignableTo(typeof(ICustomFabricator<>)))
+                .AsImplementedInterfaces()
+                .As<ICustomFabricator>()
+                .WithSingletonLifetime());
+            
             services.AddFabrication(conventions);
             
             services.AddSingleton<TFabricator>();

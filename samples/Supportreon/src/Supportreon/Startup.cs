@@ -47,6 +47,8 @@ namespace Supportreon
                     options: cfg =>
                     {
                         cfg.SignIn.RequireConfirmedAccount = false;
+                        cfg.SignIn.RequireConfirmedEmail = false;
+                        cfg.SignIn.RequireConfirmedPhoneNumber = false;
 
                         cfg.Password.RequiredLength = 3;
                         cfg.Password.RequireUppercase = false;

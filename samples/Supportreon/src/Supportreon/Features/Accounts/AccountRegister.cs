@@ -87,7 +87,7 @@ namespace Supportreon.Features.Accounts
                 }
                 else
                 {
-                    throw new DomainException(result.Errors.Select(x => x.Description).Join(". "));
+                    throw result.Errors.ToDomainException();
                 }
 
                 return new Result

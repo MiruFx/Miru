@@ -29,9 +29,9 @@ namespace Supportreon.Tests.Features.Accounts
             saved.Name.ShouldBe(command.Name);
             saved.PasswordHash.ShouldNotBe(command.Password);
             
-            var job = _.EnqueuedJob<EmailJob>();
-            job.Email.ToAddresses.ShouldContain(command.Email);
-            job.Email.Body.ShouldContain("Welcome To Supportreon");
+            var email = _.EnqueuedEmail();
+            email.ToAddresses.ShouldContain(command.Email);
+            email.Body.ShouldContain("Welcome To Supportreon");
         }
 
         [Test]

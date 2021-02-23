@@ -40,13 +40,15 @@ namespace Miru.Tests.Html.TagHelpers
         protected TagHelperOutput ProcessTag<TTag>(
             TTag tag, 
             string html, 
-            TagHelperAttributeList attributes = default,
+            TagHelperAttributeList attributes = null,
             string childContent = "") where TTag : TagHelper
         {
             var context = new TagHelperContext(
                 new TagHelperAttributeList(),
                 new Dictionary<object, object>(),
                 Guid.NewGuid().ToString("N"));
+
+            attributes ??= new TagHelperAttributeList();
             
             var output = new TagHelperOutput(
                 html,

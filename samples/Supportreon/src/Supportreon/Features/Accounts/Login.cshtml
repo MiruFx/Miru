@@ -1,3 +1,4 @@
+@using Supportreon.Features.Accounts.Passwords
 @model AccountLogin.Command
 
 <div class="row m-5 justify-content-center">
@@ -26,6 +27,10 @@
 
             <miru-submit value="Log in"/>
 
+            <div class="mt-4">
+                <a for="@(new PasswordForgot())">Forgot Your Password?</a>
+            </div>
+            
         </miru-form>
 
     </div>

@@ -9,8 +9,10 @@ namespace Supportreon.PageTests.Pages.Accounts
         [Test]
         public void Can_register_new_user()
         {
+            // arrange
             _.Visit<AccountRegister>();
 
+            // act
             _.Form<AccountRegister.Command>((f, command) =>
             {
                 f.Input(m => m.Name, command.Name);
@@ -20,6 +22,7 @@ namespace Supportreon.PageTests.Pages.Accounts
                 f.Submit();
             });
             
+            // assert
             _.ShouldHaveText("Your account has been created!");
         }
     }

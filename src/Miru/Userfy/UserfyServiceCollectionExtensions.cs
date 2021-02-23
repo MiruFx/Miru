@@ -7,7 +7,7 @@ using Miru.Security;
 
 namespace Miru.Userfy
 {
-    public static class ServiceCollectionExtensions
+    public static class UserfyServiceCollectionExtensions
     {
         public static IServiceCollection AddAuthorizationRules<TAuthorizationConfig>(this IServiceCollection services)
             where TAuthorizationConfig : class, IAuthorizationRules
@@ -42,7 +42,8 @@ namespace Miru.Userfy
 
             // asp.net identity
             services.AddIdentity<TUser, IdentityRole<long>>(options)
-                .AddEntityFrameworkStores<TDbContext>();
+                .AddEntityFrameworkStores<TDbContext>()
+                .AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(cookie);
 

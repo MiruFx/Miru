@@ -15,10 +15,9 @@ namespace Miru.PageTesting
             _ = base._.Get<PageTestFixture>();
         }
         
-#pragma warning disable 1998
         public virtual async Task GivenAsync()
-#pragma warning restore 1998
         {
+            await Task.CompletedTask;
         }
         
         public virtual void Given()

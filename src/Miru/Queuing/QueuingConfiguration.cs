@@ -5,7 +5,7 @@ using Miru.Storages;
 
 namespace Miru.Queuing
 {
-    public abstract class QueuingConfiguration : MiruConfig
+    public abstract class QueuingConfiguration
     {
         public string LocalStorage(IServiceProvider sp) => 
             sp.GetService<Storage>().MakePath() / "db" / $"Queue_{sp.GetService<IHostEnvironment>().EnvironmentName}.db";

@@ -21,8 +21,10 @@ namespace Supportreon.PageTests.Pages.Accounts
         [Test]
         public void Can_login()
         {
+            // arrange
             _.Visit<AccountLogin>();
 
+            // act
             _.Form<AccountLogin.Command>(f =>
             {
                 f.Input(m => m.Email, _user.Email);
@@ -30,6 +32,7 @@ namespace Supportreon.PageTests.Pages.Accounts
                 f.Submit();
             });
             
+            // assert
             _.ShouldRedirectTo<HomeIndex>();
         }
     }

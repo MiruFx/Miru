@@ -1,8 +1,11 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Miru;
 using Miru.Fabrication;
 using Miru.Foundation.Hosting;
 using Miru.Foundation.Logging;
+using Miru.Queuing;
+using Miru.Sqlite;
 using Miru.Testing;
 using Miru.Testing.Userfy;
 using Serilog.Events;
@@ -19,7 +22,8 @@ namespace Supportreon.Tests.Config
                 .AddFeatureTesting()
                 .AddTestingUserSession<User>()
                 .AddSqliteDatabaseCleaner()
-                .AddFabrication<SupportreonFabricator>();
+                .AddFabrication<SupportreonFabricator>()
+                .ReplaceTransient<IQueueCleaner, LiteDbQueueCleaner>();
 
             services.AddSerilogConfig(config =>
             {

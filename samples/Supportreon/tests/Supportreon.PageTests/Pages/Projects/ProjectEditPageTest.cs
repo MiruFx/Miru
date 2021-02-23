@@ -11,6 +11,7 @@ namespace Supportreon.PageTests.Pages.Projects
         [Test]
         public void Can_edit_project()
         {
+            // arrange
             var category = _.Make<Category>();
             var project = _.Make<Project>();
 
@@ -18,6 +19,7 @@ namespace Supportreon.PageTests.Pages.Projects
             
             _.Visit(new ProjectEdit.Query { Id = project.Id });
             
+            // act
             _.Form<ProjectEdit.Command>((f, command) =>
             {    
                 f.Input(m => m.Name, command.Name);
@@ -30,6 +32,7 @@ namespace Supportreon.PageTests.Pages.Projects
                 f.Submit();
             });
             
+            // assert
             _.ShouldHaveText("Your Project has been saved");
         }
     }

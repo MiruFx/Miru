@@ -32,7 +32,7 @@
   <ItemGroup Condition="$(IsPackable) == 'true'">
     <None Include="..\..\docs\.vuepress\public\Miru-Logo.png" Pack="true" PackagePath="\"/>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="MinVer" Version="2.3.1" PrivateAssets="All" />
+    <PackageReference Include="MinVer" Version="2.4.0" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>

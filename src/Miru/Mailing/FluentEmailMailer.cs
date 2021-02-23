@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Baseline;
 using FluentEmail.Core.Interfaces;
@@ -45,7 +46,9 @@ namespace Miru.Mailing
         /// <summary>
         /// It builds the email using all the passed parameters/services, then queue the only email message object 
         /// </summary>
-        public async Task SendLaterAsync<TMailable>(TMailable mailable, Action<Email> emailBuilder = null) where TMailable : Mailable
+        public async Task SendLaterAsync<TMailable>(
+            TMailable mailable, 
+            Action<Email> emailBuilder = null) where TMailable : Mailable
         {
             var fluentMail = await BuildEmailFromAsync(mailable, emailBuilder);
 

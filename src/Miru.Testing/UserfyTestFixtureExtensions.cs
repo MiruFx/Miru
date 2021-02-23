@@ -12,7 +12,7 @@ namespace Miru.Testing
     {
         public static TUser MakeUser<TUser>(
             this ITestFixture fixture, 
-            string password, 
+            string password = "123456", 
             Action<TUser> customizations = null) 
                 where TUser : UserfyUser
         {
@@ -22,6 +22,8 @@ namespace Miru.Testing
             
             var user = scope.Get<Fabricator>().Make(customizations);
 
+            user.UserName = user.Email;
+            
             userManager.CreateAsync(user, password);
 
             return user;

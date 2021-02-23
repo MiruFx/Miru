@@ -7,12 +7,12 @@ namespace Miru.Tests.Html.TagHelpers
 {
     public class FormTagHelperTest : TagHelperTest
     {
-        private Command _request;
+        private PostNew.Command _request;
 
         [SetUp]
         public void Setup()
         {
-            _request = new Command();
+            _request = new PostNew.Command();
         }
         
         [Test]
@@ -34,13 +34,36 @@ namespace Miru.Tests.Html.TagHelpers
             // assert
             output.TagName.ShouldBeNull();
             output.PreElement.GetContent().ShouldBe(
-                "<form method=\"get\" id=\"form-tag-helper-test-form\" action=\"/Object\">");
+                "<form method=\"get\" id=\"post-new-form\" action=\"/Object\">");
             output.PostElement.GetContent().ShouldBe("</form>");
         }
-     
+        
+        [Test]
+        public void If_no_attributes_method_should_be_post()
+        {
+            // arrange
+            var tag = new FormTagHelper
+            {
+                For = MakeExpression(_request),
+                RequestServices = ServiceProvider
+            };
+        
+            // act
+            var output = ProcessTag(tag, "miru-form");
+            
+            // assert
+            output.TagName.ShouldBeNull();
+            output.PreElement.GetContent().ShouldBe(
+@"<form method=""post"" id=""post-new-form"" action=""/Object""><input type=""hidden"" name=""FormFieldName"" value=""RequestToken""><input type=""hidden"" name=""__Summary"" value=""post-new-summary"">");
+            output.PostElement.GetContent().ShouldBe("</form>");
+        }
+    }
+
+    public class PostNew
+    {
         public class Command
         {
-            public string Name { get; set; }
-        }
+            public string Title { get; set; }
+        }    
     }
 }

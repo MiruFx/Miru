@@ -36,7 +36,8 @@ namespace Miru.Html.Tags
                 if (url.IsNotEmpty())
                     output.Attributes.Add("action", url);
             }
-            else if (output.Attributes["action"].ToString().CaseCmp("get") == false)
+            
+            if (output.Attributes["method"] == null || !output.Attributes["method"].Value.ToString().CaseCmp("get"))
             {
                 var antiforgeryAccessor = RequestServices.GetService<IAntiforgeryAccessor>();
 

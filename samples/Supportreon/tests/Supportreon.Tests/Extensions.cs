@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FluentEmail.Core.Models;
 using MediatR;
@@ -65,7 +66,9 @@ namespace Supportreon.Tests
         
         public static void ShouldContain(this IEnumerable<Address> address, string email)
         {
-            address.ShouldContain(m => m.EmailAddress == email);
+            address.ShouldContain(
+                m => m.EmailAddress == email, 
+                $"Should contain {email} but there were: {address.Select(x => x.EmailAddress).Join(",")}");
         }
     }
 }

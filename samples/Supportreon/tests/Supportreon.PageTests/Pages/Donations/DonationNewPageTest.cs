@@ -12,8 +12,10 @@ namespace Supportreon.PageTests.Pages.Donations
         [Test]
         public void New_donation()
         {
+            // arrange
             var project = _.MakeSaving<Project>();
             
+            // act
             _.Visit(new DonationNew.Query { ProjectId = project.Id });
 
             _.Form<DonationNew.Command>((f, command) =>
@@ -24,6 +26,7 @@ namespace Supportreon.PageTests.Pages.Donations
                 f.Submit();
             });
             
+            // assert
             _.ShouldHaveText($"Thank you for your donation to {project.Name}!");
         }
     }

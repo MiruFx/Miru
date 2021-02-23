@@ -37,7 +37,7 @@ namespace Miru.Mailing
 
         private async Task SaveEmailToDiskAsync(IFluentEmail email)
         {
-            var emailFile = _storage.Temp() / "emails" / $"{email.Data.Subject}-{DateTime.Now:yyyy-MM-dd_HH-mm-ss.fff}.txt";
+            var emailFile = _storage.Temp() / "emails" / $"{email.Data.Subject}-{DateTime.Now:yyyy-MM-dd_HH-mm-ss.fff}.html";
             
             Directories.CreateForPathIfNotExists(emailFile);
             
