@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Miru.Domain;
@@ -68,7 +69,7 @@ namespace Miru.Tests
         {
             public IEnumerable<Country> Countries { get; set; } = new List<Country>();
             
-            public List Organizations { get; set; } = new List();
+            public ArrayList Organizations { get; set; } = new ArrayList();
         }
         
         public class Country : IEntity

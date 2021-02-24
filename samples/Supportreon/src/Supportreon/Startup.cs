@@ -1,7 +1,11 @@
 using System;
+using System.IO;
+using System.Linq;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Miru;
 using Miru.Behaviors.BelongsToUser;
@@ -12,6 +16,7 @@ using Miru.Mvc;
 using Miru.Pipeline;
 using Miru.Queuing;
 using Miru.Sqlite;
+using Miru.Storages;
 using Miru.Userfy;
 using Serilog.Events;
 using Supportreon.Config;
@@ -110,6 +115,9 @@ namespace Supportreon
             {
                 e.MapDefaultControllerRoute();
                 e.MapRazorPages();
+                
+                if (env.IsDevelopmentOrTest())
+                    e.MapEmailsStorage();
             });
         }
     }
