@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Miru.Fabrication
 {
-    public abstract class Fabricator
+    public class Fabricator
     {
         public readonly FabricatedSession Session;
         public readonly Fixture Fixture;
@@ -15,7 +15,7 @@ namespace Miru.Fabrication
         
         private readonly FabSupport _support;
 
-        protected Fabricator(FabSupport support)
+        public Fabricator(FabSupport support)
         {
             Faker = support.Faker;
 

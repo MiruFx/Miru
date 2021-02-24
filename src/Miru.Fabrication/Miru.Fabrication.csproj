@@ -9,9 +9,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoFixture" Version="4.11.0" />
-        <PackageReference Include="Bogus" Version="29.0.1" />
-        <PackageReference Include="Baseline" Version="2.1.0" />
+        <PackageReference Include="AutoFixture" Version="4.15.0" />
+        <PackageReference Include="Bogus" Version="33.0.2" />
+        <PackageReference Include="Baseline" Version="2.1.1" />
     </ItemGroup>
     
 </Project>

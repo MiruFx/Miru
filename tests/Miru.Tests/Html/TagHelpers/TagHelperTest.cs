@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Html;
+using Miru.Testing;
+using Miru.Urls;
 using NUnit.Framework;
 using ModelMetadataProviderExtensions = Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadataProviderExtensions;
 
@@ -23,22 +25,34 @@ namespace Miru.Tests.Html.TagHelpers
             var services = new ServiceCollection()
                 .AddMiruHtml(new HtmlConvention().AddTwitterBootstrap())
                 .AddOptions()
-                .AddLogging();
-            
-            services.AddMvcCore().AddViews();
+                .ReplaceTransient<IAntiforgeryAccessor, TestingAntiForgeryAccessor>()
+                .AddTransient<IUrlMaps, StubUrlMaps>()
+                .AddTransient<UrlLookup>()
+                .AddSingleton(new UrlOptions())
+                .AddLogging()
+                .AddMvcCore()
+                .AddViews()
+                .Services;
                 
             ServiceProvider = services.BuildServiceProvider();
         }
 
-        protected TagHelperOutput ProcessTag<TTag>(TTag tag, string html, string childContent = "") where TTag : TagHelper
+        protected TagHelperOutput ProcessTag<TTag>(
+            TTag tag, 
+            string html, 
+            TagHelperAttributeList attributes = null,
+            string childContent = "") where TTag : TagHelper
         {
             var context = new TagHelperContext(
                 new TagHelperAttributeList(),
                 new Dictionary<object, object>(),
                 Guid.NewGuid().ToString("N"));
+
+            attributes ??= new TagHelperAttributeList();
             
-            var output = new TagHelperOutput(html,
-                new TagHelperAttributeList(),
+            var output = new TagHelperOutput(
+                html,
+                attributes,
                 (result, encoder) =>
                 {
                     var tagHelperContent = new DefaultTagHelperContent();
@@ -106,6 +120,24 @@ namespace Miru.Tests.Html.TagHelpers
             };
 
             return modelExpressionProvider.CreateModelExpression(viewDataDictionary, expression);
+        }
+        
+        protected ModelExpression MakeExpression<TModel>(TModel model)
+        {
+            var modelExpressionProvider = ServiceProvider.GetService<ModelExpressionProvider>();
+                
+            var compositeMetadataDetailsProvider = ServiceProvider.GetService<ICompositeMetadataDetailsProvider>();
+            var metadataProvider = new DefaultModelMetadataProvider(compositeMetadataDetailsProvider);
+
+            var viewDataDictionary = new ViewDataDictionary<TModel>(metadataProvider, new ModelStateDictionary())
+            {
+                Model = model
+            };
+
+            var modelExplorer = new ModelExplorer(
+                metadataProvider, metadataProvider.GetMetadataForType(model.GetType()), model);
+
+            return new ModelExpression("Model", modelExplorer);
         }
     }
 }

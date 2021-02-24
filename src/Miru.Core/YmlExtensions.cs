@@ -29,6 +29,7 @@ namespace Miru.Core
                 .Deserialize<T>(content);
         }
         
+        // FIXME: Make it global configuration
         public class FilterPropertiesInspector : TypeInspectorSkeleton
         {
             private readonly ITypeInspector _innerTypeDescriptor;
@@ -41,7 +42,9 @@ namespace Miru.Core
             public override IEnumerable<IPropertyDescriptor> GetProperties(Type type, object container)
             {
                 return _innerTypeDescriptor.GetProperties(type, container)
-                    .Where(p => !p.Name.ContainsNoCase("password"));
+                    .Where(p => 
+                        !p.Name.ContainsNoCase("password") && 
+                        !(p.Name.ContainsNoCase("body") && type.FullName.Equals("Miru.Mailing.Email")));
             }
         }
     }

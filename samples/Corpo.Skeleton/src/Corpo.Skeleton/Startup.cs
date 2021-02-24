@@ -12,7 +12,6 @@ using Miru.Mvc;
 using Miru.Pipeline;
 using Miru.Queuing;
 using Miru.Sqlite;
-using Miru.Turbolinks;
 using Miru.Userfy;
 
 namespace Corpo.Skeleton
@@ -31,7 +30,7 @@ namespace Corpo.Skeleton
                 
                 // user security
                 .AddUserfy<User, Role, SkeletonDbContext>()
-                .AddAuthorization<AuthorizationConfig>()
+                .AddAuthorizationRules<AuthorizationConfig>()
                 
                 // mailing
                 .AddMailing(_ =>

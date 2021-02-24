@@ -21,7 +21,7 @@ namespace Miru.Mvc
             {
                 m.Flash().Warning("Please, login or create a new account");
                     
-                return new RedirectResult($"{m.UserfyOptions().LoginPath}?ReturnUrl={m.Request.GetEncodedPathAndQuery()}");
+                return new RedirectResult($"{m.CookieAuthenticationOptions().LoginPath}?ReturnUrl={m.Request.GetEncodedPathAndQuery()}");
             });
             
             _.When(m => m.Exception is UnauthorizedException).Respond(m => 

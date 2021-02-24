@@ -10,7 +10,7 @@
 
     <ItemGroup>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.2" />
-        <PackageReference Include="Respawn" Version="3.3.0" />
+        <PackageReference Include="Respawn" Version="4.0.0" />
     </ItemGroup>
     
 </Project>

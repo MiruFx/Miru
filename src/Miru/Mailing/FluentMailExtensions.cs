@@ -12,12 +12,14 @@ namespace Miru.Mailing
             var emailMessage = new StringBuilder();
             
             emailMessage.Append($@"
+<pre>
 From: {email.Data.FromAddress.Name} <{email.Data.FromAddress.EmailAddress}>
 To: {string.Join(",", email.Data.ToAddresses.Select(x => $"{x.Name} <{x.EmailAddress}>"))}
 Cc: {string.Join(",", email.Data.CcAddresses.Select(x => $"{x.Name} <{x.EmailAddress}>"))}
 Bcc: {string.Join(",", email.Data.BccAddresses.Select(x => $"{x.Name} <{x.EmailAddress}>"))}
 ReplyTo: {string.Join(",", email.Data.ReplyToAddresses.Select(x => $"{x.Name} <{x.EmailAddress}>"))}
-Subject: {email.Data.Subject}");
+Subject: {email.Data.Subject}
+</pre>");
 
             foreach (var dataHeader in email.Data.Headers)
             {

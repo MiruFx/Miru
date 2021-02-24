@@ -9,6 +9,8 @@ using Hangfire;
 using Hangfire.MemoryStorage;
 using Hangfire.MemoryStorage.Dto;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Miru.Databases;
 using Miru.Databases.Migrations;
@@ -25,6 +27,11 @@ namespace Miru.Testing
     /// </summary>
     public static class TestFixtureExtensions
     {
+        public static ScopedServices WithScope(this ITestFixture fixture)
+        {
+            return fixture.Get<IMiruApp>().WithScope();
+        }
+        
         public static async Task<TResult> SendAsync<TResult>(this ITestFixture fixture, IRequest<TResult> message)
         {
             return await fixture.App.SendAsync(message);
@@ -53,7 +60,7 @@ namespace Miru.Testing
             {
                 var db = scope.Get<IDataAccess>();
                 
-                db.PersistAsync(new object[] { entity }).GetAwaiter().GetResult();
+                db.PersistAsync(new object[] {entity}).GetAwaiter().GetResult();
             }
 
             return entity;
@@ -112,7 +119,9 @@ namespace Miru.Testing
             }
         }
 
-        public static TReturn WithDb<TDbContext, TReturn>(this ITestFixture fixture, Func<TDbContext, TReturn> func)
+        public static TReturn WithDb<TDbContext, TReturn>(
+            this ITestFixture fixture, 
+            Func<TDbContext, TReturn> func)
         {
             using var scope = fixture.App.WithScope();
             
@@ -126,8 +135,8 @@ namespace Miru.Testing
             MiruTest.Log.Information($"Login as #{user.Id}-{user.Display}");
 
             using var scope = fixture.App.WithScope();
-            
-            scope.Get<IUserSession>().As<TestingUserSession<TUser>>().Login(user);
+
+            TestingCurrentUser.User = user;
         }
 
         public static void Logout(this ITestFixture fixture)
@@ -139,13 +148,15 @@ namespace Miru.Testing
             scope.Get<IUserSession>().LogoutAsync().GetAwaiter().GetResult();
         }
         
-        public static TUser CurrentUser<TUser>(this ITestFixture fixture) where TUser : UserfyUser
+        public static IServiceCollection AddTestingUserSession<TUser>(this IServiceCollection services) 
+            where TUser : UserfyUser
         {
-            using var scope = fixture.App.WithScope();
-            
-            return scope.Get<IUserSession<TUser>>().GetUserAsync().GetAwaiter().GetResult();
+            return services
+                .ReplaceTransient<IUserSession, TestingUserSession<TUser>>()
+                .ReplaceTransient<IUserSession<TUser>, TestingUserSession<TUser>>()
+                .ReplaceTransient<ICurrentUser, TestingCurrentUser>();
         }
-        
+
         public static long CurrentUserId(this ITestFixture fixture)
         {
             using var scope = fixture.App.WithScope();

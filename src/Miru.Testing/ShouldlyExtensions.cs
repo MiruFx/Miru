@@ -39,7 +39,7 @@ namespace Miru.Testing
                 $"Number of items of {typeof(T).FullName} should be {actualCount} but was {expectedCount}");
         }
         
-        public static void ShouldContainIds(this IEnumerable<IHasId> left, params IHasId[] right)
+        public static void ShouldMatchIds(this IEnumerable<IHasId> left, params IHasId[] right)
         {
             var leftIds = left.Select(x => x.Id).ToImmutableList();
             var rightIds = right.Select(x => x.Id).ToImmutableList();
@@ -54,9 +54,9 @@ namespace Miru.Testing
             }
         }
         
-        public static void ShouldContainIds(this IEnumerable<IHasId> left, IEnumerable<IHasId> right)
+        public static void ShouldMatchIds(this IEnumerable<IHasId> left, IEnumerable<IHasId> right)
         {
-            left.ShouldContainIds(right.ToArray());
+            left.ShouldMatchIds(right.ToArray());
         }
 
         public static void ShouldBe<T>(this IEnumerable<T> actual, params T[] expected) 

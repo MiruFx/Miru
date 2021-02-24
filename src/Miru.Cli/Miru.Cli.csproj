@@ -5,7 +5,6 @@
         <TargetFramework>net5.0</TargetFramework>
         <IsPackable>true</IsPackable>
         <PackAsTool>true</PackAsTool>
-        <!-- Temporary until it reaches 1.0 -->
         <PackageId>Miru.Cli</PackageId>
         <Authors>joaofx</Authors>
         <Product>Miru</Product>
@@ -18,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Baseline" Version="2.1.0" />
+        <PackageReference Include="Baseline" Version="2.1.1" />
     </ItemGroup>
 
 </Project>

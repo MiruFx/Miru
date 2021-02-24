@@ -12,7 +12,7 @@ TODO: Roadmap and Vision link
 
 <p>
   <a href="https://www.nuget.org/packages/Miru/">
-      <img src="https://badgen.net/nuget/v/Miru/latest" alt="nuget" height="20">
+      <img src="https://img.shields.io/nuget/vpre/miru.svg" alt="nuget" height="20">
   </a>
   <a href="https://f.feedz.io/miru/miru/nuget/index.json">
       <img src="https://img.shields.io/badge/endpoint.svg?url=https%3A%2F%2Ff.feedz.io%2Fmiru%2Fmiru%2Fshield%2FMiru%2Flatest&label=dev" alt="dev">

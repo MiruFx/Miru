@@ -9,10 +9,10 @@ namespace Miru.Queuing
     {
         public bool Authorize(DashboardContext context)
         {
-            var userSession = context.GetHttpContext().RequestServices.GetService<IUserSession<TUser>>();
-
-            if (userSession.IsAnonymous)
-                return false;
+            // var userSession = context.GetHttpContext().RequestServices.GetService<IUserSession<TUser>>();
+            //
+            // if (userSession.IsAnonymous)
+            //     return false;
                 
             // return userSession.GetUserAsync().GetAwaiter().GetResult().IsAdmin;
             return true;

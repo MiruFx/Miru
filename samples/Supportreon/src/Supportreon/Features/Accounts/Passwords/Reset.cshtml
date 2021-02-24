@@ -1,0 +1,34 @@
+@model PasswordReset.Command
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+
+        <h4>Reset Password</h4>
+
+        <miru-form>
+
+            <miru-summary/>
+            <miru-input for="Code" type="hidden" />
+
+            <div class="mb-3">
+                <miru-label for="Email"/>
+                <miru-input for="Email"/>
+            </div>
+
+            <div class="mb-3">
+                <miru-label for="Password"/>
+                <miru-input for="Password"/>
+            </div>
+
+
+            <div class="mb-3">
+                <miru-label for="PasswordConfirmation"/>
+                <miru-input for="PasswordConfirmation"/>
+            </div>
+
+            <miru-submit/>
+
+        </miru-form>
+
+    </div>
+</div>

@@ -1,0 +1,47 @@
+@model DonationNew.Command
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h3 class="mb-4">New Donation</h3>
+
+        <miru-form>
+
+            <miru-summary/>
+
+            <miru-input for="ProjectId"/>
+
+            <div class="row mb-3">
+                <span class="col-sm-3 col-form-label"></span>
+
+                <div class="col-sm-9">
+                    <md for="Project.Name"/>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <miru-label for="Amount" class="col-sm-3 col-form-label text-end"/>
+
+                <div class="col-sm-9">
+                    <miru-input for="Amount"/>
+                    <small class="form-text text-muted">
+                        Minimum amount is <md for="Project.MinimumDonation" class="font-weight-bold"/>
+                    </small>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <miru-label for="CreditCard" class="col-sm-3 col-form-label text-end"/>
+                <div class="col-sm-9">
+                    <miru-input for="CreditCard"/>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="offset-md-3">
+                    <miru-submit value="Donate"/>
+                </div>
+            </div>
+
+        </miru-form>
+    </div>
+</div>

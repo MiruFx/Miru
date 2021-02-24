@@ -5,6 +5,21 @@ namespace Miru.Userfy
 {
     public static class ModelBuilderExtensions
     {
+        public static ModelBuilder UseIdentity<TUser>(this ModelBuilder builder)
+            where TUser : IdentityUser<long>
+        {
+            builder.Entity<TUser>(x => x.ToTable(name: "Users"));
+            builder.Entity<IdentityRole<long>>(x => x.ToTable(name: "Roles"));
+            
+            builder.Entity<IdentityUserRole<long>>(x => x.ToTable("UserRoles"));
+            builder.Entity<IdentityUserClaim<long>>(x => x.ToTable("UserClaims"));
+            builder.Entity<IdentityUserLogin<long>>(x => x.ToTable("UserLogins"));
+            builder.Entity<IdentityRoleClaim<long>>(x => x.ToTable("RoleClaims"));
+            builder.Entity<IdentityUserToken<long>>(x => x.ToTable("UserTokens"));
+
+            return builder;
+        }
+        
         public static ModelBuilder UseIdentity<TUser, TRole>(this ModelBuilder builder)
             where TUser : IdentityUser<long>
             where TRole : IdentityRole<long>

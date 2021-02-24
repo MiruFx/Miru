@@ -14,6 +14,7 @@ using Miru.Databases;
 using Miru.Databases.Migrations;
 using Miru.Domain;
 using Miru.Fabrication;
+using Miru.Mailing;
 using Miru.Queuing;
 using Miru.Userfy;
 using Shouldly;
@@ -67,6 +68,16 @@ namespace Miru.Testing
                 throw new ShouldAssertException($"No job queued found of type {typeof(TJob).FullName}");
 
             return entry;
+        }
+        
+        public static Email EnqueuedEmail(this ITestFixture fixture)
+        {
+            var job = fixture.EnqueuedJob<EmailJob>();
+
+            if (job == null)
+                throw new MiruException("There is no EmailJob queued");
+            
+            return job.Email;
         }
     }
 }

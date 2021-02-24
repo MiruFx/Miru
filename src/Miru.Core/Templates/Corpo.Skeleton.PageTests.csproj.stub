@@ -6,12 +6,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
-
         <PackageReference Include="Miru.PageTesting" Version="{{ MiruVersion }}" />
         <PackageReference Include="Miru.PageTesting.Chrome" Version="{{ MiruVersion }}" />
         <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="86.0.4240.2200" />
+        <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.0" />
     </ItemGroup>
 
     <ItemGroup>

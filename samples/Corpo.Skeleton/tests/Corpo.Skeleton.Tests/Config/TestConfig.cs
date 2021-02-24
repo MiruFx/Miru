@@ -14,7 +14,8 @@ namespace Corpo.Skeleton.Tests.Config
         public virtual void ConfigureTestServices(IServiceCollection services)
         {
             services
-                .AddFeatureTesting<User>()
+                .AddFeatureTesting()
+                .AddTestingUserSession<User>()
                 .AddSqliteDatabaseCleaner()
                 .AddQueueCleaner<LiteDbQueueCleaner>()
                 .AddFabrication<SkeletonFabricator>();

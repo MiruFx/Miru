@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\Miru\Miru.csproj" />
+    <ProjectReference Include="..\..\..\..\src\Miru.Sqlite\Miru.Sqlite.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="wwwroot\**" />
+  </ItemGroup>
+
+</Project>

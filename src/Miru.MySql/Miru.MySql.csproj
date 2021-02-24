@@ -6,9 +6,9 @@
 
     <ItemGroup>
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.0-alpha.2" />
-        <PackageReference Include="Miru" Version="0.4.6" />
-        <PackageReference Include="Respawn" Version="3.3.0" />
-        <PackageReference Include="FluentMigrator.Runner.MySql" Version="3.2.11" />
+        <PackageReference Include="Miru" Version="1.0.0" />
+        <PackageReference Include="Respawn" Version="4.0.0" />
+        <PackageReference Include="FluentMigrator.Runner.MySql" Version="3.2.15" />
         <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
     </ItemGroup>
     

@@ -37,13 +37,13 @@ namespace Miru.Mailing
 
         private async Task SaveEmailToDiskAsync(IFluentEmail email)
         {
-            var emailFile = _storage.Temp() / "emails" / $"{email.Data.Subject}-{DateTime.Now:yyyy-MM-dd_HH-mm-ss.fff}.txt";
+            var emailFile = _storage.Temp() / "emails" / $"{email.Data.Subject}-{DateTime.Now:yyyy-MM-dd_HH-mm-ss.fff}.html";
             
             Directories.CreateForPathIfNotExists(emailFile);
             
             await File.WriteAllTextAsync(emailFile, email.ToRawEmail());
 
-            _logger.LogDebug($"Email {email.Data.Subject} saved as {emailFile}");
+            _logger.LogInformation($"Email {email.Data.Subject} saved as {emailFile}");
         }
     }
 }

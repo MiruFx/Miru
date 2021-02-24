@@ -1,0 +1,34 @@
+@using Supportreon.Features.Projects
+@model HomeIndex.Result
+
+<h3>New Projects</h3>
+
+<div miru-if-empty="@Model.Projects" class="alert alert-warning">
+    There are no Projects to show
+</div>
+
+<div miru-if-any="Model.Projects" miru-id="@Model">
+
+    <div class="mt-4">
+        <p>
+            <em>Listing <strong>@Model.Projects.Count</strong> project(s)</em>
+        </p>
+    </div>
+
+    @for (var i = 0; Model.Projects.Count > i; i++)
+    {
+        <div id="project-@Model.Projects[i].Id" class="mt-4">
+
+            <h4 class="lead text-left">
+                <a for="@(new ProjectShow.Query {Id = Model.Projects[i].Id})">
+                    <md for="@Model.Projects[i].Name"/>
+                </a>
+            </h4>
+
+            <div>
+                <md for="@Model.Projects[i].Description"/>
+            </div>
+
+        </div>
+    }
+</div>
