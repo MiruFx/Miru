@@ -13,9 +13,9 @@ namespace Supportreon.PageTests.Pages.Accounts
     {
         private User _user;
 
-        public override void Given()
+        public override async Task GivenAsync()
         {
-            _user = _.MakeUser<User>(SupportreonFabricator.Password);
+            _user = await _.MakeUserAsync<User>(SupportreonFabricator.Password);
         }
 
         [Test]

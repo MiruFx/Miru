@@ -17,7 +17,7 @@ namespace Supportreon.Tests.Features.Accounts.Passwords
         public async Task Can_generate_reset_email()
         {
             // arrange
-            var user = _.MakeUser<User>();
+            var user = await _.MakeUserAsync<User>();
 
             // act
             await _.SendAsync(new PasswordForgot.Command

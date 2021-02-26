@@ -16,9 +16,9 @@ namespace Miru
             _type = type;
         }
 
-        public bool IsIn(string folder)
+        public bool IsIn(string featureFolder)
         {
-            return _type.Namespace.Contains($".Features.{folder}");
+            return _type.Namespace.Contains($".Features.{featureFolder}");
         }
 
         public bool Implements<T>()

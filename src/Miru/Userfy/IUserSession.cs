@@ -5,7 +5,7 @@ namespace Miru.Userfy
 {
     public interface IUserSession<TUser> : IUserSession where TUser : UserfyUser
     {
-        Task<TUser> GetUser();
+        Task<TUser> GetUserAsync();
     }
 
     public interface IUserSession

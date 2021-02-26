@@ -16,7 +16,7 @@ namespace Supportreon.Config
         {
             if (_userSession.IsLogged)
             {
-                var user = await _userSession.GetUser();
+                var user = await _userSession.GetUserAsync();
                 
                 if (feature.IsIn("Admin") && user?.IsAdmin == false)
                     return AuthorizationResult.Fail();

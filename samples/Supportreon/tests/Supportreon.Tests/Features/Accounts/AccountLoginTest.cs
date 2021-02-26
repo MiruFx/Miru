@@ -13,9 +13,7 @@ namespace Supportreon.Tests.Features.Accounts
         public async Task Can_login()
         {
             // arrange
-            var user = _.MakeUser<User>(password: "Password1!");
-
-            await _.SaveAsync(user);
+            var user = await _.MakeUserAsync<User>(password: "Password1!");
 
             // act
             var result = await _.SendAsync(new AccountLogin.Command

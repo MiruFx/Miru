@@ -45,7 +45,6 @@ Has to be .Sdk.Web to allow unit test asp.net components correctly
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="PageTesting" />
     <Folder Include="Scoping" />
   </ItemGroup>
 

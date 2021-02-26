@@ -21,7 +21,7 @@ namespace Miru.Userfy
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public Task<TUser> GetUser() => 
+        public Task<TUser> GetUserAsync() => 
             _signInManager.UserManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
 
         public async Task<SignInResult> LoginAsync(string userName, string password, bool remember = false)

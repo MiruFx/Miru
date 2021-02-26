@@ -62,10 +62,10 @@ namespace Miru.Tests.Mailing
         }
 
         [Test]
-        public void Email_with_default_parameters()
+        public async Task Should_set_default_email_options()
         {
             // act
-            _mailer.SendNowAsync(new NullMail());
+            await _mailer.SendNowAsync(new EmptyMail());
             
             // assert
             var emailSent = _emailsSent.Last();
@@ -150,7 +150,7 @@ Confirm your email clicking on the link below:
             }
         }
         
-        public class NullMail : Mailable
+        public class EmptyMail : Mailable
         {
             public override void Build(Email mail)
             {

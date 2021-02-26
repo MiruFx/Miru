@@ -27,16 +27,20 @@ namespace Scripts
         // package id and if include symbols
         private static readonly Dictionary<string, bool> Packages = new()
         {
-            // { "Miru.Core", true },
-            // { "Miru", true },
-            // { "Miru.Fabrication", true },
-            // { "Miru.SqlServer", true },
-            // { "Miru.Sqlite", true },
-            // { "Miru.Postgres", true },
-            // { "Miru.Testing", true },
-            // { "Miru.PageTesting", true }, 
-            // { "Miru.PageTesting.Chrome", true }, 
-            // { "Miru.PageTesting.Firefox", true }, 
+            { "Miru.Core", true },
+            { "Miru", true },
+            { "Miru.Fabrication", true },
+            
+            { "Miru.SqlServer", true },
+            { "Miru.Sqlite", true },
+            { "Miru.Postgres", true },
+            { "Miru.MySql", true },
+            
+            { "Miru.Testing", true },
+            { "Miru.PageTesting", true }, 
+            { "Miru.PageTesting.Chrome", true }, 
+            { "Miru.PageTesting.Firefox", true },
+            
             { "Miru.Cli", false }
         };
 

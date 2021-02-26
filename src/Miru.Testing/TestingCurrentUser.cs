@@ -18,7 +18,7 @@ namespace Miru.Testing
             _currentUser = currentUser;
         }
 
-        public async Task<TUser> GetUser() => await Task.FromResult(TestingCurrentUser.User as TUser);
+        public async Task<TUser> GetUserAsync() => await Task.FromResult(TestingCurrentUser.User as TUser);
 
         public async Task<SignInResult> LoginAsync(string userName, string password, bool remember = false)
         {

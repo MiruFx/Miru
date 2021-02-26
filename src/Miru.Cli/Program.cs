@@ -38,7 +38,7 @@ namespace Miru.Cli
                         RunAt(options, runOptions, s => s.AppTestsDir))
                 },
                 
-                new RunAtCommand("pagetest") 
+                new RunAtCommand("pagetest")
                 {
                     Handler = CommandHandler.Create((MiruCliOptions options, RunOptions runOptions) => 
                         RunAt(options, runOptions, s => s.AppPageTestsDir))

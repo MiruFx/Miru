@@ -17,7 +17,7 @@ namespace Supportreon.Tests.Features.Accounts.Passwords
         public async Task Can_query_for_password_reset()
         {
             // arrange
-            var user = _.MakeUser<User>();
+            var user = await _.MakeUserAsync<User>();
             var code = await CreateResetCode(user);
 
             // act
@@ -34,7 +34,7 @@ namespace Supportreon.Tests.Features.Accounts.Passwords
         public async Task Can_reset_password()
         {
             // arrange
-            var user = _.MakeUser<User>();
+            var user = await _.MakeUserAsync<User>();
             var code = await CreateResetCode(user);
 
             // act

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Bogus;
 using Microsoft.AspNetCore.Identity;
 using Miru.Fabrication;
@@ -10,7 +11,7 @@ namespace Miru.Testing
 {
     public static class UserfyTestFixtureExtensions
     {
-        public static TUser MakeUser<TUser>(
+        public static async Task<TUser> MakeUserAsync<TUser>(
             this ITestFixture fixture, 
             string password = "123456", 
             Action<TUser> customizations = null) 
@@ -24,7 +25,7 @@ namespace Miru.Testing
 
             user.UserName = user.Email;
             
-            userManager.CreateAsync(user, password);
+            await userManager.CreateAsync(user, password);
 
             return user;
         }
