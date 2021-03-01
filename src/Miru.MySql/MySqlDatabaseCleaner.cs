@@ -12,6 +12,7 @@ namespace Miru.MySql
 
         private static readonly Checkpoint Checkpoint = new()
         {
+            DbAdapter = DbAdapter.MySql,
             TablesToIgnore = new[]
             {
                 "__MigrationHistory",

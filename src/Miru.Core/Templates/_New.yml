@@ -1,6 +1,7 @@
 global.json: global.json.stub
 Corpo.Skeleton.sln: Solution.sln.stub
 .gitignore: .gitignore.stub
+Readme.md: Readme.md.stub
 config\Config.Development.yml: Config.Development.yml.stub
 config\Config.Production.yml: Config.Production.yml.stub
 config\Config.Test.yml: Config.Test.yml.stub
@@ -11,12 +12,11 @@ src\Corpo.Skeleton\Startup.cs: Startup.stub
 src\Corpo.Skeleton\Corpo.Skeleton.csproj: Corpo.Skeleton.csproj.stub
 src\Corpo.Skeleton\Program.cs: Program.stub
 src\Corpo.Skeleton\package.json: package.json.stub
-src\Corpo.Skeleton\Config\AuthorizationConfig.cs: AuthorizationConfig.stub
+src\Corpo.Skeleton\Config\AuthorizationRulesConfig.cs: AuthorizationRulesConfig.stub
 src\Corpo.Skeleton\Config\HtmlConfig.cs: HtmlConfig.stub
 src\Corpo.Skeleton\Database\Migrations\202001290120_CreateUserfy.cs: 202001290120_CreateUserfy.stub
 src\Corpo.Skeleton\Database\SkeletonDbContext.cs: SkeletonDbContext.stub
 src\Corpo.Skeleton\Domain\User.cs: User.stub
-src\Corpo.Skeleton\Domain\Role.cs: Role.stub
 src\Corpo.Skeleton\Features\_ViewImports.cshtml: _ViewImports.cshtml.stub
 src\Corpo.Skeleton\Features\_ViewStart.cshtml: _ViewStart.cshtml.stub
 src\Corpo.Skeleton\Features\Accounts\AccountLogin.cs: AccountLogin.stub

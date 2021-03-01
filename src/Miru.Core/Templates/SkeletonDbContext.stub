@@ -6,7 +6,7 @@ using Miru.Userfy;
 
 namespace {{ Solution.Name }}.Database
 {
-    public class {{ Solution.ShortName }}DbContext : UserfyDbContext<User, Role>
+    public class {{ Solution.ShortName }}DbContext : UserfyDbContext<User>
     {
         public {{ Solution.ShortName }}DbContext(
             DbContextOptions options,
@@ -17,13 +17,5 @@ namespace {{ Solution.Name }}.Database
         // Your entities
         // public DbSet<{{ input.Name }}> {{ input.In }} { get; set; } 
         
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            // it should be before .UseIdentity
-            base.OnModelCreating(builder);
-            
-            builder.UseIdentity<User, Role>();
-        }
     }
 }
