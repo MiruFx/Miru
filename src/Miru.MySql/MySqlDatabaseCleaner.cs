@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using Miru.Databases;
 using Miru.Settings;
+using MySqlConnector;
 using Respawn;
 
 namespace Miru.MySql
@@ -29,7 +30,11 @@ namespace Miru.MySql
 
         public async Task ClearAsync()
         {
-            await Checkpoint.Reset(_dbOptions.ConnectionString);
+            await using var conn = new MySqlConnection(_dbOptions.ConnectionString);
+            
+            await conn.OpenAsync();
+
+            await Checkpoint.Reset(conn);
         }
     }
 }
