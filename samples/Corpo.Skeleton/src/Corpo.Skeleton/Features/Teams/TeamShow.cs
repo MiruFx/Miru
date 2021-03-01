@@ -41,7 +41,7 @@ namespace Corpo.Skeleton.Features.Teams
         
         public class ProductsController : MiruController
         {
-            [Route("/Products/{id:long}")]
+            [HttpGet("/Products/{id:long}")]
             public async Task<Result> Show(Query request) => await SendAsync(request);
         }
     }

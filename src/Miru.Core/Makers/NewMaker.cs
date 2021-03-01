@@ -25,7 +25,8 @@ namespace Miru.Core.Makers
             {
                 // FIXME: Use same tokens replacement as m.Template
                 var destination = key
-                    .Replace("Corpo.Skeleton", name)
+                    .Replace("Corpo.Skeleton", m.Solution.Name)
+                    .Replace("Skeleton", m.Solution.ShortName)
                     .Replace('\\', Path.DirectorySeparatorChar);
                 
                 m.Template(stub, destination);
@@ -42,7 +43,7 @@ namespace Miru.Core.Makers
         private static void ThrowIfNewDirectoryExist(MiruPath newSolutionDir)
         {
             if (Directory.Exists(newSolutionDir))
-                throw new InvalidOperationException(
+                throw new MakeException(
                     $"Can't create new Miru solution. Directory {newSolutionDir} already exist");
         }
     }

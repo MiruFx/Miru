@@ -12,7 +12,6 @@ using Miru.Mvc;
 using Miru.Pipeline;
 using Miru.Queuing;
 using Miru.Sqlite;
-using Miru.Turbolinks;
 using Miru.Userfy;
 
 namespace {{ Solution.Name }}
@@ -31,7 +30,7 @@ namespace {{ Solution.Name }}
                 
                 // user security
                 .AddUserfy<User, Role, {{ Solution.ShortName }}DbContext>()
-                .AddAuthorization<AuthorizationConfig>()
+                .AddAuthorizationRules<AuthorizationConfig>()
                 
                 // mailing
                 .AddMailing(_ =>

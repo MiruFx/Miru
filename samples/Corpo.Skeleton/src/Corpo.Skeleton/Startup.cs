@@ -1,3 +1,4 @@
+using System;
 using Corpo.Skeleton.Config;
 using Corpo.Skeleton.Database;
 using Corpo.Skeleton.Domain;
@@ -6,13 +7,16 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Miru;
+using Miru.Behaviors.BelongsToUser;
 using Miru.Foundation.Hosting;
+using Miru.Foundation.Logging;
 using Miru.Mailing;
 using Miru.Mvc;
 using Miru.Pipeline;
 using Miru.Queuing;
 using Miru.Sqlite;
 using Miru.Userfy;
+using Serilog.Events;
 
 namespace Corpo.Skeleton
 {
@@ -21,33 +25,58 @@ namespace Corpo.Skeleton
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMiru<Startup>()
-            
-                // pipeline
+                .AddSerilogConfig(_ =>
+                {
+                    _.EntityFrameworkSql(LogEventLevel.Information);
+                    _.Authentication(LogEventLevel.Information);
+                })
+
                 .AddDefaultPipeline<Startup>()
-                
-                // database
+
                 .AddEfCoreSqlite<SkeletonDbContext>()
-                
-                // user security
-                .AddUserfy<User, Role, SkeletonDbContext>()
-                .AddAuthorizationRules<AuthorizationConfig>()
-                
-                // mailing
+
+                // user register, login, logout
+                .AddUserfy<User, SkeletonDbContext>(
+                    cookie: cfg =>
+                    {
+                        cfg.Cookie.Name = App.Name;
+                        cfg.Cookie.HttpOnly = true;
+                        cfg.ExpireTimeSpan = TimeSpan.FromHours(2);
+                        cfg.LoginPath = "/Accounts/Login";
+                    },
+                    options: cfg =>
+                    {
+                        cfg.SignIn.RequireConfirmedAccount = false;
+                        cfg.SignIn.RequireConfirmedEmail = false;
+                        cfg.SignIn.RequireConfirmedPhoneNumber = false;
+
+                        cfg.Password.RequiredLength = 3;
+                        cfg.Password.RequireUppercase = false;
+                        cfg.Password.RequireNonAlphanumeric = false;
+                        cfg.Password.RequireLowercase = false;
+
+                        cfg.User.RequireUniqueEmail = true;
+                    })
+                .AddAuthorizationRules<AuthorizationRulesConfig>()
+                .AddBelongsToUser<User>()
+
                 .AddMailing(_ =>
                 {
                     _.EmailDefaults(email => email.From("noreply@skeleton.com", "Skeleton"));
                 })
                 .AddSenderStorage()
-                
-                // queuing
-                .AddQueuing(_ => 
+
+                .AddQueuing(_ =>
                 {
                     _.UseLiteDb();
                 })
                 .AddHangfireServer();
             
-                // your app services
-                // services.AddSingleton<IService, Service>();
+            services.AddSession();
+            services.AddDistributedMemoryCache();
+            services.AddMemoryCache();
+
+            // your app services
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -74,11 +103,16 @@ namespace Corpo.Skeleton
 
             app.UseHangfireDashboard();
             app.UseRouting();
+            app.UseSession();
             app.UseAuthentication();
             
             app.UseEndpoints(e =>
             {
                 e.MapDefaultControllerRoute();
+                e.MapRazorPages();
+                
+                if (env.IsDevelopmentOrTest())
+                    e.MapEmailsStorage();
             });
         }
     }

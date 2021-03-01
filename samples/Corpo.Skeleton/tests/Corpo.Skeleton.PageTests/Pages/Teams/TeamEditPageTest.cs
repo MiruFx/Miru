@@ -22,7 +22,7 @@ namespace Corpo.Skeleton.PageTests.Pages.Teams
                 f.Submit();
             });
             
-            _.ShouldHaveText("Product successfully saved");
+            _.ShouldHaveText("Team successfully saved");
         }
     }
 }

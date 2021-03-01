@@ -18,7 +18,6 @@ namespace Scripts
 
         public static void Export()
         {
-            
             _rootDir = new SolutionFinder().FromCurrentDir().Solution.RootDir;
             _dir = _rootDir / "samples" / "Corpo.Skeleton";
             _stubDir = _rootDir / "src" / "Miru.Core" / "Templates";
@@ -32,6 +31,7 @@ namespace Scripts
             ExportFile(_rootDir / "global.json", destinationFile: "global.json");
             ExportFile(_dir / "Corpo.Skeleton.sln", "Solution.sln");
             ExportFile(_dir / "gitignore", ".gitignore", destinationFile: ".gitignore");
+            ExportFile(_dir / "Readme.md");
             
             ExportDir(_dir / "config");
             
@@ -45,7 +45,6 @@ namespace Scripts
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Database" / "Migrations" / "202001290120_CreateUserfy.cs");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Database" / "SkeletonDbContext.cs");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Domain" / "User.cs");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Domain" / "Role.cs");
             
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "_ViewImports.cshtml");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "_ViewStart.cshtml");
