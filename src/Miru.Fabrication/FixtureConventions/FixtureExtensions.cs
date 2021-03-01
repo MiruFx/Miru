@@ -19,7 +19,8 @@ namespace Miru.Fabrication.FixtureConventions
         
         public static Fixture OmitRecursion(this Fixture fixture)
         {
-            fixture.Behaviors.Remove(new ThrowingRecursionBehavior());
+            fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+                .ForEach(b => fixture.Behaviors.Remove(b));
             fixture.Behaviors.Add(new OmitOnRecursionBehavior());
 
             return fixture;

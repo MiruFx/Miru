@@ -45,7 +45,8 @@ namespace Miru.Userfy
                 .AddEntityFrameworkStores<TDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.ConfigureApplicationCookie(cookie);
+            if (cookie != null)
+                services.ConfigureApplicationCookie(cookie);
 
             services.AddAuthorization();
             

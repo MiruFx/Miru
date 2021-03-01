@@ -27,6 +27,7 @@ namespace Miru.Fabrication
         public object Create(object request, ISpecimenContext context)
         {
             var propertyInfo = request as PropertyInfo;
+            var typeInfo = request as TypeInfo;
             
             if (propertyInfo == null || ShouldReturnNoSpecimen(propertyInfo))
                 return new NoSpecimen();
@@ -43,7 +44,10 @@ namespace Miru.Fabrication
             
             var instance = _fixture.CreateByType(propertyInfo.PropertyType);
 
-            if (propertyIsEntity && instance != null)
+            // if (instance is OmitSpecimen)
+            //     return new NoSpecimen();
+            
+            if (propertyIsEntity && instance != null && instance is not OmitSpecimen)
                 _session.AddSingleton(propertyInfo.PropertyType, instance);
             
             return instance;
