@@ -11,18 +11,6 @@ namespace Miru.MySql
     {
         private readonly DatabaseOptions _dbOptions;
 
-        private static readonly Checkpoint Checkpoint = new()
-        {
-            DbAdapter = DbAdapter.MySql,
-            TablesToIgnore = new[]
-            {
-                "__MigrationHistory",
-                "VersionInfo",
-                "__efmigrationshistory"
-            },
-            SchemasToExclude = new string[] { }
-        };
-
         public MySqlDatabaseCleaner(IOptions<DatabaseOptions> appSettings)
         {
             _dbOptions = appSettings.Value;
@@ -34,7 +22,19 @@ namespace Miru.MySql
             
             await conn.OpenAsync();
 
-            await Checkpoint.Reset(conn);
+            var checkpoint = new Checkpoint
+            {
+                DbAdapter = DbAdapter.MySql,
+                TablesToIgnore = new[]
+                {
+                    "__MigrationHistory",
+                    "VersionInfo",
+                    "__efmigrationshistory"
+                },
+                SchemasToInclude = new[] { conn.Database }
+            };
+            
+            await checkpoint.Reset(conn);
         }
     }
 }

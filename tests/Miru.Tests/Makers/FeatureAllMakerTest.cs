@@ -27,13 +27,13 @@ namespace Miru.Tests.Makers
             
             (m.Solution.FeaturesDir / "Teams" / "TeamNew.cs").ShouldExist();
             (m.Solution.FeaturesDir / "Teams" / "New.cshtml").ShouldExist();
-            (m.Solution.FeaturesDir / "Teams" / "_New.js.cshtml").ShouldExist();
+            (m.Solution.FeaturesDir / "Teams" / "_New.turbo.cshtml").ShouldExist();
             (m.Solution.AppTestsDir / "Features" / "Teams" / "TeamNewTest.cs").ShouldExist();
             (m.Solution.AppPageTestsDir / "Pages" / "Teams" / "TeamNewPageTest.cs").ShouldExist();
             
             (m.Solution.FeaturesDir / "Teams" / "TeamEdit.cs").ShouldExist();
             (m.Solution.FeaturesDir / "Teams" / "Edit.cshtml").ShouldExist();
-            (m.Solution.FeaturesDir / "Teams" / "_Edit.js.cshtml").ShouldExist();
+            (m.Solution.FeaturesDir / "Teams" / "_Edit.turbo.cshtml").ShouldExist();
             (m.Solution.AppTestsDir / "Features" / "Teams" / "TeamEditTest.cs").ShouldExist();
             (m.Solution.AppPageTestsDir / "Pages" / "Teams" / "TeamEditPageTest.cs").ShouldExist();            
 

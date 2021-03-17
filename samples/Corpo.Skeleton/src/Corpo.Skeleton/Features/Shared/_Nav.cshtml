@@ -1,17 +1,18 @@
 @using Corpo.Skeleton.Features.Accounts
-@using Corpo.Skeleton.Features.Teams
 
 <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-body bg-white border-bottom shadow-sm">
     <p class="my-0 me-md-auto fw-normal">
         <span class="h5">
             <a class="navbar-brand" href="@Url.Content("/")">@App.Name</a>
         </span>
-        <a class="p-2 text-dark" for="@(new TeamList())">Teams</a>
+        @* <!-- links on the left --> *@
+        @* <a class="p-2 text-dark" for="@(new TeamList())">Teams</a> *@
     </p>
 
-    <nav class="my-2 my-md-0 me-md-3">
-        <a class="p-2 text-dark" for="@(new TeamNew())">Create Team</a>
-    </nav>
+    @* <!-- links on the right -->  *@
+    @* <nav class="my-2 my-md-0 me-md-3"> *@
+    @*     <a class="p-2 text-dark" for="@(new TeamNew())">Create Team</a> *@
+    @* </nav> *@
 
     @if (UserSession.IsAnonymous)
     {

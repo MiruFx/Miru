@@ -46,8 +46,6 @@ namespace Supportreon.Features.Accounts.Passwords
                 if (user == null)
                     return new Result();
                 
-                App.Log.Information($"Found {user.Email} for {request.Email}");
-                
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
 
                 request.Code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

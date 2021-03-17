@@ -18,7 +18,7 @@ namespace Miru.Makers
             maker.Template($"{template}-Feature.cshtml", input, maker.Solution.FeaturesDir / maker.Expand(@in) / $"{action}.cshtml");
             
             if (template.EndsWith("New") || template.EndsWith("Edit"))
-                maker.Template($"{template}-_Feature.js.cshtml", input, maker.Solution.FeaturesDir / maker.Expand(@in) / $"_{action}.js.cshtml");
+                maker.Template($"{template}-_Feature.turbo.cshtml", input, maker.Solution.FeaturesDir / maker.Expand(@in) / $"_{action}.turbo.cshtml");
             
             maker.Template($"{template}-FeatureTest", input, maker.Solution.AppTestsDir / "Features" / maker.Expand(@in) / $"{name}{action}Test.cs");
             

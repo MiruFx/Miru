@@ -44,7 +44,7 @@ namespace Supportreon
                         cfg.ExpireTimeSpan = TimeSpan.FromHours(2);
                         cfg.LoginPath = "/Accounts/Login";
                     },
-                    options: cfg =>
+                    identity: cfg =>
                     {
                         cfg.SignIn.RequireConfirmedAccount = false;
                         cfg.SignIn.RequireConfirmedEmail = false;
@@ -64,7 +64,7 @@ namespace Supportreon
                 {
                     _.EmailDefaults(email => email.From("noreply@Supportreon.com", "Supportreon"));
                 })
-                .AddSenderStorage()
+                .AddSenderSmtp()
 
                 .AddQueuing(_ =>
                 {

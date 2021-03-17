@@ -37,7 +37,7 @@ namespace Miru.Tests.Makers
                 .ShouldContain(
                     "@model CartNew.Command");
             
-            (m.Solution.FeaturesDir / "Carts" / "_New.js.cshtml").ShouldExist();
+            (m.Solution.FeaturesDir / "Carts" / "_New.turbo.cshtml").ShouldExist();
             
             (m.Solution.AppTestsDir / "Features" / "Carts" / "CartNewTest.cs").ShouldExist();
             

@@ -44,7 +44,7 @@ namespace Corpo.Skeleton
                         cfg.ExpireTimeSpan = TimeSpan.FromHours(2);
                         cfg.LoginPath = "/Accounts/Login";
                     },
-                    options: cfg =>
+                    identity: cfg =>
                     {
                         cfg.SignIn.RequireConfirmedAccount = false;
                         cfg.SignIn.RequireConfirmedEmail = false;
