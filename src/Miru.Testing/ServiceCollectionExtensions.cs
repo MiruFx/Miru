@@ -21,16 +21,6 @@ namespace Miru.Testing
             return services;
         }
 
-        public static IServiceCollection AddSqlServerDatabaseCleaner(this IServiceCollection services)
-        {
-            return services.AddTransient<IDatabaseCleaner, SqlServerDatabaseCleaner>();
-        }
-        
-        public static IServiceCollection AddSqliteDatabaseCleaner(this IServiceCollection services)
-        {
-            return services.AddTransient<IDatabaseCleaner, SqliteDatabaseCleaner>();
-        }
-
         public static IServiceCollection Mock<TService>(this IServiceCollection services) where TService : class
         {
             services.ReplaceSingleton(Substitute.For<TService>());

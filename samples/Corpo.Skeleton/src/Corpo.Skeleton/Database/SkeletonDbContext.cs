@@ -6,7 +6,7 @@ using Miru.Userfy;
 
 namespace Corpo.Skeleton.Database
 {
-    public class SkeletonDbContext : UserfyDbContext<User, Role>
+    public class SkeletonDbContext : UserfyDbContext<User>
     {
         public SkeletonDbContext(
             DbContextOptions options,
@@ -17,13 +17,5 @@ namespace Corpo.Skeleton.Database
         // Your entities
         public DbSet<Team> Teams { get; set; } 
         public DbSet<Category> Categories { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            // it should be before .UseIdentity
-            base.OnModelCreating(builder);
-            
-            builder.UseIdentity<User, Role>();
-        }
     }
 }

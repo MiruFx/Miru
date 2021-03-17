@@ -22,6 +22,7 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
 
         public class Result
         {
+            public {{ input.Name }} {{ input.Name }} { get; set; }
         }
 
         public class Handler : 
@@ -49,7 +50,10 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
 
                 await _db.{{ input.In }}.AddAsync({{ string.downcase input.Name }}, ct);
 
-                return new Result();
+                return new Result
+                {
+                    {{ input.Name }} = {{ string.downcase input.Name }}
+                };
             }
         }
 
@@ -61,12 +65,12 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
             }
         }
         
-        public class ProductsController : MiruController
+        public class Controller : MiruController
         {
-            [Route("/Products/New")]
+            [HttpGet("/{{ input.In }}/New")]
             public async Task<Command> New(Query query) => await SendAsync(query);
 
-            [HttpPost, Route("/Products/New")]
+            [HttpPost("/{{ input.In }}/New")]
             public async Task<Result> New(Command command) => await SendAsync(command);
         }
     }

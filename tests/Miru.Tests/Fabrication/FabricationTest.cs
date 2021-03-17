@@ -283,6 +283,19 @@ namespace Miru.Tests.Fabrication
             store1.Address.ShouldNotBe(store2.Address);
         }
 
+        [Test]
+        public void Can_handle_entity_that_references_entities_with_circular_reference()
+        {
+            var category = _fabricator.Make<Category>();
+            var store = category.Store;
+            var storeInsurance = store.StoreInsurance;
+            
+            category.Store.ShouldBe(store);
+            store.StoreInsurance.ShouldBe(storeInsurance);
+            
+            store.StoreInsurance.Store.ShouldBeNull();
+        }
+        
         public class ThisFabricator : Fabricator
         {
             public ThisFabricator(FabSupport support) : base(support)
@@ -310,6 +323,12 @@ namespace Miru.Tests.Fabrication
             public string Name { get; set; }
             public Address Address { get; set; }
             public Company Company { get; set; }
+            public StoreInsurance StoreInsurance { get; set; }
+        }
+
+        public class StoreInsurance : Entity
+        {
+            public Store Store { get; set; }
         }
         
         public class Product : Entity

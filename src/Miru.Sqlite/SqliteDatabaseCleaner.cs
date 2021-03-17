@@ -1,39 +1,36 @@
 ﻿using System.Collections.Generic;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Threading.Tasks;
-using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using Miru.Databases;
-using Miru.Settings;
 
 namespace Miru.Sqlite
 {
     public class SqliteDatabaseCleaner : IDatabaseCleaner
     {
-        private readonly DatabaseOptions _databaseOptions;
+        private readonly DbContext _dbContext;
         
-        public SqliteDatabaseCleaner(DatabaseOptions databaseOptions)
+        public SqliteDatabaseCleaner(DbContext dbContext)
         {
-            _databaseOptions = databaseOptions;
+            _dbContext = dbContext;
         }
 
         public async Task ClearAsync()
         {
-            // FIXME: Configurable tables names
             var sqlGetTables = @"
+pragma foreign_keys = OFF;
+
 select name 
 from sqlite_master
 where 
     type='table' and 
-    name not in ('VersionInfo', '__MigrationHistory', '__efmigrationshistory');";
+    name not in ('VersionInfo');";
 
             var sqlDelete = @"
-PRAGMA foreign_keys = OFF;
 delete from {0};
-delete from SQLITE_SEQUENCE WHERE name='{0}';
-PRAGMA foreign_keys = ON;";
+delete from SQLITE_SEQUENCE WHERE name='{0}';";
 
-            using (var connection = new SqliteConnection($"{_databaseOptions.ConnectionString};foreign keys=false;"))
+            using (var connection = _dbContext.Database.GetDbConnection())
             {
                 await connection.OpenAsync();
 
@@ -46,6 +43,8 @@ PRAGMA foreign_keys = ON;";
                         await ExecuteSqlAsync(connection, tx, string.Format(sqlDelete, table));
                     }
 
+                    await ExecuteSqlAsync(connection, tx, "pragma foreign_keys = ON;");
+                
                     await tx.CommitAsync();
                 }
                 
@@ -83,7 +82,7 @@ PRAGMA foreign_keys = ON;";
             {
                 cmd.CommandText = sql;
                 cmd.Transaction = tx;
-
+                
                 await cmd.ExecuteNonQueryAsync();
             }
         }

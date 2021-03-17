@@ -1,5 +1,9 @@
-Database:
-  ConnectionString: "DataSource={%{{{ db_dir }}}%}{{ Solution.ShortName }}_dev.db"
+Kestrel:
+  EndPoints:
+    Http:
+      Url: http://localhost:8880
+    HttpsDefaultCert:
+      Url: http://localhost:8881
   
 # Mailing:
 #

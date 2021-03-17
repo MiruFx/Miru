@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Corpo.Skeleton.Database;
+using Corpo.Skeleton.Domain;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,7 @@ namespace Corpo.Skeleton.Features.Teams
 
         public class Result
         {
+            public Team Team { get; set; }
         }
 
         public class Handler : 
@@ -54,7 +56,10 @@ namespace Corpo.Skeleton.Features.Teams
 
                 team.Name = request.Name;
                 
-                return new Result();
+                return new Result
+                {
+                    Team = team
+                };
             }
         }
 
@@ -68,12 +73,12 @@ namespace Corpo.Skeleton.Features.Teams
             }
         }
         
-        public class ProductsController : MiruController
+        public class Controller : MiruController
         {
-            [Route("/Products/{id:long}/Edit")]
+            [HttpGet("/Teams/{id:long}/Edit")]
             public async Task<Command> Edit(Query query) => await SendAsync(query);
 
-            [HttpPost, Route("/Products/Edit")]
+            [HttpPost("/Teams/{id:long}/Edit")]
             public async Task<Result> Edit(Command command) => await SendAsync(command);
         }
     }

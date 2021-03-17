@@ -8,7 +8,6 @@ using Shouldly;
 
 namespace Miru.Tests.Makers
 {
-    [Ignore("Something wrong with github ubuntu")]
     public class NewMakerTest
     {
         private MiruPath _tempDir;
@@ -49,9 +48,16 @@ namespace Miru.Tests.Makers
             (m.Solution.RootDir / "StackExchange.StackOverflow.sln")
                 .ShouldContain(@"""StackExchange.StackOverflow"", ""src\StackExchange.StackOverflow\StackExchange.StackOverflow.csproj""");
             
+            // config
             (m.Solution.RootDir / "config" / "Config.Development.yml").ShouldContain("{{ db_dir }}StackOverflow_dev");
             (m.Solution.RootDir / "config" / "Config.Production.yml").ShouldContain("{{ db_dir }}StackOverflow_prod");
             (m.Solution.RootDir / "config" / "Config.Test.yml").ShouldContain("{{ db_dir }}StackOverflow_test");
+            
+            // app
+            (m.Solution.AppDir / "Database" / "StackOverflowDbContext.cs").ShouldContain("public class StackOverflowDbContext");
+            
+            // test
+            (m.Solution.AppTestsDir / "StackOverflowFabricator.cs").ShouldContain("public class StackOverflowFabricator");
         }
         
         [Test]
@@ -61,7 +67,7 @@ namespace Miru.Tests.Makers
             
             var m = Maker.For(_tempDir);
 
-            Should.Throw<InvalidOperationException>(() => m.New("StackOverflow"));
+            Should.Throw<MakeException>(() => m.New("StackOverflow"));
         }
     }
 }

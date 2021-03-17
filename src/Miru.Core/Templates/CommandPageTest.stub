@@ -22,7 +22,7 @@ namespace {{ Solution.Name }}.PageTests.Pages.{{ input.In }}
                 f.Submit();
             });
             
-            _.ShouldHaveText("Product successfully saved");
+            _.ShouldHaveText("{{ input.Name }} successfully saved");
         }
     }
 }

@@ -22,6 +22,7 @@ namespace Corpo.Skeleton.Features.Teams
 
         public class Result
         {
+            public Team Team { get; set; }
         }
 
         public class Handler : 
@@ -49,7 +50,10 @@ namespace Corpo.Skeleton.Features.Teams
 
                 await _db.Teams.AddAsync(team, ct);
 
-                return new Result();
+                return new Result
+                {
+                    Team = team
+                };
             }
         }
 
@@ -61,12 +65,12 @@ namespace Corpo.Skeleton.Features.Teams
             }
         }
         
-        public class ProductsController : MiruController
+        public class Controller : MiruController
         {
-            [Route("/Products/New")]
+            [HttpGet("/Teams/New")]
             public async Task<Command> New(Query query) => await SendAsync(query);
 
-            [HttpPost, Route("/Products/New")]
+            [HttpPost("/Teams/New")]
             public async Task<Result> New(Command command) => await SendAsync(command);
         }
     }
