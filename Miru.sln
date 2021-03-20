@@ -76,9 +76,15 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Misc", "_Misc", "{DF283AB9-BA12-452E-A717-AFFB96566653}"
 ProjectSection(SolutionItems) = preProject
 	samples\Supportreon\global.json = samples\Supportreon\global.json
+	samples\Supportreon\README.md = samples\Supportreon\README.md
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.MySql", "src\Miru.MySql\Miru.MySql.csproj", "{799D9D49-D5F5-4648-B940-BB77E7E59CF2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Misc", "_Misc", "{B993B941-8401-4FB3-8FC0-358BC831BB18}"
+ProjectSection(SolutionItems) = preProject
+	samples\Corpo.Skeleton\Readme.md = samples\Corpo.Skeleton\Readme.md
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -186,6 +192,7 @@ Global
 		{8F563854-75F3-4121-A223-D7A0D28136C5} = {97D02175-DB67-4730-A3DB-385D2921E0B4}
 		{ABC877FD-8FCA-4283-A618-4DDD73A59621} = {97D02175-DB67-4730-A3DB-385D2921E0B4}
 		{DF283AB9-BA12-452E-A717-AFFB96566653} = {97D02175-DB67-4730-A3DB-385D2921E0B4}
+		{B993B941-8401-4FB3-8FC0-358BC831BB18} = {47A03D9D-2402-4BBA-813C-FB793CBA8032}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61193018-93E9-471E-B8AE-1A5B27D527F3}

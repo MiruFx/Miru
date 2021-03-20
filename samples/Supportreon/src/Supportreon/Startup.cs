@@ -27,6 +27,7 @@ namespace Supportreon
             services.AddMiru<Startup>()
                 .AddSerilogConfig(_ =>
                 {
+                    _.Miru(LogEventLevel.Information);
                     _.EntityFrameworkSql(LogEventLevel.Information);
                     _.Authentication(LogEventLevel.Information);
                 })

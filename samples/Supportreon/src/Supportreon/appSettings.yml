@@ -1,5 +1,5 @@
-Database:
-  ConnectionString: "DataSource={{ db_dir }}App_dev.db"
+#Database:
+#  ConnectionString: "DataSource={{ db_dir }}App_dev.db"
 
 Mailing:
   AppUrl: http://localhost:5000

@@ -115,16 +115,6 @@ namespace Scripts
                 Run("git", "push --set-upstream origin master -f", workingDirectory: @"docs/.vuepress/dist");
             });
 
-            // Target("mong-test", () =>
-            // {
-            //     Run("dotnet", "test", workingDirectory: @"samples/Mong/tests/Mong.Tests");
-            // });
-            //
-            // Target("mong-test-all", () =>
-            // {
-            //     Run("dotnet", "test", workingDirectory: @"samples/Mong");
-            // });
-            
             Target("export-stubs", ExportStubs.Export);
             
             Target("test-new-solution", TestNewSolution.Test);
@@ -200,6 +190,7 @@ namespace Scripts
             
             foreach (var (package, withSymbols) in Packages)
             {
+                Console.WriteLine($"Pushing {package}");
                 Run("dotnet", $"nuget push {Path.Combine("packages", package)}.*.nupkg {param}", noEcho: true);
             }
         }

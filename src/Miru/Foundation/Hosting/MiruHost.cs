@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Net;
+using System.Reflection;
 using Baseline;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +33,7 @@ namespace Miru.Foundation.Hosting
                         .MinimumLevel.Override("Microsoft", LogEventLevel.Fatal)
                         .MinimumLevel.Override("System", LogEventLevel.Fatal)
                         .MinimumLevel.Override("Hangfire", LogEventLevel.Fatal)
-                        .MinimumLevel.Override("Miru", LogEventLevel.Debug)
+                        .MinimumLevel.Override("Miru", LogEventLevel.Fatal)
                         .WriteTo.Console(outputTemplate: LoggerConfigurations.TimestampOutputTemplate);
                 })
                 .UseSolution()
@@ -43,6 +44,9 @@ namespace Miru.Foundation.Hosting
                     cfg.AddEnvironmentVariables();
                     
                     // add config.yml and then overrides with environment configs
+                    cfg.AddYamlFile("appSettings.yml", optional: true);
+                    cfg.AddYamlFile($"appSettings.{hostingContext.HostingEnvironment.EnvironmentName}.yml", optional: true);
+                    
                     cfg.AddConfigYml();
                     cfg.AddConfigYml(hostingContext.HostingEnvironment.EnvironmentName);
                 })
@@ -125,8 +129,11 @@ namespace Miru.Foundation.Hosting
 
         private static IHostBuilder UseSolution(this IHostBuilder builder)
         {
-            var solution = new SolutionFinder().FromCurrentDir().Solution;
-            
+            // if can't find solution, maybe it is running from compiled binaries
+            var solution = 
+                new SolutionFinder().FromCurrentDir().Solution ?? 
+                new UnknownSolution();
+
             App.Name = solution.Name;
             App.Solution = solution;
 
