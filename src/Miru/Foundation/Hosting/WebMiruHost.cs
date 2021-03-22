@@ -45,8 +45,8 @@ namespace Miru.Foundation.Hosting
             
             if (addresses != null)
             {
-                _logger.LogInformation($"\tApp running at: {addresses.Join(", ")}");
-                _logger.LogInformation(string.Empty);
+                _logger.LogCritical($"\tApp running at: {addresses.Join(", ")}");
+                _logger.LogCritical(string.Empty);
             }
         }
     }

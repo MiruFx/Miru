@@ -42,6 +42,11 @@ namespace Miru.Foundation.Hosting
                     cfg.AddEnvironmentVariables(prefix: "Miru_");
                     cfg.AddCommandLine(args);
                     cfg.AddEnvironmentVariables();
+                    cfg.AddCommandLine(args, new Dictionary<string, string>
+                    {
+                        {"-e", HostDefaults.EnvironmentKey},
+                        {"-p", "port"}
+                    });
                     
                     // add config.yml and then overrides with environment configs
                     cfg.AddYamlFile("appSettings.yml", optional: true);
@@ -100,12 +105,26 @@ namespace Miru.Foundation.Hosting
                         .UseContentRoot(App.Solution.AppDir);
                 });
 
-        public static IHostBuilder UseEnvironmentFromArgs(this IHostBuilder builder, params string[] args) =>
-            builder.UseEnvironment(GetEnvironmentName(args));
+        public static IHostBuilder UseEnvironmentFromArgs(this IHostBuilder builder, params string[] args)
+        {
+            var env = GetEnvironmentName(args);
+            
+            if (env.IsNotEmpty())
+                builder.UseEnvironment(env);
 
-        public static IWebHostBuilder UseEnvironmentFromArgs(this IWebHostBuilder builder, params string[] args) =>
-                builder.UseEnvironment(GetEnvironmentName(args));
-        
+            return builder;
+        }
+
+        public static IWebHostBuilder UseEnvironmentFromArgs(this IWebHostBuilder builder, params string[] args)
+        {
+            var env = GetEnvironmentName(args);
+            
+            if (env.IsNotEmpty())
+                builder.UseEnvironment(env);
+
+            return builder;
+        }
+
         private static string GetEnvironmentName(string[] args)
         {
             // For some reason, just using AddCommandLine with switchs "-e" to HostDefaults.EnvironmentKey
@@ -121,8 +140,8 @@ namespace Miru.Foundation.Hosting
             });
 
             _config = cfg.Build();
-            
-            var environmentName = _config[HostDefaults.EnvironmentKey] ?? Environments.Development;
+
+            var environmentName = _config[HostDefaults.EnvironmentKey];
             
             return environmentName;
         }
