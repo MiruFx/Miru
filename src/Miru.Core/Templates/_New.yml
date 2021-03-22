@@ -1,4 +1,3 @@
-global.json: global.json.stub
 Corpo.Skeleton.sln: Solution.sln.stub
 .gitignore: .gitignore.stub
 Readme.md: Readme.md.stub

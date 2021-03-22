@@ -28,7 +28,6 @@ namespace Scripts
             // FIXME: use Solution to build the artifacts' path
             
             // New
-            ExportFile(_rootDir / "global.json", destinationFile: "global.json");
             ExportFile(_dir / "Corpo.Skeleton.sln", "Solution.sln");
             ExportFile(_dir / "gitignore", ".gitignore", destinationFile: ".gitignore");
             ExportFile(_dir / "Readme.md");

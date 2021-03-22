@@ -30,7 +30,6 @@ namespace Miru.Tests.Makers
 
             // check some main files
             File.Exists(_tempDir / "StackOverflow" / ".gitignore").ShouldBeTrue();
-            File.Exists(_tempDir / "StackOverflow" / "global.json").ShouldBeTrue();
             
             File.ReadAllText(_tempDir / "StackOverflow" / "config" / "Config.Development.yml").ShouldContain("{{ db_dir }}StackOverflow_dev");
         }
@@ -43,7 +42,6 @@ namespace Miru.Tests.Makers
             m.New("StackExchange.StackOverflow");
 
             (m.Solution.RootDir / ".gitignore").ShouldExist();
-            (m.Solution.RootDir / "global.json").ShouldExist();
             
             (m.Solution.RootDir / "StackExchange.StackOverflow.sln")
                 .ShouldContain(@"""StackExchange.StackOverflow"", ""src\StackExchange.StackOverflow\StackExchange.StackOverflow.csproj""");
