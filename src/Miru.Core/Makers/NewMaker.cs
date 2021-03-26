@@ -32,6 +32,9 @@ namespace Miru.Core.Makers
                 m.Template(stub, destination);
             }
             
+            m.Template("appSettings.yml.example", m.Solution.AppDir / "appSettings.Development.yml");
+            m.Template("appSettings.yml.example", m.Solution.AppDir / "appSettings.Test.yml");
+            
             Console2.BreakLine();
             Console2.Line($"New solution created at:");
             Console2.BreakLine();

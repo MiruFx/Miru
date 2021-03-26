@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Miru.Databases;
 using Miru.Settings;
@@ -9,10 +10,14 @@ namespace Miru.MySql
 {
     public class MySqlDatabaseCleaner : IDatabaseCleaner
     {
+        private readonly DatabaseCleanerOptions _databaseCleanerOptions;
         private readonly DatabaseOptions _dbOptions;
 
-        public MySqlDatabaseCleaner(IOptions<DatabaseOptions> appSettings)
+        public MySqlDatabaseCleaner(
+            IOptions<DatabaseOptions> appSettings,
+            IOptions<DatabaseCleanerOptions> databaseCleanerOptions)
         {
+            _databaseCleanerOptions = databaseCleanerOptions.Value;
             _dbOptions = appSettings.Value;
         }
 
@@ -25,12 +30,7 @@ namespace Miru.MySql
             var checkpoint = new Checkpoint
             {
                 DbAdapter = DbAdapter.MySql,
-                TablesToIgnore = new[]
-                {
-                    "__MigrationHistory",
-                    "VersionInfo",
-                    "__efmigrationshistory"
-                },
+                TablesToIgnore = _databaseCleanerOptions.TablesToIgnore.ToArray(),
                 SchemasToInclude = new[] { conn.Database }
             };
             

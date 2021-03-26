@@ -8,7 +8,7 @@ namespace Miru.Core
 {
     public class UnknownSolution : MiruSolution
     {
-        public UnknownSolution() : base(MiruPath.CurrentPath, Assembly.GetCallingAssembly().GetName().Name)
+        public UnknownSolution() : base(MiruPath.CurrentPath, Assembly.GetEntryAssembly().GetName().Name)
         {
             RootDir = MiruPath.CurrentPath;
             CurrentDir = MiruPath.CurrentPath;
@@ -40,7 +40,6 @@ namespace Miru.Core
         
         public MiruPath RootDir { get; protected set; }
         public MiruPath SrcDir { get; protected set; }
-        public MiruPath ConfigDir { get; protected set; }
         public MiruPath DatabaseDir { get; protected set; }
         public MiruPath MigrationsDir { get; protected set; }
         public MiruPath FabricatorsDir { get; protected set; }
@@ -66,7 +65,6 @@ namespace Miru.Core
             ShortName = Name.Split(".").Last();
             
             SrcDir = A.Path(RootDir, "src");
-            ConfigDir = A.Path(RootDir, "config");
             TestsDir = A.Path(RootDir, "tests");
             
             App = Name;
@@ -95,11 +93,6 @@ namespace Miru.Core
         public string Relative(string path)
         {
             return RootDir.Relative(path);
-        }
-        
-        public string GetConfigYml(string environment)
-        {
-            return Path.Combine(ConfigDir, $"Config.{environment}.yml");
         }
     }
 }

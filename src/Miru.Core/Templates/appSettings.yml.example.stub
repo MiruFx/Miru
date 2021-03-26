@@ -1,0 +1,15 @@
+# This is a template your {{ string.downcase input.Name }} can use to create 
+# appSettings.{Environment}.yml for you application
+# Commit this file to your repository
+# appSettings.*.yml should be not commited and ignored in .gitignore
+
+Database:
+  ConnectionString: "DataSource={%{{{ db_dir }}}%}App_dev.db"
+
+Mailing:
+  AppUrl: http://localhost:5000
+  Smtp:
+    Host: smtp.mailtrap.io
+    Port: 25
+    UserName: username
+    Password: password

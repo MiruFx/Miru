@@ -16,7 +16,6 @@ namespace Miru.Tests.Foundation
             
             solution.RootDir.ShouldBe(A.Path("Projects", "StackOverflow"));
             solution.SrcDir.ShouldBe(A.Path("Projects", "StackOverflow", "src"));
-            solution.ConfigDir.ShouldBe(A.Path("Projects", "StackOverflow", "config"));
             solution.TestsDir.ShouldBe(A.Path("Projects", "StackOverflow", "tests"));
             
             solution.App.ShouldBe("StackOverflow");
@@ -51,7 +50,7 @@ namespace Miru.Tests.Foundation
         public void Get_relative_path()
         {
             var solution = new MiruSolution(A.TempPath("Miru", "ContosoUniversity"), "ContosoWeb");
-            solution.Relative(m => m.ConfigDir).ShouldBe("config");
+            solution.Relative(m => m.SrcDir).ShouldBe("src");
         }
 
         [Test]

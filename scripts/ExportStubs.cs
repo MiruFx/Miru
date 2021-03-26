@@ -30,15 +30,14 @@ namespace Scripts
             // New
             ExportFile(_dir / "Corpo.Skeleton.sln", "Solution.sln");
             ExportFile(_dir / "gitignore", ".gitignore", destinationFile: ".gitignore");
-            ExportFile(_dir / "Readme.md");
-            
-            ExportDir(_dir / "config");
-            
+            ExportFile(_dir / "README.md");
+                        
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "webpack.mix.js");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Startup.cs");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Corpo.Skeleton.csproj");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Program.cs");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "package.json");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "appSettings.yml.example");
 
             ExportDir(_dir / "src" / "Corpo.Skeleton" / "Config");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Database" / "Migrations" / "202001290120_CreateUserfy.cs");

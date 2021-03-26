@@ -1,4 +1,7 @@
-﻿using System;
+﻿/*
+https://github.com/HeadspringLabs/Enumeration
+*/
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -7,12 +10,12 @@ using System.Runtime.Serialization;
 namespace Miru.Domain
 {
     [Serializable]
-    [DebuggerDisplay("{DisplayName} - {Value}")]
+    [DebuggerDisplay("{Name} - {Value}")]
     public abstract class Enumeration<TEnumeration> : Enumeration<TEnumeration, int>
         where TEnumeration : Enumeration<TEnumeration>
     {
-        protected Enumeration(int value, string displayName)
-            : base(value, displayName)
+        protected Enumeration(int value, string name)
+            : base(value, name)
         {
         }
 
@@ -28,7 +31,7 @@ namespace Miru.Domain
     }
 
     [Serializable]
-    [DebuggerDisplay("{DisplayName} - {Value}")]
+    [DebuggerDisplay("{Name} - {Value}")]
     [DataContract(Namespace = "http://github.com/HeadspringLabs/Enumeration/5/13")]
     public abstract class Enumeration<TEnumeration, TValue> : IComparable<TEnumeration>, IEquatable<TEnumeration>
         where TEnumeration : Enumeration<TEnumeration, TValue>
@@ -37,12 +40,12 @@ namespace Miru.Domain
         private static readonly Lazy<TEnumeration[]> Enumerations = new Lazy<TEnumeration[]>(GetEnumerations);
 
         [DataMember(Order = 1)]
-        readonly string _displayName;
+        readonly string _name;
 
         [DataMember(Order = 0)]
         readonly TValue _value;
 
-        protected Enumeration(TValue value, string displayName)
+        protected Enumeration(TValue value, string name)
         {
             if (value == null)
             {
@@ -50,7 +53,7 @@ namespace Miru.Domain
             }
 
             _value = value;
-            _displayName = displayName;
+            _name = name;
         }
 
         public TValue Value
@@ -58,9 +61,9 @@ namespace Miru.Domain
             get { return _value; }
         }
 
-        public string DisplayName
+        public string Name
         {
-            get { return _displayName; }
+            get { return _name; }
         }
 
         public int CompareTo(TEnumeration other)
@@ -70,7 +73,7 @@ namespace Miru.Domain
 
         public override sealed string ToString()
         {
-            return DisplayName;
+            return Name;
         }
 
         public static TEnumeration[] GetAll()
@@ -119,9 +122,9 @@ namespace Miru.Domain
             return Parse(value, "value", item => item.Value.Equals(value));
         }
 
-        public static TEnumeration Parse(string displayName)
+        public static TEnumeration Parse(string name)
         {
-            return Parse(displayName, "display name", item => item.DisplayName == displayName);
+            return Parse(name, "name", item => item.Name == name);
         }
 
         static bool TryParse(Func<TEnumeration, bool> predicate, out TEnumeration result)
@@ -148,9 +151,9 @@ namespace Miru.Domain
             return TryParse(e => e.ValueEquals(value), out result);
         }
 
-        public static bool TryParse(string displayName, out TEnumeration result)
+        public static bool TryParse(string name, out TEnumeration result)
         {
-            return TryParse(e => e.DisplayName == displayName, out result);
+            return TryParse(e => e.Name == name, out result);
         }
 
         protected virtual bool ValueEquals(TValue value)

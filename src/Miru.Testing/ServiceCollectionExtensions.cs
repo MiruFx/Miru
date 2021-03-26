@@ -42,5 +42,20 @@ namespace Miru.Testing
             
             return services;
         }
+
+        public static IServiceCollection AddDatabaseCleaner<TDatabaseCleaner>(
+            IServiceCollection services) where TDatabaseCleaner : class, IDatabaseCleaner
+        {
+            services.AddTransient<IDatabaseCleaner, TDatabaseCleaner>();
+            
+            services.Configure<DatabaseCleanerOptions>(x =>
+            {
+                x.AddTableToIgnore("__MigrationHistory");
+                x.AddTableToIgnore("VersionInfo");
+                x.AddTableToIgnore("__efmigrationshistory");
+            });
+            
+            return services;
+        }
     }
 }

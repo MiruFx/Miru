@@ -10,7 +10,7 @@
     <PackageReference Include="AutoFixture" Version="4.15.0" />
     <PackageReference Include="Bogus" Version="33.0.2" />
     <PackageReference Include="Baseline" Version="2.1.1" />
-    <PackageReference Include="FluentValidation" Version="9.5.1" />
+    <PackageReference Include="FluentValidation" Version="9.5.3" />
     <ProjectReference Include="..\Miru\Miru.csproj" />
   </ItemGroup>
 

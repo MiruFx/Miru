@@ -31,7 +31,10 @@ namespace Miru.Tests.Makers
             // check some main files
             File.Exists(_tempDir / "StackOverflow" / ".gitignore").ShouldBeTrue();
             
-            File.ReadAllText(_tempDir / "StackOverflow" / "config" / "Config.Development.yml").ShouldContain("{{ db_dir }}StackOverflow_dev");
+            // config
+            (m.Solution.AppDir / "appSettings.yml.example").ShouldContain("{{ db_dir }}App_dev");
+            (m.Solution.AppDir / "appSettings.Development.yml").ShouldContain("{{ db_dir }}App_dev");
+            (m.Solution.AppDir / "appSettings.Test.yml").ShouldContain("{{ db_dir }}App_dev");
         }
         
         [Test]
@@ -47,9 +50,9 @@ namespace Miru.Tests.Makers
                 .ShouldContain(@"""StackExchange.StackOverflow"", ""src\StackExchange.StackOverflow\StackExchange.StackOverflow.csproj""");
             
             // config
-            (m.Solution.RootDir / "config" / "Config.Development.yml").ShouldContain("{{ db_dir }}StackOverflow_dev");
-            (m.Solution.RootDir / "config" / "Config.Production.yml").ShouldContain("{{ db_dir }}StackOverflow_prod");
-            (m.Solution.RootDir / "config" / "Config.Test.yml").ShouldContain("{{ db_dir }}StackOverflow_test");
+            (m.Solution.AppDir / "appSettings.yml.example").ShouldContain("{{ db_dir }}App_dev");
+            (m.Solution.AppDir / "appSettings.Development.yml").ShouldContain("{{ db_dir }}App_dev");
+            (m.Solution.AppDir / "appSettings.Test.yml").ShouldContain("{{ db_dir }}App_dev");
             
             // app
             (m.Solution.AppDir / "Database" / "StackOverflowDbContext.cs").ShouldContain("public class StackOverflowDbContext");
