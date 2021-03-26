@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Miru.Core;
+using Miru.Settings;
 
 namespace Miru.Databases.EntityFramework
 {
@@ -14,6 +16,17 @@ namespace Miru.Databases.EntityFramework
             // Forward
             services.ForwardScoped<DbContext, TDbContext>();
 
+            // ConnectionString transformation
+            services.PostConfigureAll<DatabaseOptions>(settings =>
+            {
+                var dbDir = App.Solution.StorageDir / "db" / ".";
+                
+                settings.ConnectionString = 
+                    settings.ConnectionString?.Replace("{{ db_dir }}", dbDir);
+                
+                Directories.CreateIfNotExists(dbDir);
+            });
+            
             return services;
         }
     }

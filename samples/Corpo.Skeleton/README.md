@@ -1,4 +1,4 @@
-# Intanext Shopworld
+# Corpo.Skeleton
 
 ## Requirements:
 
@@ -74,8 +74,3 @@ While coding, there is an option to watch changes in the source code and automat
 ```shell
 miru watch
 ```
-
-
-
-
-

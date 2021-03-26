@@ -22,11 +22,18 @@ namespace Miru.Foundation.Hosting
 {
     public static class MiruHost
     {
-        private static IConfigurationRoot _config;
-
         public static IHostBuilder CreateMiruHost(params string[] args) =>
             Host.CreateDefaultBuilder()
-                .UseEnvironmentFromArgs(args)
+                .UseEnvironment("Development")
+                .ConfigureHostConfiguration(cfg =>
+                {
+                    cfg.AddEnvironmentVariables("Miru_");
+                    cfg.AddCommandLine(args, new Dictionary<string, string>
+                    {
+                        {"-e", HostDefaults.EnvironmentKey},
+                        {"-p", "port"}
+                    });
+                })
                 .ConfigureSerilog(config =>
                 {
                     config
@@ -40,20 +47,8 @@ namespace Miru.Foundation.Hosting
                 .ConfigureAppConfiguration((hostingContext, cfg) =>
                 {
                     cfg.AddEnvironmentVariables(prefix: "Miru_");
-                    cfg.AddCommandLine(args);
-                    cfg.AddEnvironmentVariables();
-                    cfg.AddCommandLine(args, new Dictionary<string, string>
-                    {
-                        {"-e", HostDefaults.EnvironmentKey},
-                        {"-p", "port"}
-                    });
-                    
-                    // add config.yml and then overrides with environment configs
                     cfg.AddYamlFile("appSettings.yml", optional: true);
                     cfg.AddYamlFile($"appSettings.{hostingContext.HostingEnvironment.EnvironmentName}.yml", optional: true);
-                    
-                    cfg.AddConfigYml();
-                    cfg.AddConfigYml(hostingContext.HostingEnvironment.EnvironmentName);
                 })
                 .UseDefaultServiceProvider((context, options) =>
                 {
@@ -77,7 +72,7 @@ namespace Miru.Foundation.Hosting
                     // AppConfig
                     services.Configure<DatabaseOptions>(host.Configuration.GetSection("Database"));
                     services.Configure<MailingOptions>(host.Configuration.GetSection("Mailing"));
-                    services.AddSingleton(sp => sp.GetService<IOptions<DatabaseOptions>>().Value);
+                    services.AddSingleton(sp => sp.GetRequiredService<IOptions<DatabaseOptions>>().Value);
 
                     services.AddMiruApp();
                 });
@@ -88,63 +83,17 @@ namespace Miru.Foundation.Hosting
                 {
                     services.AddAppLogger<TStartup>();
                 })
-                .AddWebHost<TStartup>(args);
+                .AddWebHost<TStartup>();
         
-        public static IHostBuilder AddWebHost<TStartup>(this IHostBuilder builder, string[] args) 
+        public static IHostBuilder AddWebHost<TStartup>(this IHostBuilder builder) 
             where TStartup : class =>
-                builder.ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder
-                        .UseEnvironmentFromArgs(args)
-                        .UseStartup<TStartup>()
-                        // .UseKestrel(cfg =>
-                        // {
-                        //     if (_config["port"] != null)
-                        //         cfg.Listen(IPAddress.Loopback, _config["port"].ToInt());
-                        // })
-                        .UseContentRoot(App.Solution.AppDir);
-                });
-
-        public static IHostBuilder UseEnvironmentFromArgs(this IHostBuilder builder, params string[] args)
-        {
-            var env = GetEnvironmentName(args);
-            
-            if (env.IsNotEmpty())
-                builder.UseEnvironment(env);
-
-            return builder;
-        }
-
-        public static IWebHostBuilder UseEnvironmentFromArgs(this IWebHostBuilder builder, params string[] args)
-        {
-            var env = GetEnvironmentName(args);
-            
-            if (env.IsNotEmpty())
-                builder.UseEnvironment(env);
-
-            return builder;
-        }
-
-        private static string GetEnvironmentName(string[] args)
-        {
-            // For some reason, just using AddCommandLine with switchs "-e" to HostDefaults.EnvironmentKey
-            // in ConfigureHostConfiguration, was not setting the correct environment for the host
-            // That's why we load environment from args twice, one for HostBuilder and other for WebHostBuilder
-            
-            var cfg = new ConfigurationBuilder();
-
-            cfg.AddCommandLine(args, new Dictionary<string, string>
-            {
-                {"-e", HostDefaults.EnvironmentKey},
-                {"-p", "port"}
-            });
-
-            _config = cfg.Build();
-
-            var environmentName = _config[HostDefaults.EnvironmentKey];
-            
-            return environmentName;
-        }
+                builder
+                    .ConfigureWebHostDefaults(webBuilder =>
+                    {
+                        webBuilder
+                            .UseStartup<TStartup>()
+                            .UseContentRoot(App.Solution.AppDir);
+                    });
 
         private static IHostBuilder UseSolution(this IHostBuilder builder)
         {
