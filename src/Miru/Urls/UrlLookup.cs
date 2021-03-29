@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Options;
+
 namespace Miru.Urls
 {
     public class UrlLookup
@@ -6,10 +8,10 @@ namespace Miru.Urls
         private readonly UrlOptions _urlOptions;
 
         public UrlLookup(
-            UrlOptions urlOptions, 
+            IOptions<UrlOptions> urlOptions, 
             IUrlMaps urlMaps)
         {
-            _urlOptions = urlOptions;
+            _urlOptions = urlOptions.Value;
             _urlMaps = urlMaps;
         }
 
@@ -31,6 +33,20 @@ namespace Miru.Urls
         public UrlBuilder<TRequest> Build<TRequest>(TRequest request) where TRequest : class
         {
             return new UrlBuilder<TRequest>(request, _urlOptions, _urlMaps);
+        }
+        
+        public string FullFor<TRequest>() where TRequest : class, new()
+        {
+            var baseUrl = _urlOptions.Base;
+            
+            return $"{baseUrl}{new UrlBuilder<TRequest>(new TRequest(), _urlOptions, _urlMaps)}";
+        }
+        
+        public string FullFor<TRequest>(TRequest request) where TRequest : class
+        {
+            var baseUrl = _urlOptions.Base;
+            
+            return $"{baseUrl}{new UrlBuilder<TRequest>(request, _urlOptions, _urlMaps)}";
         }
     }
 }

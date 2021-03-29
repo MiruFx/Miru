@@ -65,7 +65,7 @@ namespace Supportreon
                 {
                     _.EmailDefaults(email => email.From("noreply@Supportreon.com", "Supportreon"));
                 })
-                .AddSenderSmtp()
+                .AddSenderStorage()
 
                 .AddQueuing(_ =>
                 {

@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration.Memory;
 using Microsoft.Extensions.Hosting;
 using Miru.Consolables;
 using Miru.Core;
+using Miru.Urls;
 using NetEscapades.Configuration.Yaml;
 using Oakton;
 
@@ -29,13 +30,16 @@ namespace Miru.Config
         
         private readonly IHostEnvironment _hostEnvironment;
         private readonly IConfiguration _configuration;
+        private readonly IMiruApp _app;
 
         public ConfigShowConsolable(
             IHostEnvironment hostEnvironment, 
-            IConfiguration configuration)
+            IConfiguration configuration, 
+            IMiruApp app)
         {
             _hostEnvironment = hostEnvironment;
             _configuration = configuration;
+            _app = app;
         }
 
         public override bool Execute(Input input)

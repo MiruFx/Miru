@@ -56,7 +56,6 @@
         <PackageReference Include="Emet.FileSystems" Version="0.0.3" />
         
         <!-- Userfy -->
-        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.4" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.4" />
         
     </ItemGroup>

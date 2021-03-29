@@ -6,9 +6,7 @@ src\Corpo.Skeleton\Startup.cs: Startup.stub
 src\Corpo.Skeleton\Corpo.Skeleton.csproj: Corpo.Skeleton.csproj.stub
 src\Corpo.Skeleton\Program.cs: Program.stub
 src\Corpo.Skeleton\package.json: package.json.stub
-src\Corpo.Skeleton\appSettings.yml.example: appSettings.yml.example.stub
-appSettings.Development.yml: appSettings.yml.example.stub
-appSettings.Test.yml: appSettings.yml.example.stub
+src\Corpo.Skeleton\appSettings-example.yml: appSettings-example.yml.stub
 src\Corpo.Skeleton\Config\AuthorizationRulesConfig.cs: AuthorizationRulesConfig.stub
 src\Corpo.Skeleton\Config\HtmlConfig.cs: HtmlConfig.stub
 src\Corpo.Skeleton\Database\Migrations\202001290120_CreateUserfy.cs: 202001290120_CreateUserfy.stub

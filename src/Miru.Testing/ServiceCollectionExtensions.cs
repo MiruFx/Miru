@@ -44,7 +44,7 @@ namespace Miru.Testing
         }
 
         public static IServiceCollection AddDatabaseCleaner<TDatabaseCleaner>(
-            IServiceCollection services) where TDatabaseCleaner : class, IDatabaseCleaner
+            this IServiceCollection services) where TDatabaseCleaner : class, IDatabaseCleaner
         {
             services.AddTransient<IDatabaseCleaner, TDatabaseCleaner>();
             

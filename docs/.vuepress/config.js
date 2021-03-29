@@ -49,6 +49,13 @@ module.exports = {
                 ],
             },
             {
+                title: 'Examples',
+                collapsable: false,
+                children: [
+                    'Examples/Command.md'
+                ],
+            },            
+            {
                 title: 'Database',
                 collapsable: false,
                 children: [

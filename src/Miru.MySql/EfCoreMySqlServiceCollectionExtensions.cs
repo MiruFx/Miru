@@ -12,7 +12,9 @@ namespace Miru.MySql
 {
     public static class EfCoreMySqlServiceCollectionExtensions
     {
-        public static IServiceCollection AddEfCoreMySql<TDbContext>(this IServiceCollection services) where TDbContext : DbContext
+        public static IServiceCollection AddEfCoreMySql<TDbContext>(
+            this IServiceCollection services,
+            ServerVersion serverVersion) where TDbContext : DbContext
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         

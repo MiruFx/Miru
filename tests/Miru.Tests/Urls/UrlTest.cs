@@ -23,7 +23,10 @@ namespace Miru.Tests.Urls
                     .AddMiruActionResult()
                     .AddMiruNestedControllers();
                     
-                services.AddMiruUrls();
+                services.AddMiruUrls(x =>
+                {
+                    x.Base = "https://mirufx.github.io";
+                });
                 
                 services.AddControllersWithViews();
             });
@@ -395,6 +398,21 @@ namespace Miru.Tests.Urls
             UrlLookup
                 .For(request)
                 .ShouldBe("/Products/Edit/10");
+        }
+        
+        [Test]
+        public void Build_full_url()
+        {
+            var request = new ProductsEdit.Command
+            {
+                Id = 10,
+                Name = "iPhone 5S",
+                ReturnUrl = "/Products"
+            };
+        
+            UrlLookup
+                .FullFor(request)
+                .ShouldBe("https://mirufx.github.io/Products/Edit/10");
         }
 
         public class NotMapped

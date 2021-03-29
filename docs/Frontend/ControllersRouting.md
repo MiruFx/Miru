@@ -12,7 +12,7 @@ TODO: ObjectResultConfig
 
 # Controllers & Routing
 
-Miru Controllers are standard [ASP.NET MVC](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/overview) Controllers. 
+Miru's Controllers are standard [ASP.NET MVC](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/overview) Controllers. 
 
 In Miru projects though, Controllers are very thin layers responsible to receive an input, call the `Mediator`, and send the output. It also can specify the Route Pattern. 
 

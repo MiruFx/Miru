@@ -18,7 +18,17 @@ namespace Miru.Testing
             _currentUser = currentUser;
         }
 
-        public async Task<TUser> GetUserAsync() => await Task.FromResult(TestingCurrentUser.User as TUser);
+        public async Task<TUser> GetUserAsync()
+        {
+            TUser user = null;
+            
+            await _app.WithScope(async scope =>
+            {
+                user = await scope.Get<DbContext>().Set<TUser>().ByIdOrFailAsync(TestingCurrentUser.User.Id);
+            });
+
+            return user;
+        }
 
         public async Task<SignInResult> LoginAsync(string userName, string password, bool remember = false)
         {
