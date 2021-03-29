@@ -37,6 +37,7 @@ namespace Miru.Tests.Hosting
         public async Task Should_run_web_host()
         {
             // arrange
+            // TODO: automatic port
             var hostBuilder = MiruHost
                 .CreateMiruHost()
                 .ConfigureWebHostDefaults(m => m.UseStartup<Startup>());

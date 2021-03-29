@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Routing.Template;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Miru.Config;
 
 namespace Miru.Urls
@@ -43,11 +44,8 @@ namespace Miru.Urls
             
             services.Configure<MvcOptions>(x => x.Conventions.Add(convention));
 
-            var urlOptions = new UrlOptions();
-            
-            options?.Invoke(urlOptions);         
-            
-            services.AddSingleton(urlOptions);
+            if (options != null) services.Configure(options);
+            services.AddSingleton(x => x.GetRequiredService<IOptions<UrlOptions>>().Value);
             
             services.AddSingleton(new QueryStringConfig());
             

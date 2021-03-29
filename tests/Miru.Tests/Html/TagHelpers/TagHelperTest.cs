@@ -11,7 +11,6 @@ using Miru.Html;
 using Miru.Testing;
 using Miru.Urls;
 using NUnit.Framework;
-using ModelMetadataProviderExtensions = Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadataProviderExtensions;
 
 namespace Miru.Tests.Html.TagHelpers
 {
@@ -32,7 +31,11 @@ namespace Miru.Tests.Html.TagHelpers
                 .AddLogging()
                 .AddMvcCore()
                 .AddViews()
-                .Services;
+                .Services
+                .Configure<UrlOptions>(x =>
+                {
+                    x.Base = "https://mirufx.github.io";
+                });
                 
             ServiceProvider = services.BuildServiceProvider();
         }

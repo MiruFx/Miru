@@ -10,7 +10,7 @@ namespace Miru.Core.Makers
         public static void New(this Maker m, string name)
         {
             var newSolutionDir = A.Path(m.Solution.RootDir, name);
-            
+ 
             ThrowIfNewDirectoryExist(newSolutionDir);
             
             Console.WriteLine();
@@ -32,8 +32,8 @@ namespace Miru.Core.Makers
                 m.Template(stub, destination);
             }
             
-            m.Template("appSettings.yml.example", m.Solution.AppDir / "appSettings.Development.yml");
-            m.Template("appSettings.yml.example", m.Solution.AppDir / "appSettings.Test.yml");
+            m.Template("appSettings-example.yml", A.Path("src") / name / "appSettings.Development.yml");
+            m.Template("appSettings-example.yml", A.Path("src") / name / "appSettings.Test.yml");
             
             Console2.BreakLine();
             Console2.Line($"New solution created at:");

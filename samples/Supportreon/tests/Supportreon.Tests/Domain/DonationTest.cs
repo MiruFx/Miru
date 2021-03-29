@@ -19,6 +19,8 @@ namespace Supportreon.Tests.Domain
                 m.TotalAmount = 200;
             });
             
+            var donor = _.Make<User>();
+            
             var request = _.Make<DonationNew.Command>(m =>
             {
                 m.Amount = project.MinimumDonation + 1;
@@ -26,11 +28,12 @@ namespace Supportreon.Tests.Domain
             });
             
             // act
-            var donation = new Donation(request, project);
+            var donation = new Donation(request, project, donor);
             
             // assert
             donation.Amount.ShouldBe(request.Amount);
             donation.CreditCard.ShouldBe(request.CreditCard);
+            donation.User.ShouldBe(donor);
 
             project.TotalDonations.ShouldBe(11);
             project.TotalAmount.ShouldBe(request.Amount + 200);
@@ -41,6 +44,7 @@ namespace Supportreon.Tests.Domain
         {
             // arrange
             var project = _.Make<Project>(m => m.EndDate = _.Faker().Date.Past());
+            var donor = _.Make<User>();
             
             var request = _.Make<DonationNew.Command>(m =>
             {
@@ -49,7 +53,7 @@ namespace Supportreon.Tests.Domain
             });
             
             // act
-            Should.Throw<DomainException>(() => new Donation(request, project));
+            Should.Throw<DomainException>(() => new Donation(request, project, donor));
         }
         
         [Test]
@@ -57,6 +61,7 @@ namespace Supportreon.Tests.Domain
         {
             // arrange
             var project = _.Make<Project>();
+            var donor = _.Make<User>();
             
             var request = _.Make<DonationNew.Command>(m =>
             {
@@ -65,7 +70,7 @@ namespace Supportreon.Tests.Domain
             });
             
             // act
-            Should.Throw<DomainException>(() => new Donation(request, project));
+            Should.Throw<DomainException>(() => new Donation(request, project, donor));
         }
     }
 }

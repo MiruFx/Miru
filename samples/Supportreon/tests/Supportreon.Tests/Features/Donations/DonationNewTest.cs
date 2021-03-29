@@ -58,6 +58,11 @@ namespace Supportreon.Tests.Features.Donations
             var savedProject = _.Db(db => db.Projects.First());
             savedProject.TotalAmount.ShouldBe(project.TotalAmount + command.Amount);
             savedProject.TotalDonations.ShouldBe(project.TotalDonations + 1);
+
+            var email = _.EnqueuedEmail();
+            email.Subject.ShouldBe("Thank you!");
+            email.ToAddresses.ShouldContain(TestingCurrentUser.User.Email);
+            email.Body.ShouldContain(project.Name);
         }
         
         [Test]

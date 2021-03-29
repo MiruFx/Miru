@@ -6,14 +6,20 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\src\Miru.PageTesting\Miru.PageTesting.csproj" />
-        <ProjectReference Include="..\..\..\..\src\Miru.PageTesting.Firefox\Miru.PageTesting.Firefox.csproj" />
-        <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
-        <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.29.0" />
-        
-        <ProjectReference Include="..\..\tests\Supportreon.Tests\Supportreon.Tests.csproj" />
-        <ProjectReference Include="..\..\src\Supportreon\Supportreon.csproj" />
+        <!-- 
+        Supportreon uses Miru's source code directly.
+        This references would be the same as:
+        <PackageReference Include="Miru" Version="LAST_MIRU_VERSION" />
+        -->
+        <ProjectReference Include="..\..\..\..\src\Miru.PageTesting\Miru.PageTesting.csproj"/>
+        <ProjectReference Include="..\..\..\..\src\Miru.PageTesting.Firefox\Miru.PageTesting.Firefox.csproj"/>
+
+        <PackageReference Include="NUnit3TestAdapter" Version="3.17.0"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1"/>
+        <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.29.0"/>
+
+        <ProjectReference Include="..\..\tests\Supportreon.Tests\Supportreon.Tests.csproj"/>
+        <ProjectReference Include="..\..\src\Supportreon\Supportreon.csproj"/>
     </ItemGroup>
-    
+
 </Project>
