@@ -48,13 +48,7 @@ module.exports = {
                     'Features/Domain.md'
                 ],
             },
-            {
-                title: 'Examples',
-                collapsable: false,
-                children: [
-                    'Examples/Command.md'
-                ],
-            },            
+         
             {
                 title: 'Database',
                 collapsable: false,
@@ -92,7 +86,14 @@ module.exports = {
                     'Testing/FeatureIntegrationTests.md',
                     'Testing/PageTests.md'
                 ],
-            }            
+            },   
+            {
+                title: 'Guides',
+                collapsable: false,
+                children: [
+                    'Guides/Query-Command.md'
+                ],
+            },        
         ]
     }
 }

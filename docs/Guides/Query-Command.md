@@ -24,7 +24,7 @@ auth required
 
 -->
 
-# Command
+# Query and Command
 
 [[toc]]
 
@@ -65,10 +65,10 @@ public class DonationNew
 
 This feature has this actions
 
-* User goes to the page (Query)
-* User fills the inputs and click 'donate' (Command)
+* User goes to the page (a `Query`)
+* User fills the inputs and click 'donate' (a `Command`)
 
-A Query is a request to render a page. A Command is a request to write data into the Application.
+A `Query` is a request to render a page. A `Command` is a request to write data into the Application.
 
 ## Query
 
@@ -129,7 +129,59 @@ public class DonationNew
 
 Now we have the information to render the view, showing the Project's name and inputs for the Command:
 
-```csharp
+```html
+@model DonationNew.Command
 
+<miru-form><!-- form for DonationNew.Command -->
+
+    <miru-summary/>
+
+    <miru-input for="ProjectId"/>
+
+    <div class="row mb-3">
+        <span class="col-sm-3 col-form-label"></span>
+
+        <div class="col-sm-9">
+            <md for="Project.Name"/>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <miru-label for="Amount" class="col-sm-3 col-form-label text-end"/>
+
+        <div class="col-sm-9">
+            <miru-input for="Amount"/>
+            <small class="form-text text-muted">
+                Minimum amount is <md for="Project.MinimumDonation" class="font-weight-bold"/>
+            </small>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <miru-label for="CreditCard" class="col-sm-3 col-form-label text-end"/>
+        <div class="col-sm-9">
+            <miru-input for="CreditCard"/>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="offset-md-3">
+            <miru-submit value="Donate"/>
+        </div>
+    </div>
+
+</miru-form>
 ```
 
+![](/Example-Command-Query.png)
+
+### Review
+
+That's all for the Query part. Basically:
+
+* The user requests through browser the url `/Projects/{ProjectId}/Donations/New`
+* Miru reaches `DonationNew.Controller`
+* Miru sends `DonationNew.Query`
+* `DonationNew.Handler` receives `Query` and returns `Command`
+* `DonationNew.Controller` renders `New.cshtml` view
+* User gets the page
