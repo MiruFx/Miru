@@ -14,6 +14,7 @@ using Miru.Foundation.Bootstrap;
 using Miru.Foundation.Logging;
 using Miru.Mailing;
 using Miru.Settings;
+using Miru.Urls;
 using Oakton.Help;
 using Serilog;
 using Serilog.Events;
@@ -72,6 +73,8 @@ namespace Miru.Foundation.Hosting
                     // AppConfig
                     services.Configure<DatabaseOptions>(host.Configuration.GetSection("Database"));
                     services.Configure<MailingOptions>(host.Configuration.GetSection("Mailing"));
+                    services.Configure<UrlOptions>(host.Configuration.GetSection("Url"));
+                    
                     services.AddSingleton(sp => sp.GetRequiredService<IOptions<DatabaseOptions>>().Value);
 
                     services.AddMiruApp();

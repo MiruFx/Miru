@@ -1,0 +1,78 @@
+TODO Supportreon: Features for Miru
+====================================
+   
+DonationNew
+    Donate monthly - create a scheduled job to charge user's creditcard (MIRU Queueing recurrent scheduled job)
+    One donation only
+    Amount uses User's profile currency
+    
+Features for Tests:
+    - Show tags with count
+    - Add tests using OneCasePerFeature
+    - Each test is a assert
+    
+Use Enumeration with Entity Framework Core 
+
+Pass ReturnUrl around:
+    Anonymous: /Projects/New
+    Redirect: Accounts/Login?ReturnUrl=PROJECT_NEW
+    Click Sign Up: Accounts/Register?ReturnUrl=PROJECT_NEW
+    Sign Up: Flash success
+    Click Sign In: Accounts/Login?ReturnUrl=PROJECT_NEW
+    Render full: Project/New
+     
+Admin/Project
+    Can create donation profiles
+    
+ProjectNew/ProjectEdit
+    Amount uses User's profile currency 
+    End Date uses User's profile format OR browser settings
+    
+Remove Humanizer
+
+Calendar with datepicker
+Cascade dropdown
+
+TODO Supportreon: Features
+===========================
+
+Home
+    Should list last added projects and last donations
+    If empty, show alert and link to create project
+
+Rename ProjectEnd to ProjectFinish
+    
+Add PasswordEdit
+Add ProjectMy to show users' project
+
+Add UserShow
+Add UserEdit 
+    own user edit its info
+    set currency (see DonationNew above)
+
+Add User.Admin
+    Seed Admin
+
+Add AdminHome
+Add Manage Users
+
+AccountRegister: SignUp email should be unique
+
+Improve layout
+
+DonationNew
+    better layout, better success message, brings minimum donation to input, add validation    
+
+/Projects/2 
+    show donation goal, 
+    show end date
+    
+/Projects shows creator's name
+/Projects/New add field to thank you message, goal
+/User/1 shows user info, its projects and donations
+
+NewProject
+    Fix inputs sizes
+    Add calendar to EndDate
+    Add placeholder for end date, goal, minimum donation
+    

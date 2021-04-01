@@ -63,6 +63,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Misc", "_Misc", "{DF283AB9-BA12-452E-A717-AFFB96566653}"
 ProjectSection(SolutionItems) = preProject
 	samples\Supportreon\README.md = samples\Supportreon\README.md
+	samples\Supportreon\Supportreon.txt = samples\Supportreon\Supportreon.txt
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.MySql", "src\Miru.MySql\Miru.MySql.csproj", "{799D9D49-D5F5-4648-B940-BB77E7E59CF2}"

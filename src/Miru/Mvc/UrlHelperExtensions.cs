@@ -33,9 +33,9 @@ namespace Miru.Mvc
         
         public static string Full<TRequest>(this IUrlHelper urlHelper, TRequest request) where TRequest : class
         {
-            var mailingOptions = urlHelper.ActionContext.HttpContext.RequestServices.GetRequiredService<MailingOptions>();
-            
-            return mailingOptions.AppUrl + Build(urlHelper, request);
+            var urlLookup = urlHelper.ActionContext.HttpContext.RequestServices.GetRequiredService<UrlLookup>();
+
+            return urlLookup.FullFor(request);
         }
     }
 }
