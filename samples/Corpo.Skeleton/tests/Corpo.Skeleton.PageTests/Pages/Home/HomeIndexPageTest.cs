@@ -10,7 +10,7 @@ namespace Corpo.Skeleton.PageTests.Pages.Home
         {
             _.Visit("/");
         
-            _.ShouldHaveText("Welcome");
+            _.ShouldHaveText("Welcome to Skeleton");
         }
     }
 }

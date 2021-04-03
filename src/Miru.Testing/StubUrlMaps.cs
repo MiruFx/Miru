@@ -16,7 +16,7 @@ namespace Miru.Testing
 
         public string UrlFor<TInput>(TInput request, RouteValueDictionary queryString) where TInput : class
         {
-            var path = typeof(TInput).FeatureName();
+            var path = request.GetType().FeatureName();
             
             var binder = _factory.Create(RoutePatternFactory.Parse(path));
             

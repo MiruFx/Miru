@@ -8,7 +8,6 @@ using Shouldly;
 
 namespace Miru.Tests.Makers
 {
-    [Ignore("Something wrong with github ubuntu")]
     public class NewMakerTest
     {
         private MiruPath _tempDir;
@@ -31,9 +30,11 @@ namespace Miru.Tests.Makers
 
             // check some main files
             File.Exists(_tempDir / "StackOverflow" / ".gitignore").ShouldBeTrue();
-            File.Exists(_tempDir / "StackOverflow" / "global.json").ShouldBeTrue();
             
-            File.ReadAllText(_tempDir / "StackOverflow" / "config" / "Config.Development.yml").ShouldContain("{{ db_dir }}StackOverflow_dev");
+            // config
+            (m.Solution.AppDir / "appSettings-example.yml").ShouldContain("{{ db_dir }}App_dev");
+            (m.Solution.AppDir / "appSettings.Development.yml").ShouldContain("{{ db_dir }}App_dev");
+            (m.Solution.AppDir / "appSettings.Test.yml").ShouldContain("{{ db_dir }}App_dev");
         }
         
         [Test]
@@ -44,14 +45,20 @@ namespace Miru.Tests.Makers
             m.New("StackExchange.StackOverflow");
 
             (m.Solution.RootDir / ".gitignore").ShouldExist();
-            (m.Solution.RootDir / "global.json").ShouldExist();
             
             (m.Solution.RootDir / "StackExchange.StackOverflow.sln")
                 .ShouldContain(@"""StackExchange.StackOverflow"", ""src\StackExchange.StackOverflow\StackExchange.StackOverflow.csproj""");
             
-            (m.Solution.RootDir / "config" / "Config.Development.yml").ShouldContain("{{ db_dir }}StackOverflow_dev");
-            (m.Solution.RootDir / "config" / "Config.Production.yml").ShouldContain("{{ db_dir }}StackOverflow_prod");
-            (m.Solution.RootDir / "config" / "Config.Test.yml").ShouldContain("{{ db_dir }}StackOverflow_test");
+            // config
+            (m.Solution.AppDir / "appSettings-example.yml").ShouldContain("{{ db_dir }}App_dev");
+            (m.Solution.AppDir / "appSettings.Development.yml").ShouldContain("{{ db_dir }}App_dev");
+            (m.Solution.AppDir / "appSettings.Test.yml").ShouldContain("{{ db_dir }}App_dev");
+            
+            // app
+            (m.Solution.AppDir / "Database" / "StackOverflowDbContext.cs").ShouldContain("public class StackOverflowDbContext");
+            
+            // test
+            (m.Solution.AppTestsDir / "StackOverflowFabricator.cs").ShouldContain("public class StackOverflowFabricator");
         }
         
         [Test]
@@ -61,7 +68,7 @@ namespace Miru.Tests.Makers
             
             var m = Maker.For(_tempDir);
 
-            Should.Throw<InvalidOperationException>(() => m.New("StackOverflow"));
+            Should.Throw<MakeException>(() => m.New("StackOverflow"));
         }
     }
 }

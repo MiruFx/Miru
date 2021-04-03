@@ -31,20 +31,17 @@ namespace Miru.Foundation.Hosting
         {
             if (!_argsConfig.RunCli)
             {
-                App.Framework.Information("-----------------------------------------------------------");
-                App.Framework.Information($"Starting {_solution.Name}");
-                App.Framework.Information(string.Empty);
+                App.Framework.Fatal("-----------------------------------------------------------");
+                App.Framework.Fatal($"Starting {_solution.Name}");
+                App.Framework.Fatal(string.Empty);
                     
-                App.Framework.Information($"\tEnvironment: {_hostEnvironment.EnvironmentName}");
-                App.Framework.Information($"\tSolution directory: {_solution.RootDir}");
+                App.Framework.Fatal($"\tEnvironment: {_hostEnvironment.EnvironmentName}");
+                App.Framework.Fatal($"\tSolution directory: {_solution.RootDir}");
                     
                 if (_argsConfig.CliArgs.Length > 0)
                     App.Framework.Information($"\tArguments: {_argsConfig.CliArgs.Join(" ")}");
-                    
-                if (File.Exists(_solution.GetConfigYml(_hostEnvironment.EnvironmentName)))
-                    App.Framework.Information($"\tConfig file: {_solution.Relative(m => m.GetConfigYml(_hostEnvironment.EnvironmentName))}");
-                        
-                App.Framework.Information(string.Empty);
+                
+                App.Framework.Fatal(string.Empty);
             }
 
             var host = GetMiruHost();

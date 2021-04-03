@@ -12,7 +12,10 @@ namespace Miru.MySql
 {
     public static class EfCoreMySqlServiceCollectionExtensions
     {
-        public static IServiceCollection AddEfCoreMySql<TDbContext>(this IServiceCollection services) where TDbContext : DbContext
+        public static IServiceCollection AddEfCoreMySql<TDbContext>(
+            this IServiceCollection services,
+            ServerVersion serverVersion) 
+            where TDbContext : DbContext
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         
@@ -22,7 +25,7 @@ namespace Miru.MySql
             {
                 var dbConfig = sp.GetService<DatabaseOptions>();
 
-                options.UseMySql(dbConfig.ConnectionString, ServerVersion.FromString("15"));
+                options.UseMySql(dbConfig.ConnectionString, serverVersion);
 
                 if (sp.GetService<IHostEnvironment>().IsDevelopmentOrTest())
                 {

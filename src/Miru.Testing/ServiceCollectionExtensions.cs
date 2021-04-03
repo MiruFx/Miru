@@ -21,16 +21,6 @@ namespace Miru.Testing
             return services;
         }
 
-        public static IServiceCollection AddSqlServerDatabaseCleaner(this IServiceCollection services)
-        {
-            return services.AddTransient<IDatabaseCleaner, SqlServerDatabaseCleaner>();
-        }
-        
-        public static IServiceCollection AddSqliteDatabaseCleaner(this IServiceCollection services)
-        {
-            return services.AddTransient<IDatabaseCleaner, SqliteDatabaseCleaner>();
-        }
-
         public static IServiceCollection Mock<TService>(this IServiceCollection services) where TService : class
         {
             services.ReplaceSingleton(Substitute.For<TService>());
@@ -49,6 +39,21 @@ namespace Miru.Testing
         public static IServiceCollection AddSenderMemory(this IServiceCollection services)
         {
             services.AddBothSingleton<ISender, MemorySender>();
+            
+            return services;
+        }
+
+        public static IServiceCollection AddDatabaseCleaner<TDatabaseCleaner>(
+            this IServiceCollection services) where TDatabaseCleaner : class, IDatabaseCleaner
+        {
+            services.AddTransient<IDatabaseCleaner, TDatabaseCleaner>();
+            
+            services.Configure<DatabaseCleanerOptions>(x =>
+            {
+                x.AddTableToIgnore("__MigrationHistory");
+                x.AddTableToIgnore("VersionInfo");
+                x.AddTableToIgnore("__efmigrationshistory");
+            });
             
             return services;
         }

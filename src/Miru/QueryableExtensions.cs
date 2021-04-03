@@ -134,7 +134,10 @@ namespace Miru
            
             pageable.Paginate(count);
 
-            var result = queryable.Skip(pageable.Skip()).Take(pageable.PageSize).ToList();
+            var result = queryable
+                .Skip(pageable.Skip())
+                .Take(pageable.PageSize)
+                .ToList();
 
             pageable.CountShowing = result.Count;
             

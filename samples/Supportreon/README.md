@@ -1,57 +1,81 @@
 # Supportreon
 
-A sample to show some [Miru Framework](https://mirufx.github.io)'s features. The domain is a simple funding platform (like Patreon).
+## Requirements:
 
-## Getting Started
+* .NET 5
+* node.js v14.0 or higher
+* npm v6.0 or higher
+* [MiruCli 0.5 or higher](https://mirufx.github.io/Introduction/GettingStarted.html#installing)
 
-### Install MiruCli
+To check if everything is installed:
 
-[How to install MiruCli](https://mirufx.github.io/Introduction/GettingStarted.html#installing).
-
-### Clone and Build
-
-* Clone the repository
-* Open cmd or shell in the cloned repository folder
-* Build the solution
+```shell
+node -v
+npm -v
+miru --version
 ```
+
+## First Run:
+
+Open cmd or shell terminal at the solution's root (where the git repository has been cloned):
+
+Install all npm packages and compile webpack with app's javascript and scss files:
+
+```shell
+miru app npm install
+miru app npm run dev
+```
+
+Build .net solution:
+```shell
 dotnet build
 ```
-* Install npm packages and bundle javascript/css packages (can take some minutes)
-```
-miru @app npm install
-miru @app npm run dev
-```
 
-## Run the Application
-
-* Create database running the database migration
-```
+Create the database's schema:
+```shell
 miru db:migrate
 ```
 
-* Run the Application
-```
-miru @app dotnet run
+Now everything is ready for the first run.
+
+## Run Application
+
+Can be run through Visual Studio, Jetbrains Rider, VSCode, or shell:
+```shell
+miru app dotnet run
 ```
 
-### Run Tests
+## Run Tests
 
-To run all tests:
+Can be run through Visual Studio, Jetbrains Rider, VSCode, or shell.
 
-```
+Run all the tests:
+
+```shell
 dotnet test
 ```
 
-To run only Supportreon.Tests:
+Run only unit/integration tests:
 
-```
-miru @test dotnet run
+```shell
+miru test dotnet test
 ```
 
-To run only Supportreon.PageTests (requires Chrome):
+Run only page tests
 
+```shell
+miru pagetest dotnet test
 ```
-miru @pagetest dotnet run
-``` 
+
+## Coding
+
+While coding, there is an option to watch changes in the source code and automatically compile the solution and webpack:
+
+```shell
+miru watch
+```
+
+
+
 
 

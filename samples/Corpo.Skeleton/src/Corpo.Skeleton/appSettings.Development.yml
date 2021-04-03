@@ -1,6 +1,6 @@
 Database:
-  ConnectionString: "DataSource={%{{{ db_dir }}}%}{{ Solution.ShortName }}_prod.db"
-  
+  ConnectionString: "DataSource={{ db_dir }}Skeleton_dev.db"
+
 # Mailing:
 #
 #   # base url where links will be generated in the emails

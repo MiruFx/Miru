@@ -5,6 +5,11 @@ namespace Miru.Foundation.Logging
 {
     public static class LoggerConfigurationExtensions
     {
+        public static LoggerConfiguration Miru(this LoggerConfiguration config, LogEventLevel level)
+        {
+            return config.MinimumLevel.Override("Miru", level);
+        }
+        
         public static LoggerConfiguration Authentication(this LoggerConfiguration config, LogEventLevel level)
         {
             return config.MinimumLevel.Override("Microsoft.AspNetCore.Authentication", level);

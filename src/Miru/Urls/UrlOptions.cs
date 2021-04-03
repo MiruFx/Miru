@@ -5,5 +5,7 @@ namespace Miru.Urls
     public class UrlOptions
     {
         public QueryStringConfig QueryStrings { get; } = new QueryStringConfig();
+        
+        public string Base { get; set; }
     }
 }

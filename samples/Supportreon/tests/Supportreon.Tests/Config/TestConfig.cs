@@ -23,12 +23,13 @@ namespace Supportreon.Tests.Config
                 .AddTestingUserSession<User>()
                 .AddSqliteDatabaseCleaner()
                 .AddFabrication<SupportreonFabricator>()
-                .ReplaceTransient<IQueueCleaner, LiteDbQueueCleaner>();
-
-            services.AddSerilogConfig(config =>
-            {
-                config.EfCoreSql(LogEventLevel.Information);
-            });
+                .ReplaceTransient<IQueueCleaner, LiteDbQueueCleaner>()
+                .AddSerilogConfig(_ =>
+                {
+                    _.Miru(LogEventLevel.Debug);
+                    _.EntityFrameworkSql(LogEventLevel.Information);
+                    _.Authentication(LogEventLevel.Information);
+                });
 
             // Mock your services that talk with external apps
             // services.Mock<IService>();

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Net;
+using System.Reflection;
 using Baseline;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +14,7 @@ using Miru.Foundation.Bootstrap;
 using Miru.Foundation.Logging;
 using Miru.Mailing;
 using Miru.Settings;
+using Miru.Urls;
 using Oakton.Help;
 using Serilog;
 using Serilog.Events;
@@ -21,30 +23,33 @@ namespace Miru.Foundation.Hosting
 {
     public static class MiruHost
     {
-        private static IConfigurationRoot _config;
-
         public static IHostBuilder CreateMiruHost(params string[] args) =>
             Host.CreateDefaultBuilder()
-                .UseEnvironmentFromArgs(args)
+                .UseEnvironment("Development")
+                .ConfigureHostConfiguration(cfg =>
+                {
+                    cfg.AddEnvironmentVariables("Miru_");
+                    cfg.AddCommandLine(args, new Dictionary<string, string>
+                    {
+                        {"-e", HostDefaults.EnvironmentKey},
+                        {"-p", "port"}
+                    });
+                })
                 .ConfigureSerilog(config =>
                 {
                     config
                         .MinimumLevel.Override("Microsoft", LogEventLevel.Fatal)
                         .MinimumLevel.Override("System", LogEventLevel.Fatal)
                         .MinimumLevel.Override("Hangfire", LogEventLevel.Fatal)
-                        .MinimumLevel.Override("Miru", LogEventLevel.Debug)
+                        .MinimumLevel.Override("Miru", LogEventLevel.Fatal)
                         .WriteTo.Console(outputTemplate: LoggerConfigurations.TimestampOutputTemplate);
                 })
                 .UseSolution()
                 .ConfigureAppConfiguration((hostingContext, cfg) =>
                 {
                     cfg.AddEnvironmentVariables(prefix: "Miru_");
-                    cfg.AddCommandLine(args);
-                    cfg.AddEnvironmentVariables();
-                    
-                    // add config.yml and then overrides with environment configs
-                    cfg.AddConfigYml();
-                    cfg.AddConfigYml(hostingContext.HostingEnvironment.EnvironmentName);
+                    cfg.AddYamlFile("appSettings.yml", optional: true);
+                    cfg.AddYamlFile($"appSettings.{hostingContext.HostingEnvironment.EnvironmentName}.yml", optional: true);
                 })
                 .UseDefaultServiceProvider((context, options) =>
                 {
@@ -68,7 +73,9 @@ namespace Miru.Foundation.Hosting
                     // AppConfig
                     services.Configure<DatabaseOptions>(host.Configuration.GetSection("Database"));
                     services.Configure<MailingOptions>(host.Configuration.GetSection("Mailing"));
-                    services.AddSingleton(sp => sp.GetService<IOptions<DatabaseOptions>>().Value);
+                    services.Configure<UrlOptions>(host.Configuration.GetSection("Url"));
+                    
+                    services.AddSingleton(sp => sp.GetRequiredService<IOptions<DatabaseOptions>>().Value);
 
                     services.AddMiruApp();
                 });
@@ -79,54 +86,25 @@ namespace Miru.Foundation.Hosting
                 {
                     services.AddAppLogger<TStartup>();
                 })
-                .AddWebHost<TStartup>(args);
+                .AddWebHost<TStartup>();
         
-        public static IHostBuilder AddWebHost<TStartup>(this IHostBuilder builder, string[] args) 
+        public static IHostBuilder AddWebHost<TStartup>(this IHostBuilder builder) 
             where TStartup : class =>
-                builder.ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder
-                        .UseEnvironmentFromArgs(args)
-                        .UseStartup<TStartup>()
-                        // .UseKestrel(cfg =>
-                        // {
-                        //     if (_config["port"] != null)
-                        //         cfg.Listen(IPAddress.Loopback, _config["port"].ToInt());
-                        // })
-                        .UseContentRoot(App.Solution.AppDir);
-                });
-
-        public static IHostBuilder UseEnvironmentFromArgs(this IHostBuilder builder, params string[] args) =>
-            builder.UseEnvironment(GetEnvironmentName(args));
-
-        public static IWebHostBuilder UseEnvironmentFromArgs(this IWebHostBuilder builder, params string[] args) =>
-                builder.UseEnvironment(GetEnvironmentName(args));
-        
-        private static string GetEnvironmentName(string[] args)
-        {
-            // For some reason, just using AddCommandLine with switchs "-e" to HostDefaults.EnvironmentKey
-            // in ConfigureHostConfiguration, was not setting the correct environment for the host
-            // That's why we load environment from args twice, one for HostBuilder and other for WebHostBuilder
-            
-            var cfg = new ConfigurationBuilder();
-
-            cfg.AddCommandLine(args, new Dictionary<string, string>
-            {
-                {"-e", HostDefaults.EnvironmentKey},
-                {"-p", "port"}
-            });
-
-            _config = cfg.Build();
-            
-            var environmentName = _config[HostDefaults.EnvironmentKey] ?? Environments.Development;
-            
-            return environmentName;
-        }
+                builder
+                    .ConfigureWebHostDefaults(webBuilder =>
+                    {
+                        webBuilder
+                            .UseStartup<TStartup>()
+                            .UseContentRoot(App.Solution.AppDir);
+                    });
 
         private static IHostBuilder UseSolution(this IHostBuilder builder)
         {
-            var solution = new SolutionFinder().FromCurrentDir().Solution;
-            
+            // if can't find solution, maybe it is running from compiled binaries
+            var solution = 
+                new SolutionFinder().FromCurrentDir().Solution ?? 
+                new UnknownSolution();
+
             App.Name = solution.Name;
             App.Solution = solution;
 

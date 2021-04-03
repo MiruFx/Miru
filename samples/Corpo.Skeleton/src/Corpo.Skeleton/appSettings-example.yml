@@ -1,0 +1,30 @@
+# This is a template your team can fill and commit to use as an example how to configure your application 
+# Create one appSettings for each environment: appSettings.{Environment}.yml
+# - appSettings.Development.yml
+# - appSettings.Test.yml
+# - appSettings.Production.yml
+# Commit this file to your git repository
+# don't commit appSettings.{Environment}.yml. They should be ignored in .gitignore
+
+Url:
+  # Base for complete urls: ${base}{route) example: http://yourapp.com/User/1
+  # Can be used to build urls in emails or for external integrations
+  Base: https://yourapp.com
+ 
+Database:
+  # Check more database and options at connectionstrings.com
+  # Sqlite
+  ConnectionString: DataSource={{ db_dir }}App_dev.db
+  # MySql
+  # ConnectionString: Server=localhost;Database=database;Uid=user;Pwd=password;
+  # Postgres
+  # ConnectionString: Server=localhost;Port=5432;Database=database;User Id=user;Password=password;
+  # SqlServer
+  # ConnectionString: Server=localhost;Database=database;User Id=user;Password=password;
+  
+Mailing:
+#  Smtp:
+#    Host: smtp.mailtrap.io
+#    Port: 25
+#    UserName: username
+#    Password: password

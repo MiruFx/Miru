@@ -1,34 +1,25 @@
 @model {{ input.Name }}{{ input.Action }}.Command
 
-<div class="row justify-content-center">
-    <div class="col-md-10">
-        <div class="card">
-            <div class="card-body">
-                    
-                <h3>{{ input.Action }} {{ input.Name }}</h3>
+<div class="card">
+    <div class="card-body">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+
+                <h4 class="my-3">{{ input.Action }} {{ input.Name }}</h4>
                 
                 <miru-form>
 
-                    <miru-summary />
-                    
-                    <miru-input for="Id"/>
-                    
-                    <div class="form-group row">
-                        <miru-label for="Name" class="col-md-4 col-form-label text-md-right" />
+                    <miru-summary class="my-3"/>
 
-                        <div class="col-md-6">
-                            <miru-input for="Name" />
-                        </div>
+                    <div class="my-3">
+                        <miru-label for="Name"/>
+                        <miru-input for="Name"/>
                     </div>
-                    
-                    <div class="form-group row mb-0">
-                        <div class="col-md-6 offset-md-4">
-                            <miru-submit value="Save" />
-                        </div>
-                    </div>
-                    
+
+                    <miru-submit value="Save"/>
+
                 </miru-form>
-                   
+
             </div>
         </div>
     </div>

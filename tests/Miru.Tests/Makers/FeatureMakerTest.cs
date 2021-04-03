@@ -27,7 +27,7 @@ namespace Miru.Tests.Makers
             
             (m.Solution.FeaturesDir / "Goals" / "GoalNew.cs").ShouldExist();
             (m.Solution.FeaturesDir / "Goals" / "New.cshtml").ShouldExist();
-            (m.Solution.FeaturesDir / "Goals" / "_New.js.cshtml").ShouldExist();
+            (m.Solution.FeaturesDir / "Goals" / "_New.turbo.cshtml").ShouldExist();
             
             (m.Solution.AppTestsDir / "Features" / "Goals" / "GoalNewTest.cs").ShouldExist();
             (m.Solution.AppPageTestsDir / "Pages" / "Goals" / "GoalNewPageTest.cs").ShouldExist();

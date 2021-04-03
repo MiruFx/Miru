@@ -17,22 +17,21 @@
 
     <PackageOutputPath>..\..\packages</PackageOutputPath>
     <IncludeSymbols>true</IncludeSymbols>
-
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
-
-    <MinVerSkip Condition="'$(Configuration)' == 'Debug'">true</MinVerSkip>
-    <MinVerTagPrefix>v</MinVerTagPrefix>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <Deterministic>true</Deterministic>
+    
+    <MinVerSkip Condition="'$(Configuration)' == 'Debug'">true</MinVerSkip>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
     <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
   </PropertyGroup>
 
   <ItemGroup Condition="$(IsPackable) == 'true'">
     <None Include="..\..\docs\.vuepress\public\Miru-Logo.png" Pack="true" PackagePath="\"/>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-    <PackageReference Include="MinVer" Version="2.4.0" PrivateAssets="All" />
+    <PackageReference Include="MinVer" Version="2.5.0" PrivateAssets="All" />
   </ItemGroup>
 
 </Project>

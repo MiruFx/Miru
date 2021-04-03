@@ -8,6 +8,7 @@ wwwroot/
 .cache/
 /storage
 /temp
+appSettings.*.yml
 
 # User-specific files
 *.suo

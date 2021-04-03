@@ -11,7 +11,6 @@ using Miru.Html;
 using Miru.Testing;
 using Miru.Urls;
 using NUnit.Framework;
-using ModelMetadataProviderExtensions = Microsoft.AspNetCore.Mvc.ModelBinding.ModelMetadataProviderExtensions;
 
 namespace Miru.Tests.Html.TagHelpers
 {
@@ -32,15 +31,73 @@ namespace Miru.Tests.Html.TagHelpers
                 .AddLogging()
                 .AddMvcCore()
                 .AddViews()
-                .Services;
+                .Services
+                .Configure<UrlOptions>(x =>
+                {
+                    x.Base = "https://mirufx.github.io";
+                });
                 
             ServiceProvider = services.BuildServiceProvider();
         }
 
+        protected TagHelperOutput ProcessTag2<TTag>(
+            TTag tag, 
+            string html,
+            string content = "") where TTag : TagHelper
+        {
+            var context = new TagHelperContext(
+                new TagHelperAttributeList(),
+                new Dictionary<object, object>(),
+                Guid.NewGuid().ToString("N"));
+
+            var attributes = new TagHelperAttributeList();
+            
+            var output = new TagHelperOutput(
+                html,
+                attributes,
+                (result, encoder) =>
+                {
+                    var tagHelperContent = new DefaultTagHelperContent();
+                    tagHelperContent.SetHtmlContent(content);
+                    return Task.FromResult<TagHelperContent>(tagHelperContent);
+                });
+
+            tag.Process(context, output);
+
+            return output;
+        }
+        
+        protected TagHelperOutput ProcessTag<TTag>(
+            TTag tag, 
+            string html,
+            string childContent = "") where TTag : TagHelper
+        {
+            var context = new TagHelperContext(
+                new TagHelperAttributeList(),
+                new Dictionary<object, object>(),
+                Guid.NewGuid().ToString("N"));
+
+            var attributes = new TagHelperAttributeList();
+            
+            var output = new TagHelperOutput(
+                html,
+                attributes,
+                (result, encoder) =>
+                {
+                    var tagHelperContent = new DefaultTagHelperContent();
+                    tagHelperContent.SetHtmlContent(childContent);
+                    return Task.FromResult<TagHelperContent>(tagHelperContent);
+                });
+
+            tag.Process(context, output);
+
+            return output;
+        }
+        
         protected TagHelperOutput ProcessTag<TTag>(
             TTag tag, 
             string html, 
-            TagHelperAttributeList attributes = null,
+            TagHelperAttributeList attributes,
             string childContent = "") where TTag : TagHelper
         {
             var context = new TagHelperContext(

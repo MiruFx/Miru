@@ -13,7 +13,7 @@ namespace Miru.Tests.Makers
         [TearDown]
         public void Setup()
         {
-            _solutionDir = A.TempPath("Miru", "Shopifu");
+            _solutionDir = A.TempPath("Miru", "Contoso.University");
             
             Directories.DeleteIfExists(_solutionDir);
         }
@@ -30,7 +30,7 @@ namespace Miru.Tests.Makers
             // assert
             (m.Solution.FeaturesDir / "Users" / "UserShow.cs")
                 .ShouldContain(
-                    "namespace Shopifu.Features.Users",
+                    "namespace Contoso.University.Features.Users",
                     "public class UserShow");
             
             (m.Solution.FeaturesDir / "Users" / "Show.cshtml")
@@ -39,13 +39,13 @@ namespace Miru.Tests.Makers
             
             (m.Solution.AppTestsDir / "Features" / "Users" / "UserShowTest.cs")
                 .ShouldContain(
-                    "namespace Shopifu.Tests.Features.Users",
+                    "namespace Contoso.University.Tests.Features.Users",
                     "public class UserShowTest : FeatureTest",
                     "public async Task Can_show_users()");
             
             (m.Solution.AppPageTestsDir / "Pages" / "Users" / "UserShowPageTest.cs")
                 .ShouldContain(
-                    "namespace Shopifu.PageTests.Pages.Users",
+                    "namespace Contoso.University.PageTests.Pages.Users",
                     "public class UserShowPageTest : PageTest",
                     "public void Can_show_users()");
         }
@@ -62,8 +62,13 @@ namespace Miru.Tests.Makers
             // assert
             (m.Solution.FeaturesDir / "Admin" / "Report" / "Sales" / "SaleOverview.cs")
                 .ShouldContain(
-                    "namespace Shopifu.Features.Admin.Report.Sale",
+                    "namespace Contoso.University.Features.Admin.Report.Sale",
                     "public class SaleOverview");
+            
+            (m.Solution.AppTestsDir / "Features" / "Admin" / "Report" / "Sales" / "SaleOverviewTest.cs")
+                .ShouldContain(
+                    "namespace Contoso.University.Tests.Features.Admin.Report.Sale",
+                    "public class SaleOverviewTest");
         }
     }
 }

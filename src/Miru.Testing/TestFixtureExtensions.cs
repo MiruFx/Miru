@@ -192,7 +192,7 @@ namespace Miru.Testing
 
             using var scope = fixture.App.WithScope();
             
-            scope.Get<IDatabaseCleaner>().ClearAsync();
+            scope.Get<IDatabaseCleaner>().ClearAsync().GetAwaiter().GetResult();
 
             return fixture;
         }

@@ -18,7 +18,6 @@ namespace Scripts
 
         public static void Export()
         {
-            
             _rootDir = new SolutionFinder().FromCurrentDir().Solution.RootDir;
             _dir = _rootDir / "samples" / "Corpo.Skeleton";
             _stubDir = _rootDir / "src" / "Miru.Core" / "Templates";
@@ -29,23 +28,21 @@ namespace Scripts
             // FIXME: use Solution to build the artifacts' path
             
             // New
-            ExportFile(_rootDir / "global.json", destinationFile: "global.json");
             ExportFile(_dir / "Corpo.Skeleton.sln", "Solution.sln");
             ExportFile(_dir / "gitignore", ".gitignore", destinationFile: ".gitignore");
-            
-            ExportDir(_dir / "config");
-            
+            ExportFile(_dir / "README.md");
+                        
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "webpack.mix.js");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Startup.cs");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Corpo.Skeleton.csproj");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Program.cs");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "package.json");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "appSettings-example.yml");
 
             ExportDir(_dir / "src" / "Corpo.Skeleton" / "Config");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Database" / "Migrations" / "202001290120_CreateUserfy.cs");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Database" / "SkeletonDbContext.cs");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Domain" / "User.cs");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Domain" / "Role.cs");
             
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "_ViewImports.cshtml");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "_ViewStart.cshtml");
@@ -73,7 +70,7 @@ namespace Scripts
             // Command
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamEdit.cs", "Command", "Edit");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "Edit.cshtml", "Command.cshtml", "Edit");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "_Edit.js.cshtml", "_Command.js.cshtml", "Edit");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "_Edit.turbo.cshtml", "_Command.turbo.cshtml", "Edit");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamEditTest.cs", "CommandTest", "Edit");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Teams" / "TeamEditPageTest.cs", "CommandPageTest", "Edit");
             
@@ -110,14 +107,14 @@ namespace Scripts
             // Feature-New
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "CategoryNew.cs", "New-Feature");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "New.cshtml", "New-Feature.cshtml");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "_New.js.cshtml", "New-_Feature.js.cshtml");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "_New.turbo.cshtml", "New-_Feature.turbo.cshtml");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Categories" / "CategoryNewTest.cs", "New-FeatureTest");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Categories" / "CategoryNewPageTest.cs", "New-FeaturePageTest");
             
             // Feature-Edit
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "CategoryEdit.cs", "Edit-Feature", templateKey: "Edit");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "Edit.cshtml", "Edit-Feature.cshtml", templateKey: "Edit");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "_Edit.js.cshtml", "Edit-_Feature.js.cshtml", templateKey: "Edit");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "_Edit.turbo.cshtml", "Edit-_Feature.turbo.cshtml", templateKey: "Edit");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Categories" / "CategoryEditTest.cs", "Edit-FeatureTest", templateKey: "Edit");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Categories" / "CategoryEditPageTest.cs", "Edit-FeaturePageTest", templateKey: "Edit");
             
@@ -136,13 +133,13 @@ namespace Scripts
             // Feature-Crud
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamNew.cs", "Crud-New-Feature");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "New.cshtml", "Crud-New-Feature.cshtml");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "_New.js.cshtml", "Crud-New-_Feature.js.cshtml");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "_New.turbo.cshtml", "Crud-New-_Feature.turbo.cshtml");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamNewTest.cs", "Crud-New-FeatureTest");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Teams" / "TeamNewPageTest.cs", "Crud-New-FeaturePageTest");
             
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamEdit.cs", "Crud-Edit-Feature", templateKey: "Edit");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "Edit.cshtml", "Crud-Edit-Feature.cshtml", templateKey: "Edit");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "_Edit.js.cshtml", "Crud-Edit-_Feature.js.cshtml", templateKey: "Edit");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "_Edit.turbo.cshtml", "Crud-Edit-_Feature.turbo.cshtml", templateKey: "Edit");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamEditTest.cs", "Crud-Edit-FeatureTest", templateKey: "Edit");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Teams" / "TeamEditPageTest.cs", "Crud-Edit-FeaturePageTest", templateKey: "Edit");
             

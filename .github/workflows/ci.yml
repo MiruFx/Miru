@@ -22,11 +22,9 @@ jobs:
     - name: Setup .NET 5
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: "5.0.100"
+        dotnet-version: "5.0.201"
 
     - name: Build & Test
-      env:
-        Miru_Database__ConnectionString: "DataSource={{ db_dir }}Mong_test.db"
       run: ./build publish-dev --key ${{ secrets.FEEDZ_KEY }}
 
 #  build-windows:

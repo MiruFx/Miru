@@ -27,7 +27,17 @@ namespace Miru.Testing
         
         public static void ShouldBeSecondsAgo(this DateTime? date, int seconds = 3)
         {
-            date.Value.ShouldBeGreaterThanOrEqualTo(seconds.Seconds().Ago());
+            date.GetValueOrDefault().ShouldBeGreaterThanOrEqualTo(seconds.Seconds().Ago());
+        }
+        
+        public static void ShouldBeAt(this DateTime actual, DateTime expected)
+        {
+            actual.ShouldBe(expected, 1.Seconds());
+        }
+        
+        public static void ShouldBeAt(this DateTime? actual, DateTime expected)
+        {
+            actual.GetValueOrDefault().ShouldBe(expected, 1.Seconds());
         }
         
         public static void ShouldCount<T>(this IEnumerable<T> actual, int expected)

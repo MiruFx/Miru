@@ -33,17 +33,6 @@ namespace Miru.Databases.Migrations
                 .BuildServiceProvider(false)
                 .GetService<IMigrationRunner>());
             
-            // ConnectionString transformation
-            services.PostConfigureAll<DatabaseOptions>(settings =>
-            {
-                var dbDir = App.Solution.StorageDir / "db" / ".";
-                
-                settings.ConnectionString = 
-                    settings.ConnectionString?.Replace("{{ db_dir }}", dbDir);
-                
-                Directories.CreateIfNotExists(dbDir);
-            });
-            
             return services;
         }
     }
