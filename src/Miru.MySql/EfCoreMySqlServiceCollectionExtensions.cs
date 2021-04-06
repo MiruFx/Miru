@@ -14,7 +14,7 @@ namespace Miru.MySql
     {
         public static IServiceCollection AddEfCoreMySql<TDbContext>(
             this IServiceCollection services,
-            ServerVersion serverVersion) 
+            ServerVersion serverVersion = null) 
             where TDbContext : DbContext
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -24,8 +24,9 @@ namespace Miru.MySql
             services.AddDbContext<TDbContext>((sp, options) =>
             {
                 var dbConfig = sp.GetService<DatabaseOptions>();
+                var version = serverVersion ?? ServerVersion.AutoDetect(dbConfig.ConnectionString);
 
-                options.UseMySql(dbConfig.ConnectionString, serverVersion);
+                options.UseMySql(dbConfig.ConnectionString, version);
 
                 if (sp.GetService<IHostEnvironment>().IsDevelopmentOrTest())
                 {
