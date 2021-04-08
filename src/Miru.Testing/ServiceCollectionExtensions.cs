@@ -1,12 +1,15 @@
+using System;
 using FluentEmail.Core.Interfaces;
 using Hangfire;
 using Hangfire.MemoryStorage;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Miru.Databases;
 using Miru.Queuing;
 using Miru.Urls;
 using Miru.Userfy;
 using NSubstitute;
+using NSubstitute.Extensions;
 
 namespace Miru.Testing
 {
@@ -44,7 +47,9 @@ namespace Miru.Testing
         }
 
         public static IServiceCollection AddDatabaseCleaner<TDatabaseCleaner>(
-            this IServiceCollection services) where TDatabaseCleaner : class, IDatabaseCleaner
+            this IServiceCollection services,
+            Action<DatabaseCleanerOptions> cfg = null) 
+            where TDatabaseCleaner : class, IDatabaseCleaner
         {
             services.AddTransient<IDatabaseCleaner, TDatabaseCleaner>();
             
@@ -54,6 +59,9 @@ namespace Miru.Testing
                 x.AddTableToIgnore("VersionInfo");
                 x.AddTableToIgnore("__efmigrationshistory");
             });
+
+            if (cfg != null) 
+                services.Configure(cfg);
             
             return services;
         }

@@ -108,7 +108,7 @@ namespace Miru.Core
 
         public string Namespace(string @in)
         {
-            return @in.Replace('/', '.');
+            return @in.Replace('\\', '.').Replace('/', '.');
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿using Miru.Core;
+﻿using System;
+using Miru.Core;
 using Miru.Makers;
 using Miru.Testing;
 using NUnit.Framework;
+using Serilog;
 
 namespace Miru.Tests.Makers
 {
@@ -14,6 +16,8 @@ namespace Miru.Tests.Makers
         public void Setup()
         {
             _solutionDir = A.TempPath("Miru", "Shopifu");
+
+            Console.WriteLine(_solutionDir);
             
             Directories.DeleteIfExists(_solutionDir);
         }

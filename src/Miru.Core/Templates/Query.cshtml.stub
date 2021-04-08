@@ -1,44 +1,9 @@
 @model {{ input.Name }}{{ input.Action }}.Result
 
-<div class="card">
+<div class="card mb-4">
     <div class="card-body">
 
-        <h3>{{ input.In }}</h3>
-        
-        <div class="mb-4">
-            <a for="@(new {{ input.Name }}New())">New {{ input.Name }}</a>
-        </div>
-        
-        <div miru-if-empty="@Model.Items" class="alert alert-warning">There are no {{ input.In }} to show</div>
-        
-        <miru-table for="Items" class="table table-striped">
-            <thead>
-            <tr>
-                <miru-th for="Items[0].Name" />
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-
-            @{ var i = 0; }
-            @foreach (var item in Model.Items)
-            {
-                <tr>
-                    <td>
-                        <a for="@(new {{ input.Name }}Show.Query { Id = item.Id })">
-                            <md for="Items[i].Name"/>
-                        </a>
-                    </td>
-                    <td>
-                        <a for="@(new {{ input.Name }}Edit.Query { Id = item.Id })">Edit</a>
-                    </td>
-                </tr>
-                
-                i++;
-            }
-
-            </tbody>
-        </miru-table>
-        
+        <h3>{{ input.Name }}</h3>
+    
     </div>
 </div>
