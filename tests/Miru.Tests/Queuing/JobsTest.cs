@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Hangfire;
@@ -51,7 +52,7 @@ namespace Miru.Tests.Queuing
 
             CustomerNew.Processed.ShouldBeTrue();
         }
-        
+
         [Test]
         public void Services_instance_should_be_scoped()
         {
@@ -63,8 +64,19 @@ namespace Miru.Tests.Queuing
 
             ScopedJob.Processed.ShouldBeTrue();
         }
-    }
+        
+        [Test]
+        public void Should_process_recurrent_job()
+        {
+            var job = new RecurrentJob();
+            
+            _jobs.PerformLater(job, MiruCron.EverySecond());
 
+            Execute.Until(() => RecurrentJob.Processed, TimeSpan.FromSeconds(20));
+
+            RecurrentJob.Processed.ShouldBeTrue();
+        }
+    }
     public class SomeService
     {
     }
@@ -82,7 +94,7 @@ namespace Miru.Tests.Queuing
             public Task<Unit> Handle(CustomerNew request, CancellationToken cancellationToken)
             {
                 request.CustomerId.ShouldBe(123);
-                
+
                 Processed = true;
 
                 return Unit.Task;
@@ -111,6 +123,26 @@ namespace Miru.Tests.Queuing
                 service1.ShouldBe(service2);
 
                 Processed = true;
+            }
+        }
+    }
+    
+    public class RecurrentJob : IJob
+    {
+        private static int _counter = 0;
+        public static bool Processed { get; private set; }
+        
+        public class Handler : IRequestHandler<RecurrentJob>
+        {
+            public Task<Unit> Handle(RecurrentJob request, CancellationToken cancellationToken)
+            {
+                _counter++;
+                
+                if (_counter >= 2)
+                {
+                    Processed = true;
+                }
+                return Unit.Task;
             }
         }
     }
