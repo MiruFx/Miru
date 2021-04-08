@@ -6,8 +6,10 @@
 mix-manifest.json
 wwwroot/
 .cache/
-/storage
-/temp
+db/
+logs/
+cache/
+temp/
 appSettings.*.yml
 
 # User-specific files

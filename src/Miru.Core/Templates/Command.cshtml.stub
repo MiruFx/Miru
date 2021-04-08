@@ -1,12 +1,12 @@
 @model {{ input.Name }}{{ input.Action }}.Command
 
-<div class="card">
+<div class="card mb-4">
     <div class="card-body">
         <div class="row justify-content-center">
             <div class="col-md-8">
 
-                <h4 class="my-3">{{ input.Action }} {{ input.Name }}</h4>
-                
+                <h3 class="mb-4">{{ input.Action }} {{ Solution.ShortName }}</h3>
+
                 <miru-form>
 
                     <miru-summary class="my-3"/>
@@ -19,7 +19,7 @@
                     <miru-submit value="Save"/>
 
                 </miru-form>
-
+                
             </div>
         </div>
     </div>

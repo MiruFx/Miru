@@ -1,5 +1,6 @@
 @using Miru.Mvc
 @using Miru
+@using {{ Solution.Name }}.Domain
 
 @namespace {{ Solution.Name }}.Features
 

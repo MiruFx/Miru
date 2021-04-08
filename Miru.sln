@@ -70,7 +70,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.MySql", "src\Miru.MySq
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Misc", "_Misc", "{B993B941-8401-4FB3-8FC0-358BC831BB18}"
 ProjectSection(SolutionItems) = preProject
-	samples\Corpo.Skeleton\Readme.md = samples\Corpo.Skeleton\Readme.md
+	samples\Corpo.Skeleton\README.md = samples\Corpo.Skeleton\README.md
+	samples\Corpo.Skeleton\gitignore = samples\Corpo.Skeleton\gitignore
 EndProjectSection
 EndProject
 Global

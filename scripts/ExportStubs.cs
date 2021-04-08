@@ -68,17 +68,17 @@ namespace Scripts
             SaveMapForNewSolution();
             
             // Command
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamEdit.cs", "Command", "Edit");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "Edit.cshtml", "Command.cshtml", "Edit");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "_Edit.turbo.cshtml", "_Command.turbo.cshtml", "Edit");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamEditTest.cs", "CommandTest", "Edit");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Teams" / "TeamEditPageTest.cs", "CommandPageTest", "Edit");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Tickets" / "TicketEdit.cs", "Command", "Edit");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Tickets" / "Edit.cshtml", "Command.cshtml", "Edit");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Tickets" / "_Edit.turbo.cshtml", "_Command.turbo.cshtml", "Edit");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Tickets" / "TicketEditTest.cs", "CommandTest", "Edit");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Tickets" / "TicketEditPageTest.cs", "CommandPageTest", "Edit");
             
             // Query
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamList.cs", "Query", "List");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "List.cshtml", "Query.cshtml", "List");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamListTest.cs", "QueryTest", "List");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Teams" / "TeamListPageTest.cs", "QueryPageTest", "List");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Tickets" / "TicketShow.cs", "Query", "Show");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Tickets" / "Show.cshtml", "Query.cshtml", "Show");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Tickets" / "TicketShowTest.cs", "QueryTest", "Show");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Tickets" / "TicketShowPageTest.cs", "QueryPageTest", "Show");
             
             // Migration
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Database" / "Migrations" / "999999999999_CreateCards.cs", "Migration");
@@ -99,10 +99,7 @@ namespace Scripts
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "_Created.mail.cshtml", "MailTemplate", templateKey: "Email");
 
             // Config
-            ExportFile(_dir / "config" / "_Config.Example.yml", "Config");
-            ExportFile(_dir / "config" / "_Config.Example.yml", "Config", destinationFile: "Config.Development.yml");
-            ExportFile(_dir / "config" / "_Config.Example.yml", "Config", destinationFile: "Config.Test.yml");
-            ExportFile(_dir / "config" / "_Config.Example.yml", "Config", destinationFile: "Config.Production.yml");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "appSettings-example.yml", "AppSettings");
             
             // Feature-New
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "CategoryNew.cs", "New-Feature");
@@ -222,6 +219,12 @@ namespace Scripts
                 .Replace("Category", "{{ input.Name }}")
                 .Replace("category", "{{ string.downcase input.Name }}")
                 .Replace("@using Corpo.Skeleton.Features.Category", string.Empty)
+                
+                .Replace("Tickets", "{{ input.In }}")
+                .Replace("tickets", "{{ string.downcase input.In }}")
+                .Replace("Ticket", "{{ input.Name }}")
+                .Replace("ticket", "{{ string.downcase input.Name }}")
+                .Replace("@using Corpo.Skeleton.Features.Tickets", string.Empty)                
                 
                 .Replace("Seed", "{{ input.Name }}")
                 .Replace("seed", "{{ string.downcase input.Name }}")

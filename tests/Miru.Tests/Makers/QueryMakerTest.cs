@@ -1,4 +1,5 @@
-﻿using Miru.Core;
+﻿using System;
+using Miru.Core;
 using Miru.Makers;
 using Miru.Testing;
 using NUnit.Framework;
@@ -10,10 +11,12 @@ namespace Miru.Tests.Makers
         private MiruPath _solutionDir;
 
         [SetUp]
-        [TearDown]
+        // [TearDown]
         public void Setup()
         {
             _solutionDir = A.TempPath("Miru", "Contoso.University");
+            
+            Console.WriteLine(_solutionDir);
             
             Directories.DeleteIfExists(_solutionDir);
         }
@@ -41,13 +44,13 @@ namespace Miru.Tests.Makers
                 .ShouldContain(
                     "namespace Contoso.University.Tests.Features.Users",
                     "public class UserShowTest : FeatureTest",
-                    "public async Task Can_show_users()");
+                    "public async Task Can_show_user()");
             
             (m.Solution.AppPageTestsDir / "Pages" / "Users" / "UserShowPageTest.cs")
                 .ShouldContain(
                     "namespace Contoso.University.PageTests.Pages.Users",
                     "public class UserShowPageTest : PageTest",
-                    "public void Can_show_users()");
+                    "public void Can_show_user()");
         }
         
         [Test]

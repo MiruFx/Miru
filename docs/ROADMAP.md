@@ -12,25 +12,23 @@ This is a Roadmap plan but not a commitment. It can change in the future.
 
 ### 0.5 - Feb
 
-Samples [OK]
-Reduce numbers of samples to maintain:  [OK]
-Only one big solution. Supportreon maybe?  [OK]
+~~Samples~~
+  * ~~Reduce numbers of samples to maintain: only Supportreon~~
 
-Userfy
-Register
-Login
-Forgot password
-Send email
-AuthorizationRules
-ICanBeAdmin
-miru userfy:install
-miru userfy:install --admin
+~~Userfy~~
+  * ~~Register~~  
+  * ~~Login~~
+  * ~~Forgot password~~
+    * ~~Send email~~
+  * ~~AuthorizationRules~~
+  * ~~ICanBeAdmin~~
+  * ~~Change password~~
+
+~~AppSettings.yml~~
+ * ~~stop using config/Config.{Env}.yml~~
+ * ~~use appsetings.yml, appsetings.{Env}.yml~~
 
 ### 0.6 - Mar
-
-Userfy
-Change password
-Send email
 
 Command Line:
 miru --version or miru -v
@@ -45,10 +43,6 @@ mirucli's version
     - Support execute for all environment '-e all'
     - IConsolable could be decorated with IMultipleEnvironment allowing run -e all
     - ConfigYmlFinder can search all config.$env.yml
-
-- Config.yml
-    - stop using config/Config.{Env}.yml
-    - use appsetings.yml, appsetings.{Env}.yml
 
 - Queueing:
     - Different pipeline for _mediator.Send(job)

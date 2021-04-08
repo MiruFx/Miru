@@ -33,5 +33,20 @@ namespace Miru.Testing
                     action(_);
             });
         }
+        
+        public static void BeforeCaseInNamespace(this TestRunConfig run, string @namespace, Action<TestFixture> action)
+        {
+            run.BeforeEach((test, _) =>
+            {
+                if (test.Namespace.Contains($".{@namespace}") && test.Implements<IManyCasesPerTest>())
+                    action(_);
+            });
+            
+            run.BeforeAll((test, _) =>
+            {
+                if (test.Namespace.Contains($".{@namespace}") && test.Implements<IOneCasePerTest>())
+                    action(_);
+            });
+        }
     }
 }
