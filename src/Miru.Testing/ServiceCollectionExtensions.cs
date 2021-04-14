@@ -57,5 +57,12 @@ namespace Miru.Testing
             
             return services;
         }
+        
+        public static IServiceCollection AddMiruTestFixture(this IServiceCollection services)
+        {
+            return services
+                .AddSingleton<IMiruApp>(sp => new MiruApp(sp))
+                .AddSingleton<ITestFixture, TestFixture>();
+        }
     }
 }
