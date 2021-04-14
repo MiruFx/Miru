@@ -28,7 +28,7 @@ namespace Miru.Foundation.Hosting
                 .UseEnvironment("Development")
                 .ConfigureHostConfiguration(cfg =>
                 {
-                    cfg.AddEnvironmentVariables("Miru_");
+                    cfg.AddEnvironmentVariables("MIRU_");
                     cfg.AddCommandLine(args, new Dictionary<string, string>
                     {
                         {"-e", HostDefaults.EnvironmentKey},
@@ -47,7 +47,7 @@ namespace Miru.Foundation.Hosting
                 .UseSolution()
                 .ConfigureAppConfiguration((hostingContext, cfg) =>
                 {
-                    cfg.AddEnvironmentVariables(prefix: "Miru_");
+                    cfg.AddEnvironmentVariables(prefix: "MIRU_");
                     cfg.AddYamlFile("appSettings.yml", optional: true);
                     cfg.AddYamlFile($"appSettings.{hostingContext.HostingEnvironment.EnvironmentName}.yml", optional: true);
                 })

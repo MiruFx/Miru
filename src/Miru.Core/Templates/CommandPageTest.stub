@@ -1,7 +1,4 @@
-using {{ Solution.Name }}.Domain;
-using {{ Solution.Name }}.Features.{{ input.In }};
 using Miru.PageTesting;
-using Miru.Testing;
 using NUnit.Framework;
 
 namespace {{ Solution.Name }}.PageTests.Pages.{{ input.In }}
@@ -9,20 +6,23 @@ namespace {{ Solution.Name }}.PageTests.Pages.{{ input.In }}
     public class {{ input.Name }}{{ input.Action }}PageTest : PageTest
     {
         [Test]
-        public void Can_{{ string.downcase input.Action }}_{{ string.downcase input.Name }}()
+        public void Can_{{ string.downcase input.Action }}_{{ string.downcase input.In }}()
         {
-            var {{ string.downcase input.Name }} = _.MakeSaving<{{ input.Name }}>();
-            
-            _.Visit(new {{ input.Name }}{{ input.Action }}.Query { Id = {{ string.downcase input.Name }}.Id });
+            // arrange
+            // var {{ string.downcase input.Name }} = _.MakeSaving<{{ input.Name }}>();
+            //
+            // _.Visit(new {{ input.Name }}{{ input.Action }}.Query { Id = {{ string.downcase input.Name }}.Id });
 
-            _.Form<{{ input.Name }}{{ input.Action }}.Command>((f, command) =>
-            {
-                f.Input(m => m.Name, command.Name);
-                
-                f.Submit();
-            });
+            // act
+            // _.Form<{{ input.Name }}{{ input.Action }}.Command>((f, command) =>
+            // {
+            //     f.Input(m => m.Name, command.Name);
+            //     
+            //     f.Submit();
+            // });
             
-            _.ShouldHaveText("{{ input.Name }} successfully saved");
+            // assert
+            // _.ShouldHaveText("{{ input.Name }} successfully saved");
         }
     }
 }

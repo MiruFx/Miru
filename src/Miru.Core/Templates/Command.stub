@@ -1,11 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using {{ Solution.Name }}.Database;
-using {{ Solution.Name }}.Domain;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Miru;
 using Miru.Mvc;
 
 namespace {{ Solution.Name }}.Features.{{ input.In }}
@@ -25,7 +23,6 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
 
         public class Result
         {
-            public {{ input.Name }} {{ input.Name }} { get; set; }
         }
 
         public class Handler : 
@@ -41,25 +38,12 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
             
             public async Task<Command> Handle(Query request, CancellationToken ct)
             {
-                var {{ string.downcase input.Name }} = await _db.{{ input.In }}.ByIdOrFailAsync(request.Id, ct);
-                
-                return new Command
-                {
-                    Id = {{ string.downcase input.Name }}.Id,
-                    Name = {{ string.downcase input.Name }}.Name
-                };
+                return new Command();
             }
             
             public async Task<Result> Handle(Command request, CancellationToken ct)
             {
-                var {{ string.downcase input.Name }} = await _db.{{ input.In }}.ByIdOrFailAsync(request.Id, ct);
-
-                {{ string.downcase input.Name }}.Name = request.Name;
-                
-                return new Result
-                {
-                    {{ input.Name }} = {{ string.downcase input.Name }}
-                };
+                return new Result();
             }
         }
 
@@ -68,8 +52,6 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
             public Validator()
             {
                 RuleFor(m => m.Id).NotEmpty();
-                
-                RuleFor(m => m.Name).NotEmpty();
             }
         }
         
@@ -78,7 +60,7 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
             [HttpGet("/{{ input.In }}/{id:long}/{{ input.Action }}")]
             public async Task<Command> {{ input.Action }}(Query query) => await SendAsync(query);
 
-            [HttpPost("/{{ input.In }}/{id:long}/{{ input.Action }}")]
+            [HttpPost("/{{ input.In }}/{{ input.Action }}")]
             public async Task<Result> {{ input.Action }}(Command command) => await SendAsync(command);
         }
     }
