@@ -4,10 +4,10 @@
     <template>
         <div class="alert alert-success">
             <p>
-                Your Project has been saved
+                Your project '@Model.Project.Name' has been saved
             </p>
             <p>
-                <a for="@(new ProjectShow.Query { Id = Model.Id })">Check it here</a>
+                <a for="@(new ProjectShow.Query { Id = Model.Project.Id })">Check it here</a>
             </p>
         </div>
     </template>

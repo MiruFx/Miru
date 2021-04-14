@@ -34,7 +34,6 @@ module.exports = {
                 collapsable: false,
                 children: [
                     'Introduction/GettingStarted',
-                    'Introduction/FirstLook',
                     'Introduction/SolutionOrganization',
                     'Introduction/Configuration'
                 ],
@@ -91,7 +90,7 @@ module.exports = {
                 title: 'Guides',
                 collapsable: false,
                 children: [
-                    'Guides/Query-Command.md'
+                    'Guides/Forms.md'
                 ],
             },        
         ]

@@ -28,13 +28,7 @@ This documentation is a draft. It will be filled with more information as Miru g
 
 Miru is an open-source opinionated framework for developing .NET 5 Web Applications. It bundles a lot of great libraries and offers conventions and convenient ways of building applications.
 
-For now, the two ways to check how it looks like are:
-
-* Having a [First Look](/Introduction/FirstLook.html) developing a new Solution.
-* Taking a look into the samples:
-  * [Supportreon](https://github.com/joaofx/Supportreon)
-  * [Mong](https://github.com/mirufx/miru/tree/master/samples/Mong)
-  * [SelfImprov](https://github.com/mirufx/miru/tree/master/samples/SelfImprov)
+Take a look into the sample [Supportreon](https://github.com/MiruFx/Miru/tree/master/samples/Supportreon)
 
 ## Installing
 

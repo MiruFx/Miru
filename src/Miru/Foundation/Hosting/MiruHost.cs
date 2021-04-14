@@ -47,9 +47,11 @@ namespace Miru.Foundation.Hosting
                 .UseSolution()
                 .ConfigureAppConfiguration((hostingContext, cfg) =>
                 {
+                    var env = hostingContext.HostingEnvironment.EnvironmentName;
+                    
                     cfg.AddEnvironmentVariables(prefix: "MIRU_");
-                    cfg.AddYamlFile("appSettings.yml", optional: true);
-                    cfg.AddYamlFile($"appSettings.{hostingContext.HostingEnvironment.EnvironmentName}.yml", optional: true);
+                    cfg.AddYamlFile("appSettings.yml", optional: true, reloadOnChange: true);
+                    cfg.AddYamlFile($"appSettings.{env}.yml", optional: true, reloadOnChange: true);
                 })
                 .UseDefaultServiceProvider((context, options) =>
                 {

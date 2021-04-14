@@ -129,7 +129,8 @@ namespace Miru.Tests.Html.TagHelpers
                 new Dictionary<object, object>(),
                 Guid.NewGuid().ToString("N"));
             
-            var output = new TagHelperOutput(tagName,
+            var output = new TagHelperOutput(
+                tagName,
                 new TagHelperAttributeList(),
                 (result, encoder) =>
                 {

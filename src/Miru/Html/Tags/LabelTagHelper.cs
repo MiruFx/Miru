@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace Miru.Html.Tags
 {
     [HtmlTargetElement("miru-label", Attributes = "for", TagStructure = TagStructure.NormalOrSelfClosing)]
-    public class LabelTagHelper : HtmlTagTagHelper
+    public class LabelTagHelper : MiruHtmlTagHelper
     {
         protected override string Category { get; } = ElementConstants.Label;
 

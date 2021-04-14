@@ -21,7 +21,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Misc", "_Misc", "{48637FD2
 ProjectSection(SolutionItems) = preProject
 	nuget.config = nuget.config
 	Directory.Build.props = Directory.Build.props
-	samples\Corpo.Skeleton\config\_Config.Example.yml = samples\Corpo.Skeleton\config\_Config.Example.yml
 	.github\workflows\ci.yml = .github\workflows\ci.yml
 	.github\workflows\release.yml = .github\workflows\release.yml
 	.gitignore = .gitignore

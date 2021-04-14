@@ -9,40 +9,7 @@ This is a Roadmap plan but not a commitment. It can change in the future.
 
 ## Versions
 
-
-### 0.5 - Feb
-
-~~Samples~~
-  * ~~Reduce numbers of samples to maintain: only Supportreon~~
-
-~~Userfy~~
-  * ~~Register~~  
-  * ~~Login~~
-  * ~~Forgot password~~
-    * ~~Send email~~
-  * ~~AuthorizationRules~~
-  * ~~ICanBeAdmin~~
-  * ~~Change password~~
-
-~~AppSettings.yml~~
- * ~~stop using config/Config.{Env}.yml~~
- * ~~use appsetings.yml, appsetings.{Env}.yml~~
-
-### 0.6 - Mar
-
-Command Line:
-miru --version or miru -v
-outside solution:
-mirucli's version
-inside
-miru's version in the solution
-mirucli's version
-
-- Consolable:
-    - Replace Oakton for Microsoft Commandline or other
-    - Support execute for all environment '-e all'
-    - IConsolable could be decorated with IMultipleEnvironment allowing run -e all
-    - ConfigYmlFinder can search all config.$env.yml
+### 0.6 - Apr
 
 - Queueing:
     - Different pipeline for _mediator.Send(job)
@@ -67,6 +34,14 @@ mirucli's version
 
 ### 0.7 - Apr - EfCore PostgreSql, FrontEnd
 
+- Consolable:
+  - Replace Oakton for Microsoft Commandline or other
+  - Support execute for all environment '-e all'
+  - IConsolable could be decorated with IMultipleEnvironment allowing run -e all
+  - ConfigYmlFinder can search all config.$env.yml
+  
+### 0.8 - Mai -
+
 - Userfy
   Register from 3rd party
   Login from 3rd party
@@ -74,11 +49,9 @@ mirucli's version
   Send email
 
 - Flash messages
-    - AccountRegister can add success message
-    - Integration with Turbo
-
-### 0.8 - Mai -
-
+  - AccountRegister can add success message
+  - Integration with Turbo
+  
 ### 0.9 - Jun -  - C# 9, Build script, Http API
 
 - Http Api

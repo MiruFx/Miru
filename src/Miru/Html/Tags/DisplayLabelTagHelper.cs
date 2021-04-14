@@ -8,9 +8,4 @@ namespace Miru.Html.Tags
     {
         protected override string Category => nameof(HtmlConvention.DisplayLabels);
     }
-    
-    [HtmlTargetElement("mdl", Attributes = "for")]
-    public class MdlTagHelper : DisplayLabelTagHelper
-    {
-    }
 }

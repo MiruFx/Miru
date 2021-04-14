@@ -39,7 +39,7 @@ By default, Miru has `/src/{App}/package.json` with some packages already specif
 To make sure they are installed, run:
 
 ```sh
-miru @app npm install
+miru app npm install
 ```
 
 ## Resources
@@ -99,13 +99,13 @@ mix.js('resources/js/app.js', 'wwwroot/js')
 To bundle after any change in `resources` directory, run:
 
 ```sh
-miru @app npm run dev
+miru app npm run dev
 ```
 
 You can also keep webpack running watching for changes and bundle automatically:
 
 ```sh
-miru @app npm run watch
+miru app npm run watch
 ```
 
 ## Consuming
@@ -124,5 +124,4 @@ Note the tags `mix-src` and `mix-href`. They will check if [Laravel Mix Versioni
 By default, Miru comes with these packages:
 
 * [Bootstrap](https://getbootstrap.com/) for nice layout
-* [Turbolinks](https://github.com/turbolinks/turbolinks) for faster navigation
-* Miru-Rails for some Ajax facilities
+* [Turbo](https://turbo.hotwire.dev/) for faster navigation

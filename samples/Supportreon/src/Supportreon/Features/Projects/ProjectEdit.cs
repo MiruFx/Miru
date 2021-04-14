@@ -36,7 +36,7 @@ namespace Supportreon.Features.Projects
 
         public class Result
         {
-            public long Id { get; set; }
+            public Project Project { get; set; }
         }
 
         public class Handler : 
@@ -84,7 +84,7 @@ namespace Supportreon.Features.Projects
 
                 await _db.SaveOrUpdate(project, ct);
 
-                return new Result { Id = project.Id };
+                return new Result { Project = project };
             }
         }
 

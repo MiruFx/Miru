@@ -1,4 +1,17 @@
 <!-- 
+Forms
+ui
+components
+  feature
+    query
+    command
+    controller
+    handler
+showing form
+  query handler
+  view
+    miru-form
+
 Query + Command
   query for command to build form
   command sent by form
@@ -24,11 +37,11 @@ auth required
 
 -->
 
-# Query and Command
+# Forms
 
 [[toc]]
 
-We are going to review a [Feature](/Features/Overview) of type `Command`, meaning that the feature writes data into the Application.
+We are going to review a [Feature](/Features/Overview.html) of type `Command`, meaning that the feature writes data into the Application.
 
 The feature is [DonationNew](https://github.com/MiruFx/Miru/blob/master/samples/Supportreon/src/Supportreon/Features/Donations/DonationNew.cs) from the sample [Supportreon](https://github.com/MiruFx/Miru/blob/master/samples/Supportreon).
 
