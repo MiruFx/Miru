@@ -6,6 +6,7 @@ using Hangfire.MemoryStorage;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Queuing;
+using Miru.Testing;
 using NUnit.Framework;
 using Shouldly;
 
@@ -16,6 +17,7 @@ namespace Miru.Tests.Queuing
         private ServiceProvider _sp;
         private BackgroundJobServer _server;
         private Jobs _jobs;
+        private ITestFixture _;
 
         [OneTimeSetUp]
         public void Setup()
@@ -24,10 +26,13 @@ namespace Miru.Tests.Queuing
                 .AddQueuing((sp, cfg) => cfg.UseMemoryStorage())
                 .AddMediatR(typeof(JobsTest).Assembly)
                 .AddScoped<SomeService>()
+                .AddMiruTestFixture()
                 .BuildServiceProvider();
 
+            _ = _sp.GetService<ITestFixture>();
+
             _server = _sp.GetService<BackgroundJobServer>();
-            
+
             _jobs = _sp.GetService<Jobs>();
         }
 
@@ -51,7 +56,7 @@ namespace Miru.Tests.Queuing
 
             CustomerNew.Processed.ShouldBeTrue();
         }
-        
+
         [Test]
         public void Services_instance_should_be_scoped()
         {
@@ -63,8 +68,36 @@ namespace Miru.Tests.Queuing
 
             ScopedJob.Processed.ShouldBeTrue();
         }
-    }
+        
+        [Test]
+        public void Should_process_recurrent_job()
+        {
+            var job = new CustomerNew();
+            
+            _jobs.PerformLater(job, MiruCron.Monthly());
 
+            Task.Run(() =>
+            {
+                _.EnqueuedOneJobFor<IJob>().ShouldBeTrue();
+            });
+        }
+        
+        [Test]
+        public async Task Should_remove_recurrent_job()
+        {
+            string jobId = null;
+
+            var jobFound = 
+                await Task.Run(() =>
+                {
+                    jobId = _jobs.PerformLater(new CustomerNew(), MiruCron.Monthly());
+                })
+                .ContinueWith(taskPerforming => _jobs.RemoveIfExists(jobId))
+                .ContinueWith(taskRemoving => Task.Run(() => _.EnqueuedOneJobFor<IJob>()));
+            
+            jobFound.Result.ShouldBeFalse();
+        }
+    }
     public class SomeService
     {
     }
@@ -82,7 +115,7 @@ namespace Miru.Tests.Queuing
             public Task<Unit> Handle(CustomerNew request, CancellationToken cancellationToken)
             {
                 request.CustomerId.ShouldBe(123);
-                
+
                 Processed = true;
 
                 return Unit.Task;
