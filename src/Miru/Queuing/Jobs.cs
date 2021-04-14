@@ -23,9 +23,14 @@ namespace Miru.Queuing
         public string PerformLater<TJob>(TJob job, string cronExpression) where TJob : IJob
         {
             var jobId = Guid.NewGuid().ToString();
-            _recurringJobManager.AddOrUpdate<JobFor<TJob>>(jobId,
-                m => m.Execute(job, CancellationToken.None), cronExpression);
+            _recurringJobManager.AddOrUpdate<JobFor<TJob>>(jobId,m => m.Execute(job, CancellationToken.None),
+                cronExpression, TimeZoneInfo.Local);
             return jobId;
+        }
+        
+        public void RemoveIfExists(string jobId)
+        {
+            _recurringJobManager.RemoveIfExists(jobId);
         }
     }
 }
