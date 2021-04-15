@@ -41,7 +41,7 @@ namespace Miru.Foundation.Hosting
 
         private void DumpListeningAddresses()
         {
-            var addresses = _host.Services.GetService<IServer>().Features.Get<IServerAddressesFeature>()?.Addresses;
+            var addresses = _host.Services.GetService<IServer>()?.Features.Get<IServerAddressesFeature>()?.Addresses;
             
             if (addresses != null)
             {

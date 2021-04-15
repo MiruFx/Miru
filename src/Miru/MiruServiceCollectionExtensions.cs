@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Consolables;
+using Miru.Core;
 using Miru.Foundation;
 using Miru.Foundation.Logging;
 using Miru.Html;
@@ -60,6 +61,21 @@ namespace Miru
             return services
                 .AddSingleton<IMiruApp>(sp => new MiruApp(sp))
                 .AddTransient<ScopedServices, ScopedServices>();
+        }
+        
+        public static IServiceCollection AddMiruSolution(this IServiceCollection services)
+        {
+            // if can't find solution, maybe it is running from compiled binaries?
+            var solution = 
+                new SolutionFinder().FromCurrentDir().Solution ?? 
+                new UnknownSolution();
+
+            App.Name = solution.Name;
+            App.Solution = solution;
+
+            services.AddSingleton(solution);
+
+            return services;
         }
     }
 }

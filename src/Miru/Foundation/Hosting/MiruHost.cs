@@ -1,21 +1,15 @@
 using System.Collections.Generic;
-using System.Net;
-using System.Reflection;
-using Baseline;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using Miru.Config;
 using Miru.Consolables;
-using Miru.Core;
 using Miru.Foundation.Bootstrap;
 using Miru.Foundation.Logging;
 using Miru.Mailing;
 using Miru.Settings;
 using Miru.Urls;
-using Oakton.Help;
 using Serilog;
 using Serilog.Events;
 
@@ -44,7 +38,6 @@ namespace Miru.Foundation.Hosting
                         .MinimumLevel.Override("Miru", LogEventLevel.Fatal)
                         .WriteTo.Console(outputTemplate: LoggerConfigurations.TimestampOutputTemplate);
                 })
-                .UseSolution()
                 .ConfigureAppConfiguration((hostingContext, cfg) =>
                 {
                     var env = hostingContext.HostingEnvironment.EnvironmentName;
@@ -64,7 +57,7 @@ namespace Miru.Foundation.Hosting
                     // Host
                     services.AddServiceCollection();
                     services.AddSingleton(argsConfig);
-                    services.AddSingleton(App.Solution);
+                    services.AddMiruSolution();
                     services.AddSingleton<MiruRunner>();
                     services.AddSingleton<IMiruHost, WebMiruHost>();
                     services.AddSingleton<IMiruHost, CliMiruHost>();
@@ -99,18 +92,5 @@ namespace Miru.Foundation.Hosting
                             .UseStartup<TStartup>()
                             .UseContentRoot(App.Solution.AppDir);
                     });
-
-        private static IHostBuilder UseSolution(this IHostBuilder builder)
-        {
-            // if can't find solution, maybe it is running from compiled binaries
-            var solution = 
-                new SolutionFinder().FromCurrentDir().Solution ?? 
-                new UnknownSolution();
-
-            App.Name = solution.Name;
-            App.Solution = solution;
-
-            return builder;
-        }
     }
 }

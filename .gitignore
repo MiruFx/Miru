@@ -21,8 +21,7 @@ wwwroot/
 /storage/cache
 /storage/temp
 /temp
-appSettings.Development.yml
-appSettings.Test.yml
+appSettings.*.yml
 
 # User-specific files
 *.suo
