@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Miru.Consolables;
+using Miru.Core;
 using Miru.Foundation.Bootstrap;
 using Miru.Foundation.Logging;
 using Miru.Mailing;
@@ -20,6 +21,7 @@ namespace Miru.Foundation.Hosting
         public static IHostBuilder CreateMiruHost(params string[] args) =>
             Host.CreateDefaultBuilder()
                 .UseEnvironment("Development")
+                .UseMiruSolution()
                 .ConfigureHostConfiguration(cfg =>
                 {
                     cfg.AddEnvironmentVariables("MIRU_");
@@ -57,7 +59,6 @@ namespace Miru.Foundation.Hosting
                     // Host
                     services.AddServiceCollection();
                     services.AddSingleton(argsConfig);
-                    services.AddMiruSolution();
                     services.AddSingleton<MiruRunner>();
                     services.AddSingleton<IMiruHost, WebMiruHost>();
                     services.AddSingleton<IMiruHost, CliMiruHost>();
@@ -92,5 +93,23 @@ namespace Miru.Foundation.Hosting
                             .UseStartup<TStartup>()
                             .UseContentRoot(App.Solution.AppDir);
                     });
+        
+        private static IHostBuilder UseMiruSolution(this IHostBuilder builder)
+        {
+            // if can't find solution, maybe it is running from compiled binaries
+            var solution = 
+                new SolutionFinder().FromCurrentDir().Solution ?? 
+                new UnknownSolution();
+
+            App.Name = solution.Name;
+            App.Solution = solution;
+
+            builder.ConfigureServices(services =>
+            {
+                services.AddMiruSolution();
+            });
+            
+            return builder;
+        }
     }
 }

@@ -17,6 +17,6 @@ namespace Miru
 
         internal static IServiceProvider ServiceProvider { get; set; }
         
-        internal static MiruSolution Solution { get; set; }
+        public static MiruSolution Solution { get; set; }
     }
 }
