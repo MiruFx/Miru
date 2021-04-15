@@ -33,6 +33,6 @@ namespace Corpo.Skeleton.Tests.Config
         }
         
         public virtual IHostBuilder GetHostBuilder() =>
-            MiruHost.CreateMiruHost<Startup>();
+            MiruHost.CreateMiruWebHost<Startup>();
     }
 }

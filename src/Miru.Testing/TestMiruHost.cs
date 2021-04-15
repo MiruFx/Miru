@@ -35,7 +35,7 @@ namespace Miru.Testing
 
         public static IHostBuilder CreateMiruHost<TStartup>() where TStartup : class
         {
-            return MiruHost.CreateMiruHost<TStartup>()
+            return MiruHost.CreateMiruWebHost<TStartup>()
                 .ConfigureWebHost(host =>
                 {
                     // we don't want the tests fail because there is no tcp port available

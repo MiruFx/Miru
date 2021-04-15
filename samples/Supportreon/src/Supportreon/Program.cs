@@ -7,7 +7,7 @@ namespace Supportreon
     {
         public static async Task Main(string[] args) =>
             await MiruHost
-                .CreateMiruHost<Startup>(args)
+                .CreateMiruWebHost<Startup>(args)
                 .RunMiruAsync();
     }
 }

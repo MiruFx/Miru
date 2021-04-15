@@ -67,7 +67,7 @@ namespace Supportreon.Tests.Config
         
         public virtual IHostBuilder GetHostBuilder()
         {
-            return MiruHost.CreateMiruHost<Startup>();
+            return MiruHost.CreateMiruWebHost<Startup>();
         }
     }
 }

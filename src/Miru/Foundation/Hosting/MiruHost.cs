@@ -18,10 +18,31 @@ namespace Miru.Foundation.Hosting
 {
     public static class MiruHost
     {
+        /// <summary>
+        /// Create a basic Miru host for consoles and automated tests
+        /// </summary>
         public static IHostBuilder CreateMiruHost(params string[] args) =>
             Host.CreateDefaultBuilder()
-                .UseEnvironment("Development")
                 .UseMiruSolution()
+                .AddMiruHost(args);
+
+        /// <summary>
+        /// Create a Miru host for web application
+        /// </summary>
+        public static IHostBuilder CreateMiruWebHost<TStartup>(params string[] args) where TStartup : class =>
+            Host.CreateDefaultBuilder()
+                .UseMiruSolution()
+                // web host should come first. miru host will override the default asp.net host configurations
+                .AddWebHost<TStartup>()
+                .AddMiruHost(args)
+                .ConfigureServices(services =>
+                {
+                    services.AddAppLogger<TStartup>();
+                });
+
+        public static IHostBuilder AddMiruHost(this IHostBuilder builder, params string[] args) =>
+            builder
+                .UseEnvironment("Development")
                 .ConfigureHostConfiguration(cfg =>
                 {
                     cfg.AddEnvironmentVariables("MIRU_");
@@ -43,7 +64,7 @@ namespace Miru.Foundation.Hosting
                 .ConfigureAppConfiguration((hostingContext, cfg) =>
                 {
                     var env = hostingContext.HostingEnvironment.EnvironmentName;
-                    
+
                     cfg.AddEnvironmentVariables(prefix: "MIRU_");
                     cfg.AddYamlFile("appSettings.yml", optional: true, reloadOnChange: true);
                     cfg.AddYamlFile($"appSettings.{env}.yml", optional: true, reloadOnChange: true);
@@ -52,10 +73,10 @@ namespace Miru.Foundation.Hosting
                 {
                     options.ValidateScopes = context.HostingEnvironment.IsDevelopmentOrTest();
                 })
-                .ConfigureServices((host, services) =>    
+                .ConfigureServices((host, services) =>
                 {
                     var argsConfig = new ArgsConfiguration(args);
-                    
+
                     // Host
                     services.AddServiceCollection();
                     services.AddSingleton(argsConfig);
@@ -65,24 +86,16 @@ namespace Miru.Foundation.Hosting
 
                     // Consolables
                     services.AddConsolableHost();
-                    
+
                     // AppConfig
                     services.Configure<DatabaseOptions>(host.Configuration.GetSection("Database"));
                     services.Configure<MailingOptions>(host.Configuration.GetSection("Mailing"));
                     services.Configure<UrlOptions>(host.Configuration.GetSection("Url"));
-                    
+
                     services.AddSingleton(sp => sp.GetRequiredService<IOptions<DatabaseOptions>>().Value);
 
                     services.AddMiruApp();
                 });
-        
-        public static IHostBuilder CreateMiruHost<TStartup>(params string[] args) where TStartup : class =>
-            CreateMiruHost(args)
-                .ConfigureServices(services =>
-                {
-                    services.AddAppLogger<TStartup>();
-                })
-                .AddWebHost<TStartup>();
         
         public static IHostBuilder AddWebHost<TStartup>(this IHostBuilder builder) 
             where TStartup : class =>
@@ -94,7 +107,7 @@ namespace Miru.Foundation.Hosting
                             .UseContentRoot(App.Solution.AppDir);
                     });
         
-        private static IHostBuilder UseMiruSolution(this IHostBuilder builder)
+        public static IHostBuilder UseMiruSolution(this IHostBuilder builder)
         {
             // if can't find solution, maybe it is running from compiled binaries
             var solution = 
