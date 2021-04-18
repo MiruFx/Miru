@@ -28,3 +28,26 @@ Mailing:
 #    Port: 25
 #    UserName: username
 #    Password: password
+
+# Serilog configuration
+# log levels: https://github.com/serilog/serilog/wiki/Configuration-Basics#minimum-level
+# Modules: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0#aspnet-core-and-ef-core-categories
+Serilog:
+  MinimumLevel:
+    Default: Fatal
+    Override:
+      Miru: Information
+      Microsoft: Fatal
+      Microsoft.AspNetCore: Fatal
+      Microsoft.EntityFrameworkCore.Database.Command: Fatal # Show SQL
+      Microsoft.Hosting: Fatal
+      System: Fatal
+
+# Set where the application will listen for requests
+# Syntax: [http|https]://[localhost|IP|*][:PORT] 
+Kestrel:
+  EndPoints:
+    Http:
+      Url: http://localhost:5000/
+    Https:
+      Url: https://localhost:5001/

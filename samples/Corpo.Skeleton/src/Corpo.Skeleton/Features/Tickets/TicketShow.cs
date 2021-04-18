@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Corpo.Skeleton.Database;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Miru;
 using Miru.Mvc;
 
 namespace Corpo.Skeleton.Features.Tickets
@@ -18,7 +19,7 @@ namespace Corpo.Skeleton.Features.Tickets
         {
         }
 
-        public class Handler : IRequestHandler<Query, Result>
+        public class Handler : IRequestEmptyHandler<Query, Result>
         {
             private readonly SkeletonDbContext _db;
             
@@ -29,7 +30,7 @@ namespace Corpo.Skeleton.Features.Tickets
             
             public async Task<Result> Handle(Query request, CancellationToken ct)
             {
-                return new Result();
+                return await Task.FromResult(new Result());
             }
         }
         

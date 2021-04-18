@@ -15,8 +15,8 @@ namespace Miru.Pagination
         int CountTotal { get; set; }
     }
 
-    public interface IPageable<TResult> : IPageable
+    public interface IPageable<out TItem> : IPageable
     {
-        IReadOnlyList<TResult> Results { get; }
+        IReadOnlyList<TItem> Results { get; }
     }
 }

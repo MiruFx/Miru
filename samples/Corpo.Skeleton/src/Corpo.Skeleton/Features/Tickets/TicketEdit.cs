@@ -38,12 +38,12 @@ namespace Corpo.Skeleton.Features.Tickets
             
             public async Task<Command> Handle(Query request, CancellationToken ct)
             {
-                return new Command();
+                return await Task.FromResult(new Command());
             }
             
             public async Task<Result> Handle(Command request, CancellationToken ct)
             {
-                return new Result();
+                return await Task.FromResult(new Result());
             }
         }
 

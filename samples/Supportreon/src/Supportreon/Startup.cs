@@ -13,6 +13,7 @@ using Miru.Pipeline;
 using Miru.Queuing;
 using Miru.Sqlite;
 using Miru.Userfy;
+using Serilog;
 using Serilog.Events;
 using Supportreon.Config;
 using Supportreon.Database;

@@ -2,11 +2,10 @@
 Getting Started
    serilog
 Writing
-    app.log
-    ilogger
+    app.log: for whole application
+    ilogger: to filter specific modules
 Configuring
     serilog cfg api
-    enabling 3rd party
 Reading
 -->
 

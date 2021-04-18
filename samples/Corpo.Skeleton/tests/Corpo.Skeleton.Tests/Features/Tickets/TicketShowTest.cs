@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Corpo.Skeleton.Features.Tickets;
 using Miru.Testing;
 using NUnit.Framework;
 
@@ -13,7 +14,7 @@ namespace Corpo.Skeleton.Tests.Features.Tickets
             // var ticket = _.MakeSaving<Ticket>();
             
             // act
-            // var result = await _.SendAsync(new TicketShow.Query { Id = ticket.Id });
+            var result = await _.SendAsync(new TicketShow.Query { Id = 1 });
             
             // assert
             // result.ShouldBe();

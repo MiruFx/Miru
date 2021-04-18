@@ -1,4 +1,5 @@
 using System;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
@@ -31,6 +32,8 @@ namespace Miru.Foundation.Logging
                 {
                     configBuilder.Config(loggerConfiguration);
                 }
+
+                loggerConfiguration.ReadFrom.Configuration(sp.GetService<IConfiguration>());
                 
                 var logger = loggerConfiguration.CreateLogger();
         
