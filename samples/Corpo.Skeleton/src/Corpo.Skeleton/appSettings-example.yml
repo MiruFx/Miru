@@ -39,7 +39,7 @@ Serilog:
       Miru: Information
       Microsoft: Fatal
       Microsoft.AspNetCore: Fatal
-      Microsoft.EntityFrameworkCore.Database.Command: Fatal # Show SQL
+      Microsoft.EntityFrameworkCore.Database.Command: Information # Show SQL
       Microsoft.Hosting: Fatal
       System: Fatal
 

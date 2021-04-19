@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Reflection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -116,10 +117,11 @@ namespace Miru.Foundation.Hosting
 
             App.Name = solution.Name;
             App.Solution = solution;
+            App.Assembly = Assembly.GetEntryAssembly();
 
             builder.ConfigureServices(services =>
             {
-                services.AddMiruSolution();
+                services.AddMiruSolution(solution);
             });
             
             return builder;

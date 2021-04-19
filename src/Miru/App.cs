@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Core;
 using Miru.Foundation.Logging;
@@ -18,5 +19,7 @@ namespace Miru
         internal static IServiceProvider ServiceProvider { get; set; }
         
         public static MiruSolution Solution { get; set; }
+        
+        public static Assembly Assembly { get; internal set; }
     }
 }

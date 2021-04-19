@@ -44,6 +44,13 @@ namespace Miru.Config
 
         public override bool Execute(Input input)
         {
+            Console2.Yellow("App version: ");
+            Console2.Line($"{Assembly.GetEntryAssembly().GetName().Name} {Assembly.GetEntryAssembly().GetName().Version}");
+
+            Console2.Yellow("Miru version: ");
+            Console2.Line(typeof(App).Assembly.GetName().Version?.ToString());
+            Console.WriteLine();
+            
             Console2.YellowLine("Host:");
             Console2.Line(_hostEnvironment.ToYml());
 

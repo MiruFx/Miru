@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Miru.Consolables;
 using Miru.Core;
 using Miru.Foundation;
@@ -63,19 +64,11 @@ namespace Miru
                 .AddTransient<ScopedServices, ScopedServices>();
         }
         
-        public static IServiceCollection AddMiruSolution(this IServiceCollection services)
+        public static IServiceCollection AddMiruSolution(
+            this IServiceCollection services,
+            MiruSolution solution)
         {
-            // if can't find solution, maybe it is running from compiled binaries?
-            var solution = 
-                new SolutionFinder().FromCurrentDir().Solution ?? 
-                new UnknownSolution();
-
-            App.Name = solution.Name;
-            App.Solution = solution;
-
-            services.AddSingleton(solution);
-
-            return services;
+            return services.ReplaceSingleton(solution);
         }
     }
 }

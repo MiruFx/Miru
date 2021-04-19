@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Domain;
 using Miru.Fabrication;
 using Miru.Fabrication.FixtureConventions;
+using Miru.Testing;
 using NUnit.Framework;
 using Shouldly;
 
@@ -296,12 +298,37 @@ namespace Miru.Tests.Fabrication
             store.StoreInsurance.Store.ShouldBeNull();
         }
         
+        [Test]
+        public void Can_create_entity_based_in_fabricator_default_configuration()
+        {
+            var customer1 = _fabricator.Make<Customer>();
+            customer1.Status.ShouldBe("regular-buyer");
+            customer1.IsActive.ShouldBeTrue();
+            
+            var customer2 = _fabricator.Make<Customer>();
+            customer2.Status.ShouldBe("regular-buyer");
+            customer2.IsActive.ShouldBeTrue();
+
+            var paymentProvider = _fabricator.Make<PaymentProvider>();
+            paymentProvider.Name.ShouldBeOneOf("PayPal", "Stripe");
+        }
+        
         public class ThisFabricator : Fabricator
         {
             public ThisFabricator(FabSupport support) : base(support)
             {
+                With<Customer>(x =>
+                {
+                    x.Status = "regular-buyer";
+                    x.IsActive = true;
+                });
+
+                With<PaymentProvider>((x, faker) =>
+                {
+                    x.Name = faker.PickRandom("PayPal", "Stripe");
+                });
             }
-        
+
             public CategoryFabricator Categories => FabFor<Category, CategoryFabricator>();
         }
 
@@ -354,6 +381,19 @@ namespace Miru.Tests.Fabrication
         {
             public string City { get; set; }
             public string Country { get; set; }
+        }
+
+        public class Customer
+        {
+            public bool IsActive { get; set; }
+            
+            // usually status would be strong typed. it is string just for the test sake
+            public string Status { get; set; } 
+        }
+        
+        public class PaymentProvider
+        {
+            public string Name { get; set; } 
         }
     }
 }

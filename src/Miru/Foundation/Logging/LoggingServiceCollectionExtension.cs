@@ -8,7 +8,7 @@ using Serilog.Extensions.Logging;
 
 namespace Miru.Foundation.Logging
 {
-    public static class ServiceCollectionExtension
+    public static class LoggingServiceCollectionExtension
     {
         public static IServiceCollection AddAppLogger<TStartup>(this IServiceCollection services)
         {

@@ -4,6 +4,7 @@ using System.Linq;
 using AutoFixture;
 using Bogus;
 using Microsoft.Extensions.DependencyInjection;
+using Miru.Fabrication.FixtureConventions;
 
 namespace Miru.Fabrication
 {
@@ -105,6 +106,32 @@ namespace Miru.Fabrication
                 .ServiceProvider
                 .GetServices<ICustomFabricator>()
                 .FirstOrDefault(t => t is ICustomFabricator<TModel>);
+        }
+
+        protected void With<T>(Action<T> action) where T : new()
+        {
+            Fixture.AddConvention(_ =>
+            {
+                _.IfClassIs<T>().Use(f =>
+                {
+                    var model = new T();
+                    action(model);
+                    return model;
+                });
+            });
+        }
+        
+        protected void With<T>(Action<T, Faker> action) where T : new()
+        {
+            Fixture.AddConvention(_ =>
+            {
+                _.IfClassIs<T>().Use(faker =>
+                {
+                    var model = new T();
+                    action(model, faker);
+                    return model;
+                });
+            });
         }
     }
 }

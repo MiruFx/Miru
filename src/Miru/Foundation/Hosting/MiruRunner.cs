@@ -32,7 +32,7 @@ namespace Miru.Foundation.Hosting
             if (!_argsConfig.RunCli)
             {
                 App.Framework.Fatal("-----------------------------------------------------------");
-                App.Framework.Fatal($"Starting {_solution.Name}");
+                App.Framework.Fatal($"Starting {_solution.Name} {App.Assembly?.GetName().Version}");
                 App.Framework.Fatal(string.Empty);
                     
                 App.Framework.Fatal($"\tEnvironment: {_hostEnvironment.EnvironmentName}");
