@@ -11,6 +11,7 @@ using Miru.Mailing;
 using Miru.Mvc;
 using Miru.Pipeline;
 using Miru.Queuing;
+using Miru.Scheduling;
 using Miru.Sqlite;
 using Miru.Userfy;
 using Serilog.Events;
@@ -66,7 +67,9 @@ namespace Supportreon
                     _.EmailDefaults(email => email.From("noreply@Supportreon.com", "Supportreon"));
                 })
                 .AddSenderStorage()
-
+                
+                .AddTaskScheduling<ProcessMonthlyDonationsTask>()
+                
                 .AddQueuing(_ =>
                 {
                     _.UseLiteDb();

@@ -4,13 +4,15 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Miru;
-using Miru.Domain;
 using Miru.Mailing;
 using Miru.Mvc;
+using Miru.Queuing;
+using Miru.Scheduling;
 using Miru.Security;
 using Miru.Userfy;
 using Supportreon.Database;
 using Supportreon.Domain;
+using IJob = Miru.Queuing.IJob;
 
 namespace Supportreon.Features.Donations
 {
@@ -26,7 +28,7 @@ namespace Supportreon.Features.Donations
             public long ProjectId { get; set; }
             public decimal Amount { get; set; }
             public string CreditCard { get; set; }
-            
+            public bool IsRecurrent{ get; set; }
             public Project Project { get; set; }
         }
 
@@ -42,12 +44,14 @@ namespace Supportreon.Features.Donations
             private readonly SupportreonDbContext _db;
             private readonly IMailer _mailer;
             private readonly IUserSession<User> _userSession;
+            private readonly Tasks _tasks;
 
-            public Handler(SupportreonDbContext db, IMailer mailer, IUserSession<User> userSession)
+            public Handler(SupportreonDbContext db, IMailer mailer, IUserSession<User> userSession, Tasks tasks)
             {
                 _db = db;
                 _mailer = mailer;
                 _userSession = userSession;
+                _tasks = tasks;
             }
             
             public async Task<Command> Handle(Query request, CancellationToken ct)

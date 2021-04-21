@@ -5,7 +5,7 @@ namespace Miru.Queuing
     public static class MiruCron
     {
         /// <summary>Returns cron expression that fires every minute.</summary>
-        public static string Minutely() => "* * * * *";
+        public static string Minutely() => "* * * * * ?";
 
         /// <summary>
         /// Returns cron expression that fires every hour at the first minute.
