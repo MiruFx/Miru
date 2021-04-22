@@ -12,10 +12,5 @@ namespace Miru.Scheduling
             Execute();
             return Task.CompletedTask;
         }
-
-        public ScheduledTask()
-        {
-            Console.WriteLine("Calling parent constructor");
-        }
     }
 }

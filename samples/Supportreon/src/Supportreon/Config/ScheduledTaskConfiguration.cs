@@ -2,6 +2,7 @@ using Microsoft.Extensions.Logging;
 using Miru.Queuing;
 using Miru.Scheduling;
 using Quartz;
+using Supportreon.Features.Donations;
 
 namespace Supportreon.Config
 {
@@ -9,17 +10,20 @@ namespace Supportreon.Config
     {
         public void Configure(IServiceCollectionQuartzConfigurator configurator)
         {
-            configurator.ScheduleJob<ProcessMonthlyDonationsTask>(trigger => trigger
-                .WithIdentity("Combined Configuration Trigger")
-                .StartNow()
-                .WithDailyTimeIntervalSchedule(x => x.WithInterval(10, IntervalUnit.Second))
-                .WithDescription("my awesome trigger configured for a job with single call")
+            configurator.ScheduleJob<ProcessMonthlyDonationsTask>(
+                trigger => trigger
+                    .StartNow()
+                    .WithSimpleSchedule(_ => 
+                        _.WithIntervalInSeconds(30)
+                        .RepeatForever()) 
             );
         }
     }
+    
+    [DisallowConcurrentExecution]
     public class ProcessMonthlyDonationsTask : ScheduledTask
     {
-        private Jobs _jobs;
+        private readonly Jobs _jobs;
         private readonly ILogger<ProcessMonthlyDonationsTask> _logger;
 
         public ProcessMonthlyDonationsTask(Jobs jobs, ILogger<ProcessMonthlyDonationsTask> logger)
@@ -27,10 +31,10 @@ namespace Supportreon.Config
             _jobs = jobs;
             _logger = logger;
         }
-        
         protected override void Execute()
         {
-            _logger?.LogInformation("Task ProcessMonthlyDonationsTask running....");
+            _logger.LogInformation("Task ProcessMonthlyDonationsTask running....");
+            _jobs.PerformLater(new DonationRecurringChargeJob());
         }
     }
 }
