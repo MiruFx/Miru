@@ -12,12 +12,12 @@ namespace Miru.Tests.Validations
         {
             var validator = new Validator();
             
-            validator.ShouldHaveValidationErrorFor(x => x.Between10And20, new Dto() { Between10And20 = "9" });
-            validator.ShouldNotHaveValidationErrorFor(x => x.Between10And20, new Dto() { Between10And20 = "10" });
-            validator.ShouldNotHaveValidationErrorFor(x => x.Between10And20, new Dto() { Between10And20 = "11" });
-            validator.ShouldNotHaveValidationErrorFor(x => x.Between10And20, new Dto() { Between10And20 = "19" });
-            validator.ShouldNotHaveValidationErrorFor(x => x.Between10And20, new Dto() { Between10And20 = "20" });
-            validator.ShouldHaveValidationErrorFor(x => x.Between10And20, new Dto() { Between10And20 = "21" });
+            validator.ShouldHaveValidationErrorFor(x => x.Between10And20, new Dto() { Between10And20 = 9 });
+            validator.ShouldNotHaveValidationErrorFor(x => x.Between10And20, new Dto() { Between10And20 = 10 });
+            validator.ShouldNotHaveValidationErrorFor(x => x.Between10And20, new Dto() { Between10And20 = 11 });
+            validator.ShouldNotHaveValidationErrorFor(x => x.Between10And20, new Dto() { Between10And20 = 19 });
+            validator.ShouldNotHaveValidationErrorFor(x => x.Between10And20, new Dto() { Between10And20 = 20 });
+            validator.ShouldHaveValidationErrorFor(x => x.Between10And20, new Dto() { Between10And20 = 21 });
         }
         
         [Test]
@@ -25,10 +25,10 @@ namespace Miru.Tests.Validations
         {
             var validator = new Validator();
             
-            validator.ShouldHaveValidationErrorFor(x => x.Min50, new Dto() { Min50 = "49" });
-            validator.ShouldNotHaveValidationErrorFor(x => x.Min50, new Dto() { Min50 = "50" });
-            validator.ShouldNotHaveValidationErrorFor(x => x.Min50, new Dto() { Min50 = "51" });
-            validator.ShouldNotHaveValidationErrorFor(x => x.Min50, new Dto() { Min50 = long.MaxValue.ToString() });
+            validator.ShouldHaveValidationErrorFor(x => x.Min50, new Dto() { Min50 = 49 });
+            validator.ShouldNotHaveValidationErrorFor(x => x.Min50, new Dto() { Min50 = 50 });
+            validator.ShouldNotHaveValidationErrorFor(x => x.Min50, new Dto() { Min50 = 51 });
+            validator.ShouldNotHaveValidationErrorFor(x => x.Min50, new Dto() { Min50 = long.MaxValue });
         }
         
         [Test]
@@ -36,18 +36,16 @@ namespace Miru.Tests.Validations
         {
             var validator = new Validator();
             
-            validator.ShouldHaveValidationErrorFor(x => x.Numeric, new Dto() { Numeric = "a1" });
-            validator.ShouldNotHaveValidationErrorFor(x => x.Numeric, new Dto() { Numeric = "1" });
-            validator.ShouldNotHaveValidationErrorFor(x => x.Numeric, new Dto() { Numeric = long.MinValue.ToString() });
-            validator.ShouldNotHaveValidationErrorFor(x => x.Numeric, new Dto() { Numeric = long.MaxValue.ToString() });
-            validator.ShouldHaveValidationErrorFor(x => x.Numeric, new Dto() { Numeric = "xx" });
+            validator.ShouldNotHaveValidationErrorFor(x => x.Numeric, new Dto() { Numeric = 1 });
+            validator.ShouldNotHaveValidationErrorFor(x => x.Numeric, new Dto() { Numeric = long.MinValue });
+            validator.ShouldNotHaveValidationErrorFor(x => x.Numeric, new Dto() { Numeric = long.MaxValue });
         }
         
         public class Dto
         {
-            public string Between10And20 { get; set; }
-            public string Min50 { get; set; }
-            public string Numeric { get; set; }
+            public long Between10And20 { get; set; }
+            public long Min50 { get; set; }
+            public long Numeric { get; set; }
         }
 
         public class Validator : AbstractValidator<Dto>

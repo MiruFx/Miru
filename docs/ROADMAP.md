@@ -1,6 +1,6 @@
 # Miru Roadmap
 
-This is a Roadmap plan but not a commitment. It can change in the future.
+This Roadmap is a plan, but not a commitment. It can change in the future.
 
 ## Phases
 
@@ -13,9 +13,7 @@ This is a Roadmap plan but not a commitment. It can change in the future.
 
 - Queueing:
     - Different pipeline for _mediator.Send(job)
-    - Schedule jobs by time
     - Automated tests for Queueing features
-    - Consider using https://github.com/xavierjefferson/Hangfire.FluentNHibernateStorage?
     - Mediator Scoped
     - IsAdmin for Dashboard
 
@@ -29,9 +27,6 @@ This is a Roadmap plan but not a commitment. It can change in the future.
         - Save in file
         - Save in db
 
-- Urls:
-    - Import FubuMvc 'object to url'
-
 ### 0.7 - Apr - EfCore PostgreSql, FrontEnd
 
 - Consolable:
@@ -39,6 +34,13 @@ This is a Roadmap plan but not a commitment. It can change in the future.
   - Support execute for all environment '-e all'
   - IConsolable could be decorated with IMultipleEnvironment allowing run -e all
   - ConfigYmlFinder can search all config.$env.yml
+  
+- Queueing
+  - Support Hangfire to MySql and Postgres
+    - Consider using https://github.com/xavierjefferson/Hangfire.FluentNHibernateStorage?
+
+- Urls:
+  - Import FubuMvc 'object to url'
   
 ### 0.8 - Mai -
 

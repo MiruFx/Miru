@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,19 +20,19 @@ namespace Miru.Validation
             return rule.WithMessage("{PropertyName} has already been taken");
         }
         
-        public static IRuleBuilderOptions<T, string> Numeric<T>(this IRuleBuilder<T, string> ruleBuilder) 
+        public static IRuleBuilderOptions<T, long> Numeric<T>(this IRuleBuilder<T, long> ruleBuilder) 
         {
-            return ruleBuilder.SetValidator(new NumericValidator());
+            return ruleBuilder.SetValidator(new NumericValidator<T>());
         }
         
-        public static IRuleBuilderOptions<T, string> Numeric<T>(this IRuleBuilder<T, string> ruleBuilder, long min) 
+        public static IRuleBuilderOptions<T, long> Numeric<T>(this IRuleBuilder<T, long> ruleBuilder, long min) 
         {
-            return ruleBuilder.SetValidator(new NumericValidator(min));
+            return ruleBuilder.SetValidator(new NumericValidator<T>(min));
         }
         
-        public static IRuleBuilderOptions<T, string> Numeric<T>(this IRuleBuilder<T, string> ruleBuilder, long min, long max) 
+        public static IRuleBuilderOptions<T, long> Numeric<T>(this IRuleBuilder<T, long> ruleBuilder, long min, long max) 
         {
-            return ruleBuilder.SetValidator(new NumericValidator(min, max));
+            return ruleBuilder.SetValidator(new NumericValidator<T>(min, max));
         }
         
         public static DescriptorBuilder DescriptorFor(this IValidator validator, string propertyName)
@@ -50,7 +51,7 @@ namespace Miru.Validation
             var descriptor = validator.CreateDescriptor();
             var validators = descriptor.GetValidatorsForMember(propertyName);
 
-            return new DescriptorBuilder(validators);
+            return new DescriptorBuilder(validators.Select(x => x.Validator));
         }
     }
 }

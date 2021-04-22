@@ -15,28 +15,26 @@
         <PackageReference Include="Oakton" Version="3.1.0" />
         <PackageReference Include="NetEscapades.Configuration.Yaml" Version="2.1.0" />
         <PackageReference Include="YamlDotNet" Version="9.1.4" />
-        <PackageReference Include="Scrutor" Version="3.3.0" />
         <PackageReference Include="Scriban" Version="3.6.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.4" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.4" />
+        <PackageReference Include="Scrutor" Version="3.3.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.5" />
         <PackageReference Include="Humanizer.Core" Version="2.8.26" />
         
         <!-- Data -->
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.4" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.5" />
         <PackageReference Include="FluentMigrator" Version="3.2.15" />
         <PackageReference Include="FluentMigrator.Runner" Version="3.2.15" />
         
         <!-- Features -->
         <PackageReference Include="MediatR" Version="9.0.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
-        <PackageReference Include="FluentValidation" Version="9.5.3" />
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="9.5.3" />
+        <PackageReference Include="FluentValidation" Version="10.0.4" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.0.4" />
         
         <!-- Email -->
         <PackageReference Include="FluentEmail.Core" Version="3.0.0" />
         <PackageReference Include="FluentEmail.Smtp" Version="3.0.0" />
-        <PackageReference Include="Westwind.AspNetCore.Markdown" Version="3.5.0" />
         
         <!-- View -->
         <PackageReference Include="HtmlTags" Version="8.1.1" />
@@ -46,17 +44,18 @@
         <PackageReference Include="Serilog" Version="2.10.0" />
         <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
         <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
-        <PackageReference Include="Serilog.AspNetCore" Version="4.0.0" />
+        <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
         
         <!-- Queuing -->
-        <PackageReference Include="Hangfire.Core" Version="1.7.20" />
-        <PackageReference Include="Hangfire.AspNetCore" Version="1.7.20" />
+        <PackageReference Include="Hangfire.Core" Version="1.7.22" />
+        <PackageReference Include="Hangfire.AspNetCore" Version="1.7.22" />
 
         <!-- Storage -->
         <PackageReference Include="Emet.FileSystems" Version="0.0.3" />
         
         <!-- Userfy -->
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.4" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.5" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.5" />
         
     </ItemGroup>
     

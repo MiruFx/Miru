@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
 using HtmlTags;
 using HtmlTags.Conventions;
 using HtmlTags.Conventions.Elements;
 using HtmlTags.Conventions.Elements.Builders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,13 +36,18 @@ namespace Miru
                 o.ViewLocationFormats.Add("/{0}" + RazorViewEngine.ViewExtension);        
             });
 
-            var mvcCoreBuilder = services.AddMvcCore(opt =>
+            var mvcCoreBuilder = services.AddMvcCore(options =>
                 {
-                    opt.Filters.Add(typeof(AutoValidateAntiforgeryTokenAttribute));
-                    opt.Filters.Add(typeof(ExceptionFilter));
-                    opt.Filters.Add(typeof(ViewDataFilter));
+                    options.Filters.Add(typeof(AutoValidateAntiforgeryTokenAttribute));
+                    options.Filters.Add(typeof(ExceptionFilter));
+                    options.Filters.Add(typeof(ViewDataFilter));
 
-                    mvc?.Invoke(opt);
+                    var index = options.ValueProviderFactories
+                        .IndexOf(options.ValueProviderFactories.OfType<QueryStringValueProviderFactory>().Single());
+                    
+                    options.ValueProviderFactories[index] = new CulturedQueryStringValueProviderFactory();
+                    
+                    mvc?.Invoke(options);
                 })
                 .AddMiruActionResult()
                 .AddRazorRuntimeCompilation()

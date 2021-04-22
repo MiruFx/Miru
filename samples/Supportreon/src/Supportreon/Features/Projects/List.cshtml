@@ -21,11 +21,11 @@
                    
                     <h4 class="lead text-left">
                         <a for="@(new ProjectShow.Query { Id = Model.Results[i].Id })">
-                            <md for="@Model.Results[i].Name" />
+                            <miru-display for="@Model.Results[i].Name" />
                         </a>
                     </h4>
 
-                    <div><md for="@Model.Results[i].Description" /></div>
+                    <div><miru-display for="@Model.Results[i].Description" /></div>
                      
                 </div>
             }

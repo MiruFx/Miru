@@ -1,12 +1,15 @@
+using FluentValidation;
 using FluentValidation.Validators;
 
 namespace Miru.Validation
 {
-    public class NumericValidator : PropertyValidator 
+    public class NumericValidator<T> : PropertyValidator<T,long> 
     {
         private readonly long _min;
         private readonly long _max;
 
+        public override string Name => "NumericValidator";
+        
         public NumericValidator()
         {
             _min = long.MinValue;
@@ -25,7 +28,7 @@ namespace Miru.Validation
             _max = max;
         }
 
-        protected override string GetDefaultMessageTemplate()
+        protected override string GetDefaultMessageTemplate(string errorCode)
         {
             if (_min == default && _max == default)
                 return "'{PropertyName}' must be a number.";
@@ -36,17 +39,9 @@ namespace Miru.Validation
             return $"'{{PropertyName}}' must be a number between {_min} and {_max}.";
         }
 
-        protected override bool IsValid(PropertyValidatorContext context)
+        public override bool IsValid(ValidationContext<T> context, long value)
         {
-            var value = context.PropertyValue as string;
-
-            if (value == null)
-                return true;
-
-            if (long.TryParse(value, out var number) == false)
-                return false;
-
-            if (number >= _min && number <= _max)
+            if (value >= _min && value <= _max)
                 return true;
 
             return false;

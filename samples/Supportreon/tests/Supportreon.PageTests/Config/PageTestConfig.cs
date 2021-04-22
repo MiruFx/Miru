@@ -2,11 +2,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Miru.Core;
 using Miru.PageTesting;
-using Miru.PageTesting.Firefox;
+using Miru.PageTesting.Chrome;
 using Miru.Storages;
 using Miru.Testing;
 using Miru.Testing.Userfy;
-using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Chrome;
 using Supportreon.Domain;
 using Supportreon.Tests.Config;
 
@@ -23,9 +23,9 @@ namespace Supportreon.PageTests.Config
             services.AddPageTesting<User>(options =>
             {
                 if (OS.IsWindows)
-                    options.UseFirefox(new FirefoxOptions());
+                    options.UseChrome();
                 else
-                    options.UseFirefox(new FirefoxOptions().Headless());
+                    options.UseChrome(new ChromeOptions().Headless());
             });
 
             services.AddSingleton(sp => TestLoggerConfigurations.ForPageTest(sp.GetService<Storage>()));
@@ -42,17 +42,6 @@ namespace Supportreon.PageTests.Config
         }
         
         public IHostBuilder GetHostBuilder() => 
-            // MiruHost.CreateMiruHost<Startup>()
-            //     .ConfigureWebHostDefaults(host =>
-            //     {
-            //         // we don't want the tests fail because there is no tcp port available
-            //         // so here, listen to any available port
-            //         host.UseKestrelAnyLocalPort();
-            //     })
-            //     .UseDefaultServiceProvider((context, options) =>
-            //     {
-            //         options.ValidateScopes = context.HostingEnvironment.IsDevelopmentOrTest();
-            //     });
             TestMiruHost.CreateMiruHost<Startup>();
     }
 }

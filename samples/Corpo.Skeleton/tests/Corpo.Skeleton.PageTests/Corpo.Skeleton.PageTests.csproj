@@ -8,9 +8,9 @@
     <ItemGroup>
         <ProjectReference Include="..\..\..\..\src\Miru.PageTesting\Miru.PageTesting.csproj" />
         <ProjectReference Include="..\..\..\..\src\Miru.PageTesting.Chrome\Miru.PageTesting.Chrome.csproj" />
-        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="89.0.4389.2300" />
+        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="90.0.4430.2400" />
         <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     </ItemGroup>
 
     <ItemGroup>

@@ -26,7 +26,7 @@
                 <tr>
                     <td>
                         <a for="@(new {{ input.Name }}Show.Query { Id = item.Id })">
-                            <md for="Items[i].Name"/>
+                            <miru-display for="Items[i].Name"/>
                         </a>
                     </td>
                     <td>

@@ -15,6 +15,7 @@ namespace Miru.Fabrication
         public readonly Faker Faker;
         
         private readonly FabSupport _support;
+        private readonly Dictionary<Type, object> _defaultsWith = new();
 
         public Fabricator(FabSupport support)
         {
@@ -31,7 +32,18 @@ namespace Miru.Fabrication
         {
             var customFactory = FabFor<T>();
 
-            T fabricated = customFactory != null ? customFactory.Make() : Fixture.Create<T>();
+            T fabricated;
+
+            if (_defaultsWith.TryGetValue(typeof(T), out var defaultWithObject))
+            {
+                var defaultWith = (Action<T, Faker>) defaultWithObject;
+                fabricated = Fixture.Create<T>();
+                defaultWith(fabricated, Faker);
+            }
+            else
+            {
+                fabricated = customFactory != null ? customFactory.Make() : Fixture.Create<T>();    
+            }
 
             Session.Add(fabricated);
             
@@ -51,8 +63,24 @@ namespace Miru.Fabrication
         {
             var customFactory = FabFor<T>();
             
-            var allMade = customFactory != null ? customFactory.MakeMany(count) : Fixture.CreateMany<T>(count);
+            IEnumerable<T> allMade;
 
+            if (_defaultsWith.TryGetValue(typeof(T), out var defaultWithObject))
+            {
+                var defaultWith = (Action<T, Faker>) defaultWithObject;
+                
+                allMade = Fixture.CreateMany<T>();
+                
+                foreach (var made in allMade)
+                {
+                    defaultWith(made, Faker);    
+                }
+            }
+            else
+            {
+                allMade = customFactory != null ? customFactory.MakeMany(count) : Fixture.CreateMany<T>(count); 
+            }
+            
             foreach (var oneMade in allMade)
             {
                 customization?.Invoke(oneMade);
@@ -108,30 +136,16 @@ namespace Miru.Fabrication
                 .FirstOrDefault(t => t is ICustomFabricator<TModel>);
         }
 
-        protected void With<T>(Action<T> action) where T : new()
+        protected void WithDefault<T>(Action<T> action) where T : new()
         {
-            Fixture.AddConvention(_ =>
-            {
-                _.IfClassIs<T>().Use(f =>
-                {
-                    var model = new T();
-                    action(model);
-                    return model;
-                });
-            });
+            Action<T, Faker> actionWithFaker = (arg1, faker) => action(arg1);
+            
+            WithDefault(actionWithFaker);
         }
         
-        protected void With<T>(Action<T, Faker> action) where T : new()
+        protected void WithDefault<T>(Action<T, Faker> action) where T : new()
         {
-            Fixture.AddConvention(_ =>
-            {
-                _.IfClassIs<T>().Use(faker =>
-                {
-                    var model = new T();
-                    action(model, faker);
-                    return model;
-                });
-            });
+            _defaultsWith.AddOrUpdate(typeof(T), action);
         }
     }
 }

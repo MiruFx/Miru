@@ -155,7 +155,7 @@ Now we have the information to render the view, showing the Project's name and i
         <span class="col-sm-3 col-form-label"></span>
 
         <div class="col-sm-9">
-            <md for="Project.Name"/>
+            <miru-display for="Project.Name"/>
         </div>
     </div>
 
@@ -165,7 +165,7 @@ Now we have the information to render the view, showing the Project's name and i
         <div class="col-sm-9">
             <miru-input for="Amount"/>
             <small class="form-text text-muted">
-                Minimum amount is <md for="Project.MinimumDonation" class="font-weight-bold"/>
+                Minimum amount is <miru-display for="Project.MinimumDonation" class="font-weight-bold"/>
             </small>
         </div>
     </div>

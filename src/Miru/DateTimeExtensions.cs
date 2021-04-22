@@ -18,5 +18,10 @@ namespace Miru
         {
             return new DateTime(date.Year, date.Month, date.Day);
         }
+        
+        public static DateTime Future(this TimeSpan time)
+        {
+            return DateTime.Now.Add(time);
+        }
     }
 }

@@ -304,11 +304,15 @@ namespace Miru.Tests.Fabrication
             var customer1 = _fabricator.Make<Customer>();
             customer1.Status.ShouldBe("regular-buyer");
             customer1.IsActive.ShouldBeTrue();
+            customer1.Address.ShouldNotBeNull();
+            customer1.Rank.ShouldBe(10);
             
             var customer2 = _fabricator.Make<Customer>();
             customer2.Status.ShouldBe("regular-buyer");
             customer2.IsActive.ShouldBeTrue();
-
+            customer2.Address.ShouldNotBeNull();
+            customer2.Rank.ShouldBe(10);
+            
             var paymentProvider = _fabricator.Make<PaymentProvider>();
             paymentProvider.Name.ShouldBeOneOf("PayPal", "Stripe");
         }
@@ -317,13 +321,18 @@ namespace Miru.Tests.Fabrication
         {
             public ThisFabricator(FabSupport support) : base(support)
             {
-                With<Customer>(x =>
+                support.Fixture.AddConvention(_ =>
+                {
+                    _.IfPropertyNameIs(nameof(Customer.Rank)).Use(10);
+                });
+                
+                WithDefault<Customer>(x =>
                 {
                     x.Status = "regular-buyer";
                     x.IsActive = true;
                 });
 
-                With<PaymentProvider>((x, faker) =>
+                WithDefault<PaymentProvider>((x, faker) =>
                 {
                     x.Name = faker.PickRandom("PayPal", "Stripe");
                 });
@@ -386,6 +395,10 @@ namespace Miru.Tests.Fabrication
         public class Customer
         {
             public bool IsActive { get; set; }
+            public Address Address { get; set; }
+            
+            // should set as FixtureConvention
+            public int Rank { get; set; }
             
             // usually status would be strong typed. it is string just for the test sake
             public string Status { get; set; } 

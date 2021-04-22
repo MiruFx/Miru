@@ -56,6 +56,14 @@ namespace Miru.Tests.Html.TagHelpers
         public class Command
         {
             public string Title { get; set; }
-        }    
+        }
+    }
+    
+    public class PostArchive
+    {
+        public class Query
+        {
+            public string ToDate { get; set; }
+        }
     }
 }

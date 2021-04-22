@@ -15,7 +15,7 @@ namespace Miru.Html
             if (validator == null)
                 return false;
 
-            if (validator.DescriptorFor(elementRequest.Accessor.Name).Has<NotEmptyValidator>())
+            if (validator.DescriptorFor(elementRequest.Accessor.Name).Has(typeof(NotEmptyValidator<,>)))
                 return true;
 
             var childValidator = (IValidator) elementRequest.Get(typeof(IValidator<>).MakeGenericType(elementRequest.Accessor.OwnerType));
@@ -23,7 +23,7 @@ namespace Miru.Html
             if (childValidator == null)
                 return false;
 
-            if (childValidator.DescriptorFor(elementRequest.Accessor.InnerProperty.Name).Has<NotEmptyValidator>())
+            if (childValidator.DescriptorFor(elementRequest.Accessor.InnerProperty.Name).Has(typeof(NotEmptyValidator<,>)))
                 return true;
             
             return false;

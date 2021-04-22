@@ -56,7 +56,8 @@ namespace Miru.Html.Tags
             
             if (childContent.IsEmptyOrWhiteSpace == false)
             {
-                tag.Text(childContent.GetContent());
+                tag.AppendHtml(childContent.GetContent());
+                tag.Text(string.Empty);
                 childContent.Clear();
             }
 
@@ -65,8 +66,20 @@ namespace Miru.Html.Tags
                 tag.Attr(attribute.Name, attribute.Value);
             }
 
-            output.TagName = null;
-            output.PreElement.AppendHtml(tag);
+            if (childContent.IsModified)
+            {
+                output.TagName = null;
+                output.PreElement.AppendHtml(tag);
+                output.PreContent.Clear();
+                output.Content.Clear();
+                output.PostElement.Clear();
+                output.PostContent.Clear();
+            }
+            else
+            {
+                output.TagName = null;
+                output.PreElement.AppendHtml(tag);
+            }
         }
     }
 }

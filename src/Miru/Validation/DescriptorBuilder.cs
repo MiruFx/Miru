@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using FluentValidation.Internal;
 using FluentValidation.Validators;
 
 namespace Miru.Validation
@@ -13,10 +15,9 @@ namespace Miru.Validation
             _validators = validators;
         }
 
-        public bool Has<T>()
-        {
-            return _validators.OfType<T>().Any();
-        }
+        public bool Has<T>() => _validators.OfType<T>().Any();
+        
+        public bool Has(Type type) => _validators.Any(t => t.GetType() == type);
 
         public T Get<T>() where T : IPropertyValidator
         {

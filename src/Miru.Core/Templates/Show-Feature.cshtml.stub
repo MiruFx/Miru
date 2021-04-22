@@ -15,7 +15,7 @@
                         <mdl for="{{ input.Name }}.Name" />
                     </dt>
                     <dd>
-                        <md for="{{ input.Name }}.Name"/>
+                        <miru-display for="{{ input.Name }}.Name"/>
                     </dd>
                 </dl>
 

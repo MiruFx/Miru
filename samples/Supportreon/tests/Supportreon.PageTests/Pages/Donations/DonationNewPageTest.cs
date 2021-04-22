@@ -20,6 +20,9 @@ namespace Supportreon.PageTests.Pages.Donations
 
             _.Form<DonationNew.Command>((f, command) =>
             {
+                // check override label content
+                f.ShouldHaveText("Donation Amount");
+                
                 f.Input(m => m.Amount, command.Amount);
                 f.Input(m => m.CreditCard, command.CreditCard);
                 

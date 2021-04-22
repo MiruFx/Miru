@@ -26,12 +26,16 @@ namespace Supportreon
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMiru<Startup>()
-                .AddSerilogConfig(_ =>
-                {
-                    _.Miru(LogEventLevel.Information);
-                    _.EntityFrameworkSql(LogEventLevel.Information);
-                    _.Authentication(LogEventLevel.Information);
-                })
+                
+                .AddSerilogConfig()
+                
+                // .AddSerilogConfig(_ =>
+                // {
+                //     _.Miru(LogEventLevel.Debug);
+                //     _.EntityFrameworkSql(LogEventLevel.Debug);
+                //     _.Authentication(LogEventLevel.Debug);
+                //     _.AspNet(LogEventLevel.Debug);
+                // })
 
                 .AddDefaultPipeline<Startup>()
 
