@@ -68,7 +68,7 @@ namespace Supportreon
                 })
                 .AddSenderStorage()
                 
-                .AddTaskScheduling<ProcessMonthlyDonationsTask>()
+                .AddTaskScheduling<ScheduledTaskConfiguration>()
                 
                 .AddQueuing(_ =>
                 {

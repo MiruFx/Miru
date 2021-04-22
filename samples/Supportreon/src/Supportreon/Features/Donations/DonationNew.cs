@@ -44,14 +44,12 @@ namespace Supportreon.Features.Donations
             private readonly SupportreonDbContext _db;
             private readonly IMailer _mailer;
             private readonly IUserSession<User> _userSession;
-            private readonly Tasks _tasks;
 
-            public Handler(SupportreonDbContext db, IMailer mailer, IUserSession<User> userSession, Tasks tasks)
+            public Handler(SupportreonDbContext db, IMailer mailer, IUserSession<User> userSession)
             {
                 _db = db;
                 _mailer = mailer;
                 _userSession = userSession;
-                _tasks = tasks;
             }
             
             public async Task<Command> Handle(Query request, CancellationToken ct)

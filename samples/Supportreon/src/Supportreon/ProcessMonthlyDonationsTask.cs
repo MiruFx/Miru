@@ -15,9 +15,9 @@ namespace Supportreon
             _logger = logger;
         }
         
-        public override void Execute()
+        protected override void Execute()
         {
-            _logger.LogInformation("Running task....");
+            _logger?.LogInformation("Task ProcessMonthlyDonationsTask running....");
         }
     }
 }

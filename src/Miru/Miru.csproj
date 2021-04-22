@@ -77,6 +77,11 @@
       <Compile Remove="Scheduling\Schedule.cs" />
       <Compile Remove="Scheduling\ScheduleHandler.cs" />
       <Compile Remove="Scheduling\ScheduleRunConsolable.cs" />
+      <Compile Remove="Scheduling\Tasks.cs" />
+      <Compile Remove="Scheduling\TaskHostedService.cs" />
+      <Compile Remove="Scheduling\TaskFactory.cs" />
+      <Compile Remove="Scheduling\Schedulable.cs" />
+      <Compile Remove="Scheduling\ScheduledTaskConfiguration.cs" />
     </ItemGroup>
 
 </Project>
