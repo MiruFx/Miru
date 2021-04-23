@@ -18,7 +18,7 @@ namespace Miru.Security
         {
             var featureInfo = new FeatureInfo(typeof(TRequest));
             
-            if (featureInfo.Implements<IJob>())
+            if (featureInfo.Implements<IMiruJob>())
                 return await next();
             
             var result = await _rules.Evaluate(request, featureInfo);

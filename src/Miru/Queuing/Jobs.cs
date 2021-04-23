@@ -13,7 +13,7 @@ namespace Miru.Queuing
             _backgroundJobClient = backgroundJobClient;
         }
 
-        public void PerformLater<TJob>(TJob job) where TJob : IJob
+        public void PerformLater<TJob>(TJob job) where TJob : IMiruJob
         {
             _backgroundJobClient.Enqueue<JobFor<TJob>>(m => m.Execute(job, CancellationToken.None));
         }

@@ -73,7 +73,7 @@ namespace Miru.Tests.Queuing
     {
     }
 
-    public class CustomerNew : IJob
+    public class CustomerNew : IMiruJob
     {
         // job info
         public long CustomerId { get; set; }
@@ -94,7 +94,7 @@ namespace Miru.Tests.Queuing
         }
     }
 
-    public class ScopedJob : IJob
+    public class ScopedJob : IMiruJob
     {
         public static bool Processed { get; set; }
         

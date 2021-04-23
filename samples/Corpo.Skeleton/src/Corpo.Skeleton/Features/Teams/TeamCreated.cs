@@ -7,7 +7,7 @@ namespace Corpo.Skeleton.Features.Teams
 {
     public class TeamCreated
     {
-        public class Job : IJob
+        public class Job : IMiruJob
         {
         }
 
