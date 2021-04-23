@@ -10,12 +10,11 @@ namespace Supportreon.Config
     {
         public void Configure(IServiceCollectionQuartzConfigurator configurator)
         {
+            //All scheduled tasks could be registered here. Each one with its own trigger configuration
             configurator.ScheduleJob<ProcessMonthlyDonationsTask>(
                 trigger => trigger
                     .StartNow()
-                    .WithSimpleSchedule(_ => 
-                        _.WithIntervalInSeconds(30)
-                        .RepeatForever()) 
+                    .WithSchedule(CronScheduleBuilder.MonthlyOnDayAndHourAndMinute(1, 12, 0))
             );
         }
     }
@@ -33,8 +32,7 @@ namespace Supportreon.Config
         }
         protected override void Execute()
         {
-            _logger.LogInformation("Task ProcessMonthlyDonationsTask running....");
-            _jobs.PerformLater(new DonationRecurringChargeJob());
+            _jobs.PerformLater(new DonationRecurringChargeMiruJob());
         }
     }
 }

@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Miru;
 using Miru.Mailing;
 using Miru.Mvc;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Miru.Queuing;
-using Miru.Scheduling;
 using Miru.Security;
 using Miru.Userfy;
 using Supportreon.Database;
 using Supportreon.Domain;
-using IJob = Miru.Queuing.IJob;
 
 namespace Supportreon.Features.Donations
 {

@@ -3,7 +3,7 @@ using Quartz;
 
 namespace Miru.Scheduling
 {
-    public static class TasksSchedulingServiceCollectionExtensions
+    public static class SchedulingServiceCollectionExtensions
     {
         public static IServiceCollection AddTaskScheduling<TSchedule>(this IServiceCollection services) 
             where TSchedule : IScheduledTaskConfiguration, new()
