@@ -37,6 +37,7 @@ Has to be .Sdk.Web to allow unit test asp.net components correctly
     <None Update="Mailing\Welcome.mail.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Remove="Scheduling\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,6 +46,18 @@ Has to be .Sdk.Web to allow unit test asp.net components correctly
 
   <ItemGroup>
     <Folder Include="Scoping" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Scheduling\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Scheduling\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Scheduling\**" />
   </ItemGroup>
 
 </Project>
