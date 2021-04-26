@@ -1,11 +1,11 @@
 using System;
 
-namespace Miru.Queuing
+namespace Miru.Scheduling
 {
     public static class MiruCron
     {
         /// <summary>Returns cron expression that fires every minute.</summary>
-        public static string Minutely() => "* * * * *";
+        public static string Minutely() => "0 0/1 * 1/1 * ?";
 
         /// <summary>
         /// Returns cron expression that fires every hour at the first minute.
@@ -16,7 +16,7 @@ namespace Miru.Queuing
         /// Returns cron expression that fires every hour at the specified minute.
         /// </summary>
         /// <param name="minute">The minute in which the schedule will be activated (0-59).</param>
-        public static string Hourly(int minute) => $"{minute} * * * *";
+        public static string Hourly(int minute) => $"{minute} * * * * ?";
 
         /// <summary>
         /// Returns cron expression that fires every day at 00:00 UTC.
@@ -36,7 +36,7 @@ namespace Miru.Queuing
         /// </summary>
         /// <param name="hour">The hour in which the schedule will be activated (0-23).</param>
         /// <param name="minute">The minute in which the schedule will be activated (0-59).</param>
-        public static string Daily(int hour, int minute) => $"{minute} {hour} * * *";
+        public static string Daily(int hour, int minute) => $"{minute} {hour} * * * ?";
 
         /// <summary>
         /// Returns cron expression that fires every week at Monday, 00:00 UTC.
@@ -65,7 +65,7 @@ namespace Miru.Queuing
         /// <param name="dayOfWeek">The day of week in which the schedule will be activated.</param>
         /// <param name="hour">The hour in which the schedule will be activated (0-23).</param>
         /// <param name="minute">The minute in which the schedule will be activated (0-59).</param>
-        public static string Weekly(DayOfWeek dayOfWeek, int hour, int minute) => $"{minute} {hour} * * {(int) dayOfWeek}";
+        public static string Weekly(DayOfWeek dayOfWeek, int hour, int minute) => $"{minute} {hour} * * {(int) dayOfWeek} ?";
 
         /// <summary>
         /// Returns cron expression that fires every month at 00:00 UTC of the first
@@ -100,7 +100,7 @@ namespace Miru.Queuing
         /// <param name="day">The day of month in which the schedule will be activated (1-31).</param>
         /// <param name="hour">The hour in which the schedule will be activated (0-23).</param>
         /// <param name="minute">The minute in which the schedule will be activated (0-59).</param>
-        public static string Monthly(int day, int hour, int minute) => $"{minute} {hour} {day} * *";
+        public static string Monthly(int day, int hour, int minute) => $"{minute} {hour} {day} * * ?";
 
         /// <summary>
         /// Returns cron expression that fires every year on Jan, 1st at 00:00 UTC.
@@ -145,7 +145,7 @@ namespace Miru.Queuing
         /// <param name="day">The day of month in which the schedule will be activated (1-31).</param>
         /// <param name="hour">The hour in which the schedule will be activated (0-23).</param>
         /// <param name="minute">The minute in which the schedule will be activated (0-59).</param>
-        public static string Yearly(int month, int day, int hour, int minute) => $"{minute} {hour} {day} {month} *";
+        public static string Yearly(int month, int day, int hour, int minute) => $"{minute} {hour} {day} {month} * ?";
 
         /// <summary>
         /// Returns cron expression that never fires. Specifically 31st of February

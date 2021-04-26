@@ -31,7 +31,7 @@ namespace Miru.Testing
                 .Count;
         }
 
-        public static bool EnqueuedOneJobFor<TJob>(this ITestFixture fixture) where TJob : IJob
+        public static bool EnqueuedOneJobFor<TJob>(this ITestFixture fixture) where TJob : IMiruJob
         {
             return fixture.Get<JobStorage>()
                 .GetMonitoringApi()
@@ -40,7 +40,7 @@ namespace Miru.Testing
                 .Count(enqueueJob => enqueueJob.Job.Args[0].GetType() == typeof(TJob)) == 1;
         }
         
-        public static TJob EnqueuedJob<TJob>(this ITestFixture fixture) where TJob : IJob
+        public static TJob EnqueuedJob<TJob>(this ITestFixture fixture) where TJob : IMiruJob
         {
             var entry = fixture.Get<JobStorage>()
                 .GetMonitoringApi()
@@ -54,7 +54,7 @@ namespace Miru.Testing
             return (TJob) entry.Job.Args[0];
         }
         
-        public static IEnumerable<TJob> EnqueuedJobs<TJob>(this ITestFixture fixture) where TJob : IJob
+        public static IEnumerable<TJob> EnqueuedJobs<TJob>(this ITestFixture fixture) where TJob : IMiruJob
         {
             var entry = fixture.Get<JobStorage>()
                 .GetMonitoringApi()

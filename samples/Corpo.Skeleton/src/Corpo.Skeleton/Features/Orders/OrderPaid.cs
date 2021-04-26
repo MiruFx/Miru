@@ -8,7 +8,7 @@ namespace Corpo.Skeleton.Features.Orders
     // #job
     public class OrderPaid
     {
-        public class Request : IJob
+        public class Request : IMiruJob
         {
         }
         
