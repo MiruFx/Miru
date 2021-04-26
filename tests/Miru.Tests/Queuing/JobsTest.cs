@@ -68,41 +68,12 @@ namespace Miru.Tests.Queuing
 
             ScopedJob.Processed.ShouldBeTrue();
         }
-        
-        [Test]
-        public void Should_process_recurrent_job()
-        {
-            var job = new CustomerNew();
-            
-            _jobs.PerformLater(job, MiruCron.Monthly());
-
-            Task.Run(() =>
-            {
-                _.EnqueuedOneJobFor<IJob>().ShouldBeTrue();
-            });
-        }
-        
-        [Test]
-        public async Task Should_remove_recurrent_job()
-        {
-            string jobId = null;
-
-            var jobFound = 
-                await Task.Run(() =>
-                {
-                    jobId = _jobs.PerformLater(new CustomerNew(), MiruCron.Monthly());
-                })
-                .ContinueWith(taskPerforming => _jobs.RemoveIfExists(jobId))
-                .ContinueWith(taskRemoving => Task.Run(() => _.EnqueuedOneJobFor<IJob>()));
-            
-            jobFound.Result.ShouldBeFalse();
-        }
     }
     public class SomeService
     {
     }
 
-    public class CustomerNew : IJob
+    public class CustomerNew : IMiruJob
     {
         // job info
         public long CustomerId { get; set; }
@@ -123,7 +94,7 @@ namespace Miru.Tests.Queuing
         }
     }
 
-    public class ScopedJob : IJob
+    public class ScopedJob : IMiruJob
     {
         public static bool Processed { get; set; }
         

@@ -54,7 +54,7 @@ The class's file can be placed in the Feature's folder. Examples:
 
 ### Request
 
-The Job's Request holds the input data that will be used by the Handler when the job is processed. It is a class that implements ```IJob```.
+The Job's Request holds the input data that will be used by the Handler when the job is processed. It is a class that implements ```IMiruJob```.
 
 @[code lang=csharp transcludeWith=#jobrequest](@/samples/Skeleton/src/Skeleton/Features/Orders/OrderPlaced.cs)
 

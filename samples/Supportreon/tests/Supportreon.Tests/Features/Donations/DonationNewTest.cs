@@ -54,6 +54,7 @@ namespace Supportreon.Tests.Features.Donations
             savedDonation.Amount.ShouldBe(command.Amount);
             savedDonation.CreditCard.ShouldBe(command.CreditCard);
             savedDonation.UserId.ShouldBe(_.CurrentUserId());
+            savedDonation.IsRecurrent.ShouldBe(command.IsRecurrent);
 
             var savedProject = _.Db(db => db.Projects.First());
             savedProject.TotalAmount.ShouldBe(project.TotalAmount + command.Amount);
