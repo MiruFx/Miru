@@ -15,7 +15,7 @@ namespace Miru.Scheduling
             
             services.AddQuartz(q =>
             {
-                q.UseMicrosoftDependencyInjectionScopedJobFactory();
+                q.UseMicrosoftDependencyInjectionJobFactory();
 
                 var taskConfig = new TSchedule();
                 taskConfig.Configure(q);

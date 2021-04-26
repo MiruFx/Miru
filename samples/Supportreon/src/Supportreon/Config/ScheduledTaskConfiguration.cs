@@ -1,7 +1,9 @@
-using Microsoft.Extensions.Logging;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Miru.Queuing;
 using Miru.Scheduling;
 using Quartz;
+using Supportreon.Database;
 using Supportreon.Features.Donations;
 
 namespace Supportreon.Config
@@ -23,16 +25,28 @@ namespace Supportreon.Config
     public class ProcessMonthlyDonationsTask : ScheduledTask
     {
         private readonly Jobs _jobs;
-        private readonly ILogger<ProcessMonthlyDonationsTask> _logger;
+        private readonly SupportreonDbContext _db;
 
-        public ProcessMonthlyDonationsTask(Jobs jobs, ILogger<ProcessMonthlyDonationsTask> logger)
+        public ProcessMonthlyDonationsTask(Jobs jobs, 
+            SupportreonDbContext db)
         {
+            _db = db;
             _jobs = jobs;
-            _logger = logger;
         }
-        protected override void Execute()
+        protected override async void Execute()
         {
-            _jobs.PerformLater(new DonationRecurringChargeMiruJob());
+            var recurrentDonations = await _db.Donations
+                .Where(donation => donation.IsRecurrent)
+                .ToListAsync(default);
+
+            recurrentDonations.ForEach(donation =>
+            {
+                //New queued job to charge the donation
+                _jobs.PerformLater(new ProcessMonthlyDonationsJob()
+                {
+                    DonationId = donation.Id
+                });
+            });
         }
     }
 }
