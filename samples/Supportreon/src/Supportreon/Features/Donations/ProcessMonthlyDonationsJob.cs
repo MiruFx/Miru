@@ -10,7 +10,7 @@ namespace Supportreon.Features.Donations
 {
     public class ProcessMonthlyDonationsJob : IMiruJob
     {
-        public  long DonationId { get; init; }
+        public long DonationId { get; init; }
 
         public class Handler : IRequestHandler<ProcessMonthlyDonationsJob>
         {
@@ -27,7 +27,6 @@ namespace Supportreon.Features.Donations
             {
                 var donation = await _db.Donations.ByIdOrFailAsync(request.DonationId, ct);
                 
-                //Perform donation
                 _logger.LogInformation($"Was charged the donation with id {donation.Id}");
 
                 return await Unit.Task;

@@ -28,37 +28,7 @@ Has to be .Sdk.Web to allow unit test asp.net components correctly
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Views\Home\Html.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Views\Orders\Cancel.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Mailing\Welcome.mail.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Remove="Scheduling\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\Customers\Show.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Scoping" />
-    <Folder Include="Turbo" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Scheduling\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Remove="Scheduling\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Scheduling\**" />
   </ItemGroup>
 
 </Project>

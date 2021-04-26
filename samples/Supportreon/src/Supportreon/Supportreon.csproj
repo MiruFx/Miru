@@ -14,9 +14,4 @@
         <ProjectReference Include="..\..\..\..\src\Miru.Sqlite\Miru.Sqlite.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Compile Remove="Config\ScheduledTasks.cs" />
-      <Compile Remove="ProcessMonthlyDonationsTask.cs" />
-    </ItemGroup>
-  
 </Project>

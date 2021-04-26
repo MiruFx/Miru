@@ -1,7 +1,6 @@
-using System;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
+using Miru.Foundation.Hosting;
 using Miru.Scheduling;
 using Miru.Testing;
 using NUnit.Framework;
@@ -12,61 +11,55 @@ namespace Miru.Tests.Scheduling
 {
     public class ScheduledTaskTest
     {
-        private ServiceProvider _sp;
-        private ITestFixture _;
-        private IHostedService _server;
-        
-        [OneTimeSetUp]
-        public void Setup()
-        {
-            _sp = new ServiceCollection()
-                .AddMediatR(typeof(ScheduledTaskTest).Assembly)
-                .AddMiruTestFixture()
-                .AddTaskScheduling<MockScheduledTaskConfiguration>()
-                .BuildServiceProvider();
-
-            _ = _sp.GetService<ITestFixture>();
-            _server = _sp.GetService<IHostedService>();
-            
-            _server?.StartAsync(default);
-        }
-        
-        [OneTimeTearDown]
-        public void TearDown()
-        {
-            _server.StopAsync(default);
-        }
-
         [Test]
-        public void Should_Process_ScheduledTask()
+        public async Task Should_process_a_scheduled_task()
         {
-            Execute.Until(() => SomeTask.Processed, TimeSpan.FromSeconds(15));
-            SomeTask.Processed.ShouldBeTrue();
+            // arrange
+            var hostBuilder = MiruHost
+                .CreateMiruHost()
+                .ConfigureServices(services =>
+                {
+                    services.AddMiruTestFixture()
+                        .AddTaskScheduling<ScheduledTaskConfig>();
+                });
+
+            // act
+            await hostBuilder.RunMiruAsync();
+            
+            SomeTask.Executed.ShouldBeTrue();
         }
         
-        public class MockScheduledTaskConfiguration : IScheduledTaskConfiguration
+        public class ScheduledTaskConfig : IScheduledTaskConfiguration
         {
             public void Configure(IServiceCollectionQuartzConfigurator configurator)
             {
                 configurator.ScheduleJob<SomeTask>(
                     trigger => trigger
-                        .StartNow() 
-                        .WithSimpleSchedule(x => x
-                            .WithIntervalInSeconds(1)
-                            .RepeatForever())
+                        .StartNow()
+                        .WithSimpleSchedule(x => x.WithRepeatCount(0))
                 );
             }
         }
 
         public class SomeTask : ScheduledTask
         {
-            public static bool Processed { get; set; }
+            private readonly IHostApplicationLifetime _lifetime;
             
-            protected override void Execute()
+            public static bool Executed { get; set; }
+
+            public SomeTask(IHostApplicationLifetime lifetime)
             {
-                Processed = true;
+                _lifetime = lifetime;
+            }
+
+            protected override Task ExecuteAsync()
+            {
+                Executed = true;
+                
+                _lifetime.ApplicationStarted.Register(_lifetime.StopApplication);
+                
+                return Task.CompletedTask;
             }
         }
-
     }
 }

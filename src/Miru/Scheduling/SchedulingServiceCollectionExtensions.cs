@@ -5,8 +5,8 @@ namespace Miru.Scheduling
 {
     public static class SchedulingServiceCollectionExtensions
     {
-        public static IServiceCollection AddTaskScheduling<TSchedule>(this IServiceCollection services) 
-            where TSchedule : IScheduledTaskConfiguration, new()
+        public static IServiceCollection AddTaskScheduling<TScheduleConfig>(this IServiceCollection services) 
+            where TScheduleConfig : IScheduledTaskConfiguration, new()
         {
             services.AddQuartzHostedService(options =>
             {
@@ -17,7 +17,7 @@ namespace Miru.Scheduling
             {
                 q.UseMicrosoftDependencyInjectionJobFactory();
 
-                var taskConfig = new TSchedule();
+                var taskConfig = new TScheduleConfig();
                 taskConfig.Configure(q);
             });
             

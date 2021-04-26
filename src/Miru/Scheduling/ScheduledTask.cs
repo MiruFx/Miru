@@ -5,11 +5,11 @@ namespace Miru.Scheduling
 {
     public abstract class ScheduledTask : IJob
     {
-        protected abstract void Execute();
-        public Task Execute(IJobExecutionContext context)
+        protected abstract Task ExecuteAsync();
+        
+        public async Task Execute(IJobExecutionContext context)
         {
-            Execute();
-            return Task.CompletedTask;
+            await ExecuteAsync();
         }
     }
 }
