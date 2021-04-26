@@ -4,9 +4,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Miru;
-using Miru.Domain;
 using Miru.Mailing;
 using Miru.Mvc;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Miru.Queuing;
 using Miru.Security;
 using Miru.Userfy;
 using Supportreon.Database;
@@ -26,7 +28,7 @@ namespace Supportreon.Features.Donations
             public long ProjectId { get; set; }
             public decimal Amount { get; set; }
             public string CreditCard { get; set; }
-            
+            public bool IsRecurrent{ get; set; }
             public Project Project { get; set; }
         }
 

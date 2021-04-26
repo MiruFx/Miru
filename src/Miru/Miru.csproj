@@ -14,6 +14,9 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
         <PackageReference Include="Oakton" Version="3.1.0" />
         <PackageReference Include="NetEscapades.Configuration.Yaml" Version="2.1.0" />
+        <PackageReference Include="Quartz" Version="3.3.2" />
+        <PackageReference Include="Quartz.AspNetCore" Version="3.3.2" />
+        <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.3.2" />
         <PackageReference Include="YamlDotNet" Version="9.1.4" />
         <PackageReference Include="Scrutor" Version="3.3.0" />
         <PackageReference Include="Scriban" Version="3.6.0" />
@@ -66,6 +69,19 @@
 
     <ItemGroup>
         <EmbeddedResource Include="**/*.stub" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Scheduling\SchedulingBuilder.cs" />
+      <Compile Remove="Scheduling\ITask.cs" />
+      <Compile Remove="Scheduling\Schedule.cs" />
+      <Compile Remove="Scheduling\ScheduleHandler.cs" />
+      <Compile Remove="Scheduling\ScheduleRunConsolable.cs" />
+      <Compile Remove="Scheduling\Tasks.cs" />
+      <Compile Remove="Scheduling\TaskHostedService.cs" />
+      <Compile Remove="Scheduling\TaskFactory.cs" />
+      <Compile Remove="Scheduling\Schedulable.cs" />
+      <Compile Remove="Scheduling\ScheduledTaskConfiguration.cs" />
     </ItemGroup>
 
 </Project>

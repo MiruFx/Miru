@@ -8,7 +8,7 @@ namespace Corpo.Skeleton.Features.Orders
     public class OrderPlaced
     {
         // #jobrequest
-        public class Request : IJob
+        public class Request : IMiruJob
         {
             public long OrderId { get; set; }
         }

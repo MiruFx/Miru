@@ -18,6 +18,7 @@ namespace Supportreon.Domain
 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public bool IsRecurrent { get; set; }
 
         public Donation()
         {
@@ -35,6 +36,7 @@ namespace Supportreon.Domain
 
             Amount = request.Amount;
             CreditCard = request.CreditCard;
+            IsRecurrent = request.IsRecurrent;
             ProjectId = project.Id;
             User = donor;
             UserId = donor.Id;

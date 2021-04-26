@@ -1,14 +1,13 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using FluentEmail.Core.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Miru.Queuing;
 
 namespace Miru.Mailing
 {
-    public class EmailJob : IJob
+    public class EmailJob : IMiruJob
     {
         public Email Email { get; }
         
