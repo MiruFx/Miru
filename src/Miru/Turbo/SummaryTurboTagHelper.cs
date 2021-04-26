@@ -7,6 +7,6 @@ namespace Miru.Turbo
     [HtmlTargetElement("miru-summary-turbo")]
     public class SummaryTurboTagHelper : NoPropertyTagHelper
     {
-        protected override string Category { get; } = nameof(HtmlConvention.FormSummaries);
+        protected override string Category { get; } = nameof(HtmlConfiguration.FormSummaries);
     }
 }

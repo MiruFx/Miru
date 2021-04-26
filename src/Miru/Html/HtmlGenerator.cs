@@ -19,17 +19,17 @@ namespace Miru.Html
         
         public HtmlTag FormFor<TModel>(TModel model) where TModel : class
         {
-            return GeneratorFor(model).TagFor(model, nameof(HtmlConvention.Forms));
+            return GeneratorFor(model).TagFor(model, nameof(HtmlConfiguration.Forms));
         }
         
         public HtmlTag FormSummaryFor<TModel>(TModel model) where TModel : class
         {
-            return GeneratorFor(model).TagFor(model, nameof(HtmlConvention.FormSummaries));
+            return GeneratorFor(model).TagFor(model, nameof(HtmlConfiguration.FormSummaries));
         }
         
         public HtmlTag SubmitFor<TModel>(TModel model) where TModel : class
         {
-            return GeneratorFor(model).TagFor(model, nameof(HtmlConvention.Submits));
+            return GeneratorFor(model).TagFor(model, nameof(HtmlConfiguration.Submits));
         }
 
         public HtmlTag LabelFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
@@ -44,7 +44,7 @@ namespace Miru.Html
         
         public HtmlTag SelectFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
         {
-            return GeneratorFor(model).TagFor(model, func, nameof(HtmlConvention.Selects));
+            return GeneratorFor(model).TagFor(model, func, nameof(HtmlConfiguration.Selects));
         }
         
         public HtmlTag DisplayFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
@@ -54,21 +54,21 @@ namespace Miru.Html
         
         public HtmlTag DisplayLabelFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
         {
-            return GeneratorFor(model).TagFor(model, func, nameof(HtmlConvention.DisplayLabels));
+            return GeneratorFor(model).TagFor(model, func, nameof(HtmlConfiguration.DisplayLabels));
         }
         
         public HtmlTag CellFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
         {
-            var cell = GeneratorFor(model).TagFor(model, func, nameof(HtmlConvention.Cells));
+            var cell = GeneratorFor(model).TagFor(model, func, nameof(HtmlConfiguration.Cells));
             
-            cell.Append(GeneratorFor(model).DisplayFor(func, nameof(HtmlConvention.Cells)));
+            cell.Append(GeneratorFor(model).DisplayFor(func, nameof(HtmlConfiguration.Cells)));
             
             return cell;
         }
         
         public HtmlTag TableHeaderFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
         {
-            var cell = GeneratorFor(model).TagFor(model, func, nameof(HtmlConvention.TableHeader));
+            var cell = GeneratorFor(model).TagFor(model, func, nameof(HtmlConfiguration.TableHeader));
             
             cell.Append(DisplayLabelFor(model, func));
             

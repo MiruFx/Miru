@@ -9,39 +9,34 @@ This Roadmap is a plan, but not a commitment. It can change in the future.
 
 ## Versions
 
-### 0.6 - Apr
+### 0.6 - Apr - Task Scheduling
 
+- Task Scheduling
+  
 - Queueing:
-    - Different pipeline for _mediator.Send(job)
-    - Automated tests for Queueing features
-    - Mediator Scoped
     - IsAdmin for Dashboard
 
 - Seed Data
     - miru make:seed UsersSeed
     - miru seed:run? or miru db:seed?
 
+### 0.7 - Mai - Storage, Internationalization
+
+- Internationalization
+  
 - Storage: Local
-    - Upload images/files - Supportreon: project's image add/edit
-        - Validation
-        - Save in file
-        - Save in db
-
-### 0.7 - Apr - EfCore PostgreSql, FrontEnd
-
-- Consolable:
-  - Replace Oakton for Microsoft Commandline or other
-  - Support execute for all environment '-e all'
-  - IConsolable could be decorated with IMultipleEnvironment allowing run -e all
-  - ConfigYmlFinder can search all config.$env.yml
-  
-- Queueing
-  - Support Hangfire to MySql and Postgres
+  - Upload images/files - Supportreon: project's image add/edit
+    - Validation
+    - Save in file
+    - Save in db
+ 
+- Queueing:
+  - Support Hangfire to MySql
     - Consider using https://github.com/xavierjefferson/Hangfire.FluentNHibernateStorage?
+  - Different pipeline for _mediator.Send(job)
+  - Automated tests for Queueing features
+  - Mediator Scoped
 
-- Urls:
-  - Import FubuMvc 'object to url'
-  
 ### 0.8 - Mai -
 
 - Userfy
@@ -53,13 +48,14 @@ This Roadmap is a plan, but not a commitment. It can change in the future.
 - Flash messages
   - AccountRegister can add success message
   - Integration with Turbo
-  
-### 0.9 - Jun -  - C# 9, Build script, Http API
 
-- Http Api
-    - Authentication, Token
-    - Respond to xml, json, etc
-    - ApiTest
+- Consolable:
+  - Replace Oakton for Microsoft Commandline or other
+  - Support execute for all environment '-e all'
+  - IConsolable could be decorated with IMultipleEnvironment allowing run -e all
+  - ConfigYmlFinder can search all config.$env.yml
+  
+### 0.9 - Jun - C# 9, Build script
 
 - Use C# 9:
     - Records
@@ -109,6 +105,9 @@ mirufx.github.com/docs
 
 ### 0.14 - Nov - Performance
 
+- Urls:
+  - Import FubuMvc 'object to url'
+  
 - Caching
 - Gzip assets
 

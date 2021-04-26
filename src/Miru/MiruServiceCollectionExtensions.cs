@@ -30,7 +30,7 @@ namespace Miru
             }
 
             services.AddMiruMvc(
-                configFinder.Find<HtmlConvention>() as HtmlConvention ?? new HtmlConvention(),
+                configFinder.Find<HtmlConfiguration>() as HtmlConfiguration ?? new HtmlConfiguration(),
                 mvcOptions);
             
             services.AddSingleton(

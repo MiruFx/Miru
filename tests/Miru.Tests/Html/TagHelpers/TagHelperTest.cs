@@ -22,7 +22,7 @@ namespace Miru.Tests.Html.TagHelpers
         public void OneTimeSetup()
         {
             var services = new ServiceCollection()
-                .AddMiruHtml(new HtmlConvention().AddTwitterBootstrap())
+                .AddMiruHtml(new HtmlConfiguration().AddTwitterBootstrap())
                 .AddOptions()
                 .ReplaceTransient<IAntiforgeryAccessor, TestingAntiForgeryAccessor>()
                 .AddTransient<IUrlMaps, StubUrlMaps>()

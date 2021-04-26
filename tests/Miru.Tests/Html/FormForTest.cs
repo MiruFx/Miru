@@ -15,7 +15,7 @@ namespace Miru.Tests.Html
         public FormForTest()
         {
             var services = new ServiceCollection()
-                .AddMiruHtml(new HtmlConvention())
+                .AddMiruHtml(new HtmlConfiguration())
                 .ReplaceTransient<IAntiforgeryAccessor, StubAntiforgeryAccessor>();
             
             _sp = services.BuildServiceProvider();

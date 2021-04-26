@@ -15,6 +15,9 @@ namespace Miru
         /// </summary>
         public static string Or<T>(this T value, string valueIfNullOrEmpty)
         {
+            if (value is string valueString && string.IsNullOrEmpty(valueString))
+                return valueIfNullOrEmpty;
+                
             if (value == null || value.Equals(default(T)))
                 return valueIfNullOrEmpty;
 

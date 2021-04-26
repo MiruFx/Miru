@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Miru;
 using Miru.Databases.EntityFramework;
@@ -30,6 +31,7 @@ namespace Supportreon.Features.Projects
             public long CategoryId { get; set; }
             public decimal? Goal { get; set; }
             public DateTime? EndDate { get; set; }
+            public IFormFile CoverImage { get; set; }
             
             public IEnumerable<ILookupable> Categories { get; set; }
         }

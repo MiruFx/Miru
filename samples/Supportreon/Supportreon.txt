@@ -5,6 +5,13 @@ DonationNew
     Donate monthly - create a scheduled job to charge user's creditcard (MIRU Queueing recurrent scheduled job)
     One donation only
     Amount uses User's profile currency
+
+Project New/Edit/Show
+    Upload project's cover
+    New: upload file
+    Show: show file
+    Edit: upload new file and delete old one
+    Validate: not empty, image
     
 Features for Tests:
     - Show tags with count

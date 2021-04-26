@@ -8,13 +8,13 @@ namespace Miru.Html.Tags
     {
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-            var th = GetHtmlTag(nameof(HtmlConvention.TableHeader));
+            var th = GetHtmlTag(nameof(HtmlConfiguration.TableHeader));
             
             var childContent = await output.GetChildContentAsync();
             
             if (childContent.IsEmptyOrWhiteSpace)
             {
-                var span = HtmlGenerator.TagFor(For, nameof(HtmlConvention.DisplayLabels));
+                var span = HtmlGenerator.TagFor(For, nameof(HtmlConfiguration.DisplayLabels));
                     // .Id(GetId());
                 
                 th.Children.Add(span);

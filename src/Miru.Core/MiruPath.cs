@@ -27,6 +27,8 @@ namespace Miru.Core
             
             return Path.Combine(a, b);
         }
+
+        public static MiruPath operator /(MiruPath a, object b) => a / b.ToString();
         
         public static implicit operator string(MiruPath path) => path.ToString();
         

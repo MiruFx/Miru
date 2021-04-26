@@ -3,7 +3,7 @@ namespace Miru.Html
 {
     public static class TwitterBootstrapHtmlConvention
     {
-        public static HtmlConvention AddTwitterBootstrap(this HtmlConvention cfg)
+        public static HtmlConfiguration AddTwitterBootstrap(this HtmlConfiguration cfg)
         {
             cfg.Editors.Always.AddClass("form-control");
             
@@ -26,7 +26,7 @@ namespace Miru.Html
             return cfg;
         }
 
-        public static HtmlConvention AddMiruBootstrapLayout(this HtmlConvention cfg)
+        public static HtmlConfiguration AddMiruBootstrapLayout(this HtmlConfiguration cfg)
         {
             // only when form is horizontal?
             // cfg.Labels.Always.AddClass("col-md-4 col-form-label text-md-right");

@@ -9,7 +9,7 @@ namespace Miru.Html.Tags
     {
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
-            var td = GetHtmlTag(nameof(HtmlConvention.Cells));
+            var td = GetHtmlTag(nameof(HtmlConfiguration.Cells));
             
             var childContent = await output.GetChildContentAsync();
 

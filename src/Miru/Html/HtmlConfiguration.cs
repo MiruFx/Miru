@@ -6,7 +6,7 @@ using Miru.Mvc;
 
 namespace Miru.Html
 {
-    public class HtmlConvention : HtmlConventionRegistry
+    public class HtmlConfiguration : HtmlConventionRegistry
     {
         public ElementCategoryExpression DisplayLabels =>
             new ElementCategoryExpression(Library.TagLibrary.Category(nameof(DisplayLabels)).Profile(TagConstants.Default));
@@ -29,8 +29,10 @@ namespace Miru.Html
         public ElementCategoryExpression Selects =>
             new ElementCategoryExpression(Library.TagLibrary.Category(nameof(Selects)).Profile(TagConstants.Default));
 
-        public HtmlConvention()
+        public HtmlConfiguration()
         {
+            // TODO: move default configurations to a extension method to be used in HtmlConfig -> .AddMiruDefault();
+            
             Submits.Always.BuildBy<SubmitBuilder>();;
 
             FormSummaries.Always.BuildBy<FormSummaryBuilder>();

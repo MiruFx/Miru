@@ -2,7 +2,7 @@ using Miru.Html;
 
 namespace Corpo.Skeleton.Config
 {
-    public class HtmlConfig : HtmlConvention
+    public class HtmlConfig : HtmlConfiguration
     {
         public HtmlConfig()
         {

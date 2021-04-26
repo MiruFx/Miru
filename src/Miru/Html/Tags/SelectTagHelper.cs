@@ -20,7 +20,7 @@ namespace Miru.Html.Tags
             EnsureForIsValid();
             ThrowIfLookupableIsInvalid();
 
-            var selectTag = (SelectTag) HtmlGenerator.TagFor(For, nameof(HtmlConvention.Selects));
+            var selectTag = (SelectTag) HtmlGenerator.TagFor(For, nameof(HtmlConfiguration.Selects));
 
             if (Lookup != null)
             {

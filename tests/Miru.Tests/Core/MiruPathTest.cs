@@ -16,6 +16,14 @@ namespace Miru.Tests.Core
         }
         
         [Test]
+        public void Can_combine_miru_path_with_object()
+        {
+            (MiruPath.CurrentPath / 1000 / 2000)
+                .ToString()
+                .ShouldBe(Path.Combine(MiruPath.CurrentPath, "1000", "2000"));
+        }
+                
+        [Test]
         public void Can_add_a_separator_in_the_end()
         {
             (MiruPath.CurrentPath / "src" / "Shoppers.Tests" / ".")

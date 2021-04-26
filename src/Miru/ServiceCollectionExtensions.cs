@@ -73,7 +73,7 @@ namespace Miru
             if (html != null)
                 services.AddMiruHtml(html);
             else
-                services.AddMiruHtml(new HtmlConvention());
+                services.AddMiruHtml(new HtmlConfiguration());
 
             services.AddHttpContextAccessor();
 
@@ -108,7 +108,7 @@ namespace Miru
                 foreach (var registry in registries)
                     registry.Apply(library);
             else
-                new HtmlConvention().Apply(library);
+                new HtmlConfiguration().Apply(library);
 
             var defaultBuilders = new HtmlConventionRegistry();
             

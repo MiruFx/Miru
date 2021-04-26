@@ -67,6 +67,13 @@ namespace Miru.Tests
                 
                 new Customer().Rank.Or("No Rank").ShouldBe("No Rank");
             }
+            
+            [Test]
+            public void If_object_is_string_and_empty_should_return_or_value()
+            {
+                "".Or("No Name").ShouldBe("No Name");
+                ((string) null).Or("No Name").ShouldBe("No Name");
+            }
 
             public class Customer
             {

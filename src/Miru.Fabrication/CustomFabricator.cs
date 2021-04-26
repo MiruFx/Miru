@@ -11,7 +11,7 @@ namespace Miru.Fabrication
     {
         private Action<TModel, Faker> _with = (f, c) => { };
         private Action<TModel, Faker> _finishWith;
-        private Action<TModel, Faker> _config;
+        private Action<TModel, Faker> _withDefault;
 
         protected Fixture Fixture { get; }
         protected Faker Faker { get; }
@@ -22,9 +22,9 @@ namespace Miru.Fabrication
             Faker = support.Faker;
         }
         
-        protected void Config(Action<TModel, Faker> action)
+        protected void WithDefault(Action<TModel, Faker> action)
         {
-            _config = action;
+            _withDefault = action;
         }
         
         protected void FinishWith(Action<TModel, Faker> action)
@@ -43,7 +43,7 @@ namespace Miru.Fabrication
         {
             var instance = Fixture.Create<TModel>();
 
-            _config?.Invoke(instance, Faker);
+            _withDefault?.Invoke(instance, Faker);
             
             _finishWith?.Invoke(instance, Faker);
             
@@ -60,7 +60,7 @@ namespace Miru.Fabrication
 
             instances.ForEach(m =>
             {
-                _config?.Invoke(m, Faker);
+                _withDefault?.Invoke(m, Faker);
 
                 _finishWith?.Invoke(m, Faker);
             });

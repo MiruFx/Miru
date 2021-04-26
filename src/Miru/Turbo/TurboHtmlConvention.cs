@@ -5,7 +5,7 @@ namespace Miru.Turbo
 {
     public static class TurboHtmlConvention
     {
-        public static HtmlConvention AddTurbo(this HtmlConvention cfg)
+        public static HtmlConfiguration AddTurbo(this HtmlConfiguration cfg)
         {
             // cfg.Forms.Always.Attr("data-turbo", "false");
             
