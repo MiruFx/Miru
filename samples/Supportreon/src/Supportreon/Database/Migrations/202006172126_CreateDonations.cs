@@ -4,7 +4,7 @@ using Miru.Databases.Migrations.FluentMigrator;
 namespace Supportreon.Database.Migrations
 {
     [Migration(202006172126)]
-    public class AlterDonationsAddIsRecurrent : AutoReversingMigration
+    public class CreateDonations : AutoReversingMigration
     {
         public override void Up()
         {
@@ -14,7 +14,6 @@ namespace Supportreon.Database.Migrations
                 .WithColumn("UserId").AsReference()
                 .WithColumn("Amount").AsDecimal()
                 .WithColumn("CreditCard").AsString(64)
-                .WithColumn("IsRecurrent").AsBoolean().Nullable()
                 .WithTimeStamps();
         }
     }
