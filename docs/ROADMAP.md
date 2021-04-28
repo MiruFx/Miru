@@ -16,14 +16,19 @@ This Roadmap is a plan, but not a commitment. It can change in the future.
 - Queueing:
     - IsAdmin for Dashboard
 
-- Seed Data
-    - miru make:seed UsersSeed
-    - miru seed:run? or miru db:seed?
-
-### 0.7 - Mai - Storage, Internationalization
+### 0.7 - Mai - Storage, Internationalization, Localization
 
 - Internationalization
+  - Dates
+  - Money
+  - Decimal 
   
+- Localization
+  - Calendar
+  - FluentValidation errors
+    - FluentValidation read 'Display' attribute
+  - Miru default errors
+
 - Storage: Local
   - Upload images/files - Supportreon: project's image add/edit
     - Validation
@@ -37,6 +42,10 @@ This Roadmap is a plan, but not a commitment. It can change in the future.
   - Automated tests for Queueing features
   - Mediator Scoped
 
+- Seed Data
+  - miru make:seed UsersSeed
+  - miru seed:run? or miru db:seed?
+  
 ### 0.8 - Mai -
 
 - Userfy

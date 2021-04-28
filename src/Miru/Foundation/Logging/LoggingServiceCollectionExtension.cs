@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using Serilog.Events;
 using Serilog.Extensions.Logging;
 
 namespace Miru.Foundation.Logging
@@ -15,7 +16,9 @@ namespace Miru.Foundation.Logging
             return services.AddSingleton(new AppLoggerFactory(Log.ForContext<TStartup>));
         }
 
-        public static IServiceCollection AddSerilogConfig(this IServiceCollection services, Action<LoggerConfiguration> config = null)
+        public static IServiceCollection AddSerilogConfig(
+            this IServiceCollection services, 
+            Action<LoggerConfiguration> config = null)
         {
             if (config == null)
                 services.AddSingleton<ILoggerConfigurationBuilder>(new LoggerConfigurationBuilder(_ => { }));
@@ -27,7 +30,15 @@ namespace Miru.Foundation.Logging
                 var loggerConfiguration = new LoggerConfiguration();
         
                 var configBuilders = sp.GetServices<ILoggerConfigurationBuilder>();
-        
+
+                var defaultConfig = new LoggerConfigurationBuilder(_ =>
+                {
+                    _.MinimumLevel.Warning();
+                    _.Quartz(LogEventLevel.Warning);
+                });
+
+                defaultConfig.Config(loggerConfiguration);
+                
                 foreach (var configBuilder in configBuilders)
                 {
                     configBuilder.Config(loggerConfiguration);
