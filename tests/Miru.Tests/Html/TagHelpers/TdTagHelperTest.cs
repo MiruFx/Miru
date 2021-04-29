@@ -75,7 +75,7 @@ namespace Miru.Tests.Html.TagHelpers
             
             // assert
             output.TagName.ShouldBeNull();
-            output.PreElement.GetContent().ShouldBe("<td class=\"text-right\"><span id=\"Items[0].Id\">1</span></td>");
+            output.PreElement.GetContent().ShouldBe("<td><span id=\"Items[0].Id\">1</span></td>");
         }
     }
 }

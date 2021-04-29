@@ -34,7 +34,6 @@ namespace Miru.Foundation.Logging
                 var defaultConfig = new LoggerConfigurationBuilder(_ =>
                 {
                     _.MinimumLevel.Warning();
-                    _.Quartz(LogEventLevel.Warning);
                 });
 
                 defaultConfig.Config(loggerConfiguration);

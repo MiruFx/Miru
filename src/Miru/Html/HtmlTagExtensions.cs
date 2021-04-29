@@ -48,31 +48,6 @@ namespace Miru.Html
             return tag.Data("autocapitalize", "true");
         }
 
-        public static HtmlTag Remote(this HtmlTag tag)
-        {
-            return tag.Data("remote", "true");
-        }
-        
-        public static HtmlTag RemoteReplace(this HtmlTag tag)
-        {
-            return tag.Data("remote-replace", "true").Data("type", "html");
-        }
-        
-        public static HtmlTag RemotePost(this HtmlTag tag)
-        {
-            return tag.Remote().Data("method", "post");
-        }
-        
-        public static HtmlTag RemotePost(this HtmlTag tag, string url)
-        {
-            return tag.RemotePost().Data("url", url);
-        }
-        
-        public static HtmlTag RemoteGet(this HtmlTag tag, string url)
-        {
-            return tag.Remote().Data("method", "get").Data("url", url);
-        }
-        
         public static HtmlTag Cascade(this HtmlTag tag, string inputId)
         {
             return tag
@@ -110,6 +85,8 @@ namespace Miru.Html
         
         public static HtmlTag MaxLength(this HtmlTag tag, int maxLength) => tag.Attr("maxlength", maxLength.ToString());
 
+        public static HtmlTag Checked(this HtmlTag tag) => tag.Attr("checked", "checked");
+        
         public static HtmlTag MergeAttributes(this HtmlTag tag, TagHelperAttributeList attributes)
         {
             foreach (var attribute in attributes)

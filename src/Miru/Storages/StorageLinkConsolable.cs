@@ -25,7 +25,7 @@ namespace Miru.Storages
             FileSystem.CreateSymbolicLink(
                 storageApp,
                 wwwrootStorage,
-                FileType.SymbolicLink);
+                FileType.Directory);
 
             Console2.GreenLine($"Created a symlink");
             Console2.WhiteLine($"\tfrom: {storageApp}");

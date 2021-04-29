@@ -1,6 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using HtmlTags.Conventions;
+using HtmlTags.Conventions.Elements;
+using HtmlTags.Conventions.Elements.Builders;
+using HtmlTags.Reflection;
 using Miru.Core;
 using Miru.Mvc;
 
@@ -27,7 +31,7 @@ namespace Miru.Html
             new ElementCategoryExpression(Library.TagLibrary.Category(nameof(FormSummaries)).Profile(TagConstants.Default));
         
         public ElementCategoryExpression Selects =>
-            new ElementCategoryExpression(Library.TagLibrary.Category(nameof(Selects)).Profile(TagConstants.Default));
+            new(Library.TagLibrary.Category(nameof(Selects)).Profile(TagConstants.Default));
 
         public HtmlConfiguration()
         {
@@ -49,6 +53,9 @@ namespace Miru.Html
             TableHeader.Always.BuildBy<TableHeaderBuilder>();
 
             Selects.Always.BuildBy<SelectBuilder>();
+            Selects.NamingConvention(new DotNotationElementNamingConvention());
+            Selects.Always.ModifyWith<AddNameModifier>();
+            Selects.Always.ModifyWith<AddIdModifier>();
             
             this.InputHiddenForIds();
             
@@ -81,6 +88,12 @@ namespace Miru.Html
                 .ModifyWith(m => m.CurrentTag.Attr("method", "get"));
             
             Submits.Always.ModifyTag(tag => tag.DisableWith("Sending..."));
+            
+            Editors.IfPropertyHasAttribute<RadioAttribute>()
+                .ModifyTag(tag => tag.Attr("type", "radio"));
+
+            Editors.IfPropertyHasAttribute<CheckboxAttribute>()
+                .ModifyTag(tag => tag.Attr("type", "checkbox"));
         }
     }
 }

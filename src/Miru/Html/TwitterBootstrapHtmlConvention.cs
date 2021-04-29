@@ -3,27 +3,33 @@ namespace Miru.Html
 {
     public static class TwitterBootstrapHtmlConvention
     {
-        public static HtmlConfiguration AddTwitterBootstrap(this HtmlConfiguration cfg)
+        public static HtmlConfiguration AddTwitterBootstrap(this HtmlConfiguration html)
         {
-            cfg.Editors.Always.AddClass("form-control");
+            html.Editors.Always.AddClass("form-control");
             
-            cfg.Selects.Always.AddClass("form-select");
+            html.Selects.Always.AddClass("form-select");
             
-            cfg.Submits.Always.AddClass("btn btn-primary");
+            html.Submits.Always.AddClass("btn btn-primary");
             
             // cfg.FormSummaries.Always.AddClass("alert alert-danger d-none");
             
-            cfg.Editors.IfPropertyIs<bool>().ModifyWith(m => m.CurrentTag.Class("form-check-input"));
+            html.Editors.IfPropertyIs<bool>().ModifyWith(m => m.CurrentTag.Class("form-check-input"));
             
-            cfg.TableHeader.IfPropertyIs<decimal>().AddClass("text-right");
-            cfg.TableHeader.IfPropertyIs<long>().AddClass("text-right");
-            cfg.TableHeader.IfPropertyIs<int>().AddClass("text-right");
+            html.TableHeader.IfPropertyIs<decimal>().AddClass("text-right");
+            html.TableHeader.IfPropertyIs<long>().AddClass("text-right");
+            html.TableHeader.IfPropertyIs<int>().AddClass("text-right");
             
-            cfg.Cells.IfPropertyIs<decimal>().AddClass("text-right");
-            cfg.Cells.IfPropertyIs<long>().AddClass("text-right");
-            cfg.Cells.IfPropertyIs<int>().AddClass("text-right");
+            html.Cells.IfPropertyIs<decimal>().AddClass("text-right");
+            html.Cells.IfPropertyIs<long>().AddClass("text-right");
+            html.Cells.IfPropertyIs<int>().AddClass("text-right");
 
-            return cfg;
+            html.Editors.IfPropertyHasAttribute<RadioAttribute>()
+                .ModifyTag(tag => tag.Class("form-check-input"));
+            
+            html.Editors.IfPropertyHasAttribute<CheckboxAttribute>()
+                .ModifyTag(tag => tag.Class("form-check-input"));
+            
+            return html;
         }
 
         public static HtmlConfiguration AddMiruBootstrapLayout(this HtmlConfiguration cfg)

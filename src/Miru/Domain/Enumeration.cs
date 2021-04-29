@@ -32,12 +32,13 @@ namespace Miru.Domain
 
     [Serializable]
     [DebuggerDisplay("{Name} - {Value}")]
-    [DataContract(Namespace = "http://github.com/HeadspringLabs/Enumeration/5/13")]
-    public abstract class Enumeration<TEnumeration, TValue> : IComparable<TEnumeration>, IEquatable<TEnumeration>
-        where TEnumeration : Enumeration<TEnumeration, TValue>
-        where TValue : IComparable
+    public abstract class Enumeration<TEnumeration, TValue> : 
+        IComparable<TEnumeration>, 
+        IEquatable<TEnumeration>
+            where TEnumeration : Enumeration<TEnumeration, TValue>
+            where TValue : IComparable
     {
-        private static readonly Lazy<TEnumeration[]> Enumerations = new Lazy<TEnumeration[]>(GetEnumerations);
+        private static readonly Lazy<TEnumeration[]> Enumerations = new(GetEnumerations);
 
         [DataMember(Order = 1)]
         readonly string _name;
@@ -56,15 +57,9 @@ namespace Miru.Domain
             _name = name;
         }
 
-        public TValue Value
-        {
-            get { return _value; }
-        }
+        public TValue Value => _value;
 
-        public string Name
-        {
-            get { return _name; }
-        }
+        public string Name => _name;
 
         public int CompareTo(TEnumeration other)
         {
