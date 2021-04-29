@@ -66,6 +66,8 @@ namespace Miru.Html.Tags
                 tag.Attr(attribute.Name, attribute.Value);
             }
 
+            BeforeRender(output, tag);
+            
             if (childContent.IsModified)
             {
                 output.TagName = null;
@@ -80,6 +82,10 @@ namespace Miru.Html.Tags
                 output.TagName = null;
                 output.PreElement.AppendHtml(tag);
             }
+        }
+
+        protected virtual void BeforeRender(TagHelperOutput output, HtmlTag htmlTag)
+        {
         }
     }
 }
