@@ -36,5 +36,10 @@ namespace Miru.Foundation.Logging
         {
             return config.MinimumLevel.Override("Miru.Testing", level);
         }
+        
+        public static LoggerConfiguration Quartz(this LoggerConfiguration config, LogEventLevel level)
+        {
+            return config.MinimumLevel.Override("Quartz", level);
+        }
     }
 }

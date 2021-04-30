@@ -6,11 +6,16 @@ namespace Miru.Html
 {
     public class SelectBuilder : IElementBuilder
     {
+        private static readonly IElementNamingConvention ElementNamingConvention = new DotNotationElementNamingConvention();
+        
         public HtmlTag Build(ElementRequest request)
         {
-            return new SelectTag()
-                .Id(request.ElementId)
-                .Name(request.ElementId);
+            // HtmlTags is not using configured element naming convention for Selects
+            // That's way we are doing manually here
+            request.ElementId = ElementNamingConvention
+                .GetName(request.Accessor.OwnerType, request.Accessor);
+            
+            return new SelectTag();
         }
     }
 }

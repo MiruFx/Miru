@@ -1,0 +1,7 @@
+@model ExampleForm.Command
+
+<turbo-stream action="update" target="result">
+    <template>
+        <pre>@Model.Inspect()</pre>
+    </template>
+</turbo-stream>

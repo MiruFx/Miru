@@ -21,9 +21,6 @@ namespace Miru.Makers
             public string Name { get; set; }
             
             public string Action { get; set; }
-            
-            [FlagAlias("type",'t')]
-            public string Type { get; set; }   
         }
         
         public override bool Execute(Input input)

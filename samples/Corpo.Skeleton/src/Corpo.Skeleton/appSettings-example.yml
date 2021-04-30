@@ -34,14 +34,15 @@ Mailing:
 # Modules: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-5.0#aspnet-core-and-ef-core-categories
 Serilog:
   MinimumLevel:
-    Default: Fatal
-    Override:
-      Miru: Information
-      Microsoft: Fatal
-      Microsoft.AspNetCore: Fatal
-      Microsoft.EntityFrameworkCore.Database.Command: Information # Show SQL
-      Microsoft.Hosting: Fatal
-      System: Fatal
+    Default: Warning
+#    Override:
+#      Miru: Information
+#      Microsoft: Information
+#      Microsoft.AspNetCore: Information
+#      Microsoft.EntityFrameworkCore.Database.Command: Information # Show SQL
+#      Microsoft.Hosting: Information
+#      Quartz: Information
+#      Hangfire: Information
 
 # Set where the application will listen for requests
 # Syntax: [http|https]://[localhost|IP|*][:PORT] 

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Html;
+using Miru.Html.Tags;
 using Miru.Testing;
 using Miru.Urls;
 using NUnit.Framework;
@@ -22,7 +23,7 @@ namespace Miru.Tests.Html.TagHelpers
         public void OneTimeSetup()
         {
             var services = new ServiceCollection()
-                .AddMiruHtml(new HtmlConfiguration().AddTwitterBootstrap())
+                .AddMiruHtml()
                 .AddOptions()
                 .ReplaceTransient<IAntiforgeryAccessor, TestingAntiForgeryAccessor>()
                 .AddTransient<IUrlMaps, StubUrlMaps>()
@@ -38,6 +39,18 @@ namespace Miru.Tests.Html.TagHelpers
                 });
                 
             ServiceProvider = services.BuildServiceProvider();
+        }
+
+        protected TTag CreateTag<TTag, TModel, TProperty>(
+            TTag tag,
+            TModel model, 
+            Expression<Func<TModel, TProperty>> expression) where TTag : MiruHtmlTagHelper, new()
+        {
+            tag.RequestServices = ServiceProvider;
+
+            tag.For = MakeExpression(model, expression);
+
+            return tag;
         }
 
         protected TagHelperOutput ProcessTag2<TTag>(
@@ -93,7 +106,38 @@ namespace Miru.Tests.Html.TagHelpers
 
             return output;
         }
-        
+
+        protected TagHelperOutput ProcessTag<TTag>(
+            TTag tag,
+            string html,
+            object attributes,
+            string childContent = "") where TTag : TagHelper
+        {
+            var context = new TagHelperContext(
+                new TagHelperAttributeList(),
+                new Dictionary<object, object>(),
+                Guid.NewGuid().ToString("N"));
+
+            var dictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(attributes);
+            var tagHelperAttributes = new TagHelperAttributeList();
+
+            dictionary.ForEach(item => tagHelperAttributes.Add(item.Key, item.Value));
+            
+            var output = new TagHelperOutput(
+                html,
+                tagHelperAttributes,
+                (result, encoder) =>
+                {
+                    var tagHelperContent = new DefaultTagHelperContent();
+                    tagHelperContent.SetHtmlContent(childContent);
+                    return Task.FromResult<TagHelperContent>(tagHelperContent);
+                });
+
+            tag.Process(context, output);
+
+            return output;
+        }
+
         protected TagHelperOutput ProcessTag<TTag>(
             TTag tag, 
             string html, 
