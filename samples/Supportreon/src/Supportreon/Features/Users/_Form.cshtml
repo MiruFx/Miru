@@ -1,0 +1,36 @@
+@model UserEdit.Command
+
+<miru-summary/>
+
+<div class="row mb-3">
+    <miru-label for="Name" class="col-sm-2 col-form-label"/>
+    <div class="col-sm-10">
+        <miru-input for="Name"/>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <miru-label for="Currency" class="col-sm-2 col-form-label"/>
+    <div class="col-sm-10">
+        <miru-select for="Currency" lookup="CurrenciesLookup" empty-option/>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <miru-label for="Culture" class="col-sm-2 col-form-label"/>
+    <div class="col-sm-10">
+        <miru-select for="Culture" lookup="CulturesLookup" empty-option/>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <miru-label for="Language" class="col-sm-2 col-form-label"/>
+    <div class="col-sm-10">
+        <miru-select for="Language" lookup="LanguagesLookup" empty-option/>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="offset-md-2">
+        <miru-submit value="Save"/>
+    </div>
+</div>

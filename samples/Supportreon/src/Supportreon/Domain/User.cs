@@ -1,4 +1,5 @@
 using Miru.Userfy;
+// ReSharper disable All
 
 namespace Supportreon.Domain
 {
@@ -9,5 +10,11 @@ namespace Supportreon.Domain
         public override string Display => Name;
         
         public bool IsAdmin { get; set; }
+        
+        public string Culture { get; set; }
+        
+        public string Currency { get; set; }
+        
+        public string Language { get; set; }
     }
 }
