@@ -17,6 +17,8 @@ namespace Miru.Storages
     
         public override void Execute()
         {
+            // TODO: rethink about /wwwroot/storage
+            // TODO: create /wwwroot/storage dir if it does not exist
             var wwwrootStorage = _solution.AppDir / "wwwroot" / "storage";
             var storageApp = _solution.RootDir / "storage" / "app";
             

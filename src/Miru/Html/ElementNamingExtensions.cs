@@ -7,7 +7,7 @@ namespace Miru.Html
     {
         public static string FormSummaryId(this ElementNaming naming, object model)
         {
-            return $"{Id(model)}-summary";
+            return $"{ElementNaming.BuildId(Id(model))}-summary";
         }
         
         private static string Id(object model)

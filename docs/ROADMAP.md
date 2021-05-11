@@ -9,15 +9,11 @@ This Roadmap is a plan, but not a commitment. It can change in the future.
 
 ## Versions
 
-### 0.6 - Apr - Task Scheduling
-
-- Task Scheduling
-  
-- Queueing:
-    - IsAdmin for Dashboard
-
 ### 0.7 - Mai - Storage, Internationalization, Localization
 
+- Queueing:
+  - IsAdmin for Dashboard
+  
 - Internationalization
   - Dates
   - Money
@@ -47,12 +43,6 @@ This Roadmap is a plan, but not a commitment. It can change in the future.
   - miru seed:run? or miru db:seed?
   
 ### 0.8 - Mai -
-
-- Userfy
-  Register from 3rd party
-  Login from 3rd party
-  Register confirmation
-  Send email
 
 - Flash messages
   - AccountRegister can add success message

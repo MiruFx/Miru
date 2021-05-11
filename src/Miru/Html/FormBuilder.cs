@@ -9,13 +9,19 @@ namespace Miru.Html
         public HtmlTag Build(ElementRequest request)
         {
             var naming = request.Get<ElementNaming>();
-            
-            var form = new FormTag().NoClosingTag();
-            
-            if (request.Model != null)
-                form.Id(naming.Form(request.Model));
 
-            return form;
+            var formTag = new FormTag();
+
+            if (request.Model != null)
+            {
+                formTag
+                    .Id(naming.Form(request.Model))
+                    .Attr("data-form-summary", naming.FormSummaryId(request.Model));
+            }
+
+            return formTag                
+                .NoClosingTag()
+                .Attr("data-controller", "form");
         }
     }
 }

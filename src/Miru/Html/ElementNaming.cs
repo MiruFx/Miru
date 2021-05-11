@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using HtmlTags.Reflection;
 using Humanizer;
 using Miru.Core;
@@ -11,6 +12,11 @@ namespace Miru.Html
     public class ElementNaming
     {
         private static readonly Func<string, bool> IsCollectionIndexer = x => x.StartsWith("[") && x.EndsWith("]");
+        
+        private static readonly Regex IdRegex = new(@"[\.\[\]]", RegexOptions.Compiled);
+
+        public static string BuildId(string propertyName) 
+            => IdRegex.Replace(propertyName, "_");
         
         public string Form<TModel>(TModel model)
         {

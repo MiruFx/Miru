@@ -26,7 +26,7 @@ namespace Miru.Tests.Html.TagHelpers
             // assert
             output.TagName.ShouldBeNull();
             output.PreElement.GetContent().ShouldBe(
-                "<form method=\"get\" id=\"post-new-form\" action=\"/PostNew\">");
+                "<form method=\"get\" id=\"post-new-form\" data-form-summary=\"post-new-summary\" data-controller=\"form\" action=\"/PostNew\">");
             output.PostElement.GetContent().ShouldBe("</form>");
         }
         
@@ -46,7 +46,7 @@ namespace Miru.Tests.Html.TagHelpers
             // assert
             output.TagName.ShouldBeNull();
             output.PreElement.GetContent().ShouldBe(
-@"<form method=""post"" id=""post-new-form"" action=""/PostNew""><input type=""hidden"" name=""FormFieldName"" value=""RequestToken""><input type=""hidden"" name=""__Summary"" value=""post-new-summary"">");
+@"<form method=""post"" id=""post-new-form"" data-form-summary=""post-new-summary"" data-controller=""form"" action=""/PostNew""><input type=""hidden"" name=""FormFieldName"" value=""RequestToken"">");
             output.PostElement.GetContent().ShouldBe("</form>");
         }
     }

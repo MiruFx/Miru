@@ -25,11 +25,6 @@ namespace Corpo.Skeleton
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMiru<Startup>()
-                .AddSerilogConfig(_ =>
-                {
-                    _.EntityFrameworkSql(LogEventLevel.Information);
-                    _.Authentication(LogEventLevel.Information);
-                })
 
                 .AddDefaultPipeline<Startup>()
 
