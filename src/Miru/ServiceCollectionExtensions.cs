@@ -112,7 +112,7 @@ namespace Miru
 
             var defaultBuilders = new HtmlConventionRegistry();
             
-            defaultBuilders.Editors.BuilderPolicy<CheckboxBuilder>();
+            // defaultBuilders.Editors.BuilderPolicy<CheckboxBuilder>();
             defaultBuilders.Editors.Always.BuildBy<TextboxBuilder>();
             defaultBuilders.Labels.Always.BuildBy<DefaultLabelBuilder>();
             defaultBuilders.DefaultNamingConvention();

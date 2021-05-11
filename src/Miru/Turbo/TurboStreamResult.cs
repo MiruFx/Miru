@@ -6,16 +6,18 @@ namespace Miru.Turbo
 {
     public class TurboStreamResult : ContentResult
     {
-        public TurboStreamResult(HtmlTag htmlTag, HttpStatusCode statusCode)
-            : this(htmlTag, (int) statusCode)
+        public const string MimeType = "text/vnd.turbo-stream.html";
+        
+        public TurboStreamResult(HtmlTag htmlTag, HttpStatusCode statusCode = HttpStatusCode.OK) : 
+            this(htmlTag.ToString(), statusCode)
         {
         }
-
-        public TurboStreamResult(HtmlTag htmlTag, int statusCode = 200)
+        
+        public TurboStreamResult(string html, HttpStatusCode statusCode = HttpStatusCode.OK)
         {
-            ContentType = TurboStream.MimeType;
-            Content = htmlTag.ToHtmlString();
-            StatusCode = statusCode;
+            ContentType = MimeType;
+            Content = html;
+            StatusCode = (int) statusCode;
         }
     }
 }

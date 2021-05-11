@@ -13,5 +13,10 @@
     <Compile Remove="wwwroot\**" />
     <Content Remove="wwwroot\**" />
   </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Features\Examples\Form.cshtml" />
+    <_ContentIncludedByDefault Remove="Features\Examples\_Form.turbo.cshtml" />
+  </ItemGroup>
   
 </Project>

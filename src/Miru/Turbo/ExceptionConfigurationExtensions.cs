@@ -1,9 +1,8 @@
 using System.Net;
+using System.Text;
 using Baseline;
 using FluentValidation;
 using HtmlTags;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Miru.Domain;
 using Miru.Html;
 using Miru.Mvc;
@@ -17,7 +16,7 @@ namespace Miru.Turbo
         {
             _.When(m => 
                 m.Request.IsPost() &&
-                m.Request.CanAccept(TurboStream.MimeType) && 
+                m.Request.CanAccept(TurboStreamResult.MimeType) && 
                 m.Exception is ValidationException).Respond(m =>
             {
                 var validationException = (MiruValidationException) m.Exception;
@@ -49,7 +48,7 @@ namespace Miru.Turbo
             
             _.When(m => 
                 m.Request.IsPost() && 
-                m.Request.CanAccept(TurboStream.MimeType)).Respond(m =>
+                m.Request.CanAccept(TurboStreamResult.MimeType)).Respond(m =>
             {
                 var template = new HtmlTag("template");
 
@@ -80,6 +79,82 @@ namespace Miru.Turbo
 
                 return new TurboStreamResult(turboStream, HttpStatusCode.UnprocessableEntity);
             });
+        }
+        
+        public static void MiruTurboForm(this ExceptionResultConfiguration _)
+        {
+            _.When(m => 
+                m.Request.IsPost() &&
+                m.Request.CanAccept(TurboStreamResult.MimeType) && 
+                m.Exception is ValidationException).Respond(m =>
+            {
+                var validationException = (MiruValidationException) m.Exception;
+                var naming = m.GetService<ElementNaming>();
+                var formSummaryId = naming.FormSummaryId(validationException.Model);
+                
+                var html = new StringBuilder();
+                
+                html.Append(BuildValidationMessageTags(validationException));
+                
+                html.Append(BuildFormSummaryTag(formSummaryId, validationException));
+
+                return new TurboStreamResult(html.ToString(), HttpStatusCode.UnprocessableEntity);
+            });
+            
+            _.When(m => 
+                m.Request.IsPost() && 
+                m.Request.CanAccept(TurboStreamResult.MimeType)).Respond(m =>
+            {
+                var formSummaryId = m.Request.Headers["turbo-form-summary-id"];
+                
+                var formSummary = new FormSummaryTag(formSummaryId);
+
+                // TODO: get from htmlconventions
+                var turboStream = new TurboStreamTag("replace", formSummaryId)
+                    .AppendIntoTemplate(formSummary);
+
+                var errorMessage = m.Exception is DomainException domainException
+                    ? domainException.Message
+                    : "An error occurred while processing your request";
+                    
+                formSummary.Add("div", tag => tag.Text(errorMessage));
+
+                return new TurboStreamResult(turboStream, HttpStatusCode.UnprocessableEntity);
+            });
+        }
+
+        private static string BuildFormSummaryTag(string formSummaryId, MiruValidationException validationException)
+        {
+            var formSummary = new FormSummaryTag(formSummaryId);
+
+            // TODO: get from htmlconventions
+            var turboStreamTag = new TurboStreamTag("replace", formSummaryId)
+                .AppendIntoTemplate(formSummary);
+            
+            validationException.Errors.Each(error => formSummary.Add("div", tag => tag.Text(error.ErrorMessage)));
+            
+            return turboStreamTag.ToString();
+        }
+
+        private static StringBuilder BuildValidationMessageTags(MiruValidationException validationException)
+        {
+            var html = new StringBuilder();
+
+            foreach (var error in validationException.Errors)
+            {
+                var inputId = ElementNaming.BuildId(error.PropertyName);
+                var validationMessageTagId = $"{inputId}-validation";
+
+                var validationMessageTag =
+                    new ValidationMessageTag(validationMessageTagId, inputId, error.ErrorMessage);
+
+                var turboStreamTag = new TurboStreamTag("replace", validationMessageTagId)
+                    .AppendIntoTemplate(validationMessageTag);
+
+                html.AppendLine(turboStreamTag.ToString());
+            }
+
+            return html;
         }
     }
 }

@@ -21,7 +21,7 @@
                     <h5>Select for Enumeration&lt;,&gt; property</h5>
                     
                     <div class="my-4">
-                        <miru-label for="CreditCard" />
+                        <miru-label for="CreditCard" value="CreditCards"/>
                         <miru-select for="CreditCard" lookup="CreditCards" />
                     </div>
                           
@@ -34,6 +34,16 @@
                             <miru-input for="PaymentMethod" value="@PaymentMethods.PayPal" /> @PaymentMethods.PayPal
                             <miru-input for="PaymentMethod" value="@PaymentMethods.Bitcoins" /> @PaymentMethods.Bitcoins
                             <miru-input for="PaymentMethod" value="@PaymentMethods.Blik" /> @PaymentMethods.Blik
+                        </div>
+                    </div>
+                    
+                    <h5>Radios for Boolean property</h5>
+                    
+                    <div class="my-4">
+                        <miru-label for="Recurrent">Turn In Monthly Order?</miru-label>
+                        <div>
+                            <miru-input for="Recurrent" /> Yes
+                            <miru-input for="Recurrent" /> No. I want to miss 15% discount
                         </div>
                     </div>
                     
@@ -59,22 +69,39 @@
                     
                     <h5>Select from Dictionary</h5>
                                         
-                    <div class="my-4">
+                    <div class="my-4 has-validation">
                         <miru-label for="Address.Country" />
-                        <miru-select for="Address.Country" lookup="Countries" />
+                        <miru-select for="Address.Country" lookup="Countries" empty-option />
+                        <miru-validation for="Address.Country" />
                     </div>
                     
                     <div class="my-4">
                         <miru-label for="Address.City" />
                         <miru-input for="Address.City" />
+                        <miru-validation for="Address.City" />
                     </div>                    
 
                     <div class="my-4">
                         <miru-label for="Address.Street" />
                         <miru-input for="Address.Street" />
+                        <miru-validation for="Address.Street" />
                     </div>       
                     
-                    <miru-submit value="Save"/>
+                    <h4>Lists with Validation</h4>
+                    
+                    @{ var i = 0;}
+                    @foreach (var item in Model.Products)
+                    {
+                        <div class="my-4">
+                            @Model.Products[i].Name
+                            <miru-label for="Products[i].Quantity" />
+                            <miru-input for="Products[i].Quantity" />
+                            <miru-validation for="Products[i].Quantity" />
+                        </div>
+                        i++;
+                    }
+                    
+                     <miru-submit value="Save"/>
 
                 </miru-form>
 

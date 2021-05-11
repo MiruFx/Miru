@@ -2,16 +2,14 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
-using Miru;
 using Miru.Domain;
 using Miru.Html;
 using Miru.Mvc;
 
-namespace Corpo.Skeleton.Features.Examples
+namespace Pantanal.Features.Examples
 {
     public class ExampleForm
     {
@@ -36,8 +34,13 @@ namespace Corpo.Skeleton.Features.Examples
             [Radio]
             public PaymentMethods PaymentMethod { get; set; }
             
+            [Radio] 
+            public bool Recurrent { get; set; } = true;
+            
             [Checkbox]
             public IEnumerable<Newsletters> NewsletterOptions { get; set; }
+
+            public List<ProductItem> Products { get; set; } = new();
         }
 
         public class Address
@@ -45,6 +48,12 @@ namespace Corpo.Skeleton.Features.Examples
             public string Street { get; set; }    
             public string City { get; set; }    
             public string Country { get; set; }    
+        }
+
+        public class ProductItem
+        {
+            public string Name { get; set; }
+            public int Quantity { get; set; }
         }
         
         public class Result
@@ -66,6 +75,13 @@ namespace Corpo.Skeleton.Features.Examples
                         { "uk", "United Kingdom" },
                     }.ToLookups(),
                     
+                    Products = new List<ProductItem>
+                    {
+                        new() { Name = "Milk 1L" },
+                        new() { Name = "Eggs 10" },
+                        new() { Name = "Butter 200g" }
+                    },
+                    
                     CreditCard = CreditCardBrands.MasterCardBrands.Value,
                     Relationship = Relationships.Married,
                     NewsletterOptions = new[] { Newsletters.Partners },
@@ -77,6 +93,34 @@ namespace Corpo.Skeleton.Features.Examples
             public Task<Command> Handle(Command request, CancellationToken cancellationToken)
             {
                 return Task.FromResult(request);
+            }
+        }
+
+        public class Validation : AbstractValidator<Command>
+        {
+            public Validation()
+            {
+                RuleFor(x => x.Address).SetValidator(new AddressValidator());
+                
+                RuleForEach(x => x.Products).SetValidator(new ProductItemValidator());
+            }
+        }
+        
+        public class AddressValidator : AbstractValidator<Address>
+        {
+            public AddressValidator()
+            {
+                RuleFor(x => x.Country).NotEmpty();
+                RuleFor(x => x.City).NotEmpty();
+                RuleFor(x => x.Street).NotEmpty();
+            }
+        }
+        
+        public class ProductItemValidator : AbstractValidator<ProductItem>
+        {
+            public ProductItemValidator()
+            {
+                RuleFor(x => x.Quantity).NotEmpty().LessThan(5);
             }
         }
 
@@ -126,68 +170,4 @@ namespace Corpo.Skeleton.Features.Examples
         News,
         Partners
     }
-    
-    // public class EnumerationBinderProvider : IModelBinderProvider
-    // {
-    //     public IModelBinder GetBinder(ModelBinderProviderContext context)
-    //     {
-    //         if (context == null)
-    //         {
-    //             throw new ArgumentNullException(nameof(context));
-    //         }
-    //
-    //         if (context.Metadata.ModelType == typeof(Enumeration<,>))
-    //         {
-    //             return new BinderTypeModelBinder(typeof(EnumerationBinder));
-    //         }
-    //
-    //         return null;
-    //     }
-    // }
-    //
-    // public class EnumerationBinder : IModelBinder
-    // {
-    //     public Task BindModelAsync(ModelBindingContext bindingContext)
-    //     {
-    //         if (bindingContext == null)
-    //         {
-    //             throw new ArgumentNullException(nameof(bindingContext));
-    //         }
-    //
-    //         var modelName = bindingContext.ModelName;
-    //
-    //         // Try to fetch the value of the argument by name
-    //         var valueProviderResult = bindingContext.ValueProvider.GetValue(modelName);
-    //
-    //         if (valueProviderResult == ValueProviderResult.None)
-    //         {
-    //             return Task.CompletedTask;
-    //         }
-    //
-    //         bindingContext.ModelState.SetModelValue(modelName, valueProviderResult);
-    //
-    //         var value = valueProviderResult.FirstValue;
-    //
-    //         // Check if the argument value is null or empty
-    //         if (string.IsNullOrEmpty(value))
-    //         {
-    //             return Task.CompletedTask;
-    //         }
-    //
-    //         var item = bindingContext.
-    //         if (!int.TryParse(value, out var id))
-    //         {
-    //             // Non-integer arguments result in model state errors
-    //             bindingContext.ModelState.TryAddModelError(modelName, "Author Id must be an integer.");
-    //
-    //             return Task.CompletedTask;
-    //         }
-    //
-    //         // Model will be null if not found, including for
-    //         // out of range id values (0, -3, etc.)
-    //         var model = _context.Authors.Find(id);
-    //         bindingContext.Result = ModelBindingResult.Success(model);
-    //         return Task.CompletedTask;
-    //     }
-    // }
 }

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using HtmlTags.Conventions;
 using HtmlTags.Conventions.Elements;
 using HtmlTags.Conventions.Elements.Builders;
-using HtmlTags.Reflection;
 using Miru.Core;
 using Miru.Mvc;
 
@@ -12,23 +10,25 @@ namespace Miru.Html
 {
     public class HtmlConfiguration : HtmlConventionRegistry
     {
+        public static readonly IElementNamingConvention ElementNamingConvention = new DotNotationElementNamingConvention();
+        
         public ElementCategoryExpression DisplayLabels =>
-            new ElementCategoryExpression(Library.TagLibrary.Category(nameof(DisplayLabels)).Profile(TagConstants.Default));
+            new(Library.TagLibrary.Category(nameof(DisplayLabels)).Profile(TagConstants.Default));
 
         public ElementCategoryExpression Cells =>
-            new ElementCategoryExpression(Library.TagLibrary.Category(nameof(Cells)).Profile(TagConstants.Default));
+            new(Library.TagLibrary.Category(nameof(Cells)).Profile(TagConstants.Default));
         
         public ElementCategoryExpression TableHeader =>
-            new ElementCategoryExpression(Library.TagLibrary.Category(nameof(TableHeader)).Profile(TagConstants.Default));
+            new(Library.TagLibrary.Category(nameof(TableHeader)).Profile(TagConstants.Default));
         
         public ElementCategoryExpression Submits =>
-            new ElementCategoryExpression(Library.TagLibrary.Category(nameof(Submits)).Profile(TagConstants.Default));
+            new(Library.TagLibrary.Category(nameof(Submits)).Profile(TagConstants.Default));
         
         public ElementCategoryExpression Forms =>
-            new ElementCategoryExpression(Library.TagLibrary.Category(nameof(Forms)).Profile(TagConstants.Default));
+            new(Library.TagLibrary.Category(nameof(Forms)).Profile(TagConstants.Default));
 
         public ElementCategoryExpression FormSummaries =>
-            new ElementCategoryExpression(Library.TagLibrary.Category(nameof(FormSummaries)).Profile(TagConstants.Default));
+            new(Library.TagLibrary.Category(nameof(FormSummaries)).Profile(TagConstants.Default));
         
         public ElementCategoryExpression Selects =>
             new(Library.TagLibrary.Category(nameof(Selects)).Profile(TagConstants.Default));
@@ -36,8 +36,7 @@ namespace Miru.Html
         public HtmlConfiguration()
         {
             // TODO: move default configurations to a extension method to be used in HtmlConfig -> .AddMiruDefault();
-            
-            Submits.Always.BuildBy<SubmitBuilder>();;
+            Submits.Always.BuildBy<SubmitBuilder>();
 
             FormSummaries.Always.BuildBy<FormSummaryBuilder>();
             
@@ -47,7 +46,9 @@ namespace Miru.Html
 
                 m.CurrentTag.Id(naming.FormSummaryId(m.Model));
             });
-                        
+            
+            ValidationMessages.Always.BuildBy<ValidationMessageBuilder>();
+            
             Cells.Always.BuildBy<CellBuilder>();
             
             TableHeader.Always.BuildBy<TableHeaderBuilder>();
@@ -59,7 +60,7 @@ namespace Miru.Html
             
             this.InputHiddenForIds();
             
-            this.InputForBoolean();
+            // this.InputForBoolean();
             
             this.InputForPassword();
             
@@ -91,6 +92,23 @@ namespace Miru.Html
             
             Editors.IfPropertyHasAttribute<RadioAttribute>()
                 .ModifyTag(tag => tag.Attr("type", "radio"));
+            
+            // Editors.If(req => req.Accessor.HasAttribute<RadioAttribute>() && req.Accessor.PropertyType == typeof(bool))
+            //     .BuildBy(m =>
+            //     {
+            //         var tag = new HtmlTag("input");
+            //         var value = m.Value<bool>();
+            //         
+            //         tag.Attr("type", "radio");
+            //         tag.Attr("value", m.RawValue != null ? value : "false");
+            //         
+            //         if (tag.Attr("value").ToBool() == value)
+            //             tag.Attr("checked", "checked");
+            //         else
+            //             m.CurrentTag.RemoveAttr("checked");
+            //
+            //         return m.CurrentTag;
+            //     });
 
             Editors.IfPropertyHasAttribute<CheckboxAttribute>()
                 .ModifyTag(tag => tag.Attr("type", "checkbox"));

@@ -50,15 +50,6 @@ namespace Miru.Html.Tags
                 
                     form.Append(input);
                 }
-                
-                form.Add("input", tag =>
-                {
-                    var summaryId = ElementNaming.FormSummaryId(model);
-
-                    tag.Attr("type", "hidden")
-                        .Attr("name", "__Summary")
-                        .Attr("value", summaryId);
-                });
             }
             
             form.MergeAttributes(output.Attributes);
