@@ -9,7 +9,7 @@ namespace Miru.Turbo
     {
         public static void MiruTurbo(this ObjectResultConfiguration _)
         {
-            _.When(m => m.Request.CanAccept(TurboStream.MimeType) && 
+            _.When(m => m.Request.CanAccept(TurboStreamResult.MimeType) && 
                         m.Request.IsGet()).Respond(m =>
             {
                 return new ViewResult
@@ -19,7 +19,7 @@ namespace Miru.Turbo
                 };
             });
 
-            _.When(m => m.Request.CanAccept(TurboStream.MimeType) && 
+            _.When(m => m.Request.CanAccept(TurboStreamResult.MimeType) && 
                         m.Model is IRedirect && 
                         m.Request.IsPost()).Respond(m =>
             {
@@ -32,13 +32,13 @@ namespace Miru.Turbo
                 return new RedirectResult(redirectToUrl);
             });
             
-            _.When(m => m.Request.CanAccept(TurboStream.MimeType) && 
+            _.When(m => m.Request.CanAccept(TurboStreamResult.MimeType) && 
                         m.Request.IsPost()).Respond(m => 
                 new PartialViewResult
                 {
                     ViewName = $"_{m.GetCurrentActionName()}.turbo",
                     ViewData = m.GetViewData(),
-                    ContentType = TurboStream.MimeType
+                    ContentType = TurboStreamResult.MimeType
                 });
         }
     }

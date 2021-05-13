@@ -28,7 +28,9 @@ namespace Miru.Html
             
             html.Editors.IfPropertyHasAttribute<CheckboxAttribute>()
                 .ModifyTag(tag => tag.Class("form-check-input"));
-            
+
+            html.ValidationMessages.Always.AddClass("invalid-feedback");
+
             return html;
         }
 

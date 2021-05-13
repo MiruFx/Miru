@@ -12,7 +12,7 @@ namespace Miru.Html
         {
             // HtmlTags is not using configured element naming convention for Selects
             // That's way we are doing manually here
-            request.ElementId = ElementNamingConvention
+            request.ElementId = HtmlConfiguration.ElementNamingConvention
                 .GetName(request.Accessor.OwnerType, request.Accessor);
             
             return new SelectTag();
