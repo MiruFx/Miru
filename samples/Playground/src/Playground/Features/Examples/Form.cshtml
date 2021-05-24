@@ -1,0 +1,118 @@
+@using Playground.Features.Examples
+@model Playground.Features.Examples.ExampleForm.Command
+
+<div class="card">
+    <div class="card-body">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+
+                <h4 class="my-3">Form Examples</h4>
+                
+                <miru-form>
+
+                    <miru-summary class="my-3"/>
+
+                    <h5>Select for Enum property</h5>
+                    
+                    <div class="my-4">
+                        <miru-label for="Relationship" />
+                        <miru-select for="Relationship" />
+                    </div>
+
+                    <h5>Select for Enumeration&lt;,&gt; property</h5>
+                    
+                    <div class="my-4">
+                        <miru-label for="CreditCard" value="CreditCards"/>
+                        <miru-select for="CreditCard" lookup="CreditCards" />
+                    </div>
+                          
+                    <h5>Radios for Enum property</h5>
+                    
+                    <div class="my-4">
+                        <miru-label for="PaymentMethod" />
+                        <div>
+                            <miru-input for="PaymentMethod" value="@PaymentMethods.CreditCard" /> @PaymentMethods.CreditCard
+                            <miru-input for="PaymentMethod" value="@PaymentMethods.PayPal" /> @PaymentMethods.PayPal
+                            <miru-input for="PaymentMethod" value="@PaymentMethods.Bitcoins" /> @PaymentMethods.Bitcoins
+                            <miru-input for="PaymentMethod" value="@PaymentMethods.Blik" /> @PaymentMethods.Blik
+                        </div>
+                    </div>
+                    
+                    <h5>Radios for Boolean property</h5>
+                    
+                    <div class="my-4">
+                        <miru-label for="Recurrent">Turn In Monthly Order?</miru-label>
+                        <div>
+                            <miru-input for="Recurrent" /> Yes
+                            <miru-input for="Recurrent" /> No. I want to miss 15% discount
+                        </div>
+                    </div>
+                    
+                    <h5>Checkbox for Boolean property</h5>
+                    
+                    <div class="my-4">
+                        <miru-label for="SendInvoice">&nbsp;</miru-label>
+                        <miru-input for="SendInvoice" /> Send Invoice
+                    </div>
+                    
+                    <h5>Checkbox for IEnumerable&lt;Enum&gt; property</h5>
+                    
+                    <div class="my-4">
+                        <miru-label for="NewsletterOptions" />
+                        <div>
+                            <miru-input for="NewsletterOptions" value="@Newsletters.Offers" /> @Newsletters.Offers
+                            <miru-input for="NewsletterOptions" value="@Newsletters.News" /> @Newsletters.News
+                            <miru-input for="NewsletterOptions" value="@Newsletters.Partners" /> @Newsletters.Partners
+                        </div>
+                    </div>
+
+                    <h4>Using a Complex type for a Property</h4>
+                    
+                    <h5>Select from Dictionary</h5>
+                                        
+                    <div class="my-4 has-validation">
+                        <miru-label for="Address.Country" />
+                        <miru-select for="Address.Country" lookup="Countries" empty-option />
+                        <miru-validation for="Address.Country" />
+                    </div>
+                    
+                    <div class="my-4">
+                        <miru-label for="Address.City" />
+                        <miru-input for="Address.City" />
+                        <miru-validation for="Address.City" />
+                    </div>                    
+
+                    <div class="my-4">
+                        <miru-label for="Address.Street" />
+                        <miru-input for="Address.Street" />
+                        <miru-validation for="Address.Street" />
+                    </div>       
+                    
+                    <h4>Lists with Validation</h4>
+                    
+                    @{ var i = 0;}
+                    @foreach (var item in Model.Products)
+                    {
+                        <div class="my-4">
+                            @Model.Products[i].Name
+                            <miru-label for="Products[i].Quantity" />
+                            <miru-input for="Products[i].Quantity" />
+                            <miru-validation for="Products[i].Quantity" />
+                        </div>
+                        i++;
+                    }
+                    
+                     <miru-submit value="Save"/>
+
+                </miru-form>
+
+            </div>
+        </div>
+        
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-8 alert alert-info" id="result">
+                <pre>@Model.Inspect()</pre>
+            </div>
+        </div>
+    </div>
+</div>

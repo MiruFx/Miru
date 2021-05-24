@@ -9,12 +9,12 @@ namespace Miru.Html
                 .ModifyWith(m => m.CurrentTag.Attr("type", "hidden"));
         }
         
-        // public static void InputForBoolean(this HtmlConfiguration cfg)
-        // {
-        //     cfg.Editors
-        //         .IfPropertyIs<bool>()
-        //         .ModifyWith(m => m.CurrentTag.Attr("value", true));
-        // }
+        public static void InputForBoolean(this HtmlConfiguration cfg)
+        {
+            cfg.Editors
+                .IfPropertyIs<bool>()
+                .ModifyWith(m => m.CurrentTag.Attr("type", "checkbox"));
+        }
         
         public static void InputForPassword(this HtmlConfiguration cfg)
         {

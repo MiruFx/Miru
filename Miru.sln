@@ -73,13 +73,13 @@ ProjectSection(SolutionItems) = preProject
 	samples\Corpo.Skeleton\gitignore = samples\Corpo.Skeleton\gitignore
 EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pantanal", "Pantanal", "{746A369D-7988-447F-BE6B-29CEC5D32C36}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Playground", "Playground", "{746A369D-7988-447F-BE6B-29CEC5D32C36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pantanal", "samples\Pantanal\src\Pantanal\Pantanal.csproj", "{959F8C00-A5A8-4E8F-AB28-6368A5D376C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground", "samples\Playground\src\Playground\Playground.csproj", "{959F8C00-A5A8-4E8F-AB28-6368A5D376C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pantanal.Tests", "samples\Pantanal\tests\Pantanal.Tests\Pantanal.Tests.csproj", "{71AB9346-094B-4AC9-BAE3-E061F0742417}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground.Tests", "samples\Playground\tests\Playground.Tests\Playground.Tests.csproj", "{71AB9346-094B-4AC9-BAE3-E061F0742417}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pantanal.PageTests", "samples\Pantanal\tests\Pantanal.PageTests\Pantanal.PageTests.csproj", "{659708D1-CCCE-4994-AC66-4D0DCCC63295}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground.PageTests", "samples\Playground\tests\Playground.PageTests\Playground.PageTests.csproj", "{659708D1-CCCE-4994-AC66-4D0DCCC63295}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

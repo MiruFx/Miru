@@ -13,7 +13,7 @@ namespace Miru.Mvc
     {
         public DefaultExceptionResultConfig()
         {
-            this.MiruTurbo();
+            this.MiruTurboFormSummary();
             
             this.MiruDefault();
         }

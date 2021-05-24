@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Miru.Html.Tags;
 using Miru.Mvc;
 using NUnit.Framework;
-using Pantanal.Features.Examples;
+using Playground.Features.Examples;
 using Shouldly;
 
 namespace Miru.Tests.Html.TagHelpers

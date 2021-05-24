@@ -112,7 +112,8 @@ namespace Miru.Turbo
                 // TODO: get from htmlconventions
                 var turboStream = new TurboStreamTag("replace", formSummaryId)
                     .AppendIntoTemplate(formSummary);
-
+                
+                // TODO: Log exception
                 var errorMessage = m.Exception is DomainException domainException
                     ? domainException.Message
                     : "An error occurred while processing your request";

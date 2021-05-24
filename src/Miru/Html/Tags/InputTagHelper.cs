@@ -40,6 +40,10 @@ namespace Miru.Html.Tags
                     if (attribute.Value.ToString()!.Equals(For.Model.ToString()))
                         htmlTag.Checked();
                 }
+                else if (For.Model is true)
+                {
+                    htmlTag.Checked();
+                }
             }
         }
     }

@@ -62,7 +62,7 @@ namespace Miru.Html
             
             this.InputHiddenForIds();
             
-            // this.InputForBoolean();
+            this.InputForBoolean();
             
             this.InputForPassword();
             

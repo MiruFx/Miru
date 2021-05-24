@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Miru.Testing
@@ -37,6 +38,8 @@ namespace Miru.Testing
             }
 
             var executeArgs = testArgs.ToArray();
+            
+            Console.WriteLine(executeArgs.Join(" "));
             
             return new MiruTestRunner(typeof(TType).Assembly).Execute(executeArgs);
         }

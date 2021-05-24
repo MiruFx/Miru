@@ -5,7 +5,7 @@ This Roadmap is a plan, but not a commitment. It can change in the future.
 ## Phases
 
 2021/12: 1.0 - Ready for production and .NET 6
-2022/12: 2.0 - Improve 1.0 from feedbacks
+2022/12: 2.0 - Performance and more facilities
 
 ## Versions
 
@@ -31,13 +31,6 @@ This Roadmap is a plan, but not a commitment. It can change in the future.
     - Save in file
     - Save in db
  
-- Queueing:
-  - Support Hangfire to MySql
-    - Consider using https://github.com/xavierjefferson/Hangfire.FluentNHibernateStorage?
-  - Different pipeline for _mediator.Send(job)
-  - Automated tests for Queueing features
-  - Mediator Scoped
-
 - Seed Data
   - miru make:seed UsersSeed
   - miru seed:run? or miru db:seed?
@@ -85,8 +78,15 @@ This Roadmap is a plan, but not a commitment. It can change in the future.
 
 - Flash messages
 
-### 0.12 - Sep - Ajax, Turbo
+### 0.12 - Sep - Queues & Turbo
 
+- Queueing:
+  - Support Hangfire to MySql
+    - Consider using https://github.com/xavierjefferson/Hangfire.FluentNHibernateStorage?
+  - Different pipeline for _mediator.Send(job)
+  - Automated tests for Queueing features
+  - Mediator Scoped
+  
 - Turbo:
     - Support turbo-stream with websockets
 
@@ -107,9 +107,6 @@ mirufx.github.com/docs
 - Urls:
   - Import FubuMvc 'object to url'
   
-- Caching
-- Gzip assets
-
 ### 0.15 - Dec - 1.0 alpha/beta
 
 Default configurations (Log, Database, Criptography)
@@ -136,3 +133,12 @@ PageTests
     - Run page tests over published
     - Running from compiled
     - Minimized frontend resources Production
+
+### 2.0 - 31/December/2022 - Performance
+
+- Caching
+- Gzip assets
+- Parallel Feature and Page tests
+- Fabrication performance
+- Url generation performance
+- Use Result instead of Exceptions for Validation, Domain, NotFound exception

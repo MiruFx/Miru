@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <GenerateProgramFile>false</GenerateProgramFile>
+  </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+        <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+        <PackageReference Include="Hangfire.MemoryStorage" Version="1.7.0" />
+
+        <!-- 
+        Supportreon uses Miru's source code directly.
+        This references would be the same as:
+        <PackageReference Include="Miru" Version="LAST_MIRU_VERSION" />
+        -->
+        <ProjectReference Include="..\..\..\..\src\Miru.Testing\Miru.Testing.csproj" />
+        <ProjectReference Include="..\..\..\..\src\Miru.Fabrication\Miru.Fabrication.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Playground\Playground.csproj" />
+    </ItemGroup>
+
+</Project>
