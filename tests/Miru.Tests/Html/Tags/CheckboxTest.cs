@@ -33,6 +33,20 @@ namespace Miru.Tests.Html.Tags
             // assert
             html.HtmlShouldBe("<input type=\"checkbox\" value=\"True\" name=\"Remember\" id=\"Remember\" checked=\"checked\">");
         }
+        
+        [Test]
+        public void Can_override_default_attributes()
+        {
+            // arrange
+            var model = new Login { Remember = false };
+            var tag = CreateTag(new InputTagHelper(), model, m => m.Remember);
+            
+            // act
+            var html = ProcessTag(tag, "miru-input", new { @checked = "checked" });
+            
+            // assert
+            html.HtmlShouldBe("<input type=\"checkbox\" value=\"False\" name=\"Remember\" id=\"Remember\" checked=\"checked\">");
+        }
 
         public class Login
         {

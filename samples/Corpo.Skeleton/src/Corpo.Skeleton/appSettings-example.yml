@@ -28,6 +28,7 @@ Mailing:
 #    Port: 25
 #    UserName: username
 #    Password: password
+#    Ssl: true
 
 # Serilog configuration
 # log levels: https://github.com/serilog/serilog/wiki/Configuration-Basics#minimum-level

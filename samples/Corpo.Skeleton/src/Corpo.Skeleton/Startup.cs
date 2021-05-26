@@ -27,7 +27,7 @@ namespace Corpo.Skeleton
             services.AddMiru<Startup>()
 
                 .AddDefaultPipeline<Startup>()
-
+                
                 .AddEfCoreSqlite<SkeletonDbContext>()
 
                 // user register, login, logout

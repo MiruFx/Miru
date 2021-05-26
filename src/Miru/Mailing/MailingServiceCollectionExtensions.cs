@@ -43,7 +43,7 @@ namespace Miru.Mailing
 
                 return new SmtpSender(new SmtpClient(smtpOptions.Host, smtpOptions.Port)
                 {
-                    EnableSsl = true,
+                    EnableSsl = smtpOptions.Ssl,
                     Credentials = new NetworkCredential(smtpOptions.UserName, smtpOptions.Password)
                 });
             });

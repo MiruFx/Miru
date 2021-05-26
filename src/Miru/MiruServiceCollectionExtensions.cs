@@ -49,6 +49,7 @@ namespace Miru
             services.AddMiruUrls();
             services.AddConsolables<TStartup>();
             services.AddSingleton<IJsonConverter, JsonConverter>();
+            services.AddStorage();
 
             services.AddSingleton<ISessionStore, HttpSessionStore>();
             

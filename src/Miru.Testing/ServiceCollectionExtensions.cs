@@ -19,7 +19,8 @@ namespace Miru.Testing
         {
             services
                 .AddSenderMemory()
-                .AddSingleton<IUrlMaps, StubUrlMaps>();
+                .AddSingleton<IUrlMaps, StubUrlMaps>()
+                .AddTestStorage();
             
             return services;
         }
