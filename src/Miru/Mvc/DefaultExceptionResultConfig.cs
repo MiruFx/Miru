@@ -1,4 +1,5 @@
 using System.Net;
+using System.Text;
 using Baseline;
 using FluentValidation;
 using HtmlTags;
@@ -27,33 +28,15 @@ namespace Miru.Mvc
             {
                 var validationException = (MiruValidationException) m.Exception;
                 var naming = m.GetService<ElementNaming>();
+                var formSummaryId = naming.FormSummaryId(validationException.Model);
                 
-                var template = new HtmlTag("template");
+                var html = new StringBuilder();
+                
+                html.Append(BuildValidationMessageTags(validationException));
+                
+                html.Append(BuildFormSummaryTag(formSummaryId, validationException));
 
-                var summaryId = naming.FormSummaryId(validationException.Model).Replace('.', '_');
-                
-                var summary = new HtmlTag("div")
-                    // TODO: parse css selector to HtmlTag (at least basic .class #id attribute
-                    .Id(summaryId)
-                    .AddClass("form-summary")
-                    .AddClass("alert")
-                    .AddClass("alert-danger")
-                    .Attr("data-controller", "form-summary");
-
-                template.Append(summary);
-                
-                // TODO: get from htmlconventions
-                var turboStream = new HtmlTag("turbo-stream")
-                    .Attr("action", "replace")
-                    .Attr("target", summaryId)
-                    .Append(template);
-                
-                var turboStreamTag = new TurboStreamTag("replace", summaryId)
-                    .AppendIntoTemplate(summary);
-                
-                validationException.Errors.Each(error => summary.Add("div", tag => tag.Text(error.ErrorMessage)));
-
-                return new TurboStreamResult(turboStream, HttpStatusCode.UnprocessableEntity);
+                return new TurboStreamResult(html.ToString(), HttpStatusCode.UnprocessableEntity);
             });
             
             When(m => 
@@ -90,6 +73,40 @@ namespace Miru.Mvc
 
                 return new TurboStreamResult(turboStream, HttpStatusCode.UnprocessableEntity);
             });
+        }
+        
+        private static string BuildFormSummaryTag(string formSummaryId, MiruValidationException validationException)
+        {
+            var formSummary = new FormSummaryTag(formSummaryId);
+
+            // TODO: get from htmlconventions
+            var turboStreamTag = new TurboStreamTag("replace", formSummaryId)
+                .AppendIntoTemplate(formSummary);
+            
+            validationException.Errors.Each(error => formSummary.Add("div", tag => tag.Text(error.ErrorMessage)));
+            
+            return turboStreamTag.ToString();
+        }
+        
+        private static StringBuilder BuildValidationMessageTags(MiruValidationException validationException)
+        {
+            var html = new StringBuilder();
+
+            foreach (var error in validationException.Errors)
+            {
+                var inputId = ElementNaming.BuildId(error.PropertyName);
+                var validationMessageTagId = $"{inputId}-validation";
+
+                var validationMessageTag =
+                    new ValidationMessageTag(validationMessageTagId, inputId, error.ErrorMessage);
+
+                var turboStreamTag = new TurboStreamTag("replace", validationMessageTagId)
+                    .AppendIntoTemplate(validationMessageTag);
+
+                html.AppendLine(turboStreamTag.ToString());
+            }
+
+            return html;
         }
     }
 }

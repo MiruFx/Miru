@@ -1,11 +1,16 @@
 using System;
+using System.Linq;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Miru;
 using Miru.Behaviors.BelongsToUser;
 using Miru.Foundation.Hosting;
+using Miru.Globalization;
 using Miru.Mailing;
 using Miru.Mvc;
 using Miru.Pipeline;
@@ -25,6 +30,8 @@ namespace Playground
             services.AddMiru<Startup>()
 
                 .AddDefaultPipeline<Startup>()
+                
+                .AddGlobalization("de-DE", "en-GB", "en-US", "pt-BR", "pt-PT")
 
                 .AddEfCoreSqlite<PlaygroundDbContext>()
 
@@ -89,6 +96,8 @@ namespace Playground
             }
             
             app.UseStaticFiles();
+
+            app.UseRequestLocalization();
             
             app.UseRequestLogging();
             app.UseStatusCodePagesWithReExecute("/Error/{0}");

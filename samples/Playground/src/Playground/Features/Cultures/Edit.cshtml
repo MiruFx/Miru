@@ -1,0 +1,114 @@
+@using System.Threading
+@using Microsoft.AspNetCore.Builder
+@using Microsoft.Extensions.Options
+@model CultureEdit.Command
+@inject IOptions<RequestLocalizationOptions> _localizationOptions
+
+<div class="m-2 card">
+    <div class="card-body">
+
+        <miru-form>
+
+            <miru-summary />
+            
+            <div class="row py-4">
+                <div class="row">
+                    
+                    <div class="col-md-4">
+                        <h3>Culture</h3>
+                    </div>
+            
+                    <div class="col-md-6">
+            
+                        <div class="row mb-4 mt-3">
+                            <div class="col-auto">
+                                App Default Culture: @_localizationOptions.Value.DefaultRequestCulture.Culture.EnglishName
+                            </div>
+                        </div>
+                        <div class="row mb-4 mt-3">
+                            <div class="col-auto">
+                                <div class="col-auto">
+                                    
+                                    <a class="dropdown-toggle text-dark" href="#" id="lieferant-status" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Current Culture: <i>@Thread.CurrentThread.CurrentUICulture.EnglishName</i>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="lieferant-status">
+                                        @foreach (var culture in _localizationOptions.Value.SupportedCultures)
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" for="@(new CultureEdit.Query { Culture = culture.Name })">
+                                                    @culture.EnglishName (@culture.Name)
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+            
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row border-1 border-top py-4">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3>Money</h3>
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="row mb-4 mt-3">
+                            <div class="col-3">
+                                <miru-label for="Price" /> 
+                                <span class="text-muted text-italic">(@Thread.CurrentThread.CurrentUICulture.NumberFormat.CurrencySymbol)</span>
+                                <div class="col-auto">
+                                    <miru-input for="Price" placeholder="0@(Thread.CurrentThread.CurrentUICulture.NumberFormat.CurrencyDecimalSeparator)00" />
+                                    <miru-validation for="Price" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row border-1 border-top py-4">
+
+                <div class="col-md-4">
+                    <h3>Dates</h3>
+                </div>
+
+                <div class="col-md-6 my-4">
+
+                    <div class="col-auto mb-2">
+                        <miru-label for="Date" />
+                        <div class="col-auto">
+                            <miru-input for="Date" />
+                            <miru-validation for="Date" />
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            
+            <div class="row border-1 border-top py-4">
+
+                <div class="offset-md-4 col-md-6">
+                    <miru-submit value="Submit" class="btn btn-success" />
+                </div>
+
+            </div>
+
+        </miru-form>
+
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-8 alert alert-info" id="result">
+                <pre>@Model.Inspect()</pre>
+            </div>
+        </div>
+        
+    </div>
+</div>

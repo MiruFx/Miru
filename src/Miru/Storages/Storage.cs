@@ -3,7 +3,7 @@ using Miru.Core;
 
 namespace Miru.Storages
 {
-    public class Storage
+    public class Storage : IStorage
     {
         private readonly MiruSolution _solution;
 
