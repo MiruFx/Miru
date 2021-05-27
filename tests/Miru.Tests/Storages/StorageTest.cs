@@ -98,7 +98,7 @@ namespace Miru.Tests.Storages
         {
             private ServiceProvider _sp;
             private MiruSolution _solution;
-            private Storage _storage;
+            private IStorage _storage;
 
             [OneTimeSetUp]
             public void Setup()
@@ -110,7 +110,7 @@ namespace Miru.Tests.Storages
                     .AddTestStorage()
                     .BuildServiceProvider();
 
-                _storage = _sp.GetRequiredService<Storage>();
+                _storage = _sp.GetRequiredService<IStorage>();
             }
 
             [Test]
