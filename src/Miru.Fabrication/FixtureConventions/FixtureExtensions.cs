@@ -53,56 +53,5 @@ namespace Miru.Fabrication.FixtureConventions
             else
                 fixture.Customizations.Insert(existentSpecimenIndex, specimen);
         }
-
-        public static string WhatConventionsDoIHave(this Fixture fixture)
-        {
-            var conventionsText = new StringBuilder();
-
-            conventionsText.Append(
-                "List of Conventions. Ordered descending by time added. Create() will use the first Convention found in this order:");
-
-            conventionsText.Append(Environment.NewLine);
-            conventionsText.Append(Environment.NewLine);
-            
-            var allConventionsSpecimen = fixture.Customizations
-                .Where(c => c is MiruConventionSpecimenBuilder);
-
-            foreach (MiruConventionSpecimenBuilder conventionSpecimen in allConventionsSpecimen)
-            {
-                foreach (var expression in conventionSpecimen.Convention.Expressions)
-                {
-                    conventionsText.Append(Dash);
-                    conventionsText.Append(Space);
-
-                    if (expression.IsForClass)
-                    {
-                        conventionsText.Append(nameof(IfFilterExpression.IfClass));
-                        conventionsText.Append(Space);
-                        conventionsText.Append(expression.IfClass);
-                    }
-
-                    if (expression.IsForProperty)
-                    {
-                        conventionsText.Append(nameof(IfFilterExpression.IfProperty));
-                        conventionsText.Append(Space);
-                        conventionsText.Append(expression.IfProperty);
-                    }
-
-                    conventionsText.Append(" => ");
-
-                    if (expression.ShouldIgnore)
-                        conventionsText.Append(nameof(IfFilterExpression.Ignore));
-                    else if (expression.UseValue != null)
-                        conventionsText.Append(nameof(IfFilterExpression.Use));
-                    else
-                        conventionsText.Append("NO ACTION DEFINED!");
-                    
-                    conventionsText.Append(Environment.NewLine);
-                    conventionsText.Append(Environment.NewLine);
-                }
-            }
-
-            return conventionsText.ToString();
-        }
     }
 }

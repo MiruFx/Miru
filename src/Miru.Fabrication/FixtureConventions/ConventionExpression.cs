@@ -18,7 +18,7 @@ namespace Miru.Fabrication.FixtureConventions
             _faker = faker;
         }
 
-        public IfFilterExpression IfProperty(Expression<Func<PropertyInfo, bool>> whenProperty)
+        public IfFilterExpression IfProperty(Func<PropertyInfo, bool> whenProperty)
         {
             var expression = new IfFilterExpression(whenProperty, _faker);
             
@@ -27,7 +27,7 @@ namespace Miru.Fabrication.FixtureConventions
             return expression;
         }
         
-        public IfFilterExpression IfClass(Expression<Func<TypeInfo, bool>> whenClass)
+        public IfFilterExpression IfClass(Func<TypeInfo, bool> whenClass)
         {
             var expression = new IfFilterExpression(whenClass, _faker);
             

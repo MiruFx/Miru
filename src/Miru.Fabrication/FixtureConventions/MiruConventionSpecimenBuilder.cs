@@ -20,7 +20,7 @@ namespace Miru.Fabrication.FixtureConventions
             {
                 foreach (var expression in Convention.Expressions)
                 {
-                    if (expression.IfProperty != null && expression.IfProperty.Compile().Invoke(propertyInfo))
+                    if (expression.IfProperty != null && expression.IfProperty(propertyInfo))
                     {
                         if (expression.ShouldIgnore)
                             return new OmitSpecimen();
@@ -36,7 +36,7 @@ namespace Miru.Fabrication.FixtureConventions
             {
                 foreach (var expression in Convention.Expressions)
                 {
-                    if (expression.IfClass != null && expression.IfClass.Compile().Invoke(typeInfo))
+                    if (expression.IfClass != null && expression.IfClass(typeInfo))
                     {
                         if (expression.ShouldIgnore)
                             return null;
