@@ -7,9 +7,9 @@ namespace Miru.Fabrication.FixtureConventions
 {
     public class IfFilterExpression
     {
-        public Expression<Func<PropertyInfo, bool>> IfProperty { get; }
+        public Func<PropertyInfo, bool> IfProperty { get; }
         
-        public Expression<Func<TypeInfo, bool>> IfClass { get; }
+        public Func<TypeInfo, bool> IfClass { get; }
 
         public bool IsForClass => IfClass != null;
         
@@ -21,13 +21,13 @@ namespace Miru.Fabrication.FixtureConventions
 
         private readonly Faker _faker;
 
-        public IfFilterExpression(Expression<Func<PropertyInfo, bool>> ifProperty, Faker faker)
+        public IfFilterExpression(Func<PropertyInfo, bool> ifProperty, Faker faker)
         {
             _faker = faker;
             IfProperty = ifProperty;
         }
         
-        public IfFilterExpression(Expression<Func<TypeInfo, bool>> ifClass, Faker faker)
+        public IfFilterExpression(Func<TypeInfo, bool> ifClass, Faker faker)
         {
             _faker = faker;
             IfClass = ifClass;
