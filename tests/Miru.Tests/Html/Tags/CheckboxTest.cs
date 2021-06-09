@@ -17,7 +17,7 @@ namespace Miru.Tests.Html.Tags
             var html = ProcessTag(tag, "miru-input");
             
             // assert
-            html.HtmlShouldBe("<input type=\"checkbox\" value=\"False\" name=\"Remember\" id=\"Remember\">");
+            html.HtmlShouldBe("<input type=\"checkbox\" value=\"true\" name=\"Remember\" id=\"Remember\">");
         }
         
         [Test]
@@ -31,7 +31,7 @@ namespace Miru.Tests.Html.Tags
             var html = ProcessTag(tag, "miru-input");
             
             // assert
-            html.HtmlShouldBe("<input type=\"checkbox\" value=\"True\" name=\"Remember\" id=\"Remember\" checked=\"checked\">");
+            html.HtmlShouldBe("<input type=\"checkbox\" value=\"true\" name=\"Remember\" id=\"Remember\" checked=\"checked\">");
         }
         
         [Test]
@@ -45,7 +45,7 @@ namespace Miru.Tests.Html.Tags
             var html = ProcessTag(tag, "miru-input", new { @checked = "checked" });
             
             // assert
-            html.HtmlShouldBe("<input type=\"checkbox\" value=\"False\" name=\"Remember\" id=\"Remember\" checked=\"checked\">");
+            html.HtmlShouldBe("<input type=\"checkbox\" value=\"true\" name=\"Remember\" id=\"Remember\" checked=\"checked\">");
         }
 
         public class Login

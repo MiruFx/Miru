@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using HtmlTags;
 using HtmlTags.Conventions.Elements;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -25,6 +23,8 @@ namespace Miru.Html.Tags
             
             if (htmlTag.Attr("type").Equals("checkbox"))
             {
+                htmlTag.Value("true");
+                
                 if (tagHelperOutput.Attributes.TryGetAttribute("value", out TagHelperAttribute attribute))
                 {
                     if (For.Model.GetType().IsArray)

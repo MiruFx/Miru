@@ -14,11 +14,14 @@ namespace Miru.Databases.Migrations.FluentMigrator
             return column.AsInt64().NotNullable();
         }
         
-        public static ICreateTableWithColumnSyntax WithTimeStamps(this ICreateTableWithColumnSyntax table)
+        public static ICreateTableWithColumnSyntax WithTimeStamps(
+            this ICreateTableWithColumnSyntax table,
+            string columnCreatedAt = "CreatedAt",
+            string columnUpdatedAt = "UpdatedAt")
         {
             return table
-                .WithColumn("CreatedAt").AsDateTime()
-                .WithColumn("UpdatedAt").AsDateTime();
+                .WithColumn(columnCreatedAt).AsDateTime()
+                .WithColumn(columnUpdatedAt).AsDateTime();
         }
         
         public static ICreateTableWithColumnSyntax WithId(this ICreateTableWithColumnSyntax table)

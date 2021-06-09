@@ -113,7 +113,12 @@ namespace Miru.Html
             //     });
 
             Editors.IfPropertyHasAttribute<CheckboxAttribute>()
-                .ModifyTag(tag => tag.Attr("type", "checkbox"));
+                .ModifyTag(tag =>
+                {
+                    tag
+                        .Attr("type", "checkbox")
+                        .Value("true");
+                });
         }
     }
 }

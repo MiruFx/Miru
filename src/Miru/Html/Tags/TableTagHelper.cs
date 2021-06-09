@@ -7,12 +7,12 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Miru.Html.Tags
 {
     [HtmlTargetElement("miru-table", Attributes = "for")]
-    public class TableTagHelper : MiruForTagHelper
+    public class TableTagHelper : MiruHtmlTagHelper
     {
+        protected override string Category { get; } = string.Empty;
+
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            EnsureForIsValid();
-            
             var model = For.Model as IEnumerable;
             
             if (model == null)
@@ -27,6 +27,6 @@ namespace Miru.Html.Tags
             {
                 output.SuppressOutput();
             }
-        } 
+        }
     }
 }

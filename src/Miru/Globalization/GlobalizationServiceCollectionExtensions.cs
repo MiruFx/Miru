@@ -33,6 +33,8 @@ namespace Miru.Globalization
                     x.AddSupportedCultures(supportedCultures);
                     x.AddSupportedUICultures(supportedCultures);
 
+                    x.DefaultRequestCulture = new RequestCulture(supportedCultures.First());
+                    
                     var cookieProvider = x.RequestCultureProviders
                         .OfType<CookieRequestCultureProvider>()
                         .First();
