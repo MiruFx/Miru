@@ -20,8 +20,10 @@ namespace Miru.Html.Tags
             
             if (model.GetEnumerator().MoveNext())
             {
+                var modelType = For.Metadata.ContainerType ?? For.ModelExplorer.Container.ModelType;
+                
                 output.TagName = "table";
-                output.Attributes.Add("id", ElementNaming.Id(For.Metadata.ContainerType));
+                output.Attributes.Add("id", ElementNaming.Id(modelType));
             }
             else
             {
