@@ -26,26 +26,7 @@ namespace Miru.Tests.Html.TagHelpers
             htmlNotChecked.PreElement.GetContent().ShouldBe(
                 "<input type=\"radio\" value=\"Married\" name=\"Relationship\" id=\"Relationship\">");            
         }
-        
-        [Test]
-        public void When_input_is_checkbox_and_property_list_of_enum_should_set_check_existent_values()
-        {
-            // arrange
-            var model = new Command { NewsletterOptions = new[] { Newsletters.Offers, Newsletters.Partners }};
-            var tag = CreateTag(new InputTagHelper(), model, m => m.NewsletterOptions);
-
-            // act
-            var htmlPartners = ProcessTag(tag, "miru-input", new { value = Newsletters.Partners });
-            var htmlNews = ProcessTag(tag, "miru-input", new { value = Newsletters.News });
-            
-            // assert
-            htmlPartners.PreElement.GetContent().ShouldBe(
-                $"<input type=\"checkbox\" value=\"Partners\" name=\"NewsletterOptions\" id=\"NewsletterOptions\" checked=\"checked\">");
-            
-            htmlNews.PreElement.GetContent().ShouldBe(
-                $"<input type=\"checkbox\" value=\"News\" name=\"NewsletterOptions\" id=\"NewsletterOptions\">");
-        }
-        
+       
         [Test]
         public void Should_render_text_input()
         {
@@ -65,9 +46,6 @@ namespace Miru.Tests.Html.TagHelpers
             [Radio]
             public Relationships Relationship { get; set; }
             
-            [Checkbox]
-            public IEnumerable<Newsletters> NewsletterOptions { get; set; }
-            
             public string Name { get; set; }
         }
         
@@ -76,13 +54,6 @@ namespace Miru.Tests.Html.TagHelpers
             Single,
             Married,
             Divorced
-        }
-
-        public enum Newsletters
-        {
-            Offers,
-            News,
-            Partners
         }
     }
 }

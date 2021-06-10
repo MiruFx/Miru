@@ -23,8 +23,6 @@ namespace Miru.Html.Tags
             
             if (htmlTag.Attr("type").Equals("checkbox"))
             {
-                htmlTag.Value("true");
-                
                 if (tagHelperOutput.Attributes.TryGetAttribute("value", out TagHelperAttribute attribute))
                 {
                     if (For.Model.GetType().IsArray)
@@ -37,10 +35,16 @@ namespace Miru.Html.Tags
                                 htmlTag.Checked();
                         }
                     }
+
                     if (attribute.Value.ToString()!.Equals(For.Model.ToString()))
                         htmlTag.Checked();
                 }
-                else if (For.Model is true)
+                else
+                {
+                    htmlTag.Value("true");
+                }
+                
+                if (For.Model is true)
                 {
                     htmlTag.Checked();
                 }
