@@ -10,8 +10,5 @@ namespace Miru.Html.Tags
     public class LabelTagHelper : MiruHtmlTagHelper
     {
         protected override string Category { get; } = ElementConstants.Label;
-
-        [HtmlAttributeName("set-class")]
-        protected string SetClass { get; set; }
     }
 }

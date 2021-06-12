@@ -61,6 +61,9 @@ namespace Miru.Testing
             ActionsAfterEach.Add(typeof(object), (type, fixture) => action(fixture));
         }
         
+        public void AfterEach(Action<Type, TestFixture> action) =>
+            ActionsAfterEach.Add(typeof(object), action);
+        
         public void AfterEach<TTestType>(Action<TestFixture> action)
         {
             ActionsAfterEach.Add(typeof(TTestType), (type, fixture) => action(fixture));
@@ -70,6 +73,9 @@ namespace Miru.Testing
         {
             ActionsAfterAll.Add(typeof(object), (type, fixture) => action(fixture));
         }
+        
+        public void AfterAll(Action<Type, TestFixture> action) =>
+            ActionsAfterAll.Add(typeof(object), action);
         
         public void AfterAll<TTestType>(Action<TestFixture> action)
         {

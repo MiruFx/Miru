@@ -52,6 +52,13 @@ namespace Miru.Tests.Html.TagHelpers
 
             return tag;
         }
+        
+        protected TTag CreateTag<TTag>(TTag tag) where TTag : MiruHtmlTagHelper, new()
+        {
+            tag.RequestServices = ServiceProvider;
+
+            return tag;
+        }
 
         protected TagHelperOutput ProcessTag2<TTag>(
             TTag tag, 

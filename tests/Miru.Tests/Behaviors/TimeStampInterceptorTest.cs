@@ -77,37 +77,6 @@ namespace Miru.Tests.Behaviors
             saved.CreatedAt.ShouldBe(1.Days().Ago(), tolerance: 5.Seconds());
             saved.UpdatedAt.ShouldBeSecondsAgo();
         }
-        
-        //
-        // [Test]
-        // public void Should_not_set_if_user_id_is_already_set()
-        // {
-        //     // arrange
-        //     // no current user
-        //     
-        //     // act
-        //     var post = _.MakeSaving<Post>();
-        //     
-        //     // assert
-        //     var saved = _.App.WithScope(s => s.Get<FooDbContext>().Posts.First());
-        //     saved.UserId.ShouldBe(post.User.Id);
-        //     saved.ShouldBe(post);
-        // }
-        //
-        // [Test]
-        // public void Throw_exception_if_current_user_is_anonymous()
-        // {
-        //     // arrange
-        //     // act
-        //     Should.Throw<UnauthorizedException>(() => _.MakeSaving<Post>(x =>
-        //     {
-        //         x.User = null;
-        //         x.UserId = 0;
-        //     }));
-        //     
-        //     // assert
-        //     _.App.WithScope(s => s.Get<FooDbContext>().Posts.Count().ShouldBe(0));
-        // }
 
         public class Post : Entity, ITimeStamped
         {

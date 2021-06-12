@@ -26,6 +26,9 @@ namespace Miru.Html.Tags
             set => _requestServices = value;
         }
         
+        [HtmlAttributeName("set-class")]
+        public string SetClass { get; set; }
+        
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             if (For == null)
@@ -61,10 +64,14 @@ namespace Miru.Html.Tags
                 childContent.Clear();
             }
 
+            // merge attributes from view tag into html tag
             foreach (var attribute in output.Attributes)
             {
                 tag.Attr(attribute.Name, attribute.Value);
             }
+
+            if (SetClass.NotEmpty())
+                tag.Class(SetClass);
 
             BeforeRender(output, tag);
             

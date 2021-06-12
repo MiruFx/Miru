@@ -3,7 +3,6 @@ using Miru.Html.Tags;
 using Miru.Mvc;
 using NUnit.Framework;
 using Playground.Features.Examples;
-using Shouldly;
 
 namespace Miru.Tests.Html.TagHelpers
 {
@@ -30,7 +29,7 @@ namespace Miru.Tests.Html.TagHelpers
             var html = ProcessTag(tag, "miru-select");
 
             // assert
-            html.PreElement.GetContent().ShouldBe(
+            html.HtmlShouldBe(
                 "<select name=\"Address.Country\" id=\"Address_Country\"><option value=\"br\">Brazil</option><option value=\"de\" selected=\"selected\">Germany</option></select>");
         }
     }
