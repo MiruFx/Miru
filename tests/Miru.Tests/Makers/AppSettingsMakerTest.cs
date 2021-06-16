@@ -14,7 +14,7 @@ namespace Miru.Tests.Makers
         [TearDown]
         public void Setup()
         {
-            _solutionDir = A.TempPath("Miru", "Pantanal");
+            _solutionDir = A.TempPath / "Miru" / "Pantanal";
             
             Console.WriteLine(_solutionDir);
             

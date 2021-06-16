@@ -7,7 +7,7 @@ namespace Miru.Makers
     {
         public static void AppSettings(this Maker maker, string environment)
         {
-            var destination = A.Path(maker.Solution.AppDir, $"appSettings.{environment}.yml");
+            var destination = maker.Solution.AppDir / $"appSettings.{environment}.yml";
 
             if (File.Exists(destination))
             {
@@ -15,7 +15,7 @@ namespace Miru.Makers
                 return;
             }
 
-            var appSettingsExample = A.Path(maker.Solution.AppDir, $"appSettings-example.yml");
+            var appSettingsExample = maker.Solution.AppDir / $"appSettings-example.yml";
             
             // appSettings-example.yml exists, copy from it
             if (File.Exists(appSettingsExample))

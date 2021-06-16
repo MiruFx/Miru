@@ -16,7 +16,7 @@ namespace Miru.Cli
 
         private void Execute(string name)
         {
-            var m = new Maker(new MiruSolution(A.Path(name)));
+            var m = new Maker(new MiruSolution(A.Path / name));
 
             m.New(name);
         }

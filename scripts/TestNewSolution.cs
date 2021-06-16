@@ -12,7 +12,7 @@ namespace Scripts
     {
         public static void Test()
         {
-            var tempDir = A.TempPath() / "MiruTemp";
+            var tempDir = A.TempPath / "MiruTemp";
             var solutionDir = tempDir / "Supportreon";
 
             Directories.DeleteIfExists(tempDir);

@@ -13,7 +13,7 @@ namespace Miru.Tests.Makers
         [TearDown]
         public void Setup()
         {
-            _solutionDir = A.TempPath("Miru", "Shopifu");
+            _solutionDir = A.TempPath / "Miru" / "Shopifu";
             
             Directories.DeleteIfExists(_solutionDir);
         }

@@ -9,13 +9,13 @@ namespace Miru.Tests.Makers
         [Test]
         public void Can_create_a_maker()
         {
-            var m = Maker.For(A.TempPath("Projects"), "Mong");
+            var m = Maker.For(A.TempPath / "Projects" / "Mong");
             m.Solution.Name.ShouldBe("Mong");
-            m.Solution.RootDir.ShouldBe(A.TempPath("Projects", "Mong"));
+            m.Solution.RootDir.ShouldBe(A.TempPath / "Projects" / "Mong");
             
-            var m2 = Maker.For(A.TempPath("Mong"), "Mong");
+            var m2 = Maker.For(A.TempPath / "Mong");
             m2.Solution.Name.ShouldBe("Mong");
-            m2.Solution.RootDir.ShouldBe(A.TempPath("Mong"));
+            m2.Solution.RootDir.ShouldBe(A.TempPath / "Mong");
         }
     }
 }

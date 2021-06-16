@@ -9,54 +9,54 @@ namespace Miru.Tests.Foundation
         [Test]
         public void Can_create_solution_info()
         {
-            var solution = new MiruSolution(A.Path("Projects", "StackOverflow"));
+            var solution = new MiruSolution(A.Path / "Projects" / "StackOverflow");
 
             solution.Name.ShouldBe("StackOverflow");
             solution.ShortName.ShouldBe("StackOverflow");
             
-            solution.RootDir.ShouldBe(A.Path("Projects", "StackOverflow"));
-            solution.SrcDir.ShouldBe(A.Path("Projects", "StackOverflow", "src"));
-            solution.TestsDir.ShouldBe(A.Path("Projects", "StackOverflow", "tests"));
+            solution.RootDir.ShouldBe(A.Path / "Projects" / "StackOverflow");
+            solution.SrcDir.ShouldBe(A.Path / "Projects" / "StackOverflow" / "src");
+            solution.TestsDir.ShouldBe(A.Path / "Projects" / "StackOverflow" / "tests");
             
             solution.App.ShouldBe("StackOverflow");
-            solution.AppDir.ShouldBe(A.Path("Projects", "StackOverflow", "src", "StackOverflow"));
+            solution.AppDir.ShouldBe(A.Path / "Projects" / "StackOverflow" / "src" / "StackOverflow");
             
             solution.AppTests.ShouldBe("StackOverflow.Tests");
-            solution.AppTestsDir.ShouldBe(A.Path("Projects", "StackOverflow", "tests", "StackOverflow.Tests"));
+            solution.AppTestsDir.ShouldBe(A.Path / "Projects" / "StackOverflow" / "tests" / "StackOverflow.Tests");
             
             solution.AppPageTests.ShouldBe("StackOverflow.PageTests");
-            solution.AppPageTestsDir.ShouldBe(A.Path("Projects", "StackOverflow", "tests", "StackOverflow.PageTests"));
+            solution.AppPageTestsDir.ShouldBe(A.Path / "Projects" / "StackOverflow" / "tests" / "StackOverflow.PageTests");
             
-            solution.DatabaseDir.ShouldBe(A.Path("Projects", "StackOverflow", "src", "StackOverflow", "Database"));
-            solution.MigrationsDir.ShouldBe(A.Path("Projects", "StackOverflow", "src", "StackOverflow", "Database", "Migrations"));
-            solution.FabricatorsDir.ShouldBe(A.Path("Projects", "StackOverflow", "src", "StackOverflow", "Database", "Fabricators"));
+            solution.DatabaseDir.ShouldBe(A.Path / "Projects" / "StackOverflow" / "src" / "StackOverflow" / "Database");
+            solution.MigrationsDir.ShouldBe(A.Path / "Projects" / "StackOverflow" / "src" / "StackOverflow" / "Database" / "Migrations");
+            solution.FabricatorsDir.ShouldBe(A.Path / "Projects" / "StackOverflow" / "src" / "StackOverflow" / "Database" / "Fabricators");
         }
 
         [Test]
         public void Get_app_name_from_root_dir()
         {
-            var solution = new MiruSolution(A.TempPath("Miru", "ContosoUniversity"));
+            var solution = new MiruSolution(A.TempPath / "Miru" / "ContosoUniversity");
             solution.Name.ShouldBe("ContosoUniversity");
         }
         
         [Test]
         public void Get_app_name_from_parameter()
         {
-            var solution = new MiruSolution(A.TempPath("Miru", "ContosoUniversity"), "ContosoWeb");
+            var solution = new MiruSolution(A.TempPath / "Miru" / "ContosoUniversity" / "ContosoWeb");
             solution.Name.ShouldBe("ContosoWeb");
         }
         
         [Test]
         public void Get_relative_path()
         {
-            var solution = new MiruSolution(A.TempPath("Miru", "ContosoUniversity"), "ContosoWeb");
+            var solution = new MiruSolution(A.TempPath / "Miru" / "ContosoUniversity" / "ContosoWeb");
             solution.Relative(m => m.SrcDir).ShouldBe("src");
         }
 
         [Test]
         public void When_solution_name_is_composed_can_extract_short_name()
         {
-            var solution = new MiruSolution(A.TempPath("Projects"), "Microsoft.Dynamics");
+            var solution = new MiruSolution(A.TempPath / "Projects" / "Microsoft.Dynamics");
             solution.Name.ShouldBe("Microsoft.Dynamics");
             solution.ShortName.ShouldBe("Dynamics");
         }

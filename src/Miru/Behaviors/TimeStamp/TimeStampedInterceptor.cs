@@ -24,7 +24,8 @@ namespace Miru.Behaviors.TimeStamp
                 if (entityBeingCreated.CreatedAt == default)
                     entityBeingCreated.CreatedAt = DateTime.Now;
                 
-                entityBeingCreated.UpdatedAt = DateTime.Now;
+                if (entityBeingCreated.UpdatedAt == default)
+                    entityBeingCreated.UpdatedAt = DateTime.Now;
             }
 
             var entitiesBeingUpdated = @event.Context.ChangeTracker.Entries<ITimeStamped>()

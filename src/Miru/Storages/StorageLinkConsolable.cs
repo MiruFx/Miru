@@ -5,7 +5,7 @@ using Oakton;
 
 namespace Miru.Storages
 {
-    [Description("Create a symlink from /storage/app to {{App}}/wwwroot/storage", Name = "storage:link")]
+    [Description("Create a symlink from /storage/assets to {{App}}/wwwroot/assets", Name = "storage:link")]
     public class StorageLinkConsolable : ConsolableSync
     {
         private readonly MiruSolution _solution;
@@ -17,10 +17,8 @@ namespace Miru.Storages
     
         public override void Execute()
         {
-            // TODO: rethink about /wwwroot/storage
-            // TODO: create /wwwroot/storage dir if it does not exist
             var wwwrootStorage = _solution.AppDir / "wwwroot" / "storage";
-            var storageApp = _solution.RootDir / "storage" / "app";
+            var storageApp = _solution.StorageDir / "storage" / "assets";
             
             Directories.CreateIfNotExists(storageApp);
             

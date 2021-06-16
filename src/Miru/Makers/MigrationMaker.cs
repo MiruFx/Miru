@@ -18,7 +18,7 @@ namespace Miru.Makers
                 Table = table ?? "TableName"
             };
             
-            m.Template("Migration", input, A.Path(m.Solution.MigrationsDir, $"{input.Version}_{name}.cs"));
+            m.Template("Migration", input, m.Solution.MigrationsDir / $"{input.Version}_{name}.cs");
         }
     }
 }

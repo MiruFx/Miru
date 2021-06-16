@@ -96,9 +96,9 @@ namespace Miru.Mailing
             var path = string.Join(Path.DirectorySeparatorChar, dirs);
 
             if (_options.TemplatePath.IsNotEmpty())
-                return A.Path(_options.TemplatePath) / path / templateFile;
+                return A.Path / _options.TemplatePath / path / templateFile;
             
-            return A.Path(path) / templateFile;
+            return A.Path / path / templateFile;
         }
         
         private void Enqueue(Email fluentMail)

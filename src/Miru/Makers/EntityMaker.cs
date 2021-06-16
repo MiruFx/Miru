@@ -11,9 +11,9 @@ namespace Miru.Makers
                 Name = name
             };
             
-            m.Template("Entity", input, A.Path(m.Solution.DomainDir, $"{name}.cs"));
+            m.Template("Entity", input, m.Solution.DomainDir / $"{name}.cs");
             
-            m.Template("EntityTest", input, A.Path(m.Solution.AppTestsDir, "Domain", $"{name}Test.cs"));
+            m.Template("EntityTest", input, m.Solution.AppTestsDir / "Domain" / $"{name}Test.cs");
         }
     }
 }

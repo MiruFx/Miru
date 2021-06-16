@@ -14,7 +14,7 @@ namespace Miru.Tests.Makers
         // [TearDown]
         public void Setup()
         {
-            _solutionDir = A.TempPath("Miru", "Contoso.University");
+            _solutionDir = A.TempPath / "Miru" / "Contoso.University";
             
             Console.WriteLine(_solutionDir);
             

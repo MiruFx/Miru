@@ -20,6 +20,20 @@ namespace Miru.Storages
             StorageDir = _solution.StorageDir;
         }
 
+        public void Put(MiruPath remote, MiruPath source)
+        {
+            var fullRemotePath = App / remote;
+
+            EnsureDirExists(fullRemotePath.Dir());
+            
+            File.Copy(source, fullRemotePath, true);
+        }
+
+        private void EnsureDirExists(MiruPath dir)
+        {
+            Directories.CreateIfNotExists(dir);
+        }
+
         public MiruPath Temp(params string[] paths)
         {
             var file = _solution.StorageDir / "temp" / Path.Combine(paths);

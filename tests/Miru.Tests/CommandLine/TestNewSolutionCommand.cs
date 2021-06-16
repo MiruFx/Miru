@@ -17,7 +17,7 @@ namespace Miru.Tests.CommandLine
         
         public TestNewSolutionCommand() : base(name: "test-new-solution")
         {
-            _workingDir = A.TempPath() / BasePath;
+            _workingDir = A.TempPath / BasePath;
             _newSolutionDir = _workingDir / SolutionName;
             _sampleMongDir = new SolutionFinder().FromCurrentDir().Solution.RootDir / "samples" / SolutionName;
             
@@ -42,14 +42,14 @@ namespace Miru.Tests.CommandLine
             ExecuteShell("miru make:feature TopupNew Topups New", _newSolutionDir);
             ExecuteShell("miru make:entity Topup", _newSolutionDir);
 
-            CopyFromSample(A.Path("src") / SolutionName / "Database" / "Migrations" / "201911071845_CreateTopup.cs");
-            CopyFromSample(A.Path("src") / SolutionName / "Database" / "MongDbContext.cs");
-            CopyFromSample(A.Path("src") / SolutionName / "Features" / "Topups" / "New.cshtml");
-            CopyFromSample(A.Path("src") / SolutionName / "Features" / "Topups" / "TopupNew.cs");
-            CopyFromSample(A.Path("src") / SolutionName / "Domain" / "Topup.cs");
+            CopyFromSample(A.Path / "src" / SolutionName / "Database" / "Migrations" / "201911071845_CreateTopup.cs");
+            CopyFromSample(A.Path / "src" / SolutionName / "Database" / "MongDbContext.cs");
+            CopyFromSample(A.Path / "src" / SolutionName / "Features" / "Topups" / "New.cshtml");
+            CopyFromSample(A.Path / "src" / SolutionName / "Features" / "Topups" / "TopupNew.cs");
+            CopyFromSample(A.Path / "src" / SolutionName / "Domain" / "Topup.cs");
             
-            CopyFromSample(A.Path("tests") / $"{SolutionName}.Tests" / "Features" / "Topups" / "TopupNewTest.cs");
-            CopyFromSample(A.Path("tests") / $"{SolutionName}.PageTests" / "Pages" / "Topups" / "TopupNewPageTest.cs");
+            CopyFromSample(A.Path / "tests" / $"{SolutionName}.Tests" / "Features" / "Topups" / "TopupNewTest.cs");
+            CopyFromSample(A.Path / "tests" / $"{SolutionName}.PageTests" / "Pages" / "Topups" / "TopupNewPageTest.cs");
             
             ExecuteShell("dotnet build  --nologo", _newSolutionDir);
             ExecuteShell("miru test", _newSolutionDir);

@@ -21,17 +21,17 @@ namespace Miru.Userfy
         where TUser : IdentityUser<long> 
         where TRole : IdentityRole<long>
     {
-        private readonly IEnumerable<IInterceptor> _interceptors;
+        protected IEnumerable<IInterceptor> Interceptors { get; }
 
         public UserfyDbContext(DbContextOptions options, IEnumerable<IInterceptor> interceptors)
             : base(options)
         {
-            _interceptors = interceptors;
+            Interceptors = interceptors;
         }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.AddInterceptors(_interceptors);
+            optionsBuilder.AddInterceptors(Interceptors);
         }
         
         protected override void OnModelCreating(ModelBuilder builder)

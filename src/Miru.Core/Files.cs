@@ -1,7 +1,6 @@
 using System.IO;
-using Miru.Core;
 
-namespace Miru
+namespace Miru.Core
 {
     public static class Files
     {

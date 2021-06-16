@@ -64,21 +64,21 @@ namespace Miru.Core
             Name = appName ?? Path.GetFileName(RootDir);
             ShortName = Name.Split(".").Last();
             
-            SrcDir = A.Path(RootDir, "src");
-            TestsDir = A.Path(RootDir, "tests");
+            SrcDir = RootDir / "src";
+            TestsDir = RootDir / "tests";
             
             App = Name;
-            AppDir = A.Path(SrcDir, App);
+            AppDir = SrcDir / App;
             AppTests = $"{Name}.Tests";
-            AppTestsDir = A.Path(TestsDir, AppTests);
+            AppTestsDir = TestsDir / AppTests;
             AppPageTests = $"{Name}.PageTests";;
-            AppPageTestsDir = A.Path(TestsDir, AppPageTests);
+            AppPageTestsDir = TestsDir / AppPageTests;
             
-            DatabaseDir = A.Path(AppDir, "Database");
-            MigrationsDir = A.Path(DatabaseDir, "Migrations");
-            FabricatorsDir = A.Path(DatabaseDir, "Fabricators");
-            FeaturesDir = A.Path(AppDir, "Features");
-            DomainDir = A.Path(AppDir, "Domain");
+            DatabaseDir = AppDir / "Database";
+            MigrationsDir = DatabaseDir / "Migrations";
+            FabricatorsDir = DatabaseDir / "Fabricators";
+            FeaturesDir = AppDir / "Features";
+            DomainDir = AppDir / "Domain";
 
             StorageDir = RootDir / "storage";
         }

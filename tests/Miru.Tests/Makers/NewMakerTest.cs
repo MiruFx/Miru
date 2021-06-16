@@ -16,7 +16,7 @@ namespace Miru.Tests.Makers
         //[TearDown]
         public void Setup()
         {
-            _tempDir = A.TempPath("Miru");
+            _tempDir = A.TempPath / "Miru";
             
             Directories.DeleteIfExists(_tempDir);
         }
