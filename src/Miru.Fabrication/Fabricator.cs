@@ -69,7 +69,7 @@ namespace Miru.Fabrication
             {
                 var defaultWith = (Action<T, Faker>) defaultWithObject;
                 
-                allMade = Fixture.CreateMany<T>();
+                allMade = Fixture.CreateMany<T>(count);
                 
                 foreach (var made in allMade)
                 {

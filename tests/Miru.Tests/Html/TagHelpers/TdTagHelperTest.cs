@@ -9,28 +9,28 @@ namespace Miru.Tests.Html.TagHelpers
 {
     public class TableCellTagHelperTest : TagHelperTest
     {
-        private TeamList.Result _viewModel;
+        private TeamList.Result _model;
 
         [SetUp]
         public void Setup()
         {
-            _viewModel = new TeamList.Result
+            _model = new TeamList.Result
             {
-                Items = new List<TeamList.Item>()
+                Items = new List<TeamList.Item>
                 {
-                    new TeamList.Item() {Id = 1, Name = "iPhone"},
-                    new TeamList.Item() {Id = 2, Name = "Samsung"}
+                    new() {Id = 1, Name = "iPhone"},
+                    new() {Id = 2, Name = "Samsung"}
                 }
             };
         }
         
         [Test]
-        public async Task If_no_content_should_add_display()
+        public async Task If_no_content_should_add_miru_display()
         {
             // arrange
             var tag = new TdTagHelper
             {
-                For = MakeExpression(_viewModel, m => m.Items[0].Name),
+                For = MakeExpression(_model, m => m.Items[0].Name),
                 RequestServices = ServiceProvider
             };
 
@@ -43,12 +43,26 @@ namespace Miru.Tests.Html.TagHelpers
         }
         
         [Test]
+        public async Task If_no_content_and_property_is_collection_should_not_render_miru_display()
+        {
+            // arrange
+            var tag = CreateTag(new TdTagHelper(), _model, m => m.Items);
+
+            // act
+            var output = await ProcessTagAsync(tag, "miru-td");
+            
+            // assert
+            output.TagName.ShouldBeNull();
+            output.PreElement.GetContent().ShouldBe("<td><span id=\"Items\"></span></td>");
+        }
+        
+        [Test]
         public async Task If_has_content_should_only_render_td()
         {
             // arrange
             var tag = new TdTagHelper
             {
-                For = MakeExpression(_viewModel, m => m.Items[0].Name),
+                For = MakeExpression(_model, m => m.Items[0].Name),
                 RequestServices = ServiceProvider
             };
 
@@ -66,7 +80,7 @@ namespace Miru.Tests.Html.TagHelpers
             // arrange
             var tag = new TdTagHelper
             {
-                For = MakeExpression(_viewModel, m => m.Items[0].Id),
+                For = MakeExpression(_model, m => m.Items[0].Id),
                 RequestServices = ServiceProvider
             };
 

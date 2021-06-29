@@ -71,7 +71,8 @@ namespace Miru.Testing
         {
             return services
                 .AddSingleton<IMiruApp>(sp => new MiruApp(sp))
-                .AddSingleton<ITestFixture, TestFixture>();
+                .AddSingleton<TestFixture>()
+                .AddSingleton<ITestFixture>(sp => sp.GetRequiredService<TestFixture>());
         }
     }
 }

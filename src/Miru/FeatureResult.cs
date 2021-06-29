@@ -1,23 +1,22 @@
 using System;
-using MediatR;
 
 namespace Miru
 {
-    public class Feature
+    public class FeatureResult
     {
         public object Model { get; set; }
 
         public Type Type => Model.GetType();
     }
 
-    public class Feature<TFeature> : Feature where TFeature : new()
+    public class FeatureResult<TFeature> : FeatureResult where TFeature : new()
     {
-        public Feature()
+        public FeatureResult()
         {
             Model = new TFeature();
         }
 
-        public Feature(TFeature instance)
+        public FeatureResult(TFeature instance)
         {
             Model = instance;
         }

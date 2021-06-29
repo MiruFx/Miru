@@ -53,6 +53,11 @@ namespace Miru.Html
             
             Cells.Always.BuildBy<CellBuilder>();
             
+            Displays.If(x => 
+                x.Accessor.PropertyType != typeof(string) && 
+                x.Accessor.PropertyType.ImplementsEnumerableOfSomething())
+                    .ModifyTag(tag => tag.Text(string.Empty));
+            
             TableHeader.Always.BuildBy<TableHeaderBuilder>();
 
             Selects.Always.BuildBy<SelectBuilder>();

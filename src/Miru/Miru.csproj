@@ -59,6 +59,7 @@
         <!-- Userfy -->
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.5" />
         <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.5" />
+        <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="5.1.41" />
         
     </ItemGroup>
     

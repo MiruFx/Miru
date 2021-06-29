@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Miru
 {
@@ -14,6 +15,15 @@ namespace Miru
                 throw new ArgumentException($"The type passed is not an Enum: {enumType.Name}");
 
             return Enum.GetValues(enumType).Cast<TEnum>();
+        }
+        
+        public static TAttribute GetAttribute<TAttribute>(this Enum enumValue) 
+            where TAttribute : Attribute
+        {
+            return enumValue.GetType()
+                .GetMember(enumValue.ToString())
+                .First()
+                .GetCustomAttribute<TAttribute>();
         }
     }
 }

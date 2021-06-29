@@ -7,7 +7,8 @@ namespace Miru.Databases.EntityFramework
 {
     public static class ServiceCollectionEfCoreExtensions
     {
-        public static IServiceCollection AddEfCoreServices<TDbContext>(this IServiceCollection services) where TDbContext : DbContext
+        public static IServiceCollection AddEfCoreServices<TDbContext>(this IServiceCollection services) 
+            where TDbContext : DbContext
         {
             services.AddScoped<IDataAccess, EntityFrameworkDataAccess>();
             

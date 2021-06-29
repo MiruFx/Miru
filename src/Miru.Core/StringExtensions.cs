@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Baseline;
 using Humanizer;
 
 namespace Miru.Core
@@ -71,6 +72,13 @@ namespace Miru.Core
         public static string ToKebabCase(this string source)
         {
             return source.Kebaberize().Replace('.', '-');
+        }
+        
+        public static string ChunkSplit(this string text, int chunkSize, string split)
+        {
+            return Enumerable.Range(0, text.Length / chunkSize)
+                .Select(i => text.Substring(i * chunkSize, chunkSize))
+                .Join(split);
         }
     }
 }

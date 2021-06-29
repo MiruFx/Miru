@@ -97,6 +97,18 @@ namespace Miru.Tests.Mailing
         }
         
         [Test]
+        [Ignore("wip")]
+        public void Should_throw_exception_if_email_from_is_not_set()
+        {
+            // arrange
+            // act
+            _mailer.SendNowAsync(new EmptyMail());
+            
+            // assert
+            _emailsSent.All().ShouldBeEmpty();
+        }
+        
+        [Test]
         [Ignore("Can't find WelcomeMail.cshtml")]
         public async Task Email_with_razor_template()
         {

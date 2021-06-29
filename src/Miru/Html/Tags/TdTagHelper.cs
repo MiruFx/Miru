@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace Miru.Html.Tags
 {
     [HtmlTargetElement("miru-td")]
-    public class TdTagHelper : MiruTagHelper
+    public class TdTagHelper : MiruHtmlTagHelper
     {
+        protected override string Category { get; }
+        
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             var td = GetHtmlTag(nameof(HtmlConfiguration.Cells));

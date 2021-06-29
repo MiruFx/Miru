@@ -15,5 +15,14 @@ namespace Miru.Databases.EntityFramework
             if (entity.IsNew())
                 await db.AddSavingAsync(entity);
         }
+        
+        public static async Task AddOrUpdateAsync<TEntity>(
+            this DbContext db, TEntity entity, CancellationToken ct = default) where TEntity : IEntity
+        {
+            if (entity.IsNew())
+                await db.AddAsync(entity, ct);
+            else
+                db.Update(entity);
+        }
     }
 }

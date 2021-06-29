@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Miru.Domain;
 using Miru.Mvc;
 using Miru.Userfy;
+using Supportreon.Domain;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Supportreon.Features.Accounts
@@ -36,9 +37,9 @@ namespace Supportreon.Features.Accounts
             IRequestHandler<Query, Command>,
             IRequestHandler<Command, Result>
         {
-            private readonly IUserSession _userSession;
+            private readonly IUserSession<User> _userSession;
 
-            public Handler(IUserSession userSession)
+            public Handler(IUserSession<User> userSession)
             {
                 _userSession = userSession;
             }
@@ -67,6 +68,9 @@ namespace Supportreon.Features.Accounts
                 
                 if (result.Succeeded)
                 {
+                    var user = await _userSession.GetUserAsync();
+                    
+                    if (user.IsAdmin)
                     return new Result
                     {
                         RedirectTo = request.ReturnUrl,

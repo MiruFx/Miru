@@ -37,7 +37,10 @@ namespace Miru.Mailing
         {
             var deliverableEmail = await BuildEmailFromAsync(mailable, emailBuilder);
 
-            await _sender.SendAsync(new FluentEmail.Core.Email { Data = deliverableEmail });
+            await _sender.SendAsync(new FluentEmail.Core.Email
+            {
+                Data = deliverableEmail
+            });
             
             // TODO: if too many email, show: 'email1, email2 and more 300'
             _logger.LogDebug($"Sent email '{deliverableEmail.Subject}' to {deliverableEmail.ToAddresses.Select(m => m.EmailAddress).Join(",")}");
@@ -55,7 +58,8 @@ namespace Miru.Mailing
             Enqueue(fluentMail);
         }
 
-        public async Task<Email> BuildEmailFromAsync<TMailable>(TMailable mailable, Action<Email> emailBuilder) where TMailable : Mailable
+        public async Task<Email> BuildEmailFromAsync<TMailable>(TMailable mailable, Action<Email> emailBuilder) 
+            where TMailable : Mailable
         {
             mailable.MailingOptions = _options;
 
@@ -67,6 +71,8 @@ namespace Miru.Mailing
             
             emailBuilder?.Invoke(email);
 
+            
+            
             if (email.Template != null)
             {
                 var fullFile = GetFullFile(mailable, email.Template);

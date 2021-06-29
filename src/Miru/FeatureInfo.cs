@@ -15,6 +15,11 @@ namespace Miru
         {
             _type = type;
         }
+        
+        public FeatureInfo(object instance)
+        {
+            _type = instance.GetType();
+        }
 
         public bool IsIn(string featureFolder)
         {

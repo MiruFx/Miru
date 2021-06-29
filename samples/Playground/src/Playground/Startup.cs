@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Miru;
 using Miru.Behaviors.BelongsToUser;
+using Miru.Fabrication;
 using Miru.Foundation.Hosting;
 using Miru.Globalization;
 using Miru.Mailing;
@@ -71,6 +72,9 @@ namespace Playground
                     _.UseLiteDb();
                 })
                 .AddHangfireServer();
+
+            services
+                .AddFabrication<PlaygroundFabricator>();
             
             services.AddSession();
             services.AddDistributedMemoryCache();

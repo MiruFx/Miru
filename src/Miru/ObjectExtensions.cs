@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Baseline.Reflection;
 using Miru.Core;
 using YamlDotNet.Serialization;
@@ -51,6 +52,14 @@ namespace Miru
 
             int.TryParse(value.ToString(), out ret);
             return ret;
+        }
+        
+        public static TAttribute GetAttribute<TAttribute>(this object instance) 
+            where TAttribute : Attribute
+        {
+            return instance
+                .GetType()
+                .GetCustomAttribute<TAttribute>();
         }
     }
 }

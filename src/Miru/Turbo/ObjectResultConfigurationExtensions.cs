@@ -33,10 +33,10 @@ namespace Miru.Turbo
             });
             
             _.When(m => m.Request.CanAccept(TurboStreamResult.MimeType) && 
-                        m.Model is Feature && 
+                        m.Model is FeatureResult && 
                         m.Request.IsPost()).Respond(m =>
             {
-                var feature = (Feature) m.Model;
+                var feature = (FeatureResult) m.Model;
                 
                 var urlLookup = m.ActionContext.HttpContext.RequestServices.GetRequiredService<UrlLookup>();
 

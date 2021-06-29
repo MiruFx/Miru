@@ -5,6 +5,7 @@ using Miru.Foundation.Hosting;
 using Miru.Queuing;
 using Miru.Sqlite;
 using Miru.Testing;
+using Playground.Database;
 using Playground.Domain;
 
 namespace Playground.Tests.Config
@@ -17,8 +18,7 @@ namespace Playground.Tests.Config
                 .AddFeatureTesting()
                 .AddTestingUserSession<User>()
                 .AddSqliteDatabaseCleaner()
-                .AddQueueCleaner<LiteDbQueueCleaner>()
-                .AddFabrication<PlaygroundFabricator>();
+                .AddQueueCleaner<LiteDbQueueCleaner>();
 
             // Mock your services that talk with external apps
             // services.Mock<IService>();

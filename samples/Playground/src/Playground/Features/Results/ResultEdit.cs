@@ -20,12 +20,12 @@ namespace Playground.Features.Results
         {
         }
 
-        public class Command : IRequest<Feature>
+        public class Command : IRequest<FeatureResult>
         {
         }
 
         public class Handler :
-            RequestHandler<Command, Feature>,
+            RequestHandler<Command, FeatureResult>,
             IRequestHandler<Query, Command>
         {
             public Task<Command> Handle(Query request, CancellationToken cancellationToken)
@@ -33,9 +33,9 @@ namespace Playground.Features.Results
                 return Task.FromResult(new Command());
             }
 
-            protected override Feature Handle(Command request)
+            protected override FeatureResult Handle(Command request)
             {
-                return new Feature<ResultList>();
+                return new FeatureResult<ResultList>();
             }
         }
 
@@ -45,7 +45,7 @@ namespace Playground.Features.Results
             public async Task<Command> Edit(Query query) => await SendAsync(query);
 
             [HttpPost("/Results/Edit")]
-            public async Task<Feature> Edit(Command command) => await SendAsync(command);
+            public async Task<FeatureResult> Edit(Command command) => await SendAsync(command);
         }
     }
 }

@@ -6,5 +6,10 @@ namespace Miru
         {
             return value ? @return : default;
         }
+        
+        public static TReturn IfFalseThen<TReturn>(this bool value, TReturn @return)
+        {
+            return value == false ? @return : default;
+        }
     }
 }
