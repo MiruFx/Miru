@@ -11,7 +11,7 @@ namespace Miru.Testing
 {
     public class MemorySender : ISender
     {
-        private static readonly List<EmailSent> Emails = new List<EmailSent>();
+        private static readonly List<EmailSent> Emails = new();
         
         public EmailSent Last() => Emails.Last();
         
@@ -32,5 +32,7 @@ namespace Miru.Testing
             
             return Task.FromResult(new SendResponse());
         }
+
+        public void Clear() => Emails.Clear();
     }
 }

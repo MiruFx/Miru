@@ -26,6 +26,9 @@ namespace Miru.Html.Tags
             set => _requestServices = value;
         }
         
+        [HtmlAttributeNotBound]
+        public object Model { get; set; }
+        
         [HtmlAttributeName("set-class")]
         public string SetClass { get; set; }
         
@@ -103,20 +106,7 @@ namespace Miru.Html.Tags
                 return For.Name;
             
             if (modelType == ModelType.Model)
-                return ElementNaming.Id(ViewContext.ViewData.Model);
-                    
-            throw new InvalidOperationException("Modeless view or partial not supported yet");
-        }
-        
-        protected object GetModel()
-        {
-            var modelType = GetModelType();
-            
-            if (modelType == ModelType.For)
-                return For;
-            
-            if (modelType == ModelType.Model)
-                return ViewContext.ViewData.Model;
+                return ElementNaming.Id(ViewContext?.ViewData?.Model ?? Model);
                     
             throw new InvalidOperationException("Modeless view or partial not supported yet");
         }
@@ -129,16 +119,18 @@ namespace Miru.Html.Tags
                 return HtmlGenerator.TagFor(For, category);
             
             if (modelType == ModelType.Model)
-                return HtmlGenerator.TagFor(ViewContext.ViewData.Model, category);
+                return HtmlGenerator.TagFor(ViewContext?.ViewData?.Model ?? Model, category);
                     
             throw new InvalidOperationException("Modeless view or partial not supported yet");
         }
 
         protected ModelType GetModelType()
         {
-            if (For != null) return ModelType.For;
+            if (For != null) 
+                return ModelType.For;
 
-            if (ViewContext.ViewData.Model != null) return ModelType.Model;
+            if (ViewContext?.ViewData?.Model != null || Model != null) 
+                return ModelType.Model;
 
             return ModelType.NoModel;
         }

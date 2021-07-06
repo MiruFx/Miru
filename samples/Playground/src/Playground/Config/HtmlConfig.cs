@@ -8,13 +8,7 @@ namespace Playground.Config
         {
             this.AddTwitterBootstrap();
             
-            this.AddMiruBootstrapLayout();
-            
-            TableHeader.IfPropertyIs<decimal>().AddClass("text-end");
-            Cells.IfPropertyIs<decimal>().AddClass("text-end");
-            
-            TableHeader.IfPropertyIs<bool>().AddClass("text-center");
-            Cells.IfPropertyIs<bool>().AddClass("text-center");
+
             
             Displays.IfPropertyIs<bool>().ModifyWith(x =>
             {
@@ -22,6 +16,9 @@ namespace Playground.Config
 
                 x.CurrentTag.Text(value ? "Yes" : "No");
             });
+            
+            // TODO: move to ScrollToSummary
+            FormSummaries.Always.Attr("data-controller", "form-summary");
         }
     }
 }

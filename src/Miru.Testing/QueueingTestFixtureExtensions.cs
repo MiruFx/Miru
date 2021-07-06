@@ -54,21 +54,14 @@ namespace Miru.Testing
             return (TJob) entry.Job.Args[0];
         }
         
-        public static IEnumerable<TJob> EnqueuedJobs<TJob>(this ITestFixture fixture) where TJob : IMiruJob
-        {
-            var entry = fixture.Get<JobStorage>()
+        public static IEnumerable<TJob> EnqueuedJobs<TJob>(this ITestFixture fixture) where TJob : IMiruJob =>
+            fixture.Get<JobStorage>()
                 .GetMonitoringApi()
                 .EnqueuedJobs("default", 0, 1000)
                 .Select(result => result.Value)
                 .Where(enqueueJob => enqueueJob.Job.Args[0].GetType() == typeof(TJob))
                 .Select(enqueueJob => (TJob) enqueueJob.Job.Args[0])
                 .ToList();
-
-            if (entry.Count == 0)
-                throw new ShouldAssertException($"No job queued found of type {typeof(TJob).FullName}");
-
-            return entry;
-        }
         
         public static Email EnqueuedEmail(this ITestFixture fixture)
         {
@@ -79,5 +72,8 @@ namespace Miru.Testing
             
             return job.Email;
         }
+        
+        public static IEnumerable<Email> EnqueuedEmails(this ITestFixture fixture) =>
+            fixture.EnqueuedJobs<EmailJob>().Select(x => x.Email);
     }
 }

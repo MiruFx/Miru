@@ -4,7 +4,7 @@ namespace Miru.Mailing
 {
     public static class EmailExtensions
     {
-        public static EmailData From(this Email emailData, string email, string name)
+        public static EmailData From(this Email emailData, string email, string name = "")
         {
             emailData.FromAddress = new Address(email, name);
             

@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Baseline;
 using FluentEmail.Core.Interfaces;
+using FluentValidation;
 using Microsoft.Extensions.Logging;
 using Miru.Core;
 using Miru.Queuing;
@@ -37,13 +38,12 @@ namespace Miru.Mailing
         {
             var deliverableEmail = await BuildEmailFromAsync(mailable, emailBuilder);
 
+            App.Framework.Information($"Sending email '{deliverableEmail.Subject}'");
+
             await _sender.SendAsync(new FluentEmail.Core.Email
             {
                 Data = deliverableEmail
             });
-            
-            // TODO: if too many email, show: 'email1, email2 and more 300'
-            _logger.LogDebug($"Sent email '{deliverableEmail.Subject}' to {deliverableEmail.ToAddresses.Select(m => m.EmailAddress).Join(",")}");
         }
         
         /// <summary>
@@ -71,7 +71,10 @@ namespace Miru.Mailing
             
             emailBuilder?.Invoke(email);
 
-            
+            var validation = await new EmailValidator().ValidateAsync(email);
+
+            if (validation.IsValid == false)
+                throw new ValidationException(validation.Errors);
             
             if (email.Template != null)
             {

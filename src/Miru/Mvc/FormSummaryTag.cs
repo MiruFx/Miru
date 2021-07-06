@@ -6,12 +6,10 @@ namespace Miru.Mvc
     {
         public FormSummaryTag(string formSummaryId) : base("div")
         {
-            // TODO: parse css selector to HtmlTag (at least basic .class #id attribute
             Id(formSummaryId);
-            AddClass("form-summary");
-            AddClass("alert");
-            AddClass("alert-danger");
-            Attr("data-controller", "form-summary");
+            Attr("hidden", "hidden");
+
+            // Attr("data-controller", "form-summary");
         }
     }
 }

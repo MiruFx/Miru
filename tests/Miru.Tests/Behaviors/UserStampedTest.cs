@@ -1,22 +1,20 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Baseline.Dates;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
-using Miru.Behaviors.TimeStamp;
-using Miru.Databases;
+using Miru.Behaviors.UserStamp;
 using Miru.Domain;
 using Miru.Fabrication;
 using Miru.Testing;
 using Miru.Tests.Databases.EntityFramework;
+using Miru.Userfy;
 using NUnit.Framework;
 using Shouldly;
 
 namespace Miru.Tests.Behaviors
 {
-    public class TimeStampInterceptorTest
+    public class UserStampedTest
     {
         private TestFixture _;
         
@@ -27,12 +25,12 @@ namespace Miru.Tests.Behaviors
                 .AddMiruApp()
                 .AddFeatureTesting()
                 .AddFabrication()
-                .AddSingleton<TestFixture, TestFixture>()
+                .AddMiruTestFixture()
                 .AddEfCoreInMemory<FooDbContext>()
-                .AddTransient<IDatabaseCleaner, InMemoryDatabaseCleaner>()
+                .AddDatabaseCleaner<InMemoryDatabaseCleaner>()
+                .AddTestingUserSession<User>()
                 
-                // being tested
-                .AddTimeStamped()
+                .AddUserStamp()
                 
                 .BuildServiceProvider()
                 .GetService<TestFixture>();    
@@ -45,9 +43,11 @@ namespace Miru.Tests.Behaviors
         }
 
         [Test]
-        public void Should_set_current_timestamp_for_new_entity()
+        public void Should_set_current_user_for_new_entity()
         {
             // arrange
+            var user = _.MakeSavingLogin<User>();
+            
             var post = new Post {Title = "Hello"};
             
             // act
@@ -55,18 +55,21 @@ namespace Miru.Tests.Behaviors
             
             // assert
             var saved = _.App.WithScope(s => s.Get<FooDbContext>().Posts.First());
-            saved.CreatedAt.ShouldBeSecondsAgo();
-            saved.UpdatedAt.ShouldBeSecondsAgo();
+            saved.CreatedById.ShouldBe(user.Id);
+            saved.UpdatedById.ShouldBe(user.Id);
         }
 
         [Test]
-        public void Should_update_current_timestamp_for_existing_entity()
+        public void Should_update_current_user_for_existing_entity()
         {
             // arrange
+            var otherUser = _.MakeSaving<User>();
+            var currentUser = _.MakeSavingLogin<User>();
+            
             var post = _.MakeSaving<Post>(x =>
             {
-                x.CreatedAt = 1.Days().Ago();
-                x.UpdatedAt = 1.Days().Ago();
+                x.CreatedById = otherUser.Id;
+                x.UpdatedById = otherUser.Id;
             });
             
             // act
@@ -74,17 +77,23 @@ namespace Miru.Tests.Behaviors
             
             // assert
             var saved = _.App.WithScope(s => s.Get<FooDbContext>().Posts.First());
-            saved.CreatedAt.ShouldBe(1.Days().Ago(), tolerance: 5.Seconds());
-            saved.UpdatedAt.ShouldBeSecondsAgo();
+            saved.CreatedById.ShouldBe(otherUser.Id);
+            saved.UpdatedById.ShouldBe(currentUser.Id);
         }
 
-        public class Post : Entity, ITimeStamped
+        public class Post : Entity, IUserStamped
         {
             public string Title { get; set; }
-            public DateTime CreatedAt { get; set; }
-            public DateTime UpdatedAt { get; set; }
+            
+            public long CreatedById { get; set; }
+            public long UpdatedById { get; set; }
         }
 
+        public class User : UserfyUser
+        {
+            public override string Display => UserName;
+        }
+        
         public class FooDbContext : DbContext
         {
             private readonly IEnumerable<IInterceptor> _interceptors;
@@ -97,6 +106,7 @@ namespace Miru.Tests.Behaviors
             }
         
             public DbSet<Post> Posts { get; set; }
+            public DbSet<User> Users { get; set; }
             
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {

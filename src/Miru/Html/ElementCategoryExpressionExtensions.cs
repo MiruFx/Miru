@@ -6,6 +6,15 @@ namespace Miru.Html
 {
     public static class ElementCategoryExpressionExtensions
     {
+        public static ElementActionExpression IfPropertyIsNumber(this ElementCategoryExpression expression)
+        {
+            return expression.If(req => 
+                req.Accessor.PropertyType == typeof(int) ||
+                req.Accessor.PropertyType == typeof(long) ||
+                req.Accessor.PropertyType == typeof(decimal) ||
+                req.Accessor.PropertyType == typeof(float));
+        }
+        
         public static ElementActionExpression IfPropertyNameEnds(this ElementCategoryExpression expression, string text)
         {
             return expression.If(m => m.Accessor.Name.EndsWith(text));

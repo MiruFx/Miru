@@ -44,7 +44,7 @@ namespace Miru.Tests.Html.TagHelpers
         protected TTag CreateTag<TTag, TModel, TProperty>(
             TTag tag,
             TModel model, 
-            Expression<Func<TModel, TProperty>> expression) where TTag : MiruHtmlTagHelper, new()
+            Expression<Func<TModel, TProperty>> expression = null) where TTag : MiruHtmlTagHelper, new()
         {
             tag.RequestServices = ServiceProvider;
 

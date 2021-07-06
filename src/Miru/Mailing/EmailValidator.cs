@@ -6,6 +6,9 @@ namespace Miru.Mailing
     {
         public EmailValidator()
         {
+            RuleFor(x => x.FromAddress.EmailAddress).NotEmpty();
+
+            RuleFor(x => x.ToAddresses).NotEmpty();
         }
     }
 }

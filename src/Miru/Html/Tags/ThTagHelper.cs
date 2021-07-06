@@ -4,13 +4,22 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace Miru.Html.Tags
 {
     [HtmlTargetElement("miru-th")]
-    public class ThTagHelper : MiruTagHelper
+    public class ThTagHelper : MiruHtmlTagHelper
     {
+        protected override string Category => nameof(HtmlConfiguration.TableHeader);
+
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             var th = GetHtmlTag(nameof(HtmlConfiguration.TableHeader));
             
             var childContent = await output.GetChildContentAsync();
+
+            if (For == null)
+            {
+                SetOutput(th, output);
+                await Task.CompletedTask;
+                return;
+            }
             
             if (childContent.IsEmptyOrWhiteSpace)
             {

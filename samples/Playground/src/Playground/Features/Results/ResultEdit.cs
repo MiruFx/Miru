@@ -35,7 +35,11 @@ namespace Playground.Features.Results
 
             protected override FeatureResult Handle(Command request)
             {
-                return new FeatureResult<ResultList>();
+                return new FeatureResult<ResultList>()
+                    .Success("Success message")
+                    .Alert("Alert message")
+                    .Info("Info message")
+                    .Danger("danger message");
             }
         }
 

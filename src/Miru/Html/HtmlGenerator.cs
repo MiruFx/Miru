@@ -8,6 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Miru.Html
 {
+    public class FooModel
+    {
+    }
+    
     public class HtmlGenerator
     {
         private readonly IServiceProvider _sp;

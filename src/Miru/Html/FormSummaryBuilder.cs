@@ -1,6 +1,7 @@
 using HtmlTags;
 using HtmlTags.Conventions;
 using HtmlTags.Conventions.Elements;
+using Miru.Mvc;
 
 namespace Miru.Html
 {
@@ -8,7 +9,7 @@ namespace Miru.Html
     {
         public HtmlTag Build(ElementRequest request)
         {
-            return new HtmlTag("div").AddClass("form-summary");
+            return new FormSummaryTag(request.ElementId);
         }
     }
 }

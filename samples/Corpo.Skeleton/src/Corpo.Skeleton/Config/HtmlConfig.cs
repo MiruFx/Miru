@@ -1,4 +1,3 @@
-using Corpo.Skeleton.Features.Examples;
 using Miru.Html;
 
 namespace Corpo.Skeleton.Config
@@ -8,8 +7,6 @@ namespace Corpo.Skeleton.Config
         public HtmlConfig()
         {
             this.AddTwitterBootstrap();
-            
-            this.AddMiruBootstrapLayout();
         }
     }
 }

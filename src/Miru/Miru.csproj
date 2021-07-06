@@ -12,28 +12,29 @@
         
         <!-- Core -->
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
-        <PackageReference Include="Oakton" Version="3.1.0" />
+        <PackageReference Include="Oakton" Version="3.2.1" />
         <PackageReference Include="NetEscapades.Configuration.Yaml" Version="2.1.0" />
         <PackageReference Include="Quartz" Version="3.3.2" />
         <PackageReference Include="Quartz.AspNetCore" Version="3.3.2" />
         <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.3.2" />
         <PackageReference Include="YamlDotNet" Version="9.1.4" />
-        <PackageReference Include="Scriban" Version="3.6.0" />
+        <PackageReference Include="Scriban" Version="4.0.1" />
         <PackageReference Include="Scrutor" Version="3.3.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.5" />
-        <PackageReference Include="Humanizer.Core" Version="2.8.26" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.7" />
+        <PackageReference Include="Humanizer.Core" Version="2.11.10" />
         
         <!-- Data -->
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.5" />
-        <PackageReference Include="FluentMigrator" Version="3.2.15" />
-        <PackageReference Include="FluentMigrator.Runner" Version="3.2.15" />
-        
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.7" />
+        <PackageReference Include="FluentMigrator" Version="3.2.17" />
+        <PackageReference Include="FluentMigrator.Runner" Version="3.2.17" />
+        <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="5.2.1" />
+
         <!-- Features -->
         <PackageReference Include="MediatR" Version="9.0.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
-        <PackageReference Include="FluentValidation" Version="10.0.4" />
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.0.4" />
+        <PackageReference Include="FluentValidation" Version="10.2.3" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.2.3" />
         
         <!-- Email -->
         <PackageReference Include="FluentEmail.Core" Version="3.0.0" />
@@ -50,16 +51,15 @@
         <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
         
         <!-- Queuing -->
-        <PackageReference Include="Hangfire.Core" Version="1.7.22" />
-        <PackageReference Include="Hangfire.AspNetCore" Version="1.7.22" />
+        <PackageReference Include="Hangfire.Core" Version="1.7.24" />
+        <PackageReference Include="Hangfire.AspNetCore" Version="1.7.24" />
 
         <!-- Storage -->
-        <PackageReference Include="Emet.FileSystems" Version="0.0.3" />
+        <PackageReference Include="Emet.FileSystems" Version="0.0.4" />
         
         <!-- Userfy -->
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.5" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.5" />
-        <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="5.1.41" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.7" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.7" />
         
     </ItemGroup>
     

@@ -1,7 +1,9 @@
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Mvc;
 using Miru.Urls;
+using Vereyon.Web;
 
 namespace Miru.Turbo
 {
@@ -37,7 +39,9 @@ namespace Miru.Turbo
                         m.Request.IsPost()).Respond(m =>
             {
                 var feature = (FeatureResult) m.Model;
-                
+
+                FlashResultMessages(feature, m);
+
                 var urlLookup = m.ActionContext.HttpContext.RequestServices.GetRequiredService<UrlLookup>();
 
                 var redirectToUrl = urlLookup.For(feature.Model);
@@ -53,6 +57,33 @@ namespace Miru.Turbo
                     ViewData = m.GetViewData(),
                     ContentType = TurboStreamResult.MimeType
                 });
+        }
+
+        private static void FlashResultMessages(FeatureResult feature, ObjectResultContext m)
+        {
+            if (feature.Messages.Any())
+            {
+                var flashMessage = m.GetService<IFlashMessage>();
+
+                foreach (var message in feature.Messages)
+                {
+                    switch (message.Key)
+                    {
+                        case FlashMessageType.Confirmation:
+                            flashMessage.Confirmation(message.Value);
+                            break;
+                        case FlashMessageType.Danger:
+                            flashMessage.Danger(message.Value);
+                            break;
+                        case FlashMessageType.Warning:
+                            flashMessage.Warning(message.Value);
+                            break;
+                        case FlashMessageType.Info:
+                            flashMessage.Info(message.Value);
+                            break;
+                    }
+                }
+            }
         }
     }
 }

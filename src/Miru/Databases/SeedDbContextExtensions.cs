@@ -12,7 +12,7 @@ namespace Miru.Databases
     //
     // Summary:
     //     Metodos de extensao para System.Data.Entity.IDbSet
-    public static class DbSetMigrationsGustavoExtensions
+    public static class DbSetExtensions
     {
         /// <summary>
         /// Adiciona uma entidade se ela nao existe ainda

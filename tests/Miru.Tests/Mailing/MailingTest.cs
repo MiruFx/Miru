@@ -1,5 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using FluentEmail.Core.Models;
+using FluentValidation;
 using Hangfire.MemoryStorage;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +25,7 @@ namespace Miru.Tests.Mailing
         private readonly IMailer _mailer;
         private readonly MemorySender _emailsSent;
         private readonly IServiceProvider _sp;
+        private readonly ITestFixture _;
 
         public MailingTest()
         {
@@ -43,11 +46,11 @@ namespace Miru.Tests.Mailing
                                 email.From("mailing@test.com", "Mailing Test");
                                 email.ReplyTo("noreply@test.com");
                             });
-
+                            
                             options.AppUrl = "http://www.contoso.com";
-
                             options.TemplatePath = new SolutionFinder().FromCurrentDir().Solution.AppTestsDir;
                         })
+                        .AddMiruTestFixture()
                         .AddSenderMemory()
                         .AddSingleton<MiruSolution, MiruTestSolution>()
                         .AddQueuing((sp, cfg) => cfg.UseMemoryStorage())
@@ -59,13 +62,21 @@ namespace Miru.Tests.Mailing
             _mailer = _sp.GetService<IMailer>();
             
             _emailsSent = _sp.GetService<MemorySender>();
+
+            _ = _sp.GetService<ITestFixture>();
         }
 
+        [SetUp]
+        public void Setup()
+        {
+            _emailsSent.Clear();
+        }
+        
         [Test]
         public async Task Should_set_default_email_options()
         {
             // act
-            await _mailer.SendNowAsync(new EmptyMail());
+            await _mailer.SendNowAsync(new ConfirmMail(new User()));
             
             // assert
             var emailSent = _emailsSent.Last();
@@ -97,12 +108,44 @@ namespace Miru.Tests.Mailing
         }
         
         [Test]
-        [Ignore("wip")]
-        public void Should_throw_exception_if_email_from_is_not_set()
+        public async Task When_sending_email_should_throw_exception_if_email_from_is_not_set()
         {
             // arrange
             // act
-            _mailer.SendNowAsync(new EmptyMail());
+            await Should.ThrowAsync<ValidationException>(() => _mailer.SendNowAsync(new LackFromMail()));
+            
+            // assert
+            _emailsSent.All().ShouldBeEmpty();
+        }
+        
+        [Test]
+        public async Task When_queueing_email_should_throw_exception_if_email_from_is_not_set()
+        {
+            // arrange
+            // act
+            await Should.ThrowAsync<ValidationException>(() => _mailer.SendLaterAsync(new LackFromMail()));
+            
+            // assert
+            _.EnqueuedEmails().ShouldBeEmpty();
+        }
+        
+        [Test]
+        public async Task When_queueing_email_should_throw_exception_if_to_from_is_not_set()
+        {
+            // arrange
+            // act
+            await Should.ThrowAsync<ValidationException>(() => _mailer.SendLaterAsync(new LackToMail()));
+            
+            // assert
+            _.EnqueuedEmails().ShouldBeEmpty();
+        }
+        
+        [Test]
+        public async Task Should_throw_exception_if_email_to_is_not_set()
+        {
+            // arrange
+            // act
+            await Should.ThrowAsync<ValidationException>(() => _mailer.SendNowAsync(new LackToMail()));
             
             // assert
             _emailsSent.All().ShouldBeEmpty();
@@ -131,7 +174,7 @@ namespace Miru.Tests.Mailing
         }
         
         [Test]
-        public void Registered_services()
+        public void Sender_registry_should_be_singleton()
         {
             var sender1 = _sp.GetService<FluentEmail.Core.Interfaces.ISender>();
             var sender2 = _sp.GetService<FluentEmail.Core.Interfaces.ISender>();
@@ -166,6 +209,21 @@ Confirm your email clicking on the link below:
         {
             public override void Build(Email mail)
             {
+            }
+        }
+        
+        public class LackToMail : Mailable
+        {
+            public override void Build(Email mail)
+            {
+            }
+        }
+        
+        public class LackFromMail : Mailable
+        {
+            public override void Build(Email mail)
+            {
+                mail.From(string.Empty);
             }
         }
         
