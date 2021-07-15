@@ -72,6 +72,11 @@ namespace Miru.Urls
                         continue;
                     }
 
+                    if (val is DateTime dateTime)
+                    {
+                        val = dateTime.ToShortDateString();
+                    }
+
                     dict.Add(prefix + p.Name, val);
                 }
                 else if (propType == PropType.Enumerable)

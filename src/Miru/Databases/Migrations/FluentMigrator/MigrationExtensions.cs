@@ -16,8 +16,8 @@ namespace Miru.Databases.Migrations.FluentMigrator
         
         public static ICreateTableWithColumnSyntax WithTimeStamps(
             this ICreateTableWithColumnSyntax table,
-            string columnCreatedAt = "CreatedAt",
-            string columnUpdatedAt = "UpdatedAt")
+            string columnCreatedAt,
+            string columnUpdatedAt)
         {
             return table
                 .WithColumn(columnCreatedAt).AsDateTime()

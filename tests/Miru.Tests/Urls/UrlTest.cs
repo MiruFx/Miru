@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -414,6 +415,25 @@ namespace Miru.Tests.Urls
                 .FullFor(request)
                 .ShouldBe("https://mirufx.github.io/Products/Edit/10");
         }
+        
+        [Test]
+        public void Build_query_string_for_date()
+        {
+            var currentCulture = CultureInfo.CurrentCulture;
+
+            CultureInfo.CurrentCulture = new CultureInfo("pt-BR");
+            
+            var request = new ProductsList.Query
+            {
+                SoldBefore = new DateTime(2020, 1, 31, 10, 11, 12),
+            };
+        
+            UrlLookup
+                .For(request)
+                .ShouldBe("/Products/List?SoldBefore=31%2F01%2F2020");
+
+            CultureInfo.CurrentCulture = currentCulture;
+        }
 
         public class NotMapped
         {
@@ -459,6 +479,7 @@ namespace Miru.Tests.Urls
                 public List<Size> Size { get; set; } = new List<Size>();
                 
                 public IEnumerable<string> Categories { get; set; } = new List<string>() {"Phone", "Laptop"};
+                public DateTime SoldBefore { get; set; }
             }
 
             public enum Size

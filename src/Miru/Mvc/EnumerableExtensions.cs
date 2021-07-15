@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Miru.Domain;
 
 namespace Miru.Mvc
@@ -38,7 +39,7 @@ namespace Miru.Mvc
         {
             var lookups = new Lookups();
 
-            foreach (var item in dictionary)
+            foreach (var item in dictionary.OrderBy(x => x.Value))
             {
                 lookups.Add(new Lookup(item.Key, item.Value));
             }
