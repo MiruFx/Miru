@@ -71,7 +71,7 @@ namespace Miru.Html
             
             this.InputForPassword();
             
-            Labels.Modifier<RequiredLabelModifier>();
+            // Labels.Modifier<RequiredLabelModifier>();
             
             Labels.ModifyForAttribute<DisplayAttribute>((t, a) => t.Text(a.Name));
             

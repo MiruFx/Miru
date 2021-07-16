@@ -17,9 +17,16 @@ namespace Miru.Tests.Validations
 
             // act & assert
             descriptor.Has<INotEmptyValidator>().ShouldBeTrue();
+            descriptor.Has(typeof(INotEmptyValidator)).ShouldBeTrue();
             descriptor.Has(typeof(NotEmptyValidator<,>)).ShouldBeTrue();
+            
             descriptor.Has<IMaximumLengthValidator>().ShouldBeTrue();
+            descriptor.Has(typeof(IMaximumLengthValidator)).ShouldBeTrue();
             descriptor.Has(typeof(MaximumLengthValidator<>)).ShouldBeTrue();
+            
+            descriptor.Has<ICreditCardValidator>().ShouldBeFalse();
+            descriptor.Has(typeof(ICreditCardValidator)).ShouldBeFalse();
+            descriptor.Has(typeof(CreditCardValidator<>)).ShouldBeFalse();
         }
 
         [Test]
