@@ -36,6 +36,8 @@ namespace Scripts
             { "Miru.Postgres", true },
             { "Miru.MySql", true },
             
+            { "Miru.Storage.Ftp", true },
+            
             { "Miru.Testing", true },
             { "Miru.PageTesting", true }, 
             { "Miru.PageTesting.Chrome", true }, 
