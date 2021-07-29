@@ -17,11 +17,11 @@ namespace Miru.Sqlite
             var env = builder.ServiceProvider.GetRequiredService<IHostEnvironment>();
             var queueOptions = builder.ServiceProvider.GetRequiredService<QueueOptions>();
 
-            var dbPath = storage.App / "db" / $"Queue_{env.EnvironmentName}.db";
+            var dbPath = storage.StorageDir / "db" / $"Queue_{env.EnvironmentName}.db";
 
             dbPath.Dir().EnsureDirExist();
             
-            queueOptions.ConnectionString = storage.App / "db" / $"Queue_{env.EnvironmentName}.db";
+            queueOptions.ConnectionString = dbPath;
 
             builder.Configuration.UseLiteDbStorage(queueOptions.ConnectionString);
         }
