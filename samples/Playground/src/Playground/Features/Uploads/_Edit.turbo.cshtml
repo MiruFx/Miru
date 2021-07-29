@@ -1,0 +1,15 @@
+@model UploadEdit.Result
+
+<turbo-stream action="replace" target="@Naming.Form(Model)">
+    <template>
+        <div id="result" class="my-4">
+            <div>
+                <span class="text-muted">OneFilePath: </span> @Model.OneFilePath
+            </div>
+        </div>
+        
+        <div class="my-4">
+            <a for="@(new UploadEdit())">Upload new files</a>
+        </div>
+    </template>
+</turbo-stream>

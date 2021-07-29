@@ -3,7 +3,7 @@ using Miru.Storages;
 
 namespace Miru.Testing
 {
-    public class TestStorage : Storage
+    public class TestStorage : LocalDiskStorage
     {
         public TestStorage(MiruSolution solution) : base(solution)
         {

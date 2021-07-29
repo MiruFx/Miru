@@ -7,7 +7,9 @@ namespace Playground.Config
         public HtmlConfig()
         {
             this.AddTwitterBootstrap();
-            
+
+            // editors
+            this.AddFileEditor();
 
             
             Displays.IfPropertyIs<bool>().ModifyWith(x =>

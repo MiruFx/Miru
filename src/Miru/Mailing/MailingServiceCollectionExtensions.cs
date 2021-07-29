@@ -28,13 +28,6 @@ namespace Miru.Mailing
             return services;
         }
 
-        public static IServiceCollection AddSenderStorage(this IServiceCollection services)
-        {
-            services.AddScoped<ISender, SaveStorageSender>();
-
-            return services;
-        }
-        
         public static IServiceCollection AddSenderSmtp(this IServiceCollection services)
         {
             services.AddSingleton<ISender>(sp =>

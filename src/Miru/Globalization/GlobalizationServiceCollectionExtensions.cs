@@ -18,9 +18,11 @@ namespace Miru.Globalization
     {
         public static IServiceCollection AddGlobalization(
             this IServiceCollection services, 
+            string defaultCulture,
             params string[] supportedCultures)
         {
             // https://www.csharp-examples.net/culture-names/
+            var allCultures = new[] { defaultCulture }.Union(supportedCultures).ToArray();
             
             return services
                 .AddLocalization(options =>
@@ -30,10 +32,10 @@ namespace Miru.Globalization
 
                 .AddRequestLocalization(x =>
                 {
-                    x.AddSupportedCultures(supportedCultures);
-                    x.AddSupportedUICultures(supportedCultures);
+                    x.AddSupportedCultures(allCultures);
+                    x.AddSupportedUICultures(allCultures);
 
-                    x.DefaultRequestCulture = new RequestCulture(supportedCultures.First());
+                    x.DefaultRequestCulture = new RequestCulture(defaultCulture);
                     
                     var cookieProvider = x.RequestCultureProviders
                         .OfType<CookieRequestCultureProvider>()

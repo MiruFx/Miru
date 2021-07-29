@@ -1,0 +1,35 @@
+@model UploadEdit.Command
+
+<div class="col-6 offset-3 my-4">
+    
+    <h3>Upload</h3>
+
+    <miru-form enctype="multipart/form-data">
+
+        <miru-summary />
+        
+        <div class="my-4">
+            <miru-label for="OneFile" />
+            <miru-input for="OneFile" />
+            <miru-validation for="OneFile" />
+        </div>
+        
+        <div class="my-4">
+            <miru-label for="NotEmptyFile" />
+            <miru-input for="NotEmptyFile" />
+            <miru-validation for="NotEmptyFile" />
+        </div>
+        
+        <div class="my-4">
+            <miru-label for="OnlyTextFile" />
+            <miru-input for="OnlyTextFile" />
+            <miru-validation for="OnlyTextFile" />
+        </div>
+        
+        <div class="my-4">
+            <miru-submit value="Submit" class="btn btn-success" />
+        </div>
+
+    </miru-form>
+    
+</div>

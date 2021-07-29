@@ -17,6 +17,7 @@ using Miru.Databases.Migrations;
 using Miru.Domain;
 using Miru.Fabrication;
 using Miru.Queuing;
+using Miru.Storages;
 using Miru.Userfy;
 using Shouldly;
 
@@ -99,6 +100,8 @@ namespace Miru.Testing
             }
         }
 
+        public static IStorage Storage(this ITestFixture fixture) => fixture.Get<IStorage>();
+        
         private static void ThrowExceptionIfNotEntities(object[] entities)
         {
             // TODO: Make configurable if should throw exception

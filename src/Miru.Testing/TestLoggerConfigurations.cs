@@ -7,15 +7,15 @@ namespace Miru.Testing
 {
     public static class TestLoggerConfigurations
     {
-        public static ILogger ForTests(Storage storage) => new LoggerConfiguration()
+        public static ILogger ForTests(IStorage storage) => new LoggerConfiguration()
             .MinimumLevel.Debug()
             .WriteToTestConsole()
-            .WriteTo.File(storage.Temp() / "logs" / "FeatureTest.txt", outputTemplate: LoggerConfigurations.TimestampOutputTemplate)
+            .WriteTo.File(storage.App / "temp" / "logs" / "FeatureTest.txt", outputTemplate: LoggerConfigurations.TimestampOutputTemplate)
             .CreateLogger();
 
-        public static ILogger ForPageTest(Storage storage)
+        public static ILogger ForPageTest(IStorage storage)
         {
-            var pageTestLog = storage.Temp() / "logs" / "PageTest.txt";
+            var pageTestLog = storage.App / "temp" / "logs" / "PageTest.txt";
 
             var loggerConfiguration = new LoggerConfiguration()
                 .MinimumLevel.Debug()

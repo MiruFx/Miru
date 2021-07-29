@@ -34,7 +34,7 @@ namespace Miru.Tests.Storages
             _storage.ReportsDir.ShouldBe(_storage.App / "reports");
         }
             
-        public class ThisStorage : Storage
+        public class ThisStorage : LocalDiskStorage
         {
             public ThisStorage(MiruSolution solution) : base(solution)
             {

@@ -79,8 +79,6 @@ namespace Miru
 
             services.AddSingleton<AssetsMap>();
 
-            services.AddSingleton<Storage>();
-
             services.AddSingleton<IActionResultExecutor<HtmlTagResult>, ContentResultExecutor>();
                 
             return services;

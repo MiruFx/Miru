@@ -41,7 +41,7 @@ namespace Miru.Tests.Scheduling
             }
         }
 
-        public class SomeTask : ScheduledTask
+        public class SomeTask : IScheduledTask
         {
             private readonly IHostApplicationLifetime _lifetime;
             
@@ -52,7 +52,7 @@ namespace Miru.Tests.Scheduling
                 _lifetime = lifetime;
             }
 
-            protected override Task ExecuteAsync()
+            public Task ExecuteAsync()
             {
                 Executed = true;
                 

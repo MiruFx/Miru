@@ -35,23 +35,23 @@ namespace Miru.Validation
             return ruleBuilder.SetValidator(new NumericValidator<T>(min, max));
         }
         
-        public static DescriptorBuilder DescriptorFor(this IValidator validator, string propertyName)
+        public static ValidatorRules RulesFor(this IValidator validator, string propertyName)
         {
             return GetDescriptorBuilder(validator, propertyName);
         }
         
-        public static DescriptorBuilder DescriptorFor<T, TProperty>(this IValidator<T> validator, Expression<Func<T, TProperty>> expression)
+        public static ValidatorRules RulesFor<T, TProperty>(this IValidator<T> validator, Expression<Func<T, TProperty>> expression)
         {
             var property = ReflectionHelper.GetProperty(expression);
             return GetDescriptorBuilder(validator, property.Name);
         }
 
-        private static DescriptorBuilder GetDescriptorBuilder(IValidator validator, string propertyName)
+        private static ValidatorRules GetDescriptorBuilder(IValidator validator, string propertyName)
         {
             var descriptor = validator.CreateDescriptor();
             var validators = descriptor.GetValidatorsForMember(propertyName);
 
-            return new DescriptorBuilder(validators.Select(x => x.Validator));
+            return new ValidatorRules(validators.Select(x => x.Validator));
         }
     }
 }

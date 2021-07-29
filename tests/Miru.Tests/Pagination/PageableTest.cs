@@ -15,19 +15,52 @@ namespace Miru.Tests.Pagination
         [SetUp]
         public void Setup()
         {
-            _items = new Fixture().CreateMany<Item>(30).AsQueryable();
+            _items = new Fixture().CreateMany<Item>(20).AsQueryable();
         }
 
         [Test]
         public void Should_return_if_there_is_previous_page()
         {
-            var query = new Query { Page = 1, PageSize = 5 };
+            var query = new Query { Page = 1, PageSize = 2 };
             query.Results = _items.ToPaginate(query).ToList();
             query.HasPreviousPage().ShouldBeFalse();
 
-            query.Page = 2;
+            query.Page = 10;
             query.Results = _items.ToPaginate(query).ToList();
             query.HasPreviousPage().ShouldBeTrue();
+        }
+        
+        [Test]
+        public void Should_return_if_there_is_next_page()
+        {
+            var query = new Query { Page = 10, PageSize = 2 };
+            query.Results = _items.ToPaginate(query).ToList();
+            query.HasNextPage().ShouldBeFalse();
+
+            query.Page = 1;
+            query.Results = _items.ToPaginate(query).ToList();
+            query.HasNextPage().ShouldBeTrue();
+        }
+
+        [Test]
+        public void Should_return_pager()
+        {
+            // arrange
+            var list = new Fixture().CreateMany<Item>(20).AsQueryable();
+            var query = new Query
+            {
+                Page = 5, 
+                PageSize = 2
+            };
+            
+            query.Results = list.ToPaginate(query).ToList();
+            
+            // act & assert
+            query.Pager(7).Pages.ShouldBe(new[] { 2, 3, 4, 5, 6, 7, 8 });
+            query.Pager(5).Pages.ShouldBe(new[] { 3, 4, 5, 6, 7 });
+            query.Pager(3).Pages.ShouldBe(new[] { 4, 5, 6 });
+            query.Pager(1).Pages.ShouldBe(new[] { 5 });
+            query.Pager(20).Pages.ShouldBe(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
         }
         
         public class Query : IPageable<Item>

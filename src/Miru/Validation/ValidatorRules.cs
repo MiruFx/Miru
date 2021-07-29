@@ -6,11 +6,11 @@ using FluentValidation.Validators;
 
 namespace Miru.Validation
 {
-    public class DescriptorBuilder
+    public class ValidatorRules
     {
         private readonly IEnumerable<IPropertyValidator> _validators;
 
-        public DescriptorBuilder(IEnumerable<IPropertyValidator> validators)
+        public ValidatorRules(IEnumerable<IPropertyValidator> validators)
         {
             _validators = validators;
         }
@@ -32,14 +32,21 @@ namespace Miru.Validation
             });
         }
 
-        public T Get<T>() where T : IPropertyValidator
+        public T Get<T>()
         {
             return _validators.OfType<T>().SingleOrDefault();
         }
         
         public object Get(Type type)
         {
-            return _validators.SingleOrDefault(t => t.GetType().GetGenericTypeDefinition() == type);
+            return _validators.SingleOrDefault(t =>
+            {
+                var validatorType = t.GetType();
+
+                return validatorType == type || 
+                       validatorType.GetGenericTypeDefinition() == type ||
+                       validatorType.Implements(type);
+            });
         }
     }
 }

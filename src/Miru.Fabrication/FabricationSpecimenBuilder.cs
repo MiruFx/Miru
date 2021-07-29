@@ -11,7 +11,9 @@ namespace Miru.Fabrication
         private readonly Fixture _fixture;
         private readonly FabricatedSession _session;
 
-        public FabricationSpecimenBuilder(Fixture fixture, FabricatedSession session)
+        public FabricationSpecimenBuilder(
+            Fixture fixture, 
+            FabricatedSession session)
         {
             _fixture = fixture;
             _session = session;
@@ -41,8 +43,21 @@ namespace Miru.Fabrication
                 if (singleton != null)
                     return singleton;
             }
+
+            object instance;
+
+            // if (propertyIsEntity)
+            // {
+            //     MethodInfo method = _fabricator.GetType().GetMethod(nameof(Fabricator.Make));
+            //     MethodInfo generic = method.MakeGenericMethod(propertyInfo.PropertyType);
+            //     instance = generic.Invoke(this, null);
+            // }
+            // else
+            // {
+                instance = _fixture.CreateByType(propertyInfo.PropertyType);
+            // }
             
-            var instance = _fixture.CreateByType(propertyInfo.PropertyType);
+            // var instance = _fabricator.Make(propertyInfo.PropertyType);
 
             // if (instance is OmitSpecimen)
             //     return new NoSpecimen();

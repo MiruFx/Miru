@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,11 +10,11 @@ namespace Miru.Behaviors.UserStamp
 {
     public class UserStampInterceptor : SaveChangesInterceptor
     {
-        private readonly IUserSession _userSession;
+        private readonly ICurrentUser _currentUser;
 
-        public UserStampInterceptor(IUserSession userSession)
+        public UserStampInterceptor(ICurrentUser currentUser)
         {
-            _userSession = userSession;
+            _currentUser = currentUser;
         }
 
         public override ValueTask<InterceptionResult<int>> SavingChangesAsync(
@@ -30,10 +29,10 @@ namespace Miru.Behaviors.UserStamp
             foreach (var entityBeingCreated in entitiesBeingCreated)
             {
                 if (entityBeingCreated.CreatedById == default)
-                    entityBeingCreated.CreatedById = _userSession.CurrentUserId;
+                    entityBeingCreated.CreatedById = _currentUser.Id;
                 
                 if (entityBeingCreated.UpdatedById == default)
-                    entityBeingCreated.UpdatedById = _userSession.CurrentUserId;
+                    entityBeingCreated.UpdatedById = _currentUser.Id;
             }
 
             var entitiesBeingUpdated = @event.Context.ChangeTracker.Entries<IUserStamped>()
@@ -42,7 +41,7 @@ namespace Miru.Behaviors.UserStamp
 
             foreach (var entityBeingUpdated in entitiesBeingUpdated)
             {
-                entityBeingUpdated.UpdatedById = _userSession.CurrentUserId;
+                entityBeingUpdated.UpdatedById = _currentUser.Id;
             }
             
             return new ValueTask<InterceptionResult<int>>(result);

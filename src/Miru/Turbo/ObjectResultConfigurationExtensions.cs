@@ -21,6 +21,16 @@ namespace Miru.Turbo
                 };
             });
 
+            _.When(m => m.Request.IsGet() &&
+                        m.Model is IPartialResult).Respond(m =>
+            {
+                return new PartialViewResult
+                {
+                    ViewName = $"_{m.GetCurrentActionName()}",
+                    ViewData = m.GetViewData()
+                };
+            });
+
             _.When(m => m.Request.CanAccept(TurboStreamResult.MimeType) && 
                         m.Model is IRedirect && 
                         m.Request.IsPost()).Respond(m =>

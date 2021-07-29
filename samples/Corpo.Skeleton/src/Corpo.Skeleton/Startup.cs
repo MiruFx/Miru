@@ -59,7 +59,6 @@ namespace Corpo.Skeleton
                 {
                     _.EmailDefaults(email => email.From("noreply@skeleton.com", "Skeleton"));
                 })
-                .AddSenderStorage()
 
                 .AddQueuing(_ =>
                 {
@@ -105,9 +104,6 @@ namespace Corpo.Skeleton
             {
                 e.MapDefaultControllerRoute();
                 e.MapRazorPages();
-                
-                if (env.IsDevelopmentOrTest())
-                    e.MapEmailsStorage();
             });
         }
     }

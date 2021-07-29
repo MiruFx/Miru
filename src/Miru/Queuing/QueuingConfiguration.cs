@@ -8,6 +8,6 @@ namespace Miru.Queuing
     public abstract class QueuingConfiguration
     {
         public string LocalStorage(IServiceProvider sp) => 
-            sp.GetService<Storage>().MakePath() / "db" / $"Queue_{sp.GetService<IHostEnvironment>().EnvironmentName}.db";
+            sp.GetRequiredService<IStorage>().App / "db" / $"Queue_{sp.GetRequiredService<IHostEnvironment>().EnvironmentName}.db";
     }
 }

@@ -12,7 +12,7 @@ using Shouldly;
 
 namespace Miru.Tests.Queuing
 {
-    public class JobsTest
+    public class QueueingTest
     {
         private ServiceProvider _sp;
         private BackgroundJobServer _server;
@@ -24,7 +24,7 @@ namespace Miru.Tests.Queuing
         {
             _sp = new ServiceCollection()
                 .AddQueuing((sp, cfg) => cfg.UseMemoryStorage())
-                .AddMediatR(typeof(JobsTest).Assembly)
+                .AddMediatR(typeof(QueueingTest).Assembly)
                 .AddScoped<SomeService>()
                 .AddMiruTestFixture()
                 .BuildServiceProvider();

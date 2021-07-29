@@ -317,6 +317,17 @@ namespace Miru.Tests.Fabrication
             paymentProvider.Name.ShouldBeOneOf("PayPal", "Stripe");
         }
         
+        [Test]
+        [Ignore("Not implemented yet")]
+        public void When_default_specified_should_use_it_when_building_object()
+        {
+            var order1 = _fabricator.Make<Order>();
+            order1.Customer.Status.ShouldBe("regular-buyer");
+            
+            var order2 = _fabricator.Make<Order>();
+            order2.Customer.Status.ShouldBe("regular-buyer");
+        }
+        
         public class ThisFabricator : Fabricator
         {
             public ThisFabricator(FabSupport support) : base(support)
@@ -407,6 +418,11 @@ namespace Miru.Tests.Fabrication
         public class PaymentProvider
         {
             public string Name { get; set; } 
+        }
+
+        public class Order
+        {
+            public Customer Customer { get; set; }
         }
     }
 }

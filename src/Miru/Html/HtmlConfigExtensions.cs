@@ -5,6 +5,7 @@ using HtmlTags;
 using HtmlTags.Conventions;
 using HtmlTags.Reflection;
 using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Http;
 
 namespace Miru.Html
 {
@@ -17,6 +18,12 @@ namespace Miru.Html
             return config.If(m => 
                 m.Accessor.OwnerType == typeof(TModel) &&
                 m.Accessor.PropertyNames.Contains(expression.ToAccessor().Name));
+        }
+
+        public static HtmlConfiguration AddFileEditor(this HtmlConfiguration html)
+        {
+            html.Editors.IfPropertyIs<IFormFile>().Attr("type", "file");
+            return html;
         }
     }
 }

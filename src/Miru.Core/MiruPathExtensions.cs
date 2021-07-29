@@ -27,9 +27,6 @@ namespace Miru.Core
         }
 
         public static void EnsureDirExist(this MiruPath miruPath) =>
-            Directories.CreateIfNotExists(miruPath.IsDirectory() ? miruPath : miruPath.Dir());
-    
-        public static void EnsureDirExist2(this MiruPath miruPath) =>
             Directories.CreateIfNotExists(miruPath);
         
         public static FileInfo FileInfo(this MiruPath miruPath) => new FileInfo(miruPath);

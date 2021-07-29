@@ -32,7 +32,7 @@ namespace Playground
 
                 .AddDefaultPipeline<Startup>()
                 
-                .AddGlobalization("de-DE", "en-GB", "en-US", "pt-BR", "pt-PT")
+                .AddGlobalization(defaultCulture: "en-GB", "de-DE", "en-US", "pt-BR", "pt-PT")
 
                 .AddEfCoreSqlite<PlaygroundDbContext>()
 
@@ -65,7 +65,6 @@ namespace Playground
                 {
                     _.EmailDefaults(email => email.From("noreply@skeleton.com", "Skeleton"));
                 })
-                .AddSenderStorage()
 
                 .AddQueuing(_ =>
                 {
@@ -116,9 +115,6 @@ namespace Playground
             {
                 e.MapDefaultControllerRoute();
                 e.MapRazorPages();
-                
-                if (env.IsDevelopmentOrTest())
-                    e.MapEmailsStorage();
             });
         }
     }

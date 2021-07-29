@@ -11,7 +11,7 @@ namespace Miru.Tests.Storages
     public class StorageTest
     {
         private ServiceProvider _sp;
-        private Storage _storage;
+        private IStorage _storage;
         private MiruSolution _solution;
 
         [OneTimeSetUp]
@@ -26,7 +26,7 @@ namespace Miru.Tests.Storages
 
             _ = _sp.GetService<ITestFixture>();
 
-            _storage = _sp.GetRequiredService<Storage>();
+            _storage = _sp.GetRequiredService<IStorage>();
         }
 
         [Test]

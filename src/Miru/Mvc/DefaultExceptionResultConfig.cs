@@ -2,7 +2,6 @@ using System.Net;
 using System.Text;
 using Baseline;
 using FluentValidation;
-using HtmlTags;
 using Miru.Domain;
 using Miru.Html;
 using Miru.Turbo;
@@ -18,7 +17,7 @@ namespace Miru.Mvc
             
             this.MiruDefault();
         }
-        
+
         public void MiruTurboFormSummary()
         {
             When(m => 
@@ -34,7 +33,7 @@ namespace Miru.Mvc
                 
                 html.Append(BuildValidationMessageTags(validationException));
                 
-                html.Append(BuildFormSummaryTag(formSummaryId, validationException));
+                html.Append(BuildFormSummaryTag(formSummaryId, validationException, m));
 
                 return new TurboStreamResult(html.ToString(), HttpStatusCode.UnprocessableEntity);
             });
@@ -43,41 +42,33 @@ namespace Miru.Mvc
                 m.Request.IsPost() && 
                 m.Request.CanAccept(TurboStreamResult.MimeType)).Respond(m =>
             {
-                var template = new HtmlTag("template");
-
-                var summaryId = m.Request.Form["__Summary"];
+                var formSummaryId = m.Request.Headers["turbo-form-summary-id"];
                 
-                var summary = new HtmlTag("div")
-                    // TODO: parse css selector to HtmlTag (at least basic .class #id attribute
-                    // TODO: should not be hardcoded. Should get from HtmlConventions
-                    .Id(summaryId)
-                    .AddClass("form-summary")
-                    .AddClass("alert")
-                    .AddClass("alert-danger")
-                    .Attr("data-controller", "form-summary");
+                var formSummary = new FormSummaryTag(formSummaryId);
 
-                template.Append(summary);
+                var turboStream = new TurboStreamTag("replace", formSummaryId)
+                    .AppendIntoTemplate(formSummary);
                 
-                // TODO: get from htmlconventions
-                // TODO: new TurboStreamTag()
-                var turboStream = new HtmlTag("turbo-stream")
-                    .Attr("action", "replace")
-                    .Attr("target", summaryId)
-                    .Append(template);
-
+                App.Log.Error(m.Exception, "An error occurred while processing your request");
+                
                 var errorMessage = m.Exception is DomainException domainException
                     ? domainException.Message
                     : "An error occurred while processing your request";
                     
-                summary.Add("div", tag => tag.Text(errorMessage));
+                formSummary.Add("div", tag => tag.Text(errorMessage));
 
                 return new TurboStreamResult(turboStream, HttpStatusCode.UnprocessableEntity);
             });
         }
-        
-        private static string BuildFormSummaryTag(string formSummaryId, MiruValidationException validationException)
+
+        private static string BuildFormSummaryTag(
+            string formSummaryId, 
+            MiruValidationException validationException,
+            ExceptionResultContext m)
         {
-            var formSummary = new FormSummaryTag(formSummaryId);
+            var formSummary = m.GetService<HtmlGenerator>()
+                .FormSummaryFor(validationException.Model)
+                .RemoveAttr("hidden");
 
             // TODO: get from htmlconventions
             var turboStreamTag = new TurboStreamTag("replace", formSummaryId)
@@ -87,7 +78,7 @@ namespace Miru.Mvc
             
             return turboStreamTag.ToString();
         }
-        
+
         private static StringBuilder BuildValidationMessageTags(MiruValidationException validationException)
         {
             var html = new StringBuilder();

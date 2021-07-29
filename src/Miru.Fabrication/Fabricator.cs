@@ -27,7 +27,7 @@ namespace Miru.Fabrication
 
             _support = support;
         }
-
+        
         public T Make<T>() where T : class
         {
             var customFactory = FabFor<T>();
@@ -135,9 +135,14 @@ namespace Miru.Fabrication
                 .GetServices<ICustomFabricator>()
                 .FirstOrDefault(t => t is ICustomFabricator<TModel>);
         }
-
+        
         protected void WithDefault<T>(Action<T> action) where T : new()
         {
+            // Fixture.AddConvention(Faker, _ =>
+            // {
+            //     _.IfClass(t => t == typeof(T)).Use( action());
+            // });
+            
             Action<T, Faker> actionWithFaker = (arg1, faker) => action(arg1);
             
             WithDefault(actionWithFaker);

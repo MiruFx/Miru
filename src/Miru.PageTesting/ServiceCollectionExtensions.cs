@@ -34,7 +34,7 @@ namespace Miru.PageTesting
 
             services.AddTransient<IUserSession, TestingUserSession<TUser>>();
 
-            services.AddSingleton<Storage>();
+            services.AddSingleton<IStorage>();
             
             services.AddSingleton<PageBody>();
             

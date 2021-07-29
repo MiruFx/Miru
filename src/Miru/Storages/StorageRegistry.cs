@@ -1,16 +1,15 @@
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Consolables;
-using Miru.Foundation;
 
 namespace Miru.Storages
 {
-    public static class StorageServiceCollectionExtensions
+    public static class StorageRegistry
     {
         public static IServiceCollection AddStorage(this IServiceCollection services)
         {
             services.AddConsolable<StorageLinkConsolable>();
             
-            return services.AddSingleton<Storage>();
+            return services.AddSingleton<IStorage, LocalDiskStorage>();
         }
         
         public static IServiceCollection AddStorage<TStorage>(this IServiceCollection services)
