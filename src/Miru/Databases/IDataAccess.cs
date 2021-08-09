@@ -4,6 +4,6 @@ namespace Miru.Databases
 {
     public interface IDataAccess
     {
-        Task PersistAsync(object[] entities);
+        Task SaveAsync(object[] entities);
     }
 }

@@ -9,8 +9,8 @@ namespace Miru.Fabrication.FixtureConventions
 {
     public static class FixtureExtensions
     {
-        private static readonly string Space = " ";
-        private static readonly string Dash = "-";
+        // private static readonly string Space = " ";
+        // private static readonly string Dash = "-";
 
         public static object CreateByType(this Fixture fixture, Type resolveType)
         {

@@ -26,16 +26,22 @@ namespace Miru.Databases.EntityFramework
             }
         }
 
-        public async Task PersistAsync(object[] entities)
+        public async Task SaveAsync(object[] entities)
         {
-            using (var tx = await _db.Database.BeginTransactionAsync())
+            await using var tx = await _db.Database.BeginTransactionAsync();
+            
+            foreach (var entity in entities)
             {
-                AddOrUpdateEntities(entities);
-
-                await _db.SaveChangesAsync();
-                
-                await tx.CommitAsync();
+                if (entity is IEnumerable collectionOfEntities)
+                    foreach (var castEntity in collectionOfEntities)
+                        await _db.AddAsync(castEntity);
+                else
+                    await _db.AddAsync(entity);
             }
+
+            await _db.SaveChangesAsync();
+                
+            await tx.CommitAsync();
         }
 
         private void AddOrUpdateEntities(object[] entities)

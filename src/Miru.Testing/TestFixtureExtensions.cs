@@ -51,7 +51,7 @@ namespace Miru.Testing
             {
                 var db = scope.Get<IDataAccess>();
                 
-                db.PersistAsync(entities).Wait();
+                db.SaveAsync(entities).Wait();
             }
         }
         
@@ -61,7 +61,7 @@ namespace Miru.Testing
             {
                 var db = scope.Get<IDataAccess>();
                 
-                db.PersistAsync(new object[] {entity}).GetAwaiter().GetResult();
+                db.SaveAsync(new object[] {entity}).GetAwaiter().GetResult();
             }
 
             return entity;
@@ -75,7 +75,7 @@ namespace Miru.Testing
             {
                 var db = scope.Get<IDataAccess>();
                 
-                await db.PersistAsync(entities);
+                await db.SaveAsync(entities);
             }
         }
         
@@ -96,7 +96,7 @@ namespace Miru.Testing
             {
                 var db = scope.Get<IDataAccess>();
                 
-                await db.PersistAsync(entities.Cast<object>().ToArray());
+                await db.SaveAsync(entities.Cast<object>().ToArray());
             }
         }
 

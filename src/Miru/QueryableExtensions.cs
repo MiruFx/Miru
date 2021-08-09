@@ -127,41 +127,6 @@ namespace Miru
             return await queryable.FirstOrDefaultAsync(e => e.Id == id, cancellationToken: ct) ?? 
                    throw new NotFoundException(exceptionMessage.Or($"{typeof(TEntity).Name} with Id #{id} could not be found"));
         }
-
-        public static IEnumerable<TModel> ToPaginate<TModel>(this IQueryable<TModel> queryable, IPageable pageable)
-        {
-            var count = queryable.Count();
-           
-            pageable.Paginate(count);
-
-            var result = queryable
-                .Skip(pageable.Skip())
-                .Take(pageable.PageSize)
-                .ToList();
-
-            pageable.CountShowing = result.Count;
-            
-            return result;
-        }
-        
-        public static async Task<List<TModel>> ToPaginateAsync<TModel>(
-            this IQueryable<TModel> queryable, 
-            IPageable pageable,
-            CancellationToken ct = default)
-        {
-            var total = queryable.Count();
-
-            pageable.Paginate(total);
-
-            var result = await queryable
-                .Skip(pageable.Skip())
-                .Take(pageable.PageSize)
-                .ToListAsync(ct);
-
-            pageable.CountShowing = result.Count;
-            
-            return result;
-        }
         
         public static async Task<bool> NoneAsync<TSource>(
             this IQueryable<TSource> query, 
