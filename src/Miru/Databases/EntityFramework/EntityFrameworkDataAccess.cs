@@ -29,16 +29,9 @@ namespace Miru.Databases.EntityFramework
         public async Task SaveAsync(object[] entities)
         {
             await using var tx = await _db.Database.BeginTransactionAsync();
-            
-            foreach (var entity in entities)
-            {
-                if (entity is IEnumerable collectionOfEntities)
-                    foreach (var castEntity in collectionOfEntities)
-                        await _db.AddAsync(castEntity);
-                else
-                    await _db.AddAsync(entity);
-            }
 
+            AddOrUpdateEntities(entities);
+            
             await _db.SaveChangesAsync();
                 
             await tx.CommitAsync();

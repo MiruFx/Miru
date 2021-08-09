@@ -57,12 +57,11 @@ namespace Miru.Testing
         
         public static TEntity Save<TEntity>(this ITestFixture fixture, TEntity entity)
         {
-            using (var scope = fixture.App.WithScope())
-            {
-                var db = scope.Get<IDataAccess>();
+            using var scope = fixture.App.WithScope();
+            
+            var db = scope.Get<IDataAccess>();
                 
-                db.SaveAsync(new object[] {entity}).GetAwaiter().GetResult();
-            }
+            db.SaveAsync(new object[] {entity}).GetAwaiter().GetResult();
 
             return entity;
         }
@@ -77,6 +76,26 @@ namespace Miru.Testing
                 
                 await db.SaveAsync(entities);
             }
+        }
+        
+        public static void Update<TEntity>(this ITestFixture fixture, TEntity entity)
+            where TEntity : Entity
+        {
+            var scope = fixture.App.WithScope();
+            
+            var db = scope.Get<DbContext>();
+                
+            if (entity.IsNotNew())
+            {
+                var entry = db.Entry(entity);
+            
+                if (entry.State == EntityState.Detached)
+                    db.Attach(entity);
+            
+                entry.State = EntityState.Modified;
+            }
+
+            db.SaveChanges();
         }
         
         public static async Task<TScenario> ScenarioAsync<TScenario>(this ITestFixture fixture) where TScenario : IFixtureScenario, new()
@@ -124,13 +143,24 @@ namespace Miru.Testing
 
         public static TReturn WithDb<TDbContext, TReturn>(
             this ITestFixture fixture, 
-            Func<TDbContext, TReturn> func)
+            Func<TDbContext, TReturn> func) where TDbContext : DbContext
         {
             using var scope = fixture.App.WithScope();
             
             var db = scope.Get<TDbContext>();
                 
             return func(db);
+        }
+        
+        public static void ExecDb<TDbContext>(
+            this ITestFixture fixture, 
+            Action<TDbContext> action)
+        {
+            using var scope = fixture.App.WithScope();
+            
+            var db = scope.Get<TDbContext>();
+                
+            action(db);
         }
         
         public static void LoginAs<TUser>(this ITestFixture fixture, TUser user) where TUser : UserfyUser
