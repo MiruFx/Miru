@@ -28,7 +28,7 @@
 
 <div miru-if="@Model.HasPagination()" class="my-4">
     <nav aria-label="page navigation">
-        <ul class="pagination">
+        <ul class="pagination justify-content-center">
             
             <li miru-if="@Model.HasPreviousPage()" class="page-item">
                 <a class="page-link" href="@Url.Build(Model).FirstPage()">First</a>

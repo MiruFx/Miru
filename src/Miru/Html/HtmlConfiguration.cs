@@ -38,6 +38,8 @@ namespace Miru.Html
         public HtmlConfiguration()
         {
             // TODO: move default configurations to a extension method to be used in HtmlConfig -> .AddMiruDefault();
+            
+            // Forms
             Submits.Always.BuildBy<SubmitBuilder>();
 
             FormSummaries.Always.BuildBy<FormSummaryBuilder>();
@@ -51,44 +53,6 @@ namespace Miru.Html
             
             ValidationMessages.Always.BuildBy<ValidationMessageBuilder>();
             
-            Cells.Always.BuildBy<CellBuilder>();
-            
-            Displays.If(x => 
-                x.Accessor.PropertyType != typeof(string) && 
-                x.Accessor.PropertyType.ImplementsEnumerableOfSomething())
-                    .ModifyTag(tag => tag.Text(string.Empty));
-            
-            TableHeader.Always.BuildBy<TableHeaderBuilder>();
-
-            Selects.Always.BuildBy<SelectBuilder>();
-            Selects.NamingConvention(new DotNotationElementNamingConvention());
-            Selects.Always.ModifyWith<AddNameModifier>();
-            Selects.Always.ModifyWith<AddIdModifier>();
-            
-            this.InputHiddenForIds();
-            
-            this.InputForBoolean();
-            
-            this.InputForPassword();
-            
-            // Labels.Modifier<RequiredLabelModifier>();
-            
-            Labels.ModifyForAttribute<DisplayAttribute>((t, a) => t.Text(a.Name));
-            
-            Labels.IfPropertyNameEnds("Id").ModifyWith(m => m.CurrentTag.Text(m.ElementId.RemoveAtTheEnd(2)));
-            
-            DisplayLabels.Always.BuildBy<DefaultDisplayLabelBuilder>();
-            
-            DisplayLabels.ModifyForAttribute<DisplayAttribute>((t, a) => t.Text(a.Name));
-            
-            Displays
-                .IfPropertyNameEnds("Date")
-                .ModifyWith(m => m.CurrentTag.Text(m.Value<DateTime>().ToString("dd/MM/yyyy")));
-            
-            Displays
-                .IfPropertyIs<decimal>()
-                .ModifyWith(m => m.CurrentTag.Text(m.Value<decimal>().ToString("F2")));
-            
             Forms.Always.BuildBy<FormBuilder>();
 
             Forms
@@ -96,10 +60,50 @@ namespace Miru.Html
                 .ModifyWith(m => m.CurrentTag.Attr("method", "get"));
             
             Submits.Always.ModifyTag(tag => tag.DisableWith("Sending..."));
+
+            // Editors
+            Selects.Always.BuildBy<SelectBuilder>();
+            Selects.NamingConvention(new DotNotationElementNamingConvention());
+            Selects.Always.ModifyWith<AddNameModifier>();
+            Selects.Always.ModifyWith<AddIdModifier>();
+
+            this.InputHiddenForIds();
+            
+            this.InputForBoolean();
+            
+            this.InputForPassword();
             
             Editors.IfPropertyHasAttribute<RadioAttribute>()
                 .ModifyTag(tag => tag.Attr("type", "radio"));
+
+            // Labels
+            Labels.IfPropertyNameEnds("Id").ModifyWith(m => m.CurrentTag.Text(m.ElementId.RemoveAtTheEnd(2)));
+            Labels.ModifyForAttribute<DisplayAttribute>((t, a) => t.Text(a.Name));
+
+            // Displays
+            Displays
+                .IfPropertyNameEnds("Date")
+                .ModifyWith(m => m.CurrentTag.Text(m.Value<DateTime>().ToString("dd/MM/yyyy")));
             
+            Displays
+                .IfPropertyIs<decimal>()
+                .ModifyWith(m => m.CurrentTag.Text(m.Value<decimal>().ToString("F2")));
+
+            Displays.If(x => 
+                    x.Accessor.PropertyType != typeof(string) && 
+                    x.Accessor.PropertyType.ImplementsEnumerableOfSomething())
+                .ModifyTag(tag => tag.Text(string.Empty));
+
+            // Display Labels
+            DisplayLabels.Always.BuildBy<DefaultDisplayLabelBuilder>();
+            
+            DisplayLabels.ModifyForAttribute<DisplayAttribute>((t, a) => t.Text(a.Name));
+            
+            // Tables
+            Cells.Always.BuildBy<CellBuilder>();
+            
+            TableHeader.Always.BuildBy<TableHeaderBuilder>();
+
             // Editors.If(req => req.Accessor.HasAttribute<RadioAttribute>() && req.Accessor.PropertyType == typeof(bool))
             //     .BuildBy(m =>
             //     {

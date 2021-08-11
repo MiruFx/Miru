@@ -20,7 +20,7 @@ This Roadmap is a plan, but not a commitment. It can change in the future.
   - Decimal 
   
 - Localization
-  - Calendar
+  - Calendar (months' names)
   - FluentValidation errors
     - FluentValidation read 'Display' attribute
   - Miru default errors
@@ -137,8 +137,13 @@ PageTests
 ### 2.0 - 31/December/2022 - Performance
 
 - Caching
+  - Entity Framework Second Level caching
+  - Russian-doll caching
+    - (EF changes can expire UI cachings)
 - Gzip assets
-- Parallel Feature and Page tests
+- Run tests in parallel
 - Fabrication performance
 - Url generation performance
+  - Refactor the whole code
+  - Benchmark and improve performance
 - Use Result instead of Exceptions for Validation, Domain, NotFound exception

@@ -13,7 +13,7 @@ namespace Miru.Sqlite
     {
         public static void UseLiteDb(this QueuingBuilder builder)
         {
-            var storage = builder.ServiceProvider.GetRequiredService<IStorage>();
+            var storage = builder.ServiceProvider.GetRequiredService<LocalDiskStorage>();
             var env = builder.ServiceProvider.GetRequiredService<IHostEnvironment>();
             var queueOptions = builder.ServiceProvider.GetRequiredService<QueueOptions>();
 

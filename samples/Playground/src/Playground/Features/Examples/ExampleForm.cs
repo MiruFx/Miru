@@ -24,6 +24,8 @@ namespace Playground.Features.Examples
             public Lookups Countries { get; set; }
 
             // inputs
+            [Display(Name = "Other Label")]
+            public long CompanyId { get; set; }
             public int CreditCard { get; set; }
             public Relationships Relationship { get; set; }
             public Address Address { get; set; } = new();
@@ -41,6 +43,7 @@ namespace Playground.Features.Examples
             public IEnumerable<Newsletters> NewsletterOptions { get; set; }
 
             public List<ProductItem> Products { get; set; } = new();
+            public Lookups Companies { get; set; }
         }
 
         public class Address
@@ -81,6 +84,13 @@ namespace Playground.Features.Examples
                         new() { Name = "Eggs 10" },
                         new() { Name = "Butter 200g" }
                     },
+                    
+                    Companies = new Dictionary<long, string>
+                    {
+                        { 1, "Apple" },
+                        { 2, "Google" },
+                        { 3, "Microsoft" }
+                    }.ToLookups(x => x.Key, x => x.Value),
                     
                     CreditCard = CreditCardBrands.MasterCardBrands.Value,
                     Relationship = Relationships.Married,

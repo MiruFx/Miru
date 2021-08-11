@@ -9,7 +9,7 @@ namespace Miru.Storages
         {
             services.AddConsolable<StorageLinkConsolable>();
             
-            return services.AddSingleton<IStorage, LocalDiskStorage>();
+            return services.AddStorage<LocalDiskStorage>();
         }
         
         public static IServiceCollection AddStorage<TStorage>(this IServiceCollection services)

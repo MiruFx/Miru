@@ -53,8 +53,6 @@ namespace Miru
 
             services.AddSingleton<ISessionStore, HttpSessionStore>();
             
-            services.AddStorage();
-            
             return services;
         }
 
