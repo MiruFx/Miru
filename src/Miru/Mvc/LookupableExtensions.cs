@@ -35,6 +35,18 @@ namespace Miru.Mvc
             return lookups;
         }
         
+        public static Lookups ToLookups<T>(this IEnumerable<T> list) where T : Enum
+        {
+            var lookups = new Lookups();
+
+            foreach (var item in list)
+            {
+                lookups.Add(new Lookup(item.ToInt(), item.DisplayName()));
+            }
+
+            return lookups;
+        }
+        
         public static Lookups ToLookups<TKey, TValue>(this Dictionary<TKey, TValue> dictionary)
         {
             var lookups = new Lookups();

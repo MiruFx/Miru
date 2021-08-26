@@ -1,0 +1,61 @@
+@model EnumerationList.Query
+
+<h3>Enumerations</h3>
+
+<div class="my-4">
+    <span class="dropdown mx-3">
+        Order Status:
+          <a class="dropdown-toggle text-dark" href="#" id="order-status-filter" data-bs-toggle="dropdown" aria-expanded="false">
+            <i>@Model.OrderStatus?.Name</i>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="order-status-filter">
+              @foreach (var status in EnumerationList.OrderStatus.GetAll())
+              {
+                  <li>
+                    <a class="dropdown-item" href="@(Url.Build(Model).With(m => m.OrderStatus, status.Value))">
+                        @status.Name
+                    </a>
+                  </li>
+              }
+          </ul>
+    </span>
+    
+    <span class="dropdown  mx-3">
+        Payment Status:
+          <a class="dropdown-toggle text-dark" href="#" id="payment-status-filter" data-bs-toggle="dropdown" aria-expanded="false">
+            <i>@Model.PaymentStatus?.Name</i>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="payment-status-filter">
+              @foreach (var status in EnumerationList.PaymentStatus.GetAll())
+              {
+                  <li>
+                    <a class="dropdown-item" href="@(Url.Build(Model).With(m => m.PaymentStatus, status.Value))">
+                        @status.Name
+                    </a>
+                  </li>
+              }
+          </ul>
+    </span>
+</div>
+
+<miru-table for="Results" class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <miru-th for="Results[0].Id" />
+        <miru-th for="Results[0].OrderStatus" />
+        <miru-th for="Results[0].PaymentStatus" />
+    </tr>
+    </thead>
+    <tbody>
+
+    @for (var i = 0; i < Model.Results.Count; i++)
+    {
+        <tr>
+            <miru-td for="Results[i].Id" />
+            <miru-td for="Results[i].OrderStatus" />
+            <miru-td for="Results[i].PaymentStatus" />
+        </tr>
+    }
+
+    </tbody>
+</miru-table>

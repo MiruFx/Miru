@@ -7,6 +7,7 @@ using System.Reflection;
 using Baseline.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Miru.Domain;
 
 namespace Miru.Urls
 {
@@ -47,7 +48,13 @@ namespace Miru.Urls
                 {
                     Attributes = p.GetCustomAttributes().ToArray(),
                     
-                    PropType = IsEnum(p.PropertyType) || IsConvertible(p.PropertyType) ? PropType.Simple : (IsEnumerable(p.PropertyType) ? PropType.Enumerable : (SimpleGetter(p) ? PropType.Complex : PropType.Unknown)),
+                    PropType = IsEnum(p.PropertyType) || IsConvertible(p.PropertyType) || IsEnumeration(p.PropertyType) 
+                        ? PropType.Simple 
+                        : (IsEnumerable(p.PropertyType) 
+                            ? PropType.Enumerable
+                            : (SimpleGetter(p) 
+                                ? PropType.Complex 
+                                : PropType.Unknown)),
                     
                     MemberAccessor = new MemberAccessor(modelType, p.Name)
                 });
@@ -75,6 +82,13 @@ namespace Miru.Urls
                     if (val is DateTime dateTime)
                     {
                         val = dateTime.ToShortDateString();
+                    }
+                    else if (p.PropertyType.ImplementsGenericOf(typeof(Enumeration<,>)))
+                    {
+                        model = typeof(Enumeration<,>)
+                            .MakeGenericType(p.PropertyType, p.PropertyType.BaseType?.GetGenericArguments()[1])
+                            .GetMethod("FromValue")?
+                            .Invoke(null, new object[] { val });
                     }
 
                     dict.Add(prefix + p.Name, val);
@@ -216,6 +230,12 @@ namespace Miru.Urls
             var nullableType = Nullable.GetUnderlyingType(t);
             
             return nullableType != null && nullableType.GetTypeInfo().IsEnum;
+        }
+        
+        private static bool IsEnumeration(Type t)
+        {
+            return t.ImplementsGenericOf(typeof(Enumeration<,>))
+                   || t.ImplementsGenericOf(typeof(Enumeration<>));
         }
 
         private static readonly List<Type> ConvertibleTypes = new List<Type>

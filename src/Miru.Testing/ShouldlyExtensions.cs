@@ -48,7 +48,30 @@ namespace Miru.Testing
             actualCount.ShouldBe(expected, 
                 $"Number of items of {typeof(T).FullName} should be {actualCount} but was {expectedCount}");
         }
-        
+
+        public static void ShouldMatchOrderedIds(this IEnumerable<IHasId> left, params IHasId[] right)
+        {
+            var leftIds = left.Select(x => x.Id).ToImmutableList();
+            var rightIds = right.Select(x => x.Id).ToImmutableList();
+
+            if (leftIds.Count != rightIds.Count)
+                    throw new AssertionException($@"Left count ({leftIds.Count}) doesn't match with Right count ({rightIds.Count}):
+
+    Left Ids: {leftIds.Join(",")}
+    Right Ids: {rightIds.Join(",")}
+");
+            
+            for (int i = 0; i < leftIds.Count; i++)
+            {
+                if (leftIds[i] != rightIds[i])
+                    throw new AssertionException($@"Left doesn't match with Right at position {i}:
+
+    Left Ids: {leftIds.Join(",")}
+    Right Ids: {rightIds.Join(",")}
+");
+            }
+        }
+
         public static void ShouldMatchIds(this IEnumerable<IHasId> left, params IHasId[] right)
         {
             var leftIds = left.Select(x => x.Id).ToImmutableList();
@@ -64,9 +87,9 @@ namespace Miru.Testing
             }
         }
         
-        public static void ShouldMatchIds(this IEnumerable<IHasId> left, IEnumerable<IHasId> right)
+        public static void ShouldMatchOrderedIds(this IEnumerable<IHasId> left, IEnumerable<IHasId> right)
         {
-            left.ShouldMatchIds(right.ToArray());
+            left.ShouldMatchOrderedIds(right.ToArray());
         }
 
         public static void ShouldBe<T>(this IEnumerable<T> actual, params T[] expected) 

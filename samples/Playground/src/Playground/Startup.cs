@@ -28,7 +28,7 @@ namespace Playground
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMiru<Startup>()
+            services.AddMiru<Startup>(opt => opt.UseEnumerationModelBinding())
 
                 .AddDefaultPipeline<Startup>()
                 

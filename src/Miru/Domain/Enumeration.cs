@@ -66,7 +66,7 @@ namespace Miru.Domain
             return Value.CompareTo(other == default(TEnumeration) ? default(TValue) : other.Value);
         }
 
-        public override sealed string ToString()
+        public sealed override string ToString()
         {
             return Name;
         }

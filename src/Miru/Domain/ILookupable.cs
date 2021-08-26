@@ -6,4 +6,11 @@ namespace Miru.Domain
         
         string Display { get; }
     }
+
+    public interface ILookupableEntity
+    {
+        long Id { get; }
+        
+        string Name { get; }
+    }
 }

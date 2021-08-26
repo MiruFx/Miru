@@ -59,6 +59,19 @@ namespace Miru.Turbo
                 return new RedirectResult(redirectToUrl);
             });
             
+            _.When(m => m.Model is FeatureResult).Respond(m =>
+            {
+                var feature = (FeatureResult) m.Model;
+
+                FlashResultMessages(feature, m);
+
+                var urlLookup = m.ActionContext.HttpContext.RequestServices.GetRequiredService<UrlLookup>();
+
+                var redirectToUrl = urlLookup.For(feature.Model);
+                
+                return new RedirectResult(redirectToUrl);
+            });
+            
             _.When(m => m.Request.CanAccept(TurboStreamResult.MimeType) && 
                         m.Request.IsPost()).Respond(m => 
                 new PartialViewResult

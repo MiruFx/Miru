@@ -1,6 +1,8 @@
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Miru.Mvc
@@ -39,6 +41,19 @@ namespace Miru.Mvc
             mvcCoreBuilder.Services.AddSingleton<IActionResultExecutor<ObjectResult>, MiruObjectResultExecutor>();
             
             return mvcCoreBuilder;
+        }
+        
+        public static void UseEnumerationModelBinding(this MvcOptions opts)
+        {
+            var binderToFind = opts.ModelBinderProviders
+                .FirstOrDefault(x => x.GetType() == typeof(SimpleTypeModelBinderProvider));
+
+            if (binderToFind == null) 
+                return;
+
+            var index = opts.ModelBinderProviders.IndexOf(binderToFind);
+            
+            opts.ModelBinderProviders.Insert(index, new EnumerationModelBinderProvider());
         }
     }
 }

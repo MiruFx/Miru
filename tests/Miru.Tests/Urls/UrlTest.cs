@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Core;
+using Miru.Domain;
 using Miru.Foundation.Hosting;
 using Miru.Mvc;
 using Miru.Pagination;
@@ -434,6 +435,20 @@ namespace Miru.Tests.Urls
 
             CultureInfo.CurrentCulture = currentCulture;
         }
+        
+        [Test]
+        [Ignore("Not yet")]
+        public void Build_query_string_for_enumeration()
+        {
+            var request = new ProductsList.Query
+            {
+                ProductStatus = ProductsList.ProductStatus.OutOfStock,
+            };
+        
+            UrlLookup
+                .For(request)
+                .ShouldBe("/Products/List?ProductStatus=O");
+        }
 
         public class NotMapped
         {
@@ -480,6 +495,17 @@ namespace Miru.Tests.Urls
                 
                 public IEnumerable<string> Categories { get; set; } = new List<string>() {"Phone", "Laptop"};
                 public DateTime SoldBefore { get; set; }
+                public ProductStatus ProductStatus { get; set; }
+            }
+
+            public class ProductStatus : Enumeration<ProductStatus, string>
+            {
+                public static ProductStatus Active = new("A", "Active");
+                public static ProductStatus OutOfStock = new("O", "Out Of Stock");
+                
+                public ProductStatus(string value, string name) : base(value, name)
+                {
+                }
             }
 
             public enum Size
