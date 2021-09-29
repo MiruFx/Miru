@@ -53,7 +53,7 @@ namespace Miru.Foundation.Hosting
         {
             if (_argsConfig.RunCli)
             {
-                return _hosts.SingleOrDefault(host => host is CliMiruHost);
+                return _hosts.SingleOrDefault(host => host is ICliMiruHost);
             }
             
             return _hosts.SingleOrDefault(host => host is WebMiruHost);

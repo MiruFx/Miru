@@ -4,8 +4,10 @@ using System.Net;
 using System.Threading.Tasks;
 using FluentFTP;
 using Miru.Core;
+using Miru.Storages;
+using Miru.Storages.Ftp;
 
-namespace Miru.Storages.Ftp
+namespace Miru.Storage.Ftp
 {
     public class FtpStorage : IStorage
     {

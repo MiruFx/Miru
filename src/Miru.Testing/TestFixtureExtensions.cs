@@ -78,6 +78,25 @@ namespace Miru.Testing
             }
         }
         
+        public static async Task SaveAddingAsync(this ITestFixture fixture, params object[] entities)
+        {
+            ThrowExceptionIfNotEntities(entities);
+
+            using var scope = fixture.App.WithScope();
+            
+            var db = scope.Get<DbContext>();
+
+            await using var tx = await db.Database.BeginTransactionAsync();
+            
+            foreach (var entity in entities)
+            {
+                db.Add(entity);
+            }
+
+            await db.SaveChangesAsync();
+            await tx.CommitAsync();
+        }
+        
         public static void Update<TEntity>(this ITestFixture fixture, TEntity entity)
             where TEntity : Entity
         {

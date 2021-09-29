@@ -60,6 +60,7 @@ namespace Miru.Foundation.Hosting
                         .MinimumLevel.Override("System", LogEventLevel.Fatal)
                         .MinimumLevel.Override("Hangfire", LogEventLevel.Fatal)
                         .MinimumLevel.Override("Miru", LogEventLevel.Fatal)
+                        .MinimumLevel.Override("Quartz", LogEventLevel.Fatal)
                         .WriteTo.Console(outputTemplate: LoggerConfigurations.TimestampOutputTemplate);
                 })
                 .ConfigureAppConfiguration((hostingContext, cfg) =>
@@ -83,7 +84,8 @@ namespace Miru.Foundation.Hosting
                     services.AddSingleton(argsConfig);
                     services.AddSingleton<MiruRunner>();
                     services.AddSingleton<IMiruHost, WebMiruHost>();
-                    services.AddSingleton<IMiruHost, CliMiruHost>();
+                    services.AddSingleton<IMiruHost>(sp => sp.GetService<ICliMiruHost>());
+                    services.AddSingleton<ICliMiruHost, CliMiruHost>();
 
                     // Consolables
                     services.AddConsolableHost();

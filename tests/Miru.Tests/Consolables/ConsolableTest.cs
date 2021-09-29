@@ -2,15 +2,8 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Hangfire;
-using Hangfire.MemoryStorage;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Miru.Consolables;
 using Miru.Foundation.Hosting;
-using Miru.Queuing;
-using Miru.Testing;
 using NUnit.Framework;
 using Shouldly;
 
@@ -41,6 +34,10 @@ namespace Miru.Tests.Consolables
         {
             // arrange
             var host = MiruHost.CreateMiruHost("miru");
+                // .ConfigureServices(services =>
+                // {
+                //     services.ReplaceSingleton<ICliMiruHost, NewCliMiruHost>();
+                // });
                 
             // act
             await host.RunMiruAsync();
@@ -57,6 +54,10 @@ namespace Miru.Tests.Consolables
         {
             // arrange
             var host = MiruHost.CreateMiruHost("miru", "config:show");
+                // .ConfigureServices(services =>
+                // {
+                //     services.ReplaceSingleton<ICliMiruHost, NewCliMiruHost>();
+                // });
                 
             // act
             await host.RunMiruAsync();
@@ -68,6 +69,14 @@ namespace Miru.Tests.Consolables
             output.ShouldContain("Host:");
             output.ShouldContain("EnvironmentName: Development");
             output.ShouldContain("All Configurations:");
+        }
+    }
+
+    public class NewCliMiruHost : ICliMiruHost
+    {
+        public Task RunAsync(CancellationToken token = default)
+        {
+            return Task.CompletedTask;
         }
     }
 }

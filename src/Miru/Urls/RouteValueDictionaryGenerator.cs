@@ -83,12 +83,14 @@ namespace Miru.Urls
                     {
                         val = dateTime.ToShortDateString();
                     }
+                    else if (val is string)
+                    {
+                    }
                     else if (p.PropertyType.ImplementsGenericOf(typeof(Enumeration<,>)))
                     {
-                        model = typeof(Enumeration<,>)
+                        val = typeof(Enumeration<,>)
                             .MakeGenericType(p.PropertyType, p.PropertyType.BaseType?.GetGenericArguments()[1])
-                            .GetMethod("FromValue")?
-                            .Invoke(null, new object[] { val });
+                            .GetProperty("Value")?.GetValue(val);
                     }
 
                     dict.Add(prefix + p.Name, val);

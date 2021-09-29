@@ -3,10 +3,11 @@
 <h3>Enumerations</h3>
 
 <div class="my-4">
+
     <span class="dropdown mx-3">
         Order Status:
           <a class="dropdown-toggle text-dark" href="#" id="order-status-filter" data-bs-toggle="dropdown" aria-expanded="false">
-            <i>@Model.OrderStatus?.Name</i>
+            <i>@(Model.OrderStatus?.Name ?? "All")</i>
           </a>
           <ul class="dropdown-menu" aria-labelledby="order-status-filter">
               @foreach (var status in EnumerationList.OrderStatus.GetAll())
@@ -23,7 +24,7 @@
     <span class="dropdown  mx-3">
         Payment Status:
           <a class="dropdown-toggle text-dark" href="#" id="payment-status-filter" data-bs-toggle="dropdown" aria-expanded="false">
-            <i>@Model.PaymentStatus?.Name</i>
+            <i>@(Model.PaymentStatus?.Name ?? "All")</i>
           </a>
           <ul class="dropdown-menu" aria-labelledby="payment-status-filter">
               @foreach (var status in EnumerationList.PaymentStatus.GetAll())

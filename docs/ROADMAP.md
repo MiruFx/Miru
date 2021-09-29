@@ -6,6 +6,7 @@ This Roadmap is a plan, but not a commitment. It can change in the future.
 
 2021/12: 1.0 - Ready for production and .NET 6
 2022/12: 2.0 - Performance and more facilities
+2023/12: 3.0 - Publish and advertise, performance
 
 ## Versions
 

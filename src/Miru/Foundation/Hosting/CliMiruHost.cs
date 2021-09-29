@@ -8,7 +8,7 @@ using Oakton.Help;
 
 namespace Miru.Foundation.Hosting
 {
-    public class CliMiruHost : IMiruHost
+    public class CliMiruHost : ICliMiruHost
     {
         private readonly IMiruApp _app;
         private readonly ArgsConfiguration _argsConfig;

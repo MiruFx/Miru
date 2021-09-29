@@ -22,7 +22,6 @@ namespace Miru.Tests.Mvc
         public void Can_convert_miru_enumeration_to_lookups()
         {
             // arrange
-
             // act
             var lookups = OrderStatus.GetAll().ToLookups();
             
@@ -40,9 +39,25 @@ namespace Miru.Tests.Mvc
         public void Can_convert_enum_to_lookups()
         {
             // arrange
-            
             // act
-            var lookups = Enum.GetValues<UserTypes>().ToLookups();
+            var lookups = Lookups.FromEnum<UserTypes>();
+            
+            // assert
+            lookups.ShouldCount(3);
+            
+            lookups[0].Id.ShouldBe("1");
+            lookups[0].Description.ShouldBe("Administrator");
+            
+            lookups[2].Id.ShouldBe("3");
+            lookups[2].Description.ShouldBe("Management");
+        }
+        
+        [Test]
+        public void Can_convert_enumeration_of_T_to_lookups()
+        {
+            // arrange
+            // act
+            var lookups = Lookups.FromEnum<UserTypes>();
             
             // assert
             lookups.ShouldCount(3);

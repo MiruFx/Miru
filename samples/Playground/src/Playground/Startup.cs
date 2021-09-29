@@ -16,6 +16,7 @@ using Miru.Mailing;
 using Miru.Mvc;
 using Miru.Pipeline;
 using Miru.Queuing;
+using Miru.Scheduling;
 using Miru.Sqlite;
 using Miru.Userfy;
 using Playground.Config;
@@ -31,7 +32,7 @@ namespace Playground
             services.AddMiru<Startup>(opt => opt.UseEnumerationModelBinding())
 
                 .AddDefaultPipeline<Startup>()
-                
+
                 .AddGlobalization(defaultCulture: "en-GB", "de-DE", "en-US", "pt-BR", "pt-PT")
 
                 .AddEfCoreSqlite<PlaygroundDbContext>()
@@ -70,7 +71,9 @@ namespace Playground
                 {
                     _.UseLiteDb();
                 })
-                .AddHangfireServer();
+                .AddHangfireServer()
+
+                .AddTaskScheduling<ScheduledTaskConfig>();
 
             services
                 .AddFabrication<PlaygroundFabricator>();

@@ -40,7 +40,7 @@ namespace Miru.Tests.Hosting
             // TODO: automatic port
             var hostBuilder = MiruHost
                 .CreateMiruHost()
-                .ConfigureWebHostDefaults(m => m.UseStartup<Startup>());
+                .ConfigureWebHostDefaults(m => m.UseStartup<Startup>().UseKestrelAnyLocalPort());
 
             // act
             await hostBuilder.RunMiruAsync();

@@ -72,6 +72,11 @@ namespace Miru.Testing
             }
         }
 
+        public static void ShouldMatchIds(this IEnumerable<IHasId> left, IEnumerable<IHasId> right)
+        {
+            left.ShouldMatchIds(right.ToArray());
+        }
+        
         public static void ShouldMatchIds(this IEnumerable<IHasId> left, params IHasId[] right)
         {
             var leftIds = left.Select(x => x.Id).ToImmutableList();

@@ -437,7 +437,6 @@ namespace Miru.Tests.Urls
         }
         
         [Test]
-        [Ignore("Not yet")]
         public void Build_query_string_for_enumeration()
         {
             var request = new ProductsList.Query
@@ -447,7 +446,7 @@ namespace Miru.Tests.Urls
         
             UrlLookup
                 .For(request)
-                .ShouldBe("/Products/List?ProductStatus=O");
+                .ShouldBe($"/Products/List?ProductStatus={ProductsList.ProductStatus.OutOfStock.Value}");
         }
 
         public class NotMapped
