@@ -437,7 +437,7 @@ namespace Miru.Tests.Urls
         }
         
         [Test]
-        public void Build_query_string_for_enumeration()
+        public void Build_query_string_for_enumeration_of_t()
         {
             var request = new ProductsList.Query
             {
@@ -447,6 +447,19 @@ namespace Miru.Tests.Urls
             UrlLookup
                 .For(request)
                 .ShouldBe($"/Products/List?ProductStatus={ProductsList.ProductStatus.OutOfStock.Value}");
+        }
+        
+        [Test]
+        public void Build_query_string_for_enumeration_of_t1_and_t2()
+        {
+            var request = new ProductsList.Query
+            {
+                OrderStatus = ProductsList.OrderStatus.Delivered,
+            };
+        
+            UrlLookup
+                .For(request)
+                .ShouldBe($"/Products/List?OrderStatus={ProductsList.OrderStatus.Delivered.Value}");
         }
 
         public class NotMapped
@@ -495,6 +508,7 @@ namespace Miru.Tests.Urls
                 public IEnumerable<string> Categories { get; set; } = new List<string>() {"Phone", "Laptop"};
                 public DateTime SoldBefore { get; set; }
                 public ProductStatus ProductStatus { get; set; }
+                public OrderStatus OrderStatus { get; set; }
             }
 
             public class ProductStatus : Enumeration<ProductStatus, string>
@@ -503,6 +517,16 @@ namespace Miru.Tests.Urls
                 public static ProductStatus OutOfStock = new("O", "Out Of Stock");
                 
                 public ProductStatus(string value, string name) : base(value, name)
+                {
+                }
+            }
+            
+            public class OrderStatus : Enumeration<OrderStatus>
+            {
+                public static OrderStatus Paid = new(1, "Paid");
+                public static OrderStatus Delivered = new(2, "Delivered");
+                
+                public OrderStatus(int value, string name) : base(value, name)
                 {
                 }
             }

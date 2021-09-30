@@ -31,7 +31,7 @@ namespace Miru
 
             services.AddMiruMvc(
                 configFinder.Find<HtmlConfiguration>() as HtmlConfiguration ?? new HtmlConfiguration(),
-                mvcOptions);
+                opt => opt.UseEnumerationModelBinding());
             
             services.AddSingleton(
                 configFinder.Find<ObjectResultConfiguration>() as ObjectResultConfiguration ?? new DefaultObjectResultConfig());

@@ -86,6 +86,11 @@ namespace Miru.Urls
                     else if (val is string)
                     {
                     }
+                    else if (p.PropertyType.ImplementsGenericOf(typeof(Enumeration<>)))
+                    {
+                        val = typeof(Enumeration<>)
+                            .MakeGenericType(p.PropertyType).GetProperty("Value")?.GetValue(val);
+                    }
                     else if (p.PropertyType.ImplementsGenericOf(typeof(Enumeration<,>)))
                     {
                         val = typeof(Enumeration<,>)
