@@ -37,12 +37,20 @@ namespace Miru.Urls
         
         public UrlBuilder<TInput> With<TProperty>(
             Expression<Func<TInput, TProperty>> property,
-            object value)
+            TProperty value)
         {
             _withProperties.AddOrUpdate(ReflectionHelper.GetAccessor(property), value);
             return this;
         }
 
+        public UrlBuilder<TInput> With<TProperty>(
+            Expression<Func<TInput, TProperty>> property,
+            object value)
+        {
+            _withProperties.AddOrUpdate(ReflectionHelper.GetAccessor(property), value);
+            return this;
+        }
+        
         public UrlBuilder<TInput> Without<TProperty>(Expression<Func<TInput, TProperty>> property)
         {
             _withoutProperties.Add(ReflectionHelper.GetAccessor(property));

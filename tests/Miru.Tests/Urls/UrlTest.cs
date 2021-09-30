@@ -447,6 +447,12 @@ namespace Miru.Tests.Urls
             UrlLookup
                 .For(request)
                 .ShouldBe($"/Products/List?ProductStatus={ProductsList.ProductStatus.OutOfStock.Value}");
+            
+            UrlLookup
+                .Build(new ProductsList.Query())
+                .With(x => x.ProductStatus, ProductsList.ProductStatus.OutOfStock)
+                .ToString()
+                .ShouldBe($"/Products/List?ProductStatus={ProductsList.ProductStatus.OutOfStock.Value}");
         }
         
         [Test]
@@ -460,6 +466,12 @@ namespace Miru.Tests.Urls
             UrlLookup
                 .For(request)
                 .ShouldBe($"/Products/List?OrderStatus={ProductsList.OrderStatus.Delivered.Value}");
+            
+            UrlLookup
+                .Build(new ProductsList.Query())
+                .With(x => x.OrderStatus, ProductsList.OrderStatus.Paid)
+                .ToString()
+                .ShouldBe($"/Products/List?OrderStatus={ProductsList.OrderStatus.Paid.Value}");            
         }
 
         public class NotMapped

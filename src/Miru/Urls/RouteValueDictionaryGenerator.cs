@@ -152,7 +152,8 @@ namespace Miru.Urls
                 foreach (var withProperty in withProperties?.Where(p => p.Key.PropertyType.Implements<IEnumerable>() == false))
                 {
                     // if key/value was not added yet
-                    if (!dict.Any(x => x.Key == withProperty.Key.Name && x.Value.Equals(withProperty.Value)))
+                    if (!dict.Any(x => x.Key == withProperty.Key.Name))
+                    // if (!dict.Any(x => x.Key == withProperty.Key.Name && x.Value.Equals(withProperty.Value)))
                         dict.Add(withProperty.Key.Name, withProperty.Value.ToString());
                 }
             
