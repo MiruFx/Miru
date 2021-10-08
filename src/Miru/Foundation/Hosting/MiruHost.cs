@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.CommandLine.Hosting;
 using System.Reflection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -85,10 +86,9 @@ namespace Miru.Foundation.Hosting
                     services.AddSingleton<MiruRunner>();
                     services.AddSingleton<IMiruHost, WebMiruHost>();
                     services.AddSingleton<IMiruHost>(sp => sp.GetService<ICliMiruHost>());
-                    services.AddSingleton<ICliMiruHost, CliMiruHost>();
-
+                    
                     // Consolables
-                    services.AddConsolableHost();
+                    services.AddNewConsolableHost();
 
                     // AppConfig
                     services.Configure<DatabaseOptions>(host.Configuration.GetSection("Database"));

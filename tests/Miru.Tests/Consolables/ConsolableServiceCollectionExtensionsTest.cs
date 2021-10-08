@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Config;
 using Miru.Consolables;
@@ -12,48 +13,29 @@ namespace Miru.Tests.Consolables
     public class ConsolableServiceCollectionExtensionsTest
     {
         [Test]
-        public void Can_add_consolables_from_an_assembly()
-        {
-            var consolableTypes = new ServiceCollection()
-                .AddServiceCollection()
-                .AddConsolables<ConsolableServiceCollectionExtensionsTest>() // act
-                .BuildServiceProvider()
-                .GetRegisteredServices<IConsolable>();
-            
-            consolableTypes.ShouldContain(m => m == typeof(TestConsolable));
-        }
-
-        [Test]
         public void Can_add_a_consolable()
         {
             var consolableTypes = new ServiceCollection()
                 .AddServiceCollection()
                 .AddConsolable<TestConsolable>() // act
                 .BuildServiceProvider()
-                .GetRegisteredServices<IConsolable>();
+                .GetRegisteredServices<Consolable>();
             
             consolableTypes.ShouldContain(m => m == typeof(TestConsolable));
         }
         
-        [Test]
-        public void Miru_host_should_have_miru_default_consolables()
+        public class TestConsolable : Consolable
         {
-            // act
-            var consolableTypes = MiruHost
-                .CreateMiruHost()
-                .Build()
-                .Services
-                .GetRegisteredServices<IConsolable>();
-                
-            // assert
-            consolableTypes.ShouldContain(m => m == typeof(ConfigShowConsolable));
-            consolableTypes.ShouldContain(m => m == typeof(MakeConsolableConsolable));
-        }
-
-        public class TestConsolable : ConsolableSync 
-        {
-            public override void Execute()
+            public TestConsolable() : base("consolable.test")
             {
+            }
+            
+            public class ConsolableHandler : IConsolableHandler
+            {
+                public Task Execute()
+                {
+                    return Task.CompletedTask;
+                }
             }
         }
     }

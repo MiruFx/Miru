@@ -1,39 +1,11 @@
-using System.Threading.Tasks;
-using Oakton;
+using System.CommandLine;
 
 namespace Miru.Consolables
 {
-    public abstract class ConsolableSync<TInput> : OaktonCommand<TInput>, IConsolable
+    public abstract class Consolable : Command
     {
-    }
-    
-    public abstract class ConsolableSync : OaktonCommand<ConsolableInput>, IConsolable
-    {
-        public abstract void Execute();
-        
-        public override bool Execute(ConsolableInput input)
+        protected Consolable(string name, string description = null) : base(name, description)
         {
-            Execute();
-            return true;
         }
-    }
-    
-    public abstract class Consolable<TInput> : OaktonAsyncCommand<TInput>, IConsolable
-    {
-    }
-    
-    public abstract class Consolable : OaktonAsyncCommand<ConsolableInput>, IConsolable
-    {
-        public abstract Task ExecuteAsync();
-        
-        public override async Task<bool> Execute(ConsolableInput input)
-        {
-            await ExecuteAsync();
-            return true;
-        }
-    }
-
-    public class ConsolableInput
-    {
     }
 }

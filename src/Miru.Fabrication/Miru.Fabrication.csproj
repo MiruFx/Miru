@@ -10,7 +10,7 @@
 
     <ItemGroup>
         <PackageReference Include="AutoFixture" Version="4.17.0" />
-        <PackageReference Include="Bogus" Version="33.0.2" />
+        <PackageReference Include="Bogus" Version="33.1.1" />
     </ItemGroup>
     
 </Project>

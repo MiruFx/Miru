@@ -1,21 +1,30 @@
-﻿using Miru.Consolables;
-using Oakton;
+﻿using System.Threading.Tasks;
+using Miru.Consolables;
 
 namespace Miru.Databases.Migrations
 {
-    [Description("Reset database schema. Downgrade to version 0 and migrate up", Name = "db:reset")]
-    public class DbResetConsolable : ConsolableSync
+    public class DbResetConsolable : Consolable
     {
-        private readonly IDatabaseMigrator _databaseMigrator;
-
-        public DbResetConsolable(IDatabaseMigrator databaseMigrator)
+        public DbResetConsolable()
+            : base("db.reset", "Reset database schema. Downgrade to version 0 and migrate up")
         {
-            _databaseMigrator = databaseMigrator;
         }
 
-        public override void Execute()
+        public class ConsolableHandler : IConsolableHandler
         {
-            _databaseMigrator.RecreateSchema();
+            private readonly IDatabaseMigrator _databaseMigrator;
+            
+            public ConsolableHandler(IDatabaseMigrator databaseMigrator)
+            {
+                _databaseMigrator = databaseMigrator;
+            }
+
+            public Task Execute()
+            {
+                _databaseMigrator.RecreateSchema();
+
+                return Task.CompletedTask;
+            }
         }
     }
 }

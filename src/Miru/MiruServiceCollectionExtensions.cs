@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Miru.Config;
 using Miru.Consolables;
 using Miru.Core;
 using Miru.Foundation;
@@ -47,7 +48,12 @@ namespace Miru
                 
             services.AddFlashMessage();
             services.AddMiruUrls();
+
+            services.AddNewConsolableHost();
             services.AddConsolables<TStartup>();
+            services.AddConsolable<ConfigShowConsolable>();
+            services.AddConsolable<ConfigServicesConsolable>();
+            
             services.AddSingleton<IJsonConverter, JsonConverter>();
             services.AddStorage();
 

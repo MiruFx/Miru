@@ -7,8 +7,6 @@ namespace Miru.Storages
     {
         public static IServiceCollection AddStorage(this IServiceCollection services)
         {
-            services.AddConsolable<StorageLinkConsolable>();
-            
             return services.AddStorage<LocalDiskStorage>();
         }
         

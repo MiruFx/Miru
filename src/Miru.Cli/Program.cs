@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.CommandLine.Parsing;
 using System.IO;
 using System.Threading.Tasks;
 using Baseline;
@@ -46,7 +47,10 @@ namespace Miru.Cli
                 
                 new WatchCommand("watch", m => m.AppDir),
                 
-                new Argument<string[]>("miru-args") { Arity = ArgumentArity.ZeroOrMore },
+                new Argument<string[]>("miru-args")
+                {
+                    Arity = ArgumentArity.ZeroOrMore
+                },
             };
 
             rootCommand.Name = "miru";
@@ -54,8 +58,19 @@ namespace Miru.Cli
             rootCommand.Handler = CommandHandler.Create(
                 (MiruCliOptions options, RunMiruOptions runOptions) => 
                     RunMiru(options, runOptions));
-                
-            await rootCommand.InvokeAsync(args);
+
+            var result = rootCommand.Parse(args);
+
+            // if command is miru, should just pass the arguments to the app
+            if (result.CommandResult.Command.Name.Equals("miru"))
+            {
+                RunMiru(new MiruCliOptions(), new RunMiruOptions { MiruArgs = args });
+                await Task.CompletedTask;
+            }
+            else
+            {
+                await rootCommand.InvokeAsync(args);
+            }
         }
 
         public void RunAt(
@@ -117,7 +132,8 @@ namespace Miru.Cli
             {
                 Executable = "dotnet",
                 Arguments = mergedArgs,
-                WorkingDirectory = solution.AppDir
+                // WorkingDirectory = solution.AppDir
+                WorkingDirectory = @"D:\Projects\Miru\samples\Playground\src\Playground"
             });
         
             Task.WaitAll(proc);

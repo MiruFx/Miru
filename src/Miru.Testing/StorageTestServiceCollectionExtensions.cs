@@ -8,7 +8,7 @@ namespace Miru.Testing
     {
         public static IServiceCollection AddTestStorage(this IServiceCollection services)
         {
-            services.AddConsolable<StorageLinkConsolable>();
+            // services.AddConsolable<StorageLinkConsolable>();
             
             return services.AddStorage<TestStorage>();
         }

@@ -1,23 +1,27 @@
 using System;
 using System.Threading.Tasks;
 using Miru.Consolables;
-using Oakton;
 
 namespace Corpo.Skeleton.Consolables
 {
     // #consolable
-    [Description("Description what this consolable does", Name = "hi")]
-    public class HiConsolable : Consolable<HiConsolable.Input>
+    public class HiConsolable : Consolable
     {
-        public class Input
+        public HiConsolable() : base("hi")
         {
         }
 
-        public override Task<bool> Execute(Input input)
+        public class ConsolableHandler : IConsolableHandler
+        {
+            public Task Execute()
+            {
+                throw new NotImplementedException();
+            }
+        }
+        
+        public void Execute()
         {
             Console.WriteLine("Hi!");
-            
-            return Task.FromResult(true); 
         }
     }
     // #consolable

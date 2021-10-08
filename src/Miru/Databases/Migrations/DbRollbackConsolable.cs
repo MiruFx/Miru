@@ -1,33 +1,33 @@
-﻿using Miru.Consolables;
-using Oakton;
+﻿using System.Threading.Tasks;
+using Miru.Consolables;
 
 namespace Miru.Databases.Migrations
 {
     // #consolable
-    [Description("Rollback database schema", Name = "db:rollback")]
-    public class DbRollbackConsolable : ConsolableSync<DbRollbackConsolable.Input>
+    public class DbRollbackConsolable : Consolable
     {
-        public class Input
+        public DbRollbackConsolable()
+            : base("db.rollback", "Rollback database schema")
         {
-            [Description("Number of steps that will be downgraded")]
-            public int Steps { get; } = 1;
-        }
-        
-        private readonly IDatabaseMigrator _databaseMigrator;
-
-        public DbRollbackConsolable(IDatabaseMigrator databaseMigrator)
-        {
-            _databaseMigrator = databaseMigrator;
-            
-            Usage("Rollback to [steps] previous migration").Arguments(m => m.Steps);
-            Usage("Rollback to the previous migration").Arguments();
         }
 
-        public override bool Execute(Input input)
+        public class ConsolableHandler : IConsolableHandler
         {
-            _databaseMigrator.DowngradeSchema(input.Steps);
+            public int Steps { get; set; } = 1;
 
-            return true;
+            private readonly IDatabaseMigrator _databaseMigrator;
+
+            public ConsolableHandler(IDatabaseMigrator databaseMigrator)
+            {
+                _databaseMigrator = databaseMigrator;
+            }
+
+            public Task Execute()
+            {
+                _databaseMigrator.DowngradeSchema(Steps);
+
+                return Task.CompletedTask;
+            }
         }
     }
     // #consolable

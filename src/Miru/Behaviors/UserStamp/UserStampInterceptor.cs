@@ -22,6 +22,15 @@ namespace Miru.Behaviors.UserStamp
             InterceptionResult<int> result,
             CancellationToken cancellationToken = default)
         {
+            StampUsers(@event);
+
+            NullableStampUsers(@event);
+            
+            return new ValueTask<InterceptionResult<int>>(result);
+        }
+
+        private void StampUsers(DbContextEventData @event)
+        {
             var entitiesBeingCreated = @event.Context.ChangeTracker.Entries<IUserStamped>()
                 .Where(p => p.State == EntityState.Added)
                 .Select(p => p.Entity);
@@ -30,7 +39,7 @@ namespace Miru.Behaviors.UserStamp
             {
                 if (entityBeingCreated.CreatedById == default)
                     entityBeingCreated.CreatedById = _currentUser.Id;
-                
+
                 if (entityBeingCreated.UpdatedById == default)
                     entityBeingCreated.UpdatedById = _currentUser.Id;
             }
@@ -43,8 +52,33 @@ namespace Miru.Behaviors.UserStamp
             {
                 entityBeingUpdated.UpdatedById = _currentUser.Id;
             }
-            
-            return new ValueTask<InterceptionResult<int>>(result);
+        }
+        
+        private void NullableStampUsers(DbContextEventData @event)
+        {
+            var entitiesBeingCreated = @event.Context.ChangeTracker.Entries<IUserStampedNullable>()
+                .Where(p => p.State == EntityState.Added)
+                .Select(p => p.Entity);
+
+            foreach (var entityBeingCreated in entitiesBeingCreated)
+            {
+                if (entityBeingCreated.CreatedById == default && _currentUser.IsLogged)
+                    entityBeingCreated.CreatedById = _currentUser.Id;
+
+                if (entityBeingCreated.UpdatedById == default  && _currentUser.IsLogged)
+                    entityBeingCreated.UpdatedById = _currentUser.Id;
+            }
+
+            var entitiesBeingUpdated = @event.Context.ChangeTracker.Entries<IUserStampedNullable>()
+                .Where(p => p.State == EntityState.Modified)
+                .Select(p => p.Entity);
+
+            foreach (var entityBeingUpdated in entitiesBeingUpdated)
+            {
+                entityBeingUpdated.UpdatedById = _currentUser.IsLogged 
+                    ?_currentUser.Id
+                    : null;
+            }
         }
     }
 }

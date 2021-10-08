@@ -1,27 +1,36 @@
+using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 using Miru.Consolables;
 using Miru.Core;
-using Oakton;
 
 namespace Miru.Databases.EntityFramework
 {
-    [Description("Create database based on config.yml", Name = "db:create")]
     public class DbCreateConsolable : Consolable
     {
-        private readonly IDatabaseCreator _databaseCreator;
-
-        public DbCreateConsolable(IDatabaseCreator databaseCreator)
+        public DbCreateConsolable()
+            : base("db.create", "Create database based on config.yml")
         {
-            _databaseCreator = databaseCreator;
         }
 
-        public override async Task ExecuteAsync()
+        public class ConsolableHandler : IConsolableHandler
         {
-            Console2.Line("Creating database");
+            private readonly IDatabaseCreator _databaseCreator;
+            
+            public ConsolableHandler(IDatabaseCreator databaseCreator)
+            {
+                _databaseCreator = databaseCreator;
+            }
 
-            await _databaseCreator.Create();
+            public Task Execute()
+            {
+                Console2.Line("Creating database");
+
+                _databaseCreator.Create().Wait();
          
-            Console2.GreenLine("Database created");
+                Console2.GreenLine("Database created");
+
+                return Task.CompletedTask;
+            }
         }
     }
 }

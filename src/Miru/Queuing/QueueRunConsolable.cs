@@ -1,25 +1,31 @@
 using System;
+using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 using Hangfire;
 using Miru.Consolables;
-using Oakton;
 
 namespace Miru.Queuing
 {
-    [Description("Run queue", Name = "queue:run")]
     public class QueueRunConsolable : Consolable
     {
-        private readonly IMiruApp _app;
-
-        public QueueRunConsolable(IMiruApp app)
+        public QueueRunConsolable()
+            : base("queue.run", "Run queue")
         {
-            _app = app;
         }
 
-        public override async Task ExecuteAsync()
+        public class ConsolableHandler : IConsolableHandler
         {
-            using (var server = _app.Get<BackgroundJobServer>())
+            private readonly IMiruApp _app;
+            
+            public ConsolableHandler(IMiruApp app)
             {
+                _app = app;
+            }
+
+            public async Task Execute()
+            {
+                using var server = _app.Get<BackgroundJobServer>();
+                
                 Console.WriteLine("Queue is running. Press [Ctrl + C] or [Ctrl + Break] to exit...");
 
                 await server.WaitForShutdownAsync(default);

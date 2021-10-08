@@ -1,3 +1,4 @@
+using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,12 +18,11 @@ namespace Miru.Tests.Hosting
         {
             // arrange
             var hostBuilder = MiruHost
-                .CreateMiruHost("miru", "test:assert")
+                .CreateMiruHost("miru", "test.assert")
                 .ConfigureServices(services =>
                 {
                     services
                         .AddConsolable<TestAssertConsolable>()
-                        .AddConsolables<HostBuilderExtensionsTest>()
                         .AddSingleton(services);
                 });
 
@@ -48,14 +48,22 @@ namespace Miru.Tests.Hosting
             Startup.Executed.ShouldBeTrue();
         }
 
-        [Oakton.Description("Assert that task ran", Name = "test:assert")]
-        public class TestAssertConsolable : ConsolableSync<TestAssertConsolable.Input>
+        public class TestAssertConsolable : Consolable
         {
+            public TestAssertConsolable() : base("test.assert")
+            {
+            }
+            
             public static bool Executed { get; private set; }
             
-            public class Input { }
-
-            public override bool Execute(Input input) => Executed = true;
+            public class ConsolableHandler : IConsolableHandler
+            {
+                public Task Execute()
+                {
+                    Executed = true;
+                    return Task.CompletedTask;
+                }
+            }
         }
         
         public class Startup

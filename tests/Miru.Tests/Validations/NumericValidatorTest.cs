@@ -11,7 +11,7 @@ namespace Miru.Tests.Validations
         public void Between_min_and_max()
         {
             var validator = new Validator();
-            
+    
             validator.ShouldHaveValidationErrorFor(x => x.Between10And20, new Dto() { Between10And20 = 9 });
             validator.ShouldNotHaveValidationErrorFor(x => x.Between10And20, new Dto() { Between10And20 = 10 });
             validator.ShouldNotHaveValidationErrorFor(x => x.Between10And20, new Dto() { Between10And20 = 11 });

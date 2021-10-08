@@ -1,62 +1,50 @@
-using Baseline;
+using System;
+using System.CommandLine;
+using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
-using Miru.Config;
-using Miru.Core;
-using Miru.Makers;
-using Oakton.Help;
+using Miru.Foundation.Hosting;
 
 namespace Miru.Consolables
 {
     public static class ServiceTaskExtensions
     {
-        public static IServiceCollection AddConsolableHost(this IServiceCollection services) 
+        public static IServiceCollection AddConsolable(this IServiceCollection services, Type consolableType)
         {
-            services.AddSingleton<MiruCommandCreator>();
-            services.AddSingleton<IFileSystem, FileSystem>();
-            services.AddSingleton<Maker>();
+            var handlerType = consolableType.Assembly.GetType($"{consolableType.FullName}+ConsolableHandler");
             
-            services.AddConsolable<ConfigShowConsolable>();
-            services.AddConsolable<ConfigServicesConsolable>();
+            if (handlerType is null)
+                throw new ArgumentException(
+                    $"Consolable of type {consolableType.FullName} must have a subclass inheriting ConsolableHandler");
             
-            services.Scan(scan => scan
-                .FromAssemblies(typeof(ServiceTaskExtensions).Assembly)
-                .AddClasses(classes =>
-                {
-                    classes
-                        .AssignableTo<IConsolable>()
-                        .InNamespaceOf<MakeConsolableConsolable>();
-                })
-                .AsSelf()
-                .AsImplementedInterfaces()
-                .WithScopedLifetime());
-            
-            services.AddScoped<HelpCommand>();
-
+            services.AddSingleton(typeof(Consolable), consolableType);
+            services.AddScoped(handlerType);
+        
             return services;
         }
         
         public static IServiceCollection AddConsolable<TConsolable>(this IServiceCollection services) 
-            where TConsolable : class, IConsolable
+            where TConsolable : Consolable
         {
-            services.AddScoped<IConsolable, TConsolable>();
-            services.AddScoped<TConsolable>();
-        
-            return services;
+            return services.AddConsolable(typeof(TConsolable));
         }
 
         public static IServiceCollection AddConsolables<TAssemblyOfType>(this IServiceCollection services)
         {
-            services.Scan(scan => scan
-                .FromAssemblies(typeof(TAssemblyOfType).Assembly)
-                .AddClasses(classes =>
-                {
-                    classes.AssignableTo<IConsolable>();
-                })
-                .AsSelf()
-                .AsImplementedInterfaces()
-                .WithScopedLifetime());
-        
+            var commandTypes = typeof(TAssemblyOfType).Assembly
+                .ExportedTypes
+                .Where(x => x.Implements<Consolable>() && x.IsAbstract == false);
+
+            foreach (var commandType in commandTypes)
+            {
+                services.AddConsolable(commandType);
+            }
+            
             return services;
+        }
+        
+        public static IServiceCollection AddNewConsolableHost(this IServiceCollection services)
+        {
+            return services.AddSingleton<ICliMiruHost, CliMiruHost>();
         }
     }
 }

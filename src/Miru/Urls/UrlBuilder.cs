@@ -93,6 +93,8 @@ Also, check if there is a [Route] with constraints for the parameters. Maybe the
 
         private RouteValueDictionary BuildQueryString()
         {
+            // var x = new RouteValueDictionary(Request);
+            
             var dictGenerator = new RouteValueDictionaryGenerator();
             
             // // TODO: Make as UrlOptions.QueryStrings filter

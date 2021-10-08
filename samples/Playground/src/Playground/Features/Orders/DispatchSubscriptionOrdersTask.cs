@@ -13,8 +13,9 @@ namespace Playground.Features.Orders
             _db = db;
         }
 
-        public async Task ExecuteAsync()
+        public Task ExecuteAsync()
         {
+            return Task.CompletedTask;
         }
     }
 

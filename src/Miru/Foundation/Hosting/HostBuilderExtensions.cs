@@ -10,7 +10,7 @@ namespace Miru.Foundation.Hosting
         {
             var host = hostBuilder.Build();
 
-            var miruRunner = host.Services.GetService<MiruRunner>();
+            var miruRunner = host.Services.GetRequiredService<MiruRunner>();
 
             await miruRunner.RunAsync();
         }

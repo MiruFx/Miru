@@ -1,11 +1,19 @@
 using System;
+using System.CommandLine;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
+using Baseline;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Miru.Config;
+using Miru.Consolables;
+using Miru.Core;
 using Miru.Foundation.Hosting;
+using Miru.Makers;
+using Miru.Testing;
 using NUnit.Framework;
 using Shouldly;
+using StringWriter = System.IO.StringWriter;
 
 namespace Miru.Tests.Consolables
 {
@@ -33,11 +41,13 @@ namespace Miru.Tests.Consolables
         public async Task Should_run_help()
         {
             // arrange
-            var host = MiruHost.CreateMiruHost("miru");
-                // .ConfigureServices(services =>
-                // {
-                //     services.ReplaceSingleton<ICliMiruHost, NewCliMiruHost>();
-                // });
+            var host = MiruHost.CreateMiruHost("miru")
+                .ConfigureServices(services =>
+                {
+                    services
+                        .AddNewConsolableHost()
+                        .AddConsolables<ConfigShowConsolable>();
+                });
                 
             // act
             await host.RunMiruAsync();
@@ -45,19 +55,28 @@ namespace Miru.Tests.Consolables
             // assert
             var output = _outWriter.ToString();
             
-            output.ShouldContain("config:show       Show the configuration will be used");
-            output.ShouldContain("help              list all the available commands");
+            Console.WriteLine(output);
+
+            output.ShouldContain("config.show");
+            output.ShouldContain("Show the configuration will be used");
+            
+            output.ShouldContain("help");
         }
 
         [Test]
         public async Task Should_run_a_miru_command()
         {
             // arrange
-            var host = MiruHost.CreateMiruHost("miru", "config:show");
-                // .ConfigureServices(services =>
-                // {
-                //     services.ReplaceSingleton<ICliMiruHost, NewCliMiruHost>();
-                // });
+            var host = MiruHost.CreateMiruHost("miru", "config.show")
+                .ConfigureServices(services =>
+                {
+                    services
+                        .AddNewConsolableHost()
+                        .AddConsolable<ConfigShowConsolable>();
+                    
+                    // .AddOaktonConsolable<ConfigShowConsolable>()
+                    // .AddSingleton<Config.ConfigShowConsolable>();
+                });
                 
             // act
             await host.RunMiruAsync();
@@ -70,13 +89,61 @@ namespace Miru.Tests.Consolables
             output.ShouldContain("EnvironmentName: Development");
             output.ShouldContain("All Configurations:");
         }
-    }
 
-    public class NewCliMiruHost : ICliMiruHost
-    {
-        public Task RunAsync(CancellationToken token = default)
+        [Test]
+        public async Task Should_register_consolables()
         {
-            return Task.CompletedTask;
+            // arrange
+            var host = MiruHost.CreateMiruHost("miru", "miru.dependency", "--name", "Paul")
+                .ConfigureServices(services =>
+                {
+                    services.AddScoped<IDependency, Dependency>();
+                    services.AddConsolable<ExampleConsolable>();
+                });
+            
+            // act
+            await host.RunMiruAsync();
+            
+            // assert
+            var output = _outWriter.ToString();
+            output.ShouldStartWith("Name: Paul, Surname: McCartney");
+        }
+
+        public interface IDependency
+        {
+            string Name { get; }
+        }
+        
+        public class Dependency : IDependency
+        {
+            public string Name => "McCartney";
+        }
+        
+        public class ExampleConsolable : Consolable
+        {
+            public ExampleConsolable() : base("miru.dependency")
+            {
+                Add(new Option<string>("--name"));
+            }
+            
+            public class ConsolableHandler : IConsolableHandler
+            {
+                private readonly IDependency _dependency;
+
+                public ConsolableHandler(IDependency dependency)
+                {
+                    _dependency = dependency;
+                }
+
+                public string Name { get; set; }
+                
+                public async Task Execute()
+                {
+                    Console.WriteLine($"Name: {Name}, Surname: {_dependency.Name}");
+                    
+                    await Task.CompletedTask;
+                }
+            }
         }
     }
 }

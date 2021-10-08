@@ -1,21 +1,21 @@
 using System.Threading.Tasks;
 using Miru.Consolables;
-using Oakton;
 
 namespace Corpo.Skeleton.Consolables
 {
-    [Description("Description what this consolable does", Name = "seed")]
-    public class SeedConsolable : Consolable<SeedConsolable.Input>
+    public class SeedConsolable : Consolable
     {
-        public class Input
+        public SeedConsolable() 
+            : base("seed", "Description what this consolable does")
         {
         }
 
-        public override Task<bool> Execute(Input input)
+        public class ConsolableHandler : IConsolableHandler
         {
-            // do the task
-            
-            return Task.FromResult(true); 
+            public Task Execute()
+            {
+                return Task.CompletedTask;
+            }
         }
     }
 }

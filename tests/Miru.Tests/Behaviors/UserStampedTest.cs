@@ -50,6 +50,8 @@ namespace Miru.Tests.Behaviors
             
             var post = new Post {Title = "Hello"};
             
+            _.LoginAs(user);
+            
             // act
             _.Save(post);
             
@@ -64,13 +66,15 @@ namespace Miru.Tests.Behaviors
         {
             // arrange
             var otherUser = _.MakeSaving<User>();
-            var currentUser = _.MakeSavingLogin<User>();
+            var currentUser = _.MakeSaving<User>();
             
             var post = _.MakeSaving<Post>(x =>
             {
                 x.CreatedById = otherUser.Id;
                 x.UpdatedById = otherUser.Id;
             });
+            
+            _.LoginAs(currentUser);
             
             // act
             _.Save(post);
@@ -80,13 +84,57 @@ namespace Miru.Tests.Behaviors
             saved.CreatedById.ShouldBe(otherUser.Id);
             saved.UpdatedById.ShouldBe(currentUser.Id);
         }
+        
+        [Test]
+        public void Nullable_set_current_user_for_new_entity()
+        {
+            // arrange
+            var category = new Category {Name = "Politics"};
+            
+            // act
+            _.Save(category);
+            
+            // assert
+            var saved = _.App.WithScope(s => s.Get<FooDbContext>().Categories.First());
+            saved.CreatedById.ShouldBeNull();
+            saved.UpdatedById.ShouldBeNull();
+        }
 
+        [Test]
+        public void Nullable_update_current_user_for_existing_entity()
+        {
+            // arrange
+            var otherUser = _.MakeSaving<User>();
+            
+            var category = _.MakeSaving<Category>(x =>
+            {
+                x.CreatedById = otherUser.Id;
+                x.UpdatedById = otherUser.Id;
+            });
+            
+            // act
+            _.Save(category);
+            
+            // assert
+            var saved = _.App.WithScope(s => s.Get<FooDbContext>().Categories.First());
+            saved.CreatedById.ShouldBe(otherUser.Id);
+            saved.UpdatedById.ShouldBeNull();
+        }
+        
         public class Post : Entity, IUserStamped
         {
             public string Title { get; set; }
             
             public long CreatedById { get; set; }
             public long UpdatedById { get; set; }
+        }
+        
+        public class Category : Entity, IUserStampedNullable
+        {
+            public string Name { get; set; }
+            
+            public long? CreatedById { get; set; }
+            public long? UpdatedById { get; set; }
         }
 
         public class User : UserfyUser
@@ -107,6 +155,7 @@ namespace Miru.Tests.Behaviors
         
             public DbSet<Post> Posts { get; set; }
             public DbSet<User> Users { get; set; }
+            public DbSet<Category> Categories { get; set; }
             
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
