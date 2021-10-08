@@ -13,7 +13,7 @@ namespace Miru.Storages
         public static IServiceCollection AddStorage<TStorage>(this IServiceCollection services)
             where TStorage : class, IStorage
         {
-            services.AddConsolable<StorageLinkConsolable>();
+            // services.AddConsolable<StorageLinkConsolable>();
             
             services.AddSingleton<TStorage>();
             

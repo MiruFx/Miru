@@ -50,7 +50,7 @@ namespace Miru
             services.AddMiruUrls();
 
             services.AddNewConsolableHost();
-            services.AddConsolables<TStartup>();
+            // services.AddConsolables<TStartup>();
             services.AddConsolable<ConfigShowConsolable>();
             services.AddConsolable<ConfigServicesConsolable>();
             

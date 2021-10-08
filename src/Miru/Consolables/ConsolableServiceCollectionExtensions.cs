@@ -14,7 +14,7 @@ namespace Miru.Consolables
             
             if (handlerType is null)
                 throw new ArgumentException(
-                    $"Consolable of type {consolableType.FullName} must have a subclass inheriting ConsolableHandler");
+                    $"Consolable of type {consolableType.FullName} must have a subclass 'ConsolableHandler' inheriting IConsolableHandler");
             
             services.AddSingleton(typeof(Consolable), consolableType);
             services.AddScoped(handlerType);
