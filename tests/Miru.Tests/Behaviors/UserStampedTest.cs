@@ -129,7 +129,7 @@ namespace Miru.Tests.Behaviors
             public long UpdatedById { get; set; }
         }
         
-        public class Category : Entity, IUserStampedNullable
+        public class Category : Entity, IUserStamped<long?>
         {
             public string Name { get; set; }
             

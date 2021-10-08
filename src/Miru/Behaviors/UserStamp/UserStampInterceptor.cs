@@ -56,20 +56,20 @@ namespace Miru.Behaviors.UserStamp
         
         private void NullableStampUsers(DbContextEventData @event)
         {
-            var entitiesBeingCreated = @event.Context.ChangeTracker.Entries<IUserStampedNullable>()
+            var entitiesBeingCreated = @event.Context.ChangeTracker.Entries<IUserStamped<long?>>()
                 .Where(p => p.State == EntityState.Added)
                 .Select(p => p.Entity);
 
             foreach (var entityBeingCreated in entitiesBeingCreated)
             {
-                if (entityBeingCreated.CreatedById == default && _currentUser.IsLogged)
+                if (entityBeingCreated.CreatedById.HasValue == false && _currentUser.IsLogged)
                     entityBeingCreated.CreatedById = _currentUser.Id;
 
-                if (entityBeingCreated.UpdatedById == default  && _currentUser.IsLogged)
+                if (entityBeingCreated.UpdatedById.HasValue == false  && _currentUser.IsLogged)
                     entityBeingCreated.UpdatedById = _currentUser.Id;
             }
 
-            var entitiesBeingUpdated = @event.Context.ChangeTracker.Entries<IUserStampedNullable>()
+            var entitiesBeingUpdated = @event.Context.ChangeTracker.Entries<IUserStamped<long?>>()
                 .Where(p => p.State == EntityState.Modified)
                 .Select(p => p.Entity);
 

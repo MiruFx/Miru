@@ -1,9 +1,6 @@
 ﻿namespace Miru.Domain
 {
-    public interface IUserStamped
+    public interface IUserStamped : IUserStamped<long>
     {
-        long CreatedById { get; set; }
-        
-        long UpdatedById { get; set; }
     }
 }
