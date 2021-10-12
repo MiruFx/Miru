@@ -31,9 +31,26 @@ namespace Miru
             return type.IsGenericType && type.GetGenericTypeDefinition() == otherType;
         }
         
+        public static object GetDefault(this Type type)
+        {
+            object output = null;
+
+            if (type.IsValueType)
+            {
+                output = Activator.CreateInstance(type);
+            }
+
+            return output;
+        }
+        
         public static bool Implements(this Type type, Type otherType)
         {
             return otherType.IsAssignableFrom(type);
+        }
+        
+        public static bool IsAnyOf<TType1, TType2>(this Type type)
+        {
+            return type == typeof(TType1) || type == typeof(TType2);
         }
         
         public static bool Implements<TOtherType>(this Type type)

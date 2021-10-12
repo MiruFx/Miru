@@ -8,7 +8,7 @@ using Miru.Domain;
 
 namespace Miru.Behaviors.TimeStamp
 {
-    public class TimeStampedInterceptor : SaveChangesInterceptor
+    public class TimeStampInterceptor : SaveChangesInterceptor
     {
         public override ValueTask<InterceptionResult<int>> SavingChangesAsync(
             DbContextEventData @event, 

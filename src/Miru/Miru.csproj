@@ -60,6 +60,10 @@
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.10" />
         <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.10" />
         
+        <!-- MiniProfiler -->
+        <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
+        <PackageReference Include="MiniProfiler.EntityFrameworkCore" Version="4.2.22" />
+        
     </ItemGroup>
     
     <ItemGroup>

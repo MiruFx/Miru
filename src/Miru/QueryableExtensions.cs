@@ -42,6 +42,17 @@ namespace Miru
             return dbSet.Remove(entity);
         }
         
+        public static async Task<TEntity> ByIdOrNewAsync<TEntity>(
+            this IQueryable<TEntity> queryable, 
+            long id,
+            CancellationToken ct) where TEntity : IEntity, new()
+        {
+            if (id > 0)
+                return await queryable.ByIdOrFailAsync(id, ct);
+
+            return new TEntity();
+        }
+        
         public static IQueryable<TEntity> ByIds<TEntity>(this IQueryable<TEntity> query, IEnumerable<long> ids) where TEntity : Entity
         {
             return query.Where(p => ids.Contains(p.Id));

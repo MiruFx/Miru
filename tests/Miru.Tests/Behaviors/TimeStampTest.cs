@@ -32,7 +32,7 @@ namespace Miru.Tests.Behaviors
                 .AddTransient<IDatabaseCleaner, InMemoryDatabaseCleaner>()
                 
                 // being tested
-                .AddTimeStamped()
+                .AddTimeStamp()
                 
                 .BuildServiceProvider()
                 .GetService<TestFixture>();    

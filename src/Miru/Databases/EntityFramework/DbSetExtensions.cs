@@ -17,6 +17,17 @@ namespace Miru.Databases.EntityFramework
             await db.SaveChangesAsync();
         }
         
+        public static async Task AddOrUpdateAsync<TEntity>(
+            this DbSet<TEntity> dbSet, 
+            TEntity entity,
+            CancellationToken ct) where TEntity : class, IEntity
+        {
+            if (entity.IsNew())
+                await dbSet.AddAsync(entity, ct);
+            else
+                dbSet.Update(entity);
+        }
+        
         public static void AddIfNotExists<TEntity>(
             this DbSet<TEntity> dbSet, Expression<Func<TEntity, bool>> predicate, TEntity entity) where TEntity : class, new()
         {

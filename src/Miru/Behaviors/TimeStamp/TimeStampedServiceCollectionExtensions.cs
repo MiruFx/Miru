@@ -7,9 +7,9 @@ namespace Miru.Behaviors.TimeStamp
 {
     public static class TimeStampedServiceCollectionExtensions
     {
-        public static IServiceCollection AddTimeStamped(this IServiceCollection services)
+        public static IServiceCollection AddTimeStamp(this IServiceCollection services)
         {
-            return services.AddTransient<IInterceptor, TimeStampedInterceptor>();
+            return services.AddTransient<IInterceptor, TimeStampInterceptor>();
         }
     }
 }
