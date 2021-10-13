@@ -17,7 +17,7 @@ namespace Miru.Consolables
                     $"Consolable of type {consolableType.FullName} must have a subclass 'ConsolableHandler' inheriting IConsolableHandler");
             
             services.AddSingleton(typeof(Consolable), consolableType);
-            services.AddScoped(handlerType);
+            services.AddTransient(handlerType);
         
             return services;
         }
