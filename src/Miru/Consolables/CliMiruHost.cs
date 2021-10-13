@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.CommandLine.Parsing;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Miru.Foundation.Bootstrap;
 using Miru.Foundation.Hosting;
 
@@ -46,14 +48,15 @@ namespace Miru.Consolables
             {
                 var handlerType = command.GetType().Assembly.GetType($"{command.GetType().FullName}+ConsolableHandler");
                 
-                await _app.WithScope(async scope =>
-                {
-                    var handler = (IConsolableHandler) scope.Get(handlerType);
-                    
-                    command.Handler = CommandHandler.Create(handlerType.GetMethod(nameof(IConsolableHandler.Execute)), handler);
+                var scope = _app.Get<IServiceProvider>().CreateScope();
+
+                var handler = (IConsolableHandler) scope.ServiceProvider.GetRequiredService(handlerType!);
                 
-                    await result.InvokeAsync();
-                });
+                command.Handler = CommandHandler.Create(
+                    handlerType.GetMethod(nameof(IConsolableHandler.Execute))!, 
+                    handler);
+
+                await result.InvokeAsync();
             }
             else
             {
