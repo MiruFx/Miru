@@ -132,8 +132,8 @@ namespace Miru.Cli
             {
                 Executable = "dotnet",
                 Arguments = mergedArgs,
-                // WorkingDirectory = solution.AppDir
-                WorkingDirectory = @"D:\Projects\Miru\samples\Playground\src\Playground"
+                WorkingDirectory = solution.AppDir
+                // WorkingDirectory = @"D:\Projects\Miru\samples\Playground\src\Playground"
             });
         
             Task.WaitAll(proc);
