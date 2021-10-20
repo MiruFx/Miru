@@ -61,5 +61,11 @@ namespace Miru
                 .GetType()
                 .GetCustomAttribute<TAttribute>();
         }
+        
+        public static void With<TInstance>(this TInstance instance, Action<TInstance> action)
+        {
+            if (instance != null)
+                action(instance);
+        }
     }
 }

@@ -1,7 +1,21 @@
-﻿namespace Miru.Domain
+﻿using System.Collections.Concurrent;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Miru.Domain
 {
     public abstract class Entity : IEntity, IHasId
     {
+        [NotMapped]
+        private readonly ConcurrentQueue<IDomainEvent> _domainEvents = new();
+
+        [NotMapped]
+        public IProducerConsumerCollection<IDomainEvent> DomainEvents => _domainEvents;
+
+        protected void PublishEvent(IDomainEvent @event)
+        {
+            _domainEvents.Enqueue(@event);
+        }
+        
         /// <remarks>
         ///     To help ensure hashcode uniqueness, a carefully selected random number multiplier 
         ///     is used within the calculation.  Goodrich and Tamassia's Data Structures and

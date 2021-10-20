@@ -44,7 +44,10 @@ namespace Miru.Mvc
             {
                 var formSummaryId = m.Request.Headers["turbo-form-summary-id"];
                 
-                var formSummary = new FormSummaryTag(formSummaryId);
+                var formSummary = m.GetService<HtmlGenerator>()
+                    .FormSummaryFor(m.Request)
+                    .Id(formSummaryId)
+                    .RemoveAttr("hidden");
 
                 var turboStream = new TurboStreamTag("replace", formSummaryId)
                     .AppendIntoTemplate(formSummary);

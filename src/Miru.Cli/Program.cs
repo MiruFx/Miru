@@ -53,11 +53,11 @@ namespace Miru.Cli
                 },
             };
 
-            rootCommand.Name = "miru";
+            // rootCommand.Name = "miru";
             
-            rootCommand.Handler = CommandHandler.Create(
-                (MiruCliOptions options, RunMiruOptions runOptions) => 
-                    RunMiru(options, runOptions));
+            // rootCommand.Handler = CommandHandler.Create(
+            //     (MiruCliOptions options, RunMiruOptions runOptions) => 
+            //         RunMiru(options, runOptions));
 
             var result = rootCommand.Parse(args);
 
