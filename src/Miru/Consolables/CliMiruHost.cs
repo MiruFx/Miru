@@ -35,6 +35,9 @@ namespace Miru.Consolables
             {
                 Name = "miru"
             };
+            
+            rootCommand.AddGlobalOption(
+                new Option("--environment", "Executes command in the specified environment").WithAlias("--e"));
 
             foreach (var consolable in _consolable)
             {
