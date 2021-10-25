@@ -7,47 +7,46 @@ using Microsoft.AspNetCore.Mvc;
 using Miru;
 using Miru.Mvc;
 
-namespace {{ Solution.Name }}.Features.{{ input.In }}
+namespace {{ Solution.Name }}.Features.{{ input.In }};
+
+public class {{ input.Name }}Delete
 {
-    public class {{ input.Name }}Delete
+    public class Command : IRequest<FeatureResult>
     {
-        public class Command : IRequest<FeatureResult>
+        public long Id { get; set; }
+    }
+
+    public class Handler : IRequestHandler<Command, FeatureResult>
+    {
+        private readonly {{ Solution.ShortName }}DbContext _db;
+
+        public Handler({{ Solution.ShortName }}DbContext db)
         {
-            public long Id { get; set; }
+            _db = db;
         }
-
-        public class Handler : IRequestHandler<Command, FeatureResult>
-        {
-            private readonly {{ Solution.ShortName }}DbContext _db;
-
-            public Handler({{ Solution.ShortName }}DbContext db)
-            {
-                _db = db;
-            }
             
-            public async Task<FeatureResult> Handle(Command request, CancellationToken ct)
-            {
-                var {{ string.downcase input.Name }} = await _db.{{ input.In }}.ByIdOrFailAsync(request.Id, ct);
+        public async Task<FeatureResult> Handle(Command request, CancellationToken ct)
+        {
+            var {{ string.downcase input.Name }} = await _db.{{ input.In }}.ByIdOrFailAsync(request.Id, ct);
 
-                _db.{{ input.In }}.Remove({{ string.downcase input.Name }});
+            _db.{{ input.In }}.Remove({{ string.downcase input.Name }});
                 
-                return new FeatureResult<{{ input.Name }}List>()
-                    .Success($"{{ input.Name }} {{{ string.downcase input.Name }}.Name} has been deleted");
-            }
+            return new FeatureResult<{{ input.Name }}List>()
+                .Success($"{{ input.Name }} {0} has been deleted");
         }
+    }
 
-        public class Validator : AbstractValidator<Command>
+    public class Validator : AbstractValidator<Command>
+    {
+        public Validator()
         {
-            public Validator()
-            {
-                RuleFor(m => m.Id).NotEmpty();
-            }
+            RuleFor(m => m.Id).NotEmpty();
         }
+    }
         
-        public class GroupsController : MiruController
-        {
-            [HttpPost("/{{ input.In }}/Delete/{Id}")]
-            public async Task<FeatureResult> Delete(Command command) => await SendAsync(command);
-        }
+    public class GroupsController : MiruController
+    {
+        [HttpPost("/{{ input.In }}/Delete/{Id}")]
+        public async Task<FeatureResult> Delete(Command command) => await SendAsync(command);
     }
 }

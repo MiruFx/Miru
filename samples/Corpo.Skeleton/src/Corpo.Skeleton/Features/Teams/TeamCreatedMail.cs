@@ -1,22 +1,21 @@
 using Corpo.Skeleton.Domain;
 using Miru.Mailing;
 
-namespace Corpo.Skeleton.Features.Teams
+namespace Corpo.Skeleton.Features.Teams;
+
+public class TeamCreatedMail : Mailable
 {
-    public class TeamCreatedMail : Mailable
+    private readonly User _user;
+
+    public TeamCreatedMail(User user)
     {
-        private readonly User _user;
+        _user = user;
+    }
 
-        public TeamCreatedMail(User user)
-        {
-            _user = user;
-        }
-
-        public override void Build(Email mail)
-        {
-            mail.To(_user.Email, _user.Email)
-                .Subject("Email Subject")
-                .Template("_Created");
-        }
+    public override void Build(Email mail)
+    {
+        mail.To(_user.Email, _user.Email)
+            .Subject("Email Subject")
+            .Template("_Created");
     }
 }

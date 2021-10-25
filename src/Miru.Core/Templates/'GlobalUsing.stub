@@ -1,0 +1,7 @@
+global using System.Linq;
+global using System.Threading.Tasks;
+global using {{ Solution.Name }}.Domain;
+global using {{ Solution.Name }}.Features.{{ input.In }};
+global using Miru.Testing;
+global using NUnit.Framework;
+global using Shouldly;

@@ -1,60 +1,49 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using {{ Solution.Name }}.Database;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Miru.Mvc;
+namespace {{ Solution.Name }}.Features.{{ input.In }};
 
-namespace {{ Solution.Name }}.Features.{{ input.In }}
+public class {{ input.Name }}{{ input.Action }}
 {
-    public class {{ input.Name }}{{ input.Action }}
+    public class Query : IRequest<Result>
     {
-        public class Query : IRequest<Result>
-        {
-        }
+    }
 
-        public class Result
-        {    
-            public IReadOnly{{ input.Action }}<Item> {{ input.In }} { get; set; } = new {{ input.Action }}<Item>();
-        }
+    public class Result
+    {    
+        public IReadOnly{{ input.Action }}<Item> {{ input.In }} { get; set; } = new {{ input.Action }}<Item>();
+    }
 
-        public class Item
-        {
-            public long Id { get; set; }
-            public string Name { get; set; }
-        }
+    public class Item
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+    }
 
-        public class Handler : IRequestHandler<Query, Result>
-        {
-            private readonly {{ Solution.ShortName }}DbContext _db;
+    public class Handler : IRequestHandler<Query, Result>
+    {
+        private readonly {{ Solution.ShortName }}DbContext _db;
             
-            public Handler({{ Solution.ShortName }}DbContext db)
-            {
-                _db = db;
-            }
-            
-            public async Task<Result> Handle(Query request, CancellationToken ct)
-            {
-                return new Result
-                {
-                    {{ input.In }} = await _db.{{ input.In }}
-                        .Select(m => new Item
-                        {
-                            Id = m.Id,
-                            Name = m.Name
-                        })
-                        .To{{ input.Action }}Async(ct)
-                };
-            }
+        public Handler({{ Solution.ShortName }}DbContext db)
+        {
+            _db = db;
         }
+            
+        public async Task<Result> Handle(Query request, CancellationToken ct)
+        {
+            return new Result
+            {
+                {{ input.In }} = await _db.{{ input.In }}
+                    .Select(m => new Item
+                    {
+                        Id = m.Id,
+                        Name = m.Name
+                    })
+                    .To{{ input.Action }}Async(ct)
+            };
+        }
+    }
         
-        public class Controller : MiruController
-        {
-            [HttpGet("/{{ input.In }}")]
-            public async Task<Result> {{ input.Action }}(Query request) => await SendAsync(request);
-        }
+    public class Controller : MiruController
+    {
+        [HttpGet("/{{ input.In }}")]
+        public async Task<Result> {{ input.Action }}(Query request) => await SendAsync(request);
     }
 }

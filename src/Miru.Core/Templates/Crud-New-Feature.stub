@@ -1,6 +1,5 @@
-namespace {{ Solution.Name }}.Features.{{ input.In }}
+namespace {{ Solution.Name }}.Features.{{ input.In }};
+
+public class {{ input.Name }}New
 {
-    public class {{ input.Name }}New
-    {
-    }
 }

@@ -1,14 +1,6 @@
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Corpo.Skeleton.Domain;
-using FluentValidation;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
-using Miru.Mailing;
-using Miru.Mvc;
 
 namespace Corpo.Skeleton.Features.Accounts.Passwords
 {

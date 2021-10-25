@@ -1,18 +1,14 @@
-using Miru.Testing;
-using NUnit.Framework;
+namespace Corpo.Skeleton.Tests.Domain;
 
-namespace Corpo.Skeleton.Tests.Domain
+public class TeamTest : DomainTest
 {
-    public class TeamTest : DomainTest
+    [Test]
+    public void Test()
     {
-        [Test]
-        public void Test()
-        {
-            // arrange
+        // arrange
 
-            // act
+        // act
             
-            // assert
-        }
+        // assert
     }
 }

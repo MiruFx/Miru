@@ -1,18 +1,14 @@
-using Miru.Testing;
-using NUnit.Framework;
+namespace {{ Solution.Name }}.Tests.Domain;
 
-namespace {{ Solution.Name }}.Tests.Domain
+public class {{ input.Name }}Test : DomainTest
 {
-    public class {{ input.Name }}Test : DomainTest
+    [Test]
+    public void Test()
     {
-        [Test]
-        public void Test()
-        {
-            // arrange
+        // arrange
 
-            // act
+        // act
             
-            // assert
-        }
+        // assert
     }
 }

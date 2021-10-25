@@ -1,24 +1,20 @@
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
 using Miru.Queuing;
 
-namespace Corpo.Skeleton.Features.Orders
+namespace Corpo.Skeleton.Features.Orders;
+
+// #job
+public class OrderPaid
 {
-    // #job
-    public class OrderPaid
+    public class Request : IMiruJob
     {
-        public class Request : IMiruJob
-        {
-        }
+    }
         
-        public class Handler : IRequestHandler<Request>
+    public class Handler : IRequestHandler<Request>
+    {
+        public Task<Unit> Handle(Request request, CancellationToken cancellationToken)
         {
-            public Task<Unit> Handle(Request request, CancellationToken cancellationToken)
-            {
-                return Unit.Task;
-            }
+            return Unit.Task;
         }
     }
-    // #job
 }
+// #job

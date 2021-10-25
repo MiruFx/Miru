@@ -1,16 +1,15 @@
 using Miru.Fabrication;
 using Miru.Fabrication.FixtureConventions;
 
-namespace Corpo.Skeleton.Tests
+namespace Corpo.Skeleton.Tests;
+
+public class SkeletonFabricator : Fabricator
 {
-    public class SkeletonFabricator : Fabricator
+    public SkeletonFabricator(FabSupport context) : base(context)
     {
-        public SkeletonFabricator(FabSupport context) : base(context)
+        Fixture.AddConvention(cfg =>
         {
-            Fixture.AddConvention(cfg =>
-            {
-                cfg.IfPropertyNameIs("Name").Use(f => f.Name.FullName());
-            });
-        }
+            cfg.IfPropertyNameIs("Name").Use(f => f.Name.FullName());
+        });
     }
 }

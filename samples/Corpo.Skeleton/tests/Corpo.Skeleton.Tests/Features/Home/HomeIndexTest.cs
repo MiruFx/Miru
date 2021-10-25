@@ -1,21 +1,17 @@
-using Miru.Testing;
-using NUnit.Framework;
+namespace Corpo.Skeleton.Tests.Features.Home;
 
-namespace Corpo.Skeleton.Tests.Features.Home
+public class HomeIndexTest : FeatureTest
 {
-    public class HomeIndexTest : FeatureTest
+    [Test]
+    public void Home_index()
     {
-        [Test]
-        public void Home_index()
-        {
-            // arrange
-            // var request = new HomeIndex.Query();
+        // arrange
+        // var request = new HomeIndex.Query();
             
-            // act
-            // var result = _.SendAsync(request);
+        // act
+        // var result = _.SendAsync(request);
             
-            // assert
-            // request.ShouldNotBeNull();
-        }
+        // assert
+        // request.ShouldNotBeNull();
     }
 }

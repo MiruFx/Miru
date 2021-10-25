@@ -1,21 +1,17 @@
-using System.Collections.Generic;
-using Corpo.Skeleton.Domain;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Miru.Userfy;
 
-namespace Corpo.Skeleton.Database
+namespace Corpo.Skeleton.Database;
+
+public class SkeletonDbContext : UserfyDbContext<User>
 {
-    public class SkeletonDbContext : UserfyDbContext<User>
+    public SkeletonDbContext(
+        DbContextOptions options,
+        IEnumerable<IInterceptor> interceptors) : base(options, interceptors)
     {
-        public SkeletonDbContext(
-            DbContextOptions options,
-            IEnumerable<IInterceptor> interceptors) : base(options, interceptors)
-        {
-        }
-        
-        // Your entities
-        public DbSet<Team> Teams { get; set; } 
-        public DbSet<Category> Categories { get; set; }
     }
+        
+    // Your entities
+    public DbSet<Team> Teams { get; set; } 
+    public DbSet<Category> Categories { get; set; }
 }

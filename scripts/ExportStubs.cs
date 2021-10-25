@@ -36,6 +36,7 @@ namespace Scripts
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Startup.cs");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Corpo.Skeleton.csproj");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Program.cs");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "GlobalUsing.cs");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "package.json");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "appSettings-example.yml");
 
@@ -54,6 +55,7 @@ namespace Scripts
             ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Corpo.Skeleton.Tests.csproj");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "SkeletonFabricator.cs");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Program.cs", "'Program");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "GlobalUsing.cs", "'GlobalUsing");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Extensions.cs");
             ExportDir(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Accounts");
             ExportDir(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Home");

@@ -1,22 +1,18 @@
-using Corpo.Skeleton.Domain;
-using Miru.Mailing;
+namespace Corpo.Skeleton.Features.Accounts;
 
-namespace Corpo.Skeleton.Features.Accounts
+public class AccountRegisteredMail : Mailable
 {
-    public class AccountRegisteredMail : Mailable
+    private readonly User _user;
+
+    public AccountRegisteredMail(User user)
     {
-        private readonly User _user;
+        _user = user;
+    }
 
-        public AccountRegisteredMail(User user)
-        {
-            _user = user;
-        }
-
-        public override void Build(Email mail)
-        {
-            mail.To(_user.Email, _user.Email)
-                .Subject("Welcome To Corpo.Skeleton")
-                .Template("_Registered");
-        }
+    public override void Build(Email mail)
+    {
+        mail.To(_user.Email, _user.Email)
+            .Subject("Welcome To Corpo.Skeleton")
+            .Template("_Registered");
     }
 }

@@ -5,6 +5,7 @@ src\Corpo.Skeleton\webpack.mix.js: webpack.mix.js.stub
 src\Corpo.Skeleton\Startup.cs: Startup.stub
 src\Corpo.Skeleton\Corpo.Skeleton.csproj: Corpo.Skeleton.csproj.stub
 src\Corpo.Skeleton\Program.cs: Program.stub
+src\Corpo.Skeleton\GlobalUsing.cs: GlobalUsing.stub
 src\Corpo.Skeleton\package.json: package.json.stub
 src\Corpo.Skeleton\appSettings-example.yml: appSettings-example.yml.stub
 src\Corpo.Skeleton\Config\AuthorizationRulesConfig.cs: AuthorizationRulesConfig.stub
@@ -51,8 +52,13 @@ src\Corpo.Skeleton\resources\js\controllers\form_summary_controller.js: form_sum
 tests\Corpo.Skeleton.Tests\Corpo.Skeleton.Tests.csproj: Corpo.Skeleton.Tests.csproj.stub
 tests\Corpo.Skeleton.Tests\SkeletonFabricator.cs: SkeletonFabricator.stub
 tests\Corpo.Skeleton.Tests\Program.cs: "'Program.stub"
+tests\Corpo.Skeleton.Tests\GlobalUsing.cs: "'GlobalUsing.stub"
 tests\Corpo.Skeleton.Tests\Extensions.cs: Extensions.stub
+tests\Corpo.Skeleton.Tests\Features\Accounts\AccountLoginTest.cs: AccountLoginTest.stub
 tests\Corpo.Skeleton.Tests\Features\Accounts\AccountRegisterTest.cs: AccountRegisterTest.stub
+tests\Corpo.Skeleton.Tests\Features\Accounts\Passwords\PasswordEditTest.cs: PasswordEditTest.stub
+tests\Corpo.Skeleton.Tests\Features\Accounts\Passwords\PasswordForgotTest.cs: PasswordForgotTest.stub
+tests\Corpo.Skeleton.Tests\Features\Accounts\Passwords\PasswordResetTest.cs: PasswordResetTest.stub
 tests\Corpo.Skeleton.Tests\Features\Home\HomeIndexTest.cs: HomeIndexTest.stub
 tests\Corpo.Skeleton.Tests\Config\TestConfig.cs: TestConfig.stub
 tests\Corpo.Skeleton.PageTests\Corpo.Skeleton.PageTests.csproj: Corpo.Skeleton.PageTests.csproj.stub

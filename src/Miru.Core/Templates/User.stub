@@ -1,9 +1,8 @@
 using Miru.Userfy;
 
-namespace {{ Solution.Name }}.Domain
+namespace {{ Solution.Name }}.Domain;
+
+public class User : UserfyUser
 {
-    public class User : UserfyUser
-    {
-        public override string Display => Email;
-    }
+    public override string Display => Email;
 }

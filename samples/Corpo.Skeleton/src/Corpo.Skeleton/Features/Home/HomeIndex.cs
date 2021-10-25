@@ -1,25 +1,22 @@
-using Microsoft.AspNetCore.Mvc;
+namespace Corpo.Skeleton.Features.Home;
 
-namespace Corpo.Skeleton.Features.Home
+public class HomeIndex
 {
-    public class HomeIndex
+    [Route("/")]
+    public class HomeController : Controller
     {
-        [Route("/")]
-        public class HomeController : Controller
+        public IActionResult Index()
         {
-            public IActionResult Index()
-            {
-                return View();
-            }
+            return View();
+        }
             
-            [Route("Error/{code?}")]
-            public IActionResult Error(int? code)
-            {
-                if (code == 404) return View("404");
-                if (code == 403) return View("403");
+        [Route("Error/{code?}")]
+        public IActionResult Error(int? code)
+        {
+            if (code == 404) return View("404");
+            if (code == 403) return View("403");
                 
-                return View(code);
-            }
+            return View(code);
         }
     }
 }

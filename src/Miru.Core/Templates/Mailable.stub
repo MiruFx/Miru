@@ -1,22 +1,21 @@
 using {{ Solution.Name }}.Domain;
 using Miru.Mailing;
 
-namespace {{ Solution.Name }}.Features.{{ input.In }}
+namespace {{ Solution.Name }}.Features.{{ input.In }};
+
+public class {{ input.Name }}{{ input.Action }}Mail : Mailable
 {
-    public class {{ input.Name }}{{ input.Action }}Mail : Mailable
+    private readonly User _user;
+
+    public {{ input.Name }}{{ input.Action }}Mail(User user)
     {
-        private readonly User _user;
+        _user = user;
+    }
 
-        public {{ input.Name }}{{ input.Action }}Mail(User user)
-        {
-            _user = user;
-        }
-
-        public override void Build(Email mail)
-        {
-            mail.To(_user.Email, _user.Email)
-                .Subject("Email Subject")
-                .Template("_{{ input.Action }}");
-        }
+    public override void Build(Email mail)
+    {
+        mail.To(_user.Email, _user.Email)
+            .Subject("Email Subject")
+            .Template("_{{ input.Action }}");
     }
 }

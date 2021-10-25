@@ -1,16 +1,15 @@
 using Miru.Html;
 using Miru.UI;
 
-namespace {{ Solution.Name }}.Config
+namespace {{ Solution.Name }}.Config;
+
+public class HtmlConfig : HtmlConfiguration
 {
-    public class HtmlConfig : HtmlConfiguration
+    public HtmlConfig()
     {
-        public HtmlConfig()
-        {
-            this.AddTwitterBootstrap();
-            this.AddMiruForm();
-            this.AddMiruFormSummary();
-            this.AddRequiredLabels();
-        }
+        this.AddTwitterBootstrap();
+        this.AddMiruForm();
+        this.AddMiruFormSummary();
+        this.AddRequiredLabels();
     }
 }

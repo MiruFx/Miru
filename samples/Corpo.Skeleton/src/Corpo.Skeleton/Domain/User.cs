@@ -1,9 +1,8 @@
 using Miru.Userfy;
 
-namespace Corpo.Skeleton.Domain
+namespace Corpo.Skeleton.Domain;
+
+public class User : UserfyUser
 {
-    public class User : UserfyUser
-    {
-        public override string Display => Email;
-    }
+    public override string Display => Email;
 }

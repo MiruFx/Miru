@@ -1,25 +1,17 @@
-using System.Linq;
-using System.Threading.Tasks;
-using {{ Solution.Name }}.Domain;
-using {{ Solution.Name }}.Features.{{ input.In }};
-using Miru.Testing;
-using NUnit.Framework;
+namespace {{ Solution.Name }}.Tests.Features.{{ input.In }};
 
-namespace {{ Solution.Name }}.Tests.Features.{{ input.In }}
+public class {{ input.Name }}{{ input.Action }}Test : FeatureTest
 {
-    public class {{ input.Name }}{{ input.Action }}Test : FeatureTest
+    [Test]
+    public async Task Can_{{ string.downcase input.Action }}_{{ string.downcase input.In }}()
     {
-        [Test]
-        public async Task Can_{{ string.downcase input.Action }}_{{ string.downcase input.In }}()
-        {
-            // arrange
-            var {{ string.downcase input.In }} = _.MakeManySaving<{{ input.Name }}>();
+        // arrange
+        var {{ string.downcase input.In }} = _.MakeManySaving<{{ input.Name }}>();
             
-            // act
-            var result = await _.SendAsync(new {{ input.Name }}{{ input.Action }}.Query());
+        // act
+        var result = await _.SendAsync(new {{ input.Name }}{{ input.Action }}.Query());
             
-            // assert
-            result.{{ input.In }}.ShouldCount({{ string.downcase input.In }}.Count());
-        }
+        // assert
+        result.{{ input.In }}.ShouldCount({{ string.downcase input.In }}.Count());
     }
 }

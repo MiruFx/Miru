@@ -1,8 +1,7 @@
 using Miru.Domain;
 
-namespace Corpo.Skeleton.Domain
+namespace Corpo.Skeleton.Domain;
+
+public class Order : Entity
 {
-    public class Order : Entity
-    {
-    }
 }

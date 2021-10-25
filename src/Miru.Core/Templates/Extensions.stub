@@ -1,21 +1,18 @@
 using System;
 using {{ Solution.Name }}.Database;
-using Miru;
-using Miru.Testing;
 
-namespace {{ Solution.Name }}.Tests
+namespace {{ Solution.Name }}.Tests;
+
+public static class Extensions
 {
-    public static class Extensions
-    {
-        public static void Db(
-            this ITestFixture fixture, Action<{{ Solution.ShortName }}DbContext> func) => 
-                fixture.WithDb(func);
+    public static void Db(
+        this ITestFixture fixture, Action<{{ Solution.ShortName }}DbContext> func) => 
+        fixture.WithDb(func);
         
-        public static TReturn Db<TReturn>(
-            this ITestFixture fixture, Func<{{ Solution.ShortName }}DbContext, TReturn> func) => 
-                fixture.WithDb(func);
+    public static TReturn Db<TReturn>(
+        this ITestFixture fixture, Func<{{ Solution.ShortName }}DbContext, TReturn> func) => 
+        fixture.WithDb(func);
         
-        public static {{ Solution.ShortName }}Fabricator Fab(this ITestFixture fixture) => 
-            fixture.Get<{{ Solution.ShortName }}Fabricator>();
-    }
+    public static {{ Solution.ShortName }}Fabricator Fab(this ITestFixture fixture) => 
+        fixture.Get<{{ Solution.ShortName }}Fabricator>();
 }

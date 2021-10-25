@@ -1,6 +1,5 @@
-namespace Corpo.Skeleton.Features.Teams
+namespace Corpo.Skeleton.Features.Teams;
+
+public class TeamNew
 {
-    public class TeamNew
-    {
-    }
 }
