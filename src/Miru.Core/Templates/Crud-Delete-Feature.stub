@@ -31,7 +31,8 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
 
                 _db.{{ input.In }}.Remove({{ string.downcase input.Name }});
                 
-                return new FeatureResult<{{ input.Name }}List>();
+                return new FeatureResult<{{ input.Name }}List>()
+                    .Success($"{{ input.Name }} {{{ string.downcase input.Name }}.Name} has been deleted");
             }
         }
 

@@ -32,7 +32,7 @@ namespace Corpo.Skeleton.Features.Teams
                 _db.Teams.Remove(team);
                 
                 return new FeatureResult<TeamList>()
-                    .Success($"Team {team.Name} has been deleted");
+                    .Success($"Team {0} has been deleted");
             }
         }
 
