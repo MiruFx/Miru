@@ -7,7 +7,7 @@ namespace Corpo.Skeleton.Consolables
     // #consolable
     public class HiConsolable : Consolable
     {
-        public HiConsolable() : base("hi")
+        public HiConsolable() : base("hi", "Renders hi")
         {
         }
 
@@ -15,13 +15,10 @@ namespace Corpo.Skeleton.Consolables
         {
             public Task Execute()
             {
-                throw new NotImplementedException();
+                Console.WriteLine("Hi!");
+
+                return Task.CompletedTask;
             }
-        }
-        
-        public void Execute()
-        {
-            Console.WriteLine("Hi!");
         }
     }
     // #consolable

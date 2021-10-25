@@ -42,7 +42,7 @@ namespace Miru.Consolables
             return services;
         }
         
-        public static IServiceCollection AddNewConsolableHost(this IServiceCollection services)
+        public static IServiceCollection AddMiruCliHost(this IServiceCollection services)
         {
             return services.AddSingleton<ICliMiruHost, CliMiruHost>();
         }

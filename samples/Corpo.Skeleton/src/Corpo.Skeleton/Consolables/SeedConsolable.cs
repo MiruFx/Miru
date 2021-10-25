@@ -14,6 +14,8 @@ namespace Corpo.Skeleton.Consolables
         {
             public Task Execute()
             {
+                // task
+                
                 return Task.CompletedTask;
             }
         }

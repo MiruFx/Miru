@@ -42,6 +42,9 @@ namespace Miru
             return dbSet.Remove(entity);
         }
         
+        /// <summary>
+        /// Fetch an Entity by Id. If it doesn't exist, return a new instance of TEntity
+        /// </summary>
         public static async Task<TEntity> ByIdOrNewAsync<TEntity>(
             this IQueryable<TEntity> queryable, 
             long id,

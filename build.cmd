@@ -1,2 +1,2 @@
 @echo Off
-dotnet run -p scripts -- %*
+dotnet run --project scripts -- %*

@@ -18,7 +18,7 @@ namespace Corpo.Skeleton.Features.Teams
 
         public class Result
         {    
-            public IReadOnlyList<Item> Items { get; set; } = new List<Item>();
+            public IReadOnlyList<Item> Teams { get; set; } = new List<Item>();
         }
 
         public class Item
@@ -40,7 +40,7 @@ namespace Corpo.Skeleton.Features.Teams
             {
                 return new Result
                 {
-                    Items = await _db.Teams
+                    Teams = await _db.Teams
                         .Select(m => new Item
                         {
                             Id = m.Id,

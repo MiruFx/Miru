@@ -20,7 +20,7 @@ namespace Corpo.Skeleton.PageTests.Pages.Teams
 
             _.Display<TeamList.Result>(x =>
             {
-                x.ShouldHave(m => m.Items[0].Name, teams.At(0).Name);
+                x.ShouldHave(m => m.Teams[0].Name, teams.At(0).Name);
             });
         }
     }

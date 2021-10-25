@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Remote;
 
 namespace Miru.PageTesting
 {
@@ -18,7 +19,7 @@ namespace Miru.PageTesting
                     // .DisableGpu();
                 }
                 
-                return new ChromeDriver(options);
+                return new RemoteWebDriver(options);
             });
         }
     }

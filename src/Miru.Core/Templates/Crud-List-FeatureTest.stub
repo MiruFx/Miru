@@ -19,7 +19,7 @@ namespace {{ Solution.Name }}.Tests.Features.{{ input.In }}
             var result = await _.SendAsync(new {{ input.Name }}{{ input.Action }}.Query());
             
             // assert
-            result.Items.ShouldCount({{ string.downcase input.In }}.Count());
+            result.{{ input.In }}.ShouldCount({{ string.downcase input.In }}.Count());
         }
     }
 }

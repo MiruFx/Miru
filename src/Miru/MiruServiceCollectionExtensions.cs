@@ -8,6 +8,7 @@ using Miru.Core;
 using Miru.Foundation;
 using Miru.Foundation.Logging;
 using Miru.Html;
+using Miru.Makers;
 using Miru.Mvc;
 using Miru.Storages;
 using Miru.Urls;
@@ -49,10 +50,12 @@ namespace Miru
             services.AddFlashMessage();
             services.AddMiruUrls();
 
-            services.AddNewConsolableHost();
-            // services.AddConsolables<TStartup>();
+            services.AddMiruCliHost();
+            
             services.AddConsolable<ConfigShowConsolable>();
             services.AddConsolable<ConfigServicesConsolable>();
+            services.AddConsolable<MakeAppSettingsConsolable>();
+            services.AddConsolable<MakeFeatureAllConsolable>();
             
             services.AddSingleton<IJsonConverter, JsonConverter>();
             services.AddStorage();

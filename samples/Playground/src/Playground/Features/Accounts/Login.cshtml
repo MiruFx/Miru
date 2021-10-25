@@ -1,18 +1,23 @@
-@using Playground.Features.Accounts
+@using Playground.Features.Accounts.Passwords
 @model Playground.Features.Accounts.AccountLogin.Command
 
-<div class="row m-5 justify-content-center">
-    <div class="col-12">
 
-        <div class="row">
-            <div class="col-md-5">
+<div class="card m-5">
+    <div class="card-body">
 
-                <h4>Log in</h4>
+        <div class="row justify-content-center">
+            <div class="col-md-6 m-4">
+
+                <flash dismissable="false" class="m-5" />
+                
+                <h3>Login</h3>
 
                 <miru-form>
 
                     <miru-summary/>
 
+                    <miru-input for="ReturnUrl" type="hidden" />
+                    
                     <div class="mb-3">
                         <miru-label for="Email"/>
                         <miru-input for="Email"/>
@@ -24,26 +29,20 @@
                     </div>
 
                     <div class="mb-3 form-check">
-                        <miru-input for="RememberMe"/>
-                        <miru-label for="RememberMe"/>
+                        <miru-input for="RememberMe" />
+                        <miru-label for="RememberMe" />
                     </div>
 
                     <miru-submit value="Log in"/>
 
+                    <div class="my-4">
+                        <a for="@(new PasswordForgot())">Forgot Password?</a>
+                    </div>
+                    
                 </miru-form>
 
             </div>
 
-            <div class="col-md-4">
-                <div class="mb-5">
-                    <h4>Not registered?</h4>
-                    <hr/>
-                    <div>
-                        <a for="@(new AccountRegister())">Create an account</a>
-                    </div>
-                </div>
-
-            </div>
         </div>
 
     </div>

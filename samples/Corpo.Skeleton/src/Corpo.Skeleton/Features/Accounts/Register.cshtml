@@ -1,32 +1,38 @@
 @model AccountRegister.Command
 
-<div class="row m-5 justify-content-center">
-    <div class="col-12">
+<div class="row justify-content-center">
+    <div class="col-md-6">
 
-        <div class="row">
-            <div class="col-md-5">
+        <h3>New Account</h3>
 
-                <h4>Create a new account</h4>
+        <miru-form>
 
-                <miru-form>
-
-                    <miru-summary/>
-                    <div class="mb-3">
-                        <miru-label for="Email"/>
-                        <miru-input for="Email"/>
-                    </div>
-                    <div class="mb-3">
-                        <miru-label for="Password"/>
-                        <miru-input for="Password"/>
-                    </div>
-                    <div class="mb-3">
-                        <miru-label for="PasswordConfirmation"/>
-                        <miru-input for="PasswordConfirmation"/>
-                    </div>
-                    <miru-submit value="Register"/>
-                </miru-form>
+            <miru-summary/>
+            
+            <div class="my-3">
+                <miru-label for="Email"/>
+                <miru-input for="Email"/>
+                <miru-validation for="Email"/>
             </div>
-        </div>
-        
+            
+            <div class="my-3">
+                <miru-label for="Password"/>
+                <miru-input for="Password"/>
+                <miru-validation for="Password"/>
+            </div>
+            
+            <div class="my-3">
+                <miru-label for="PasswordConfirmation"/>
+                <miru-input for="PasswordConfirmation"/>
+                <miru-validation for="PasswordConfirmation"/>
+            </div>
+            
+            <miru-submit value="Create"/>
+            
+            <div class="my-4">
+                Already have an account? <a for="@(new AccountLogin())">Login</a>
+            </div>
+            
+        </miru-form>
     </div>
 </div>

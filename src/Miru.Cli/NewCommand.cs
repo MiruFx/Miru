@@ -9,7 +9,7 @@ namespace Miru.Cli
     {
         public NewCommand(string commandName) : base(commandName)
         {
-            AddArgument(new Argument<string>("name"));
+            AddArgument(new Argument<string>("name", "Solution's name. Ex: StackOverflow, Amazon"));
             
             Handler = CommandHandler.Create((string name) => Execute(name));
         }

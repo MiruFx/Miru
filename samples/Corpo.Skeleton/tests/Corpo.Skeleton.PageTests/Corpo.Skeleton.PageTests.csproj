@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <GenerateProgramFile>false</GenerateProgramFile>
     </PropertyGroup>
 
@@ -9,7 +9,7 @@
         <ProjectReference Include="..\..\..\..\src\Miru.PageTesting\Miru.PageTesting.csproj" />
         <ProjectReference Include="..\..\..\..\src\Miru.PageTesting.Chrome\Miru.PageTesting.Chrome.csproj" />
         
-        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="91.0.4472.10100" />
+        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="95.0.4638.1700" />
         <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
     </ItemGroup>

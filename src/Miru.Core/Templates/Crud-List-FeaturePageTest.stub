@@ -20,7 +20,7 @@ namespace {{ Solution.Name }}.PageTests.Pages.{{ input.In }}
 
             _.Display<{{ input.Name }}{{ input.Action }}.Result>(x =>
             {
-                x.ShouldHave(m => m.Items[0].Name, {{ string.downcase input.In }}.At(0).Name);
+                x.ShouldHave(m => m.{{ input.In }}[0].Name, {{ string.downcase input.In }}.At(0).Name);
             });
         }
     }

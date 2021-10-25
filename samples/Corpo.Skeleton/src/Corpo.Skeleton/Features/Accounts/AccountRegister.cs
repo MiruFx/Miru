@@ -4,10 +4,8 @@ using System.Threading.Tasks;
 using Corpo.Skeleton.Domain;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Miru;
 using Miru.Domain;
 using Miru.Mailing;
@@ -74,6 +72,7 @@ namespace Corpo.Skeleton.Features.Accounts
             {
                 request.ReturnUrl ??= "/";
 
+                // TODO: Userfy.UserRegister<TUser> to encapsulate all Identity stuff
                 var user = new User();
 
                 await _userStore.SetUserNameAsync(user, request.Email, ct);

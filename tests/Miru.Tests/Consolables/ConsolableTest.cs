@@ -45,7 +45,7 @@ namespace Miru.Tests.Consolables
                 .ConfigureServices(services =>
                 {
                     services
-                        .AddNewConsolableHost()
+                        .AddMiruCliHost()
                         .AddConsolables<ConfigShowConsolable>();
                 });
                 
@@ -71,11 +71,8 @@ namespace Miru.Tests.Consolables
                 .ConfigureServices(services =>
                 {
                     services
-                        .AddNewConsolableHost()
+                        .AddMiruCliHost()
                         .AddConsolable<ConfigShowConsolable>();
-                    
-                    // .AddOaktonConsolable<ConfigShowConsolable>()
-                    // .AddSingleton<Config.ConfigShowConsolable>();
                 });
                 
             // act
@@ -91,7 +88,7 @@ namespace Miru.Tests.Consolables
         }
 
         [Test]
-        public async Task Should_register_consolables()
+        public async Task Should_support_dependency_injection()
         {
             // arrange
             var host = MiruHost.CreateMiruHost("miru", "miru.dependency", "--name", "Paul")

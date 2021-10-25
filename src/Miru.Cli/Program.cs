@@ -47,10 +47,10 @@ namespace Miru.Cli
                 
                 new WatchCommand("watch", m => m.AppDir),
                 
-                new Argument<string[]>("miru-args")
-                {
-                    Arity = ArgumentArity.ZeroOrMore
-                },
+                // new Argument<string[]>("miru-args")
+                // {
+                //     Arity = ArgumentArity.ZeroOrMore
+                // },
             };
 
             // rootCommand.Name = "miru";

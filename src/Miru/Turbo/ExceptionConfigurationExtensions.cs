@@ -147,7 +147,7 @@ namespace Miru.Turbo
                 var validationMessageTagId = $"{inputId}-validation";
 
                 var validationMessageTag =
-                    new ValidationMessageTag(validationMessageTagId, inputId, error.ErrorMessage);
+                    new InputValidationTag(validationMessageTagId, inputId, error.ErrorMessage);
 
                 var turboStreamTag = new TurboStreamTag("replace", validationMessageTagId)
                     .AppendIntoTemplate(validationMessageTag);

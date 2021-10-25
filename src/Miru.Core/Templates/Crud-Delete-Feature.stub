@@ -1,0 +1,52 @@
+using System.Threading;
+using System.Threading.Tasks;
+using {{ Solution.Name }}.Database;
+using FluentValidation;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Miru;
+using Miru.Mvc;
+
+namespace {{ Solution.Name }}.Features.{{ input.In }}
+{
+    public class {{ input.Name }}Delete
+    {
+        public class Command : IRequest<FeatureResult>
+        {
+            public long Id { get; set; }
+        }
+
+        public class Handler : IRequestHandler<Command, FeatureResult>
+        {
+            private readonly {{ Solution.ShortName }}DbContext _db;
+
+            public Handler({{ Solution.ShortName }}DbContext db)
+            {
+                _db = db;
+            }
+            
+            public async Task<FeatureResult> Handle(Command request, CancellationToken ct)
+            {
+                var {{ string.downcase input.Name }} = await _db.{{ input.In }}.ByIdOrFailAsync(request.Id, ct);
+
+                _db.{{ input.In }}.Remove({{ string.downcase input.Name }});
+                
+                return new FeatureResult<{{ input.Name }}List>();
+            }
+        }
+
+        public class Validator : AbstractValidator<Command>
+        {
+            public Validator()
+            {
+                RuleFor(m => m.Id).NotEmpty();
+            }
+        }
+        
+        public class GroupsController : MiruController
+        {
+            [HttpPost("/{{ input.In }}/Delete/{Id}")]
+            public async Task<FeatureResult> Delete(Command command) => await SendAsync(command);
+        }
+    }
+}

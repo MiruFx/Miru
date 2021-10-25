@@ -2,10 +2,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Miru.Domain;
 using Miru.Mvc;
 using Miru.Userfy;
+using Playground.Domain;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Playground.Features.Accounts
@@ -36,15 +38,18 @@ namespace Playground.Features.Accounts
             IRequestHandler<Query, Command>,
             IRequestHandler<Command, Result>
         {
-            private readonly IUserSession _userSession;
+            private readonly IUserLogin<User> _userLogin;
+            private readonly IUserSession<User> _userSession;
 
-            public Handler(IUserSession userSession)
+            public Handler(IUserLogin<User> userLogin, IUserSession<User> userSession)
             {
+                _userLogin = userLogin;
                 _userSession = userSession;
             }
 
             public async Task<Command> Handle(Query request, CancellationToken ct)
             {
+                // TODO: get from UserfyOptions
                 request.ReturnUrl ??= "/";
 
                 // Clear the existing external cookie to ensure a clean login process
@@ -52,19 +57,18 @@ namespace Playground.Features.Accounts
                 
                 return new Command
                 {
-                    ReturnUrl = request.ReturnUrl
+                    ReturnUrl = request.ReturnUrl,
+                    RememberMe = true
                 };
             }
 
             public async Task<Result> Handle(Command request, CancellationToken ct)
             {
+                // TODO: get from UserfyOptions
                 request.ReturnUrl ??= "/";
 
-                var result = await _userSession.LoginAsync(
-                    request.Email, 
-                    request.Password, 
-                    request.RememberMe);
-                
+                var result = await _userLogin.LoginAsync(request.Email, request.Password, request.RememberMe);
+
                 if (result.Succeeded)
                 {
                     return new Result
@@ -74,6 +78,7 @@ namespace Playground.Features.Accounts
                     };
                 }
                 
+                // TODO: get message from UserfyOptions
                 throw new DomainException("User and password not found");
             }
         }
@@ -82,7 +87,7 @@ namespace Playground.Features.Accounts
         {
             public Validator()
             {
-                RuleFor(x => x.Email).NotEmpty();
+                RuleFor(x => x.Email).NotEmpty().EmailAddress();
                 
                 RuleFor(x => x.Password).NotEmpty();
             }

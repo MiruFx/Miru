@@ -1,0 +1,9 @@
+@model PasswordEdit.Result
+
+<turbo-stream action="replace" target="@Naming.Form(Model)">
+    <template>
+        <div class="alert alert-success">
+            Your password has been changed
+        </div>
+    </template>
+</turbo-stream>

@@ -15,7 +15,7 @@ namespace Corpo.Skeleton.Features.Accounts
         public override void Build(Email mail)
         {
             mail.To(_user.Email, _user.Email)
-                .Subject("Welcome To Skeleton")
+                .Subject("Welcome To Corpo.Skeleton")
                 .Template("_Registered");
         }
     }

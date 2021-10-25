@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using {{ Solution.Name }}.Database;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Miru;
 using Miru.Mvc;
 
 namespace {{ Solution.Name }}.Features.{{ input.In }}
@@ -18,7 +19,7 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
         {
         }
 
-        public class Handler : IRequestHandler<Query, Result>
+        public class Handler : IRequestEmptyHandler<Query, Result>
         {
             private readonly {{ Solution.ShortName }}DbContext _db;
             
@@ -29,7 +30,7 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
             
             public async Task<Result> Handle(Query request, CancellationToken ct)
             {
-                return new Result();
+                return await Task.FromResult(new Result());
             }
         }
         

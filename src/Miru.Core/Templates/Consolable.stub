@@ -3,18 +3,21 @@ using Miru.Consolables;
 
 namespace {{ Solution.Name }}.Consolables
 {
-    [Description("Description what this consolable does", Name = "{{ string.downcase input.Name }}")]
-    public class {{ input.Name }}Consolable : Consolable<{{ input.Name }}Consolable.Input>
+    public class {{ input.Name }}Consolable : Consolable
     {
-        public class Input
+        public {{ input.Name }}Consolable() 
+            : base("{{ string.downcase input.Name }}", "Description what this consolable does")
         {
         }
 
-        public override Task<bool> Execute(Input input)
+        public class ConsolableHandler : IConsolableHandler
         {
-            // do the task
-            
-            return Task.FromResult(true); 
+            public Task Execute()
+            {
+                // task
+                
+                return Task.CompletedTask;
+            }
         }
     }
 }

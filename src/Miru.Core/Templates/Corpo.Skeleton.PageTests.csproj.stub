@@ -8,9 +8,10 @@
     <ItemGroup>
         <PackageReference Include="Miru.PageTesting" Version="{{ MiruVersion }}" />
         <PackageReference Include="Miru.PageTesting.Chrome" Version="{{ MiruVersion }}" />
-        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="89.0.4389.2300" />
-        <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
+        
+        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="95.0.4638.1700" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
     </ItemGroup>
 
     <ItemGroup>

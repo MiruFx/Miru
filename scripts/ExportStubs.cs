@@ -129,22 +129,16 @@ namespace Scripts
             
             // Feature-Crud
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamNew.cs", "Crud-New-Feature");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "New.cshtml", "Crud-New-Feature.cshtml");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "_New.turbo.cshtml", "Crud-New-_Feature.turbo.cshtml");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamNewTest.cs", "Crud-New-FeatureTest");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Teams" / "TeamNewPageTest.cs", "Crud-New-FeaturePageTest");
             
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamEdit.cs", "Crud-Edit-Feature", templateKey: "Edit");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "Edit.cshtml", "Crud-Edit-Feature.cshtml", templateKey: "Edit");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "_Edit.turbo.cshtml", "Crud-Edit-_Feature.turbo.cshtml", templateKey: "Edit");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamEditTest.cs", "Crud-Edit-FeatureTest", templateKey: "Edit");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Teams" / "TeamEditPageTest.cs", "Crud-Edit-FeaturePageTest", templateKey: "Edit");
             
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamShow.cs", "Crud-Show-Feature", templateKey: "Show");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "Show.cshtml", "Crud-Show-Feature.cshtml", templateKey: "Show");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamShowTest.cs", "Crud-Show-FeatureTest", templateKey: "Show");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Teams" / "TeamShowPageTest.cs", "Crud-Show-FeaturePageTest", templateKey: "Show");
-            
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamDelete.cs", "Crud-Delete-Feature", templateKey: "Delete");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamDeleteTest.cs", "Crud-Delete-FeatureTest", templateKey: "Delete");
+            // ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Teams" / "TeamDeletePageTest.cs", "Crud-Delete-FeaturePageTest", templateKey: "Delete");
+
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamList.cs", "Crud-List-Feature", templateKey: "List");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "List.cshtml", "Crud-List-Feature.cshtml", templateKey: "List");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamListTest.cs", "Crud-List-FeatureTest", templateKey: "List");

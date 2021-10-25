@@ -28,7 +28,7 @@ namespace Corpo.Skeleton.Tests.Features.Accounts
             
             var job = _.EnqueuedJob<EmailJob>();
             job.Email.ToAddresses.ShouldContain(m => m.EmailAddress == command.Email);
-            job.Email.Body.ShouldContain("Welcome To Skeleton");
+            job.Email.Body.ShouldContain("Welcome To Corpo.Skeleton");
         }
 
         public class Validations : ValidationTest<AccountRegister.Command>

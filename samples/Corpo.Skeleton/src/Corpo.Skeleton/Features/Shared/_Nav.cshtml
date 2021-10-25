@@ -1,4 +1,5 @@
 @using Corpo.Skeleton.Features.Accounts
+@using Corpo.Skeleton.Features.Accounts.Passwords
 
 <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-body bg-white border-bottom shadow-sm">
     <p class="my-0 me-md-auto fw-normal">
@@ -35,7 +36,7 @@
                         <a class="dropdown-item text-dark" href="#">My Account</a>
                     </li>
                     <li>
-                        <a class="dropdown-item text-dark" href="#">Change Password</a>
+                        <a for="@(new PasswordEdit())" class="dropdown-item text-dark">Change Password</a>
                     </li>
                     <li>
                         <hr class="dropdown-divider">

@@ -9,14 +9,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Miru;
 using Miru.Behaviors.BelongsToUser;
 using Miru.Foundation.Hosting;
-using Miru.Foundation.Logging;
 using Miru.Mailing;
 using Miru.Mvc;
 using Miru.Pipeline;
 using Miru.Queuing;
 using Miru.Sqlite;
 using Miru.Userfy;
-using Serilog.Events;
 
 namespace Corpo.Skeleton
 {
@@ -59,6 +57,7 @@ namespace Corpo.Skeleton
                 {
                     _.EmailDefaults(email => email.From("noreply@skeleton.com", "Skeleton"));
                 })
+                .AddSenderSmtp()
 
                 .AddQueuing(_ =>
                 {

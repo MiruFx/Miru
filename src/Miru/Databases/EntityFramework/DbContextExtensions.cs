@@ -7,15 +7,9 @@ namespace Miru.Databases.EntityFramework
 {
     public static class DbContextExtensions
     {
-        public static async Task SaveOrUpdate<TEntity>(
-            this DbContext db, 
-            TEntity entity, 
-            CancellationToken ct = default) where TEntity : class, IEntity
-        {
-            if (entity.IsNew())
-                await db.AddSavingAsync(entity);
-        }
-        
+        /// <summary>
+        /// Add or Update an Entity. If the Id is 0 it adds, otherwise it updates
+        /// </summary>
         public static async Task AddOrUpdateAsync<TEntity>(
             this DbContext db, TEntity entity, CancellationToken ct = default) where TEntity : IEntity
         {

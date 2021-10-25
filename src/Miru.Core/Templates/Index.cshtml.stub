@@ -1,6 +1,4 @@
 
-<div class="card">
-    <div class="card-body text-center p-5">
-        Welcome to {{ Solution.ShortName }}!
-    </div>
+<div class="text-center">
+    Welcome to {{ Solution.ShortName }}!
 </div>

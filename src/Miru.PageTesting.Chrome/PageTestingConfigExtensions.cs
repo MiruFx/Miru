@@ -12,7 +12,7 @@ namespace Miru.PageTesting.Chrome
     {
         public static void UseChrome(this PageTestingConfig config, ChromeOptions options = null)
         {
-            config.Services.AddSingleton<RemoteWebDriver>(ctx => new ChromeDriver(options ?? new ChromeOptions()));
+            config.Services.AddSingleton<RemoteWebDriver>(ctx => new RemoteWebDriver(options ?? new ChromeOptions()));
             
             config.Services.AddSingleton<MiruNavigator>(sp =>
             {

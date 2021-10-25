@@ -18,7 +18,7 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
 
         public class Result
         {    
-            public IReadOnly{{ input.Action }}<Item> Items { get; set; } = new {{ input.Action }}<Item>();
+            public IReadOnly{{ input.Action }}<Item> {{ input.In }} { get; set; } = new {{ input.Action }}<Item>();
         }
 
         public class Item
@@ -40,7 +40,7 @@ namespace {{ Solution.Name }}.Features.{{ input.In }}
             {
                 return new Result
                 {
-                    Items = await _db.{{ input.In }}
+                    {{ input.In }} = await _db.{{ input.In }}
                         .Select(m => new Item
                         {
                             Id = m.Id,

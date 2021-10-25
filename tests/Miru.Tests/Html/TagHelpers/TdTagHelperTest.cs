@@ -16,7 +16,7 @@ namespace Miru.Tests.Html.TagHelpers
         {
             _model = new TeamList.Result
             {
-                Items = new List<TeamList.Item>
+                Teams = new List<TeamList.Item>
                 {
                     new() {Id = 1, Name = "iPhone"},
                     new() {Id = 2, Name = "Samsung"}
@@ -30,7 +30,7 @@ namespace Miru.Tests.Html.TagHelpers
             // arrange
             var tag = new TdTagHelper
             {
-                For = MakeExpression(_model, m => m.Items[0].Name),
+                For = MakeExpression(_model, m => m.Teams[0].Name),
                 RequestServices = ServiceProvider
             };
 
@@ -46,7 +46,7 @@ namespace Miru.Tests.Html.TagHelpers
         public async Task If_no_content_and_property_is_collection_should_not_render_miru_display()
         {
             // arrange
-            var tag = CreateTag(new TdTagHelper(), _model, m => m.Items);
+            var tag = CreateTag(new TdTagHelper(), _model, m => m.Teams);
 
             // act
             var output = await ProcessTagAsync(tag, "miru-td");
@@ -62,7 +62,7 @@ namespace Miru.Tests.Html.TagHelpers
             // arrange
             var tag = new TdTagHelper
             {
-                For = MakeExpression(_model, m => m.Items[0].Name),
+                For = MakeExpression(_model, m => m.Teams[0].Name),
                 RequestServices = ServiceProvider
             };
 
@@ -80,7 +80,7 @@ namespace Miru.Tests.Html.TagHelpers
             // arrange
             var tag = new TdTagHelper
             {
-                For = MakeExpression(_model, m => m.Items[0].Id),
+                For = MakeExpression(_model, m => m.Teams[0].Id),
                 RequestServices = ServiceProvider
             };
 

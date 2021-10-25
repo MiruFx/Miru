@@ -32,6 +32,7 @@ namespace Corpo.Skeleton.Features.Accounts
             {
                 await _userSession.LogoutAsync();
 
+                // TODO: use UserfyOptions to redirect to the write feature
                 return new Result
                 {
                     RedirectTo = "/"

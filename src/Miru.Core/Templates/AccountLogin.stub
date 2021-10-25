@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using {{ Solution.Name }}.Domain;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -36,35 +37,35 @@ namespace {{ Solution.Name }}.Features.Accounts
             IRequestHandler<Query, Command>,
             IRequestHandler<Command, Result>
         {
-            private readonly IUserSession _userSession;
+            private readonly IUserLogin<User> _userLogin;
 
-            public Handler(IUserSession userSession)
+            public Handler(IUserLogin<User> userLogin)
             {
-                _userSession = userSession;
+                _userLogin = userLogin;
             }
 
             public async Task<Command> Handle(Query request, CancellationToken ct)
             {
+                // TODO: get from UserfyOptions
                 request.ReturnUrl ??= "/";
 
                 // Clear the existing external cookie to ensure a clean login process
-                await _userSession.LogoutAsync();
+                await _userLogin.LogoutAsync();
                 
                 return new Command
                 {
-                    ReturnUrl = request.ReturnUrl
+                    ReturnUrl = request.ReturnUrl,
+                    RememberMe = true
                 };
             }
 
             public async Task<Result> Handle(Command request, CancellationToken ct)
             {
+                // TODO: get from UserfyOptions
                 request.ReturnUrl ??= "/";
 
-                var result = await _userSession.LoginAsync(
-                    request.Email, 
-                    request.Password, 
-                    request.RememberMe);
-                
+                var result = await _userLogin.LoginAsync(request.Email, request.Password, request.RememberMe);
+
                 if (result.Succeeded)
                 {
                     return new Result
@@ -74,6 +75,7 @@ namespace {{ Solution.Name }}.Features.Accounts
                     };
                 }
                 
+                // TODO: get message from UserfyOptions
                 throw new DomainException("User and password not found");
             }
         }
@@ -82,7 +84,7 @@ namespace {{ Solution.Name }}.Features.Accounts
         {
             public Validator()
             {
-                RuleFor(x => x.Email).NotEmpty();
+                RuleFor(x => x.Email).NotEmpty().EmailAddress();
                 
                 RuleFor(x => x.Password).NotEmpty();
             }

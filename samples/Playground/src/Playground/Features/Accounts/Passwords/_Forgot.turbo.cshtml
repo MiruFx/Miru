@@ -1,0 +1,9 @@
+@model PasswordForgot.Result
+
+<turbo-stream action="replace" target="@Naming.Form(Model)">
+    <template>
+        <div class="alert alert-success">
+            Please check your email to reset your password.
+        </div>
+    </template>
+</turbo-stream>

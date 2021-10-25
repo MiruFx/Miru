@@ -160,6 +160,17 @@ namespace Miru.Testing
             }
         }
 
+        public static void WithDb<TDbContext>(
+            this ITestFixture fixture, 
+            Action<TDbContext> func) where TDbContext : DbContext
+        {
+            using var scope = fixture.App.WithScope();
+            
+            var db = scope.Get<TDbContext>();
+                
+            func(db);
+        }
+        
         public static TReturn WithDb<TDbContext, TReturn>(
             this ITestFixture fixture, 
             Func<TDbContext, TReturn> func) where TDbContext : DbContext

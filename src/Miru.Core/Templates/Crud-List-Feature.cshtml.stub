@@ -1,44 +1,73 @@
 @model {{ input.Name }}{{ input.Action }}.Result
 
-<div class="card">
-    <div class="card-body">
+<h3>{{ input.In }}</h3>
 
-        <h3>{{ input.In }}</h3>
-        
-        <div class="mb-4">
-            <a for="@(new {{ input.Name }}New())">New {{ input.Name }}</a>
-        </div>
-        
-        <div miru-if-empty="@Model.Items" class="alert alert-warning">There are no {{ input.In }} to show</div>
-        
-        <miru-table for="Items" class="table table-striped">
-            <thead>
-            <tr>
-                <miru-th for="Items[0].Name" />
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-
-            @{ var i = 0; }
-            @foreach (var item in Model.Items)
-            {
-                <tr>
-                    <td>
-                        <a for="@(new {{ input.Name }}Show.Query { Id = item.Id })">
-                            <miru-display for="Items[i].Name"/>
-                        </a>
-                    </td>
-                    <td>
-                        <a for="@(new {{ input.Name }}Edit.Query { Id = item.Id })">Edit</a>
-                    </td>
-                </tr>
-                
-                i++;
-            }
-
-            </tbody>
-        </miru-table>
-        
-    </div>
+<div class="my-4">
+    <a for="@(new {{ input.Name }}New())">
+        <i class="fas fa-plus-circle me-1"></i>New {{ input.Name }}
+    </a>
 </div>
+
+<div miru-if-empty="@Model.{{ input.In }}" class="alert alert-warning">
+    There are no {{ input.In }} to show
+</div>
+
+<miru-table for="{{ input.In }}" class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <miru-th for="{{ input.In }}[0].Name" />
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+    @{ var i = 0; }
+    @foreach (var item in Model.{{ input.In }})
+    {
+        <tr>
+            <td>
+                <a for="@(new {{ input.Name }}Edit.Query { Id = item.Id })">
+                    <miru-display for="{{ input.In }}[i].Name"/>
+                </a>
+            </td>
+            <td>
+                <a for="@(new {{ input.Name }}Edit.Query { Id = item.Id })">Edit</a>
+            </td>
+        </tr>
+        
+        i++;
+    }
+
+    </tbody>
+</miru-table>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>twitter</td>
+    </tr>
+  </tbody>
+</table>

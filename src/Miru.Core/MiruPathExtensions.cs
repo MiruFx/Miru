@@ -6,7 +6,7 @@ namespace Miru.Core
 {
     public static class MiruPathExtensions
     {
-        public static bool Exists(this MiruPath path) => Directory.Exists(path);
+        public static bool FileExists(this MiruPath path) => File.Exists(path);
         
         public static string Relative(this MiruPath current, string path) => Path.GetRelativePath(current, path);
         

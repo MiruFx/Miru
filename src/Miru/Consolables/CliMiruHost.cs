@@ -43,13 +43,13 @@ namespace Miru.Consolables
 
             var result = rootCommand.Parse(args);
             
-            if (result.CommandResult.Command is not RootCommand && 
+            if (result.Errors.None() &&
+                result.CommandResult.Command is not RootCommand && 
                 result.CommandResult.Command is Command command)
             {
-                var handlerType = command.GetType().Assembly.GetType($"{command.GetType().FullName}+ConsolableHandler");
+                using var scope = _app.Get<IServiceProvider>().CreateScope();
                 
-                var scope = _app.Get<IServiceProvider>().CreateScope();
-
+                var handlerType = command.GetType().Assembly.GetType($"{command.GetType().FullName}+ConsolableHandler");
                 var handler = (IConsolableHandler) scope.ServiceProvider.GetRequiredService(handlerType!);
                 
                 command.Handler = CommandHandler.Create(

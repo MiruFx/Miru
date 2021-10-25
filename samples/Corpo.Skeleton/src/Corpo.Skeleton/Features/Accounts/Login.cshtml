@@ -1,49 +1,46 @@
+@using Corpo.Skeleton.Features.Accounts.Passwords
 @model AccountLogin.Command
 
-<div class="row m-5 justify-content-center">
-    <div class="col-12">
+<div class="row justify-content-center">
+    <div class="col-md-6">
 
-        <div class="row">
-            <div class="col-md-5">
+        <h3>Login</h3>
 
-                <h4>Log in</h4>
+        <miru-form>
 
-                <miru-form>
+            <miru-summary/>
 
-                    <miru-summary/>
-
-                    <div class="mb-3">
-                        <miru-label for="Email"/>
-                        <miru-input for="Email"/>
-                    </div>
-
-                    <div class="mb-3">
-                        <miru-label for="Password"/>
-                        <miru-input for="Password"/>
-                    </div>
-
-                    <div class="mb-3 form-check">
-                        <miru-input for="RememberMe"/>
-                        <miru-label for="RememberMe"/>
-                    </div>
-
-                    <miru-submit value="Log in"/>
-
-                </miru-form>
-
+            <miru-input for="ReturnUrl" type="hidden" />
+            
+            <div class="my-3">
+                <miru-label for="Email"/>
+                <miru-input for="Email"/>
+                <miru-validation for="Email"/>
             </div>
 
-            <div class="col-md-4">
-                <div class="mb-5">
-                    <h4>Not registered?</h4>
-                    <hr/>
-                    <div>
-                        <a for="@(new AccountRegister())">Create an account</a>
-                    </div>
-                </div>
-
+            <div class="my-3">
+                <miru-label for="Password"/>
+                <miru-input for="Password"/>
+                <miru-validation for="Password"/>
             </div>
-        </div>
+
+            <div class="my-3 form-check">
+                <miru-input for="RememberMe" />
+                <miru-label for="RememberMe" />
+            </div>
+
+            <miru-submit value="Login"/>
+
+            <div class="my-4">
+                <a for="@(new PasswordForgot())">Forgot Password?</a>
+            </div>
+            
+            <div class="my-4">
+                New user? <a for="@(new AccountRegister())">Create Account</a>
+            </div>
+            
+        </miru-form>
 
     </div>
+
 </div>

@@ -6,6 +6,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Miru;
+using Miru.Databases.EntityFramework;
 using Miru.Mvc;
 
 namespace Corpo.Skeleton.Features.Teams
@@ -17,20 +18,15 @@ namespace Corpo.Skeleton.Features.Teams
             public long Id { get; set; }
         }
         
-        public class Command : IRequest<Result>
+        public class Command : IRequest<FeatureResult>
         {
             public long Id { get; set; }
             public string Name { get; set; }
         }
 
-        public class Result
-        {
-            public Team Team { get; set; }
-        }
-
         public class Handler : 
             IRequestHandler<Query, Command>, 
-            IRequestHandler<Command, Result>
+            IRequestHandler<Command, FeatureResult>
         {
             private readonly SkeletonDbContext _db;
             
@@ -41,7 +37,7 @@ namespace Corpo.Skeleton.Features.Teams
             
             public async Task<Command> Handle(Query request, CancellationToken ct)
             {
-                var team = await _db.Teams.ByIdOrFailAsync(request.Id, ct);
+                var team = await _db.Teams.ByIdOrNewAsync(request.Id, ct);
                 
                 return new Command
                 {
@@ -50,16 +46,15 @@ namespace Corpo.Skeleton.Features.Teams
                 };
             }
             
-            public async Task<Result> Handle(Command request, CancellationToken ct)
+            public async Task<FeatureResult> Handle(Command request, CancellationToken ct)
             {
-                var team = await _db.Teams.ByIdOrFailAsync(request.Id, ct);
-
-                team.Name = request.Name;
+                var team = await _db.Teams.ByIdOrNewAsync(request.Id, ct);
                 
-                return new Result
-                {
-                    Team = team
-                };
+                team.Name = request.Name;
+
+                await _db.AddOrUpdateAsync(team, ct);
+
+                return new FeatureResult<TeamList>();
             }
         }
 
@@ -67,19 +62,20 @@ namespace Corpo.Skeleton.Features.Teams
         {
             public Validator()
             {
-                RuleFor(m => m.Id).NotEmpty();
-                
                 RuleFor(m => m.Name).NotEmpty();
             }
         }
         
-        public class Controller : MiruController
+        public class TeamsController : MiruController
         {
+            [HttpGet("/Teams/New")]
+            public async Task<Command> Edit(TeamNew query) => await SendAsync(new Query());
+            
             [HttpGet("/Teams/{id:long}/Edit")]
             public async Task<Command> Edit(Query query) => await SendAsync(query);
 
-            [HttpPost("/Teams/{id:long}/Edit")]
-            public async Task<Result> Edit(Command command) => await SendAsync(command);
+            [HttpPost("/Teams/Edit")]
+            public async Task<FeatureResult> Edit(Command command) => await SendAsync(command);
         }
     }
 }

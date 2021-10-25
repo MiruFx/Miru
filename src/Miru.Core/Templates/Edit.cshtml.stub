@@ -1,0 +1,41 @@
+@model PasswordEdit.Command
+
+@{
+    Layout = "Admin/_Master";
+}
+
+<div class="card m-5">
+    <div class="card-body">
+
+        <div class="row justify-content-center">
+            <div class="col-md-6 m-4">
+
+                <h4>Edit Password</h4>
+                    
+                <miru-form>
+
+                    <miru-summary/>
+
+                    <div class="mb-3">
+                        <miru-label for="CurrentPassword"/>
+                        <miru-input for="CurrentPassword"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <miru-label for="NewPassword"/>
+                        <miru-input for="NewPassword"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <miru-label for="NewPasswordConfirmation"/>
+                        <miru-input for="NewPasswordConfirmation"/>
+                    </div>
+
+                    <miru-submit/>
+
+                </miru-form>
+                
+            </div>
+        </div>
+    </div>
+</div>

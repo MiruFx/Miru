@@ -16,8 +16,8 @@ Has to be .Sdk.Web to allow unit test asp.net components correctly
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
     
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
-    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.29.1" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="91.0.4472.10100" />
+    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.30.0" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="95.0.4638.1700" />
   </ItemGroup>
 
   <ItemGroup>

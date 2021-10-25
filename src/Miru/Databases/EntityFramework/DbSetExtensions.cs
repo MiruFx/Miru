@@ -11,6 +11,12 @@ namespace Miru.Databases.EntityFramework
 {
     public static class DbSetExtensions
     {
+        public static async Task ByIdOrNewAsync<TEntity>(this DbContext db, TEntity entity) where TEntity : class
+        {
+            db.Set<TEntity>().Add(entity);
+            await db.SaveChangesAsync();
+        }
+        
         public static async Task AddSavingAsync<TEntity>(this DbContext db, TEntity entity) where TEntity : class
         {
             db.Set<TEntity>().Add(entity);

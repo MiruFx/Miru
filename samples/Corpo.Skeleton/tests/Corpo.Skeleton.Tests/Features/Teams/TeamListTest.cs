@@ -19,7 +19,7 @@ namespace Corpo.Skeleton.Tests.Features.Teams
             var result = await _.SendAsync(new TeamList.Query());
             
             // assert
-            result.Items.ShouldCount(teams.Count());
+            result.Teams.ShouldCount(teams.Count());
         }
     }
 }

@@ -13,5 +13,12 @@
     <Compile Remove="wwwroot\**" />
     <Content Remove="wwwroot\**" />
   </ItemGroup>
-  
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Features\Accounts\Login.cshtml" />
+    <_ContentIncludedByDefault Remove="Features\Accounts\Register.cshtml" />
+    <_ContentIncludedByDefault Remove="Features\Accounts\_Register.js.cshtml" />
+    <_ContentIncludedByDefault Remove="Features\Accounts\_Registered.mail.cshtml" />
+  </ItemGroup>
+
 </Project>

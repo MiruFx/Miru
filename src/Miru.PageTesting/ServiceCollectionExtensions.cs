@@ -34,8 +34,6 @@ namespace Miru.PageTesting
 
             services.AddTransient<IUserSession, TestingUserSession<TUser>>();
 
-            services.AddSingleton<IStorage>();
-            
             services.AddSingleton<PageBody>();
             
             services.AddSingleton(sp => new WebDriverWait(

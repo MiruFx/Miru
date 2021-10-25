@@ -29,8 +29,8 @@ namespace Miru.PageTesting.Tests
     {
         public static readonly Lazy<DriverFixture> Get = new Lazy<DriverFixture>(new DriverFixture());
         
-        public FirefoxDriver FirefoxDriver { get; private set; }
-        public ChromeDriver ChromeDriver { get; private set; }
+        public RemoteWebDriver FirefoxDriver { get; private set; }
+        public RemoteWebDriver ChromeDriver { get; private set; }
         public PageBody Page { get; set; }
         
         private readonly IWebHost _host;
@@ -55,7 +55,7 @@ namespace Miru.PageTesting.Tests
 
             Parallel.Invoke(
                 () => _host.Start(),
-                () => FirefoxDriver = new FirefoxDriver(new FirefoxOptions().Headless()));
+                () => FirefoxDriver = new RemoteWebDriver(new FirefoxOptions().Headless()));
 
             _elementNaming = new ElementNaming();
             _config = new PageTestingConfig();

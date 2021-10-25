@@ -12,7 +12,7 @@ namespace Miru.PageTesting.Firefox
     {
         public static void UseFirefox(this PageTestingConfig config, FirefoxOptions options = null)
         {
-            config.Services.AddSelenium(ctx => new FirefoxDriver(options ?? new FirefoxOptions()));
+            config.Services.AddSelenium(ctx => new RemoteWebDriver(options ?? new FirefoxOptions()));
             
             config.Services.AddSingleton<MiruNavigator>(sp =>
             {

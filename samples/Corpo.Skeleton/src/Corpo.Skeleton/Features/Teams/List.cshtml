@@ -1,44 +1,42 @@
 @model TeamList.Result
 
-<div class="card">
-    <div class="card-body">
+<h3>Teams</h3>
 
-        <h3>Teams</h3>
-        
-        <div class="mb-4">
-            <a for="@(new TeamNew())">New Team</a>
-        </div>
-        
-        <div miru-if-empty="@Model.Items" class="alert alert-warning">There are no Teams to show</div>
-        
-        <miru-table for="Items" class="table table-striped">
-            <thead>
-            <tr>
-                <miru-th for="Items[0].Name" />
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-
-            @{ var i = 0; }
-            @foreach (var item in Model.Items)
-            {
-                <tr>
-                    <td>
-                        <a for="@(new TeamShow.Query { Id = item.Id })">
-                            <miru-display for="Items[i].Name"/>
-                        </a>
-                    </td>
-                    <td>
-                        <a for="@(new TeamEdit.Query { Id = item.Id })">Edit</a>
-                    </td>
-                </tr>
-                
-                i++;
-            }
-
-            </tbody>
-        </miru-table>
-        
-    </div>
+<div class="my-4">
+    <a for="@(new TeamNew())">
+        <i class="fas fa-plus-circle me-1"></i>New Team
+    </a>
 </div>
+
+<div miru-if-empty="@Model.Teams" class="alert alert-warning">
+    There are no Teams to show
+</div>
+
+<miru-table for="Teams" class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <miru-th for="Teams[0].Name" />
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+    @{ var i = 0; }
+    @foreach (var item in Model.Teams)
+    {
+        <tr>
+            <td>
+                <a for="@(new TeamEdit.Query { Id = item.Id })">
+                    <miru-display for="Teams[i].Name"/>
+                </a>
+            </td>
+            <td>
+                <a for="@(new TeamEdit.Query { Id = item.Id })">Edit</a>
+            </td>
+        </tr>
+        
+        i++;
+    }
+
+    </tbody>
+</miru-table>

@@ -26,21 +26,15 @@ namespace Miru.Tests.Makers
             m.FeatureAll("Teams", "Team");
             
             (m.Solution.FeaturesDir / "Teams" / "TeamNew.cs").ShouldExist();
-            (m.Solution.FeaturesDir / "Teams" / "New.cshtml").ShouldExist();
-            (m.Solution.FeaturesDir / "Teams" / "_New.turbo.cshtml").ShouldExist();
-            (m.Solution.AppTestsDir / "Features" / "Teams" / "TeamNewTest.cs").ShouldExist();
-            (m.Solution.AppPageTestsDir / "Pages" / "Teams" / "TeamNewPageTest.cs").ShouldExist();
             
             (m.Solution.FeaturesDir / "Teams" / "TeamEdit.cs").ShouldExist();
             (m.Solution.FeaturesDir / "Teams" / "Edit.cshtml").ShouldExist();
-            (m.Solution.FeaturesDir / "Teams" / "_Edit.turbo.cshtml").ShouldExist();
             (m.Solution.AppTestsDir / "Features" / "Teams" / "TeamEditTest.cs").ShouldExist();
             (m.Solution.AppPageTestsDir / "Pages" / "Teams" / "TeamEditPageTest.cs").ShouldExist();            
 
-            (m.Solution.FeaturesDir / "Teams" / "TeamShow.cs").ShouldExist();
-            (m.Solution.FeaturesDir / "Teams" / "Show.cshtml").ShouldExist();
-            (m.Solution.AppTestsDir / "Features" / "Teams" / "TeamShowTest.cs").ShouldExist();
-            (m.Solution.AppPageTestsDir / "Pages" / "Teams" / "TeamShowPageTest.cs").ShouldExist();  
+            (m.Solution.FeaturesDir / "Teams" / "TeamDelete.cs").ShouldExist();
+            (m.Solution.AppTestsDir / "Features" / "Teams" / "TeamDeleteTest.cs").ShouldExist();
+            (m.Solution.AppPageTestsDir / "Pages" / "Teams" / "TeamDeletePageTest.cs").ShouldExist();    
             
             (m.Solution.FeaturesDir / "Teams" / "TeamList.cs").ShouldExist();
             (m.Solution.FeaturesDir / "Teams" / "List.cshtml").ShouldExist();

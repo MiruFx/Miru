@@ -1,25 +1,55 @@
 @model {{ input.Name }}{{ input.Action }}.Command
 
-<div class="card">
-    <div class="card-body">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
+<div class="row justify-content-center">
+    <div class="col-md-8">
 
-                <h4 class="my-3">{{ input.Action }} {{ input.Name }}</h4>
+        <h3>@(Model.Id == 0 ? "New" : "{{ input.Action }}") {{ input.Name }}</h3>
+        
+        <miru-form class="my-4">
+
+            <miru-summary />
+
+            <miru-input for="Id" />
+
+            <div class="my-4">
+                <miru-label for="Name"/>
+                <miru-input for="Name"/>
+                <miru-validation for="Name"/>
+            </div>
+
+            <div class="my-4">
+                <miru-submit value="Save" class="me-3"/>
+                <a for="@(new {{ input.Name }}List())">Cancel</a>
                 
-                <miru-form>
+                <div miru-if="@(Model.Id > 0)" class="float-end">
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#{{ string.downcase input.Name }}-delete-modal">
+                        Delete
+                    </button>
+                </div>
+            </div>
+            
+        </miru-form>
+    
+    </div>
+</div>
 
-                    <miru-summary class="my-3"/>
-
-                    <div class="my-3">
-                        <miru-label for="Name"/>
-                        <miru-input for="Name"/>
-                    </div>
-
-                    <miru-submit value="Save"/>
-
+<div miru-if="@(Model.Id > 0)" class="modal fade" id="{{ string.downcase input.Name }}-delete-modal" data-bs-keyboard="true" tabindex="-1" aria-labelledby="{{ string.downcase input.Name }}-delete-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="{{ string.downcase input.Name }}-delete-title">Delete {{ input.Name }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning">
+                    Do you confirm deleting the {{ string.downcase input.Name }} <strong>@Model.Name</strong>?
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" data-bs-dismiss="modal" class="me-2">Cancel</a>
+                <miru-form model="@(new {{ input.Name }}Delete.Command { Id = Model.Id })">
+                    <miru-submit class="btn btn-danger" value="Delete" />
                 </miru-form>
-
             </div>
         </div>
     </div>

@@ -1,0 +1,11 @@
+@model AccountRegister.Result
+
+<turbo-stream action="replace" target="@Naming.Form(Model)">
+    <template>
+        <div class="alert alert-success">
+            Your account has been created!
+        </div>
+        
+        <a for="@(new AccountLogin.Query())">Would you like to Login now?</a>
+    </template>
+</turbo-stream>

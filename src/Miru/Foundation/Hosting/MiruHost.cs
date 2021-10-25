@@ -88,7 +88,7 @@ namespace Miru.Foundation.Hosting
                     services.AddSingleton<IMiruHost>(sp => sp.GetService<ICliMiruHost>());
                     
                     // Consolables
-                    services.AddNewConsolableHost();
+                    services.AddMiruCliHost();
 
                     // AppConfig
                     services.Configure<DatabaseOptions>(host.Configuration.GetSection("Database"));

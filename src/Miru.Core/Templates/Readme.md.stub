@@ -5,7 +5,7 @@
 * .NET 5
 * node.js v14.0 or higher
 * npm v6.0 or higher
-* [MiruCli 0.5 or higher](https://mirufx.github.io/Introduction/GettingStarted.html#installing)
+* [MiruCli 0.7 or higher](https://mirufx.github.io/Introduction/GettingStarted.html#installing)
 
 To check if everything is installed:
 
@@ -31,9 +31,15 @@ Build .net solution:
 dotnet build
 ```
 
-Create the database's schema:
+Check your local `Development` and `Test` environment in these files:
+```
+/src/{{ Solution.Name }}/appSettings.Development.yml
+/src/{{ Solution.Name }}/appSettings.Test.yml
+```
+
+Run db migration to create the initial database schema:
 ```shell
-miru db:migrate
+miru db.migrate
 ```
 
 Now everything is ready for the first run.

@@ -29,7 +29,10 @@ namespace Miru.Core
 
         public void Directory(params string[] paths)
         {
-            var newDir = A.Path / Solution.RootDir / paths;
+            var newDir = paths.Length > 0
+                ? A.Path / Solution.RootDir / paths
+                : A.Path / Solution.RootDir;
+            
             var shortDestination = Path.Combine(paths);
             
             System.IO.Directory.CreateDirectory(newDir);
