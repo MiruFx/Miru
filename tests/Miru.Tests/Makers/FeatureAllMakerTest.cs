@@ -34,7 +34,7 @@ namespace Miru.Tests.Makers
 
             (m.Solution.FeaturesDir / "Teams" / "TeamDelete.cs").ShouldExist();
             (m.Solution.AppTestsDir / "Features" / "Teams" / "TeamDeleteTest.cs").ShouldExist();
-            (m.Solution.AppPageTestsDir / "Pages" / "Teams" / "TeamDeletePageTest.cs").ShouldExist();    
+            // (m.Solution.AppPageTestsDir / "Pages" / "Teams" / "TeamDeletePageTest.cs").ShouldExist();    
             
             (m.Solution.FeaturesDir / "Teams" / "TeamList.cs").ShouldExist();
             (m.Solution.FeaturesDir / "Teams" / "List.cshtml").ShouldExist();
