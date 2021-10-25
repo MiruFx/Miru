@@ -1,3 +1,5 @@
+using Corpo.Skeleton.Features.Teams;
+
 namespace Corpo.Skeleton.Tests.Features.Teams;
 
 public class TeamDeleteTest : FeatureTest

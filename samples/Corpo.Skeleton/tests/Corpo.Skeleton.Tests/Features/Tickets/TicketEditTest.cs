@@ -1,3 +1,4 @@
+using Corpo.Skeleton.Features.Teams;
 using Corpo.Skeleton.Features.Tickets;
 
 namespace Corpo.Skeleton.Tests.Features.Tickets;

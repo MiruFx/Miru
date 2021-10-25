@@ -2,10 +2,10 @@
 
 ## Requirements:
 
-* .NET 5
-* node.js v14.0 or higher
-* npm v6.0 or higher
-* [MiruCli 0.7 or higher](https://mirufx.github.io/Introduction/GettingStarted.html#installing)
+* .NET 6
+* node.js 14.0 or higher
+* npm 6.0 or higher
+* [Miru.Cli 0.8 or higher](https://mirufx.github.io/Introduction/GettingStarted.html#installing)
 
 To check if everything is installed:
 
