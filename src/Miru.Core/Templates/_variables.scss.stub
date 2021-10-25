@@ -5,4 +5,4 @@ $input-bg: #fff;
 // Typography
 $font-family-sans-serif: "Verdana", sans-serif;
 $font-size-base: 0.8rem;
-//$line-height-base: 1.6;
+$line-height-base: 1.6;
