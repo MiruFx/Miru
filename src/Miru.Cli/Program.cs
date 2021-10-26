@@ -30,50 +30,35 @@ namespace Miru.Cli
                 new RunAtCommand("app") 
                 {
                     Handler = CommandHandler.Create((MiruCliOptions options, RunOptions runOptions) => 
-                        RunAt(options, runOptions, s => s.AppDir))
+                        RunAtAsync(options, runOptions, s => s.AppDir))
                 },
                 
                 new RunAtCommand("test") 
                 {
                     Handler = CommandHandler.Create((MiruCliOptions options, RunOptions runOptions) => 
-                        RunAt(options, runOptions, s => s.AppTestsDir))
+                        RunAtAsync(options, runOptions, s => s.AppTestsDir))
                 },
                 
                 new RunAtCommand("pagetest")
                 {
                     Handler = CommandHandler.Create((MiruCliOptions options, RunOptions runOptions) => 
-                        RunAt(options, runOptions, s => s.AppPageTestsDir))
+                        RunAtAsync(options, runOptions, s => s.AppPageTestsDir))
                 },
                 
-                new WatchCommand("watch", m => m.AppDir),
-                
-                // new Argument<string[]>("miru-args")
-                // {
-                //     Arity = ArgumentArity.ZeroOrMore
-                // },
+                new WatchCommand("watch", m => m.AppDir)
             };
-
-            // rootCommand.Name = "miru";
-            
-            // rootCommand.Handler = CommandHandler.Create(
-            //     (MiruCliOptions options, RunMiruOptions runOptions) => 
-            //         RunMiru(options, runOptions));
 
             var result = rootCommand.Parse(args);
 
-            // if command is miru, should just pass the arguments to the app
-            if (result.CommandResult.Command.Name.Equals("miru"))
-            {
-                RunMiru(new MiruCliOptions(), new RunMiruOptions { MiruArgs = args });
-                await Task.CompletedTask;
-            }
+            if (result.CommandResult.Command.Name.Equals("Miru.Cli"))
+                await RunMiruAsync(new MiruCliOptions(), new RunMiruOptions { MiruArgs = args });
+            else if (result.CommandResult.Command is not RootCommand)
+                await result.InvokeAsync();
             else
-            {
                 await rootCommand.InvokeAsync(args);
-            }
         }
 
-        public void RunAt(
+        public async Task RunAtAsync(
             MiruCliOptions options,
             RunOptions runOptions,
             Func<MiruSolution, MiruPath> directory)
@@ -94,17 +79,15 @@ namespace Miru.Cli
 
             var processRunner = new MiruProcessRunner(options.Verbose, string.Empty);
 
-            var proc = processRunner.RunAsync(new ProcessSpec()
+            await processRunner.RunAsync(new ProcessSpec()
             {
                 Executable = exec,
                 Arguments = runOptions.Args,
                 WorkingDirectory = directory(solution)
             });
-        
-            Task.WaitAll(proc);
         }
         
-        public void RunMiru(
+        public async Task RunMiruAsync(
             MiruCliOptions options,
             RunMiruOptions runMiruOptions)
         {
@@ -128,15 +111,12 @@ namespace Miru.Cli
                 mergedArgs.AddRange(runMiruOptions.MiruArgs);
         
             // TODO: handle exception: error when running 'command'
-            var proc = processRunner.RunAsync(new ProcessSpec
+            await processRunner.RunAsync(new ProcessSpec
             {
                 Executable = "dotnet",
                 Arguments = mergedArgs,
                 WorkingDirectory = solution.AppDir
-                // WorkingDirectory = @"D:\Projects\Miru\samples\Playground\src\Playground"
             });
-        
-            Task.WaitAll(proc);
         }
         
         private SolutionFinderResult FindSolution(MiruCliOptions options)

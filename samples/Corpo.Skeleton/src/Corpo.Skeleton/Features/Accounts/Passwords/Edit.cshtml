@@ -1,41 +1,35 @@
 @model PasswordEdit.Command
 
-@{
-    Layout = "Admin/_Master";
-}
+<div class="row justify-content-center">
+    <div class="col-md-6 m-4">
 
-<div class="card m-5">
-    <div class="card-body">
+        <h4>Edit Password</h4>
+            
+        <miru-form>
 
-        <div class="row justify-content-center">
-            <div class="col-md-6 m-4">
+            <miru-summary/>
 
-                <h4>Edit Password</h4>
-                    
-                <miru-form>
-
-                    <miru-summary/>
-
-                    <div class="mb-3">
-                        <miru-label for="CurrentPassword"/>
-                        <miru-input for="CurrentPassword"/>
-                    </div>
-
-                    <div class="mb-3">
-                        <miru-label for="NewPassword"/>
-                        <miru-input for="NewPassword"/>
-                    </div>
-
-                    <div class="mb-3">
-                        <miru-label for="NewPasswordConfirmation"/>
-                        <miru-input for="NewPasswordConfirmation"/>
-                    </div>
-
-                    <miru-submit/>
-
-                </miru-form>
-                
+            <div class="mb-3">
+                <miru-label for="CurrentPassword"/>
+                <miru-input for="CurrentPassword"/>
+                <miru-validation for="CurrentPassword"/>
             </div>
-        </div>
+
+            <div class="mb-3">
+                <miru-label for="NewPassword"/>
+                <miru-input for="NewPassword"/>
+                <miru-validation for="NewPassword"/>
+            </div>
+
+            <div class="mb-3">
+                <miru-label for="NewPasswordConfirmation"/>
+                <miru-input for="NewPasswordConfirmation"/>
+                <miru-validation for="NewPasswordConfirmation"/>
+            </div>
+
+            <miru-submit/>
+
+        </miru-form>
+        
     </div>
 </div>

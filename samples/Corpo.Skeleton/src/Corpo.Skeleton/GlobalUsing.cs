@@ -3,7 +3,6 @@ global using System.Threading.Tasks;
 global using System.Collections.Generic;
 global using System.Linq;
 global using System.Threading;
-global using System.Threading.Tasks;
 global using Corpo.Skeleton.Database;
 global using MediatR;
 global using Microsoft.AspNetCore.Mvc;

@@ -12,6 +12,7 @@ namespace Miru.Html
         {
             var mixManifestPath = solution.AppDir / "wwwroot" / "mix-manifest.json";
             
+            // TODO: better exception message to the developer when 'mix-manifest.json' does not exists 
             var mixManifest = File.ReadAllText(mixManifestPath);
             
             _map = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(mixManifest);
