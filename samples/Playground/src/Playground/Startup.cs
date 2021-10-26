@@ -66,7 +66,7 @@ namespace Playground
                 {
                     _.EmailDefaults(email => email.From("noreply@skeleton.com", "Skeleton"));
                 })
-                .AddSenderSmtp()
+                .AddSmtpSender()
 
                 .AddQueuing(_ =>
                 {

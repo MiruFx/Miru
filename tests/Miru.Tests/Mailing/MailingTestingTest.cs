@@ -16,7 +16,7 @@ namespace Miru.Tests.Mailing
             {
                 // as in the app
                 services.AddMailing()
-                    .AddSenderSmtp();
+                    .AddSmtpSender();
                 
                 // as in the test
                 services.AddSenderMemory();

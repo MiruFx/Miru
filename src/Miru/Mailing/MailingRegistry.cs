@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 
 namespace Miru.Mailing
 {
-    public static class MailingServiceCollectionExtensions
+    public static class MailingRegistry
     {
         public static IServiceCollection AddMailing(
             this IServiceCollection services,
@@ -28,7 +28,7 @@ namespace Miru.Mailing
             return services;
         }
 
-        public static IServiceCollection AddSenderSmtp(this IServiceCollection services)
+        public static IServiceCollection AddSmtpSender(this IServiceCollection services)
         {
             services.AddSingleton<ISender>(sp =>
             {
@@ -41,6 +41,14 @@ namespace Miru.Mailing
                 });
             });
 
+            return services;
+        }
+        
+        public static IServiceCollection AddFileStorageSender(this IServiceCollection services)
+        {
+            services.AddSingleton<FileStorageSender>();
+            services.AddSingleton<ISender>(sp => sp.GetService<FileStorageSender>());
+            
             return services;
         }
     }
