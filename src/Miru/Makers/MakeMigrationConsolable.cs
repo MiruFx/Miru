@@ -1,32 +1,40 @@
+using System.CommandLine;
+using System.Threading.Tasks;
 using Miru.Consolables;
 using Miru.Core;
 
-namespace Miru.Makers
+namespace Miru.Makers;
+
+public class MakeMigrationConsolable : Consolable
 {
-    // [Description("Make a FluentMigrator Migration", Name = "make:migration")]
-    // public class MakeMigrationConsolable : OaktonConsolableSync<MakeMigrationConsolable.Input>
-    // {
-    //     private readonly Maker _maker;
-    //
-    //     public class Input
-    //     {
-    //         public string Name { get; set; }
-    //         
-    //         public string TableFlag { get; set; }
-    //     }
-    //     
-    //     public MakeMigrationConsolable(Maker maker)
-    //     {
-    //         _maker = maker;
-    //     }
-    //
-    //     public override bool Execute(Input input)
-    //     {
-    //         Console2.BreakLine();
-    //         
-    //         _maker.Migration(input.Name, table: input.TableFlag);
-    //
-    //         return true;
-    //     }
-    // }
+    public MakeMigrationConsolable() :
+        base("make.migration", "Make a Database Migration")
+    {
+        Add(new Argument<string>("name"));
+        Add(new Option<string>("--table"));
+    }
+
+    public class ConsolableHandler : IConsolableHandler
+    {
+        private readonly Maker _maker;
+    
+        public string Name { get; set; }
+        public string Table { get; set; }
+        
+        public ConsolableHandler(Maker maker)
+        {
+            _maker = maker;
+        }
+    
+        public async Task Execute()
+        {
+            Console2.BreakLine();
+            
+            _maker.Migration(Name, table: Table);
+    
+            Console2.BreakLine();
+            
+            await Task.CompletedTask;
+        }
+    }
 }
