@@ -7,6 +7,8 @@
   <ItemGroup>
     <PackageReference Include="Miru" Version="{{ MiruVersion }}" />
     <PackageReference Include="Miru.Sqlite" Version="{{ MiruVersion }}" />
+
+    <PackageReference Include="Emet.FileSystems" Version="0.0.4" />
   </ItemGroup>
 
   <ItemGroup>

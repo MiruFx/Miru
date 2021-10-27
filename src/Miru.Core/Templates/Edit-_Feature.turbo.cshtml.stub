@@ -1,8 +1,0 @@
-@model {{ input.Name }}{{ input.Action }}.Result
-
-<template data-page-update-target>
-    <div class="alert alert-success">
-        {{ input.Name }} successfully saved
-    </div>
-    <a href="#">← {{ input.In }}</a>
-</template>

@@ -2,10 +2,8 @@
 
 <turbo-stream action="replace" target="@Naming.Form(Model)">
     <template>
-        <div class="alert alert-success">
-            <p>
-                {{ Solution.ShortName }} successfully saved
-            </p>
+        <div class="alert alert-success my-4">
+            {{ input.Name }} successfully saved
         </div>
     </template>
 </turbo-stream>

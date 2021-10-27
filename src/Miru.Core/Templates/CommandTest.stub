@@ -10,9 +10,10 @@ public class {{ input.Name }}{{ input.Action }}Test : FeatureTest
     {
         // arrange
         // var {{ string.downcase input.Name }} = _.MakeSaving<{{ input.Name }}>();
+        var command = _.Make<{{ input.Name }}{{ input.Action }}.Command>();
 
         // act
-        var result = await _.SendAsync(new {{ input.Name }}{{ input.Action }}.Command { Id = 1 });
+        var result = await _.SendAsync(command);
 
         // assert
         // var saved = _.Db(db => db.{{ input.In }}.First());
