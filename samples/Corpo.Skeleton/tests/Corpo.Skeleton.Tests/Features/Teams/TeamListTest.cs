@@ -15,5 +15,8 @@ public class TeamListTest : FeatureTest
             
         // assert
         result.Teams.ShouldCount(teams.Count());
+        
+        result.Teams.First().Name.ShouldBe(teams.First().Name);
+        result.Teams.Last().Name.ShouldBe(teams.Last().Name);
     }
 }

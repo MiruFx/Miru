@@ -30,9 +30,8 @@ public class TeamDelete
             var team = await _db.Teams.ByIdOrFailAsync(request.Id, ct);
 
             _db.Teams.Remove(team);
-                
-            return new FeatureResult<TeamList>()
-                .Success($"Team {0} has been deleted");
+
+            return new FeatureResult<TeamList>();
         }
     }
 

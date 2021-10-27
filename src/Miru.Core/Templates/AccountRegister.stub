@@ -30,24 +30,18 @@ public class AccountRegister
         IRequestHandler<Query, Command>,
         IRequestHandler<Command, Result>
     {
-        private readonly IUserStore<User> _userStore;
-        private readonly IUserEmailStore<User> _emailStore;
-        private readonly UserManager<User> _userManager;
-        private readonly IMailer _mailer;
         private readonly IUserSession _userSession;
+        private readonly IUserRegister<User> _userRegister;
+        private readonly IMailer _mailer;
 
         public Handler(
-            SignInManager<User> signInManager, 
-            IUserStore<User> userStore, 
-            UserManager<User> userManager, 
             IMailer mailer, 
-            IUserSession userSession)
+            IUserSession userSession, 
+            IUserRegister<User> userRegister)
         {
-            _userStore = userStore;
-            _emailStore = (IUserEmailStore<User>)_userStore;
-            _userManager = userManager;
             _mailer = mailer;
             _userSession = userSession;
+            _userRegister = userRegister;
         }
 
         public async Task<Command> Handle(Query request, CancellationToken ct)
@@ -62,13 +56,10 @@ public class AccountRegister
         {
             request.ReturnUrl ??= "/";
 
-            // TODO: Userfy.UserRegister<TUser> to encapsulate all Identity stuff
             var user = new User();
 
-            await _userStore.SetUserNameAsync(user, request.Email, ct);
-            await _emailStore.SetEmailAsync(user, request.Email, ct);
-                
-            var result = await _userManager.CreateAsync(user, request.Password);
+            var result = await _userRegister
+                .RegisterAsync(user, request.Email, request.Password, ct);
 
             if (result.Succeeded)
             {

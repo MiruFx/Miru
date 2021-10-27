@@ -10,9 +10,10 @@ public class TicketEditTest : FeatureTest
     {
         // arrange
         // var ticket = _.MakeSaving<Ticket>();
+        var command = _.Make<TicketEdit.Command>();
 
         // act
-        var result = await _.SendAsync(new TicketEdit.Command { Id = 1 });
+        var result = await _.SendAsync(command);
 
         // assert
         // var saved = _.Db(db => db.Tickets.First());

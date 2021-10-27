@@ -1,23 +1,21 @@
-using System.Threading.Tasks;
 using Miru.Consolables;
 
-namespace {{ Solution.Name }}.Consolables
-{
-    public class {{ input.Name }}Consolable : Consolable
-    {
-        public {{ input.Name }}Consolable() 
-            : base("{{ string.downcase input.Name }}", "Description what this consolable does")
-        {
-        }
+namespace {{ Solution.Name }}.Consolables;
 
-        public class ConsolableHandler : IConsolableHandler
+public class {{ input.Name }}Consolable : Consolable
+{
+    public {{ input.Name }}Consolable() 
+        : base("{{ string.downcase input.Name }}", "Description what this consolable does")
+    {
+    }
+
+    public class ConsolableHandler : IConsolableHandler
+    {
+        public Task Execute()
         {
-            public Task Execute()
-            {
-                // task
+            // task
                 
-                return Task.CompletedTask;
-            }
+            return Task.CompletedTask;
         }
     }
 }

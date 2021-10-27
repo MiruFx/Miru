@@ -76,12 +76,15 @@ namespace Scripts
             ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Tickets" / "TicketEditTest.cs", "CommandTest", "Edit");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Tickets" / "TicketEditPageTest.cs", "CommandPageTest", "Edit");
             
-            // Query
+            // Query-Show
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Tickets" / "TicketShow.cs", "Query", "Show");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Tickets" / "Show.cshtml", "Query.cshtml", "Show");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Tickets" / "TicketShowTest.cs", "QueryTest", "Show");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Tickets" / "TicketShowPageTest.cs", "QueryPageTest", "Show");
             
+            // Query-List
+            ExportQueryList();
+
             // Migration
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Database" / "Migrations" / "999999999999_CreateCards.cs", "Migration");
             
@@ -103,32 +106,6 @@ namespace Scripts
             // Config
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "appSettings-example.yml", "AppSettings");
             
-            // Feature-New
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "CategoryNew.cs", "New-Feature");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "New.cshtml", "New-Feature.cshtml");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "_New.turbo.cshtml", "New-_Feature.turbo.cshtml");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Categories" / "CategoryNewTest.cs", "New-FeatureTest");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Categories" / "CategoryNewPageTest.cs", "New-FeaturePageTest");
-            
-            // Feature-Edit
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "CategoryEdit.cs", "Edit-Feature", templateKey: "Edit");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "Edit.cshtml", "Edit-Feature.cshtml", templateKey: "Edit");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "_Edit.turbo.cshtml", "Edit-_Feature.turbo.cshtml", templateKey: "Edit");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Categories" / "CategoryEditTest.cs", "Edit-FeatureTest", templateKey: "Edit");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Categories" / "CategoryEditPageTest.cs", "Edit-FeaturePageTest", templateKey: "Edit");
-            
-            // Feature-Show
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "CategoryShow.cs", "Show-Feature", templateKey: "Show");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "Show.cshtml", "Show-Feature.cshtml", templateKey: "Show");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Categories" / "CategoryShowTest.cs", "Show-FeatureTest", templateKey: "Show");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Categories" / "CategoryShowPageTest.cs", "Show-FeaturePageTest", templateKey: "Show");
-            
-            // Feature-List
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "CategoryList.cs", "List-Feature", templateKey: "List");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Categories" / "List.cshtml", "List-Feature.cshtml", templateKey: "List");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Categories" / "CategoryListTest.cs", "List-FeatureTest", templateKey: "List");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Categories" / "CategoryListPageTest.cs", "List-FeaturePageTest", templateKey: "List");
-            
             // Feature-Crud
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamNew.cs", "Crud-New-Feature");
             
@@ -145,6 +122,19 @@ namespace Scripts
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "List.cshtml", "Crud-List-Feature.cshtml", templateKey: "List");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamListTest.cs", "Crud-List-FeatureTest", templateKey: "List");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Teams" / "TeamListPageTest.cs", "Crud-List-FeaturePageTest", templateKey: "List");
+        }
+
+        private static void ExportQueryList()
+        {
+            var featureDir = _dir / "src" / "Corpo.Skeleton" / "Features" / "Tickets";
+            var testDir = _dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Tickets";
+            var pageTestDir = _dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Tickets";
+            
+            ExportFile(featureDir / "TicketList.cs", "Query", "List");
+            ExportFile(featureDir / "List.cshtml", "Query.cshtml", "List");
+            
+            ExportFile(testDir / "TicketListTest.cs", "QueryTest", "List");
+            ExportFile(pageTestDir / "TicketListPageTest.cs", "QueryPageTest", "List");
         }
 
         private static void SaveMapForNewSolution()

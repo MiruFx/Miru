@@ -2,9 +2,9 @@ using Miru.Core;
 
 namespace Miru.Makers
 {
-    public static class FeatureAllMaker
+    public static class ScaffoldMaker
     {
-        public static void FeatureAll(this Maker maker, string @in, string name)
+        public static void Scaffold(this Maker maker, string @in, string name)
         {
             maker.Feature(@in, name, "New", "Crud-New", 
                 withTurboResult: false, withView: false, withFeatureTest: false, withPageTest: false);

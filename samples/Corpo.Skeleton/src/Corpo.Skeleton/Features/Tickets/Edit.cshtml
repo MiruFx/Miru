@@ -1,26 +1,27 @@
 @model TicketEdit.Command
 
-<div class="card mb-4">
-    <div class="card-body">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
+<div class="row justify-content-center">
+    <div class="col-md-8">
 
-                <h3 class="mb-4">Edit Skeleton</h3>
+        <h3>@(Model!.Id == 0 ? "New" : "Edit") Ticket</h3>
+        
+        <miru-form class="my-4">
 
-                <miru-form>
+            <miru-summary />
 
-                    <miru-summary class="my-3"/>
+            <miru-input for="Id" />
 
-                    <div class="my-3">
-                        <miru-label for="Name"/>
-                        <miru-input for="Name"/>
-                    </div>
-
-                    <miru-submit value="Save"/>
-
-                </miru-form>
-                
+            <div class="my-4">
+                <miru-label for="Name"/>
+                <miru-input for="Name"/>
+                <miru-validation for="Name"/>
             </div>
-        </div>
+
+            <div class="my-4">
+                <miru-submit value="Save" class="me-3"/>
+            </div>
+            
+        </miru-form>
+    
     </div>
 </div>

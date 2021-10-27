@@ -30,12 +30,16 @@ public class TicketEdit
             
         public async Task<Command> Handle(Query request, CancellationToken ct)
         {
-            return await Task.FromResult(new Command());
+            await Task.CompletedTask;
+            
+            return new Command();
         }
             
         public async Task<Result> Handle(Command request, CancellationToken ct)
         {
-            return await Task.FromResult(new Result());
+            await Task.CompletedTask;
+
+            return new Result();
         }
     }
 
@@ -43,7 +47,7 @@ public class TicketEdit
     {
         public Validator()
         {
-            RuleFor(m => m.Id).NotEmpty();
+            RuleFor(m => m.Name).NotEmpty();
         }
     }
         

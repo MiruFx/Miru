@@ -1,16 +1,10 @@
-using System;
 using {{ Solution.Name }}.Config;
-using {{ Solution.Name }}.Database;
-using {{ Solution.Name }}.Domain;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Miru;
 using Miru.Behaviors.BelongsToUser;
 using Miru.Foundation.Hosting;
-using Miru.Mailing;
-using Miru.Mvc;
 using Miru.Pipeline;
 using Miru.Queuing;
 using Miru.Sqlite;
@@ -57,7 +51,12 @@ public class Startup
             {
                 _.EmailDefaults(email => email.From("noreply@skeleton.com", "{{ Solution.ShortName }}"));
             })
-            .AddSenderSmtp()
+            
+            // SenderFileStorage saves emails at /storage/temp/emails
+            // for sending emails throught smtp, use SmtpSender instead of FileStorageSender:
+            // .AddSenderSmtp()
+            .AddFileStorageSender()
+
 
             .AddQueuing(_ =>
             {

@@ -15,7 +15,7 @@ namespace Miru.Tests.Html.TagHelpers
             // arrange
             var model = new TeamList.Result
             {
-                Teams = new List<TeamList.Item>()
+                Teams = new List<TeamList.TeamView>()
                 {
                     new() {Id = 1, Name = "iPhone"},
                     new() {Id = 2, Name = "Samsung"}
@@ -37,7 +37,7 @@ namespace Miru.Tests.Html.TagHelpers
             // arrange
             var model = new TeamList.Result
             {
-                Teams = new List<TeamList.Item>
+                Teams = new List<TeamList.TeamView>
                 {
                     new() {Id = 1, Name = "iPhone"}
                 }
@@ -56,7 +56,7 @@ namespace Miru.Tests.Html.TagHelpers
         public void Should_not_render_table_for_empty_model()
         {
             // arrange
-            var model = new TeamList.Result { Teams = new List<TeamList.Item>() };
+            var model = new TeamList.Result { Teams = new List<TeamList.TeamView>() };
             var tag = CreateTag(new TableTagHelper(), model, m => m.Teams);
 
             // act

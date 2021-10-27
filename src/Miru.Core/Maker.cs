@@ -1,4 +1,6 @@
+using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Baseline;
 using Scriban;
@@ -7,6 +9,8 @@ namespace Miru.Core
 {
     public class Maker
     {
+        public bool DryRun { get; set; }
+        
         public static Maker For(MiruPath currentDirectory)
         {
             return new Maker(new MiruSolution(currentDirectory));
@@ -24,6 +28,7 @@ namespace Miru.Core
         
         public Maker(MiruSolution solution)
         {
+            DryRun = Environment.GetCommandLineArgs().Contains("--dry");
             Solution = solution;
         }
 
@@ -35,7 +40,8 @@ namespace Miru.Core
             
             var shortDestination = Path.Combine(paths);
             
-            System.IO.Directory.CreateDirectory(newDir);
+            if (!DryRun)
+                System.IO.Directory.CreateDirectory(newDir);
             
             Console2.YellowLine($"\tCreate\t{(paths.Length > 0 ? shortDestination : newDir.ToString())}");
         }
@@ -71,9 +77,12 @@ namespace Miru.Core
                 MiruInfo.MiruVersion,
                 input
             }, member => member.Name);
-            
-            Directories.CreateIfNotExists(Path.GetDirectoryName(destination));
-            File.AppendAllText(destination, result);
+
+            if (!DryRun)
+            {
+                Directories.CreateIfNotExists(Path.GetDirectoryName(destination));
+                File.AppendAllText(destination, result);
+            }
         }
 
         private Template GetTemplate(string templateName)

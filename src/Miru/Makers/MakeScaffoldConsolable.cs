@@ -5,10 +5,10 @@ using Miru.Core;
 
 namespace Miru.Makers
 {
-    public class MakeFeatureAllConsolable : Consolable
+    public class MakeScaffoldConsolable : Consolable
     {
-        public MakeFeatureAllConsolable() :
-            base("make.features.all", "Make scaffold with new new, edit, list, and delete features")
+        public MakeScaffoldConsolable() :
+            base("make.scaffold", "Make scaffold with new new, edit, list, and delete features")
         {
             Add(new Argument<string>("in"));
             Add(new Argument<string>("name"));
@@ -32,7 +32,7 @@ namespace Miru.Makers
             
                 Console2.BreakLine();
                 
-                maker.FeatureAll(In, Name);
+                maker.Scaffold(In, Name);
                 
                 Console2.BreakLine();
                 Console2.WhiteLine($"Consider creating an Entity and a Migration for {Name}");

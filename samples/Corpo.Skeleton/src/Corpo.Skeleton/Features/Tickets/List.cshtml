@@ -1,0 +1,37 @@
+@model TicketList.Result
+
+<h3>Tickets</h3>
+
+<div class="my-4">
+    <a for="@(new TicketList())" class="me-3"><i class="fas fa-plus-circle me-1"></i>Option 1</a>
+    <a for="@(new TicketList())" class="me-3"><i class="fas fa-plus-circle me-1"></i>Option 2</a>
+</div>
+
+<div miru-if-empty="@Model!.Tickets" class="alert alert-warning">
+    There are no Tickets to show
+</div>
+
+<miru-table for="Tickets" class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <miru-th for="Tickets[0].Id" />
+            <miru-th for="Tickets[0].Name" />
+        </tr>
+    </thead>
+    <tbody>
+
+    @{ var i = 0; }
+    @foreach (var item in Model.Tickets)
+    {
+        <tr>
+            <miru-td for="Tickets[i].Id">
+                # <miru-display for="Tickets[i].Id"/>
+            </miru-td>
+            <miru-td for="Tickets[i].Name" />
+        </tr>
+        
+        i++;
+    }
+
+    </tbody>
+</miru-table>

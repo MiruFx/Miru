@@ -1,16 +1,15 @@
 using FluentMigrator;
 using Miru.Databases.Migrations.FluentMigrator;
 
-namespace Corpo.Skeleton.Database.Migrations
+namespace Corpo.Skeleton.Database.Migrations;
+ 
+[Migration(999999999999)]
+public class CreateCards : AutoReversingMigration
 {
-    [Migration(999999999999)]
-    public class CreateCards : AutoReversingMigration
+    public override void Up()
     {
-        public override void Up()
-        {
-            Create.Table("TableName")
-                .WithColumn("Id").AsId()
-                .WithColumn("Name").AsString(64);
-        }
+        Create.Table("TableName")
+            .WithColumn("Id").AsId()
+            .WithColumn("Name").AsString(64);
     }
 }

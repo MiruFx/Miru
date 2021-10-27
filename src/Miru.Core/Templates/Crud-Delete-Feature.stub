@@ -30,9 +30,8 @@ public class {{ input.Name }}Delete
             var {{ string.downcase input.Name }} = await _db.{{ input.In }}.ByIdOrFailAsync(request.Id, ct);
 
             _db.{{ input.In }}.Remove({{ string.downcase input.Name }});
-                
-            return new FeatureResult<{{ input.Name }}List>()
-                .Success($"{{ input.Name }} {0} has been deleted");
+
+            return new FeatureResult<{{ input.Name }}List>();
         }
     }
 

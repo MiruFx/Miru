@@ -8,10 +8,10 @@ public class TeamList
 
     public class Result
     {    
-        public IReadOnlyList<Item> Teams { get; set; } = new List<Item>();
+        public IReadOnlyList<TeamView> Teams { get; set; } = new List<TeamView>();
     }
 
-    public class Item
+    public class TeamView
     {
         public long Id { get; set; }
         public string Name { get; set; }
@@ -31,7 +31,7 @@ public class TeamList
             return new Result
             {
                 Teams = await _db.Teams
-                    .Select(m => new Item
+                    .Select(m => new TeamView
                     {
                         Id = m.Id,
                         Name = m.Name

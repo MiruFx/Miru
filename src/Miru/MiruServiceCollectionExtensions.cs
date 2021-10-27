@@ -54,8 +54,8 @@ namespace Miru
             
             services.AddConsolable<ConfigShowConsolable>();
             services.AddConsolable<ConfigServicesConsolable>();
-            services.AddConsolable<MakeAppSettingsConsolable>();
-            services.AddConsolable<MakeFeatureAllConsolable>();
+
+            services.AddMakers();
             
             services.AddSingleton<IJsonConverter, JsonConverter>();
             services.AddStorage();
