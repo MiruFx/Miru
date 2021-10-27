@@ -1,0 +1,32 @@
+using {{ Solution.Name }}.Features.{{ input.In }};
+
+namespace {{ Solution.Name }}.Tests.Features.{{ input.In }};
+
+public class {{ input.Name }}{{ input.Action }}Test : FeatureTest
+{
+    [Test]
+    public async Task Can_{{ string.downcase input.Action }}_{{ string.downcase input.Name }}()
+    {
+        // arrange
+        var {{ string.downcase input.Name }} = _.MakeSaving<{{ input.Name }}>();
+        var command = _.Make<{{ input.Name }}{{ input.Action }}.Command>(m => m.Id = {{ string.downcase input.Name }}.Id);
+
+        // act
+        var result = await _.SendAsync(command);
+
+        // assert
+        var saved = _.Db(db => db.{{ input.In }}.First());
+        saved.Name.ShouldBe(command.Name);
+    }
+
+    public class Validations : ValidationTest<{{ input.Name }}{{ input.Action }}.Command>
+    {
+        [Test]
+        public void Name_is_required()
+        {
+            ShouldBeValid(m => m.Name, Request.Name);
+            
+            ShouldBeInvalid(m => m.Name, string.Empty);
+        }
+    }
+}

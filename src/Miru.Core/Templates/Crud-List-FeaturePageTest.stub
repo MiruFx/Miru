@@ -1,0 +1,27 @@
+using {{ Solution.Name }}.Domain;
+using {{ Solution.Name }}.Features.{{ input.In }};
+using Miru;
+using Miru.PageTesting;
+using Miru.Testing;
+using NUnit.Framework;
+
+namespace {{ Solution.Name }}.PageTests.Pages.{{ input.In }}
+{
+    public class {{ input.Name }}{{ input.Action }}PageTest : PageTest
+    {
+        [Test]
+        public void Can_{{ string.downcase input.Action }}_{{ string.downcase input.In }}()
+        {
+            var {{ string.downcase input.In }} = _.MakeManySaving<{{ input.Name }}>();
+            
+            _.Visit<{{ input.Name }}{{ input.Action }}>();
+            
+            _.ShouldHaveText("{{ input.In }}");
+
+            _.Display<{{ input.Name }}{{ input.Action }}.Result>(x =>
+            {
+                x.ShouldHave(m => m.{{ input.In }}[0].Name, {{ string.downcase input.In }}.At(0).Name);
+            });
+        }
+    }
+}

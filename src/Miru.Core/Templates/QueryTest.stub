@@ -1,0 +1,23 @@
+using {{ Solution.Name }}.Features.{{ input.In }};
+using {{ Solution.Name }}.Features.{{ input.In }};
+
+namespace {{ Solution.Name }}.Tests.Features.{{ input.In }};
+
+public class {{ input.Name }}{{ input.Action }}Test : FeatureTest
+{
+    [Test]
+    public async Task Can_{{ string.downcase input.Action }}_{{ string.downcase input.In }}()
+    {
+        // arrange
+        // var {{ string.downcase input.In }} = _.MakeManySaving<{{ input.Name }}>();
+            
+        // act
+        var result = await _.SendAsync(new {{ input.Name }}{{ input.Action }}.Query());
+            
+        // assert
+        result.{{ input.In }}.ShouldNotBeNull();
+        
+        // result.{{ input.In }}.First().Name.ShouldBe({{ string.downcase input.In }}.First().Name);
+        // result.{{ input.In }}.Last().Name.ShouldBe({{ string.downcase input.In }}.Last().Name);
+    }
+}

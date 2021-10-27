@@ -1,0 +1,13 @@
+@model {{ Solution.Name }}.Domain.User
+
+<h2>Title</h2>
+
+<markdown>
+### Sub Title
+
+Content in markdown, @Model.Email!
+
+Regards,
+
+Miru
+</markdown>

@@ -134,7 +134,7 @@ namespace Scripts
             ExportFile(featureDir / "List.cshtml", "Query.cshtml", "List");
             
             ExportFile(testDir / "TicketListTest.cs", "QueryTest", "List");
-            ExportFile(pageTestDir / "TicketListPageTest.cs", "QueryPageTest", "List");
+            // ExportFile(pageTestDir / "TicketListPageTest.cs", "QueryPageTest", "List");
         }
 
         private static void SaveMapForNewSolution()

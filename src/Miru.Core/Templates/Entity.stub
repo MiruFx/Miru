@@ -1,0 +1,8 @@
+using Miru.Domain;
+
+namespace {{ Solution.Name }}.Domain;
+
+public class {{ input.Name }} : Entity
+{
+    public string Name { get; set; }
+}

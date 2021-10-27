@@ -1,0 +1,18 @@
+using {{ Solution.Name }}.Features.{{ input.In }};
+
+namespace {{ Solution.Name }}.Tests.Features.{{ input.In }};
+
+public class {{ input.Name }}{{ input.Action }}Test : FeatureTest
+{
+    [Test]
+    public async Task Can_handle_{{ string.downcase input.Action }}_{{ string.downcase input.Name }}_job()
+    {
+        // arrange
+        var command = _.Make<{{ input.Name }}{{ input.Action }}.Job>();
+            
+        // act
+        await _.SendAsync(command);
+            
+        // assert
+    }
+}

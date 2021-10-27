@@ -1,0 +1,69 @@
+namespace {{ Solution.Name }}.Features.{{ input.In }};
+
+public class {{ input.Name }}{{ input.Action }}
+{
+    public class Query : IRequest<Command>
+    {
+        public long Id { get; set; }
+    }
+        
+    public class Command : IRequest<FeatureResult>
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class Handler : 
+        IRequestHandler<Query, Command>, 
+        IRequestHandler<Command, FeatureResult>
+    {
+        private readonly {{ Solution.ShortName }}DbContext _db;
+            
+        public Handler({{ Solution.ShortName }}DbContext db)
+        {
+            _db = db;
+        }
+            
+        public async Task<Command> Handle(Query request, CancellationToken ct)
+        {
+            var {{ string.downcase input.Name }} = await _db.{{ input.In }}.ByIdOrNewAsync(request.Id, ct);
+                
+            return new Command
+            {
+                Id = {{ string.downcase input.Name }}.Id,
+                Name = {{ string.downcase input.Name }}.Name
+            };
+        }
+            
+        public async Task<FeatureResult> Handle(Command request, CancellationToken ct)
+        {
+            var {{ string.downcase input.Name }} = await _db.{{ input.In }}.ByIdOrNewAsync(request.Id, ct);
+                
+            {{ string.downcase input.Name }}.Name = request.Name;
+
+            await _db.AddOrUpdateAsync({{ string.downcase input.Name }}, ct);
+
+            return new FeatureResult<{{ input.Name }}List>();
+        }
+    }
+
+    public class Validator : AbstractValidator<Command>
+    {
+        public Validator()
+        {
+            RuleFor(m => m.Name).NotEmpty();
+        }
+    }
+        
+    public class {{ input.In }}Controller : MiruController
+    {
+        [HttpGet("/{{ input.In }}/New")]
+        public async Task<Command> {{ input.Action }}({{ input.Name }}New query) => await SendAsync(new Query());
+            
+        [HttpGet("/{{ input.In }}/{id:long}/{{ input.Action }}")]
+        public async Task<Command> {{ input.Action }}(Query query) => await SendAsync(query);
+
+        [HttpPost("/{{ input.In }}/{{ input.Action }}")]
+        public async Task<FeatureResult> {{ input.Action }}(Command command) => await SendAsync(command);
+    }
+}
