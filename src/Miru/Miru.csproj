@@ -19,7 +19,7 @@
         <PackageReference Include="YamlDotNet" Version="11.2.1" />
         <PackageReference Include="Scriban" Version="4.0.2" />
         <PackageReference Include="Scrutor" Version="3.3.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.0-rc.2.21480.10" />
+<!--        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.0-rc.2.21480.10" />-->
         <PackageReference Include="Humanizer.Core" Version="2.11.10" />
         
         <!-- Data -->

@@ -50,7 +50,7 @@ namespace Miru
                     mvc?.Invoke(options);
                 })
                 .AddMiruActionResult()
-                .AddRazorRuntimeCompilation()
+                // .AddRazorRuntimeCompilation()
                 .AddMiruNestedControllers();
 
             if (miruOptions.EnableFeatureFolders)

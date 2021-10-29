@@ -1,6 +1,7 @@
 using System;
 using FluentMigrator.Runner;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Miru.Consolables;
 using Miru.Core;
 using Miru.Databases.Migrations.FluentMigrator;
@@ -26,7 +27,7 @@ namespace Miru.Databases.Migrations
                 {
                     migrationRunnerBuilder?.Invoke(rb);
                     
-                    rb.WithGlobalConnectionString(sp.GetService<DatabaseOptions>().ConnectionString)
+                    rb.WithGlobalConnectionString(sp.GetRequiredService<IOptions<DatabaseOptions>>().Value.ConnectionString)
                         .ScanIn(typeof(TStartup).Assembly).For.All();
                 })
                 .AddLogging(lb => lb.AddFluentMigratorConsole())

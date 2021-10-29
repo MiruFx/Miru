@@ -1,8 +1,10 @@
+using System;
 using System.Text;
 using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Miru.Databases.EntityFramework;
 using Miru.Databases.Migrations;
 using Miru.Foundation.Hosting;
@@ -19,11 +21,16 @@ namespace Miru.Postgres
             
             services.AddDbContext<TDbContext>((sp, options) =>
             {
-                var dbOptions = sp.GetService<DatabaseOptions>();
+                var dbOptions = sp.GetRequiredService<IOptions<DatabaseOptions>>().Value;
 
                 options.UseNpgsql(dbOptions.ConnectionString);
-
-                if (sp.GetService<IHostEnvironment>().IsDevelopmentOrTest())
+                
+                // TODO: investigate more
+                AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+                
+                var hostEnvironment = sp.GetService<IHostEnvironment>();
+                
+                if (hostEnvironment != null && hostEnvironment.IsDevelopmentOrTest())
                 {
                     options.EnableSensitiveDataLogging();
                 }

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Miru.Databases;
 using Miru.Settings;
+using Npgsql;
 using Respawn;
 
 namespace Miru.Postgres
@@ -22,6 +23,10 @@ namespace Miru.Postgres
 
         public async Task ClearAsync()
         {
+            await using var conn = new NpgsqlConnection(_databaseOptions.ConnectionString);
+            
+            await conn.OpenAsync();
+
             var checkpoint = new Checkpoint
             {
                 DbAdapter = DbAdapter.Postgres,
@@ -29,7 +34,7 @@ namespace Miru.Postgres
                 SchemasToExclude = new string[] { }
             };
             
-            await checkpoint.Reset(_databaseOptions.ConnectionString);
+            await checkpoint.Reset(conn);
         }
     }
 }

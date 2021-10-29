@@ -71,6 +71,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground.PageTests", "sam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.Storage.Ftp", "src\Miru.Storage.Ftp\Miru.Storage.Ftp.csproj", "{CFB39F2B-9140-40F7-9316-AA79A359DD3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.Postgres.Tests", "tests\Miru.Postgres.Tests\Miru.Postgres.Tests.csproj", "{B3920A7E-5A82-4122-ACFE-CA04ABEAB9DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -165,6 +167,10 @@ Global
 		{CFB39F2B-9140-40F7-9316-AA79A359DD3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFB39F2B-9140-40F7-9316-AA79A359DD3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFB39F2B-9140-40F7-9316-AA79A359DD3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3920A7E-5A82-4122-ACFE-CA04ABEAB9DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3920A7E-5A82-4122-ACFE-CA04ABEAB9DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3920A7E-5A82-4122-ACFE-CA04ABEAB9DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3920A7E-5A82-4122-ACFE-CA04ABEAB9DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -179,6 +185,7 @@ Global
 		{959F8C00-A5A8-4E8F-AB28-6368A5D376C4} = {746A369D-7988-447F-BE6B-29CEC5D32C36}
 		{71AB9346-094B-4AC9-BAE3-E061F0742417} = {746A369D-7988-447F-BE6B-29CEC5D32C36}
 		{659708D1-CCCE-4994-AC66-4D0DCCC63295} = {746A369D-7988-447F-BE6B-29CEC5D32C36}
+		{B3920A7E-5A82-4122-ACFE-CA04ABEAB9DF} = {82032D85-4BA1-4F07-89CE-F95685393764}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61193018-93E9-471E-B8AE-1A5B27D527F3}

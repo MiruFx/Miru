@@ -49,14 +49,13 @@ public class Startup
 
             .AddMailing(_ =>
             {
-                _.EmailDefaults(email => email.From("noreply@skeleton.com", "Skeleton"));
+                _.EmailDefaults(email => email.From("noreply@company.com", "Skeleton"));
             })
             
             // SenderFileStorage saves emails at /storage/temp/emails
             // for sending emails throught smtp, use SmtpSender instead of FileStorageSender:
             // .AddSenderSmtp()
             .AddFileStorageSender()
-
 
             .AddQueuing(_ =>
             {

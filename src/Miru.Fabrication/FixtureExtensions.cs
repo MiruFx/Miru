@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AutoFixture;
 using Baseline.Dates;
@@ -48,6 +49,9 @@ namespace Miru.Fabrication
                 
                 // CreditCard
                 _.IfPropertyNameIs("CreditCard").Use(f => f.Finance.CreditCardNumber());
+                
+                // Dates
+                // _.IfPropertyTypeIs<DateTimeOffset>().Use(f => f.Date.FutureOffset().Time);
             });
             
             return fixture;

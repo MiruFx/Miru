@@ -20,8 +20,8 @@ namespace Scripts
             
             OS.ShellToConsole("miru new Supportreon", tempDir);
             OS.ShellToConsole("dotnet build", solutionDir);
-            OS.ShellToConsole("miru @app npm install", solutionDir);
-            OS.ShellToConsole("miru @app npm run dev", solutionDir);
+            OS.ShellToConsole("miru app npm install", solutionDir);
+            OS.ShellToConsole("miru app npm run dev", solutionDir);
             
             OS.ShellToConsole("miru make:migration CreateProjects", solutionDir);
             OS.ShellToConsole("miru make:entity Project", solutionDir);

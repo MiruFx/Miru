@@ -20,12 +20,15 @@ namespace Miru.Databases.EntityFramework
             // ConnectionString transformation
             services.PostConfigureAll<DatabaseOptions>(settings =>
             {
-                var dbDir = App.Solution.StorageDir / "db" / ".";
+                if (App.Solution != null)
+                {
+                    var dbDir = App.Solution.StorageDir / "db" / ".";
                 
-                settings.ConnectionString = 
-                    settings.ConnectionString?.Replace("{{ db_dir }}", dbDir);
+                    settings.ConnectionString = 
+                        settings.ConnectionString?.Replace("{{ db_dir }}", dbDir);
                 
-                Directories.CreateIfNotExists(dbDir);
+                    Directories.CreateIfNotExists(dbDir);   
+                }
             });
             
             return services;
