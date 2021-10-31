@@ -9,7 +9,7 @@ public class CreateUserfy : AutoReversingMigration
     public override void Up()
     {
         Create.Table("Users")
-            .WithColumn("Id").AsInt64().NotNullable().PrimaryKey()
+            .WithColumn("Id").AsInt64().NotNullable().PrimaryKey().Identity()
             .WithColumn("UserName").AsString(256).Nullable()
             .WithColumn("NormalizedUserName").AsString(256).Nullable()
             .WithColumn("Email").AsString(256).Nullable()
@@ -26,7 +26,7 @@ public class CreateUserfy : AutoReversingMigration
             .WithColumn("AccessFailedCount").AsInt32().NotNullable();
 
         Create.Table("Roles")
-            .WithColumn("Id").AsInt64().PrimaryKey().NotNullable()
+            .WithColumn("Id").AsInt64().PrimaryKey().NotNullable().Identity()
             .WithColumn("ConcurrencyStamp").AsString().Nullable()
             .WithColumn("Name").AsString(256).NotNullable()
             .WithColumn("NormalizedName").AsString(256).Nullable().Indexed();

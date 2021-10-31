@@ -134,7 +134,15 @@ namespace Miru.Testing
         {
             var file = File.ReadAllText(fileName);
 
-            lines.Each(line => file.ShouldContain(line));
+            try
+            {
+                lines.Each(line => file.ShouldContain(line));
+            }
+            catch (Exception)
+            {
+                Console.WriteLine(file);
+                throw;
+            }
         }
         
         public static void ShouldExist(this MiruPath fileName)

@@ -8,6 +8,8 @@ namespace Miru.Core
     {
         public static bool FileExists(this MiruPath path) => File.Exists(path);
         
+        public static bool FileDoesNotExist(this MiruPath path) => File.Exists(path) == false;
+        
         public static string Relative(this MiruPath current, string path) => Path.GetRelativePath(current, path);
         
         public static void DeleteIfExists(this MiruPath miruPath) => Core.Files.DeleteIfExists(miruPath.ToString());

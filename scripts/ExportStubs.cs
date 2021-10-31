@@ -77,10 +77,10 @@ namespace Scripts
             ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Tickets" / "TicketEditPageTest.cs", "CommandPageTest", "Edit");
             
             // Query-Show
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Tickets" / "TicketShow.cs", "Query", "Show");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Tickets" / "Show.cshtml", "Query.cshtml", "Show");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Tickets" / "TicketShowTest.cs", "QueryTest", "Show");
-            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Tickets" / "TicketShowPageTest.cs", "QueryPageTest", "Show");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Tickets" / "TicketShow.cs", "Show-Query", "Show");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Tickets" / "Show.cshtml", "Show-Query.cshtml", "Show");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Tickets" / "TicketShowTest.cs", "Show-QueryTest", "Show");
+            ExportFile(_dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Tickets" / "TicketShowPageTest.cs", "Show-QueryPageTest", "Show");
             
             // Query-List
             ExportQueryList();
@@ -130,11 +130,11 @@ namespace Scripts
             var testDir = _dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Tickets";
             var pageTestDir = _dir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Tickets";
             
-            ExportFile(featureDir / "TicketList.cs", "Query", "List");
-            ExportFile(featureDir / "List.cshtml", "Query.cshtml", "List");
+            ExportFile(featureDir / "TicketList.cs", "List-Query", "List");
+            ExportFile(featureDir / "List.cshtml", "List-Query.cshtml", "List");
             
-            ExportFile(testDir / "TicketListTest.cs", "QueryTest", "List");
-            /// ExportFile(pageTestDir / "TicketListPageTest.cs", "QueryPageTest", "List");
+            ExportFile(testDir / "TicketListTest.cs", "List-QueryTest", "List");
+            ExportFile(pageTestDir / "TicketListPageTest.cs", "List-QueryPageTest", "List");
         }
 
         private static void SaveMapForNewSolution()

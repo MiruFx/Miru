@@ -1,0 +1,19 @@
+using {{ Solution.Name }}.Features.{{ input.In }};
+
+namespace {{ Solution.Name }}.Tests.Features.{{ input.In }};
+
+public class {{ input.Name }}{{ input.Action }}Test : FeatureTest
+{
+    [Test]
+    public async Task Can_{{ string.downcase input.Action }}_{{ string.downcase input.Name }}()
+    {
+        // arrange
+        // var {{ string.downcase input.Name }} = _.MakeSaving<{{ input.Name }}>();
+            
+        // act
+        var result = await _.SendAsync(new {{ input.Name }}{{ input.Action }}.Query { Id = 1 });
+            
+        // assert
+        // result.ShouldBe();
+    }
+}

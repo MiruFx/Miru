@@ -1,0 +1,49 @@
+namespace {{ Solution.Name }}.Features.{{ input.In }};
+
+public class {{ input.Name }}{{ input.Action }}
+{
+    public class Query : IRequest<Result>
+    {
+    }
+
+    public class Result
+    {    
+        public IReadOnly{{ input.Action }}<{{ input.Name }}View> {{ input.In }} { get; set; } = new {{ input.Action }}<{{ input.Name }}View>();
+    }
+
+    public class {{ input.Name }}View
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class Handler : IRequestHandler<Query, Result>
+    {
+        private readonly {{ Solution.ShortName }}DbContext _db;
+            
+        public Handler({{ Solution.ShortName }}DbContext db)
+        {
+            _db = db;
+        }
+            
+        public async Task<Result> Handle(Query request, CancellationToken ct)
+        {
+            await Task.CompletedTask;
+            
+            return new Result
+            {
+                {{ input.In }} = new {{ input.Action }}<{{ input.Name }}View>
+                {
+                    new() { Id = 1, Name = "Remove virus from Accounting computer" },
+                    new() { Id = 2, Name = "Change CEO's keyboard" },
+                }
+            };
+        }
+    }
+        
+    public class {{ input.In }}Controller : MiruController
+    {
+        [HttpGet("/{{ input.In }}")]
+        public async Task<Result> {{ input.Action }}(Query request) => await SendAsync(request);
+    }
+}

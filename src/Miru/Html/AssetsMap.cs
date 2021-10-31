@@ -2,28 +2,37 @@ using System.Collections.Generic;
 using System.IO;
 using Miru.Core;
 
-namespace Miru.Html
+namespace Miru.Html;
+
+public class AssetsMap
 {
-    public class AssetsMap
+    private readonly Dictionary<string, string> _map;
+
+    public AssetsMap(MiruSolution solution)
     {
-        private readonly Dictionary<string, string> _map;
+        var mixManifestPath = solution.AppDir / "wwwroot" / "mix-manifest.json";
 
-        public AssetsMap(MiruSolution solution)
+        if (mixManifestPath.FileDoesNotExist())
         {
-            var mixManifestPath = solution.AppDir / "wwwroot" / "mix-manifest.json";
-            
-            // TODO: better exception message to the developer when 'mix-manifest.json' does not exists 
-            var mixManifest = File.ReadAllText(mixManifestPath);
-            
-            _map = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(mixManifest);
-        }
+            throw new MiruException(@$"The file {mixManifestPath} could not be found.
 
-        public string For(string path)
-        {
-            if (_map.TryGetValue(path, out string mixedPath))
-                return mixedPath;
+It is used by Miru to reference the correct frontend assets (css, js, images, and etc).
 
-            return path;
+To generate it, run the command 'miru app npm run dev'.
+
+More details at https://mirufx.github.io/Frontend/JavascriptCssAssets.html#bundling");
         }
+            
+        var mixManifest = File.ReadAllText(mixManifestPath);
+            
+        _map = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(mixManifest);
+    }
+
+    public string For(string path)
+    {
+        if (_map.TryGetValue(path, out string mixedPath))
+            return mixedPath;
+
+        return path;
     }
 }

@@ -1,36 +1,44 @@
+using System.CommandLine;
+using System.Threading.Tasks;
 using Miru.Consolables;
 using Miru.Core;
 
-namespace Miru.Makers
+namespace Miru.Makers;
+
+public class MakeCommandConsolable : Consolable
 {
-    // [Description("Make a new Command", Name = "make:command")]
-    // public class MakeCommandConsolable : OaktonConsolableSync<MakeCommandConsolable.Input>
-    // {
-    //     private readonly MiruSolution _solution;
-    //
-    //     public MakeCommandConsolable(MiruSolution solution)
-    //     {
-    //         _solution = solution;
-    //     }
-    //
-    //     public class Input
-    //     {
-    //         public string In { get; set; }
-    //
-    //         public string Name { get; set; }
-    //         
-    //         public string Action { get; set; }
-    //     }
-    //     
-    //     public override bool Execute(Input input)
-    //     {
-    //         var make = new Maker(_solution);
-    //         
-    //         Console2.BreakLine();
-    //
-    //         make.Command(input.In, input.Name, input.Action);
-    //         
-    //         return true;
-    //     }
-    // }
+    public MakeCommandConsolable() :
+        base("make.command", "Make a new Command")
+    {
+        Add(new Argument<string>("in"));
+        Add(new Argument<string>("name"));
+        Add(new Argument<string>("action"));
+    }
+
+    public class ConsolableHandler : IConsolableHandler
+    {
+        private readonly MiruSolution _solution;
+    
+        public ConsolableHandler(MiruSolution solution)
+        {
+            _solution = solution;
+        }
+    
+        public string In { get; set; }
+        public string Name { get; set; }
+        public string Action { get; set; }
+        
+        public async Task Execute()
+        {
+            var make = new Maker(_solution);
+            
+            Console2.BreakLine();
+    
+            make.Command(In, Name, Action);
+            
+            Console2.BreakLine();
+
+            await Task.CompletedTask;
+        }   
+    }
 }

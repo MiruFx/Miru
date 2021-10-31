@@ -22,13 +22,13 @@ namespace Miru.Tests.Makers
         }
         
         [Test]
-        public void Make_a_query()
+        public void Make_a_query_using_show_template()
         {
             // arrange
             var m = new Maker(new MiruSolution(_solutionDir));
             
             // act
-            m.Query("Users", "User", "Show");
+            m.Query("Users", "User", "Show", "Show");
             
             // assert
             (m.Solution.FeaturesDir / "Users" / "UserShow.cs")
@@ -54,13 +54,45 @@ namespace Miru.Tests.Makers
         }
         
         [Test]
+        public void Make_a_query_using_list_template()
+        {
+            // arrange
+            var m = new Maker(new MiruSolution(_solutionDir));
+            
+            // act
+            m.Query("Users", "User", "List", "List");
+            
+            // assert
+            (m.Solution.FeaturesDir / "Users" / "UserList.cs")
+                .ShouldContain(
+                    "namespace Contoso.University.Features.Users",
+                    "public class UserList");
+            
+            (m.Solution.FeaturesDir / "Users" / "List.cshtml")
+                .ShouldContain(
+                    "@model UserList.Result");
+            
+            (m.Solution.AppTestsDir / "Features" / "Users" / "UserListTest.cs")
+                .ShouldContain(
+                    "namespace Contoso.University.Tests.Features.Users",
+                    "public class UserListTest : FeatureTest",
+                    "public async Task Can_list_users()");
+            
+            (m.Solution.AppPageTestsDir / "Pages" / "Users" / "UserListPageTest.cs")
+                .ShouldContain(
+                    "namespace Contoso.University.PageTests.Pages.Users",
+                    "public class UserListPageTest : PageTest",
+                    "public void Can_list_users()");
+        }
+        
+        [Test]
         public void Make_a_query_in_sub_folders()
         {
             // arrange
             var m = new Maker(new MiruSolution(_solutionDir));
             
             // act
-            m.Query("Admin/Report/Sales", "Sale", "Overview");
+            m.Query("Admin/Report/Sales", "Sale", "Overview", "Show");
             
             // assert
             (m.Solution.FeaturesDir / "Admin" / "Report" / "Sales" / "SaleOverview.cs")
