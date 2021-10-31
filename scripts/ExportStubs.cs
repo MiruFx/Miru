@@ -99,7 +99,7 @@ namespace Scripts
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamCreated.cs", "Job", templateKey: "Job");
             ExportFile(_dir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Teams" / "TeamCreatedTest.cs", "JobTest", templateKey: "Job");
             
-            // Email
+            // Email, Mailable
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "TeamCreatedMail.cs", "Mailable", templateKey: "Email");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Features" / "Teams" / "_Created.mail.cshtml", "MailTemplate", templateKey: "Email");
 

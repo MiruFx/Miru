@@ -1,6 +1,3 @@
-using Corpo.Skeleton.Domain;
-using Miru.Mailing;
-
 namespace Corpo.Skeleton.Features.Teams;
 
 public class TeamCreatedMail : Mailable

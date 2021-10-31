@@ -5,16 +5,14 @@ using Miru.Core;
 
 namespace Miru.Makers;
 
-public class MakeQueryConsolable : Consolable
+public class MakeQueryListConsolable : Consolable
 {
-    public MakeQueryConsolable() :
-        base("make.query", "Make a new Query")
+    public MakeQueryListConsolable() :
+        base("make.query.list", "Make a new Query for listing")
     {
         Add(new Argument<string>("in"));
         Add(new Argument<string>("name"));
         Add(new Argument<string>("action"));
-        // TODO: add validator
-        Add(new Option<string>("--template", "Which template to make? List or Show data"));
     }
 
     public class ConsolableHandler : IConsolableHandler
@@ -29,7 +27,6 @@ public class MakeQueryConsolable : Consolable
         public string In { get; set; }
         public string Name { get; set; }
         public string Action { get; set; }
-        public string Template { get; set; }
 
         public async Task Execute()
         {
@@ -37,7 +34,7 @@ public class MakeQueryConsolable : Consolable
 
             Console2.BreakLine();
 
-            make.Query(In, Name, Action, Template);
+            make.Query(In, Name, Action, "List");
 
             await Task.CompletedTask;
         }

@@ -5,13 +5,14 @@ using Miru.Core;
 
 namespace Miru.Makers;
 
-public class MakeMailableConsolable : Consolable
+public class MakeQueryShowConsolable : Consolable
 {
-    public MakeMailableConsolable() :
-        base("make.mailable", "Make a new Mailable with email template")
+    public MakeQueryShowConsolable() :
+        base("make.query.show", "Make a new Query for showing")
     {
         Add(new Argument<string>("in"));
         Add(new Argument<string>("name"));
+        Add(new Argument<string>("action"));
     }
 
     public class ConsolableHandler : IConsolableHandler
@@ -24,8 +25,8 @@ public class MakeMailableConsolable : Consolable
         }
 
         public string In { get; set; }
-
         public string Name { get; set; }
+        public string Action { get; set; }
 
         public async Task Execute()
         {
@@ -33,9 +34,7 @@ public class MakeMailableConsolable : Consolable
 
             Console2.BreakLine();
 
-            make.Mail(In, Name);
-            
-            Console2.BreakLine();
+            make.Query(In, Name, Action, "Show");
 
             await Task.CompletedTask;
         }
