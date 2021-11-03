@@ -1,4 +1,3 @@
-using Corpo.Skeleton.Features.Teams;
 using Corpo.Skeleton.Features.Tickets;
 
 namespace Corpo.Skeleton.Tests.Features.Tickets;
@@ -20,7 +19,7 @@ public class TicketEditTest : FeatureTest
         // saved.Name.ShouldBe(command.Name);
     }
 
-    public class Validations : ValidationTest<TeamEdit.Command>
+    public class Validations : ValidationTest<TicketEdit.Command>
     {
         [Test]
         public void Name_is_required()
