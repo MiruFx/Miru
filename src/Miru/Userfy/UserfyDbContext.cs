@@ -14,6 +14,16 @@ namespace Miru.Userfy
         public UserfyDbContext(DbContextOptions options, IEnumerable<IInterceptor> interceptors)
             : base(options, interceptors)
         {
+            foreach (var interceptor in interceptors)
+            {
+                if (interceptor is QueryFiltersInterceptor queryFiltersInterceptor)
+                {
+                    foreach (var queryFilter in queryFiltersInterceptor.Filters)
+                    {
+                        queryFilter.Apply(this);
+                    }
+                }
+            }
         }
     }
     

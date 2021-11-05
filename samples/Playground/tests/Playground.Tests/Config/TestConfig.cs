@@ -17,7 +17,7 @@ namespace Playground.Tests.Config
             services
                 .AddFeatureTesting()
                 .AddTestingUserSession<User>()
-                .AddSqliteDatabaseCleaner()
+                .AddDatabaseCleaner<SqliteDatabaseCleaner>()
                 .AddQueueCleaner<LiteDbQueueCleaner>();
 
             // Mock your services that talk with external apps

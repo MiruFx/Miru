@@ -17,7 +17,7 @@ Url:
 Database:
   # Check more database and options at connectionstrings.com
   # Sqlite
-  ConnectionString: DataSource={%{{{ db_dir }}}%}App_dev.db
+  ConnectionString: DataSource={%{{{ db_dir }}}%}App_{%{{{ input.environment }}}%}.db
   # MySql
   # ConnectionString: Server=localhost;Database=database;Uid=user;Pwd=password;
   # Postgres

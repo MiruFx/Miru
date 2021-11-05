@@ -1,3 +1,4 @@
+using System;
 using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,9 +10,12 @@ using Miru.Settings;
 
 namespace Miru.SqlServer
 {
-    public static class EfCoreSqlServerServiceCollectionExtensions
+    public static class EfCoreSqlServerRegistry
     {
-        public static IServiceCollection AddEfCoreSqlServer<TDbContext>(this IServiceCollection services) where TDbContext : DbContext
+        public static IServiceCollection AddEfCoreSqlServer<TDbContext>(
+            this IServiceCollection services,
+            Action<IServiceProvider, DbContextOptionsBuilder> optionsAction = null) 
+                where TDbContext : DbContext
         {
             services.AddEfCoreServices<TDbContext>();
 
@@ -26,6 +30,9 @@ namespace Miru.SqlServer
                 {
                     options.EnableSensitiveDataLogging();
                 }
+                
+                if (optionsAction != null)
+                    optionsAction.Invoke(sp, options);
             });
 
             services.AddMigrator<TDbContext>(mb => mb.AddSqlServer2016());

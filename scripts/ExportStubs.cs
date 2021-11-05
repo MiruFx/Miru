@@ -191,6 +191,7 @@ namespace Scripts
                 
                 .Replace("Corpo.Skeleton", "{{ Solution.Name }}")
                 .Replace("Skeleton", "{{ Solution.ShortName }}")
+                .Replace("EnvironmentName", "{{ input.environment }}")
                 
                 .Replace("public DbSet<Team> Teams { get; set; }", "// public DbSet<Team> Teams { get; set; }")
                 .Replace("Teams", "{{ input.In }}")

@@ -11,6 +11,7 @@ namespace Miru.Queuing
         {
             var services = context.GetHttpContext().RequestServices;
 
+            // TODO: throw friendlier exception to a class implement IQueueAuthorizer
             var authorizer = services.GetRequiredService<IQueueAuthorizer>();
 
             return await authorizer.QueueAuthorizedAsync();

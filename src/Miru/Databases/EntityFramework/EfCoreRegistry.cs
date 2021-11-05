@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Core;
 using Miru.Settings;
 
 namespace Miru.Databases.EntityFramework
 {
-    public static class ServiceCollectionEfCoreExtensions
+    public static class EfCoreRegistry
     {
         public static IServiceCollection AddEfCoreServices<TDbContext>(this IServiceCollection services) 
             where TDbContext : DbContext
@@ -14,7 +15,7 @@ namespace Miru.Databases.EntityFramework
             
             services.AddTransient<IDatabaseCreator, EntityFrameworkDatabaseCreator>();
             
-            // Forward
+            // Forward DbContext to TDbContext
             services.ForwardScoped<DbContext, TDbContext>();
 
             // ConnectionString transformation
@@ -30,6 +31,8 @@ namespace Miru.Databases.EntityFramework
                     Directories.CreateIfNotExists(dbDir);   
                 }
             });
+
+            services.AddTransient<IInterceptor, QueryFiltersInterceptor>();
             
             return services;
         }

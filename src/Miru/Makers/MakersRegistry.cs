@@ -17,5 +17,6 @@ public static class MakersRegistry
             .AddConsolable<MakeQueryShowConsolable>()
             .AddConsolable<MakeCommandConsolable>()
             .AddConsolable<MakeMailableConsolable>()
+            .AddConsolable<MakeConsolableConsolable>()
             .AddConsolable<MakeMigrationConsolable>();
 }

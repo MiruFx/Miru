@@ -4,7 +4,7 @@ using FluentMigrator;
 namespace Corpo.Skeleton.Database.Migrations;
 
 [Migration(202001290120)]
-public class CreateUserfy : AutoReversingMigration
+public class CreateUsers : AutoReversingMigration
 {
     public override void Up()
     {

@@ -14,7 +14,7 @@ public class TestsConfig : ITestConfig
         services
             .AddFeatureTesting()
             .AddTestingUserSession<User>()
-            .AddSqliteDatabaseCleaner()
+            .AddDatabaseCleaner<SqliteDatabaseCleaner>()
             .AddQueueCleaner<LiteDbQueueCleaner>()
             .AddFabrication<{{ Solution.ShortName }}Fabricator>();
 

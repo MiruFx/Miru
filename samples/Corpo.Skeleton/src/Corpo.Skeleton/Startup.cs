@@ -45,7 +45,7 @@ public class Startup
                     cfg.User.RequireUniqueEmail = true;
                 })
             .AddAuthorizationRules<AuthorizationRulesConfig>()
-            .AddBelongsToUser<User>()
+            .AddBelongsToUser()
 
             .AddMailing(_ =>
             {
@@ -101,6 +101,10 @@ public class Startup
         {
             e.MapDefaultControllerRoute();
             e.MapRazorPages();
+            e.MapHangfireDashboard("/_queue", new DashboardOptions
+            {
+                AsyncAuthorization = new[] { new HangfireAuthorizationFilter() }
+            });
         });
     }
 }

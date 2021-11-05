@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Miru.Behaviors.BelongsToUser;
+using Miru.Behaviors.TimeStamp;
 using Miru.Config;
 using Miru.Consolables;
 using Miru.Core;
@@ -61,7 +63,7 @@ namespace Miru
             services.AddStorage();
 
             services.AddSingleton<ISessionStore, HttpSessionStore>();
-            
+
             return services;
         }
 

@@ -60,7 +60,7 @@ namespace Playground
                         cfg.User.RequireUniqueEmail = true;
                     })
                 .AddAuthorizationRules<AuthorizationRulesConfig>()
-                .AddBelongsToUser<User>()
+                .AddBelongsToUser()
 
                 .AddMailing(_ =>
                 {

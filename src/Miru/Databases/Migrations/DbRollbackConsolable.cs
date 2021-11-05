@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.CommandLine;
+using System.Threading.Tasks;
 using Miru.Consolables;
 
 namespace Miru.Databases.Migrations
@@ -9,6 +10,7 @@ namespace Miru.Databases.Migrations
         public DbRollbackConsolable()
             : base("db.rollback", "Rollback database schema")
         {
+            Add(new Option("--steps"));
         }
 
         public class ConsolableHandler : IConsolableHandler

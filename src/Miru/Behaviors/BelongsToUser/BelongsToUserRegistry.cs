@@ -6,10 +6,11 @@ namespace Miru.Behaviors.BelongsToUser
 {
     public static class BelongsToUserServiceCollectionExtensions
     {
-        public static IServiceCollection AddBelongsToUser<TUser>(this IServiceCollection services)
-            where TUser : UserfyUser
+        public static IServiceCollection AddBelongsToUser(this IServiceCollection services)
         {
-            return services.AddTransient<IInterceptor, BelongsToUserInterceptor<TUser>>();
+            return services
+                .AddScoped<IQueryFilter, BelongsToUserFilter>()
+                .AddScoped<IInterceptor, BelongsToUserInterceptor>();
         }
     }
 }

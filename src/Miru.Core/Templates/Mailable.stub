@@ -1,6 +1,3 @@
-using {{ Solution.Name }}.Domain;
-using Miru.Mailing;
-
 namespace {{ Solution.Name }}.Features.{{ input.In }};
 
 public class {{ input.Name }}{{ input.Action }}Mail : Mailable
