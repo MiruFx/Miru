@@ -9,7 +9,7 @@ namespace Miru.Behaviors.BelongsToUser
         public static IServiceCollection AddBelongsToUser(this IServiceCollection services)
         {
             return services
-                .AddScoped<IQueryFilter, BelongsToUserFilter>()
+                .AddScoped<IQueryFilter, BelongsToUserQueryFilter>()
                 .AddScoped<IInterceptor, BelongsToUserInterceptor>();
         }
     }

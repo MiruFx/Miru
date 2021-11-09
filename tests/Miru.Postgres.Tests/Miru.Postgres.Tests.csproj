@@ -15,7 +15,7 @@ Has to be .Sdk.Web to allow unit test asp.net components correctly
     <PackageReference Include="NUnit" Version="3.13.2" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="Alba" Version="4.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.0-rc.2.21480.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>

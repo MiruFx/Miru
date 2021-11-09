@@ -22,12 +22,12 @@ namespace Miru.Userfy
 
         public async Task<IdentityResult> RegisterAsync(
             TUser user, 
-            string userName,
+            string login,
             string password,
             CancellationToken ct)
         {
-            await _userStore.SetUserNameAsync(user, userName, ct);
-            await _emailStore.SetEmailAsync(user, userName, ct);
+            await _userStore.SetUserNameAsync(user, login, ct);
+            await _emailStore.SetEmailAsync(user, login, ct);
                 
             return await _userManager.CreateAsync(user, password);
         }

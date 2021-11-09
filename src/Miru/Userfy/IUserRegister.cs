@@ -8,7 +8,7 @@ public interface IUserRegister<TUser> where TUser : UserfyUser
 {
     Task<IdentityResult> RegisterAsync(
         TUser user, 
-        string email, 
+        string login, 
         string password, 
         CancellationToken ct);
 }

@@ -6,11 +6,11 @@ using Z.EntityFramework.Plus;
 
 namespace Miru.Behaviors.BelongsToUser;
 
-public class BelongsToUserFilter : IQueryFilter
+public class BelongsToUserQueryFilter : IQueryFilter
 {
     private readonly ICurrentUser _currentUser;
 
-    public BelongsToUserFilter(ICurrentUser currentUser) => _currentUser = currentUser;
+    public BelongsToUserQueryFilter(ICurrentUser currentUser) => _currentUser = currentUser;
 
     public void Apply(DbContext db)
     {
