@@ -16,14 +16,4 @@
     <Content Remove="wwwroot\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Features\Transfers\New\New.cshtml" />
-    <_ContentIncludedByDefault Remove="Features\Transfers\New\Pay.cshtml" />
-    <_ContentIncludedByDefault Remove="Features\Transfers\New\Pay.turbo.cshtml" />
-    <_ContentIncludedByDefault Remove="Features\Transfers\New\Recipient.cshtml" />
-    <_ContentIncludedByDefault Remove="Features\Transfers\New\Review.cshtml" />
-    <_ContentIncludedByDefault Remove="Features\Transfers\New\_New.turbo.cshtml" />
-    <_ContentIncludedByDefault Remove="Features\Transfers\New\_Progress.cshtml" />
-  </ItemGroup>
-
 </Project>

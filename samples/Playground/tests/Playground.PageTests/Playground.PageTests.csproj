@@ -9,8 +9,8 @@
         <ProjectReference Include="..\..\..\..\src\Miru.PageTesting\Miru.PageTesting.csproj"/>
         <ProjectReference Include="..\..\..\..\src\Miru.PageTesting.Chrome\Miru.PageTesting.Chrome.csproj"/>
 
-        <PackageReference Include="NUnit3TestAdapter" Version="4.0.0"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0"/>
+        <PackageReference Include="NUnit3TestAdapter" Version="4.1.0"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0"/>
         <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.29.1"/>
     </ItemGroup>
     
