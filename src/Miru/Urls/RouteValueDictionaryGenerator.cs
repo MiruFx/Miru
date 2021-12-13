@@ -176,6 +176,9 @@ namespace Miru.Urls
 
         private bool ShouldExcludeProperty(IEnumerable<Func<PropertyInfo, object, bool>> filters, PropertyInfo propertyInfo, object propertyValue)
         {
+            if (propertyInfo.HasAttribute<UrlIgnore>())
+                return true;
+            
             if (propertyInfo.CanWrite == false)
                 return true;
 
