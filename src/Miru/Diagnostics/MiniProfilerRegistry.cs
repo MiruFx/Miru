@@ -11,7 +11,8 @@ namespace Miru.Diagnostics
         {
             services.AddOptions<MiruMiniProfilerOptions>();
             
-            services.Configure(optionsConfig);
+            if (optionsConfig != null)
+                services.Configure(optionsConfig);
             
             services.AddMiniProfiler(x =>
                 {

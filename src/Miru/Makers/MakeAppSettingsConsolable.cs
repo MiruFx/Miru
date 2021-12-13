@@ -8,7 +8,7 @@ namespace Miru.Makers
     public class MakeAppSettingsConsolable : Consolable
     {
         public MakeAppSettingsConsolable() :
-            base("make.settings", "Make a new appSettings.yml")
+            base("make.app-settings", "Make a new appSettings.yml")
         {
             Add(new Argument<string>("environment"));
         }
@@ -28,8 +28,12 @@ namespace Miru.Makers
             {
                 var maker = new Maker(_solution);
             
+                Console2.BreakLine();
+                
                 maker.AppSettings(Environment);
 
+                Console2.BreakLine();
+                
                 return Task.CompletedTask;
             }
         }

@@ -372,6 +372,20 @@ namespace Miru.Tests.Urls
         [Test]
         public void Should_ignore_dictionary_properties()
         {
+            var request = new ProductsEdit.Command()
+            {
+                Id = 1,
+                ShouldIgnore = true
+            };
+
+            UrlLookup
+                .For(request)
+                .ShouldNotContain("ShouldIgnore");
+        }
+        
+        [Test]
+        public void Should_ignore_properties_marked_with_url_ignore()
+        {
             var request = new OrderList.Query();
 
             request.Categories.Count.ShouldBe(2);
@@ -579,6 +593,9 @@ namespace Miru.Tests.Urls
                 public string ReturnUrl { get; set; }
                 public string Name { get; set; }
                 public long Id { get; set; }
+                
+                [UrlIgnore]
+                public bool ShouldIgnore { get; set; }
             }
 
             public class ProductsController : MiruController

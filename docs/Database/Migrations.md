@@ -7,6 +7,16 @@ Create
 Migration
     create table
     changing columns
+    TODO: Naming
+        Create table
+        Alter table
+        Alter many tables
+        Rename table
+    TODO: Existing database
+        create a new database, for example for testing or staging environment
+        use a tool to export sql
+        add sql into the solution
+        create migration importing sql file
 Running
     up
     rollback

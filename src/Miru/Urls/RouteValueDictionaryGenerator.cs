@@ -208,6 +208,9 @@ namespace Miru.Urls
             List<KeyValuePair<Accessor, object>> withoutPropertyAndValues,
             object propertyValue)
         {
+            if (propertyInfo.HasAttribute<UrlIgnore>())
+                return true;
+            
             if (filters != null )
                 foreach (var filter in filters)
                     if (filter(propertyInfo, propertyValue) == false)

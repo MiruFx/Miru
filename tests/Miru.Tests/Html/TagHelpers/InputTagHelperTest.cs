@@ -42,6 +42,35 @@ namespace Miru.Tests.Html.TagHelpers
         }
         
         [Test]
+        public void Should_render_text_input_for_nested_list_property()
+        {
+            // arrange
+            var model = new Command
+            {
+                Interests = new List<Interest>()
+                {
+                    new Interest(),
+                    new Interest(),
+                    new Interest()
+                    {
+                        Attributes = new List<Attribute>()
+                        {
+                            new Attribute() { Name = "Category" },
+                            new Attribute() { Name = "Genre" },
+                        }
+                    }
+                }
+            };
+            var tag = CreateTag(new InputTagHelper(), model, m => m.Interests[2].Attributes[1].Name);
+
+            // act
+            var html = ProcessTag(tag, "miru-input");
+            
+            // assert
+            html.PreElement.GetContent().ShouldBe("<input type=\"text\" value=\"Genre\" name=\"Interests[2].Attributes[1].Name\" id=\"Interests_2__Attributes_1__Name\">");
+        }
+        
+        [Test]
         public void Should_overwrite_css_when_set_class_has_value()
         {
             // arrange
@@ -62,6 +91,18 @@ namespace Miru.Tests.Html.TagHelpers
             public Relationships Relationship { get; set; }
             
             public string Name { get; set; }
+
+            public List<Interest> Interests { get; set; } = new();
+        }
+        
+        public class Interest
+        {
+            public List<Attribute> Attributes { get; set; } = new();
+        }
+        
+        public class Attribute
+        {
+            public string Name { get; set; }
         }
         
         public enum Relationships
@@ -71,4 +112,5 @@ namespace Miru.Tests.Html.TagHelpers
             Divorced
         }
     }
+
 }
