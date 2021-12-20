@@ -72,7 +72,7 @@ namespace Miru.Tests.Behaviors
             post.ShouldPublishEvent<PostCreated>();
         }
 
-        public class Post : Entity
+        public class Post : EntityEventable
         {
             public Post()
             {

@@ -21,7 +21,7 @@ namespace Miru.Behaviors.DomainEvents
             int result,
             CancellationToken ct = default)
         {
-            var entitiesSaved = eventData.Context.ChangeTracker.Entries<Entity>()
+            var entitiesSaved = eventData.Context.ChangeTracker.Entries<EntityEventable>()
                 .Select(po => po.Entity)
                 .Where(po => po.DomainEvents.Any())
                 .ToArray();

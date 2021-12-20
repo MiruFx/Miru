@@ -1,11 +1,8 @@
-using System;
-using System.Threading.Tasks;
-using Baseline.Dates;
+namespace Miru.Userfy;
 
-namespace Miru.Userfy
+public class UserfyOptions
 {
-    public class UserfyOptions
-    {
-        public string RequiredLoginMessage { get; set; } = "Please, login or create a new account";
-    }
+    public string RequiredLoginMessage { get; set; } = "Please, login or create a new account";
+    
+    public object AfterLoginFeature { get; set; } 
 }

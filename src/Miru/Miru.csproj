@@ -52,6 +52,7 @@
         <!-- Queuing -->
         <PackageReference Include="Hangfire.Core" Version="1.7.25" />
         <PackageReference Include="Hangfire.AspNetCore" Version="1.7.25" />
+        <PackageReference Include="Hangfire.LiteDB" Version="0.4.0" />
 
         <!-- Storage -->
         <PackageReference Include="Emet.FileSystems" Version="0.0.4" />

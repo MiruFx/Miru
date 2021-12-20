@@ -7,7 +7,7 @@ namespace Miru.Testing
     [ShouldlyMethods]
     public static class DomainEventsShouldExtensions
     {
-        public static void ShouldPublishEvent<TEvent>(this Entity entity) 
+        public static void ShouldPublishEvent<TEvent>(this EntityEventable entity) 
             where TEvent : class, IDomainEvent =>
             entity.DomainEvents
                 .OfType<TEvent>()

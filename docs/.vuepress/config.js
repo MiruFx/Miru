@@ -90,7 +90,8 @@ module.exports = {
                 title: 'Guides',
                 collapsable: false,
                 children: [
-                    'Guides/Forms.md'
+                    'Guides/Forms.md',
+                    'Guides/Naming.md'
                 ],
             },        
         ]

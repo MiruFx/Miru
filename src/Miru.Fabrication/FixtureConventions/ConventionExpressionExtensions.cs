@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 using Baseline.Reflection;
 
@@ -66,6 +67,22 @@ namespace Miru.Fabrication.FixtureConventions
         public static IfFilterExpression IfClassImplements<TType>(this ConventionExpression conventionExpression)
         {
             return conventionExpression.IfClass(t => t.Implements<TType>());
+        }
+        
+        public static IfFilterExpression IfPropertyNameContains(
+            this ConventionExpression conventionExpression, 
+            params string[] propertyNames)
+        {
+            return conventionExpression.IfProperty(p => 
+                propertyNames.Any(propertyName => p.Name.Contains(propertyName)));
+        }
+    
+        public static IfFilterExpression IfPropertyNameContains<TType>(
+            this ConventionExpression conventionExpression, 
+            params string[] propertyNames)
+        {
+            return conventionExpression.IfProperty(p => 
+                p.PropertyType == typeof(TType) && propertyNames.Any(propertyName => p.Name.Contains(propertyName)));
         }
     }
 }

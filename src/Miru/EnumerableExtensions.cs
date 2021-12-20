@@ -47,7 +47,7 @@ namespace Miru
             return !source.Any();
         }
 
-        public static TList ById<TList>(this IEnumerable<TList> list, long id) where TList : Entity
+        public static TList ById<TList>(this IEnumerable<TList> list, long id) where TList : IEntity
         {
             return list.FirstOrDefault(e => e.Id == id);
         }

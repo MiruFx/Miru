@@ -28,6 +28,7 @@ public static class EfCorePostgresRegistry
             options.UseNpgsql(dbOptions.ConnectionString);
                 
             // TODO: investigate more
+            // TODO: https://stackoverflow.com/questions/69961449/net6-and-datetime-problem-cannot-write-datetime-with-kind-utc-to-postgresql-ty
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
                 
             var hostEnvironment = sp.GetService<IHostEnvironment>();
