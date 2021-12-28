@@ -41,7 +41,7 @@ namespace Scripts
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "appSettings-example.yml");
 
             ExportDir(_dir / "src" / "Corpo.Skeleton" / "Config");
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Database" / "Migrations" / "202001290120_CreateUserfy.cs");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Database" / "Migrations" / "202001290120_CreateUsers.cs");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Database" / "SkeletonDbContext.cs");
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Domain" / "User.cs");
             
