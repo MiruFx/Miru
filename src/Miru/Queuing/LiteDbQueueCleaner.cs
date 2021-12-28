@@ -2,9 +2,8 @@ using System.Threading.Tasks;
 using Baseline;
 using Hangfire;
 using Hangfire.LiteDB;
-using Miru.Queuing;
 
-namespace Miru.Sqlite
+namespace Miru.Queuing
 {
     public class LiteDbQueueCleaner : IQueueCleaner
     {

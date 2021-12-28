@@ -54,7 +54,7 @@ public class Startup
             
             // SenderFileStorage saves emails at /storage/temp/emails
             // for sending emails throught smtp, use SmtpSender instead of FileStorageSender:
-            // .AddSenderSmtp()
+            // .AddSmtpSender()
             .AddFileStorageSender()
 
             .AddQueuing(_ =>

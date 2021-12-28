@@ -96,21 +96,24 @@ namespace Miru.Mailing
         {
             string templateFile;
             
-            if (emailTemplate.File.StartsWith("_"))
-                templateFile = $"{emailTemplate.File}.mail.cshtml";
+            if (emailTemplate.TemplateName.StartsWith("_"))
+                templateFile = $"{emailTemplate.TemplateName}.mail.cshtml";
             else
-                templateFile = $"_{emailTemplate.File}.mail.cshtml";
+                templateFile = $"_{emailTemplate.TemplateName}.mail.cshtml";
 
-            var type = mailable.GetType();
+            if (emailTemplate.TemplateAt.IsEmpty())
+            {
+                var type = mailable.GetType();
 
-            var dirs = type.Namespace!.Replace(type.Assembly.GetName().Name!, string.Empty).Split('.', StringSplitOptions.RemoveEmptyEntries);
+                var dirs = type.Namespace!.Replace(type.Assembly.GetName().Name!, string.Empty).Split('.', StringSplitOptions.RemoveEmptyEntries);
 
-            var path = string.Join(Path.DirectorySeparatorChar, dirs);
+                emailTemplate.TemplateAt = string.Join(Path.DirectorySeparatorChar, dirs);
+            }
 
             if (_options.TemplatePath.IsNotEmpty())
-                return A.Path / _options.TemplatePath / path / templateFile;
+                return A.Path / _options.TemplatePath / emailTemplate.TemplateAt / templateFile;
             
-            return A.Path / path / templateFile;
+            return A.Path / emailTemplate.TemplateAt / templateFile;
         }
         
         private void Enqueue(Email fluentMail)

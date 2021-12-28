@@ -36,7 +36,7 @@ public class PasswordEdit
             var result = await _userManager.ChangePasswordAsync(user, command.CurrentPassword, command.NewPassword);
 
             if (result.Succeeded == false)
-                throw result.Errors.ToDomainException();
+                throw result.Errors.ThrowDomainException();
 
             await _mailer.SendLaterAsync(new PasswordEditMail(user));
 

@@ -17,6 +17,7 @@ Url:
 Database:
   # Check more database and options at connectionstrings.com
   # Sqlite
+  # replace {%{{{ input.environment }}}%} with your environment: Development, Test, etc.
   ConnectionString: DataSource={%{{{ db_dir }}}%}App_{%{{{ input.environment }}}%}.db
   # MySql
   # ConnectionString: Server=localhost;Database=database;Uid=user;Pwd=password;

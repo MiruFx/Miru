@@ -8,8 +8,9 @@ namespace Miru.Makers
         {
             var input = new
             {
-                Name = name, 
+                Name = name,
                 In = maker.Namespace(@in),
+                UrlIn = maker.Url(@in),
                 Action = action
             };
             

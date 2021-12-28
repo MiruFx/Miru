@@ -51,7 +51,7 @@ public class {{ input.Name }}{{ input.Action }}
         }
     }
         
-    public class Controller : MiruController
+    public class {{ input.Name }}Controller : MiruController
     {
         [HttpGet("/{{ input.In }}/{id:long}/{{ input.Action }}")]
         public async Task<Command> {{ input.Action }}(Query query) => await SendAsync(query);

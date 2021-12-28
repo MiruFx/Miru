@@ -36,7 +36,7 @@ namespace Miru.Mailing
         {
             email.Template = new EmailTemplate
             {
-                File = template,
+                TemplateName = template,
                 Model = model,
                 IsHtml = isHtml
             };

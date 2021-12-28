@@ -11,6 +11,7 @@ namespace Miru.Makers
             {
                 Name = name,
                 In = maker.Namespace(@in),
+                UrlIn = maker.Url(@in),
                 Action = action
             };
                 

@@ -65,7 +65,7 @@ namespace Corpo.Skeleton.Features.Accounts.Passwords
                     return new Result();
                 }
 
-                throw result.Errors.ToDomainException();
+                throw result.Errors.ThrowDomainException();
             }
         }
 

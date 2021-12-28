@@ -201,12 +201,16 @@ namespace Scripts
                 .Replace("@using Corpo.Skeleton.Features.Teams", string.Empty)
                 
                 .Replace("public DbSet<Category> Categories { get; set; }", string.Empty)
+                .Replace("[HttpGet(\"/Categories/\"", "{{ input.UrlIn }}")
+                .Replace("[HttpPost(\"/Categories/\"", "{{ input.UrlIn }}")
                 .Replace("Categories", "{{ input.In }}")
                 .Replace("categories", "{{ string.downcase input.In }}")
                 .Replace("Category", "{{ input.Name }}")
                 .Replace("category", "{{ string.downcase input.Name }}")
                 .Replace("@using Corpo.Skeleton.Features.Category", string.Empty)
                 
+                .Replace("[HttpGet(\"/Tickets/\"", "{{ input.UrlIn }}")
+                .Replace("[HttpPost(\"/Tickets/\"", "{{ input.UrlIn }}")
                 .Replace("Tickets", "{{ input.In }}")
                 .Replace("tickets", "{{ string.downcase input.In }}")
                 .Replace("Ticket", "{{ input.Name }}")

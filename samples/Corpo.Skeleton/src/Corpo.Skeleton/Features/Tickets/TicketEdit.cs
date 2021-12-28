@@ -51,7 +51,7 @@ public class TicketEdit
         }
     }
         
-    public class Controller : MiruController
+    public class TicketController : MiruController
     {
         [HttpGet("/Tickets/{id:long}/Edit")]
         public async Task<Command> Edit(Query query) => await SendAsync(query);

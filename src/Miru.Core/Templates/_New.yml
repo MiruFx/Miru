@@ -10,7 +10,7 @@ src\Corpo.Skeleton\package.json: package.json.stub
 src\Corpo.Skeleton\appSettings-example.yml: appSettings-example.yml.stub
 src\Corpo.Skeleton\Config\AuthorizationRulesConfig.cs: AuthorizationRulesConfig.stub
 src\Corpo.Skeleton\Config\HtmlConfig.cs: HtmlConfig.stub
-src\Corpo.Skeleton\Database\Migrations\202001290120_CreateUserfy.cs: 202001290120_CreateUserfy.stub
+src\Corpo.Skeleton\Database\Migrations\202001290120_CreateUsers.cs: 202001290120_CreateUsers.stub
 src\Corpo.Skeleton\Database\SkeletonDbContext.cs: SkeletonDbContext.stub
 src\Corpo.Skeleton\Domain\User.cs: User.stub
 src\Corpo.Skeleton\Features\_ViewImports.cshtml: _ViewImports.cshtml.stub

@@ -120,7 +120,14 @@ namespace Miru.Core
 
         public string Namespace(string @in)
         {
-            return @in.Replace('\\', '.').Replace('/', '.');
+            return @in
+                .Replace('\\', '.')
+                .Replace('/', '.');
+        }
+        
+        public string Url(string urlIn)
+        {
+            return urlIn.Replace('\\', '/');
         }
     }
 }

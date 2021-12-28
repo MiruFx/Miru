@@ -13,6 +13,6 @@ public class {{ input.Name }}{{ input.Action }}Mail : Mailable
     {
         mail.To(_user.Email, _user.Email)
             .Subject("Email Subject")
-            .Template("_{{ input.Action }}");
+            .Template("_{{ input.Action }}", _user);
     }
 }
