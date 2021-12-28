@@ -13,6 +13,6 @@ public class TeamCreatedMail : Mailable
     {
         mail.To(_user.Email, _user.Email)
             .Subject("Email Subject")
-            .Template("_Created");
+            .Template("_Created", _user);
     }
 }

@@ -6,6 +6,9 @@ Introduction
 Create
 Migration
     create table
+        WithId
+        WithTimeStamps
+        AsForeignKeyReference
     changing columns
     TODO: Naming
         Create table
@@ -18,9 +21,10 @@ Migration
         add sql into the solution
         create migration importing sql file
 Running
-    up
-    rollback
-    reset
+    db.migrate
+    db.rollback
+    db.reset
+    db.drop.schema
 -->
 
 [[toc]]

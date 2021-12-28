@@ -9,6 +9,13 @@ arrange
 
 assert
     list assert first and last
+
+test saving new entity
+    .LastSaved()
+
+test saving existent entity
+    .LastSaved()
+
 -->
 
 # Feature Test Patterns

@@ -15,12 +15,21 @@ namespace Miru.Testing;
 [ShouldlyMethods]
 public static class ShouldlyExtensions
 {
+    /// <summary>
+    /// It compares two DateTime having 1 second difference of tolerance
+    /// </summary>
+    public static void ShouldBeAprox(this DateTime current, DateTime expected) =>
+        current.ShouldBe(expected, TimeSpan.FromSeconds(1));
+    
+    /// <summary>
+    /// It compares only two dates from DateTimes 
+    /// </summary>
+    public static void DateShouldBe(this DateTime current, DateTime expected) =>
+        current.Date.ShouldBe(expected.Date);
+    
     public static void ShouldBeAprox(this decimal current, decimal value) => 
         current.ShouldBe(value, 0.01m);
 
-    public static void ShouldBeAprox(this DateTime current, DateTime expected) =>
-        current.ShouldBe(expected, TimeSpan.FromSeconds(1));
-        
     public static void ShouldBeSecondsAgo(this DateTime date, int seconds = 3)
     {
         date.ShouldBeGreaterThanOrEqualTo(seconds.Seconds().Ago());

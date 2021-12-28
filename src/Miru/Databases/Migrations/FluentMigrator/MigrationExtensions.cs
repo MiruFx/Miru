@@ -24,6 +24,12 @@ namespace Miru.Databases.Migrations.FluentMigrator
                 .WithColumn(columnUpdatedAt).AsDateTime();
         }
         
+        public static ICreateTableWithColumnSyntax WithTimeStamps(
+            this ICreateTableWithColumnSyntax table)
+        {
+            return table.WithTimeStamps("CreatedAt", "UpdatedAt");
+        }
+        
         public static ICreateTableWithColumnSyntax WithId(this ICreateTableWithColumnSyntax table)
         {
             return table.WithColumn("Id").AsId();

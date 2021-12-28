@@ -76,6 +76,9 @@ namespace Miru.Mailing
             if (validation.IsValid == false)
                 throw new ValidationException(validation.Errors);
             
+            // TODO: think about this part. email.Template is necessary only for 
+            // generating string with email's html. after, we don't need it anymore
+            // so it should not be serialized by the queue engine
             if (email.Template != null)
             {
                 var fullFile = GetFullFile(mailable, email.Template);
