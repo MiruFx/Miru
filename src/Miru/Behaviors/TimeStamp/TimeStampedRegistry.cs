@@ -5,7 +5,7 @@ using Miru.Userfy;
 
 namespace Miru.Behaviors.TimeStamp
 {
-    public static class TimeStampedServiceCollectionExtensions
+    public static class TimeStampedRegistry
     {
         public static IServiceCollection AddTimeStamp(this IServiceCollection services)
         {

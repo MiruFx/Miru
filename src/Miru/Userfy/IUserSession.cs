@@ -18,7 +18,7 @@ namespace Miru.Userfy
         
         string Display { get; }
         
-        bool IsLogged { get; }
+        bool IsAuthenticated { get; }
         
         bool IsAnonymous { get; }
     }

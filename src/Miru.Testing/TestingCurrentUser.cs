@@ -42,8 +42,8 @@ namespace Miru.Testing
         
         public string Display => _currentUser.Display;
         
-        public bool IsLogged => _currentUser.IsLogged;
+        public bool IsAuthenticated => _currentUser.IsAuthenticated;
         
-        public bool IsAnonymous => !_currentUser.IsLogged;
+        public bool IsAnonymous => !_currentUser.IsAuthenticated;
     }
 }

@@ -93,7 +93,14 @@ module.exports = {
                     'Guides/Forms.md',
                     'Guides/Naming.md'
                 ],
-            },        
+            },
+            {
+                title: 'Extensions',
+                collapsable: false,
+                children: [
+                    'Extensions/TimeStamps.md'
+                ],
+            }
         ]
     }
 }

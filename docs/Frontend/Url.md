@@ -1,6 +1,9 @@
 <!--
 Url
   Intro
+  Endpoints
+  
+  Full
     <miru-form for="">
     <miru-form model="">
     <a for="">
@@ -11,5 +14,15 @@ Url
     Url.For<ProductEdit>()
 
     Url.For(model)
+
+  FullFor
+    appSettings.{environment}.yml
+        BaseUrl
+
+    Url.Full()
+    <a full-for=''>
+
   Ignore
     [UrlIgnore]
+-->
+

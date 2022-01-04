@@ -62,10 +62,10 @@ namespace Miru.Behaviors.UserStamp
 
             foreach (var entityBeingCreated in entitiesBeingCreated)
             {
-                if (entityBeingCreated.CreatedById.HasValue == false && _currentUser.IsLogged)
+                if (entityBeingCreated.CreatedById.HasValue == false && _currentUser.IsAuthenticated)
                     entityBeingCreated.CreatedById = _currentUser.Id;
 
-                if (entityBeingCreated.UpdatedById.HasValue == false  && _currentUser.IsLogged)
+                if (entityBeingCreated.UpdatedById.HasValue == false  && _currentUser.IsAuthenticated)
                     entityBeingCreated.UpdatedById = _currentUser.Id;
             }
 
@@ -75,7 +75,7 @@ namespace Miru.Behaviors.UserStamp
 
             foreach (var entityBeingUpdated in entitiesBeingUpdated)
             {
-                entityBeingUpdated.UpdatedById = _currentUser.IsLogged 
+                entityBeingUpdated.UpdatedById = _currentUser.IsAuthenticated 
                     ?_currentUser.Id
                     : null;
             }

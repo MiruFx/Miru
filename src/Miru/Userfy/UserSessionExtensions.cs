@@ -4,7 +4,7 @@ namespace Miru.Userfy
     {
         public static bool NotSignedIn(this IUserSession userSession)
         {
-            return userSession.IsLogged == false;
+            return userSession.IsAuthenticated == false;
         }
     }
 }

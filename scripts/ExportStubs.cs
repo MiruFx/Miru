@@ -85,8 +85,11 @@ namespace Scripts
             // Query-List
             ExportQueryList();
 
+            // TODO: put together the templates file declaration and tokens replacement
+            
             // Migration
-            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Database" / "Migrations" / "999999999999_CreateCards.cs", "Migration");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Database" / "Migrations" / "999999999991_CreateCards.cs", "Migration");
+            ExportFile(_dir / "src" / "Corpo.Skeleton" / "Database" / "Migrations" / "999999999992_AlterCardsAddUserId.cs", "MigrationAlter");
             
             // Entity
             ExportFile(_dir / "src" / "Corpo.Skeleton" / "Domain" / "Team.cs", "Entity");
@@ -233,8 +236,10 @@ namespace Scripts
                 .ReplaceIf(templateKey == "Show", "show", "{{ string.downcase input.Action }}")
                 
                 // migration
-                .Replace("999999999999", "{{ input.Version }}")
+                .Replace("999999999991", "{{ input.Version }}")
+                .Replace("999999999992", "{{ input.Version }}")
                 .Replace("CreateCards", "{{ input.Name }}")
+                .Replace("AlterCardsAddUserId", "{{ input.Name }}")
                 .Replace("TableName", "{{ input.Table }}")
             );
 

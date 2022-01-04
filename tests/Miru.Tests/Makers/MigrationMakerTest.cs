@@ -47,5 +47,20 @@ namespace Miru.Tests.Makers
                     "public class CreateTeams",
                     "Create.Table(\"Teams\")");
         }
+        
+        [Test]
+        public void Make_migration_using_alter_table_template()
+        {
+            var m = new Maker(new MiruSolution(_solutionDir));
+            
+            m.Migration("AlterTeamsAddCategoryId", "456", table: "Teams");
+            
+            (_solutionDir / "src" / "Shopifu" / "Database" / "Migrations" / "456_AlterTeamsAddCategoryId.cs")
+                .ShouldContain(
+                    "namespace Shopifu.Database.Migrations",
+                    $"[Migration(456)]",
+                    "public class AlterTeamsAddCategoryId",
+                    "Alter.Table(\"Teams\").AddColumn(\"ColumnName\");");
+        }
     }
 }

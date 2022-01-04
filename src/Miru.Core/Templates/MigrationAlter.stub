@@ -5,13 +5,15 @@ using Miru.Databases.Migrations.FluentMigrator;
 namespace {{ Solution.Name }}.Database.Migrations;
  
 [Migration({{ input.Version }})]
-public class {{ input.Name }} : AutoReversingMigration
+public class {{ input.Name }} : Migration
 {
     public override void Up()
     {
-        Create.Table("{{ input.Table }}")
-            .WithId()
-            .WithColumn("Name").AsString(64)
-            .WithTimeStamps();
+        Alter.Table("{{ input.Table }}").AddColumn("ColumnName");
+    }
+
+    public override void Down()
+    {
+        Delete.Column("ColumnName").FromTable("{{ input.Table }}");
     }
 }

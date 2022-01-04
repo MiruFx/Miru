@@ -38,8 +38,8 @@ namespace Miru.Userfy
         
         public string Display => _currentUser.Display;
 
-        public bool IsLogged => _currentUser.IsLogged;
+        public bool IsAuthenticated => _currentUser.IsAuthenticated;
 
-        public bool IsAnonymous => IsLogged == false;
+        public bool IsAnonymous => IsAuthenticated == false;
     }
 }

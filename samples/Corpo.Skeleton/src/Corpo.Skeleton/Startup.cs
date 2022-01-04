@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Behaviors.BelongsToUser;
+using Miru.Behaviors.TimeStamp;
 using Miru.Foundation.Hosting;
 using Miru.Pipeline;
 using Miru.Queuing;
@@ -46,6 +47,8 @@ public class Startup
                 })
             .AddAuthorizationRules<AuthorizationRulesConfig>()
             .AddBelongsToUser()
+            
+            .AddTimeStamp()
 
             .AddMailing(_ =>
             {

@@ -4,7 +4,7 @@ using Miru.Behaviors.TimeStamp;
 
 namespace Miru.Behaviors.UserStamp
 {
-    public static class UserStampServiceCollectionExtensions
+    public static class UserStampRegistry
     {
         public static IServiceCollection AddUserStamp(this IServiceCollection services)
         {

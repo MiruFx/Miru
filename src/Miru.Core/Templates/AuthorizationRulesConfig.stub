@@ -11,7 +11,7 @@ public class AuthorizationRulesConfig : IAuthorizationRules
 
     public async Task<AuthorizationResult> Evaluate<TRequest>(TRequest request, FeatureInfo feature)
     {
-        // if (_userSession.IsLogged)
+        // if (_userSession.IsAuthenticated)
         // {
         //     var user = await _userSession.GetUserAsync();
         //     

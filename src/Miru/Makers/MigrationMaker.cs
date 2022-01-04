@@ -17,8 +17,13 @@ namespace Miru.Makers
                 Version = version ?? DateTime.Now.ToString("yyyyMMddHHmm"),
                 Table = table ?? "TableName"
             };
+
+            var templateName = "Migration";
+
+            if (name.StartsWith("Alter"))
+                templateName = "MigrationAlter";
             
-            m.Template("Migration", input, m.Solution.MigrationsDir / $"{input.Version}_{name}.cs");
+            m.Template(templateName, input, m.Solution.MigrationsDir / $"{input.Version}_{name}.cs");
         }
     }
 }

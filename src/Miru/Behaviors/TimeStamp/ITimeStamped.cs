@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Miru.Domain
+namespace Miru.Behaviors.TimeStamp
 {
     public interface ITimeStamped
     {

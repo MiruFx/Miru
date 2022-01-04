@@ -17,8 +17,8 @@ namespace Miru.Userfy
         
         public string Display => _httpContextAccessor.HttpContext?.User.Identity?.Name;
 
-        public bool IsLogged => _httpContextAccessor.HttpContext?.User.Identity?.IsAuthenticated ?? false;
+        public bool IsAuthenticated => _httpContextAccessor.HttpContext?.User.Identity?.IsAuthenticated ?? false;
         
-        public bool IsAnonymous => IsLogged == false;
+        public bool IsAnonymous => IsAuthenticated == false;
     }
 }

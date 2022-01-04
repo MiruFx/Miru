@@ -77,6 +77,24 @@ namespace Miru.Tests.Behaviors
             saved.CreatedAt.ShouldBe(1.Days().Ago(), tolerance: 5.Seconds());
             saved.UpdatedAt.ShouldBeSecondsAgo();
         }
+        
+        [Test]
+        public void Time_stamp_example()
+        {
+            // arrange
+            var post = new Post();
+            
+            // act
+            _.Save(post);
+            
+            // assert
+            post.DumpToConsole();
+            
+            // Post: 
+            //  CreatedAt: 2021-12-29T15:45:44.8259326+01:00
+            //  UpdatedAt: 2021-12-29T15:45:44.8261866+01:00
+            //  Id: 1
+        }
 
         public class Post : Entity, ITimeStamped
         {
