@@ -17,30 +17,31 @@ TODO: Roadmap and Vision link
 </p>
 
 ::: warning
-Miru is at an early stage of development. It can change a lot before 1.0. **It's not recommended to use it in real projects yet**.
+Miru will be in alpha state while version is 0.*
 
-This documentation is a draft. It will be filled with more information as Miru goes towards version 1.0.
+**It's not recommended to use it in production yet**.
+
+This documentation is a draft. It will be filled with more information as Miru goes towards version 1.0 in the end of 2022.
 :::
 
 [[toc]]
 
-## What Miru is?
-
-Miru is an open-source opinionated framework for developing .NET 5 Web Applications. It bundles a lot of great libraries and offers conventions and convenient ways of building applications.
-
-Take a look into the sample [Supportreon](https://github.com/MiruFx/Miru/tree/master/samples/Supportreon)
-
 ## Installing
+
+Miru has two major components:
+
+* `Miru.dll`: the library to reference in your project
+* `Miru.Cli`: the shell client to support your coding 
 
 ### Requirements
 
-* [.NET 5.0](https://dotnet.microsoft.com/download/dotnet/5.0) or higher
+* [.NET 6.0](https://dotnet.microsoft.com/download/dotnet/6.0) or higher
 * [Node.js](https://nodejs.org/en/)
 * [npm](https://www.npmjs.com/get-npm)
 
-### Install
+### Install Miru.Cli
 
-In any directory, run:
+Install Miru.Cli. At any directory, run:
 
 ```
 dotnet tool install Miru.Cli -g
@@ -52,27 +53,49 @@ Check the installed version using:
 miru --version
 ```
 
-### Update
+### Update Miru.Cli
 
 ```
 dotnet tool update Miru.Cli -g
 ```
 
-<!--
-Miru is composed by:
+## Creating a new solution
 
-* MiruCli: A global .net tool for creating new solutions and executing Miru tasks
-* Miru Core: The main library
-* Miru Extensions: Other libraries that add specific functionality to the application 
+Using shell, go to your projects directory and run:
+
+```
+miru new SolutionName
+```
+
+It will create the basic directory structure named `SolutionName`
+
+## Preparing solution to run
+
+Using shell, go to `SolutionName` directory.
+
+You will need to install npm libraries, bundle javascript and css, compile .net solution, run the db migration:
+
+```shell
+miru app npm install
+miru app npm run dev
+dotnet build
+miru db:migrate
+```
+
+Now you are ready to run the application:
+
+```shell
+miru app dotnet run
+```
 
 ## Dependencies
 
 Some of the amazing libraries and frameworks Miru uses:
 
-* .NET 5
-* ASP.NET MVC
-* MediatR, 
-* EFCore 
+* .NET 6
+* ASP.NET MVC Core
+* MediatR,
+* EFCore
 * FluentMigrator
 * FluentValidation
 * HtmlTags
@@ -81,6 +104,5 @@ Some of the amazing libraries and frameworks Miru uses:
 * Hangfire
 * Bootstrap
 * Laravel Mix
-* Turbolinks
-* Rails-ujs
--->
+* Hotwire Turbo
+* Hotwire Stimulus.js

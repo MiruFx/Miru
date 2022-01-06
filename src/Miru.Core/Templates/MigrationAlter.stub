@@ -9,11 +9,11 @@ public class {{ input.Name }} : Migration
 {
     public override void Up()
     {
-        Alter.Table("{{ input.Table }}").AddColumn("ColumnName");
+        Alter.Table("{{ input.Table }}").AddColumn("{{ input.Column }}");
     }
 
     public override void Down()
     {
-        Delete.Column("ColumnName").FromTable("{{ input.Table }}");
+        Delete.Column("{{ input.Column }}").FromTable("{{ input.Table }}");
     }
 }

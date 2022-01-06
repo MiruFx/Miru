@@ -1,10 +1,10 @@
-@model TicketList.Result
+@model TicketDone.Result
 
 <h3>Tickets</h3>
 
 <div class="my-4">
-    <a for="@(new TicketList())" class="me-3"><i class="fas fa-plus-circle me-1"></i>Option 1</a>
-    <a for="@(new TicketList())" class="me-3"><i class="fas fa-plus-circle me-1"></i>Option 2</a>
+    <a for="@(new TicketDone())" class="me-3"><i class="fas fa-plus-circle me-1"></i>Option 1</a>
+    <a for="@(new TicketDone())" class="me-3"><i class="fas fa-plus-circle me-1"></i>Option 2</a>
 </div>
 
 <div miru-if-empty="@Model!.Tickets" class="alert alert-warning">

@@ -24,7 +24,7 @@
     </div>
 
     <div class="footer">
-      Copyright © 2020 <a href="http://joaofx.com" target="_blank" >Joao Carlos Clementoni</a>. 
+      Copyright © 2021 <a href="http://joaofx.com" target="_blank" >Joao Clementoni</a>. 
       <small>Logo by <a href="https://logomakr.com/" target="_blank" data-logo="https://logomakr.com/2q74eV">Logomakr</a></small>
     </div>
 

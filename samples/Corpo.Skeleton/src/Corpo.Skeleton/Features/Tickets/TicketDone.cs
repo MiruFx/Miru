@@ -1,6 +1,6 @@
 namespace Corpo.Skeleton.Features.Tickets;
 
-public class TicketList
+public class TicketDone
 {
     public class Query : IRequest<Result>
     {

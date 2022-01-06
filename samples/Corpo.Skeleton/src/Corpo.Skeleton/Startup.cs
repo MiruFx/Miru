@@ -23,7 +23,7 @@ public class Startup
                 
             .AddEfCoreSqlite<SkeletonDbContext>()
 
-            // user register, login, logout
+            // miru extensions
             .AddUserfy<User, SkeletonDbContext>(
                 cookie: cfg =>
                 {
@@ -46,8 +46,9 @@ public class Startup
                     cfg.User.RequireUniqueEmail = true;
                 })
             .AddAuthorizationRules<AuthorizationRulesConfig>()
-            .AddBelongsToUser()
             
+            // miru behaviors
+            .AddBelongsToUser()
             .AddTimeStamp()
 
             .AddMailing(_ =>

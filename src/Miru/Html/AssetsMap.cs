@@ -14,7 +14,7 @@ public class AssetsMap
 
         if (mixManifestPath.FileDoesNotExist())
         {
-            throw new MiruException(@$"The file {mixManifestPath} could not be found.
+            throw new MixManifestNotFoundException(@$"The file {mixManifestPath} could not be found.
 
 It is used by Miru to reference the correct frontend assets (css, js, images, and etc).
 

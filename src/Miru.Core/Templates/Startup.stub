@@ -23,7 +23,7 @@ public class Startup
                 
             .AddEfCoreSqlite<{{ Solution.ShortName }}DbContext>()
 
-            // user register, login, logout
+            // miru extensions
             .AddUserfy<User, {{ Solution.ShortName }}DbContext>(
                 cookie: cfg =>
                 {
@@ -46,8 +46,9 @@ public class Startup
                     cfg.User.RequireUniqueEmail = true;
                 })
             .AddAuthorizationRules<AuthorizationRulesConfig>()
-            .AddBelongsToUser()
             
+            // miru behaviors
+            .AddBelongsToUser()
             .AddTimeStamp()
 
             .AddMailing(_ =>

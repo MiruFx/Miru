@@ -11,6 +11,19 @@
   <ItemGroup>
     <Compile Include="Build.cs" />
     <Compile Include="ExportStubs.cs" />
+    <Compile Include="StubsExport\CommandStubExport.cs" />
+    <Compile Include="StubsExport\ConfigStubExport.cs" />
+    <Compile Include="StubsExport\ConsolableStubExport.cs" />
+    <Compile Include="StubsExport\EntityStubExport.cs" />
+    <Compile Include="StubsExport\FeatureScaffoldStubExport.cs" />
+    <Compile Include="StubsExport\MailableStubExport.cs" />
+    <Compile Include="StubsExport\JobStubExport.cs" />
+    <Compile Include="StubsExport\MigrationStubExport.cs" />
+    <Compile Include="StubsExport\QueryListStubExport.cs" />
+    <Compile Include="StubsExport\QueryShowStubExport.cs" />
+    <Compile Include="StubsExport\SolutionStubExport.cs" />
+    <Compile Include="StubsExport\StubExport.cs" />
+    <Compile Include="StubsExport\StubParams.cs" />
     <Compile Include="TestNewSolution.cs" />
   </ItemGroup>
 

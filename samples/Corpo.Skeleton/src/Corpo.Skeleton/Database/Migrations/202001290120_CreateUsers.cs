@@ -12,7 +12,6 @@ public class CreateUsers : AutoReversingMigration
     {
         Create.Table("Users")
             .WithId()
-            .WithColumn("Name").AsString(256)
             .WithColumn("UserName").AsString(256).Nullable()
             .WithColumn("NormalizedUserName").AsString(256).Nullable()
             .WithColumn("Email").AsString(256).Nullable()

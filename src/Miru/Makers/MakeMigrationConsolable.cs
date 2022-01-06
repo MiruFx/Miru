@@ -11,7 +11,6 @@ public class MakeMigrationConsolable : Consolable
         base("make.migration", "Make a Database Migration")
     {
         Add(new Argument<string>("name"));
-        Add(new Option<string>("--table"));
     }
 
     public class ConsolableHandler : IConsolableHandler
@@ -19,7 +18,6 @@ public class MakeMigrationConsolable : Consolable
         private readonly Maker _maker;
     
         public string Name { get; set; }
-        public string Table { get; set; }
         
         public ConsolableHandler(Maker maker)
         {
@@ -30,7 +28,7 @@ public class MakeMigrationConsolable : Consolable
         {
             Console2.BreakLine();
             
-            _maker.Migration(Name, table: Table);
+            _maker.Migration(Name);
     
             Console2.BreakLine();
             

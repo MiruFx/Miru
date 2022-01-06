@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace Corpo.Skeleton.PageTests.Pages.Tickets
 {
-    public class TicketListPageTest : PageTest
+    public class TicketDonePageTest : PageTest
     {
         [Test]
         public void Can_list_tickets()

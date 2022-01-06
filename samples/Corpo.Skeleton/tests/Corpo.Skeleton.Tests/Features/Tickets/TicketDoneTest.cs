@@ -1,9 +1,8 @@
-using Corpo.Skeleton.Features.Teams;
 using Corpo.Skeleton.Features.Tickets;
 
 namespace Corpo.Skeleton.Tests.Features.Tickets;
 
-public class TicketListTest : FeatureTest
+public class TicketDoneTest : FeatureTest
 {
     [Test]
     public async Task Can_list_teams()
@@ -12,7 +11,7 @@ public class TicketListTest : FeatureTest
         // var tickets = _.MakeManySaving<Ticket>();
             
         // act
-        var result = await _.SendAsync(new TicketList.Query());
+        var result = await _.SendAsync(new TicketDone.Query());
             
         // assert
         result.Tickets.ShouldNotBeNull();
