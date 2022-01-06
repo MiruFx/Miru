@@ -47,7 +47,9 @@ namespace Miru.Tests.Makers
             (m.Solution.RootDir / ".gitignore").ShouldExist();
             
             (m.Solution.RootDir / "StackExchange.StackOverflow.sln")
-                .ShouldContain(@"""StackExchange.StackOverflow"", ""src\StackExchange.StackOverflow\StackExchange.StackOverflow.csproj""");
+                .ShouldContain(
+                    @"""StackExchange.StackOverflow"", ""src\StackExchange.StackOverflow\StackExchange.StackOverflow.csproj""",
+                    "gitignore = .gitignore");
             
             // config
             // (m.Solution.AppDir / "appSettings-example.yml").ShouldContain("{{ db_dir }}App_dev");

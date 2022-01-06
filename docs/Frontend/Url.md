@@ -1,7 +1,12 @@
 <!--
 Url
   Intro
-  Endpoints
+  Controller Actions
+  HttpGet, HttpPost
+
+  Registering
+    Already registered
+    
   
   Full
     <miru-form for="">
