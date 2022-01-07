@@ -77,7 +77,7 @@ namespace Miru.Cli
             {
                 Executable = "dotnet",
                 WorkingDirectory = solution.Solution.AppDir,
-                Arguments = new[] { "watch", "run", "--no-hot-reload" }
+                Arguments = new[] { "watch", "run" }
             };
             
             var dotnetRunner = processRunner.RunAsync(dotnet, _cts.Token);

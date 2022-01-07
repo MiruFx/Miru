@@ -1,6 +1,6 @@
 namespace {{ Solution.Name }}.Features.{{ input.In }};
 
-public class {{ input.Name }}Done
+public class {{ input.Name }}{{ input.Action }}
 {
     public class Query : IRequest<Result>
     {

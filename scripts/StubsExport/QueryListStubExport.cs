@@ -1,3 +1,5 @@
+using System;
+
 namespace Scripts.StubsExport;
 
 public class QueryListStubExport : StubExport
@@ -11,11 +13,15 @@ public class QueryListStubExport : StubExport
         var featureDir = Params.SkeletonDir / "src" / "Corpo.Skeleton" / "Features" / "Tickets";
         var testDir = Params.SkeletonDir / "tests" / "Corpo.Skeleton.Tests" / "Features" / "Tickets";
         var pageTestDir = Params.SkeletonDir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Tickets";
+
+        Func<string, string> tokens = s => s
+            .Replace("Done", "{{ input.Action }}")
+            .Replace("done", "{{ string.downcase input.Action }}");
+        
+        ExportFile(featureDir / "TicketDone.cs", "List-Query", "List", tokens: tokens);
+        ExportFile(featureDir / "Done.cshtml", "List-Query.cshtml", "List", tokens: tokens);
             
-        ExportFile(featureDir / "TicketDone.cs", "List-Query", "List");
-        ExportFile(featureDir / "Done.cshtml", "List-Query.cshtml", "List");
-            
-        ExportFile(testDir / "TicketDoneTest.cs", "List-QueryTest", "List");
-        ExportFile(pageTestDir / "TicketDonePageTest.cs", "List-QueryPageTest", "List");
+        ExportFile(testDir / "TicketDoneTest.cs", "List-QueryTest", "List", tokens: tokens);
+        ExportFile(pageTestDir / "TicketDonePageTest.cs", "List-QueryPageTest", "List", tokens: tokens);
     }
 }
