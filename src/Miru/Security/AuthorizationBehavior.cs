@@ -14,14 +14,17 @@ namespace Miru.Security
             _rules = rules;
         }
 
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+        public async Task<TResponse> Handle(
+            TRequest request, 
+            CancellationToken cancellationToken, 
+            RequestHandlerDelegate<TResponse> next)
         {
             var featureInfo = new FeatureInfo(typeof(TRequest));
             
             if (featureInfo.Implements<IMiruJob>())
                 return await next();
             
-            var result = await _rules.Evaluate(request, featureInfo);
+            var result = _rules.Evaluate(request, featureInfo);
                 
             if (result.IsAuthorized)
                 return await next();

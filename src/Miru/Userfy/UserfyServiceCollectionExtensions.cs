@@ -50,7 +50,6 @@ namespace Miru.Userfy
             services.AddTransient<ICurrentUser, UserfyCurrentUser>();
             
             services.AddTransient<ISessionStore, HttpSessionStore>();
-            services.AddTransient<Authorizer>();
 
             // asp.net identity
             services.AddIdentity<TUser, IdentityRole<long>>(identity)

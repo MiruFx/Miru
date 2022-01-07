@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 
-namespace Miru.Security
+namespace Miru.Security;
+
+public interface IAuthorizationRules
 {
-    public interface IAuthorizationRules
-    {
-        Task<AuthorizationResult> Evaluate<TRequest>(TRequest request, FeatureInfo feature);
-    }
+    AuthorizationResult Evaluate<TRequest>(TRequest request, FeatureInfo feature);
 }

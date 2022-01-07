@@ -39,7 +39,7 @@ Miru has two major components:
 * [Node.js](https://nodejs.org/en/)
 * [npm](https://www.npmjs.com/get-npm)
 
-### Install Miru.Cli
+### Installing Miru.Cli
 
 Install Miru.Cli. At any directory, run:
 
@@ -53,7 +53,7 @@ Check the installed version using:
 miru --version
 ```
 
-### Update Miru.Cli
+### Updating Miru.Cli
 
 ```
 dotnet tool update Miru.Cli -g

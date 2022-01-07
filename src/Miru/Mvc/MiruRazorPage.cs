@@ -32,14 +32,7 @@ namespace Miru.Mvc
         {
             return GetHtmlElement().DisplayFor(otherModel, expression);
         }
-        
-        public Task<bool> Can<TRequest>() where TRequest : class, new()
-        {
-            var authorizer = ViewContext.HttpContext.RequestServices.GetService<Authorizer>();
-            
-            return authorizer.Can<TRequest>();
-        }
-        
+
         private HtmlGenerator GetHtmlElement()
         {
             return ViewContext.HttpContext.RequestServices.GetService<HtmlGenerator>();

@@ -1,33 +1,22 @@
-using System.Threading.Tasks;
 using Miru;
 using Miru.Security;
-using Miru.Userfy;
 using Playground.Domain;
 
-namespace Playground.Config
+namespace Playground.Config;
+
+public class AuthorizationRulesConfig : IAuthorizationRules
 {
-    public class AuthorizationRulesConfig : IAuthorizationRules
-    {
-        private readonly IUserSession<User> _userSession;
+    private readonly Current _current;
         
-        public AuthorizationRulesConfig(IUserSession<User> userSession) => _userSession = userSession;
+    public AuthorizationRulesConfig(Current current) => _current = current;
 
-        public async Task<AuthorizationResult> Evaluate<TRequest>(TRequest request, FeatureInfo feature)
-        {
-            // if (_userSession.IsAuthenticated)
-            // {
-            //     var user = await _userSession.GetUserAsync();
-            //     
-            //     if (feature.IsIn("Admin") && user?.IsAdmin == false)
-            //         return AuthorizationResult.Fail();
-            // }
-            //
-            // if (feature.Implements<IMustBeAuthenticated>() && _userSession.IsAnonymous)
-            //     return AuthorizationResult.Fail("Authentication is required");
-            
-            // return AuthorizationResult.Succeed();
+    public AuthorizationResult Evaluate<TRequest>(TRequest request, FeatureInfo feature)
+    {
+        // if (_current.IsAuthenticated == false)
+        // {
+        //     return AuthorizationResult.Fail("Authentication is required");
+        // }
 
-            return await Task.FromResult(AuthorizationResult.Succeed());
-        }
+        return AuthorizationResult.Succeed();
     }
 }
