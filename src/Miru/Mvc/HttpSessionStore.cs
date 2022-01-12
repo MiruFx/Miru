@@ -14,7 +14,7 @@ namespace Miru.Mvc
 
         public bool ContainsKey(string key)
         {
-            return _accessor.HttpContext.Session.Keys.Contains("key");
+            return _accessor.HttpContext.Session.Keys.Contains(key);
         }
 
         public string GetString(string key)

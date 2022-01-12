@@ -13,7 +13,10 @@ namespace Miru.Core
             // TODO: cache builder
             return new SerializerBuilder()
                 .IgnoreFields()
-                .ConfigureDefaultValuesHandling(DefaultValuesHandling.OmitNull)
+                .ConfigureDefaultValuesHandling(
+                    DefaultValuesHandling.OmitNull | 
+                    DefaultValuesHandling.OmitEmptyCollections |
+                    DefaultValuesHandling.OmitDefaults)
                 .WithTypeInspector(inspector => new FilterPropertiesInspector(inspector))
                 .Build()
                 .Serialize(value);
