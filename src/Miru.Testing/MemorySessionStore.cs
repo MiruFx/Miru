@@ -6,6 +6,11 @@ namespace Miru.Testing
     {
         private readonly Dictionary<string, string> _store = new Dictionary<string, string>();
 
+        public bool ContainsKey(string key)
+        {
+            return _store.ContainsKey(key);
+        }
+
         public string GetString(string key)
         {
             if (_store.TryGetValue(key, out var value))
