@@ -79,7 +79,8 @@ You will need to install npm libraries, bundle javascript and css, compile .net 
 miru app npm install
 miru app npm run dev
 dotnet build
-miru db:migrate
+miru storage.link
+miru db.migrate
 ```
 
 Now you are ready to run the application:

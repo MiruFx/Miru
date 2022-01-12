@@ -53,14 +53,15 @@ namespace Miru
             services.AddMiruUrls();
 
             services.AddMiruCliHost();
-            
-            services.AddConsolable<ConfigShowConsolable>();
-            services.AddConsolable<ConfigServicesConsolable>();
 
+            services.AddConsolables<TStartup>();
+            services.AddConsolables<MiruApp>();
+            
             services.AddMakers();
             
             services.AddSingleton<IJsonConverter, JsonConverter>();
             services.AddStorage();
+            services.AddConsolable<StorageLinkConsolable>();
 
             services.AddSingleton<ISessionStore, HttpSessionStore>();
 

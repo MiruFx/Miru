@@ -12,6 +12,10 @@ Database
     Alter Tables
         .AsDateTime ...
 
+Exception Not Null CreatedAt
+    Unhandled exception. Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+     ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'NOT NULL constraint failed: Departments.CreatedAt'.
+
 -->
 
 # TimeStamps

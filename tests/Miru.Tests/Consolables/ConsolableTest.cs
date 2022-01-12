@@ -1,6 +1,7 @@
 using System;
 using System.CommandLine;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Baseline;
 using Microsoft.Extensions.DependencyInjection;
@@ -104,6 +105,20 @@ namespace Miru.Tests.Consolables
             // assert
             var output = _outWriter.ToString();
             output.ShouldStartWith("Name: Paul, Surname: McCartney");
+        }
+        
+        [Test]
+        public void Should_scan_and_register_consolables_in_an_assembly()
+        {
+            // arrange
+            var sp = new ServiceCollection()
+                .AddConsolables<ConsolableTest>()
+                .BuildServiceProvider();
+            
+            // act && assert
+            sp.GetServices<Consolable>()
+                .Any(x => x is ExampleConsolable)
+                .ShouldBeTrue();
         }
 
         public interface IDependency

@@ -8,10 +8,25 @@ Views
     /shared
 ViewModel
   feature
-Html
+Html (Split into Html.md)
+
   intro: htmltags 
   conventions (config)
     TODO: rails-ujs, bootstrap
+
+  Components
+    Table
+        Header
+        Row
+    Form
+        Summary
+        Label
+        Input
+        Validation
+    Display
+        Display Label
+        Display
+
   TODO: helpers
     input
     label
@@ -20,6 +35,11 @@ Html
     input
     label
     form
+    
+    miru-if
+    miru-if-not
+    miru-if-has
+    miru-if-any
 -->
 
 [[toc]]

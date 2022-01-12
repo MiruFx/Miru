@@ -5,6 +5,7 @@ using Miru.Databases.EntityFramework;
 using Miru.Foundation.Logging;
 using Miru.Html;
 using Miru.Mailing;
+using Miru.Scopables;
 using Miru.Scoping;
 using Miru.Security;
 using Miru.Userfy;
@@ -69,9 +70,14 @@ namespace Miru.Pipeline
             {
                 _.UseBehavior(typeof(LogBehavior<,>));
                 _.UseBehavior(typeof(DumpRequestBehavior<,>));
-                _.UseBehavior(typeof(TransactionBehavior<,>));
-                _.UseBehavior(typeof(AuthorizationBehavior<,>));
+                
+                // should stop the pipeline if request is invalid
                 _.UseBehavior(typeof(ValidationBehavior<,>));
+                
+                _.UseBehavior(typeof(TransactionBehavior<,>));
+                _.UseBehavior(typeof(CurrentScopeBehavior<,>));
+                
+                _.UseBehavior(typeof(AuthorizationBehavior<,>));
                 _.UseBehavior(typeof(ScopeBehavior<,>));
             });
         }
