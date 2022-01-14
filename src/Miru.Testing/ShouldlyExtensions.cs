@@ -124,7 +124,7 @@ public static class ShouldlyExtensions
         }
     }
         
-    public static void ShouldContain<T>(this IEnumerable<T> actual, params T[] expected)
+    public static void ShouldContainAll<T>(this IEnumerable<T> actual, params T[] expected)
     {
         var actualList = actual.ToList();
             

@@ -19,7 +19,7 @@ namespace Miru.Tests.Html.TagHelpers
             };
             var model = new ExampleForm.Command
             {
-                Countries = countries.ToLookups(), 
+                Countries = countries.ToSelectLookups(), 
                 Address = {Country = "de"}
             };
             var tag = CreateTag(new SelectTagHelper(), model, m => m.Address.Country);

@@ -116,7 +116,7 @@ public class BelongsToUserTest
             
         // assert
         posts.ShouldCount(2);
-        posts.ShouldContain(post1, post2);
+        posts.ShouldContainAll(post1, post2);
     }
 
     [Test]

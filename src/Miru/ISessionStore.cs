@@ -1,11 +1,12 @@
-namespace Miru
+namespace Miru;
+
+public interface ISessionStore
 {
-    public interface ISessionStore
-    {
-        bool ContainsKey(string key);
+    bool ContainsKey(string key);
         
-        string GetString(string key);
+    string GetString(string key);
         
-        void SetString(string key, string value);
-    }
+    void SetString(string key, string value);
+
+    void RemoveString(string key);
 }

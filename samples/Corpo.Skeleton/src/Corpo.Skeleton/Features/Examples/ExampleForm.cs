@@ -13,8 +13,8 @@ public class ExampleForm
     public class Command : IRequest<Command>
     {   
         // lookups
-        public Lookups CreditCards => CreditCardBrands.GetAll().ToLookups();
-        public Lookups Countries { get; set; }
+        public SelectLookups CreditCards => CreditCardBrands.GetAll().ToSelectLookups();
+        public SelectLookups Countries { get; set; }
 
         // inputs
         public int CreditCard { get; set; }
@@ -55,7 +55,7 @@ public class ExampleForm
                     { "br", "Brazil" },
                     { "de", "Germany" },
                     { "uk", "United Kingdom" },
-                }.ToLookups(),
+                }.ToSelectLookups(),
                     
                 CreditCard = CreditCardBrands.MasterCardBrands.Value,
                 Relationship = Relationships.Married,

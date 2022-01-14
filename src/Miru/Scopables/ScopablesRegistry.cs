@@ -1,7 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
-using Miru.Scopables;
 
-namespace SanusPlus.Infra.Scopables;
+namespace Miru.Scopables;
 
 public static class ScopablesRegistry
 {

@@ -20,8 +20,8 @@ namespace Playground.Features.Examples
         public class Command : IRequest<Command>
         {   
             // lookups
-            public Lookups CreditCards => CreditCardBrands.GetAll().ToLookups();
-            public Lookups Countries { get; set; }
+            public SelectLookups CreditCards => CreditCardBrands.GetAll().ToSelectLookups();
+            public SelectLookups Countries { get; set; }
 
             // inputs
             [Display(Name = "Other Label")]
@@ -43,7 +43,7 @@ namespace Playground.Features.Examples
             public IEnumerable<Newsletters> NewsletterOptions { get; set; }
 
             public List<ProductItem> Products { get; set; } = new();
-            public Lookups Companies { get; set; }
+            public SelectLookups Companies { get; set; }
         }
 
         public class Address
@@ -76,7 +76,7 @@ namespace Playground.Features.Examples
                         { "br", "Brazil" },
                         { "de", "Germany" },
                         { "uk", "United Kingdom" },
-                    }.ToLookups(),
+                    }.ToSelectLookups(),
                     
                     Products = new List<ProductItem>
                     {
@@ -90,7 +90,7 @@ namespace Playground.Features.Examples
                         { 1, "Apple" },
                         { 2, "Google" },
                         { 3, "Microsoft" }
-                    }.ToLookups(x => x.Key, x => x.Value),
+                    }.ToSelectLookups(x => x.Key, x => x.Value),
                     
                     CreditCard = CreditCardBrands.MasterCardBrands.Value,
                     Relationship = Relationships.Married,

@@ -23,8 +23,11 @@ namespace Miru
         
         public static string Join<T>(this IEnumerable<T> enumerable, string split)
         {
+            if (enumerable == null || enumerable.None())
+                return String.Empty;
+                
             return enumerable
-                .Join2(x => x.ToString() + split)
+                .Join2(x => $"{x}{split}")
                 .TrimEnd(split.ToCharArray());
         }
 

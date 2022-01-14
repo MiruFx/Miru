@@ -1,4 +1,4 @@
-namespace SanusPlus.Infra.Scopables;
+namespace Miru.Scopables;
 
 public interface IScopableSaving
 {

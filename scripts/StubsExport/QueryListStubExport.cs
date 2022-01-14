@@ -15,6 +15,7 @@ public class QueryListStubExport : StubExport
         var pageTestDir = Params.SkeletonDir / "tests" / "Corpo.Skeleton.PageTests" / "Pages" / "Tickets";
 
         Func<string, string> tokens = s => s
+            .Replace("List(Query request)", "{{ input.Action }}(Query request)")
             .Replace("Done", "{{ input.Action }}")
             .Replace("done", "{{ string.downcase input.Action }}");
         

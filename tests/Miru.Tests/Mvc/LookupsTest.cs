@@ -23,7 +23,7 @@ namespace Miru.Tests.Mvc
         {
             // arrange
             // act
-            var lookups = OrderStatus.GetAll().ToLookups();
+            var lookups = OrderStatus.GetAll().ToSelectLookups();
             
             // assert
             lookups.ShouldCount(5);
@@ -40,7 +40,7 @@ namespace Miru.Tests.Mvc
         {
             // arrange
             // act
-            var lookups = Lookups.FromEnum<UserTypes>();
+            var lookups = SelectLookups.FromEnum<UserTypes>();
             
             // assert
             lookups.ShouldCount(3);
@@ -57,7 +57,7 @@ namespace Miru.Tests.Mvc
         {
             // arrange
             // act
-            var lookups = Lookups.FromEnum<UserTypes>();
+            var lookups = SelectLookups.FromEnum<UserTypes>();
             
             // assert
             lookups.ShouldCount(3);

@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Miru.Scopables;
 
-namespace SanusPlus.Infra.Scopables;
+namespace Miru.Scopables;
 
 public abstract class Scopable<TDecorator> : Scopable
 {

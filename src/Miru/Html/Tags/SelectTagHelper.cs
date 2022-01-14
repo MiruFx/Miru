@@ -32,7 +32,7 @@ namespace Miru.Html.Tags
                     lookupables.Each(item => selectTag.Option(item.Display, item.Value));
                 }
                 
-                if (Lookup.Model is Lookups lookups)
+                if (Lookup.Model is SelectLookups lookups)
                 {
                     lookups.ForEach(item => selectTag.Option(item.Description, item.Id));
                 }

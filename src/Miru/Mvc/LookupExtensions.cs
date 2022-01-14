@@ -8,13 +8,13 @@ namespace Miru.Mvc
 {
     public static class LookupExtensions
     {
-        public static async Task<Lookups> ToLookupsAsync<TModel>(
+        public static async Task<SelectLookups> ToLookupsAsync<TModel>(
             this IQueryable<TModel> queryable,
             Func<TModel, object> key,
             Func<TModel, object> value,
             CancellationToken ct = default)
         {
-            return (await queryable.ToDictionaryAsync(key, value, ct)).ToLookups();
+            return (await queryable.ToDictionaryAsync(key, value, ct)).ToSelectLookups();
         }
     }
 }
