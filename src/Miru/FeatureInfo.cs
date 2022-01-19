@@ -1,34 +1,40 @@
 using System;
 
-namespace Miru
+namespace Miru;
+
+public class FeatureInfo
 {
-    public class FeatureInfo
+    public static FeatureInfo For<TRequest>(TRequest request)
     {
-        public static FeatureInfo For<TRequest>(TRequest request)
-        {
-            return new FeatureInfo(request.GetType());
-        }
-        
-        private readonly Type _type;
-
-        public FeatureInfo(Type type)
-        {
-            _type = type;
-        }
-        
-        public FeatureInfo(object instance)
-        {
-            _type = instance.GetType();
-        }
-
-        public bool IsIn(string featureFolder)
-        {
-            return _type.Namespace.Contains($".Features.{featureFolder}");
-        }
-
-        public bool Implements<T>()
-        {
-            return _type.Implements<T>() || _type.ReflectedType!.Implements<T>();
-        }
+        return new FeatureInfo(request.GetType());
     }
+        
+    public Type Type { get; }
+    public object Instance { get; }
+
+    public FeatureInfo(Type type)
+    {
+        // TODO: cache in a hashtable <type, featureinfo>
+        Type = type;
+    }
+        
+    public FeatureInfo(object instance) : this(instance.GetType())
+    {
+        Instance = instance;
+    }
+
+    public bool IsIn(string folder, string featureFolder = ".Features.")
+    {
+        return Type.Namespace.Contains($"{featureFolder}{folder}");
+    }
+
+    public bool Implements<T>()
+    {
+        return Type.Implements<T>() || Type.ReflectedType!.Implements<T>();
+    }
+}
+
+public static class FeatureInfoExtensions
+{
+    public static FeatureInfo ToFeatureInfo<T>(this T model) => new FeatureInfo(model);
 }

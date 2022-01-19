@@ -69,6 +69,7 @@ namespace Miru.Tests.Queuing
             ScopedJob.Processed.ShouldBeTrue();
         }
     }
+    
     public class SomeService
     {
     }

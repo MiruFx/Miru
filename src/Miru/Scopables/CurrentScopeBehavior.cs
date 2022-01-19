@@ -16,11 +16,11 @@ public class CurrentScopeBehavior<TRequest, TResponse> :
 
     public async Task<TResponse> Handle(TRequest request, CancellationToken ct, RequestHandlerDelegate<TResponse> next)
     {
-        await _currentScope.BeforeAsync(ct);
+        await _currentScope.BeforeAsync(request, ct);
 
         var result = await next();
         
-        await _currentScope.AfterAsync(ct);
+        await _currentScope.AfterAsync(request, ct);
 
         return result;
     }

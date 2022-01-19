@@ -87,4 +87,10 @@ public static class StringExtensions
 
         return value;
     }
+    
+    public static string If(this string contentToShow, bool condition) =>
+        condition ? contentToShow : string.Empty;
+    
+    public static string IfNot(this string contentToShow, bool condition) =>
+        condition == false ? contentToShow : string.Empty;
 }

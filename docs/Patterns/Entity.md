@@ -1,3 +1,10 @@
+<!--
+
+high level domain helpers
+  make other code cleaner
+  IsAuthenticated -> the actual entity property
+  IsAnonymous -> helper
+-->
 # Entity Patterns
 
 ## Constructing From Feature Or Entity

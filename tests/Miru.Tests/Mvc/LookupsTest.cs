@@ -81,7 +81,7 @@ namespace Miru.Tests.Mvc
             };
                 
             // act
-            var lookups = entities.ToLookups();
+            var lookups = entities.ToSelectLookups();
             
             // assert
             lookups.ShouldCount(3);
@@ -122,7 +122,7 @@ namespace Miru.Tests.Mvc
                 var db = scope.Get<FooDbContext>();
 
                 // act
-                var lookups = db.Categories.ToLookups();
+                var lookups = db.Categories.ToSelectLookups();
 
                 // assert
                 lookups.ShouldCount(3);

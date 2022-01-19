@@ -8,7 +8,7 @@ namespace Miru.Mvc
 {
     public static class LookupExtensions
     {
-        public static async Task<SelectLookups> ToLookupsAsync<TModel>(
+        public static async Task<SelectLookups> ToSelectLookupsAsync<TModel>(
             this IQueryable<TModel> queryable,
             Func<TModel, object> key,
             Func<TModel, object> value,

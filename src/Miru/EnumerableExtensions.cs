@@ -49,6 +49,11 @@ namespace Miru
         {
             return !source.Any();
         }
+        
+        public static bool None<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        {
+            return !source.Any(predicate);
+        }
 
         public static TList ById<TList>(this IEnumerable<TList> list, long id) where TList : IEntity
         {

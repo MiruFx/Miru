@@ -5,9 +5,9 @@ namespace Miru.Scopables;
 
 public interface ICurrentScope
 {
-    Task BeforeAsync(CancellationToken ct);
+    Task BeforeAsync<TRequest>(TRequest request, CancellationToken ct);
 
-    public Task AfterAsync(CancellationToken ct)
+    public Task AfterAsync<TRequest>(TRequest request, CancellationToken ct)
     {
         return Task.CompletedTask;
     }

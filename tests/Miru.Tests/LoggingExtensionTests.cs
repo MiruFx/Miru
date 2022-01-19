@@ -11,8 +11,7 @@ namespace Miru.Tests
         public void Should_inspect_empty_objects()
         {
             var model = new ProductList.Result();
-            model.Inspect().ShouldBe(@"Total: 0
-");
+            model.Inspect().ShouldBe(@"Empty");
         }
         
         [Test]
