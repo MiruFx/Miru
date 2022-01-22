@@ -27,8 +27,8 @@ namespace Miru.Tests.Html.TagHelpers
             var output = ProcessTag(tag, "miru-table");
             
             // arrange
-            output.TagName.ShouldBe("table");
-            output.Attributes.Single(m => m.Name == "id").Value.ShouldBe("team-list");
+            output.HtmlShouldContain("<table id=\"team-list\">");
+            output.HtmlShouldContain("</table>");
         }
         
         [Test]
@@ -48,8 +48,8 @@ namespace Miru.Tests.Html.TagHelpers
             var output = ProcessTag(tag, "miru-table");
             
             // arrange
-            output.TagName.ShouldBe("table");
-            output.Attributes.Single(m => m.Name == "id").Value.ShouldBe("team-list");
+            output.HtmlShouldContain("<table id=\"team-list\">");
+            output.HtmlShouldContain("</table>");
         }
         
         [Test]
