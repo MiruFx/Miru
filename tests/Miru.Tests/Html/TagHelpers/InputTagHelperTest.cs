@@ -85,12 +85,48 @@ namespace Miru.Tests.Html.TagHelpers
             html.HtmlShouldBe("<input type=\"text\" value=\"John\" name=\"Name\" id=\"Name\" class=\"the-final-form-input\">");
         }
 
+        [Test]
+        public void Should_render_radio()
+        {
+            // arrange
+            var model = new Command { Size = "M" };
+            var tag = CreateTag(new InputTagHelper(), model, m => m.Size);
+            
+            // act
+            var htmlChecked = ProcessTag(tag, "miru-input", new { type="radio", value = "M" });
+            var htmlNotChecked = ProcessTag(tag, "miru-input", new { type="radio", value = "S" });
+            
+            // assert
+            htmlChecked.PreElement.GetContent().ShouldBe(
+                "<input type=\"radio\" value=\"M\" name=\"Size\" id=\"Size\" checked=\"checked\">");
+            
+            htmlNotChecked.PreElement.GetContent().ShouldBe(
+                "<input type=\"radio\" value=\"S\" name=\"Size\" id=\"Size\">");            
+        }
+        
+        [Test]
+        public void Should_render_radio_when_property_is_null()
+        {
+            // arrange
+            var model = new Command { Size = null };
+            var tag = CreateTag(new InputTagHelper(), model, m => m.Size);
+            
+            // act
+            var html = ProcessTag(tag, "miru-input", new { type="radio", value = "M" });
+            
+            // assert
+            html.PreElement.GetContent().ShouldBe(
+                "<input type=\"radio\" value=\"M\" name=\"Size\" id=\"Size\">");
+        }
+        
         public class Command
         {
             [Radio]
             public Relationships Relationship { get; set; }
             
             public string Name { get; set; }
+            
+            public string Size { get; set; }
 
             public List<Interest> Interests { get; set; } = new();
         }

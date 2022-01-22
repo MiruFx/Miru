@@ -1,5 +1,5 @@
+using System.IO;
 using System.Threading.Tasks;
-using Emet.FileSystems;
 using Miru.Consolables;
 using Miru.Core;
 
@@ -24,17 +24,22 @@ namespace Miru.Storages
                 var wwwrootStorage = _solution.AppDir / "wwwroot" / "assets";
                 var storageApp = _solution.RootDir / "storage" / "assets";
 
-                Directories.CreateIfNotExists(storageApp);
-            
-                FileSystem.CreateSymbolicLink(
-                    storageApp,
-                    wwwrootStorage,
-                    FileType.Directory);
-
-                Console2.GreenLine($"Created a symlink");
+                Console2.GreenLine($"Creating symlink");
                 Console2.WhiteLine($"\tfrom: {storageApp}");
                 Console2.WhiteLine($"\tto:   {wwwrootStorage}");
+                
+                Directories.CreateIfNotExists(storageApp);
 
+                if (Directory.Exists(wwwrootStorage))
+                {
+                    Console2.YellowLine($"Directory already exists... Skiping");
+                }
+                else
+                {
+                    Directory.CreateSymbolicLink(wwwrootStorage, storageApp);
+                    Console2.GreenLine("Done");
+                }
+                
                 return Task.CompletedTask;
             }
         }

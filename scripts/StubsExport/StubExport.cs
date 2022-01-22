@@ -43,9 +43,6 @@ public abstract class StubExport
             
             var fileContent = File.ReadAllLines(file).Select(line =>
                 {
-                    if (tokens != null)
-                        line = tokens(line);
-
                     line = line
                         // The order of replaces should be as it is here
                         .Replace("{{", "{%{{{")
@@ -110,6 +107,9 @@ public abstract class StubExport
                         .ReplaceIf(templateKey == "Show", "Show", "{{ input.Action }}")
                         .ReplaceIf(templateKey == "Show", "show", "{{ string.downcase input.Action }}");
 
+                    if (tokens != null)
+                        line = tokens(line);
+                    
                     return line;
                 }
             );

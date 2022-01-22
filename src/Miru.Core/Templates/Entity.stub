@@ -6,6 +6,7 @@ namespace {{ Solution.Name }}.Domain;
 public class {{ input.Name }} : Entity, ITimeStamped
 {
     public string Name { get; set; }
+    
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 }

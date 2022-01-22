@@ -11,4 +11,12 @@ Configuring
 
     ConfigureServices
         .AddSingleton<AppOptions>
+
+appSettings
+    appSettings.yml for any environments
+          <ItemGroup>
+            <Content Include="appSettings*.yml">
+              <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            </Content>
+          </ItemGroup>
 -->

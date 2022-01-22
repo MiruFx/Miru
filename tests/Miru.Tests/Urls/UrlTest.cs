@@ -17,7 +17,7 @@ namespace Miru.Tests.Urls
 {
     public class UrlTest : IDisposable
     {
-        private readonly MiruTestWebHost _host = new MiruTestWebHost(MiruHost.CreateMiruHost(), 
+        private readonly MiruTestWebHost _host = new(MiruHost.CreateMiruHost(), 
             services =>
             {
                 services
@@ -429,6 +429,26 @@ namespace Miru.Tests.Urls
             UrlLookup
                 .FullFor(request)
                 .ShouldBe("https://mirufx.github.io/Products/Edit/10");
+        }
+        
+        [Test]
+        public void When_building_full_url_ignore_last_bar()
+        {
+            // arrange
+            _host.Services.GetService<UrlOptions>().Base = "https://mirufx.github.io/";
+            
+            var request = new ProductsEdit.Command
+            {
+                Id = 10,
+                Name = "iPhone 5S",
+                ReturnUrl = "/Products"
+            };
+        
+            // act
+            var url = UrlLookup.FullFor(request);
+                
+            // assert
+            url.ShouldBe("https://mirufx.github.io/Products/Edit/10");
         }
         
         [Test]

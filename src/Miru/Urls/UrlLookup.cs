@@ -45,6 +45,9 @@ namespace Miru.Urls
         public string FullFor<TRequest>(TRequest request) where TRequest : class
         {
             var baseUrl = _urlOptions.Base;
+
+            if (baseUrl.EndsWith('/'))
+                baseUrl = baseUrl.Substring(0, baseUrl.Length - 1);
             
             return $"{baseUrl}{new UrlBuilder<TRequest>(request, _urlOptions, _urlMaps)}";
         }

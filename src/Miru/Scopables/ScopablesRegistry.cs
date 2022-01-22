@@ -13,4 +13,12 @@ public static class ScopablesRegistry
             .AddScoped<TCurrent>()
             .AddScoped<ICurrentScope, TCurrentScope>();
     }
+    
+    public static IServiceCollection AddScopable<TScope>(
+        this IServiceCollection services) where TScope : Scopable
+    {
+        return services
+            .AddScoped<IScopableQuery, TScope>()
+            .AddScoped<IScopableSaving, TScope>();
+    }
 }

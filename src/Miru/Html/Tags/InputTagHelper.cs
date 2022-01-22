@@ -16,7 +16,9 @@ namespace Miru.Html.Tags
             {
                 if (tagHelperOutput.Attributes.TryGetAttribute("value", out TagHelperAttribute attribute))
                 {
-                    if (attribute.Value.ToString()!.Equals(For.Model.ToString()))
+                    if (attribute.Value != null && 
+                        For.Model != null && 
+                        attribute.Value.ToString()!.Equals(For.Model.ToString()))
                         htmlTag.Checked();
                 }
             }
