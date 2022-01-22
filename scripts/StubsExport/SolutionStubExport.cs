@@ -25,6 +25,7 @@ public class SolutionStubExport : StubExport
         ExportFile(Params.SkeletonDir / "src" / "Corpo.Skeleton" / "GlobalUsing.cs");
         ExportFile(Params.SkeletonDir / "src" / "Corpo.Skeleton" / "package.json");
         ExportFile(Params.SkeletonDir / "src" / "Corpo.Skeleton" / "appSettings-example.yml");
+        ExportFile(Params.SkeletonDir / "src" / "Corpo.Skeleton" / "appSettings.yml");
 
         ExportDir(Params.SkeletonDir / "src" / "Corpo.Skeleton" / "Config");
         ExportFile(Params.SkeletonDir / "src" / "Corpo.Skeleton" / "Database" / "Migrations" / "202001290120_CreateUsers.cs");

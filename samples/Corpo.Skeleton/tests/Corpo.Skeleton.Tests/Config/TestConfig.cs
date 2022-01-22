@@ -16,7 +16,7 @@ public class TestsConfig : ITestConfig
             .AddTestingUserSession<User>()
             .AddDatabaseCleaner<SqliteDatabaseCleaner>()
             .AddQueueCleaner<LiteDbQueueCleaner>()
-            .AddFabrication<SkeletonFabricator>();
+            .AddFabrication<AppFabricator>();
 
         // Mock your services that talk with external apps
         // services.Mock<IService>();

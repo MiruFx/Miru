@@ -3,9 +3,9 @@ using Miru.Fabrication.FixtureConventions;
 
 namespace Corpo.Skeleton.Tests;
 
-public class SkeletonFabricator : Fabricator
+public class AppFabricator : Fabricator
 {
-    public SkeletonFabricator(FabSupport context) : base(context)
+    public AppFabricator(FabSupport context) : base(context)
     {
         Fixture.AddConvention(cfg =>
         {

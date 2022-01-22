@@ -72,7 +72,7 @@ namespace Miru.Html
         
         public HtmlTag TableHeaderFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
         {
-            var cell = GeneratorFor(model).TagFor(model, func, nameof(HtmlConfiguration.TableHeader));
+            var cell = GeneratorFor(model).TagFor(model, func, nameof(HtmlConfiguration.TableHeaders));
             
             cell.Append(DisplayLabelFor(model, func));
             

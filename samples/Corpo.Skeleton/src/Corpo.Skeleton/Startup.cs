@@ -1,4 +1,3 @@
-using Corpo.Skeleton.Config;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +7,7 @@ using Miru.Behaviors.TimeStamp;
 using Miru.Foundation.Hosting;
 using Miru.Pipeline;
 using Miru.Queuing;
+using Miru.Scopables;
 using Miru.Sqlite;
 using Miru.Userfy;
 
@@ -20,11 +20,13 @@ public class Startup
         services.AddMiru<Startup>()
 
             .AddDefaultPipeline<Startup>()
+            
+            .AddCurrentScope<Current, CurrentScope>()
                 
-            .AddEfCoreSqlite<SkeletonDbContext>()
+            .AddEfCoreSqlite<AppDbContext>()
 
             // miru extensions
-            .AddUserfy<User, SkeletonDbContext>(
+            .AddUserfy<User, AppDbContext>(
                 cookie: cfg =>
                 {
                     cfg.Cookie.Name = App.Name;

@@ -3,9 +3,9 @@ using Miru.Userfy;
 
 namespace Corpo.Skeleton.Database;
 
-public class SkeletonDbContext : UserfyDbContext<User>
+public class AppDbContext : UserfyDbContext<User>
 {
-    public SkeletonDbContext(
+    public AppDbContext(
         DbContextOptions options,
         IEnumerable<IInterceptor> interceptors) : base(options, interceptors)
     {

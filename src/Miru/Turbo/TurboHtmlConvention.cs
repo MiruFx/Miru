@@ -19,9 +19,9 @@ namespace Miru.Turbo
             
             cfg.Editors.IfPropertyIs<bool>().ModifyWith(m => m.CurrentTag.Class("form-check-input"));
             
-            cfg.TableHeader.IfPropertyIs<decimal>().AddClass("text-right");
-            cfg.TableHeader.IfPropertyIs<long>().AddClass("text-right");
-            cfg.TableHeader.IfPropertyIs<int>().AddClass("text-right");
+            cfg.TableHeaders.IfPropertyIs<decimal>().AddClass("text-right");
+            cfg.TableHeaders.IfPropertyIs<long>().AddClass("text-right");
+            cfg.TableHeaders.IfPropertyIs<int>().AddClass("text-right");
             
             cfg.Cells.IfPropertyIs<decimal>().AddClass("text-right");
             cfg.Cells.IfPropertyIs<long>().AddClass("text-right");

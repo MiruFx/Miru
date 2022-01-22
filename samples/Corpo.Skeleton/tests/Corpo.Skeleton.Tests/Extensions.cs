@@ -6,13 +6,13 @@ namespace Corpo.Skeleton.Tests;
 public static class Extensions
 {
     public static void Db(
-        this ITestFixture fixture, Action<SkeletonDbContext> func) => 
+        this ITestFixture fixture, Action<AppDbContext> func) => 
         fixture.WithDb(func);
         
     public static TReturn Db<TReturn>(
-        this ITestFixture fixture, Func<SkeletonDbContext, TReturn> func) => 
+        this ITestFixture fixture, Func<AppDbContext, TReturn> func) => 
         fixture.WithDb(func);
         
-    public static SkeletonFabricator Fab(this ITestFixture fixture) => 
-        fixture.Get<SkeletonFabricator>();
+    public static AppFabricator Fab(this ITestFixture fixture) => 
+        fixture.Get<AppFabricator>();
 }

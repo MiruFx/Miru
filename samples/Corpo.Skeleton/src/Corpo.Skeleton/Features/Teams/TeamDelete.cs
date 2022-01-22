@@ -18,9 +18,9 @@ public class TeamDelete
 
     public class Handler : IRequestHandler<Command, FeatureResult>
     {
-        private readonly SkeletonDbContext _db;
+        private readonly AppDbContext _db;
 
-        public Handler(SkeletonDbContext db)
+        public Handler(AppDbContext db)
         {
             _db = db;
         }

@@ -13,3 +13,5 @@ global using Miru;
 global using Miru.Databases.EntityFramework;
 global using Corpo.Skeleton.Domain;
 global using Miru.Mailing;
+global using Corpo.Skeleton.Config;
+global using Corpo.Skeleton.Features;

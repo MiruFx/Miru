@@ -11,5 +11,7 @@ public class HtmlConfig : HtmlConfiguration
         this.AddMiruForm();
         this.AddMiruFormSummary();
         this.AddRequiredLabels();
+        
+        Tables.Always.ModifyWith(tag => tag.CurrentTag.AddClass("table-responsive"));
     }
 }

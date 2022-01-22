@@ -20,9 +20,12 @@ namespace Miru.Html
         public ElementCategoryExpression Cells =>
             new(Library.TagLibrary.Category(nameof(Cells)).Profile(TagConstants.Default));
         
-        public ElementCategoryExpression TableHeader =>
-            new(Library.TagLibrary.Category(nameof(TableHeader)).Profile(TagConstants.Default));
+        public ElementCategoryExpression TableHeaders =>
+            new(Library.TagLibrary.Category(nameof(TableHeaders)).Profile(TagConstants.Default));
         
+        public ElementCategoryExpression Tables =>
+            new(Library.TagLibrary.Category(nameof(Tables)).Profile(TagConstants.Default));
+
         public ElementCategoryExpression Submits =>
             new(Library.TagLibrary.Category(nameof(Submits)).Profile(TagConstants.Default));
         
@@ -58,8 +61,6 @@ namespace Miru.Html
             Forms
                 .If(m => m.Accessor.OwnerType.IsRequestQuery())
                 .ModifyWith(m => m.CurrentTag.Attr("method", "get"));
-            
-            Submits.Always.ModifyTag(tag => tag.DisableWith("Sending..."));
 
             // Editors
             Selects.Always.BuildBy<SelectBuilder>();
@@ -100,9 +101,9 @@ namespace Miru.Html
             DisplayLabels.ModifyForAttribute<DisplayAttribute>((t, a) => t.Text(a.Name));
             
             // Tables
+            Tables.Always.BuildBy<TableBuilder>();
             Cells.Always.BuildBy<CellBuilder>();
-            
-            TableHeader.Always.BuildBy<TableHeaderBuilder>();
+            TableHeaders.Always.BuildBy<TableHeaderBuilder>();
 
             // Editors.If(req => req.Accessor.HasAttribute<RadioAttribute>() && req.Accessor.PropertyType == typeof(bool))
             //     .BuildBy(m =>
