@@ -9,6 +9,7 @@ DbContext
     location
 Helpers
     TODO: byid, byidorfail, etc
+    WhereWhen
 -->
 
 [[toc]]

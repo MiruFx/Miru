@@ -10,7 +10,7 @@ namespace Miru.UI
             html.FormSummaries.Always.AddClass("alert alert-danger");
             
             // tables
-            html.Tables.Always.AddClass("table table-striped table-hover");
+            html.Tables.Always.AddClass("table");
             
             html.TableHeaders.IfPropertyIsNumber().AddClass("text-end");
             html.TableHeaders.IfPropertyIs<bool>().AddClass("text-center");
