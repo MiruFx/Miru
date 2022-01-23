@@ -71,21 +71,6 @@ namespace Miru.Tests.Html.TagHelpers
         }
         
         [Test]
-        public void Should_overwrite_css_when_set_class_has_value()
-        {
-            // arrange
-            var model = new Command { Name = "John" };
-            var tag = CreateTag(new InputTagHelper(), model, m => m.Name);
-            tag.SetClass = "the-final-form-input";
-
-            // act
-            var html = ProcessTag(tag, "miru-input", new { @class = "form-control" });
-            
-            // assert
-            html.HtmlShouldBe("<input type=\"text\" value=\"John\" name=\"Name\" id=\"Name\" class=\"the-final-form-input\">");
-        }
-
-        [Test]
         public void Should_render_radio()
         {
             // arrange
