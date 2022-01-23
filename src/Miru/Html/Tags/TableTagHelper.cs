@@ -29,6 +29,5 @@ public class TableTagHelper : MiruHtmlTagHelper
         var modelType = For.Metadata.ContainerType ?? For.ModelExplorer.Container.ModelType;
 
         htmlTag.Id(ElementNaming.Id(modelType));
-        htmlTag.MergeAttributes(output.Attributes);
     }
 }
