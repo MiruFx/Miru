@@ -6,13 +6,13 @@ namespace {{ Solution.Name }}.Tests;
 public static class Extensions
 {
     public static void Db(
-        this ITestFixture fixture, Action<{{ Solution.ShortName }}DbContext> func) => 
+        this ITestFixture fixture, Action<AppDbContext> func) => 
         fixture.WithDb(func);
         
     public static TReturn Db<TReturn>(
-        this ITestFixture fixture, Func<{{ Solution.ShortName }}DbContext, TReturn> func) => 
+        this ITestFixture fixture, Func<AppDbContext, TReturn> func) => 
         fixture.WithDb(func);
         
-    public static {{ Solution.ShortName }}Fabricator Fab(this ITestFixture fixture) => 
-        fixture.Get<{{ Solution.ShortName }}Fabricator>();
+    public static AppFabricator Fab(this ITestFixture fixture) => 
+        fixture.Get<AppFabricator>();
 }

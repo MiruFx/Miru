@@ -21,9 +21,9 @@ public class {{ input.Name }}{{ input.Action }}
         IRequestHandler<Query, Command>, 
         IRequestHandler<Command, Result>
     {
-        private readonly {{ Solution.ShortName }}DbContext _db;
+        private readonly AppDbContext _db;
             
-        public Handler({{ Solution.ShortName }}DbContext db)
+        public Handler(AppDbContext db)
         {
             _db = db;
         }

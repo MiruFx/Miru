@@ -18,9 +18,9 @@ public class {{ input.Name }}Delete
 
     public class Handler : IRequestHandler<Command, FeatureResult>
     {
-        private readonly {{ Solution.ShortName }}DbContext _db;
+        private readonly AppDbContext _db;
 
-        public Handler({{ Solution.ShortName }}DbContext db)
+        public Handler(AppDbContext db)
         {
             _db = db;
         }

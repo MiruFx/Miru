@@ -1,0 +1,6 @@
+# 
+# appSettings.yml has configurations for all environments your app will run
+#
+
+App:
+  Name: Corpo {{ Solution.ShortName }}

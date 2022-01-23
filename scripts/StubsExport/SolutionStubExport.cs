@@ -29,7 +29,7 @@ public class SolutionStubExport : StubExport
 
         ExportDir(Params.SkeletonDir / "src" / "Corpo.Skeleton" / "Config");
         ExportFile(Params.SkeletonDir / "src" / "Corpo.Skeleton" / "Database" / "Migrations" / "202001290120_CreateUsers.cs");
-        ExportFile(Params.SkeletonDir / "src" / "Corpo.Skeleton" / "Database" / "SkeletonDbContext.cs");
+        ExportFile(Params.SkeletonDir / "src" / "Corpo.Skeleton" / "Database" / "AppDbContext.cs");
         ExportFile(Params.SkeletonDir / "src" / "Corpo.Skeleton" / "Domain" / "User.cs");
         
         ExportFile(Params.SkeletonDir / "src" / "Corpo.Skeleton" / "Features" / "_ViewImports.cshtml");
@@ -40,7 +40,7 @@ public class SolutionStubExport : StubExport
         ExportDir(Params.SkeletonDir / "src" / "Corpo.Skeleton" / "resources");
         
         ExportFile(Params.SkeletonDir / "tests" / "Corpo.Skeleton.Tests" / "Corpo.Skeleton.Tests.csproj");
-        ExportFile(Params.SkeletonDir / "tests" / "Corpo.Skeleton.Tests" / "SkeletonFabricator.cs");
+        ExportFile(Params.SkeletonDir / "tests" / "Corpo.Skeleton.Tests" / "AppFabricator.cs");
         ExportFile(Params.SkeletonDir / "tests" / "Corpo.Skeleton.Tests" / "Program.cs", "'Program");
         ExportFile(Params.SkeletonDir / "tests" / "Corpo.Skeleton.Tests" / "GlobalUsing.cs", "'GlobalUsing");
         ExportFile(Params.SkeletonDir / "tests" / "Corpo.Skeleton.Tests" / "Extensions.cs");

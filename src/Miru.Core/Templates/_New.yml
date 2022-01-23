@@ -8,10 +8,12 @@ src\Corpo.Skeleton\Program.cs: Program.stub
 src\Corpo.Skeleton\GlobalUsing.cs: GlobalUsing.stub
 src\Corpo.Skeleton\package.json: package.json.stub
 src\Corpo.Skeleton\appSettings-example.yml: appSettings-example.yml.stub
+src\Corpo.Skeleton\appSettings.yml: appSettings.yml.stub
+src\Corpo.Skeleton\Config\AppOptions.cs: AppOptions.stub
 src\Corpo.Skeleton\Config\AuthorizationRulesConfig.cs: AuthorizationRulesConfig.stub
 src\Corpo.Skeleton\Config\HtmlConfig.cs: HtmlConfig.stub
 src\Corpo.Skeleton\Database\Migrations\202001290120_CreateUsers.cs: 202001290120_CreateUsers.stub
-src\Corpo.Skeleton\Database\SkeletonDbContext.cs: SkeletonDbContext.stub
+src\Corpo.Skeleton\Database\AppDbContext.cs: AppDbContext.stub
 src\Corpo.Skeleton\Domain\User.cs: User.stub
 src\Corpo.Skeleton\Features\_ViewImports.cshtml: _ViewImports.cshtml.stub
 src\Corpo.Skeleton\Features\_ViewStart.cshtml: _ViewStart.cshtml.stub
@@ -50,7 +52,7 @@ src\Corpo.Skeleton\resources\js\controllers\form_controller.js: form_controller.
 src\Corpo.Skeleton\resources\js\controllers\form_input_validation_controller.js: form_input_validation_controller.js.stub
 src\Corpo.Skeleton\resources\js\controllers\form_summary_controller.js: form_summary_controller.js.stub
 tests\Corpo.Skeleton.Tests\Corpo.Skeleton.Tests.csproj: Corpo.Skeleton.Tests.csproj.stub
-tests\Corpo.Skeleton.Tests\SkeletonFabricator.cs: SkeletonFabricator.stub
+tests\Corpo.Skeleton.Tests\AppFabricator.cs: AppFabricator.stub
 tests\Corpo.Skeleton.Tests\Program.cs: "'Program.stub"
 tests\Corpo.Skeleton.Tests\GlobalUsing.cs: "'GlobalUsing.stub"
 tests\Corpo.Skeleton.Tests\Extensions.cs: Extensions.stub

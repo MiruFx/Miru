@@ -57,10 +57,10 @@ namespace Miru.Tests.Makers
             // (m.Solution.AppDir / "appSettings.Test.yml").ShouldContain("{{ db_dir }}App_dev");
             
             // app
-            (m.Solution.AppDir / "Database" / "StackOverflowDbContext.cs").ShouldContain("public class StackOverflowDbContext");
+            (m.Solution.AppDir / "Database" / "AppDbContext.cs").ShouldContain("public class AppDbContext");
             
             // test
-            (m.Solution.AppTestsDir / "StackOverflowFabricator.cs").ShouldContain("public class StackOverflowFabricator");
+            (m.Solution.AppTestsDir / "AppFabricator.cs").ShouldContain("public class AppFabricator");
         }
         
         [Test]

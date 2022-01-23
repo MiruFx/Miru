@@ -13,3 +13,5 @@ global using Miru;
 global using Miru.Databases.EntityFramework;
 global using {{ Solution.Name }}.Domain;
 global using Miru.Mailing;
+global using {{ Solution.Name }}.Config;
+global using {{ Solution.Name }}.Features;
