@@ -31,6 +31,11 @@ public abstract class MiruHtmlTagHelper : HtmlTagTagHelper
         
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
+        // TODO: refactor this method
+        // first we need to generate the htmltag for the category
+        
+        // pass the htmltag to the concrete class to do the customizations
+        
         if (For == null)
             throw new InvalidOperationException(
                 "Missing or invalid 'for' attribute value. Specify a valid model expression for the 'for' attribute value.");

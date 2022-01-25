@@ -13,7 +13,7 @@ public class TableTagHelper : MiruHtmlTagHelper
 {
     protected override string Category => nameof(HtmlConfiguration.Tables);
 
-    protected override void BeforeRender(TagHelperOutput output, HtmlTag htmlTag)
+    public override void Process(TagHelperContext context, TagHelperOutput output)
     {
         var model = For.Model as IEnumerable;
             
@@ -26,6 +26,11 @@ public class TableTagHelper : MiruHtmlTagHelper
             return;
         }
         
+        base.Process(context, output);
+    }
+
+    protected override void BeforeRender(TagHelperOutput output, HtmlTag htmlTag)
+    {
         var modelType = For.Metadata.ContainerType ?? For.ModelExplorer.Container.ModelType;
 
         htmlTag.Id(ElementNaming.Id(modelType));

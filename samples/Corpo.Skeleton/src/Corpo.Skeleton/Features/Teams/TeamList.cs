@@ -30,13 +30,14 @@ public class TeamList
         {
             return new Result
             {
-                Teams = await _db.Teams
-                    .Select(m => new TeamView
-                    {
-                        Id = m.Id,
-                        Name = m.Name
-                    })
-                    .ToListAsync(ct)
+                Teams = new List<TeamView>()
+                // Teams = await _db.Teams
+                //     .Select(m => new TeamView
+                //     {
+                //         Id = m.Id,
+                //         Name = m.Name
+                //     })
+                //     .ToListAsync(ct)
             };
         }
     }
