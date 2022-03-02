@@ -24,9 +24,9 @@ public class TeamEditTest : FeatureTest
         [Test]
         public void Name_is_required()
         {
-            ShouldBeValid(m => m.Name, Request.Name);
+            ShouldBeValid(Request, m => m.Name, Request.Name);
             
-            ShouldBeInvalid(m => m.Name, string.Empty);
+            ShouldBeInvalid(Request, m => m.Name, string.Empty);
         }
     }
 }

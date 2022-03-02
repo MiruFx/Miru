@@ -27,10 +27,10 @@ public class PasswordForgotTest : FeatureTest
         [Test]
         public void Email_is_required_and_valid()
         {
-            ShouldBeValid(m => m.Email, Request.Email);
+            ShouldBeValid(Request, m => m.Email, Request.Email);
 
-            ShouldBeInvalid(m => m.Email, string.Empty);
-            ShouldBeInvalid(m => m.Email, "admin!.admin");
+            ShouldBeInvalid(Request, m => m.Email, string.Empty);
+            ShouldBeInvalid(Request, m => m.Email, "admin!.admin");
         }
     }
 }

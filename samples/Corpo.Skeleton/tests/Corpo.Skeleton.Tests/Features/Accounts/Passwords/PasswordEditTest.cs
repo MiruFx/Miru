@@ -30,9 +30,9 @@ public class PasswordEditTest : FeatureTest
         [Test]
         public void Current_password_is_required()
         {
-            ShouldBeValid(x => x.CurrentPassword, Request.CurrentPassword);
+            ShouldBeValid(Request, x => x.CurrentPassword, Request.CurrentPassword);
 
-            ShouldBeInvalid(m => m.CurrentPassword, string.Empty);
+            ShouldBeInvalid(Request, m => m.CurrentPassword, string.Empty);
         }
             
         [Test]
@@ -41,11 +41,11 @@ public class PasswordEditTest : FeatureTest
             Request.NewPassword = "NewPassword123456!";
             Request.NewPasswordConfirmation = "NewPassword123456!";
                 
-            ShouldBeValid(x => x.NewPassword, Request);
-            ShouldBeValid(x => x.NewPasswordConfirmation, Request);
+            ShouldBeValid(Request, x => x.NewPassword);
+            ShouldBeValid(Request, x => x.NewPasswordConfirmation);
 
-            ShouldBeInvalid(m => m.NewPassword, string.Empty);
-            ShouldBeInvalid(m => m.NewPassword, "OtherPassword1!");
+            ShouldBeInvalid(Request, m => m.NewPassword, string.Empty);
+            ShouldBeInvalid(Request, m => m.NewPassword, "OtherPassword1!");
         }
     }
 }

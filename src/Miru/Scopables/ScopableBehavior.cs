@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Miru.Scopables;
 
-public class ScopableBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+public class ScopableBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> 
+    where TRequest : IRequest<TResponse>
 {
     private readonly DbContext _db;
     private readonly IEnumerable<IScopableQuery> _filters;

@@ -4,31 +4,31 @@ using MediatR;
 using Microsoft.Extensions.Options;
 using StackExchange.Profiling;
 
-namespace Miru.Diagnostics
+namespace Miru.Diagnostics;
+
+public class MiniProfilerBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> 
+    where TRequest : IRequest<TResponse>
 {
-    public class MiniProfilerBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    private readonly MiruMiniProfilerOptions _options;
+
+    public MiniProfilerBehavior(IOptions<MiruMiniProfilerOptions> options)
     {
-        private readonly MiruMiniProfilerOptions _options;
+        _options = options.Value;
+    }
 
-        public MiniProfilerBehavior(IOptions<MiruMiniProfilerOptions> options)
+    public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+    {
+        using (MiniProfiler.Current.Step($"Handling {request.GetType()}"))
         {
-            _options = options.Value;
-        }
-
-        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
-        {
-            using (MiniProfiler.Current.Step($"Handling {request.GetType()}"))
-            {
-                if (_options.ShouldIgnore(request) == false)
-                    MiniProfiler.Current.CustomTiming("Feature Handler", request.Inspect());
+            if (_options.ShouldIgnore(request) == false)
+                MiniProfiler.Current.CustomTiming("Feature Handler", request.Inspect());
                 
-                var response = await next();
+            var response = await next();
                 
-                if (_options.ShouldIgnore(response) == false)
-                    MiniProfiler.Current.CustomTiming("Feature Handler", response.Inspect());
+            if (_options.ShouldIgnore(response) == false)
+                MiniProfiler.Current.CustomTiming("Feature Handler", response.Inspect());
                 
-                return response;
-            }
+            return response;
         }
     }
 }

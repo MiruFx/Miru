@@ -5,7 +5,7 @@ using MediatR;
 namespace Miru.Scopables;
 
 public class CurrentScopeBehavior<TRequest, TResponse> : 
-    IPipelineBehavior<TRequest, TResponse>
+    IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
 {
     private readonly ICurrentScope _currentScope;
 

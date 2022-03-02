@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Miru.Databases;
 using Miru.Settings;
 using Respawn;
+using Respawn.Graph;
 
 namespace Miru.Testing
 {
@@ -14,11 +15,11 @@ namespace Miru.Testing
         {
             TablesToIgnore = new[]
             {
-                "sysdiagrams",
-                "tblUser",
-                "tblObjectType",
-                "__MigrationHistory",
-                "VersionInfo"
+                new Table("sysdiagrams"),
+                new Table("tblUser"),
+                new Table("tblObjectType"),
+                new Table("__MigrationHistory"),
+                new Table("VersionInfo")
             },
             SchemasToExclude = new string[] { }
         };

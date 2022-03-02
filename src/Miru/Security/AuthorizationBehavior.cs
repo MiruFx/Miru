@@ -5,7 +5,8 @@ using Miru.Queuing;
 
 namespace Miru.Security
 {
-    public class AuthorizationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    public class AuthorizationBehavior<TRequest, TResponse> : 
+        IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
     {
         private readonly IAuthorizationRules _rules;
 

@@ -5,9 +5,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.0" />
-        <PackageReference Include="Hangfire.Core" Version="1.7.25" />
-        <PackageReference Include="Hangfire.Storage.SQLite" Version="0.3.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.2" />
+        <PackageReference Include="Hangfire.Core" Version="1.7.28" />
+        <PackageReference Include="Hangfire.Storage.SQLite" Version="0.3.1" />
     </ItemGroup>
 
     <ItemGroup>

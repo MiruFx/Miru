@@ -5,38 +5,37 @@ using Playground.Domain;
 using Playground.Features.Accounts.Passwords;
 using Shouldly;
 
-namespace Playground.Tests.Features.Accounts.Passwords
+namespace Playground.Tests.Features.Accounts.Passwords;
+
+public class PasswordForgotTest : FeatureTest
 {
-    public class PasswordForgotTest : FeatureTest
+    [Test]
+    public async Task Can_generate_reset_email()
+    {
+        // arrange
+        var user = await _.MakeUserAsync<User>();
+
+        // act
+        await _.SendAsync(new PasswordForgot.Command
+        {
+            Email = user.Email
+        });
+
+        // assert
+        var job = _.LastEmailSent();
+        job.Data.ToAddresses.ShouldContainEmail(user.Email);
+        job.Data.Body.ShouldContain("password reset");
+    }
+
+    public class Validations : ValidationTest<PasswordForgot.Command>
     {
         [Test]
-        public async Task Can_generate_reset_email()
+        public void Email_is_required_and_valid()
         {
-            // arrange
-            var user = await _.MakeUserAsync<User>();
+            ShouldBeValid(Request, m => m.Email, Request.Email);
 
-            // act
-            await _.SendAsync(new PasswordForgot.Command
-            {
-                Email = user.Email
-            });
-
-            // assert
-            var job = _.LastEmailSent();
-            job.Data.ToAddresses.ShouldContainEmail(user.Email);
-            job.Data.Body.ShouldContain("password reset");
-        }
-
-        public class Validations : ValidationTest<PasswordForgot.Command>
-        {
-            [Test]
-            public void Email_is_required_and_valid()
-            {
-                ShouldBeValid(m => m.Email, Request.Email);
-
-                ShouldBeInvalid(m => m.Email, string.Empty);
-                ShouldBeInvalid(m => m.Email, "admin!.admin");
-            }
+            ShouldBeInvalid(Request, m => m.Email, string.Empty);
+            ShouldBeInvalid(Request, m => m.Email, "admin!.admin");
         }
     }
 }

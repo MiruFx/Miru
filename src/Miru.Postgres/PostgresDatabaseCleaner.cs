@@ -5,6 +5,7 @@ using Miru.Databases;
 using Miru.Settings;
 using Npgsql;
 using Respawn;
+using Respawn.Graph;
 
 namespace Miru.Postgres
 {
@@ -30,7 +31,10 @@ namespace Miru.Postgres
             var checkpoint = new Checkpoint
             {
                 DbAdapter = DbAdapter.Postgres,
-                TablesToIgnore = _databaseCleanerOptions.TablesToIgnore.ToArray(),
+                TablesToIgnore = _databaseCleanerOptions
+                    .TablesToIgnore
+                    .Select(x => new Table(x))
+                    .ToArray(),
                 SchemasToExclude = new string[] { }
             };
             

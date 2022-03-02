@@ -30,20 +30,20 @@ public class AccountRegisterTest : FeatureTest
         [Test]
         public void Email_is_required_and_valid_and_unique()
         {
-            ShouldBeValid(m => m.Email, Request.Email);
+            ShouldBeValid(Request, m => m.Email, Request.Email);
 
-            ShouldBeInvalid(m => m.Email, string.Empty);
-            ShouldBeInvalid(m => m.Email, "admin!.admin");
+            ShouldBeInvalid(Request, m => m.Email, string.Empty);
+            ShouldBeInvalid(Request, m => m.Email, "admin!.admin");
         }
 
         [Test]
         public void Password_is_required_and_should_match_confirmation()
         {
-            ShouldBeValid(x => x.Password, Request);
-            ShouldBeValid(x => x.PasswordConfirmation, Request);
+            ShouldBeValid(Request, x => x.Password);
+            ShouldBeValid(Request, x => x.PasswordConfirmation);
 
-            ShouldBeInvalid(m => m.PasswordConfirmation, string.Empty);
-            ShouldBeInvalid(m => m.Password, string.Empty);
+            ShouldBeInvalid(Request, m => m.PasswordConfirmation, string.Empty);
+            ShouldBeInvalid(Request, m => m.Password, string.Empty);
         }
     }
 }

@@ -6,7 +6,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Miru.Databases.EntityFramework;
 
-public class TransactionBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+public class TransactionBehavior<TRequest, TResponse> : 
+    IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
 {
     private readonly DbContext _db;
     private readonly ILogger<TransactionBehavior<TRequest, TResponse>> _logger;

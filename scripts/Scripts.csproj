@@ -29,7 +29,7 @@
 
   <ItemGroup>
     <PackageReference Include="Bullseye" Version="3.7.0" />
-    <PackageReference Include="SimpleExec" Version="7.0.0" />
+    <PackageReference Include="SimpleExec" Version="8.0.0" />
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
   </ItemGroup>
 
