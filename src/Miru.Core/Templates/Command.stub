@@ -53,10 +53,10 @@ public class {{ input.Name }}{{ input.Action }}
         
     public class {{ input.Name }}Controller : MiruController
     {
-        [HttpGet("/{{ input.In }}/{id:long}/{{ input.Action }}")]
+        [HttpGet("/{{ input.UrlIn }}/{id:long}/{{ input.Action }}")]
         public async Task<Command> {{ input.Action }}(Query query) => await SendAsync(query);
 
-        [HttpPost("/{{ input.In }}/{{ input.Action }}")]
+        [HttpPost("/{{ input.UrlIn }}/{{ input.Action }}")]
         public async Task<Result> {{ input.Action }}(Command command) => await SendAsync(command);
     }
 }

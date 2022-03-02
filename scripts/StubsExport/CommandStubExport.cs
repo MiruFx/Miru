@@ -1,3 +1,5 @@
+using System;
+
 namespace Scripts.StubsExport;
 
 public class CommandStubExport : StubExport

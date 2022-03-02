@@ -2,13 +2,13 @@ using Miru.Security;
 
 namespace Corpo.Skeleton.Config;
 
-public class AuthorizationRulesConfig : IAuthorizationRules
+public class AuthorizationRulesConfig : AuthorizationRules
 {
     private readonly Current _current;
         
     public AuthorizationRulesConfig(Current current) => _current = current;
 
-    public AuthorizationResult Evaluate<TRequest>(TRequest request, FeatureInfo feature)
+    protected override AuthorizationResult Evaluate<TRequest>(TRequest request, FeatureInfo feature)
     {
         // if (_current.IsAuthenticated == false)
         // {

@@ -34,7 +34,7 @@ public class {{ input.Name }}{{ input.Action }}
         
     public class {{ input.In }}Controller : MiruController
     {
-        [HttpGet("/{{ input.In }}/{id:long}")]
+        [HttpGet("/{{ input.UrlIn }}/{id:long}")]
         public async Task<Result> {{ input.Action }}(Query request) => await SendAsync(request);
     }
 }

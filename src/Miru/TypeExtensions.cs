@@ -95,7 +95,7 @@ namespace Miru
                 .Any(i => i.GetGenericArguments().First().IsEnum);
         }
         
-        public static object GetDefaultValue(this Type t)
+        public static object GetDefaultValue2(this Type t)
         {
             if (t.IsValueType && Nullable.GetUnderlyingType(t) == null)
                 return Activator.CreateInstance(t);

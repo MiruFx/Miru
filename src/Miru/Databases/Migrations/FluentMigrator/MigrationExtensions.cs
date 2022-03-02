@@ -21,24 +21,41 @@ public static class MigrationExtensions
         return table.WithColumn("Id").AsId();
     }
     
+    // public static ICreateTableColumnOptionOrForeignKeyCascadeOrWithColumnSyntax AsForeignKeyReference(
+    //     this ICreateTableColumnAsTypeSyntax column, 
+    //     string foreignTable,
+    //     string idColumn = "Id",
+    //     bool indexed = true,
+    //     bool deleteOnCascade = true)
+    // {
+    //     var attrs = column.AsInt64();
+    //     
+    //     if (indexed) 
+    //         attrs = attrs.Indexed();
+    //
+    //     var attrs2 = attrs.ForeignKey(foreignTable, idColumn);
+    //         
+    //     return deleteOnCascade ? attrs2.OnDelete(Rule.Cascade) : attrs2;
+    // }
+    
     public static ICreateTableColumnOptionOrForeignKeyCascadeOrWithColumnSyntax AsForeignKeyReference(
         this ICreateTableColumnAsTypeSyntax column, 
         string foreignTable,
         string idColumn = "Id",
-        bool deleteOnCascade = true)
+        bool deleteOnCascade = false)
     {
-        var attrs = column.AsInt64().ForeignKey(foreignTable, idColumn);
+        var attrs = column.AsInt64().Indexed().ForeignKey(foreignTable, idColumn);
             
         return deleteOnCascade ? attrs.OnDelete(Rule.Cascade) : attrs;
     }
     
-    public static IAlterTableAddColumnOrAlterColumnSyntax AsForeignKeyReference(
+    public static IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax AsForeignKeyReference(
         this IAlterTableColumnAsTypeSyntax column, 
         string foreignTable,
         string idColumn = "Id",
-        bool deleteOnCascade = true)
+        bool deleteOnCascade = false)
     {
-        var attrs = column.AsInt64().ForeignKey(foreignTable, idColumn);
+        var attrs = column.AsInt64().Indexed().ForeignKey(foreignTable, idColumn);
             
         return deleteOnCascade ? attrs.OnDelete(Rule.Cascade) : attrs;
     }

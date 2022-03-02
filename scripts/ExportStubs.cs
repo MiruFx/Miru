@@ -6,8 +6,13 @@ namespace Scripts;
 
 public class ExportStubs
 {
+    private static bool _exported;
+    
     public static void Export()
     {
+        if (_exported)
+            return;
+        
         var rootDir = new SolutionFinder().FromCurrentDir().Solution.RootDir;
         
         var param = new StubParams()
@@ -41,5 +46,7 @@ public class ExportStubs
         new ConfigStubExport(param).Export();
         
         new FeatureScaffoldStubExport(param).Export();
+
+        _exported = true;
     }
 }

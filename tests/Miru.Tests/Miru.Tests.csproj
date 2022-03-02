@@ -21,6 +21,7 @@ Has to be .Sdk.Web to allow unit test asp.net components correctly
   <ItemGroup>
     <ProjectReference Include="..\..\samples\Corpo.Skeleton\src\Corpo.Skeleton\Corpo.Skeleton.csproj" />
     <ProjectReference Include="..\..\samples\Playground\src\Playground\Playground.csproj" />
+    <ProjectReference Include="..\..\scripts\Scripts.csproj" />
     <ProjectReference Include="..\..\src\Miru.Cli\Miru.Cli.csproj" />
     <ProjectReference Include="..\..\src\Miru.Fabrication\Miru.Fabrication.csproj" />
     <ProjectReference Include="..\..\src\Miru.SqlServer\Miru.SqlServer.csproj" />
@@ -32,5 +33,9 @@ Has to be .Sdk.Web to allow unit test asp.net components correctly
     <Content Include="*.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UI" />
   </ItemGroup>
 </Project>

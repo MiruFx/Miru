@@ -12,7 +12,7 @@
     There are no {{ input.In }} to show
 </div>
 
-<miru-table for="{{ input.In }}" class="table table-striped table-hover">
+<miru-table for="{{ input.In }}">
     <thead>
         <tr>
             <miru-th for="{{ input.In }}[0].Name" />

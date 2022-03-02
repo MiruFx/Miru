@@ -445,10 +445,12 @@ namespace Miru.Tests.Urls
             };
         
             // act
-            var url = UrlLookup.FullFor(request);
+            var url1 = UrlLookup.FullFor(request);
+            var url2 = UrlLookup.FullFor<ProductsEdit>();
                 
             // assert
-            url.ShouldBe("https://mirufx.github.io/Products/Edit/10");
+            url1.ShouldBe("https://mirufx.github.io/Products/Edit/10");
+            url2.ShouldBe("https://mirufx.github.io/Products/Edit");
         }
         
         [Test]
@@ -620,9 +622,10 @@ namespace Miru.Tests.Urls
 
             public class ProductsController : MiruController
             {
+                [HttpGet("/Products/Edit")]
                 public Command Edit(Query request) => new Command();
                 
-                [HttpPost, Route("/Products/Edit/{Id}")]
+                [HttpPost("/Products/Edit/{Id}")]
                 public Result Edit(Command request) => new Result();
             }
         }

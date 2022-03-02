@@ -24,7 +24,7 @@ namespace Miru.Security
             if (featureInfo.Implements<IMiruJob>())
                 return await next();
             
-            var result = _rules.Evaluate(request, featureInfo);
+            var result = await _rules.Evaluate(request, featureInfo);
                 
             if (result.IsAuthorized)
                 return await next();

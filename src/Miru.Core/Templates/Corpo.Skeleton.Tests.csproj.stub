@@ -8,7 +8,6 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
         <PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
-        <PackageReference Include="Hangfire.MemoryStorage" Version="1.7.0" />
         
         <PackageReference Include="Miru.Testing" Version="{{ MiruVersion }}" />
         <PackageReference Include="Miru.Fabrication" Version="{{ MiruVersion }}" />

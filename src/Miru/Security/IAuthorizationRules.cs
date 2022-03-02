@@ -4,5 +4,5 @@ namespace Miru.Security;
 
 public interface IAuthorizationRules
 {
-    AuthorizationResult Evaluate<TRequest>(TRequest request, FeatureInfo feature);
+    Task<AuthorizationResult> Evaluate<TRequest>(TRequest request, FeatureInfo feature);
 }

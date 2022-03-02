@@ -18,6 +18,10 @@ Html (Split into Html.md)
     Table
         Header
         Row
+        
+        miru-table
+        foreach Results.Indexed()
+        
     Form
         Summary
         Label

@@ -6,7 +6,7 @@ namespace Corpo.Skeleton.PageTests.Pages.Tickets
     public class TicketEditPageTest : PageTest
     {
         [Test]
-        public void Can_edit_tickets()
+        public void Can_edit_ticket()
         {
             // arrange
             // var ticket = _.MakeSaving<Ticket>();

@@ -34,6 +34,14 @@ namespace Miru.Databases.EntityFramework
                 dbSet.Update(entity);
         }
         
+        public static async Task UpdateAsync<TEntity>(
+            this DbSet<TEntity> dbSet, 
+            TEntity entity,
+            CancellationToken ct) where TEntity : class, IEntity
+        {
+            await dbSet.SingleUpdateAsync(entity, ct);
+        }
+        
         public static void AddIfNotExists<TEntity>(
             this DbSet<TEntity> dbSet, Expression<Func<TEntity, bool>> predicate, TEntity entity) where TEntity : class, new()
         {
@@ -43,17 +51,6 @@ namespace Miru.Databases.EntityFramework
                 dbSet.Add(entity);
         }
         
-        public static async Task<EntityEntry<TEntity>> InactiveByIdAsync<TEntity>(
-            this DbSet<TEntity> dbSet, 
-            long id, 
-            CancellationToken ct = default)
-            where TEntity : class, IInactivable, IEntity 
-        {
-            var entity = await dbSet.ByIdOrFailAsync(id, ct);
-
-            entity.IsInactive = true;
-            
-            return dbSet.Update(entity);
-        }
+        
     }
 }

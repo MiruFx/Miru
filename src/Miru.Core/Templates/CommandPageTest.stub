@@ -6,7 +6,7 @@ namespace {{ Solution.Name }}.PageTests.Pages.{{ input.In }}
     public class {{ input.Name }}{{ input.Action }}PageTest : PageTest
     {
         [Test]
-        public void Can_{{ string.downcase input.Action }}_{{ string.downcase input.In }}()
+        public void Can_{{ string.downcase input.Action }}_{{ string.downcase input.Name }}()
         {
             // arrange
             // var {{ string.downcase input.Name }} = _.MakeSaving<{{ input.Name }}>();

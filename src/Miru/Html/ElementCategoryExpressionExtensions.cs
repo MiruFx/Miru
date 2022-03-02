@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using HtmlTags;
 using HtmlTags.Conventions;
 using HtmlTags.Reflection;
 
@@ -38,5 +40,31 @@ namespace Miru.Html
         public static ElementActionExpression IfPropertyTypeAndAttribute<TType, TAttribute>(
             this ElementCategoryExpression expression) where TAttribute : Attribute =>
                 expression.If(req => req.Accessor.PropertyType == typeof(TType) && req.Accessor.HasAttribute<TAttribute>());
+        
+        public static ElementActionExpression IfPropertyNameContains<TPropertyType>(
+            this ElementCategoryExpression expression, 
+            string text) =>
+            expression.If(m =>
+                m.Accessor.Name.Contains(text));
+    
+        public static ElementActionExpression PropertyContainNames(
+            this ElementCategoryExpression expression, 
+            params string[] names) =>
+            expression.If(m => names.Any(name => m.Accessor.Name.Contains(name)));
+
+        public static void TypeAndAttributeModify<TType, TAttribute>(
+            this ElementCategoryExpression expression,
+            Action<TType, TAttribute, HtmlTag> func) where TAttribute : Attribute
+        {
+            expression
+                .IfPropertyTypeAndAttribute<TType, TAttribute>()
+                .ModifyWith(x =>
+                {
+                    var value = x.Value<TType>();
+                    var attribute = x.Accessor.GetAttribute<TAttribute>();
+
+                    func(value, attribute, x.CurrentTag);
+                });
+        }
     }
 }

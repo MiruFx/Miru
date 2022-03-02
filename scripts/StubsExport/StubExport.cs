@@ -41,6 +41,7 @@ public abstract class StubExport
             
             Files.DeleteIfExists(stubPath);
             
+            // TODO: move replacements into the individual stub exports
             var fileContent = File.ReadAllLines(file).Select(line =>
                 {
                     line = line
@@ -85,8 +86,8 @@ public abstract class StubExport
                         .Replace("Category", "{{ input.Name }}")
                         .Replace("category", "{{ string.downcase input.Name }}")
                         .Replace("@using Corpo.Skeleton.Features.Category", string.Empty)
-                        .Replace("[HttpGet(\"/Tickets/\"", "{{ input.UrlIn }}")
-                        .Replace("[HttpPost(\"/Tickets/\"", "{{ input.UrlIn }}")
+                        .Replace("[HttpGet(\"/Tickets/", "[HttpGet(\"/{{ input.UrlIn }}/")
+                        .Replace("[HttpPost(\"/Tickets/", "[HttpPost(\"/{{ input.UrlIn }}/")
                         .Replace("Tickets", "{{ input.In }}")
                         .Replace("tickets", "{{ string.downcase input.In }}")
                         .Replace("Ticket", "{{ input.Name }}")

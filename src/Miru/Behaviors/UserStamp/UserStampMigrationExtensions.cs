@@ -1,4 +1,5 @@
 using FluentMigrator.Builders.Create.Table;
+using Miru.Databases.Migrations.FluentMigrator;
 
 namespace Miru.Behaviors.UserStamp;
 
@@ -6,17 +7,18 @@ public static class UserStampMigrationExtensions
 {
     public static ICreateTableWithColumnSyntax WithUserStamps(
         this ICreateTableWithColumnSyntax table,
-        string columnCreatedAt,
-        string columnUpdatedAt)
+        string columnCreatedBy = "CreatedById",
+        string columnUpdatedBy = "UpdatedById",
+        string userTable = "Users",
+        bool nullable = false)
     {
-        return table
-            .WithColumn(columnCreatedAt).AsDateTime()
-            .WithColumn(columnUpdatedAt).AsDateTime();
-    }
+        if (nullable)
+            return table
+                .WithColumn(columnCreatedBy).AsForeignKeyReference(userTable).Nullable()
+                .WithColumn(columnUpdatedBy).AsForeignKeyReference(userTable).Nullable();
         
-    public static ICreateTableWithColumnSyntax WithUserStamps(
-        this ICreateTableWithColumnSyntax table)
-    {
-        return table.WithUserStamps("CreatedById", "UpdatedById");
+        return table
+            .WithColumn(columnCreatedBy).AsForeignKeyReference(userTable)
+            .WithColumn(columnUpdatedBy).AsForeignKeyReference(userTable);
     }
 }

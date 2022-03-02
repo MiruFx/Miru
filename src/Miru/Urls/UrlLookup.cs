@@ -39,6 +39,9 @@ namespace Miru.Urls
         {
             var baseUrl = _urlOptions.Base;
             
+            if (baseUrl.EndsWith('/'))
+                baseUrl = baseUrl.Substring(0, baseUrl.Length - 1);
+            
             return $"{baseUrl}{new UrlBuilder<TRequest>(new TRequest(), _urlOptions, _urlMaps)}";
         }
         

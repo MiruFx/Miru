@@ -150,6 +150,7 @@ public static class ShouldlyExtensions
         }
         catch (Exception)
         {
+            Console.WriteLine("==== Full file's content: ====");
             Console.WriteLine(file);
             throw;
         }
