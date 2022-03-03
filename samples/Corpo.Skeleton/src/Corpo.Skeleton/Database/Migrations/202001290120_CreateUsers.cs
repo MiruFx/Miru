@@ -32,32 +32,32 @@ public class CreateUsers : AutoReversingMigration
             .WithId()
             .WithColumn("ConcurrencyStamp").AsString().Nullable()
             .WithColumn("Name").AsString(256).NotNullable()
-            .WithColumn("NormalizedName").AsString(256).Nullable().Indexed();
+            .WithColumn("NormalizedName").AsString(256).Nullable();
             
         Create.Table("RoleClaims")
             .WithId()
             .WithColumn("ClaimType").AsString().Nullable()
             .WithColumn("ClaimValue").AsString().Nullable()
-            .WithColumn("RoleId").AsForeignKeyReference("Roles").Indexed();
+            .WithColumn("RoleId").AsForeignKeyReference("Roles");
         
         Create.Table("UserClaims")
             .WithId()
             .WithColumn("ClaimType").AsString().Nullable()
             .WithColumn("ClaimValue").AsString().Nullable()
-            .WithColumn("UserId").AsForeignKeyReference("Users").Indexed();
+            .WithColumn("UserId").AsForeignKeyReference("Users");
 
         Create.Table("UserfyUserLogins")
             .WithColumn("LoginProvider").AsString().NotNullable().PrimaryKey()
             .WithColumn("ProviderKey").AsString().NotNullable().PrimaryKey()
             .WithColumn("ProviderDisplayName").AsString().Nullable()
-            .WithColumn("UserId").AsForeignKeyReference("Users").Indexed();
+            .WithColumn("UserId").AsForeignKeyReference("Users");
 
         Create.Table("UserRoles")
-            .WithColumn("UserId").AsForeignKeyReference("Users").Indexed()
-            .WithColumn("RoleId").AsForeignKeyReference("Roles").Indexed();
+            .WithColumn("UserId").AsForeignKeyReference("Users")
+            .WithColumn("RoleId").AsForeignKeyReference("Roles");
         
         Create.Table("UserTokens")
-            .WithColumn("UserId").AsForeignKeyReference("Users").Indexed()
+            .WithColumn("UserId").AsForeignKeyReference("Users")
             .WithColumn("LoginProvider").AsString().PrimaryKey()
             .WithColumn("Name").AsString().PrimaryKey()
             .WithColumn("Value").AsString().Nullable();    

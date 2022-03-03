@@ -1,4 +1,5 @@
 using FluentMigrator;
+using Miru.Behaviors.TimeStamp;
 using Miru.Databases.Migrations.FluentMigrator;
 
 namespace Corpo.Skeleton.Database.Migrations;
@@ -10,6 +11,7 @@ public class CreateTeams : AutoReversingMigration
     {
         Create.Table("Teams")
             .WithColumn("Id").AsId()
-            .WithColumn("Name").AsString(64);
+            .WithColumn("Name").AsString(64)
+            .WithTimeStamps();
     }
 }

@@ -21,43 +21,22 @@ public class ValidationTest<TRequest> : OneCaseFeatureTest where TRequest : clas
     }
         
     public void ShouldBeValid<TProperty>(
-        TRequest model,
         Expression<Func<TRequest, TProperty>> expression, 
         TProperty validValue)
     {
-        using var scope = _.App.WithScope();
-            
-        var validator = scope.FindValidatorFor<TRequest>();
-
-        var testResult = validator.TestValidate(model);
-        
-        testResult.ShouldNotHaveValidationErrorFor(expression);
+        _.ShouldBeValid(Request, expression, validValue);
     }
         
     public void ShouldBeValid<TProperty>(
-        TRequest model,
         Expression<Func<TRequest, TProperty>> expression)
     {
-        using var scope = _.App.WithScope();
-            
-        var validator = scope.FindValidatorFor<TRequest>();
-
-        var testResult = validator.TestValidate(model);
-        
-        testResult.ShouldNotHaveValidationErrorFor(expression);
+        _.ShouldBeValid(Request, expression);
     }
         
-    public void ShouldBeInvalid<TModel, TProperty>(
-        TModel model,
-        Expression<Func<TModel, TProperty>> expression, 
-        TProperty validValue)
+    public void ShouldBeInvalid<TProperty>(
+        Expression<Func<TRequest, TProperty>> expression, 
+        TProperty invalidValue)
     {
-        using var scope = _.App.WithScope();
-            
-        var validator = scope.FindValidatorFor<TModel>();
-
-        var testResult = validator.TestValidate(model);
-        
-        testResult.ShouldHaveValidationErrorFor(expression);
+        _.ShouldBeInvalid(Request, expression, invalidValue);
     }
 }

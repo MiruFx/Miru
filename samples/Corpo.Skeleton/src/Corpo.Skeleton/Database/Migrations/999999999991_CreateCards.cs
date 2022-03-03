@@ -9,7 +9,7 @@ public class CreateCards : AutoReversingMigration
 {
     public override void Up()
     {
-        Create.Table("TableName")
+        Create.Table("Cards")
             .WithId()
             .WithColumn("Name").AsString(64)
             .WithTimeStamps();

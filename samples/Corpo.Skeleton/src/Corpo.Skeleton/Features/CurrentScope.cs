@@ -1,4 +1,3 @@
-using Corpo.Skeleton.Config;
 using Microsoft.Extensions.Options;
 using Miru.Scopables;
 using Miru.Userfy;

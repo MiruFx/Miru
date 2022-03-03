@@ -1,6 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
 using Miru.Queuing;
 
 namespace Corpo.Skeleton.Features.Teams;

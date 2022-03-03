@@ -23,9 +23,9 @@ public class CategoryNewTest : FeatureTest
         [Test]
         public void Name_is_required()
         {
-            ShouldBeValid(Request, m => m.Name, Request.Name);
+            ShouldBeValid(m => m.Name, Request.Name);
             
-            ShouldBeInvalid(Request, m => m.Name, string.Empty);
+            ShouldBeInvalid(m => m.Name, string.Empty);
         }
     }
 }

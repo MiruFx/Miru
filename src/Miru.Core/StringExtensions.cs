@@ -93,4 +93,9 @@ public static class StringExtensions
     
     public static string IfNot(this string contentToShow, bool condition) =>
         condition == false ? contentToShow : string.Empty;
+    
+    public static string IfNotEmpty(this string value, Func<string, string> func) => 
+        string.IsNullOrEmpty(value) 
+            ? string.Empty
+            : func(value);
 }

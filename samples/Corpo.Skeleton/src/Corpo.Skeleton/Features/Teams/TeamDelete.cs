@@ -1,12 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
-using Corpo.Skeleton.Database;
-using FluentValidation;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Miru;
-using Miru.Mvc;
-
 namespace Corpo.Skeleton.Features.Teams;
 
 public class TeamDelete

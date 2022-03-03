@@ -9,11 +9,11 @@ public class AlterCardsAddUserId : Migration
 {
     public override void Up()
     {
-        Alter.Table("TableName").AddColumn("ColumnName");
+        Alter.Table("Cards").AddColumn("Status").AsString();
     }
 
     public override void Down()
     {
-        Delete.Column("ColumnName").FromTable("TableName");
+        Delete.Column("Status").FromTable("Cards");
     }
 }

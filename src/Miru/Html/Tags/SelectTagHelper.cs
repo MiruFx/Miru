@@ -11,20 +11,20 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using Miru.Domain;
 using Miru.Mvc;
 
-namespace Miru.Html.Tags
+namespace Miru.Html.Tags;
+
+[HtmlTargetElement("miru-select", Attributes = "for", TagStructure = TagStructure.NormalOrSelfClosing)]
+public class SelectTagHelper : MiruHtmlTagHelper
 {
-    [HtmlTargetElement("miru-select", Attributes = "for", TagStructure = TagStructure.NormalOrSelfClosing)]
-    public class SelectTagHelper : MiruHtmlTagHelper
+    [HtmlAttributeName("lookup")]
+    public ModelExpression Lookup { get; set; }
+
+    protected override string Category => nameof(HtmlConfiguration.Selects);
+
+    protected override void BeforeRender(TagHelperOutput output, HtmlTag htmlTag)
     {
-        [HtmlAttributeName("lookup")]
-        public ModelExpression Lookup { get; set; }
-
-        protected override string Category { get; } = nameof(HtmlConfiguration.Selects);
-
-        protected override void BeforeRender(TagHelperOutput output, HtmlTag htmlTag)
+        if (htmlTag is SelectTag selectTag)
         {
-            var selectTag = (SelectTag) htmlTag;
-        
             if (Lookup != null)
             {
                 if (Lookup.Model is IEnumerable<ILookupable> lookupables)
@@ -56,8 +56,18 @@ namespace Miru.Html.Tags
                     }
                 }
             }
-        
-            if (For.Model != null) selectTag.SelectByValue(For.Model);
+
+            if (For.Model != null)
+            {
+                if (For.Model.GetType().ImplementsGenericOf(typeof(Enumeration<>)))
+                {
+                    selectTag.SelectByValue(For.Model.GetPropertyValue("Value"));
+                }
+                else
+                {
+                    selectTag.SelectByValue(For.Model);
+                }
+            }
         
             if (output.Attributes.ContainsName("empty-option"))
             {
@@ -68,12 +78,12 @@ namespace Miru.Html.Tags
         
             selectTag.MergeAttributes(output.Attributes);
         }
+    }
 
-        private void ThrowIfLookupableIsInvalid()
-        {
-            if (For == null)
-                throw new InvalidOperationException(
-                    "Missing or invalid 'lookup' attribute value. It has to implement IEnumerable<ILookupable>.");
-        }
+    private void ThrowIfLookupableIsInvalid()
+    {
+        if (For == null)
+            throw new InvalidOperationException(
+                "Missing or invalid 'lookup' attribute value. It has to implement IEnumerable<ILookupable>.");
     }
 }

@@ -15,8 +15,8 @@ public class MigrationStubExport : StubExport
             .Replace("999999999992", "{{ input.Version }}")
             .Replace("CreateCards", "{{ input.Name }}")
             .Replace("AlterCardsAddUserId", "{{ input.Name }}")
-            .Replace("TableName", "{{ input.Table }}")
-            .Replace("ColumnName", "{{ input.Column }}");
+            .Replace("Cards", "{{ input.Table }}")
+            .Replace("Status", "{{ input.Column }}");
             
         ExportFile(
             Params.SkeletonDir / "src" / "Corpo.Skeleton" / "Database" / "Migrations" / "999999999991_CreateCards.cs", 

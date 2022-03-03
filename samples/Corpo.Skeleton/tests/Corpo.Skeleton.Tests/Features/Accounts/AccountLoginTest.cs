@@ -41,18 +41,18 @@ public class AccountLoginTest : FeatureTest
         [Test]
         public void Email_is_required_and_valid()
         {
-            ShouldBeValid(Request, m => m.Email, Request.Email);
+            ShouldBeValid(m => m.Email, Request.Email);
 
-            ShouldBeInvalid(Request, m => m.Email, string.Empty);
-            ShouldBeInvalid(Request, m => m.Email, "admin!.admin");
+            ShouldBeInvalid(m => m.Email, string.Empty);
+            ShouldBeInvalid(m => m.Email, "admin!.admin");
         }
 
         [Test]
         public void Password_is_required()
         {
-            ShouldBeValid(Request, x => x.Password, Request.Password);
+            ShouldBeValid(x => x.Password, Request.Password);
 
-            ShouldBeInvalid(Request, m => m.Password, string.Empty);
+            ShouldBeInvalid(m => m.Password, string.Empty);
         }
     }
 }
