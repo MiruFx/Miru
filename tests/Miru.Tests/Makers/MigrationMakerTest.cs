@@ -45,6 +45,6 @@ public class MigrationMakerTest
                 "namespace Shopifu.Database.Migrations",
                 $"[Migration(456)]",
                 "public class AlterTeamsAddCategoryId",
-                "Alter.Table(\"Teams\").AddColumn(\"CategoryId\");");
+                "Alter.Table(\"Teams\").AddColumn(\"CategoryId\").AsString();");
     }
 }

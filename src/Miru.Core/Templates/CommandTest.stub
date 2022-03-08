@@ -24,9 +24,9 @@ public class {{ input.Name }}{{ input.Action }}Test : FeatureTest
         [Test]
         public void Name_is_required()
         {
-            // ShouldBeValid(m => m.Name, Request.Name);
-            //
-            // ShouldBeInvalid(m => m.Name, string.Empty);
+            ShouldBeValid(m => m.Name, Request.Name);
+            
+            ShouldBeInvalid(m => m.Name, string.Empty);
         }
     }
 }

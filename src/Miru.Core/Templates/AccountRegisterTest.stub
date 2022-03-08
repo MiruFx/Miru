@@ -39,8 +39,8 @@ public class AccountRegisterTest : FeatureTest
         [Test]
         public void Password_is_required_and_should_match_confirmation()
         {
-            ShouldBeValid(x => x.Password, Request);
-            ShouldBeValid(x => x.PasswordConfirmation, Request);
+            ShouldBeValid(x => x.Password);
+            ShouldBeValid(x => x.PasswordConfirmation);
 
             ShouldBeInvalid(m => m.PasswordConfirmation, string.Empty);
             ShouldBeInvalid(m => m.Password, string.Empty);

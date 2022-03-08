@@ -27,10 +27,10 @@ namespace Miru.Config
                     !x.ServiceType.Namespace.StartsWith("System"));
 
                 // if (input.Namespace.NotEmpty())
+                // TODO: add options to filter assemblies
                 services = services.Where(x => 
                         x.ServiceType.Namespace.StartsWith("Mediat") ||
-                        x.ServiceType.Namespace.StartsWith("Miru") ||
-                        x.ServiceType.Namespace.StartsWith("Intanext"))
+                        x.ServiceType.Namespace.StartsWith("Miru"))
                     .OrderBy(x => x.ServiceType.FullName);
             
                 foreach(var service in services)

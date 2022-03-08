@@ -1,12 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
-using {{ Solution.Name }}.Database;
-using FluentValidation;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Miru;
-using Miru.Mvc;
-
 namespace {{ Solution.Name }}.Features.{{ input.In }};
 
 public class {{ input.Name }}Delete

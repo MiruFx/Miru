@@ -30,14 +30,13 @@ public class {{ input.Name }}{{ input.Action }}
         {
             return new Result
             {
-                {{ input.In }} = new {{ input.Action }}<{{ input.Name }}View>()
-                // {{ input.In }} = await _db.{{ input.In }}
-                //     .Select(m => new {{ input.Name }}View
-                //     {
-                //         Id = m.Id,
-                //         Name = m.Name
-                //     })
-                //     .To{{ input.Action }}Async(ct)
+                {{ input.In }} = await _db.{{ input.In }}
+                    .Select(m => new {{ input.Name }}View
+                    {
+                        Id = m.Id,
+                        Name = m.Name
+                    })
+                    .To{{ input.Action }}Async(ct)
             };
         }
     }

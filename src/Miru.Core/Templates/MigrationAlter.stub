@@ -9,7 +9,7 @@ public class {{ input.Name }} : Migration
 {
     public override void Up()
     {
-        Alter.Table("{{ input.Table }}").AddColumn("{{ input.Column }}");
+        Alter.Table("{{ input.Table }}").AddColumn("{{ input.Column }}").AsString();
     }
 
     public override void Down()
