@@ -86,6 +86,9 @@ namespace Scripts
                 }
             });
             
+            Target("page-test-ci", DependsOn("compile"), () =>
+                Run("dotnet", $"test -c {buildConfig} --no-build", workingDirectory: @"tests/Miru.PageTesting.Tests"));
+            
             // Target("test-ci", DependsOn("test", "mong-test"));
             Target("test-ci", DependsOn("test"));
 

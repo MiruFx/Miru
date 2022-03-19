@@ -26,7 +26,34 @@ jobs:
 
     - name: Build & Test
       run: ./build test-ci
+        
+  page-test:
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+  
+      - name: Setup .NET 6
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "6.0.100"
 
+      - name: Setup Firefox
+        uses: browser-actions/setup-firefox@latest
+
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@latest
+        
+#      - name: Firefox version
+#        run: firefox --version
+        
+      - name: Build & Test
+        run: ./build page-test-ci
+        
 #  build-windows:
 #    runs-on: windows-latest
 #    defaults:
