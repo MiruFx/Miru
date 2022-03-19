@@ -1,13 +1,22 @@
-using Miru.PageTesting;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using Shouldly;
+namespace Miru.PageTesting.Tests;
 
-namespace Miru.PageTesting.Tests
+public class WithinTest
 {
-    public class WithinTest
+    [TestFixture]
+    public class WithinTestChrome : Tests
     {
-        private readonly DriverFixture _ = DriverFixture.Get.Value.ForFirefox();
+        public WithinTestChrome() => _ = DriverFixture.Get.Value.ForChrome();
+    }
+    
+    [TestFixture]
+    public class WithinTestFirefox : Tests
+    {
+        public WithinTestFirefox() => _ = DriverFixture.Get.Value.ForFirefox();
+    }
+
+    public abstract class Tests
+    {
+        protected DriverFixture _;
         
         [Test]
         public void Can_make_expectations_within_element()

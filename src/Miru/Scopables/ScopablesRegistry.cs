@@ -10,8 +10,8 @@ public static class ScopablesRegistry
         where TCurrentScope : class, ICurrentScope
     {
         return services
-            .AddScoped<TCurrent>()
-            .AddScoped<ICurrentScope, TCurrentScope>();
+            .ReplaceScoped<TCurrent>()
+            .ReplaceScoped<ICurrentScope, TCurrentScope>();
     }
     
     public static IServiceCollection AddScopable<TScope>(

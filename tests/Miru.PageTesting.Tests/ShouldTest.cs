@@ -1,12 +1,22 @@
-using Miru.PageTesting;
-using NUnit.Framework;
-using Shouldly;
+namespace Miru.PageTesting.Tests;
 
-namespace Miru.PageTesting.Tests
+public class ShouldTest
 {
-    public class ShouldTest
+    [TestFixture]
+    public class ShouldTestChrome : Tests
     {
-        private readonly DriverFixture _ = DriverFixture.Get.Value.ForFirefox();
+        public ShouldTestChrome() => _ = DriverFixture.Get.Value.ForChrome();
+    }
+    
+    [TestFixture]
+    public class ShouldTestFirefox : Tests
+    {
+        public ShouldTestFirefox() => _ = DriverFixture.Get.Value.ForFirefox();
+    }
+
+    public abstract class Tests
+    {
+        protected DriverFixture _;
 
         [Test]
         public void Should_have_text()

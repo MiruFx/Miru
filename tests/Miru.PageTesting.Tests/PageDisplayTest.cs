@@ -1,11 +1,22 @@
-using System.Collections.Generic;
-using NUnit.Framework;
+namespace Miru.PageTesting.Tests;
 
-namespace Miru.PageTesting.Tests
+public class PageDisplayTest
 {
-    public class PageDisplayTest
+    [TestFixture]
+    public class PageDisplayTestChrome : Tests
     {
-        private readonly DriverFixture _ = DriverFixture.Get.Value.ForFirefox();
+        public PageDisplayTestChrome() => _ = DriverFixture.Get.Value.ForChrome();
+    }
+    
+    [TestFixture]
+    public class PageDisplayTestFirefox : Tests
+    {
+        public PageDisplayTestFirefox() => _ = DriverFixture.Get.Value.ForFirefox();
+    }
+
+    public abstract class Tests
+    {
+        protected DriverFixture _;
 
         [Test]
         public void Should_find_display()
@@ -61,16 +72,5 @@ namespace Miru.PageTesting.Tests
                 f.ShouldHave(m => m.Addresses[1].City, "London");
             });
         }
-    }
-
-    public class Contact
-    {
-        public string Name { get; set; }
-        public List<Address> Addresses { get; } = new List<Address>();
-    }
-
-    public class Address
-    {
-        public string City { get; set; }
     }
 }

@@ -5,12 +5,20 @@ Introduction
   make
 TODO: Adding .AddMailing
 Mailable
+  from
+  to
+  subject
+  body
+  attachment
+    CANT QUEUE email with attachment
 Template
   TODO: _layout template
 Sending
   TODO: smtp driver
   TODO: storage driver
 TODO: Testing
+
+https://playground.dyspatch.io/#/oxygen/new
 -->
 
 [[toc]]

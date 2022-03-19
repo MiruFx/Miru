@@ -54,10 +54,10 @@ public class CategoryNew
         
     public class CategoriesController : MiruController
     {
-        [Route("/Categories/New")]
+        [HttpGet("/Categories/New")]
         public async Task<Command> New(Query query) => await SendAsync(query);
 
-        [HttpPost, Route("/Categories/New")]
+        [HttpPost("/Categories/New")]
         public async Task<Result> New(Command command) => await SendAsync(command);
     }
 }

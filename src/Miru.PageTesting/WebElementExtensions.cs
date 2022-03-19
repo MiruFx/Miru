@@ -5,7 +5,7 @@ namespace Miru.PageTesting
 {
     public static class WebElementExtensions
     {
-        public static string ToHtml(this IWebElement webElement, RemoteWebDriver driver)
+        public static string ToHtml(this IWebElement webElement, WebDriver driver)
         {
             return (string) driver.ExecuteScript("return arguments[0].innerHTML;", webElement);
         }

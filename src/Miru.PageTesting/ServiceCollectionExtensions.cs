@@ -6,6 +6,7 @@ using Miru.Storages;
 using Miru.Testing;
 using Miru.Urls;
 using Miru.Userfy;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 
@@ -19,12 +20,9 @@ namespace Miru.PageTesting
         {
             var config = new PageTestingConfig() { Services = services };
             
-            if (setupAction != null)
-            {
-                setupAction(config);
-                
-                services.AddSingleton(config);
-            }
+            setupAction?.Invoke(config);
+
+            services.AddSingleton(config);
 
             services.AddSingleton<PageTestFixture>();
             
@@ -37,8 +35,8 @@ namespace Miru.PageTesting
             services.AddSingleton<PageBody>();
             
             services.AddSingleton(sp => new WebDriverWait(
-                sp.GetService<RemoteWebDriver>(), 
-                sp.GetService<PageTestingConfig>().TimeOut));
+                sp.GetRequiredService<WebDriver>(), 
+                sp.GetRequiredService<PageTestingConfig>().TimeOut));
 
             return services;
         }

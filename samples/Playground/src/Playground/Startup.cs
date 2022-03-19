@@ -17,6 +17,7 @@ using Miru.Mvc;
 using Miru.Pipeline;
 using Miru.Queuing;
 using Miru.Scheduling;
+using Miru.Scopables;
 using Miru.Sqlite;
 using Miru.Userfy;
 using Playground.Config;

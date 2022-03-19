@@ -43,7 +43,7 @@ public class CategoryList
         
     public class CategoriesController : MiruController
     {
-        [Route("/Categories")]
+        [HttpGet("/Categories")]
         public async Task<Result> List(Query request) => await SendAsync(request);
     }
 }

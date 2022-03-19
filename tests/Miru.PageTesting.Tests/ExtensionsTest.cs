@@ -1,13 +1,22 @@
-using Miru.PageTesting;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using Shouldly;
+namespace Miru.PageTesting.Tests;
 
-namespace Miru.PageTesting.Tests
+public class ExtensionsTest
 {
-    public class ExtensionsTest
+    [TestFixture]
+    public class ExtensionsTestChrome : Tests
     {
-        private readonly DriverFixture _ = DriverFixture.Get.Value.ForFirefox();
+        public ExtensionsTestChrome() => _ = DriverFixture.Get.Value.ForChrome();
+    }
+    
+    [TestFixture]
+    public class ExtensionsTestFirefox : Tests
+    {
+        public ExtensionsTestFirefox() => _ = DriverFixture.Get.Value.ForFirefox();
+    }
+
+    public abstract class Tests
+    {
+        protected DriverFixture _;
         
         [Test]
         public void Can_run_javascript()
@@ -27,5 +36,5 @@ namespace Miru.PageTesting.Tests
                 .Message
                 .ShouldBe("Custom exception message");
         }
-    }
+    }    
 }

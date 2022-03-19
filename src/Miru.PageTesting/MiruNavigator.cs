@@ -13,7 +13,7 @@ namespace Miru.PageTesting
     {
         protected readonly WebDriverWait Wait;
         public readonly ElementNaming Naming;
-        public readonly RemoteWebDriver Driver;
+        public readonly WebDriver Driver;
         public Func<PageExceptionContext, Exception> ExceptionHandle;
         public Func<IWebElement> Element { get; }
         public ILogger<MiruNavigator> Logger { get; }
@@ -29,7 +29,7 @@ namespace Miru.PageTesting
             WebDriverWait wait,
             ElementNaming naming,
             Func<IWebElement> element,
-            RemoteWebDriver driver,
+            WebDriver driver,
             ILogger<MiruNavigator> logger,
             Func<PageExceptionContext, Exception> exceptionFunc = null)
         {

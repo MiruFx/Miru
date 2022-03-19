@@ -61,10 +61,10 @@ public class CategoryEdit
         
     public class CategoriesController : MiruController
     {
-        [Route("/Categories/{id:long}/Edit")]
+        [HttpGet("/Categories/{Id:long}/Edit")]
         public async Task<Command> Edit(Query query) => await SendAsync(query);
 
-        [HttpPost, Route("/Categories/Edit")]
+        [HttpPost("/Categories/Edit")]
         public async Task<Result> Edit(Command command) => await SendAsync(command);
     }
 }

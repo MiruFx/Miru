@@ -8,30 +8,29 @@ using Miru.PageTesting.Chrome;
 using Miru.Testing;
 using OpenQA.Selenium.Chrome;
 
-namespace {{ Solution.Name }}.PageTests.Config
-{
-    public class PageTestsConfig : ITestConfig
-    {
-        public void ConfigureTestServices(IServiceCollection services)
-        {
-            // import services from {{ Solution.ShortName }}.Tests
-            services.AddFrom<TestsConfig>();
-            
-            services.AddPageTesting<User>(options =>
-            {
-                if (OS.IsWindows)
-                    options.UseChrome(new ChromeOptions().Incognito());
-                else
-                    options.UseChrome(new ChromeOptions().Incognito().Headless());
-            });
-        }
+namespace {{ Solution.Name }}.PageTests.Config;
 
-        public void ConfigureRun(TestRunConfig run)
+public class PageTestsConfig : ITestConfig
+{
+    public void ConfigureTestServices(IServiceCollection services)
+    {
+        // import services from {{ Solution.ShortName }}.Tests
+        services.AddFrom<TestsConfig>();
+            
+        services.AddPageTesting<User>(options =>
         {
-            run.PageTestingDefault();
-        }
-        
-        public IHostBuilder GetHostBuilder() => 
-            TestMiruHost.CreateMiruHost<Startup>();
+            if (OS.IsWindows)
+                options.UseChrome(new ChromeOptions().Incognito());
+            else
+                options.UseChrome(new ChromeOptions().Incognito().Headless());
+        });
     }
+
+    public void ConfigureRun(TestRunConfig run)
+    {
+        run.PageTestingDefault();
+    }
+        
+    public IHostBuilder GetHostBuilder() => 
+        TestMiruHost.CreateMiruHost<Startup>();
 }

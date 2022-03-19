@@ -2,20 +2,19 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace Miru.Queuing
+namespace Miru.Queuing;
+
+public class JobFor<TRequest>
 {
-    public class JobFor<TRequest>
+    private readonly IMediator _mediator;
+
+    public JobFor(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public JobFor(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
-
-        public async Task Execute(TRequest request, CancellationToken ct)
-        {
-            await _mediator.Send(request, ct);
-        }
+    public async Task Execute(TRequest request, CancellationToken ct)
+    {
+        await _mediator.Send(request, ct);
     }
 }

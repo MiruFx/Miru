@@ -164,6 +164,18 @@ namespace Miru
                 new ServiceDescriptor(typeof(TService), typeof(TImplementation), ServiceLifetime.Singleton));
         }
         
+        public static IServiceCollection ReplaceScoped<TService>(this IServiceCollection services)
+        {
+            return services.Replace(
+                new ServiceDescriptor(typeof(TService), typeof(TService), ServiceLifetime.Scoped));
+        }
+        
+        public static IServiceCollection ReplaceScoped<TService, TImplementation>(this IServiceCollection services)
+        {
+            return services.Replace(
+                new ServiceDescriptor(typeof(TService), typeof(TImplementation), ServiceLifetime.Scoped));
+        }
+        
         public static IServiceCollection AddBothSingleton<TService, TImplementation>(this IServiceCollection services) 
             where TService : class 
             where TImplementation : class, TService

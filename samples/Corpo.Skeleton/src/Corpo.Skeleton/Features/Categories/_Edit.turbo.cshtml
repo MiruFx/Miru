@@ -1,8 +1,9 @@
 @model CategoryEdit.Result
 
-<template data-page-update-target>
-    <div class="alert alert-success">
-        Category successfully saved
-    </div>
-    <a href="#">← Categories</a>
-</template>
+<turbo-stream action="replace" target="@Naming.Form(Model)">
+    <template>
+        <div class="alert alert-success">
+            Category successfully saved
+        </div>
+    </template>
+</turbo-stream>

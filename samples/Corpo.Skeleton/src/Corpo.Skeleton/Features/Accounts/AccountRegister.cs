@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Identity;
-using Miru.Domain;
 using Miru.Userfy;
 
 namespace Corpo.Skeleton.Features.Accounts;
@@ -69,7 +68,7 @@ public class AccountRegister
             }
             else
             {
-                throw new DomainException(result.Errors.Select(x => x.Description).Join(". "));
+                result.ThrowDomainExceptionIfFailed();
             }
 
             return new Result

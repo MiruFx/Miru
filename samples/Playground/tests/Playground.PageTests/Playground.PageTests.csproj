@@ -6,16 +6,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\src\Miru.PageTesting\Miru.PageTesting.csproj"/>
-        <ProjectReference Include="..\..\..\..\src\Miru.PageTesting.Chrome\Miru.PageTesting.Chrome.csproj"/>
+        <ProjectReference Include="..\..\..\..\src\Miru.PageTesting.Firefox\Miru.PageTesting.Firefox.csproj" />
+        <ProjectReference Include="..\..\..\..\src\Miru.PageTesting\Miru.PageTesting.csproj" />
 
-        <PackageReference Include="NUnit3TestAdapter" Version="4.2.1"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0"/>
-        <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.30.0.1"/>
+        <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+        <PackageReference Include="Selenium.WebDriver" Version="4.1.0" />
+        <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.30.0.1" />
     </ItemGroup>
     
     <ItemGroup>
         <ProjectReference Include="..\..\src\Playground\Playground.csproj" />
-        <ProjectReference Include="..\..\tests\Playground.Tests\Playground.Tests.csproj"/>
+        <ProjectReference Include="..\..\tests\Playground.Tests\Playground.Tests.csproj" />
     </ItemGroup>
 </Project>

@@ -1,5 +1,7 @@
 <!--
-scopes (WithProducts, ByCategory(category) 
+EntityScopes (WithProducts, ByCategory(category) 
+  DO: small scopes, composable
+  AVOID: being too 
 
 byXorfail
 

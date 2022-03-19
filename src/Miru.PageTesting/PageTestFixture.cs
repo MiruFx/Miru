@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Miru.Core;
 using Miru.Storages;
 using Miru.Testing;
 using Miru.Urls;
@@ -16,7 +17,7 @@ namespace Miru.PageTesting
     {
         private readonly UrlLookup _urlLookup;
         private readonly PageTestingConfig _config;
-        private readonly RemoteWebDriver _driver;
+        private readonly WebDriver _driver;
         private readonly IStorage _storage;
         private readonly PageBody _browser;
 
@@ -24,7 +25,7 @@ namespace Miru.PageTesting
             IMiruApp app,
             UrlLookup urlLookup,
             PageTestingConfig config, 
-            RemoteWebDriver driver,
+            WebDriver driver,
             IStorage storage, 
             PageBody browser,
             MiruNavigator navigator) : base(navigator)
@@ -121,6 +122,8 @@ The Page's html has been saved to:
         {
             var file = _storage.App / "temp" / "screenshots" / $"{TestContext.CurrentContext.Test.MethodName}-{suffix}.png";
              
+            file.Dir().EnsureDirExist();
+            
             _driver.GetScreenshot().SaveAsFile(file, ScreenshotImageFormat.Png);
 
             return file;
@@ -130,6 +133,8 @@ The Page's html has been saved to:
         {
             var file = _storage.App / "temp" / "htmls" / $"{TestContext.CurrentContext.Test.MethodName}-Failure.html";
              
+            file.Dir().EnsureDirExist();
+            
             File.WriteAllText(file, _driver.PageSource);
 
             return file;

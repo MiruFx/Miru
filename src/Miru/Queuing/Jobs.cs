@@ -1,20 +1,19 @@
 using System.Threading;
 using Hangfire;
 
-namespace Miru.Queuing
+namespace Miru.Queuing;
+
+public class Jobs
 {
-    public class Jobs
+    private readonly IBackgroundJobClient _backgroundJobClient;
+
+    public Jobs(IBackgroundJobClient backgroundJobClient)
     {
-        private readonly IBackgroundJobClient _backgroundJobClient;
+        _backgroundJobClient = backgroundJobClient;
+    }
 
-        public Jobs(IBackgroundJobClient backgroundJobClient)
-        {
-            _backgroundJobClient = backgroundJobClient;
-        }
-
-        public void PerformLater<TJob>(TJob job) where TJob : IMiruJob
-        {
-            _backgroundJobClient.Enqueue<JobFor<TJob>>(m => m.Execute(job, CancellationToken.None));
-        }
+    public void PerformLater<TJob>(TJob job) where TJob : IMiruJob
+    {
+        _backgroundJobClient.Enqueue<JobFor<TJob>>(m => m.Execute(job, CancellationToken.None));
     }
 }
