@@ -8,7 +8,7 @@ namespace Miru.Testing.Userfy
         {
             run.BeforeCase<IRequiresAuthenticatedUser>(_ =>
             {
-                _.MakeSavingLogin<TUser>();
+                _.MakeSavingLoginAs<TUser>();
             });
         }
         
@@ -16,7 +16,7 @@ namespace Miru.Testing.Userfy
         {
             run.BeforeCase<IRequiresAuthenticatedAdmin>(_ =>
             {
-                _.MakeSavingLogin<TUser>(m => m.IsAdmin = true);
+                _.MakeSavingLoginAs<TUser>(m => m.IsAdmin = true);
             });
             
             run.UserfyRequires<TUser>();

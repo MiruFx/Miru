@@ -87,4 +87,11 @@ public static class MiruServiceCollectionExtensions
     {
         return services.ReplaceSingleton(solution);
     }
+    
+    public static IServiceCollection AddMiruSolution(
+        this IServiceCollection services,
+        MiruPath path)
+    {
+        return services.ReplaceSingleton(new MiruSolution(path));
+    }
 }

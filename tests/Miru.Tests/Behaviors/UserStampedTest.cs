@@ -46,7 +46,7 @@ namespace Miru.Tests.Behaviors
         public void Should_set_current_user_for_new_entity()
         {
             // arrange
-            var user = _.MakeSavingLogin<User>();
+            var user = _.MakeSavingLoginAs<User>();
             
             var post = new Post {Title = "Hello"};
             

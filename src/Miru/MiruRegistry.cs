@@ -2,13 +2,12 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Behaviors.DomainEvents;
 
-namespace Miru
+namespace Miru;
+
+public static class MiruRegistry
 {
-    public static class MiruRegistry
+    public static IServiceCollection AddDomainEvents(this IServiceCollection services)
     {
-        public static IServiceCollection AddDomainEvents(this IServiceCollection services)
-        {
-            return services.AddTransient<IInterceptor, DomainEventsInterceptor>();
-        }
+        return services.AddTransient<IInterceptor, DomainEventsInterceptor>();
     }
 }

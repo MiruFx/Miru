@@ -318,6 +318,14 @@ namespace Miru.Tests.Fabrication
         }
         
         [Test]
+        public void Should_cast_implicit_operator_for_custom_fabricators()
+        {
+            Category category = _fabricator.Categories.With(m => m.IsActive = true); // no need of .Make()
+            
+            category.IsActive.ShouldBeTrue();
+        }
+        
+        [Test]
         [Ignore("Not implemented yet")]
         public void When_default_specified_should_use_it_when_building_object()
         {

@@ -71,7 +71,7 @@ namespace Miru.Testing
             return fixture.MakeManySaving(3, customizations);
         }
         
-        public static TUser MakeSavingLogin<TUser>(this ITestFixture fixture, Action<TUser> customizations = null) 
+        public static TUser MakeSavingLoginAs<TUser>(this ITestFixture fixture, Action<TUser> customizations = null) 
             where TUser : UserfyUser
         {
             MiruTest.Log.Debug(() => $"Making {typeof(TUser).FullName}");
@@ -80,10 +80,10 @@ namespace Miru.Testing
             
             MiruTest.Log.Debug(() => $"Made:{Environment.NewLine}{user.Inspect()}");
             
-            return fixture.MakeSavingLogin(user);
+            return fixture.MakeSavingLoginAs(user);
         }
         
-        public static TUser MakeSavingLogin<TUser>(this ITestFixture fixture, TUser user) 
+        public static TUser MakeSavingLoginAs<TUser>(this ITestFixture fixture, TUser user) 
             where TUser : UserfyUser
         {
             MiruTest.Log.Debug(() => $"Saving: {user}");

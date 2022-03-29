@@ -51,7 +51,7 @@ public class BelongsToUserTest
     public void Should_set_current_user()
     {
         // arrange
-        var user = _.MakeSavingLogin<User>();
+        var user = _.MakeSavingLoginAs<User>();
             
         // act
         var post = _.MakeSaving<Post>(x => x.User = null);

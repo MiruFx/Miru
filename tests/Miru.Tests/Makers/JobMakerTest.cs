@@ -1,11 +1,9 @@
-﻿using Miru.Core;
+﻿using Miru.Consolables;
 using Miru.Makers;
-using Miru.Testing;
-using NUnit.Framework;
 
 namespace Miru.Tests.Makers;
 
-public class JobMakerTest
+public class MakeJobConsolableTest
 {
     private MiruPath _solutionDir;
 
@@ -19,21 +17,30 @@ public class JobMakerTest
     }
         
     [Test]
-    public void Make_a_job()
+    public async Task Make_a_job()
     {
         // arrange
-        var m = new Maker(new MiruSolution(_solutionDir));
-            
+        var app = MiruHost
+            .CreateMiruHost("miru", "make.job", "Orders", "Order", "Placed")
+            .ConfigureServices(s =>
+            {
+                s.AddMiruSolution(A.TempPath / "Miru" / "Shopifu");
+                s.AddConsolable<MakeJobConsolable>();
+            })
+            .BuildApp();
+
         // act
-        m.Job("Orders", "Order", "Placed");
-            
+        await app.RunAsync();
+        
         // assert
-        (m.Solution.FeaturesDir / "Orders" / "OrderPlaced.cs")
+        var solution = app.Get<MiruSolution>();
+
+        (solution.FeaturesDir / "Orders" / "OrderPlaced.cs")
             .ShouldContain(
                 "namespace Shopifu.Features.Orders",
                 "public class OrderPlaced");
             
-        (m.Solution.AppTestsDir / "Features" / "Orders" / "OrderPlacedTest.cs")
+        (solution.AppTestsDir / "Features" / "Orders" / "OrderPlacedTest.cs")
             .ShouldContain(
                 "namespace Shopifu.Tests.Features.Orders",
                 "public class OrderPlacedTest : FeatureTest",
@@ -41,18 +48,27 @@ public class JobMakerTest
     }
     
     [Test]
-    public void Make_only_job_test()
+    public async Task Make_only_job_test()
     {
         // arrange
-        var m = new Maker(new MiruSolution(_solutionDir));
+        var app = MiruHost
+            .CreateMiruHost("miru", "make.job", "Orders", "Order", "Placed", "--only-tests")
+            .ConfigureServices(s =>
+            {
+                s.AddMiruSolution(A.TempPath / "Miru" / "Shopifu");
+                s.AddConsolable<MakeJobConsolable>();
+            })
+            .BuildApp();
             
         // act
-        m.Job("Orders", "Order", "Placed", onlyTests: true);
+        await app.RunAsync();
             
         // assert
-        (m.Solution.FeaturesDir / "Orders" / "OrderPlaced.cs").ShouldNotExist();
+        var solution = app.Get<MiruSolution>();
+        
+        (solution.FeaturesDir / "Orders" / "OrderPlaced.cs").ShouldNotExist();
             
-        (m.Solution.AppTestsDir / "Features" / "Orders" / "OrderPlacedTest.cs")
+        (solution.AppTestsDir / "Features" / "Orders" / "OrderPlacedTest.cs")
             .ShouldContain(
                 "namespace Shopifu.Tests.Features.Orders",
                 "public class OrderPlacedTest : FeatureTest",
