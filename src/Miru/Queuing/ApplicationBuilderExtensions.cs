@@ -18,6 +18,8 @@ public static class ApplicationBuilderExtensions
         
     public static IApplicationBuilder UseQueueDashboard(this IApplicationBuilder app)
     {
-        return app.UseHangfireDashboard("/_queue");
+        return app.UseHangfireDashboard("/_queue", new DashboardOptions
+        {
+        });
     }
 }

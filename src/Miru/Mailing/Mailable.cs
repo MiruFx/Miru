@@ -1,9 +1,8 @@
-namespace Miru.Mailing
-{
-    public abstract class Mailable : IMailable
-    {
-        public MailingOptions MailingOptions { get; set; }
+namespace Miru.Mailing;
 
-        public abstract void Build(Email mail);
-    }
+public abstract class Mailable : IMailable
+{
+    public MailingOptions MailingOptions { get; set; }
+
+    public abstract void Build(Email mail);
 }
