@@ -7,12 +7,15 @@ using Microsoft.Extensions.Hosting;
 using Miru.Testing;
 using Serilog;
 
-namespace Miru.PageTesting
+namespace Miru.PageTesting;
+
+public static class TestFixtureHostExtensions
 {
-    public static class TestFixtureHostExtensions
+    public static TestFixture StartServer(this TestFixture fixture)
     {
-        public static TestFixture StartServer(this TestFixture fixture)
+        MiruTest.Log.Measure(nameof(StartServer), () =>
         {
+
             var pageTestingOptions = fixture.Get<PageTestingConfig>();
 
             var host = fixture.Get<IHost>();
@@ -28,57 +31,57 @@ namespace Miru.PageTesting
                     exception.InnerException ?? exception);
             }
 
-            if (pageTestingOptions.StartLocalServer == false)
-                return fixture;
-            
-            var server = fixture.Get<IServer>();
-                
-            var addresses = server.Features.Get<IServerAddressesFeature>().Addresses;
-            
-            if (addresses.Count == 0)
-                throw new MiruPageTestException(
-                    "The App's Server has no http addresses associated to it. Maybe the App is already running in another process?");
-            
-            var address = addresses.First();
+            if (pageTestingOptions.StartLocalServer)
+            {
+                var server = fixture.Get<IServer>();
 
-            pageTestingOptions.BaseUrl = address;
+                var addresses = server.Features.Get<IServerAddressesFeature>().Addresses;
 
-            fixture.SendRequestToServer(address);
-            
-            return fixture;
-        }
+                if (addresses.Count == 0)
+                    throw new MiruPageTestException(
+                        "The App's Server has no http addresses associated to it. Maybe the App is already running in another process?");
 
-        public static ILogger Log(this TestFixture fixture)
-        {
-            return fixture.Get<ILogger>();
-        }
+                var address = addresses.First();
 
-        public static TestFixture SendRequestToServer(this TestFixture fixture, string address)
-        {
-            using var httpClient = new HttpClient();
-            
-            MiruTest.Log.Debug($"Warming up server making a request to {address}");
-            
-            httpClient.GetAsync(address).GetAwaiter().GetResult();
+                pageTestingOptions.BaseUrl = address;
 
-            return fixture;
-        }
+                fixture.SendRequestToServer(address);
+            }
+        });
+        
+        return fixture;
+    }
 
-        public static TestFixture QuitBrowser(this TestFixture fixture)
-        {
-            var nav = fixture.Get<MiruNavigator>();
+    public static ILogger Log(this TestFixture fixture)
+    {
+        return fixture.Get<ILogger>();
+    }
+
+    public static TestFixture SendRequestToServer(this TestFixture fixture, string address)
+    {
+        using var httpClient = new HttpClient();
             
-            MiruTest.Log.Debug("Closing browser");
+        MiruTest.Log.Debug($"Warming up server making a request to {address}");
             
-            nav.CloseDrivers();
+        httpClient.GetAsync(address).GetAwaiter().GetResult();
+
+        return fixture;
+    }
+
+    public static TestFixture QuitBrowser(this TestFixture fixture)
+    {
+        var nav = fixture.Get<MiruNavigator>();
             
-            MiruTest.Log.Debug("Disposing MiruNavigator");
+        MiruTest.Log.Debug("Closing browser");
             
-            nav.Dispose();
+        nav.CloseDrivers();
             
-            MiruTest.Log.Debug("Browser closed");
+        MiruTest.Log.Debug("Disposing MiruNavigator");
             
-            return fixture;
-        }
+        nav.Dispose();
+            
+        MiruTest.Log.Debug("Browser closed");
+            
+        return fixture;
     }
 }

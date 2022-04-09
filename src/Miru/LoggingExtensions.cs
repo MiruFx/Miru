@@ -32,19 +32,6 @@ namespace Miru
             return yaml;
         }
         
-        public static ILogger Measure(this ILogger logger, string text, Action action)
-        {
-            logger.Debug(text + ": Started");
-            var timer = new Stopwatch();
-            timer.Start();
-
-            action();
-            
-            timer.Stop();
-            logger.Debug(text + $": Finished in {timer.ElapsedMilliseconds} ms");
-            return logger;
-        }
-        
         public static void MeasureToConsole(this object current, Action action)
         {
             var timer = new Stopwatch();

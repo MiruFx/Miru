@@ -2,77 +2,101 @@ using System;
 using Baseline;
 using Microsoft.Extensions.Logging;
 
-namespace Miru.Testing
+namespace Miru.Testing;
+
+public class TestConfigRunner
 {
-    public class TestConfigRunner
+    private readonly TestRunConfig _testRunConfig;
+    private readonly TestFixture _testFixture;
+
+    public TestConfigRunner(
+        TestRunConfig testRunConfig, 
+        TestFixture testFixture)
     {
-        private readonly TestRunConfig _testRunConfig;
-        private readonly TestFixture _testFixture;
-        private readonly ILogger<TestConfigRunner> _logger;
-
-        public TestConfigRunner(TestRunConfig testRunConfig, TestFixture testFixture, ILogger<TestConfigRunner> logger)
-        {
-            _testRunConfig = testRunConfig;
-            _testFixture = testFixture;
-            _logger = logger;
-        }
+        _testRunConfig = testRunConfig;
+        _testFixture = testFixture;
+    }
         
-        public void RunBeforeSuite()
-        {
-            _logger.LogDebug($"Running BeforeSuite");
-            ExecuteActionsByType(_testRunConfig.ActionsBeforeSuite, typeof(object));
-            _logger.LogDebug($"Finished BeforeSuite");
-        }
+    public void RunBeforeSuite()
+    {
+        MiruTest.Log.Measure("RunBeforeSuite", () => 
+            ExecuteActionsByType(_testRunConfig.ActionsBeforeSuite, typeof(object)));
+    }
 
-        public void RunBeforeAll(Type currentTestType)
+    public void RunBeforeAll(Type currentTestType)
+    {
+        MiruTest.Log.Measure("RunBeforeAll", () =>
         {
-            _logger.LogDebug($"Running BeforeAll for {currentTestType.FullName}");
+            MiruTest.Log.Debug($"Running BeforeAll for {currentTestType.FullName}");
+                
             ExecuteActionsByType(_testRunConfig.ActionsBeforeAll, currentTestType);
-            _logger.LogDebug($"Finished BeforeAll for {currentTestType.FullName}");
-        }
+                
+            MiruTest.Log.Debug($"Finished BeforeAll for {currentTestType.FullName}");
+        });
+    }
         
-        public void RunBeforeEach(Type currentTestType)
+    public void RunBeforeEach(Type currentTestType)
+    {
+        MiruTest.Log.Measure("RunBeforeEach", () =>
         {
-            _logger.LogDebug($"Running BeforeEach for {currentTestType.FullName}");
+            MiruTest.Log.Debug($"Running BeforeEach for {currentTestType.FullName}");
+                
             ExecuteActionsByType(_testRunConfig.ActionsBeforeEach, currentTestType);
-            _logger.LogDebug($"Finished BeforeEach for {currentTestType.FullName}");
-        }
+                
+            MiruTest.Log.Debug($"Finished BeforeEach for {currentTestType.FullName}");
+        });
+    }
         
-        public void RunAfterEach(Type currentTestType)
+    public void RunAfterEach(Type currentTestType)
+    {
+        MiruTest.Log.Measure("RunAfterEach", () =>
         {
-            _logger.LogDebug($"Running AfterEach for {currentTestType.FullName}");
+            MiruTest.Log.Debug($"Running AfterEach for {currentTestType.FullName}");
+                
             ExecuteActionsByType(_testRunConfig.ActionsAfterEach, currentTestType);
-            _logger.LogDebug($"Finished AfterEach for {currentTestType.FullName}");
-        }
+                
+            MiruTest.Log.Debug($"Finished AfterEach for {currentTestType.FullName}");
+        });
+    }
         
-        public void RunAfterAll(Type currentTestType)
+    public void RunAfterAll(Type currentTestType)
+    {
+        MiruTest.Log.Measure("RunAfterAll", () =>
         {
-            _logger.LogDebug($"Running AfterAll for {currentTestType.FullName}");
+            MiruTest.Log.Debug($"Running AfterAll for {currentTestType.FullName}");
+                
             ExecuteActionsByType(_testRunConfig.ActionsAfterAll, currentTestType);
-            _logger.LogDebug($"Finished AfterAll for {currentTestType.FullName}");
-        }
+                
+            MiruTest.Log.Debug($"Finished AfterAll for {currentTestType.FullName}");
+        });
+    }
         
-        public void RunAfterSuite()
+    public void RunAfterSuite()
+    {
+        MiruTest.Log.Measure("RunAfterSuite", () =>
         {
-            _logger.LogDebug($"Running AfterSuite");
+            MiruTest.Log.Debug($"Running AfterSuite");
+                
             ExecuteActionsByType(_testRunConfig.ActionsAfterSuite, typeof(object));
-            _logger.LogDebug($"Finished AfterSuite");
-        }
+                
+            MiruTest.Log.Debug($"Finished AfterSuite");
+        });
+    }
 
-        private void ExecuteActionsByType(TestSetupActions actions, Type currentRunningTestType)
+    private void ExecuteActionsByType(TestSetupActions actions, Type currentRunningTestType)
+    {
+        foreach (var action in actions.All())
         {
-            foreach (var action in actions.All())
+            if (currentRunningTestType.ImplementsInterfaceTemplate(action.Key))
             {
-                if (currentRunningTestType.ImplementsInterfaceTemplate(action.Key))
-                {
-                    _logger.LogDebug($"Running {action.Key.FullName} action");
-                    action.Value(currentRunningTestType, _testFixture);
-                }
+                MiruTest.Log.Debug($"Running {action.Key.FullName} action");
+                
+                action.Value(currentRunningTestType, _testFixture);
+            }
 
-                if (action.Key.IsAssignableFrom(currentRunningTestType))
-                {
-                    action.Value(currentRunningTestType, _testFixture);
-                }
+            if (action.Key.IsAssignableFrom(currentRunningTestType))
+            {
+                action.Value(currentRunningTestType, _testFixture);
             }
         }
     }
