@@ -27,6 +27,8 @@ namespace Miru.Storage.Ftp
         public MiruPath App => StorageDir / "app";
 
         public MiruPath Assets => throw new NotImplementedException("Ftp storage does not support Assets");
+        
+        public MiruPath Misc => throw new NotImplementedException("Ftp storage does not support Misc");
 
         public async Task PutAsync(MiruPath remotePath, MiruPath sourcePath)
         {

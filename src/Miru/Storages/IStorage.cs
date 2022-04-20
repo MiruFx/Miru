@@ -12,6 +12,8 @@ namespace Miru.Storages
         
         MiruPath Assets { get; }
         
+        MiruPath Misc { get; }
+        
         Task PutAsync(MiruPath remote, MiruPath source);
         
         Task PutAsync(MiruPath remote, Stream stream);

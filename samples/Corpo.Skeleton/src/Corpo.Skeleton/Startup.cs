@@ -107,7 +107,7 @@ public class Startup
         {
             e.MapDefaultControllerRoute();
             e.MapRazorPages();
-            e.MapHangfireDashboard("/_queue", new DashboardOptions
+            e.MapHangfireDashboard("/Hangfire", new DashboardOptions
             {
                 AsyncAuthorization = new[] { new HangfireAuthorizationFilter() }
             });

@@ -101,6 +101,13 @@ module.exports = {
                     'Extensions/TimeStamps.md',
                     'Extensions/Invitable.md'
                 ],
+            },
+            {
+                title: 'Patterns',
+                collapsable: false,
+                children: [
+                    'Patterns/Entity.md'
+                ],
             }
         ]
     }

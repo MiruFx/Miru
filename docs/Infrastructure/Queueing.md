@@ -16,6 +16,7 @@ Dashboard
   config
   accessing
   protecting
+    (middleware should be after UseSession UseAuthentication)
 TODO: Testing
   if is queueing
   the handler

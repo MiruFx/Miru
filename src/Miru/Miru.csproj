@@ -72,4 +72,8 @@
         <EmbeddedResource Include="**/*.stub" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="CurrentAttributes" />
+    </ItemGroup>
+
 </Project>

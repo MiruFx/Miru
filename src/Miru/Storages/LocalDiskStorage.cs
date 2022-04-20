@@ -17,10 +17,12 @@ namespace Miru.Storages
 
         public MiruPath StorageDir { get; protected set; }
 
-        public virtual MiruPath App => StorageDir / "app";
+        public virtual MiruPath App => StorageDir / "app"; 
         
-        public virtual MiruPath Assets => _solution.StorageDir / "assets";
+        public virtual MiruPath Assets => _solution.StorageDir / "assets"; 
         
+        public virtual MiruPath Misc => _solution.StorageDir / "misc";
+
         public async Task PutAsync(MiruPath remote, MiruPath source)
         {
             var fullRemoteDir = App / remote;
