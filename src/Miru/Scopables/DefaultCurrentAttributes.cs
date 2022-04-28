@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Miru.Scopables;
 
-public class DefaultCurrentScope : ICurrentScope
+public class DefaultCurrentAttributes : ICurrentAttributes
 {
     public async Task BeforeAsync<TRequest>(TRequest request, CancellationToken ct)
     {

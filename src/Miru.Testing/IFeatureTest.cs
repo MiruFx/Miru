@@ -1,6 +1,5 @@
-namespace Miru.Testing
+namespace Miru.Testing;
+
+public interface IFeatureTest : IManyCasesPerTest, IIntegratedTest
 {
-    public interface IFeatureTest : IManyCasesPerTest
-    {
-    }
 }

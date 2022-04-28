@@ -28,11 +28,11 @@ public class ScopableTest
             .AddMiruApp()
             .AddPipeline<ScopableTest>(_ =>
             {
-                _.UseBehavior(typeof(CurrentScopeBehavior<,>));
+                _.UseBehavior(typeof(CurrentAttributesBehavior<,>));
             })
             .AddMiruTestFixture()
             
-            .AddCurrentScope<Current, CurrentScope>()
+            .AddCurrentAttributes<Current, CurrentScope>()
             
             .BuildServiceProvider()
 
@@ -70,7 +70,7 @@ public class ScopableTest
         public bool Processed { get; set; }
     }
 
-    public class CurrentScope : ICurrentScope
+    public class CurrentScope : ICurrentAttributes
     {
         private readonly Current _current;
 

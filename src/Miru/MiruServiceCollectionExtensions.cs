@@ -69,7 +69,7 @@ public static class MiruServiceCollectionExtensions
         services.AddSingleton<ISessionStore, HttpSessionStore>();
             
         // default scope
-        services.AddCurrentScope<DefaultCurrent, DefaultCurrentScope>();
+        services.AddCurrentAttributes<DefaultCurrent, DefaultCurrentAttributes>();
 
         return services;
     }

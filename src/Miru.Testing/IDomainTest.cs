@@ -1,6 +1,5 @@
-namespace Miru.Testing
+namespace Miru.Testing;
+
+public interface IDomainTest : IManyCasesPerTest
 {
-    public interface IDomainTest
-    {
-    }
 }

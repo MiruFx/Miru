@@ -13,38 +13,37 @@
         <!-- Core -->
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
         <PackageReference Include="NetEscapades.Configuration.Yaml" Version="2.2.0" />
-        <PackageReference Include="Quartz" Version="3.3.3" />
-        <PackageReference Include="Quartz.AspNetCore" Version="3.3.3" />
-        <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.3.3" />
+        <PackageReference Include="Quartz" Version="3.4.0" />
+        <PackageReference Include="Quartz.AspNetCore" Version="3.4.0" />
+        <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.4.0" />
         <PackageReference Include="YamlDotNet" Version="11.2.1" />
-        <PackageReference Include="Scriban" Version="5.4.0" />
+        <PackageReference Include="Scriban" Version="5.4.4" />
         <PackageReference Include="Scrutor" Version="4.1.0" />
         <PackageReference Include="Humanizer.Core" Version="2.14.1" />
-        <!--        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.0-rc.2.21480.10" />-->
 
         <!-- Data -->
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.2" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.4" />
         <PackageReference Include="FluentMigrator" Version="3.3.2" />
         <PackageReference Include="FluentMigrator.Runner" Version="3.3.2" />
-        <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="6.13.13" />
+        <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="6.13.18" />
 
         <!-- Features -->
         <PackageReference Include="MediatR" Version="10.0.1" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
-        <PackageReference Include="FluentValidation" Version="10.3.6" />
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.6" />
+        <PackageReference Include="FluentValidation" Version="10.4.0" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.4.0" />
 
         <!-- Email -->
-        <PackageReference Include="FluentEmail.Core" Version="3.0.0" />
-        <PackageReference Include="FluentEmail.Smtp" Version="3.0.0" />
+        <PackageReference Include="FluentEmail.Core" Version="3.0.2" />
+        <PackageReference Include="FluentEmail.Smtp" Version="3.0.2" />
         
         <!-- View -->
         <PackageReference Include="HtmlTags" Version="8.1.1" />
         <PackageReference Include="Vereyon.Web.FlashMessage" Version="3.0.0" />
         
         <!-- Logging -->
-        <PackageReference Include="Serilog" Version="2.10.0" />
+        <PackageReference Include="Serilog" Version="2.11.0" />
         <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
         <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
         <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
@@ -55,8 +54,8 @@
         <PackageReference Include="Hangfire.LiteDB" Version="0.4.1" />
 
         <!-- Userfy -->
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.2" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.4" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.4" />
         
         <!-- MiniProfiler -->
         <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
@@ -70,10 +69,6 @@
 
     <ItemGroup>
         <EmbeddedResource Include="**/*.stub" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="CurrentAttributes" />
     </ItemGroup>
 
 </Project>

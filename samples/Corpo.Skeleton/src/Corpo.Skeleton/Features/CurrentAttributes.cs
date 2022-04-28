@@ -4,14 +4,14 @@ using Miru.Userfy;
 
 namespace Corpo.Skeleton.Features;
 
-public class CurrentScope : ICurrentScope
+public class CurrentAttributes : ICurrentAttributes
 {
     private readonly Current _current;
     private readonly AppDbContext _db;
     private readonly ICurrentUser _currentUser;
     private readonly AppOptions _appOptions;
 
-    public CurrentScope(
+    public CurrentAttributes(
         Current current,
         AppDbContext db, 
         ICurrentUser currentUser, 

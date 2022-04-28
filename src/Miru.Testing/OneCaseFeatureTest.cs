@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace Miru.Testing
 {
-    public abstract class OneCaseFeatureTest : MiruTest, ICasePerFeatureTest
+    public abstract class OneCaseFeatureTest : MiruTest, ICasePerFeatureTest, IFeatureTest
     {
 #pragma warning disable 1998
         public virtual async Task GivenAsync()

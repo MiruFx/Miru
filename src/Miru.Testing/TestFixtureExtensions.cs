@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentEmail.Core.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -271,12 +272,12 @@ public static class TestFixtureExtensions
         return fixture;
     }
         
-    public static EmailSent LastEmailSent(this ITestFixture fixture)
+    public static EmailData LastEmailSent(this ITestFixture fixture)
     {
         return fixture.Get<MemorySender>().Last();
     }
         
-    public static IEnumerable<EmailSent> AllEmailsSent(this ITestFixture fixture)
+    public static IEnumerable<EmailData> AllEmailsSent(this ITestFixture fixture)
     {
         return fixture.Get<MemorySender>().All();
     }

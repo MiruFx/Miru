@@ -1,17 +1,16 @@
-using System.IO;
 using System.Linq;
 using System.Text;
 using FluentEmail.Core;
 
-namespace Miru.Mailing
+namespace Miru.Mailing;
+
+public static class FluentMailExtensions
 {
-    public static class FluentMailExtensions
+    public static string ToRawEmail(this IFluentEmail email)
     {
-        public static string ToRawEmail(this IFluentEmail email)
-        {
-            var emailMessage = new StringBuilder();
+        var emailMessage = new StringBuilder();
             
-            emailMessage.Append($@"
+        emailMessage.Append($@"
 <pre>
 From: {email.Data.FromAddress.Name} <{email.Data.FromAddress.EmailAddress}>
 To: {string.Join(",", email.Data.ToAddresses.Select(x => $"{x.Name} <{x.EmailAddress}>"))}
@@ -21,16 +20,15 @@ ReplyTo: {string.Join(",", email.Data.ReplyToAddresses.Select(x => $"{x.Name} <{
 Subject: {email.Data.Subject}
 </pre>");
 
-            foreach (var dataHeader in email.Data.Headers)
-            {
-                emailMessage.Append($"{dataHeader.Key}:{dataHeader.Value}");
-            }
-
-            emailMessage.AppendLine();
-
-            emailMessage.Append(email.Data.Body);
-
-            return emailMessage.ToString();
+        foreach (var dataHeader in email.Data.Headers)
+        {
+            emailMessage.Append($"{dataHeader.Key}:{dataHeader.Value}");
         }
+
+        emailMessage.AppendLine();
+
+        emailMessage.Append(email.Data.Body);
+
+        return emailMessage.ToString();
     }
 }

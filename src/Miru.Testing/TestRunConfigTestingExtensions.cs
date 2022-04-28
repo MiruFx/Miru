@@ -1,22 +1,24 @@
-namespace Miru.Testing
+namespace Miru.Testing;
+
+public static class TestRunConfigTestingExtensions
 {
-    public static class TestRunConfigTestingExtensions
+    public static void TestingDefault(this TestRunConfig run)
     {
-        public static void TestingDefault(this TestRunConfig run)
+        run.BeforeSuite(_ =>
         {
-            run.BeforeSuite(_ =>
-            {
-                _.MigrateDatabase();
-            });
+            _.MigrateDatabase();
+        });
     
-            run.BeforeCase(_ =>
-            {
-                _.Logout();
-                
-                _.ClearFabricator();
-                _.ClearDatabase();
-                _.ClearQueue();
-            });
-        }
+        run.BeforeCase(_ =>
+        {
+            _.ClearFabricator();
+        });
+            
+        run.BeforeCase<IIntegratedTest>(_ =>
+        {
+            _.Logout();
+            _.ClearDatabase();
+            _.ClearQueue();
+        });
     }
 }

@@ -1,7 +1,6 @@
 
-namespace Miru.Testing
+namespace Miru.Testing;
+
+public abstract class FeatureTest : MiruTest, IFeatureTest
 {
-    public abstract class FeatureTest : MiruTest, IFeatureTest
-    {
-    }
 }

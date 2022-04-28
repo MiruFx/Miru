@@ -1,6 +1,5 @@
-namespace Miru.Testing
+namespace Miru.Testing;
+
+public abstract class DomainTest : MiruTest, IDomainTest
 {
-    public abstract class DomainTest : MiruTest, IDomainTest
-    {
-    }
 }

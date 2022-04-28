@@ -70,6 +70,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     'Infrastructure/CommandLine.md',
+                    'Infrastructure/Storage.md',
                     'Infrastructure/Queueing.md',
                     'Infrastructure/Mailing.md',
                     'Infrastructure/Logging.md'

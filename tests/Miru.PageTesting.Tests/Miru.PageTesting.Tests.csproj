@@ -12,12 +12,12 @@ Has to be .Sdk.Web to allow unit test asp.net components correctly
 
   <ItemGroup>
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
-    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     
-    <PackageReference Include="Selenium.WebDriver" Version="4.1.0" />
-    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.30.0.1" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="98.0.4758.10200" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.1.1" />
+    <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.31.0" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="101.0.4951.4100" />
   </ItemGroup>
 
   <ItemGroup>

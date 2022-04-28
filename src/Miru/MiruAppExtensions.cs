@@ -7,68 +7,58 @@ using System.Threading.Tasks;
 using MediatR;
 using Miru.Core;
 
-namespace Miru
+namespace Miru;
+
+public static class MiruAppExtensions
 {
-    public static class MiruAppExtensions
+    public static async Task<TResult> SendAsync<TResult>(this IMiruApp app, IRequest<TResult> message)
     {
-        public static string ConfigYml(this IMiruApp app, MiruSolution solution = null)
-        {
-            // solution = solution ?? app.Get<Solution>();
-            // return solution.GetConfigYml(app.Config.Environment);
-
-            return string.Empty;
-        }
-
-        public static async Task<TResult> SendAsync<TResult>(this IMiruApp app, IRequest<TResult> message)
-        {
-            using (var scope = app.WithScope())
-            {
-                var mediator = scope.Get<IMediator>();
-                
-                try
-                {
-                    return await mediator.Send(message);
-                }
-                catch (AggregateException e)
-                {
-                    throw e.InnerException ?? e;
-                }
-            }
-        }
+        using var scope = app.WithScope();
         
-        public static TResult SendSync<TResult>(this IMiruApp app, IRequest<TResult> message)
+        var mediator = scope.Get<IMediator>();
+                
+        try
         {
-            using var scope = app.WithScope();
+            return await mediator.Send(message);
+        }
+        catch (AggregateException e)
+        {
+            throw e.InnerException ?? e;
+        }
+    }
+        
+    public static TResult SendSync<TResult>(this IMiruApp app, IRequest<TResult> message)
+    {
+        using var scope = app.WithScope();
             
-            var mediator = scope.Get<IMediator>();
+        var mediator = scope.Get<IMediator>();
                 
-            try
-            {
-                return mediator.Send(message).Result;
-            }
-            catch (AggregateException e)
-            {
-                throw e.InnerException ?? e;
-            }
-        }
-
-        public static ScopedServices WithScope(this IMiruApp app)
+        try
         {
-            return app.Get<ScopedServices>();
+            return mediator.Send(message).Result;
         }
+        catch (AggregateException e)
+        {
+            throw e.InnerException ?? e;
+        }
+    }
+
+    public static ScopedServices WithScope(this IMiruApp app)
+    {
+        return app.Get<ScopedServices>();
+    }
         
-        public static void WithScope(this IMiruApp app, Action<ScopedServices> action)
-        {
-            using var scope = app.Get<ScopedServices>();
+    public static void WithScope(this IMiruApp app, Action<ScopedServices> action)
+    {
+        using var scope = app.Get<ScopedServices>();
 
-            action(scope);
-        }
+        action(scope);
+    }
         
-        public static TReturn WithScope<TReturn>(this IMiruApp app, Func<ScopedServices, TReturn> func)
-        {
-            using var scope = app.Get<ScopedServices>();
+    public static TReturn WithScope<TReturn>(this IMiruApp app, Func<ScopedServices, TReturn> func)
+    {
+        using var scope = app.Get<ScopedServices>();
 
-            return func(scope);
-        }
+        return func(scope);
     }
 }

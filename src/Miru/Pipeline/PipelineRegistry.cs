@@ -75,7 +75,7 @@ namespace Miru.Pipeline
                 _.UseBehavior(typeof(ValidationBehavior<,>));
                 
                 _.UseBehavior(typeof(TransactionBehavior<,>));
-                _.UseBehavior(typeof(CurrentScopeBehavior<,>));
+                _.UseBehavior(typeof(CurrentAttributesBehavior<,>));
                 
                 _.UseBehavior(typeof(AuthorizationBehavior<,>));
                 _.UseBehavior(typeof(ScopeBehavior<,>));

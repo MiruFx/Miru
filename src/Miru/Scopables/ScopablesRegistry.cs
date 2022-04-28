@@ -4,14 +4,14 @@ namespace Miru.Scopables;
 
 public static class ScopablesRegistry
 {
-    public static IServiceCollection AddCurrentScope<TCurrent, TCurrentScope>(
+    public static IServiceCollection AddCurrentAttributes<TCurrent, TCurrentAttributes>(
         this IServiceCollection services) 
         where TCurrent : class
-        where TCurrentScope : class, ICurrentScope
+        where TCurrentAttributes : class, ICurrentAttributes
     {
         return services
             .ReplaceScoped<TCurrent>()
-            .ReplaceScoped<ICurrentScope, TCurrentScope>();
+            .ReplaceScoped<ICurrentAttributes, TCurrentAttributes>();
     }
     
     public static IServiceCollection AddScopable<TScope>(

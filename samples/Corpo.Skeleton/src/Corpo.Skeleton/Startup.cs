@@ -21,7 +21,7 @@ public class Startup
 
             .AddDefaultPipeline<Startup>()
             
-            .AddCurrentScope<Current, CurrentScope>()
+            .AddCurrentAttributes<Current, CurrentAttributes>()
                 
             .AddEfCoreSqlite<AppDbContext>()
 
