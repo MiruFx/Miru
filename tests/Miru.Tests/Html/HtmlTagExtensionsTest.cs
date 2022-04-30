@@ -6,7 +6,7 @@ namespace Miru.Tests.Html;
 [TestFixture]
 public class HtmlTagExtensionsTest
 {
-    public class AttrAdd
+    public class AttrAppend
     {
         [Test]
         public void Should_add_attr_if_attribute_does_not_exist()
@@ -15,7 +15,7 @@ public class HtmlTagExtensionsTest
             var form = new HtmlTag("form");
             
             // act
-            form.AttrAdd("data-controller", "validation");
+            form.AttrAppend("data-controller", "validation");
             
             // assert
             form.ToString().ShouldBe("<form data-controller=\"validation\"></form>");
@@ -28,7 +28,7 @@ public class HtmlTagExtensionsTest
             var form = new HtmlTag("form").Attr("data-controller", "validation");
             
             // act
-            form.AttrAdd("data-controller", "autofocus");
+            form.AttrAppend("data-controller", "autofocus");
             
             // assert
             form.ToString().ShouldBe("<form data-controller=\"validation autofocus\"></form>");

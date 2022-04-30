@@ -3,16 +3,16 @@
 
 # ignore Miru files
 .cache/
-storage/*
 temp/
 logs/
 wwwroot/
 mix-manifest.json
 appSettings.*.yml
-src/Intanext/.local-chromium/
+src/*/.local-chromium/
 libman.json
 
-# exclude from ignore filters
+# storage directory - ignore everything but /storage/assets
+storage/*
 !storage/assets
 
 # User-specific files

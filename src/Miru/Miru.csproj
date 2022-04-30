@@ -11,6 +11,7 @@
     <ItemGroup>
         
         <!-- Core -->
+        <PackageReference Include="Baseline" Version="3.2.2" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
         <PackageReference Include="NetEscapades.Configuration.Yaml" Version="2.2.0" />
         <PackageReference Include="Quartz" Version="3.4.0" />

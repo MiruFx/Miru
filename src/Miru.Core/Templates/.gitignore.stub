@@ -9,7 +9,6 @@ logs/
 wwwroot/
 mix-manifest.json
 appSettings.*.yml
-src/Intanext/.local-chromium/
 libman.json
 
 # exclude from ignore filters

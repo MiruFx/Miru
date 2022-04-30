@@ -93,7 +93,7 @@ public static class HtmlTagExtensions
         return tag;
     }
 
-    public static HtmlTag AttrAdd(this HtmlTag tag, string attribute, string newValue, string separator = " ")
+    public static HtmlTag AttrAppend(this HtmlTag tag, string attribute, string newValue, string separator = " ")
     {
         var currentValue = tag.Attr(attribute);
 

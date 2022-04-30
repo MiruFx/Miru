@@ -14,8 +14,8 @@ public static class ApplicationBuilderExtensions
     {
         return app.MapWhen(context => context.Request.Path.StartsWithSegments(queuePath), appBuilder =>
         {
-            appBuilder.UseRequestLocalization("en-IE");
-            appBuilder.UseHangfireDashboard(culture, new DashboardOptions
+            appBuilder.UseRequestLocalization(culture);
+            appBuilder.UseHangfireDashboard(queuePath, new DashboardOptions
             {
                 AsyncAuthorization = new[] { new HangfireAuthorizationFilter() }
             });

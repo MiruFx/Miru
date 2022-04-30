@@ -47,10 +47,10 @@ namespace Miru.Html
             expression.If(m =>
                 m.Accessor.Name.Contains(text));
     
-        public static ElementActionExpression PropertyContainNames(
-            this ElementCategoryExpression expression, 
-            params string[] names) =>
-            expression.If(m => names.Any(name => m.Accessor.Name.Contains(name)));
+        // public static ElementActionExpression PropertyContainNames(
+        //     this ElementCategoryExpression expression, 
+        //     params string[] names) =>
+        //     expression.If(m => names.Any(name => m.Accessor.Name.Contains(name)));
 
         public static void TypeAndAttributeModify<TType, TAttribute>(
             this ElementCategoryExpression expression,

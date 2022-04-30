@@ -99,8 +99,7 @@ module.exports = {
                 title: 'Extensions',
                 collapsable: false,
                 children: [
-                    'Extensions/TimeStamps.md',
-                    'Extensions/Invitable.md'
+                    'Extensions/TimeStamps.md'
                 ],
             },
             {
