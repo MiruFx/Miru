@@ -49,8 +49,26 @@ public class HtmlConfigurationTest
         tag.Attr("multiple").ShouldBe("multiple");
     }
 
+    [Test]
+    public void Should_wrap_displays_around_a_span()
+    {
+        // arrange
+        var model = new ProfileShow();
+        
+        // act
+        var tag = _html.DisplayLabelFor(model, x => x.UserName);
+
+        // assert
+        tag.ToString().ShouldBe("<span>User Name</span>");
+    }
+    
     public class HtmlConfig : HtmlConfiguration
     {
+    }
+
+    public class ProfileShow
+    {
+        public string UserName { get; set; }    
     }
     
     public class ProfileEdit

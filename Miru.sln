@@ -73,6 +73,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.Storage.Ftp", "src\Mir
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.Postgres.Tests", "tests\Miru.Postgres.Tests\Miru.Postgres.Tests.csproj", "{B3920A7E-5A82-4122-ACFE-CA04ABEAB9DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.Redis", "src\Miru.Redis\Miru.Redis.csproj", "{6C5D7514-60BF-4842-AABE-4BF618F05FFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -171,6 +173,10 @@ Global
 		{B3920A7E-5A82-4122-ACFE-CA04ABEAB9DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3920A7E-5A82-4122-ACFE-CA04ABEAB9DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3920A7E-5A82-4122-ACFE-CA04ABEAB9DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C5D7514-60BF-4842-AABE-4BF618F05FFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C5D7514-60BF-4842-AABE-4BF618F05FFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C5D7514-60BF-4842-AABE-4BF618F05FFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C5D7514-60BF-4842-AABE-4BF618F05FFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

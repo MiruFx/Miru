@@ -13,7 +13,7 @@ public abstract class MiruRazorPage<TModel> : Microsoft.AspNetCore.Mvc.Razor.Raz
     public ElementNaming Naming => ViewContext.HttpContext.RequestServices.GetService<ElementNaming>();
 }
 
-public abstract class MiruRazorPage<TModel, TCurrent> : Microsoft.AspNetCore.Mvc.Razor.RazorPage<TModel> 
+public abstract class MiruRazorPage<TModel, TCurrent> : MiruRazorPage<TModel> 
     where TModel : class
     where TCurrent : class
 {

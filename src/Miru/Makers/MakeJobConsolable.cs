@@ -13,8 +13,8 @@ public class MakeJobConsolable : Consolable
         Add(new Argument<string>("in"));
         Add(new Argument<string>("name"));
         Add(new Argument<string>("action"));
-        Add(new Option<bool>("--no-tests"));
-        Add(new Option<bool>("--only-tests"));
+        Add(new Option<bool>("--no-tests", "--no-test"));
+        Add(new Option<bool>("--only-tests", "--only-test"));
     }
 
     public class ConsolableHandler : IConsolableHandler

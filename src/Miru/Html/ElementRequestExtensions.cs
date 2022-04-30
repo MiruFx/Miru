@@ -5,6 +5,7 @@ using FluentValidation;
 using FluentValidation.Validators;
 using HtmlTags;
 using HtmlTags.Conventions;
+using HtmlTags.Reflection;
 using Miru.Validation;
 using Miru.Core;
 
@@ -19,6 +20,19 @@ public static class ElementRequestExtensions
         this ElementRequest elementRequest,
         params string[] names) =>
             elementRequest.Accessor.Name.Contains(names);
+    
+    public static bool PropertyNameEnds(this ElementRequest elementRequest, string text) => 
+        elementRequest.Accessor.Name.EndsWith(text);
+
+    public static bool TypeIs<TType>(this ElementRequest elementRequest) => 
+        elementRequest.Accessor.PropertyType == typeof(TType);
+
+    public static bool HasType<TType>(this ElementRequest elementRequest) => 
+        elementRequest.Accessor.PropertyType.Implements<TType>();
+    
+    public static bool HasAttribute<TAttribute>(this ElementRequest elementRequest) 
+        where TAttribute : Attribute => 
+            elementRequest.Accessor.HasAttribute<TAttribute>();
     
     public static object Get(this ElementRequest elementRequest, Type type)
     {

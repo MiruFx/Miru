@@ -8,25 +8,34 @@ using Shouldly;
 
 namespace Playground.Tests.Features.Accounts;
 
-public class AccountRegisterTest : FeatureTest
+public class AccountRegisterTest : OneCaseFeatureTest
 {
-    [Test]
-    public async Task Can_register_account()
+    private AccountRegister.Command _command;
+
+    public override async Task GivenAsync()
     {
         // arrange
-        var command = _.Make<AccountRegister.Command>();
+        _command = _.Make<AccountRegister.Command>();
 
         // act
-        await _.SendAsync(command);
+        await _.SendAsync(_command);
+    }
 
-        // assert
+    [Test]
+    public void Should_save_user()
+    {
         var saved = _.Db(db => db.Users.First());
 
-        saved.Email.ShouldBe(command.Email);
-        saved.PasswordHash.ShouldNotBe(command.Password);
-            
+        saved.Email.ShouldBe(_command.Email);
+        saved.PasswordHash.ShouldNotBe(_command.Password);
+    }
+    
+    [Test]
+    public void Should_queue_email_to_user()
+    {
         var job = _.EnqueuedJob<EmailJob>();
-        job.Email.ToAddresses.ShouldContain(m => m.EmailAddress == command.Email);
+        
+        job.Email.ToAddresses.ShouldContain(m => m.EmailAddress == _command.Email);
         job.Email.Body.ShouldContain("Welcome To Playground");
     }
 
