@@ -1,38 +1,37 @@
-using System;
-using System.Linq.Expressions;
-using HtmlTags;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Html;
+using Miru.Scopables;
 using Miru.Userfy;
 
 namespace Miru.Mvc;
 
-public abstract class MiruRazorPage<TModel> : Microsoft.AspNetCore.Mvc.Razor.RazorPage<TModel> where TModel : class
+public abstract class MiruRazorPage<TModel> : Microsoft.AspNetCore.Mvc.Razor.RazorPage<TModel> 
+    where TModel : class
 {
-    public IUserSession UserSession => ViewContext.HttpContext.RequestServices.GetService<IUserSession>();
+    public ICurrentUser CurrentUser => ViewContext.HttpContext.RequestServices.GetService<ICurrentUser>();
         
     public ElementNaming Naming => ViewContext.HttpContext.RequestServices.GetService<ElementNaming>();
-        
-    /// <summary>
-    /// Return current model if is type T or create a new T
-    /// </summary>
-    public object BindOrNew<T>() where T : new()
-    {
-        return Model is T ? (object) Model : new T();
-    }
-        
-    public HtmlTag s(Expression<Func<TModel, object>> expression)
-    {
-        return GetHtmlElement().DisplayFor(ViewData.Model, expression);
-    }
-        
-    public HtmlTag s<TOtherModel>(TOtherModel otherModel, Expression<Func<TOtherModel, object>> expression) where TOtherModel : class
-    {
-        return GetHtmlElement().DisplayFor(otherModel, expression);
-    }
+}
 
-    private HtmlGenerator GetHtmlElement()
+public abstract class MiruRazorPage<TModel, TCurrent> : Microsoft.AspNetCore.Mvc.Razor.RazorPage<TModel> 
+    where TModel : class
+    where TCurrent : class
+{
+    public static readonly StubFeature Instance = new();
+    
+    public TCurrent Current 
     {
-        return ViewContext.HttpContext.RequestServices.GetService<HtmlGenerator>();
-    }   
+        get 
+        {
+            var currentScope = ViewContext.HttpContext.RequestServices.GetRequiredService<ICurrentAttributes>();
+
+            currentScope.BeforeAsync(Instance, default).GetAwaiter().GetResult();
+            
+            return ViewContext.HttpContext.RequestServices.GetService<TCurrent>();
+        }    
+    }
+    
+    public class StubFeature
+    {
+    }
 }

@@ -1,6 +1,32 @@
 <!--
 Storage
     intro
+    directories
+
+Storage Drivers
+    local disk
+        /storage/app
+
+Application's Assets
+    local disk
+        /storage/assets
+
+MiruPath
+    path = file or directory
+    
+Configuration
+    AddStorage
+
+Using Storages
+    IStorage
+    Retrieving Files
+    Saving Files
+    Paths
+    High level paths
+        storage.App.Invoice(invoice)
+
+Many Storages
+    IFedexStorage
 
 -->
 

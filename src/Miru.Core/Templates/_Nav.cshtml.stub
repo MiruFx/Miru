@@ -15,7 +15,7 @@
     @*     <a class="p-2 text-dark" for="@(new {{ input.Name }}New())">Create {{ input.Name }}</a> *@
     @* </nav> *@
 
-    @if (UserSession.IsAnonymous)
+    @if (CurrentUser.IsAnonymous)
     {
         <a class="btn btn-outline-primary" for="@(new AccountLogin())">
             Login
@@ -28,7 +28,7 @@
 
                 <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown"
                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-user"></i> @UserSession.Display!
+                    <i class="fas fa-user"></i> @CurrentUser.Display!
                 </a>
 
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">

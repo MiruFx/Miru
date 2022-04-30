@@ -13,240 +13,239 @@ using Miru.Testing;
 using Miru.Urls;
 using NUnit.Framework;
 
-namespace Miru.Tests.Html.TagHelpers
+namespace Miru.Tests.Html.TagHelpers;
+
+public class TagHelperTest
 {
-    public class TagHelperTest
+    protected IServiceProvider ServiceProvider { get; set; }
+
+    [OneTimeSetUp]
+    public void OneTimeSetup()
     {
-        protected IServiceProvider ServiceProvider { get; set; }
-
-        [OneTimeSetUp]
-        public void OneTimeSetup()
-        {
-            var services = new ServiceCollection()
-                .AddMiruHtml()
-                .AddOptions()
-                .ReplaceTransient<IAntiforgeryAccessor, TestingAntiForgeryAccessor>()
-                .AddTransient<IUrlMaps, StubUrlMaps>()
-                .AddTransient<UrlLookup>()
-                .AddSingleton(new UrlOptions())
-                .AddLogging()
-                .AddMvcCore()
-                .AddViews()
-                .Services
-                .Configure<UrlOptions>(x =>
-                {
-                    x.Base = "https://mirufx.github.io";
-                });
-                
-            ServiceProvider = services.BuildServiceProvider();
-        }
-
-        protected TTag CreateTag<TTag, TModel, TProperty>(
-            TTag tag,
-            TModel model, 
-            Expression<Func<TModel, TProperty>> expression = null) where TTag : MiruHtmlTagHelper, new()
-        {
-            tag.RequestServices = ServiceProvider;
-
-            tag.For = MakeExpression(model, expression);
-
-            return tag;
-        }
-        
-        protected TTag CreateTag<TTag>(TTag tag) where TTag : MiruHtmlTagHelper, new()
-        {
-            tag.RequestServices = ServiceProvider;
-
-            return tag;
-        }
-
-        protected TagHelperOutput ProcessTag2<TTag>(
-            TTag tag, 
-            string html,
-            string content = "") where TTag : TagHelper
-        {
-            var context = new TagHelperContext(
-                new TagHelperAttributeList(),
-                new Dictionary<object, object>(),
-                Guid.NewGuid().ToString("N"));
-
-            var attributes = new TagHelperAttributeList();
-            
-            var output = new TagHelperOutput(
-                html,
-                attributes,
-                (result, encoder) =>
-                {
-                    var tagHelperContent = new DefaultTagHelperContent();
-                    tagHelperContent.SetHtmlContent(content);
-                    return Task.FromResult<TagHelperContent>(tagHelperContent);
-                });
-
-            tag.Process(context, output);
-
-            return output;
-        }
-        
-        protected TagHelperOutput ProcessTag<TTag>(
-            TTag tag, 
-            string html,
-            string childContent = "") where TTag : TagHelper
-        {
-            var context = new TagHelperContext(
-                new TagHelperAttributeList(),
-                new Dictionary<object, object>(),
-                Guid.NewGuid().ToString("N"));
-
-            var attributes = new TagHelperAttributeList();
-            
-            var output = new TagHelperOutput(
-                html,
-                attributes,
-                (result, encoder) =>
-                {
-                    var tagHelperContent = new DefaultTagHelperContent();
-                    tagHelperContent.SetHtmlContent(childContent);
-                    return Task.FromResult<TagHelperContent>(tagHelperContent);
-                });
-
-            tag.Process(context, output);
-
-            return output;
-        }
-
-        protected TagHelperOutput ProcessTag<TTag>(
-            TTag tag,
-            string html,
-            object attributes,
-            string childContent = "") where TTag : TagHelper
-        {
-            var context = new TagHelperContext(
-                new TagHelperAttributeList(),
-                new Dictionary<object, object>(),
-                Guid.NewGuid().ToString("N"));
-
-            var dictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(attributes);
-            var tagHelperAttributes = new TagHelperAttributeList();
-
-            dictionary.ForEach(item => tagHelperAttributes.Add(item.Key, item.Value));
-            
-            var output = new TagHelperOutput(
-                html,
-                tagHelperAttributes,
-                (result, encoder) =>
-                {
-                    var tagHelperContent = new DefaultTagHelperContent();
-                    tagHelperContent.SetHtmlContent(childContent);
-                    return Task.FromResult<TagHelperContent>(tagHelperContent);
-                });
-
-            tag.Process(context, output);
-
-            return output;
-        }
-
-        protected TagHelperOutput ProcessTag<TTag>(
-            TTag tag, 
-            string html, 
-            TagHelperAttributeList attributes,
-            string childContent = "") where TTag : TagHelper
-        {
-            var context = new TagHelperContext(
-                new TagHelperAttributeList(),
-                new Dictionary<object, object>(),
-                Guid.NewGuid().ToString("N"));
-
-            attributes ??= new TagHelperAttributeList();
-            
-            var output = new TagHelperOutput(
-                html,
-                attributes,
-                (result, encoder) =>
-                {
-                    var tagHelperContent = new DefaultTagHelperContent();
-                    tagHelperContent.SetHtmlContent(childContent);
-                    return Task.FromResult<TagHelperContent>(tagHelperContent);
-                });
-
-            tag.Process(context, output);
-
-            return output;
-        }
-        
-        protected async Task<TagHelperOutput> ProcessTagAsync<TTag>(TTag tag, string tagName, string childContent = "") where TTag : TagHelper
-        {
-            var context = new TagHelperContext(
-                new TagHelperAttributeList(),
-                new Dictionary<object, object>(),
-                Guid.NewGuid().ToString("N"));
-            
-            var output = new TagHelperOutput(
-                tagName,
-                new TagHelperAttributeList(),
-                (result, encoder) =>
-                {
-                    var tagHelperContent = new DefaultTagHelperContent();
-                    tagHelperContent.SetHtmlContent(childContent);
-                    return Task.FromResult<TagHelperContent>(tagHelperContent);
-                });
-
-            await tag.ProcessAsync(context, output);
-
-            return output;
-        }
-
-        protected ModelExpression MakeExpression<TModel>(TModel viewModel, string propertyName, object propertyContent)
-        {
-            var containerType = viewModel.GetType();
-
-            var m3 = ServiceProvider.GetService<ModelExpressionProvider>();
-            
-            var compositeMetadataDetailsProvider = ServiceProvider.GetService<ICompositeMetadataDetailsProvider>();
-            var metadataProvider = new DefaultModelMetadataProvider(compositeMetadataDetailsProvider);
-
-            var containerMetadata = metadataProvider.GetMetadataForType(containerType);
-            var containerExplorer = metadataProvider.GetModelExplorerForType(containerType, viewModel);
-
-            var propertyMetadata = metadataProvider.GetMetadataForProperty(containerType, propertyName);
-            
-            var modelExplorer = containerExplorer.GetExplorerForExpression(propertyMetadata, propertyContent);
-
-            return new ModelExpression(propertyName, modelExplorer);
-        }
-        
-        protected ModelExpression MakeExpression<TModel, TProperty>(
-            TModel model, 
-            Expression<Func<TModel, TProperty>> expression)
-        {
-            var modelExpressionProvider = ServiceProvider.GetService<ModelExpressionProvider>();
-                
-            var compositeMetadataDetailsProvider = ServiceProvider.GetService<ICompositeMetadataDetailsProvider>();
-            var metadataProvider = new DefaultModelMetadataProvider(compositeMetadataDetailsProvider);
-
-            var viewDataDictionary = new ViewDataDictionary<TModel>(metadataProvider, new ModelStateDictionary())
+        var services = new ServiceCollection()
+            .AddMiruHtml()
+            .AddOptions()
+            .ReplaceTransient<IAntiforgeryAccessor, TestingAntiForgeryAccessor>()
+            .AddTransient<IUrlMaps, StubUrlMaps>()
+            .AddTransient<UrlLookup>()
+            .AddSingleton(new UrlOptions())
+            .AddLogging()
+            .AddMvcCore()
+            .AddViews()
+            .Services
+            .Configure<UrlOptions>(x =>
             {
-                Model = model
-            };
-
-            return modelExpressionProvider.CreateModelExpression(viewDataDictionary, expression);
-        }
-        
-        protected ModelExpression MakeExpression<TModel>(TModel model)
-        {
-            var modelExpressionProvider = ServiceProvider.GetService<ModelExpressionProvider>();
+                x.Base = "https://mirufx.github.io";
+            });
                 
-            var compositeMetadataDetailsProvider = ServiceProvider.GetService<ICompositeMetadataDetailsProvider>();
-            var metadataProvider = new DefaultModelMetadataProvider(compositeMetadataDetailsProvider);
+        ServiceProvider = services.BuildServiceProvider();
+    }
 
-            var viewDataDictionary = new ViewDataDictionary<TModel>(metadataProvider, new ModelStateDictionary())
+    protected TTag CreateTag<TTag, TModel, TProperty>(
+        TTag tag,
+        TModel model, 
+        Expression<Func<TModel, TProperty>> expression = null) where TTag : MiruHtmlTagHelper, new()
+    {
+        tag.RequestServices = ServiceProvider;
+
+        tag.For = MakeExpression(model, expression);
+
+        return tag;
+    }
+        
+    protected TTag CreateTag<TTag>(TTag tag) where TTag : MiruHtmlTagHelper, new()
+    {
+        tag.RequestServices = ServiceProvider;
+
+        return tag;
+    }
+
+    protected TagHelperOutput ProcessTag2<TTag>(
+        TTag tag, 
+        string html,
+        string content = "") where TTag : TagHelper
+    {
+        var context = new TagHelperContext(
+            new TagHelperAttributeList(),
+            new Dictionary<object, object>(),
+            Guid.NewGuid().ToString("N"));
+
+        var attributes = new TagHelperAttributeList();
+            
+        var output = new TagHelperOutput(
+            html,
+            attributes,
+            (result, encoder) =>
             {
-                Model = model
-            };
+                var tagHelperContent = new DefaultTagHelperContent();
+                tagHelperContent.SetHtmlContent(content);
+                return Task.FromResult<TagHelperContent>(tagHelperContent);
+            });
 
-            var modelExplorer = new ModelExplorer(
-                metadataProvider, metadataProvider.GetMetadataForType(model.GetType()), model);
+        tag.Process(context, output);
 
-            return new ModelExpression("Model", modelExplorer);
-        }
+        return output;
+    }
+        
+    protected TagHelperOutput ProcessTag<TTag>(
+        TTag tag, 
+        string html,
+        string childContent = "") where TTag : TagHelper
+    {
+        var context = new TagHelperContext(
+            new TagHelperAttributeList(),
+            new Dictionary<object, object>(),
+            Guid.NewGuid().ToString("N"));
+
+        var attributes = new TagHelperAttributeList();
+            
+        var output = new TagHelperOutput(
+            html,
+            attributes,
+            (result, encoder) =>
+            {
+                var tagHelperContent = new DefaultTagHelperContent();
+                tagHelperContent.SetHtmlContent(childContent);
+                return Task.FromResult<TagHelperContent>(tagHelperContent);
+            });
+
+        tag.Process(context, output);
+
+        return output;
+    }
+
+    protected TagHelperOutput ProcessTag<TTag>(
+        TTag tag,
+        string html,
+        object attributes,
+        string childContent = "") where TTag : TagHelper
+    {
+        var context = new TagHelperContext(
+            new TagHelperAttributeList(),
+            new Dictionary<object, object>(),
+            Guid.NewGuid().ToString("N"));
+
+        var dictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(attributes);
+        var tagHelperAttributes = new TagHelperAttributeList();
+
+        dictionary.ForEach(item => tagHelperAttributes.Add(item.Key, item.Value));
+            
+        var output = new TagHelperOutput(
+            html,
+            tagHelperAttributes,
+            (result, encoder) =>
+            {
+                var tagHelperContent = new DefaultTagHelperContent();
+                tagHelperContent.SetHtmlContent(childContent);
+                return Task.FromResult<TagHelperContent>(tagHelperContent);
+            });
+
+        tag.Process(context, output);
+
+        return output;
+    }
+
+    protected TagHelperOutput ProcessTag<TTag>(
+        TTag tag, 
+        string html, 
+        TagHelperAttributeList attributes,
+        string childContent = "") where TTag : TagHelper
+    {
+        var context = new TagHelperContext(
+            new TagHelperAttributeList(),
+            new Dictionary<object, object>(),
+            Guid.NewGuid().ToString("N"));
+
+        attributes ??= new TagHelperAttributeList();
+            
+        var output = new TagHelperOutput(
+            html,
+            attributes,
+            (result, encoder) =>
+            {
+                var tagHelperContent = new DefaultTagHelperContent();
+                tagHelperContent.SetHtmlContent(childContent);
+                return Task.FromResult<TagHelperContent>(tagHelperContent);
+            });
+
+        tag.Process(context, output);
+
+        return output;
+    }
+        
+    protected async Task<TagHelperOutput> ProcessTagAsync<TTag>(TTag tag, string tagName, string childContent = "") where TTag : TagHelper
+    {
+        var context = new TagHelperContext(
+            new TagHelperAttributeList(),
+            new Dictionary<object, object>(),
+            Guid.NewGuid().ToString("N"));
+            
+        var output = new TagHelperOutput(
+            tagName,
+            new TagHelperAttributeList(),
+            (result, encoder) =>
+            {
+                var tagHelperContent = new DefaultTagHelperContent();
+                tagHelperContent.SetHtmlContent(childContent);
+                return Task.FromResult<TagHelperContent>(tagHelperContent);
+            });
+
+        await tag.ProcessAsync(context, output);
+
+        return output;
+    }
+
+    protected ModelExpression MakeExpression<TModel>(TModel viewModel, string propertyName, object propertyContent)
+    {
+        var containerType = viewModel.GetType();
+
+        var m3 = ServiceProvider.GetService<ModelExpressionProvider>();
+            
+        var compositeMetadataDetailsProvider = ServiceProvider.GetService<ICompositeMetadataDetailsProvider>();
+        var metadataProvider = new DefaultModelMetadataProvider(compositeMetadataDetailsProvider);
+
+        var containerMetadata = metadataProvider.GetMetadataForType(containerType);
+        var containerExplorer = metadataProvider.GetModelExplorerForType(containerType, viewModel);
+
+        var propertyMetadata = metadataProvider.GetMetadataForProperty(containerType, propertyName);
+            
+        var modelExplorer = containerExplorer.GetExplorerForExpression(propertyMetadata, propertyContent);
+
+        return new ModelExpression(propertyName, modelExplorer);
+    }
+        
+    protected ModelExpression MakeExpression<TModel, TProperty>(
+        TModel model, 
+        Expression<Func<TModel, TProperty>> expression)
+    {
+        var modelExpressionProvider = ServiceProvider.GetService<ModelExpressionProvider>();
+                
+        var compositeMetadataDetailsProvider = ServiceProvider.GetService<ICompositeMetadataDetailsProvider>();
+        var metadataProvider = new DefaultModelMetadataProvider(compositeMetadataDetailsProvider);
+
+        var viewDataDictionary = new ViewDataDictionary<TModel>(metadataProvider, new ModelStateDictionary())
+        {
+            Model = model
+        };
+
+        return modelExpressionProvider.CreateModelExpression(viewDataDictionary, expression);
+    }
+        
+    protected ModelExpression MakeExpression<TModel>(TModel model)
+    {
+        var modelExpressionProvider = ServiceProvider.GetService<ModelExpressionProvider>();
+                
+        var compositeMetadataDetailsProvider = ServiceProvider.GetService<ICompositeMetadataDetailsProvider>();
+        var metadataProvider = new DefaultModelMetadataProvider(compositeMetadataDetailsProvider);
+
+        var viewDataDictionary = new ViewDataDictionary<TModel>(metadataProvider, new ModelStateDictionary())
+        {
+            Model = model
+        };
+
+        var modelExplorer = new ModelExplorer(
+            metadataProvider, metadataProvider.GetMetadataForType(model.GetType()), model);
+
+        return new ModelExpression("Model", modelExplorer);
     }
 }

@@ -14,9 +14,11 @@ Processing Jobs
   separated process (miru:queue)
 Dashboard
   config
+    culture localization
   accessing
   protecting
     (middleware should be after UseSession UseAuthentication)
+
 TODO: Testing
   if is queueing
   the handler

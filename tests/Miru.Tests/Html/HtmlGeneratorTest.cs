@@ -4,40 +4,39 @@ using Miru.Testing;
 using NUnit.Framework;
 using Shouldly;
 
-namespace Miru.Tests.Html
+namespace Miru.Tests.Html;
+
+public class HtmlGeneratorTest
 {
-    public class HtmlGeneratorTest
+    private ITestFixture _;
+    private readonly HtmlGenerator _htmlGenerator;
+
+    public HtmlGeneratorTest()
     {
-        private ITestFixture _;
-        private readonly HtmlGenerator _htmlGenerator;
+        _ = new ServiceCollection()
+            .AddMiruHtml()
+            .AddMiruTestFixture()
+            .BuildServiceProvider()
+            .GetRequiredService<ITestFixture>();
 
-        public HtmlGeneratorTest()
-        {
-            _ = new ServiceCollection()
-                .AddMiruHtml()
-                .AddMiruTestFixture()
-                .BuildServiceProvider()
-                .GetRequiredService<ITestFixture>();
+        _htmlGenerator = _.Get<HtmlGenerator>();
+    }
 
-            _htmlGenerator = _.Get<HtmlGenerator>();
-        }
-
-        [Test]
-        public void Should_create_form_summary()
-        {
-            var model = new OrderNew.Command();
+    [Test]
+    public void Should_create_form_summary()
+    {
+        var model = new OrderNew.Command();
             
-            var formSummary = _htmlGenerator.FormSummaryFor(model);
+        var formSummary = _htmlGenerator.FormSummaryFor(model);
 
-            formSummary.Id().ShouldBe("order-new-summary");
-            formSummary.GetClasses().ShouldBeEmpty();
-        }
+        formSummary.Id().ShouldBe("order-new-summary");
+        formSummary.GetClasses().ShouldBeEmpty();
+    }
         
-        public class OrderNew
+    public class OrderNew
+    {
+        public class Command
         {
-            public class Command
-            {
-            }
         }
     }
 }

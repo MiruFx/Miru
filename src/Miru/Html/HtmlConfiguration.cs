@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using HtmlTags.Conventions;
 using HtmlTags.Conventions.Elements;
 using HtmlTags.Conventions.Elements.Builders;
+using Microsoft.AspNetCore.Http;
 using Miru.Core;
 using Miru.Mvc;
 
@@ -74,6 +76,11 @@ public class HtmlConfiguration : HtmlConventionRegistry
             
         Editors.IfPropertyHasAttribute<RadioAttribute>()
             .ModifyTag(tag => tag.Attr("type", "radio"));
+        
+        Editors.IfPropertyIs<IFormFile>().Attr("type", "file");
+            
+        Editors.IfPropertyIs<List<IFormFile>>().Attr("type", "file");
+        Editors.IfPropertyIs<List<IFormFile>>().Attr("multiple", "multiple");
 
         // Labels
         Labels.IfPropertyNameEnds("Id").ModifyWith(m => m.CurrentTag.Text(m.ElementId.RemoveAtTheEnd(2)));

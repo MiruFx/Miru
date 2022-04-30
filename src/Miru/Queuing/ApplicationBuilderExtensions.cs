@@ -7,19 +7,18 @@ namespace Miru.Queuing;
 
 public static class ApplicationBuilderExtensions
 {
-    public static IApplicationBuilder UseQueueAdminDashboard<TUser>(this IApplicationBuilder app) 
-        where TUser : UserfyUser
+    public static IApplicationBuilder UseQueueDashboard(
+        this IApplicationBuilder app,
+        string queuePath = "/_queue",
+        string culture = "en-IE")
     {
-        return app.UseHangfireDashboard("/_queue", new DashboardOptions
+        return app.MapWhen(context => context.Request.Path.StartsWithSegments(queuePath), appBuilder =>
         {
-            Authorization = new [] { new OnlyAdminFilter<TUser>() },
-        });
-    }
-        
-    public static IApplicationBuilder UseQueueDashboard(this IApplicationBuilder app)
-    {
-        return app.UseHangfireDashboard("/_queue", new DashboardOptions
-        {
+            appBuilder.UseRequestLocalization("en-IE");
+            appBuilder.UseHangfireDashboard(culture, new DashboardOptions
+            {
+                AsyncAuthorization = new[] { new HangfireAuthorizationFilter() }
+            });
         });
     }
 }
