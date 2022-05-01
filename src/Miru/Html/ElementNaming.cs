@@ -50,10 +50,12 @@ namespace Miru.Html
         
         public string Id<TModel>(TModel model)
         {
-            if (model is IEntity entity)
-                return $"{model.GetType().Name.ToKebabCase()}-{entity.Id}";
-                
-            return $"{model.GetType().FeatureName().ToKebabCase()}-{model.GetHashCode()}";
+            if (model is IHasId identifiable)
+            {
+                return $"{model.GetType().Name.ToKebabCase()}_{identifiable.Id}";
+            }
+
+            return $"{model.GetType().FeatureName().ToKebabCase()}_@{model.GetHashCode()}";
         }
         
         public string Id(Type type)

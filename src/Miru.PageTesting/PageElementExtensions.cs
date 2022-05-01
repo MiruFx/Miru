@@ -8,12 +8,12 @@ public static class PageElementExtensions
 {
     public static void FormFor<TModel>(this PageElement page, Action<PageElement<TModel>> action)
     {
-        var formId = page.Nav.Naming.Id(typeof(TModel));
+        var formId = page.Nav.Naming.Form(typeof(TModel));
 
-        var by = By.CssSelector($"[data-for='{formId}']");
+        var by = By.Id(formId);
             
         page.Nav.Logger.LogDebug($"Form {by}");
-            
+        
         page.Within(by, action);
     }
         
