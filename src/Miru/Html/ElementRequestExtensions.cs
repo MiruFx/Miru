@@ -30,6 +30,10 @@ public static class ElementRequestExtensions
     public static bool HasType<TType>(this ElementRequest elementRequest) => 
         elementRequest.Accessor.PropertyType.Implements<TType>();
     
+    public static bool TypeAndNullable<TType, TNullableType>(this ElementRequest elementRequest) => 
+        elementRequest.Accessor.PropertyType == typeof(TType)
+        || elementRequest.Accessor.PropertyType == typeof(TNullableType);
+    
     public static bool HasAttribute<TAttribute>(this ElementRequest elementRequest) 
         where TAttribute : Attribute => 
             elementRequest.Accessor.HasAttribute<TAttribute>();
