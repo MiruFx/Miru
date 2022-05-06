@@ -1,9 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using Corpo.Skeleton.Features.Teams;
 using Miru.Html.Tags;
-using NUnit.Framework;
-using Shouldly;
 
 namespace Miru.Tests.Html.TagHelpers;
 

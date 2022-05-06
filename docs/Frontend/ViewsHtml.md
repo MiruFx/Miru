@@ -8,11 +8,20 @@ Views
     /shared
 ViewModel
   feature
+
 Html (Split into Html.md)
 
   intro: htmltags 
-  conventions (config)
-    TODO: rails-ujs, bootstrap
+
+  Html Conventions (config)
+    HtmlConfig
+        Components: Editor, Label, Table, ...
+        Configuration order:
+            more generic first
+            more detailed overwrite later
+
+        AddTwitterBootstrap
+        AddMiruTurboLinks
 
   Components
     Table

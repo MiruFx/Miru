@@ -7,6 +7,8 @@ Configuration
   configure test services [OK]
     browsers [OK]
   configure run
+  enable logs
+    write to file
 A Page Test
   : pagetest [OK]
   location [OK]

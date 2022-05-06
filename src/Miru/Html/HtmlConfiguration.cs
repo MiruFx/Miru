@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using HtmlTags;
 using HtmlTags.Conventions;
 using HtmlTags.Conventions.Elements;
 using HtmlTags.Conventions.Elements.Builders;
@@ -37,6 +38,9 @@ public class HtmlConfiguration : HtmlConventionRegistry
         
     public ElementCategoryExpression Selects =>
         new(Library.TagLibrary.Category(nameof(Selects)).Profile(TagConstants.Default));
+    
+    private ElementCategoryExpression InputHidden =>
+        new(Library.TagLibrary.Category(nameof(InputHidden)).Profile(TagConstants.Default));
 
     public HtmlConfiguration()
     {
@@ -134,5 +138,12 @@ public class HtmlConfiguration : HtmlConventionRegistry
                     .Attr("type", "checkbox")
                     .Value("true");
             });
+        
+        // hidden
+        InputHidden.Always.BuildBy(request => new HtmlTag("input")
+            .Attr("type", "hidden")
+            .Attr("value", (request.RawValue ?? string.Empty).ToString()));
+        InputHidden.Modifier<AddNameModifier>();
+        InputHidden.Modifier<AddIdModifier>();
     }
 }

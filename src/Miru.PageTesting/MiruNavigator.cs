@@ -48,8 +48,8 @@ public abstract class MiruNavigator : IDisposable
         {
             try
             {
-                var element = Wait
-                    .Until(drv => Element().FindElements(by).SingleOrDefault(m => m.Displayed));
+                var element = Wait.Until(_ => 
+                    Element().FindElements(by).SingleOrDefault(m => m.Displayed));
 
                 // var webElement = elements.Count switch
                 // {
