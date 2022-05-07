@@ -5,8 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Respawn" />
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.1" />
-        <PackageReference Include="Respawn" Version="5.0.1" />
         <PackageReference Include="FluentMigrator.Runner.MySql" Version="3.3.2" />
         <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
     </ItemGroup>

@@ -7,6 +7,13 @@ Storage Drivers
     local disk
         /storage/app
 
+Storage `Spaces`?
+    better name for spaces
+    App
+    Assets
+    Temp()
+    Db
+
 Application's Assets
     local disk
         /storage/assets
@@ -53,6 +60,60 @@ images, javascripts, css files, json files, and etc.
 | `/storage/temp`          | Temporary files that can be deleted from time to time                                        | ignore |
 | `/storage/logs`          | Where the Application save logs                                                              | ignore |
 | `/storage/tests`         | Replicates the same structure of /storage but for Testing. It is erased before a test is run | ignore |
+
+## High Level Paths
+
+Miru's Storage's design provides a way to use **High Level Paths**
+in your application. Instead of using `_storage.App / "invoices" / $"invoice-{invoice.Id}.pdf"`
+you can use `_storage.App.InvoicePdf(invoice)`.
+
+Create a class `MiruPathExtensions` and add methods for you Application's files/directories:
+
+```csharp
+public static class MiruPathExtensions
+{
+    public static MiruPath InvoicePdf(this MiruPath path, Invoice invoice) =>
+        path / "invoices" / $"invoice-{invoice.Id}.pdf";
+}
+```
+
+In your `Features' Handlers` or other services, you use your
+**High Level Paths** through `IStorage`'s App property:
+
+```csharp
+public class Handler : IRequestHandler<Query, Result>
+{
+    private readonly AppDbContext _db;
+    private readonly IStorage _storage;
+
+    public Handler(AppDbContext db, IStorage storage)
+    {
+        _db = db;
+        _storage = storage;
+    }
+        
+    public async Task<Command> Handle(Query request, CancellationToken ct)
+    {
+        var invoice = await _db.Invoices.ByIdAsync(request.InvoiceId, ct);
+        
+        var invoicePath = _storage.App.InvoicePdf(invoice);
+        
+        return new Result
+        {
+            InvoicePath = invoicePath
+        };
+    }
+}
+```
+
+Since the **High Level Paths** are extensions of `MiruPath` class, 
+you can use your custom paths in other storage's directories:
+
+```csharp
+var tempInvoice = _storage.Temp().InvoicePdf(invoice);
+
+var customDirInvoice = (_storage.StorageDir / "custom").InvoicePdf(invoice);
+```
 
 ## Consolables
 

@@ -11,6 +11,7 @@ using Miru.Core;
 using Miru.Foundation.Bootstrap;
 using Miru.Foundation.Logging;
 using Miru.Mailing;
+using Miru.Queuing;
 using Miru.Settings;
 using Miru.Urls;
 using Serilog;
@@ -94,6 +95,7 @@ namespace Miru.Foundation.Hosting
                     services.Configure<DatabaseOptions>(host.Configuration.GetSection("Database"));
                     services.Configure<MailingOptions>(host.Configuration.GetSection("Mailing"));
                     services.Configure<UrlOptions>(host.Configuration.GetSection("Url"));
+                    services.Configure<QueueingOptions>(host.Configuration.GetSection("Queueing"));
 
                     services.AddSingleton(sp => sp.GetRequiredService<IOptions<DatabaseOptions>>().Value);
 

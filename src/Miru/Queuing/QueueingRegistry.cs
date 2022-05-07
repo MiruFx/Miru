@@ -15,7 +15,7 @@ public static class QueueingRegistry
         this IServiceCollection services,
         Action<QueuingBuilder> queuingBuilder)
     {
-        services.AddSingleton<QueueOptions>();
+        services.AddSingleton<QueueingOptions>();
             
         services.AddHangfire((sp, configuration) =>
         {
@@ -83,7 +83,7 @@ public static class QueueingRegistry
     {
         var storage = builder.ServiceProvider.GetRequiredService<LocalDiskStorage>();
         var env = builder.ServiceProvider.GetRequiredService<IHostEnvironment>();
-        var queueOptions = builder.ServiceProvider.GetRequiredService<QueueOptions>();
+        var queueOptions = builder.ServiceProvider.GetRequiredService<QueueingOptions>();
 
         var dbPath = storage.StorageDir / "db" / $"Queue_{env.EnvironmentName}.db";
 

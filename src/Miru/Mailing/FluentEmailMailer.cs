@@ -67,7 +67,9 @@ namespace Miru.Mailing
 
             _options.SetDefaultEmail(email);
 
+            // TODO: is okay both calls here (sync/async)?
             mailable.Build(email);
+            await mailable.BuildAsync(email);
             
             emailBuilder?.Invoke(email);
 

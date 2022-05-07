@@ -26,7 +26,7 @@ public class MailingTest
             services =>
             {
                 services
-                    .AddStorage()
+                    .AddTestStorage()
                     .AddMiruMvc()
                     .AddMiruUrls()
                     .AddLogging()
@@ -98,6 +98,26 @@ public class MailingTest
         emailSent.Subject.ShouldBe("Welcome Bill Gates");
         emailSent.Body.ShouldContain("Hi Bill Gates");
         emailSent.Body.ShouldContain("Confirm your email clicking");
+    }
+       
+    [Test]
+    public async Task Email_with_attachment()
+    {
+        // arrange
+        var user = new User { Email = "bill@gates.com", Name = "Bill Gates" };
+        
+        (_.Storage().App / "attachment.txt").MakeFake();
+            
+        // act
+        await _mailer.SendNowAsync(new EmailWithAttachment(user, _.Storage()));
+            
+        // assert
+        var emailSent = _emailsSent.Last();
+            
+        emailSent.ToAddresses.ShouldContainEmail("bill@gates.com");
+        emailSent.Subject.ShouldBe("Welcome Bill Gates");
+        emailSent.Body.ShouldContain("Check your attachment");
+        emailSent.Attachments.ShouldContain("attachment.txt", "text/plain");
     }
     
     // [Test]
@@ -255,6 +275,26 @@ Confirm your email clicking on the link below:
             mail.To(_user.Email)
                 .Subject($"Welcome {_user.Name}")
                 .Template("_Welcome", _user);
+        }
+    }
+    
+    public class EmailWithAttachment : Mailable
+    {
+        private readonly User _user;
+        private readonly IStorage _storage;
+
+        public EmailWithAttachment(User user, IStorage storage)
+        {
+            _user = user;
+            _storage = storage;
+        }
+
+        public override async Task BuildAsync(Email mail)
+        {
+            mail.To(_user.Email)
+                .Subject($"Welcome {_user.Name}")
+                .Body("Check your attachment")
+                .Attach("attachment.txt", await _storage.GetAsync("attachment.txt"));
         }
     }
         

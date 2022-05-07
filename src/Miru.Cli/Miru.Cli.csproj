@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Baseline" Version="3.2.2" />
+        <PackageReference Include="Baseline" />
     </ItemGroup>
 
 </Project>

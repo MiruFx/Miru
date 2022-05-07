@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using Baseline;
 using Baseline.Dates;
+using Bogus;
 using Miru.Core;
 using Miru.Domain;
 using NUnit.Framework;
@@ -172,6 +173,15 @@ public static class ShouldlyExtensions
             throw new ShouldAssertException("The two IComparableWith objects are not the same");
     }
 
+    public static MiruPath MakeFake(this MiruPath path)
+    {
+        path.Dir().EnsureDirExist();
+        
+        File.WriteAllText(path, new Faker().Lorem.Sentence());
+
+        return path;
+    }
+    
     private static bool ScrambledEquals<T>(IEnumerable<T> left, IEnumerable<T> right)
     {
         return !left.Except(right).Union(right.Except(left)).Any();

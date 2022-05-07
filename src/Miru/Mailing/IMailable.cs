@@ -1,8 +1,7 @@
 
-namespace Miru.Mailing
+namespace Miru.Mailing;
+
+public interface IMailable
 {
-    public interface IMailable
-    {
-        void Build(Email mail);
-    }
+    void Build(Email mail);
 }

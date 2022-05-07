@@ -140,9 +140,18 @@ public class HtmlConfiguration : HtmlConventionRegistry
             });
         
         // hidden
-        InputHidden.Always.BuildBy(request => new HtmlTag("input")
-            .Attr("type", "hidden")
-            .Attr("value", (request.RawValue ?? string.Empty).ToString()));
+        InputHidden.Always.BuildBy(request =>
+        {
+            // HtmlTags is not using configured element naming convention for Selects
+            // That's way we are doing manually here
+            request.ElementId = HtmlConfiguration.ElementNamingConvention
+                .GetName(request.Accessor.OwnerType, request.Accessor);
+            
+            return new HtmlTag("input")
+                .Attr("type", "hidden")
+                .Attr("value", (request.RawValue ?? string.Empty).ToString());
+        });
+        InputHidden.NamingConvention(new DotNotationElementNamingConvention());
         InputHidden.Modifier<AddNameModifier>();
         InputHidden.Modifier<AddIdModifier>();
     }

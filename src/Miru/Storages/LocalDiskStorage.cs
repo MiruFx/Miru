@@ -2,63 +2,60 @@ using System.IO;
 using System.Threading.Tasks;
 using Miru.Core;
 
-namespace Miru.Storages
+namespace Miru.Storages;
+
+public class LocalDiskStorage : IStorage
 {
-    public class LocalDiskStorage : IStorage
+    public LocalDiskStorage(MiruSolution solution)
     {
-        public LocalDiskStorage(MiruSolution solution)
-        {
-            _solution = solution;
+        _solution = solution;
             
-            StorageDir = _solution.StorageDir;
-        }
+        StorageDir = _solution.StorageDir;
+    }
         
-        private readonly MiruSolution _solution;
+    private readonly MiruSolution _solution;
 
-        public MiruPath StorageDir { get; protected set; }
+    public MiruPath StorageDir { get; protected set; }
 
-        public virtual MiruPath App => StorageDir / "app"; 
+    public virtual MiruPath App => StorageDir / "app"; 
         
-        public virtual MiruPath Assets => _solution.StorageDir / "assets"; 
+    public virtual MiruPath Assets => _solution.StorageDir / "assets"; 
         
-        public virtual MiruPath Misc => _solution.StorageDir / "misc";
+    public async Task PutAsync(MiruPath remote, MiruPath source)
+    {
+        var fullRemoteDir = App / remote;
+            
+        fullRemoteDir.Dir().EnsureDirExist();
+            
+        File.Copy(source, fullRemoteDir, true);
 
-        public async Task PutAsync(MiruPath remote, MiruPath source)
-        {
-            var fullRemoteDir = App / remote;
-            
-            fullRemoteDir.Dir().EnsureDirExist();
-            
-            File.Copy(source, fullRemoteDir, true);
+        await Task.CompletedTask;
+    }
 
-            await Task.CompletedTask;
-        }
+    public async Task PutAsync(MiruPath remote, Stream stream)
+    {
+        var fullRemoteDir = App / remote;
+            
+        Files.DeleteIfExists(fullRemoteDir);
+            
+        fullRemoteDir.Dir().EnsureDirExist();
 
-        public async Task PutAsync(MiruPath remote, Stream stream)
-        {
-            var fullRemoteDir = App / remote;
+        await using var fileStream = File.Create(fullRemoteDir);
             
-            Files.DeleteIfExists(fullRemoteDir);
+        stream.Seek(0, SeekOrigin.Begin);
             
-            fullRemoteDir.Dir().EnsureDirExist();
+        await stream.CopyToAsync(fileStream);
+            
+        fileStream.Close();
+    }
 
-            await using var fileStream = File.Create(fullRemoteDir);
-            
-            stream.Seek(0, SeekOrigin.Begin);
-            
-            await stream.CopyToAsync(fileStream);
-            
-            fileStream.Close();
-        }
+    public async Task<Stream> GetAsync(MiruPath remote)
+    {
+        return await Task.FromResult(File.OpenRead(App / remote));
+    }
 
-        public async Task<Stream> GetAsync(MiruPath remote)
-        {
-            return await Task.FromResult(File.OpenRead(App / remote));
-        }
-
-        public async Task<bool> FileExistsAsync(MiruPath remote)
-        {
-            return await Task.FromResult(File.Exists(App / remote));
-        }
+    public async Task<bool> FileExistsAsync(MiruPath remote)
+    {
+        return await Task.FromResult(File.Exists(App / remote));
     }
 }

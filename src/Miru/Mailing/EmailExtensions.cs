@@ -1,4 +1,7 @@
+using System.IO;
+using System.Threading.Tasks;
 using FluentEmail.Core.Models;
+using MimeTypes;
 
 namespace Miru.Mailing;
 
@@ -61,6 +64,23 @@ public static class EmailExtensions
             IsHtml = isHtml
         };
             
+        return email;
+    }
+    
+    public static Email Attach(
+        this Email email, 
+        string name, 
+        Stream stream)
+    {
+        var mimeType = MimeTypeMap.GetMimeType(Path.GetExtension(name));
+        
+        email.Attachments.Add(new Attachment
+        {
+            Data = stream,
+            Filename = name,
+            ContentType = mimeType
+        }); 
+        
         return email;
     }
 }

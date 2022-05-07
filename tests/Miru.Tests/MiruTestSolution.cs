@@ -1,17 +1,16 @@
-using Miru.Core;
+namespace Miru.Tests;
 
-namespace Miru.Tests
+public class MiruTestSolution : MiruSolution
 {
-    public class MiruTestSolution : MiruSolution
+    public MiruTestSolution() : base(string.Empty)
     {
-        public MiruTestSolution() : base(string.Empty)
-        {
-            var baseSolution = new SolutionFinder().FromCurrentDir().Solution;
+        var baseSolution = new SolutionFinder().FromCurrentDir().Solution;
             
-            RootDir = baseSolution.TestsDir / "Miru.Tests";
-            
-            AppDir = RootDir;
-            TestsDir = RootDir;
-        }
+        // RootDir = baseSolution.TestsDir / "Miru.Tests";
+        RootDir = baseSolution.RootDir;
+        StorageDir = baseSolution.StorageDir;
+        
+        // AppDir = RootDir;
+        // TestsDir = RootDir;
     }
 }
