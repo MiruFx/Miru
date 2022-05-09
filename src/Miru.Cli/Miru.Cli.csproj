@@ -10,6 +10,7 @@
         <Product>Miru</Product>
         <IncludeSymbols>false</IncludeSymbols>
         <ToolCommandName>miru</ToolCommandName>
+        <OutputType>Library</OutputType>
     </PropertyGroup>
 
     <ItemGroup>
