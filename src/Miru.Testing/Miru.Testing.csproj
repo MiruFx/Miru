@@ -15,13 +15,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Hangfire.MemoryStorage" />
-    <PackageReference Include="NUnitLite" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
-    <PackageReference Include="Microsoft.AspNetCore.TestHost" />
-    <PackageReference Include="NSubstitute" />
-    <PackageReference Include="Respawn" />
-    <PackageReference Include="Shouldly" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+    <PackageReference Include="Hangfire.MemoryStorage" Version="1.7.0" />
+    <PackageReference Include="NUnitLite" Version="3.13.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="6.0.4" />
+    <PackageReference Include="NSubstitute" Version="4.3.0" />
+    <PackageReference Include="Respawn" Version="5.0.1" />
+    <PackageReference Include="Shouldly" Version="4.0.3" />
   </ItemGroup>
 
 </Project>

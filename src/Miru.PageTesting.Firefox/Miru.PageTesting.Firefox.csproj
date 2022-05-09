@@ -5,11 +5,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Selenium.WebDriver.GeckoDriver" />
+        <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.31.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Miru.PageTesting\Miru.PageTesting.csproj" />
+        <ProjectReference Include="..\Miru.PageTesting\Miru.PageTesting.csproj" />
     </ItemGroup>
 
 </Project>
