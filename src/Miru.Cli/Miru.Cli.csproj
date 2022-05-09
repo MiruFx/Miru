@@ -11,6 +11,7 @@
         <IncludeSymbols>false</IncludeSymbols>
         <ToolCommandName>miru</ToolCommandName>
         <OutputType>Library</OutputType>
+        <GenerateProgramFile>false</GenerateProgramFile>
     </PropertyGroup>
 
     <ItemGroup>
