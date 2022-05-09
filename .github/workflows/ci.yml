@@ -22,7 +22,7 @@ jobs:
     - name: Setup .NET 6
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: "6.0.104"
+        dotnet-version: "6.0.202"
 
     - name: Build & Test
       run: ./build test-ci
@@ -40,7 +40,7 @@ jobs:
       - name: Setup .NET 6
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: "6.0.104"
+          dotnet-version: "6.0.202"
 
       - name: Setup Firefox
         uses: browser-actions/setup-firefox@latest
