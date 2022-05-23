@@ -52,11 +52,17 @@ public class Program
         var result = rootCommand.Parse(args);
 
         if (result.CommandResult.Command.Name.Equals("Miru.Cli"))
+        {
             await RunMiruAsync(new MiruCliOptions(), new RunMiruOptions { MiruArgs = args });
+        }
         else if (result.CommandResult.Command is not RootCommand)
+        {
             await result.InvokeAsync();
+        }
         else
+        {
             await rootCommand.InvokeAsync(args);
+        }
     }
 
     public async Task RunAtAsync(

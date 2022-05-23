@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Miru.Html.Tags
 {
-    public abstract class NoPropertyTagHelper : MiruTagHelperBase
+    public abstract class NoPropertyTagHelper : MiruTagHelper
     {
         protected abstract string Category { get; }
 

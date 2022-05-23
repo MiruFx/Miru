@@ -6,26 +6,27 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace Miru.Html.Tags;
 
 [HtmlTargetElement("miru-input", Attributes = "for", TagStructure = TagStructure.NormalOrSelfClosing)]
-public class InputTagHelper : MiruHtmlTagHelper
+public class InputTagHelper : MiruForTagHelper
 {
-    protected override string Category { get; } = ElementConstants.Editor;
+    protected override string Category => ElementConstants.Editor;
 
-    protected override void BeforeRender(TagHelperOutput tagHelperOutput, HtmlTag htmlTag)
+    public override void AfterHtmlTagGeneration(MiruTagBuilder builder, HtmlTag htmlTag)
     {
         if (htmlTag.Attr("type").Equals("radio"))
         {
-            if (tagHelperOutput.Attributes.TryGetAttribute("value", out TagHelperAttribute attribute))
+            if (htmlTag.HasAttr("value"))
             {
-                if (attribute.Value != null && 
-                    For.Model != null && 
-                    attribute.Value.ToString()!.Equals(For.Model.ToString()))
+                if (For.Model != null &&
+                    htmlTag.Value().Equals(For.Model.ToString()))
+                {
                     htmlTag.Checked();
+                }
             }
         }
             
         if (htmlTag.Attr("type").Equals("checkbox"))
         {
-            if (tagHelperOutput.Attributes.TryGetAttribute("value", out TagHelperAttribute attribute))
+            if (htmlTag.HasAttr("value"))
             {
                 if (For.Model.GetType().IsArray)
                 {
@@ -33,13 +34,17 @@ public class InputTagHelper : MiruHtmlTagHelper
                         
                     foreach (var item in list)
                     {
-                        if (item.ToString()!.Equals(attribute.Value.ToString()))
+                        if (item.ToString()!.Equals(htmlTag.Value()))
+                        {
                             htmlTag.Checked();
+                        }
                     }
                 }
 
-                if (attribute.Value.ToString()!.Equals(For.Model.ToString()))
+                if (htmlTag.Value().Equals(For.Model.ToString()!.ToLower()))
+                {
                     htmlTag.Checked();
+                }
             }
             else
             {

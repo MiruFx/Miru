@@ -7,7 +7,7 @@ namespace Miru.Tests.Html.TagHelpers;
 public class TableTagHelperTest : TagHelperTest
 {
     [Test]
-    public void Should_render_table_for_many_items()
+    public async Task Should_render_table_for_many_items()
     {
         // arrange
         var model = new TeamList.Result
@@ -18,10 +18,10 @@ public class TableTagHelperTest : TagHelperTest
                 new() {Id = 2, Name = "Samsung"}
             }
         };
-        var tag = CreateTag(new TableTagHelper(), model, m => m.Teams);
+        var tag = CreateTagWithFor(new TableTagHelper(), model, m => m.Teams);
 
         // act
-        var output = ProcessTag(tag, "miru-table");
+        var output = await ProcessTagAsync(tag, "miru-table");
             
         // arrange
         output.HtmlShouldContain("<table id=\"team-list\">");
@@ -29,7 +29,7 @@ public class TableTagHelperTest : TagHelperTest
     }
         
     [Test]
-    public void Should_render_table_for_one_item()
+    public async Task Should_render_table_for_one_item()
     {
         // arrange
         var model = new TeamList.Result
@@ -39,10 +39,10 @@ public class TableTagHelperTest : TagHelperTest
                 new() {Id = 1, Name = "iPhone"}
             }
         };
-        var tag = CreateTag(new TableTagHelper(), model, m => m.Teams);
+        var tag = CreateTagWithFor(new TableTagHelper(), model, m => m.Teams);
 
         // act
-        var output = ProcessTag(tag, "miru-table");
+        var output = await ProcessTagAsync(tag, "miru-table");
             
         // arrange
         output.HtmlShouldContain("<table id=\"team-list\">");
@@ -50,17 +50,55 @@ public class TableTagHelperTest : TagHelperTest
     }
         
     [Test]
-    public void Should_not_render_table_for_empty_model()
+    public async Task Should_not_render_table_for_empty_model()
     {
         // arrange
         var model = new TeamList.Result { Teams = new List<TeamList.TeamView>() };
-        var tag = CreateTag(new TableTagHelper(), model, m => m.Teams);
+        var tag = CreateTagWithFor(new TableTagHelper(), model, m => m.Teams);
 
         // act
-        var output = ProcessTag(tag, "miru-table");
+        var output = await ProcessTagAsync(tag, "miru-table");
             
         // arrange
         output.TagName.ShouldBeNullOrEmpty();
         output.Content.IsEmptyOrWhiteSpace.ShouldBeTrue();
+    }
+    
+    [Test]
+    public async Task Should_render_table_with_no_for_or_model()
+    {
+        // arrange
+        var tag = CreateTag(new TableTagHelper());
+
+        // act
+        var output = await ProcessTagAsync(tag, "miru-table");
+            
+        // arrange
+        output.HtmlShouldContain("<table>");
+        output.HtmlShouldContain("</table>");
+    }
+    
+    [Test]
+    public async Task Should_render_table_with_model_attribute()
+    {
+        // arrange
+        var model = new TeamList.Result
+        {
+            Teams = new List<TeamList.TeamView>
+            {
+                new() {Id = 1, Name = "iPhone"},
+                new() {Id = 2, Name = "Samsung"}
+            }
+        };
+        var tag = CreateTag(new TableTagHelper());
+
+        tag.Model = model;
+        
+        // act
+        var output = await ProcessTagAsync(tag, "miru-table");
+            
+        // arrange
+        output.HtmlShouldContain("<table id=\"team-list\">");
+        output.HtmlShouldContain("</table>");
     }
 }

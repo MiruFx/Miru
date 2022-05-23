@@ -6,7 +6,7 @@ namespace Miru.Tests.Html.TagHelpers;
 public class InputHiddenTagHelperTest : TagHelperTest
 {
     [Test]
-    public void Should_render_input_hidden_for_model()
+    public async Task Should_render_input_hidden_for_model()
     {
         // arrange
         var model = new Command
@@ -16,13 +16,13 @@ public class InputHiddenTagHelperTest : TagHelperTest
                 new Product() { ProductName = "iPhone" }
             }
         };
-        var tag = CreateTag(new InputHiddenTagHelper(), model, m => m.Products[0].ProductName);
+        var tag = CreateTagWithFor(new InputHiddenTagHelper(), model, m => m.Products[0].ProductName);
             
         // act
-        var html = ProcessTag(tag, "miru-hidden");
+        var html = await ProcessTagAsync(tag, "miru-hidden");
             
         // assert
-        html.PreElement.GetContent().ShouldBe(
+        html.HtmlShouldBe(
             "<input type=\"hidden\" value=\"iPhone\" name=\"Products[0].ProductName\" id=\"Products_0__ProductName\">");
     }
        

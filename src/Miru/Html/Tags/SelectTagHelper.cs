@@ -14,14 +14,14 @@ using Miru.Mvc;
 namespace Miru.Html.Tags;
 
 [HtmlTargetElement("miru-select", Attributes = "for", TagStructure = TagStructure.NormalOrSelfClosing)]
-public class SelectTagHelper : MiruHtmlTagHelper
+public class SelectTagHelper : MiruForTagHelper
 {
     [HtmlAttributeName("lookup")]
     public ModelExpression Lookup { get; set; }
 
     protected override string Category => nameof(HtmlConfiguration.Selects);
 
-    protected override void BeforeRender(TagHelperOutput output, HtmlTag htmlTag)
+    public override void AfterHtmlTagGeneration(MiruTagBuilder builder, HtmlTag htmlTag)
     {
         if (htmlTag is SelectTag selectTag)
         {
@@ -69,21 +69,12 @@ public class SelectTagHelper : MiruHtmlTagHelper
                 }
             }
         
-            if (output.Attributes.ContainsName("empty-option"))
+            if (selectTag.HasAttr("empty-option"))
             {
-                var emptyOption = output.Attributes["empty-option"].Value.ToString();
+                var emptyOption = selectTag.Attr("empty-option");
                 
                 selectTag.EmptyOption(emptyOption);
             }
-        
-            selectTag.MergeAttributes(output.Attributes);
         }
-    }
-
-    private void ThrowIfLookupableIsInvalid()
-    {
-        if (For == null)
-            throw new InvalidOperationException(
-                "Missing or invalid 'lookup' attribute value. It has to implement IEnumerable<ILookupable>.");
     }
 }

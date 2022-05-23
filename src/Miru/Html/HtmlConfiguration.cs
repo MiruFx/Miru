@@ -144,7 +144,7 @@ public class HtmlConfiguration : HtmlConventionRegistry
         {
             // HtmlTags is not using configured element naming convention for Selects
             // That's way we are doing manually here
-            request.ElementId = HtmlConfiguration.ElementNamingConvention
+            request.ElementId = ElementNamingConvention
                 .GetName(request.Accessor.OwnerType, request.Accessor);
             
             return new HtmlTag("input")

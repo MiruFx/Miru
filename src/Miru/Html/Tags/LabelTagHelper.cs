@@ -4,11 +4,10 @@ using HtmlTags;
 using HtmlTags.Conventions.Elements;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace Miru.Html.Tags
+namespace Miru.Html.Tags;
+
+[HtmlTargetElement("miru-label", Attributes = "for", TagStructure = TagStructure.NormalOrSelfClosing)]
+public class LabelTagHelper : MiruForTagHelper
 {
-    [HtmlTargetElement("miru-label", Attributes = "for", TagStructure = TagStructure.NormalOrSelfClosing)]
-    public class LabelTagHelper : MiruHtmlTagHelper
-    {
-        protected override string Category { get; } = ElementConstants.Label;
-    }
+    protected override string Category => ElementConstants.Label;
 }

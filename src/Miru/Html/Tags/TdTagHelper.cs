@@ -1,31 +1,21 @@
 using System.Threading.Tasks;
+using HtmlTags;
 using HtmlTags.Conventions.Elements;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Miru.Html.Tags;
 
 [HtmlTargetElement("miru-td")]
-public class TdTagHelper : MiruHtmlTagHelper
+public class TdTagHelper : MiruForTagHelper
 {
     protected override string Category => nameof(HtmlConfiguration.Cells);
 
-    public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+    public override void AfterHtmlTagGeneration(MiruTagBuilder builder, HtmlTag htmlTag)
     {
-        var td = GetHtmlTag(nameof(HtmlConfiguration.Cells));
-            
-        var childContent = await output.GetChildContentAsync();
-
-        if (childContent.IsEmptyOrWhiteSpace)
+        if (builder.ChildContent.IsEmptyOrWhiteSpace)
         {
-            var span = GetHtmlTag(nameof(ElementConstants.Display));
-            td.Children.Add(span);
+            var span = HtmlGenerator.TagFor(builder, nameof(ElementConstants.Display));
+            htmlTag.Children.Add(span);
         }
-        else
-        {
-            td.AppendHtml(childContent.GetContent());
-            childContent.Clear();
-        }
-            
-        SetOutput(td, output);
     }
 }

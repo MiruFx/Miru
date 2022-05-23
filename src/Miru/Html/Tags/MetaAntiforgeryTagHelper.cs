@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Miru.Html.Tags
 {
     [HtmlTargetElement("miru-antiforgery", Attributes = "name", TagStructure = TagStructure.WithoutEndTag)]
-    public class MetaAntiforgeryTagHelper : MiruTagHelperBase
+    public class MetaAntiforgeryTagHelper : MiruTagHelper
     {
         [HtmlAttributeName("name")]
         public string Name { get; set; }

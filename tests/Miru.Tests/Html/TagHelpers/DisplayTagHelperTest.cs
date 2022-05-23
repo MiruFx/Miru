@@ -11,7 +11,7 @@ public class DisplayTagHelperTest : TagHelperTest
     {
         // arrange
         var model = new Command { CreatedAt = null };
-        var tag = CreateTag(new DisplayTagHelper(), model, m => m.CreatedAt);
+        var tag = CreateTagWithFor(new DisplayTagHelper(), model, m => m.CreatedAt);
             
         // act
         var html = await ProcessTagAsync(tag, "miru-display");
@@ -21,14 +21,14 @@ public class DisplayTagHelperTest : TagHelperTest
     }
         
     [Test]
-    public void Should_render_class()
+    public async Task Should_render_class()
     {
         // arrange
         var model = new Command { Total = 10 };
-        var tag = CreateTag(new DisplayTagHelper(), model, m => m.Total);
+        var tag = CreateTagWithFor(new DisplayTagHelper(), model, m => m.Total);
             
         // act
-        var html = ProcessTag(tag, "miru-display", new { @class = "small" });
+        var html = await ProcessTagAsync(tag, "miru-display", new { @class = "small" });
             
         // assert
         html.HtmlShouldBe("<span id=\"Total\" class=\"small\">10</span>");
@@ -39,7 +39,7 @@ public class DisplayTagHelperTest : TagHelperTest
     {
         // arrange
         var model = new Command { Category = Categories.Movie };
-        var tag = CreateTag(new DisplayTagHelper(), model, m => m.Category);
+        var tag = CreateTagWithFor(new DisplayTagHelper(), model, m => m.Category);
             
         // act
         var html = await ProcessTagAsync(tag, "miru-display");

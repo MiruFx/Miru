@@ -5,109 +5,112 @@ using HtmlTags.Conventions;
 using HtmlTags.Conventions.Elements;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.DependencyInjection;
+using Miru.Html.Tags;
 
-namespace Miru.Html
+namespace Miru.Html;
+
+public class HtmlGenerator
 {
-    public class FooModel
+    private readonly IServiceProvider _sp;
+
+    public HtmlGenerator(IServiceProvider sp)
     {
+        _sp = sp;
     }
-    
-    public class HtmlGenerator
+        
+    public HtmlTag FormFor<TModel>(TModel model) where TModel : class
     {
-        private readonly IServiceProvider _sp;
+        return GeneratorFor(model).TagFor(model, nameof(HtmlConfiguration.Forms));
+    }
+        
+    public HtmlTag FormSummaryFor<TModel>(TModel model) where TModel : class
+    {
+        return GeneratorFor(model).TagFor(model, nameof(HtmlConfiguration.FormSummaries));
+    }
+        
+    public HtmlTag SubmitFor<TModel>(TModel model) where TModel : class
+    {
+        return GeneratorFor(model).TagFor(model, nameof(HtmlConfiguration.Submits));
+    }
 
-        public HtmlGenerator(IServiceProvider sp)
-        {
-            _sp = sp;
-        }
+    public HtmlTag LabelFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
+    {
+        return GeneratorFor(model).LabelFor(func);
+    }
         
-        public HtmlTag FormFor<TModel>(TModel model) where TModel : class
-        {
-            return GeneratorFor(model).TagFor(model, nameof(HtmlConfiguration.Forms));
-        }
+    public HtmlTag InputFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
+    {
+        return GeneratorFor(model).InputFor(func);
+    }
         
-        public HtmlTag FormSummaryFor<TModel>(TModel model) where TModel : class
-        {
-            return GeneratorFor(model).TagFor(model, nameof(HtmlConfiguration.FormSummaries));
-        }
+    public HtmlTag SelectFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
+    {
+        return GeneratorFor(model).TagFor(model, func, nameof(HtmlConfiguration.Selects));
+    }
         
-        public HtmlTag SubmitFor<TModel>(TModel model) where TModel : class
-        {
-            return GeneratorFor(model).TagFor(model, nameof(HtmlConfiguration.Submits));
-        }
+    public HtmlTag DisplayFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
+    {
+        return GeneratorFor(model).DisplayFor(func);
+    }
+        
+    public HtmlTag DisplayLabelFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
+    {
+        return GeneratorFor(model).TagFor(model, func, nameof(HtmlConfiguration.DisplayLabels));
+    }
+        
+    public HtmlTag CellFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
+    {
+        var cell = GeneratorFor(model).TagFor(model, func, nameof(HtmlConfiguration.Cells));
+            
+        cell.Append(GeneratorFor(model).DisplayFor(func, nameof(HtmlConfiguration.Cells)));
+            
+        return cell;
+    }
+        
+    public HtmlTag TableHeaderFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
+    {
+        var cell = GeneratorFor(model).TagFor(model, func, nameof(HtmlConfiguration.TableHeaders));
+            
+        cell.Append(DisplayLabelFor(model, func));
+            
+        return cell;
+    }
+        
+    public IElementGenerator<TModel> GeneratorFor<TModel>(TModel model) where TModel : class
+    {
+        var htmlConventionLibrary = _sp.GetService<HtmlConventionLibrary>();
+            
+        return ElementGenerator<TModel>.For(htmlConventionLibrary, t => _sp.GetService(t), model);
+    }
 
-        public HtmlTag LabelFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
-        {
-            return GeneratorFor(model).LabelFor(func);
-        }
-        
-        public HtmlTag InputFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
-        {
-            return GeneratorFor(model).InputFor(func);
-        }
-        
-        public HtmlTag SelectFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
-        {
-            return GeneratorFor(model).TagFor(model, func, nameof(HtmlConfiguration.Selects));
-        }
-        
-        public HtmlTag DisplayFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
-        {
-            return GeneratorFor(model).DisplayFor(func);
-        }
-        
-        public HtmlTag DisplayLabelFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
-        {
-            return GeneratorFor(model).TagFor(model, func, nameof(HtmlConfiguration.DisplayLabels));
-        }
-        
-        public HtmlTag CellFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
-        {
-            var cell = GeneratorFor(model).TagFor(model, func, nameof(HtmlConfiguration.Cells));
+    public HtmlTag TagFor(object model, string category)
+    {
+        var accessor = new OnlyModelAccessor(model);
             
-            cell.Append(GeneratorFor(model).DisplayFor(func, nameof(HtmlConfiguration.Cells)));
-            
-            return cell;
-        }
-        
-        public HtmlTag TableHeaderFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class
+        var request = new ElementRequest(accessor)
         {
-            var cell = GeneratorFor(model).TagFor(model, func, nameof(HtmlConfiguration.TableHeaders));
-            
-            cell.Append(DisplayLabelFor(model, func));
-            
-            return cell;
-        }
-        
-        public IElementGenerator<TModel> GeneratorFor<TModel>(TModel model) where TModel : class
-        {
-            var htmlConventionLibrary = _sp.GetService<HtmlConventionLibrary>();
-            
-            return ElementGenerator<TModel>.For(htmlConventionLibrary, t => _sp.GetService(t), model);
-        }
+            Model = model
+        };
 
-        public HtmlTag TagFor(object model, string category)
-        {
-            var accessor = new OnlyModelAccessor(model);
-            
-            var request = new ElementRequest(accessor)
-            {
-                Model = model
-            };
-
-            return GeneratorFor(model).TagFor(request, category);
-        }
+        return GeneratorFor(model).TagFor(request, category);
+    }
         
-        public HtmlTag TagFor(ModelExpression @for, string category)
-        {
-            var accessor = new ModelMetadataAccessor(@for);
+    public HtmlTag TagFor(MiruTagBuilder builder, string category)
+    {
+        // TODO: why this commented line generates different results for DisplayTagHelperTest
+        // return GeneratorFor(builder.ModelExpression.Model).TagFor(builder.ElementRequest, category);
+        return TagFor(builder.ModelExpression, category);
+    }
+        
+    public HtmlTag TagFor(ModelExpression @for, string category)
+    {
+        var accessor = new ModelMetadataAccessor(@for);
             
-            var request = new ElementRequest(accessor)
-            {
-                Model = @for.Model
-            };
+        var request = new ElementRequest(accessor)
+        {
+            Model = @for.Model
+        };
 
-            return GeneratorFor(@for.Model).TagFor(request, category);
-        }
+        return GeneratorFor(@for.Model).TagFor(request, category);
     }
 }

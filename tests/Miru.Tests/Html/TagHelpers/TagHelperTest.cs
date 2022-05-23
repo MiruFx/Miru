@@ -40,11 +40,22 @@ public class TagHelperTest
                 
         ServiceProvider = services.BuildServiceProvider();
     }
+    
+    protected TTag CreateTagWithFor<TTag, TModel>(
+        TTag tag,
+        TModel model) where TTag : MiruForTagHelper, new()
+    {
+        tag.RequestServices = ServiceProvider;
 
-    protected TTag CreateTag<TTag, TModel, TProperty>(
+        tag.For = MakeExpression(model);
+
+        return tag;
+    }
+
+    protected TTag CreateTagWithFor<TTag, TModel, TProperty>(
         TTag tag,
         TModel model, 
-        Expression<Func<TModel, TProperty>> expression = null) where TTag : MiruHtmlTagHelper, new()
+        Expression<Func<TModel, TProperty>> expression = null) where TTag : MiruForTagHelper, new()
     {
         tag.RequestServices = ServiceProvider;
 
@@ -53,10 +64,21 @@ public class TagHelperTest
         return tag;
     }
         
-    protected TTag CreateTag<TTag>(TTag tag) where TTag : MiruHtmlTagHelper, new()
+    protected TTag CreateTag<TTag>(TTag tag) 
+        where TTag : MiruTagHelper, 
+        new()
     {
         tag.RequestServices = ServiceProvider;
 
+        return tag;
+    }
+    
+    protected TTag CreateTagWithModel<TTag, TModel>(TTag tag, TModel model) 
+        where TTag : MiruForTagHelper, 
+        new()
+    {
+        tag.RequestServices = ServiceProvider;
+        tag.Model = model;
         return tag;
     }
 
@@ -87,7 +109,7 @@ public class TagHelperTest
         return output;
     }
         
-    protected TagHelperOutput ProcessTag<TTag>(
+    protected async Task<TagHelperOutput> ProcessTagAsync<TTag>(
         TTag tag, 
         string html,
         string childContent = "") where TTag : TagHelper
@@ -109,12 +131,12 @@ public class TagHelperTest
                 return Task.FromResult<TagHelperContent>(tagHelperContent);
             });
 
-        tag.Process(context, output);
+        await tag.ProcessAsync(context, output);
 
         return output;
     }
 
-    protected TagHelperOutput ProcessTag<TTag>(
+    protected async Task<TagHelperOutput> ProcessTagAsync<TTag>(
         TTag tag,
         string html,
         object attributes,
@@ -124,10 +146,10 @@ public class TagHelperTest
             new TagHelperAttributeList(),
             new Dictionary<object, object>(),
             Guid.NewGuid().ToString("N"));
-
+    
         var dictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(attributes);
         var tagHelperAttributes = new TagHelperAttributeList();
-
+    
         dictionary.ForEach(item => tagHelperAttributes.Add(item.Key, item.Value));
             
         var output = new TagHelperOutput(
@@ -139,13 +161,13 @@ public class TagHelperTest
                 tagHelperContent.SetHtmlContent(childContent);
                 return Task.FromResult<TagHelperContent>(tagHelperContent);
             });
-
-        tag.Process(context, output);
-
+    
+        await tag.ProcessAsync(context, output);
+    
         return output;
     }
 
-    protected TagHelperOutput ProcessTag<TTag>(
+    protected async Task<TagHelperOutput> ProcessTagAsync<TTag>(
         TTag tag, 
         string html, 
         TagHelperAttributeList attributes,
@@ -155,7 +177,7 @@ public class TagHelperTest
             new TagHelperAttributeList(),
             new Dictionary<object, object>(),
             Guid.NewGuid().ToString("N"));
-
+    
         attributes ??= new TagHelperAttributeList();
             
         var output = new TagHelperOutput(
@@ -167,34 +189,12 @@ public class TagHelperTest
                 tagHelperContent.SetHtmlContent(childContent);
                 return Task.FromResult<TagHelperContent>(tagHelperContent);
             });
-
-        tag.Process(context, output);
-
+    
+        await tag.ProcessAsync(context, output);
+    
         return output;
     }
         
-    protected async Task<TagHelperOutput> ProcessTagAsync<TTag>(TTag tag, string tagName, string childContent = "") where TTag : TagHelper
-    {
-        var context = new TagHelperContext(
-            new TagHelperAttributeList(),
-            new Dictionary<object, object>(),
-            Guid.NewGuid().ToString("N"));
-            
-        var output = new TagHelperOutput(
-            tagName,
-            new TagHelperAttributeList(),
-            (result, encoder) =>
-            {
-                var tagHelperContent = new DefaultTagHelperContent();
-                tagHelperContent.SetHtmlContent(childContent);
-                return Task.FromResult<TagHelperContent>(tagHelperContent);
-            });
-
-        await tag.ProcessAsync(context, output);
-
-        return output;
-    }
-
     protected ModelExpression MakeExpression<TModel>(TModel viewModel, string propertyName, object propertyContent)
     {
         var containerType = viewModel.GetType();

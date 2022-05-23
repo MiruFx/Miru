@@ -10,7 +10,7 @@ namespace Miru.Tests.Html.TagHelpers;
 public class SelectTagHelperTest : TagHelperTest
 {
     [Test]
-    public void Can_create_select_for_a_lookup_from_dictionary()
+    public async Task Can_create_select_for_a_lookup_from_dictionary()
     {
         // arrange
         var countries = new Dictionary<string, string>()
@@ -23,11 +23,11 @@ public class SelectTagHelperTest : TagHelperTest
             Countries = countries.ToSelectLookups(), 
             Address = {Country = "de"}
         };
-        var tag = CreateTag(new SelectTagHelper(), model, m => m.Address.Country);
+        var tag = CreateTagWithFor(new SelectTagHelper(), model, m => m.Address.Country);
         tag.Lookup = MakeExpression(model.Countries);
             
         // act
-        var html = ProcessTag(tag, "miru-select");
+        var html = await ProcessTagAsync(tag, "miru-select");
 
         // assert
         html.HtmlShouldBe(
@@ -35,15 +35,15 @@ public class SelectTagHelperTest : TagHelperTest
     }
     
     [Test]
-    public void Should_create_select_for_a_lookup_from_special_enumeration()
+    public async Task Should_create_select_for_a_lookup_from_special_enumeration()
     {
         // arrange
         var model = new Command { Status = Statuses.Finished };
-        var tag = CreateTag(new SelectTagHelper(), model, m => m.Status);
+        var tag = CreateTagWithFor(new SelectTagHelper(), model, m => m.Status);
         tag.Lookup = MakeExpression(model.StatusLookups);
             
         // act
-        var html = ProcessTag(tag, "miru-select");
+        var html = await ProcessTagAsync(tag, "miru-select");
     
         // assert
         html.HtmlShouldBe(

@@ -1,38 +1,76 @@
-using System;
 using System.Collections;
-using System.Threading.Tasks;
 using HtmlTags;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Miru.Html.Tags;
 
-[HtmlTargetElement("miru-table", Attributes = "for")]
-public class TableTagHelper : MiruHtmlTagHelper
+[HtmlTargetElement("miru-table", Attributes = "for,model")]
+public class TableTagHelper : MiruForTagHelper
 {
     protected override string Category => nameof(HtmlConfiguration.Tables);
 
-    public override void Process(TagHelperContext context, TagHelperOutput output)
+    public override void BeforeHtmlTagGeneration(MiruTagBuilder builder)
     {
-        var model = For.Model as IEnumerable;
-            
-        if (model == null)
-            throw new ArgumentException("Attribute 'for' has to be a IEnumerable");
-
-        if (model.GetEnumerator().MoveNext() == false)
+        if (builder.Model is IEnumerable list && list.GetEnumerator().MoveNext() == false)
         {
-            output.SuppressOutput();
-            return;
+            builder.SuppressOutput = true;
+        }
+    }
+
+    public override void AfterHtmlTagGeneration(MiruTagBuilder builder, HtmlTag htmlTag)
+    {
+        if (builder.Source == ModelSource.For)
+        {
+            htmlTag.Id(ElementNaming.Id(For.Metadata.ContainerType ?? For.ModelExplorer.Container.ModelType));
         }
         
-        base.Process(context, output);
+        if (builder.Source == ModelSource.Model)
+        {
+            htmlTag.Id(ElementNaming.Id(builder.Model.GetType()));
+        }
+        
+        if (builder.Source == ModelSource.ViewModel)
+        {
+            htmlTag.Id(ElementNaming.Id(builder.Model.GetType()));
+        }
     }
 
-    protected override void BeforeRender(TagHelperOutput output, HtmlTag htmlTag)
-    {
-        var modelType = For.Metadata.ContainerType ?? For.ModelExplorer.Container.ModelType;
-
-        htmlTag.Id(ElementNaming.Id(modelType));
-    }
+    // TODO: should be:
+    //  BeforeHtmlTagGeneration
+    //  AfterHtmlTagGeneration
+    // public override void Process(TagHelperContext context, TagHelperOutput output)
+    // {
+    //     var model = GetModel();
+    //
+    //     if (model is IEnumerable list)
+    //     {
+    //         if (list.GetEnumerator().MoveNext() == false)
+    //         {
+    //             output.SuppressOutput();
+    //             return;
+    //         }
+    //     }
+    //     
+    //     base.Process(context, output);
+    // }
+    //
+    // protected override void BeforeRender(TagHelperOutput output, HtmlTag htmlTag)
+    // {
+    //     var modelType = GetModelType();
+    //     
+    //     if (modelType == ModelSource.For)
+    //     {
+    //         htmlTag.Id(ElementNaming.Id(For.Metadata.ContainerType ?? For.ModelExplorer.Container.ModelType));
+    //     }
+    //     
+    //     if (modelType == ModelSource.Model)
+    //     {
+    //         htmlTag.Id(ElementNaming.Id(GetModel().GetType()));
+    //     }
+    //     
+    //     if (modelType == ModelSource.ViewModel)
+    //     {
+    //         htmlTag.Id(ElementNaming.Id(GetModel().GetType()));
+    //     }
+    // }
 }

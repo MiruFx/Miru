@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace Miru.Html.Tags
 {
     [HtmlTargetElement("no-data-tag")]
-    public class NoDataTagHelper : MiruTagHelperBase
+    public class NoDataTagHelper : MiruTagHelper
     {
         [HtmlAttributeName("for")]
         public IEnumerable For { get; set; }
