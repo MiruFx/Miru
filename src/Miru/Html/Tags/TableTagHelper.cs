@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Miru.Html.Tags;
 
-[HtmlTargetElement("miru-table", Attributes = "for,model")]
+[HtmlTargetElement("miru-table", Attributes = "for")]
 public class TableTagHelper : MiruForTagHelper
 {
     protected override string Category => nameof(HtmlConfiguration.Tables);
