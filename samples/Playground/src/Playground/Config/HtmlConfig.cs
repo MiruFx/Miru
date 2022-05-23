@@ -1,26 +1,25 @@
 using Miru.Html;
 using Miru.UI;
 
-namespace Playground.Config
+namespace Playground.Config;
+
+public class HtmlConfig : HtmlConfiguration
 {
-    public class HtmlConfig : HtmlConfiguration
+    public HtmlConfig()
     {
-        public HtmlConfig()
+        this.AddTwitterBootstrap();
+
+        // editors
+        this.AddFileEditor();
+            
+        Displays.IfPropertyIs<bool>().ModifyWith(x =>
         {
-            this.AddTwitterBootstrap();
+            var value = x.Value<bool>();
 
-            // editors
-            this.AddFileEditor();
+            x.CurrentTag.Text(value ? "Yes" : "No");
+        });
             
-            Displays.IfPropertyIs<bool>().ModifyWith(x =>
-            {
-                var value = x.Value<bool>();
-
-                x.CurrentTag.Text(value ? "Yes" : "No");
-            });
-            
-            // TODO: move to ScrollToSummary
-            FormSummaries.Always.Attr("data-controller", "form-summary");
-        }
+        // TODO: move to ScrollToSummary
+        FormSummaries.Always.Attr("data-controller", "form-summary");
     }
 }

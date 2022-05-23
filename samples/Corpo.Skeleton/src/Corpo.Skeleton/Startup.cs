@@ -19,6 +19,8 @@ public class Startup
     {
         services.AddMiru<Startup>()
 
+            .AddMiruHtml<HtmlConfig>()
+            
             .AddDefaultPipeline<Startup>()
             
             .AddCurrentAttributes<Current, CurrentAttributes>()

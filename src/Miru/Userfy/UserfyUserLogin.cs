@@ -1,40 +1,38 @@
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
-namespace Miru.Userfy
+namespace Miru.Userfy;
+
+public class UserfyUserLogin<TUser> : IUserLogin<TUser> where TUser : UserfyUser
 {
-    public class UserfyUserLogin<TUser> : IUserLogin<TUser> where TUser : UserfyUser
+    private readonly UserManager<TUser> _userManager;
+    private readonly IUserSession<TUser> _userSession;
+
+    public UserfyUserLogin(UserManager<TUser> userManager, IUserSession<TUser> userSession)
     {
-        private readonly UserManager<TUser> _userManager;
-        private readonly IUserSession<TUser> _userSession;
+        _userManager = userManager;
+        _userSession = userSession;
+    }
 
-        public UserfyUserLogin(UserManager<TUser> userManager, IUserSession<TUser> userSession)
+    public async Task<SignInResult> LoginAsync(string userName, string password, bool remember = false)
+    {
+        var user = await _userManager.FindByEmailAsync(userName);
+
+        if (user != null)
         {
-            _userManager = userManager;
-            _userSession = userSession;
-        }
-
-        public async Task<SignInResult> LoginAsync(string userName, string password, bool remember = false)
-        {
-            var user = await _userManager.FindByEmailAsync(userName);
-
-            if (user != null)
-            {
-                var result = await _userSession.LoginAsync(
-                    userName, 
-                    password, 
-                    remember);
+            var result = await _userSession.LoginAsync(
+                userName, 
+                password, 
+                remember);
                 
-                return result;
-            }
-
-            return SignInResult.Failed;
+            return result;
         }
 
-        public async Task LogoutAsync()
-        {
-            await _userSession.LogoutAsync();
-        }
+        return SignInResult.Failed;
+    }
+
+    public async Task LogoutAsync()
+    {
+        await _userSession.LogoutAsync();
     }
 }

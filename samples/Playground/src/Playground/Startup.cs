@@ -32,6 +32,8 @@ namespace Playground
         {
             services.AddMiru<Startup>()
 
+                .AddMiruHtml<HtmlConfig>()
+                
                 .AddDefaultPipeline<Startup>()
 
                 .AddGlobalization(defaultCulture: "en-GB", "de-DE", "en-US", "pt-BR", "pt-PT")

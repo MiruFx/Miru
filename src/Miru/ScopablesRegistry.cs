@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
+using Miru.Scopables;
 
-namespace Miru.Scopables;
+namespace Miru;
 
 public static class ScopablesRegistry
 {
@@ -20,5 +21,16 @@ public static class ScopablesRegistry
         return services
             .AddScoped<IScopableQuery, TScope>()
             .AddScoped<IScopableSaving, TScope>();
+    }
+    
+    public static IServiceCollection AddScopables<TAssemblyOf>(
+        this IServiceCollection services)
+    {
+        return services.Scan(scan => scan
+            .FromAssemblies(typeof(TAssemblyOf).Assembly)
+            .AddClasses(classes => classes.AssignableTo(typeof(IScopableQuery)))
+            .AddClasses(classes => classes.AssignableTo(typeof(IScopableSaving)))
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
     }
 }

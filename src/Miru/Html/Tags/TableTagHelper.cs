@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace Miru.Html.Tags;
 
 [HtmlTargetElement("miru-table", Attributes = "for")]
+[HtmlTargetElement("miru-table", Attributes = "model")]
 public class TableTagHelper : MiruForTagHelper
 {
     protected override string Category => nameof(HtmlConfiguration.Tables);
@@ -19,6 +20,7 @@ public class TableTagHelper : MiruForTagHelper
 
     public override void AfterHtmlTagGeneration(MiruTagBuilder builder, HtmlTag htmlTag)
     {
+        // TODO: id can be set in the Convention or in the MiruTagBuilder
         if (builder.Source == ModelSource.For)
         {
             htmlTag.Id(ElementNaming.Id(For.Metadata.ContainerType ?? For.ModelExplorer.Container.ModelType));

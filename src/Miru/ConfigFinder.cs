@@ -3,32 +3,31 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Miru
+namespace Miru;
+
+public class ConfigFinder<TStartup>
 {
-    public class ConfigFinder<TStartup>
+    private readonly IEnumerable<Type> _allConfigs;
+
+    public IEnumerable<MiruConfig> CreateInstanceOfAllConfigs() => _allConfigs
+        .Where(m => m.Implements<MiruConfig>())
+        .Select(type => Activator.CreateInstance(type) as MiruConfig);
+
+    public ConfigFinder()
     {
-        private readonly IEnumerable<Type> _allConfigs;
+        var assembly = typeof(TStartup).Assembly;
+        var configNamespace = $"{assembly.GetName().Name}.Config";
 
-        public IEnumerable<MiruConfig> CreateInstanceOfAllConfigs() => _allConfigs
-                .Where(m => m.Implements<MiruConfig>())
-                .Select(type => Activator.CreateInstance(type) as MiruConfig);
+        _allConfigs = assembly.GetTypes().Where(m => m.Namespace == configNamespace);
+    }
 
-        public ConfigFinder()
-        {
-            var assembly = typeof(TStartup).Assembly;
-            var configNamespace = $"{assembly.GetName().Name}.Config";
+    public object Find<TConfig>()
+    {
+        var configType = _allConfigs.SingleOrDefault(type => type.Implements<TConfig>());
 
-            _allConfigs = assembly.GetTypes().Where(m => m.Namespace == configNamespace);
-        }
-
-        public object Find<TConfig>()
-        {
-            var configType = _allConfigs.SingleOrDefault(type => type.Implements<TConfig>());
-
-            if (configType == null)
-                return null;
+        if (configType == null)
+            return null;
             
-            return Activator.CreateInstance(configType);
-        }
+        return Activator.CreateInstance(configType);
     }
 }

@@ -19,7 +19,7 @@ public abstract class MiruForTagHelper : MiruTagHelper
     [HtmlAttributeName("for")]
     public ModelExpression For { get; set; }
 
-    [HtmlAttributeNotBound]
+    [HtmlAttributeName("model")]
     public object Model { get; set; }
     
     [HtmlAttributeName("add-class")]

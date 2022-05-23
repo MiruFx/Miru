@@ -38,8 +38,8 @@ public class HtmlConfiguration : HtmlConventionRegistry
         
     public ElementCategoryExpression Selects =>
         new(Library.TagLibrary.Category(nameof(Selects)).Profile(TagConstants.Default));
-    
-    private ElementCategoryExpression InputHidden =>
+
+    internal ElementCategoryExpression InputHidden =>
         new(Library.TagLibrary.Category(nameof(InputHidden)).Profile(TagConstants.Default));
 
     public HtmlConfiguration()

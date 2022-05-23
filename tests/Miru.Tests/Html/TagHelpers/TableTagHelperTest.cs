@@ -1,11 +1,17 @@
 using System.Collections.Generic;
 using Corpo.Skeleton.Features.Teams;
+using Miru.Html;
 using Miru.Html.Tags;
 
 namespace Miru.Tests.Html.TagHelpers;
 
 public class TableTagHelperTest : TagHelperTest
 {
+    protected override void HtmlConfiguration(HtmlConfiguration htmlConfig)
+    {
+        htmlConfig.Tables.Always.AddClass("table");
+    }
+
     [Test]
     public async Task Should_render_table_for_many_items()
     {
@@ -24,7 +30,7 @@ public class TableTagHelperTest : TagHelperTest
         var output = await ProcessTagAsync(tag, "miru-table");
             
         // arrange
-        output.HtmlShouldContain("<table id=\"team-list\">");
+        output.HtmlShouldContain("<table id=\"team-list\" class=\"table\">");
         output.HtmlShouldContain("</table>");
     }
         
@@ -45,7 +51,7 @@ public class TableTagHelperTest : TagHelperTest
         var output = await ProcessTagAsync(tag, "miru-table");
             
         // arrange
-        output.HtmlShouldContain("<table id=\"team-list\">");
+        output.HtmlShouldContain("<table id=\"team-list\" class=\"table\">");
         output.HtmlShouldContain("</table>");
     }
         
@@ -74,7 +80,7 @@ public class TableTagHelperTest : TagHelperTest
         var output = await ProcessTagAsync(tag, "miru-table");
             
         // arrange
-        output.HtmlShouldContain("<table>");
+        output.HtmlShouldContain("<table class=\"table\">");
         output.HtmlShouldContain("</table>");
     }
     
@@ -98,7 +104,7 @@ public class TableTagHelperTest : TagHelperTest
         var output = await ProcessTagAsync(tag, "miru-table");
             
         // arrange
-        output.HtmlShouldContain("<table id=\"team-list\">");
+        output.HtmlShouldContain("<table id=\"team-list\" class=\"table\">");
         output.HtmlShouldContain("</table>");
     }
 }

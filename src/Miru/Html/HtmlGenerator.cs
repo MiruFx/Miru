@@ -9,6 +9,7 @@ using Miru.Html.Tags;
 
 namespace Miru.Html;
 
+// Rule of thumb: HtmlGenerator must generate only unique tag without children or relatives
 public class HtmlGenerator
 {
     private readonly IServiceProvider _sp;
@@ -65,6 +66,13 @@ public class HtmlGenerator
         cell.Append(GeneratorFor(model).DisplayFor(func, nameof(HtmlConfiguration.Cells)));
             
         return cell;
+    }
+           
+    public HtmlTag TableFor<T>(T model) where T : class
+    {
+        var table = GeneratorFor(model).TagFor(model, nameof(HtmlConfiguration.Tables));
+            
+        return table;
     }
         
     public HtmlTag TableHeaderFor<T, TProperty>(T model, Expression<Func<T, TProperty>> func) where T : class

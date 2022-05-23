@@ -34,16 +34,16 @@ public static class MiruServiceCollectionExtensions
             config.ConfigureService(services);
         }
 
-        services.AddMiruMvc(
-            configFinder.Find<HtmlConfiguration>() as HtmlConfiguration ?? new HtmlConfiguration(),
-            opt => opt.UseEnumerationModelBinding());
+        services.AddMiruMvc(opt => opt.UseEnumerationModelBinding());
             
         services.AddSingleton(
             configFinder.Find<ObjectResultConfiguration>() as ObjectResultConfiguration ?? new DefaultObjectResultConfig());
             
         services.AddSingleton(
             configFinder.Find<ExceptionResultConfiguration>() as ExceptionResultConfiguration ?? new DefaultExceptionResultConfig());
-                
+
+        services.AddMiruHtml();
+        
         // default logging level for app is Information
         services.AddSerilogConfig(config =>
         {

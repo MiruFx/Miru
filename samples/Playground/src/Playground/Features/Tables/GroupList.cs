@@ -21,6 +21,7 @@ public class TableList
     public class Result
     {
         public List<Product> Products = new();
+        public List<Product> OtherProducts = new();
     }
         
     public class Product : IHasId
@@ -46,7 +47,8 @@ public class TableList
         {
             return await Task.FromResult(new Result
             {
-                Products = _fab.MakeMany<Product>(30).ToList()
+                Products = _fab.MakeMany<Product>(30).ToList(),
+                OtherProducts = _fab.MakeMany<Product>(10).ToList(),
             });
         }
     }

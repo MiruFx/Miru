@@ -18,12 +18,16 @@ namespace Miru.Tests.Html.TagHelpers;
 public class TagHelperTest
 {
     protected IServiceProvider ServiceProvider { get; set; }
-
+    
+    protected virtual void HtmlConfiguration(HtmlConfiguration htmlConfig)
+    {
+    }
+    
     [OneTimeSetUp]
     public void OneTimeSetup()
     {
         var services = new ServiceCollection()
-            .AddMiruHtml()
+            .AddMiruHtml(HtmlConfiguration)
             .AddOptions()
             .ReplaceTransient<IAntiforgeryAccessor, TestingAntiForgeryAccessor>()
             .AddTransient<IUrlMaps, StubUrlMaps>()
@@ -40,7 +44,7 @@ public class TagHelperTest
                 
         ServiceProvider = services.BuildServiceProvider();
     }
-    
+
     protected TTag CreateTagWithFor<TTag, TModel>(
         TTag tag,
         TModel model) where TTag : MiruForTagHelper, new()

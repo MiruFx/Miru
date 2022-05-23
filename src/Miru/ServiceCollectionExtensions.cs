@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Linq;
-using HtmlTags;
 using HtmlTags.Conventions;
-using HtmlTags.Conventions.Elements;
-using HtmlTags.Conventions.Elements.Builders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -13,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Miru.Html;
 using Miru.Mvc;
-using Miru.Storages;
 
 namespace Miru
 {
@@ -21,7 +17,6 @@ namespace Miru
     {
         public static IServiceCollection AddMiruMvc(
             this IServiceCollection services, 
-            HtmlConventionRegistry html = null, 
             Action<MvcOptions> mvc = null,
             Action<MiruMvcOptions> setupAction = null)
         {
@@ -69,12 +64,7 @@ namespace Miru
                 // options.LowercaseUrls = true;
                 // options.LowercaseQueryStrings = true;
             });
-
-            if (html != null)
-                services.AddMiruHtml(html);
-            else
-                services.AddMiruHtml(new HtmlConfiguration());
-
+            
             services.AddHttpContextAccessor();
 
             services.AddSingleton<AssetsMap>();

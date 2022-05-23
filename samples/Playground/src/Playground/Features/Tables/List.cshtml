@@ -29,8 +29,7 @@
             </thead>
             <tbody>
 
-            @{ var i = 0; }
-            @foreach (var item in Model.Products)
+            @foreach (var (item, i) in Model.Products.Indexed())
             {
                 <tr>
                     <miru-td for="Products[i].ProductName" />
@@ -38,8 +37,30 @@
                     <miru-td for="Products[i].ProductPrice" />
                     <miru-td for="Products[i].ProductLastSale" />
                 </tr>
+            }
 
-                i++;
+            </tbody>
+        </miru-table>
+        
+        <miru-table model="@Model.OtherProducts">
+            <thead>
+            <tr>
+                <miru-th for="Products[0].ProductName" />
+                <miru-th for="Products[0].ProductIsActive" />
+                <miru-th for="Products[0].ProductPrice" />
+                <miru-th for="Products[0].ProductLastSale" />
+            </tr>
+            </thead>
+            <tbody>
+
+            @foreach (var (item, i) in Model.Products.Indexed())
+            {
+                <tr>
+                    <miru-td for="Products[i].ProductName" />
+                    <miru-td for="Products[i].ProductIsActive" />
+                    <miru-td for="Products[i].ProductPrice" />
+                    <miru-td for="Products[i].ProductLastSale" />
+                </tr>
             }
 
             </tbody>
