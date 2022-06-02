@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -13,6 +14,7 @@ public class JobFor<TRequest>
         _mediator = mediator;
     }
 
+    [DisplayName("{0}")]
     public async Task Execute(TRequest request, CancellationToken ct)
     {
         await _mediator.Send(request, ct);

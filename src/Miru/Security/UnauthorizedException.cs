@@ -1,11 +1,10 @@
 using System;
 
-namespace Miru.Security
+namespace Miru.Security;
+
+public class UnauthorizedException : Exception
 {
-    public class UnauthorizedException : Exception
+    public UnauthorizedException(string message = null) : base(message)
     {
-        public UnauthorizedException(string message = null) : base(message)
-        {
-        }
     }
 }

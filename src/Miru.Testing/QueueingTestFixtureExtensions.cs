@@ -40,7 +40,7 @@ namespace Miru.Testing
                 .Count(enqueueJob => enqueueJob.Job.Args[0].GetType() == typeof(TJob)) == 1;
         }
         
-        public static TJob EnqueuedJob<TJob>(this ITestFixture fixture) where TJob : IMiruJob
+        public static TJob EnqueuedJob<TJob>(this ITestFixture fixture)
         {
             var entry = fixture.Get<JobStorage>()
                 .GetMonitoringApi()

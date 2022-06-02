@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
@@ -55,12 +56,24 @@ public class ElementNaming
             return $"{model.GetType().Name.ToKebabCase()}_{identifiable.Id}";
         }
 
+        if (model is IEnumerable)
+        {
+            return Id(model.GetType());
+        }
+
         return $"{model.GetType().FeatureName().ToKebabCase()}_@{model.GetHashCode()}";
     }
         
     public string Id(Type type)
     {
-        return $"{type.FeatureName().ToKebabCase()}";
+        if (type.ImplementsEnumerableOfSomething())
+        {
+            var genericArgumentType = type.GenericTypeArguments.First();
+            
+            return Id(genericArgumentType);
+        }
+        
+        return type.FeatureName().ToKebabCase();
     }
         
     public string Link(object @for)

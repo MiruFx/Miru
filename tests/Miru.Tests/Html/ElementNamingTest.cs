@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Miru.Domain;
 using Miru.Html;
 
@@ -49,6 +50,21 @@ public class ElementNamingTest
         _naming.Id(new BoxProduct { Id = 556677 }).ShouldBe("box-product_556677");
     }
     
+    // [Test]
+    // public void Id_for_a_list_property()
+    // {
+    //     var list = new ProductList.Result
+    //     {
+    //         InactiveProducts = new List<Product>()
+    //         {
+    //             new() { Id = 1 },
+    //             new() { Id = 2 },
+    //         }
+    //     };
+    //     
+    //     _naming.Id(list.InactiveProducts).ShouldBe("category_10");
+    // }
+    
     public class AccountLogin
     {
         public class Command
@@ -68,6 +84,7 @@ public class ElementNamingTest
             
         public class Result
         {
+            public List<Product> InactiveProducts { get; set; } = new();
         }
     }
 

@@ -9,18 +9,22 @@ namespace Miru.Html.Tags;
 public class SrcForTagHelper : MiruTagHelper
 {
     [HtmlAttributeName("src-for")]
-    public new object For { get; set; }
+    public object For { get; set; }
         
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
         if (For != null)
         {
             var url = RequestServices.GetRequiredService<UrlLookup>();
-                
+
             if (For is ModelExpression modelExpression)
+            {
                 output.Attributes.SetAttribute("src", url.For(modelExpression.Model));
+            }
             else
+            {
                 output.Attributes.SetAttribute("src", url.For(For));
+            }
         }
     }
 }

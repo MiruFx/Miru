@@ -13,6 +13,8 @@
                 </div>
             </div>
         </div>
+        
+        <h3>Table with attribute <b>for</b></h3>
 
         <div miru-if-empty="@Model.Products" class="alert alert-warning">
             There are no Products
@@ -42,7 +44,9 @@
             </tbody>
         </miru-table>
         
-        <miru-table model="@Model.OtherProducts">
+        <h3>Table with attribute <b>model</b></h3>
+        
+        <miru-table for="OtherProducts">
             <thead>
             <tr>
                 <miru-th for="Products[0].ProductName" />
@@ -65,6 +69,21 @@
 
             </tbody>
         </miru-table>
+        
+        <h3>Table with <b>no</b> attribute </h3>
 
+        <miru-table>
+            <thead>
+                <tr>
+                    <miru-th>Header</miru-th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <miru-td>Column</miru-td>
+                </tr>
+            </tbody>
+        </miru-table>
+        
     </div>
 </div>

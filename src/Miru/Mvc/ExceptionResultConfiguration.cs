@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Miru.Mvc
+namespace Miru.Mvc;
+
+public abstract class ExceptionResultConfiguration
 {
-    public abstract class ExceptionResultConfiguration
+    public readonly List<ExceptionResultExpression> Rules = new List<ExceptionResultExpression>();
+
+    public ExceptionResultExpression When(Func<ExceptionResultContext, bool> condition)
     {
-        public readonly List<ExceptionResultExpression> Rules = new List<ExceptionResultExpression>();
-
-        public ExceptionResultExpression When(Func<ExceptionResultContext, bool> condition)
+        var rule = new ExceptionResultExpression
         {
-            var rule = new ExceptionResultExpression
-            {
-                When = condition
-            };
+            When = condition
+        };
             
-            Rules.Add(rule);
+        Rules.Add(rule);
 
-            return rule;
-        }
+        return rule;
     }
 }

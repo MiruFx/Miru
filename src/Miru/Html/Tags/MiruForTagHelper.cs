@@ -13,13 +13,14 @@ namespace Miru.Html.Tags;
 public abstract class MiruForTagHelper : MiruTagHelper
 {
     public const string ForAttributeName = "for";
+    public const string ModelAttributeName = "model";
     
     protected abstract string Category { get; }
     
-    [HtmlAttributeName("for")]
+    [HtmlAttributeName(ForAttributeName)]
     public ModelExpression For { get; set; }
 
-    [HtmlAttributeName("model")]
+    [HtmlAttributeName(ModelAttributeName)]
     public object Model { get; set; }
     
     [HtmlAttributeName("add-class")]

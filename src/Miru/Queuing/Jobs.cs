@@ -12,7 +12,7 @@ public class Jobs
         _backgroundJobClient = backgroundJobClient;
     }
 
-    public void PerformLater<TJob>(TJob job) where TJob : IMiruJob
+    public void PerformLater<TJob>(TJob job)
     {
         _backgroundJobClient.Enqueue<JobFor<TJob>>(m => m.Execute(job, CancellationToken.None));
     }

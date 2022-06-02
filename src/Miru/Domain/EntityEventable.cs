@@ -11,8 +11,19 @@ public abstract class EntityEventable : Entity
     [NotMapped]
     public IProducerConsumerCollection<IDomainEvent> DomainEvents => _domainEvents;
 
+    [NotMapped]
+    private readonly ConcurrentQueue<IDomainEvent> _enqueueEvents = new();
+
+    [NotMapped]
+    public IProducerConsumerCollection<IDomainEvent> EnqueueEvents => _enqueueEvents;
+
     protected void PublishEvent(IDomainEvent @event)
     {
         _domainEvents.Enqueue(@event);
+    }
+    
+    protected void EnqueueEvent(IDomainEvent @event)
+    {
+        _enqueueEvents.Enqueue(@event);
     }
 }

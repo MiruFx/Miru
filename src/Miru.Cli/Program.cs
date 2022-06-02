@@ -21,6 +21,16 @@ public class Program
 
     private async Task RunAsync(string[] args)
     {
+        // --version
+        // if it is in a Solution directory
+        //   calls 'miru --version' which will call MiruVersionOption
+        //      calls 'miru --version' from a temp directory and prints miru.cli's version
+        //      gets Miru.dll's version
+        //      gets App's version
+        // 
+        // if it is not in a solution directory
+        //   calls MiruVersionOption
+        
         var rootCommand = new RootCommand
         {
             new Option<bool>(new[] { "--verbose"}),

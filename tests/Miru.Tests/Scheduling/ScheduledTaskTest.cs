@@ -1,65 +1,58 @@
-using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
-using Miru.Foundation.Hosting;
 using Miru.Scheduling;
-using Miru.Testing;
-using NUnit.Framework;
 using Quartz;
-using Shouldly;
 
-namespace Miru.Tests.Scheduling
+namespace Miru.Tests.Scheduling;
+
+public class ScheduledTaskTest
 {
-    public class ScheduledTaskTest
+    [Test]
+    public async Task Should_process_a_scheduled_task()
     {
-        [Test]
-        public async Task Should_process_a_scheduled_task()
-        {
-            // arrange
-            var hostBuilder = MiruHost
-                .CreateMiruHost()
-                .ConfigureServices(services =>
-                {
-                    services.AddMiruTestFixture()
-                        .AddTaskScheduling<ScheduledTaskConfig>();
-                });
+        // arrange
+        var hostBuilder = MiruHost
+            .CreateMiruHost()
+            .ConfigureServices(services =>
+            {
+                services.AddMiruTestFixture()
+                    .AddTaskScheduling<ScheduledTaskConfig>();
+            });
 
-            // act
-            await hostBuilder.RunMiruAsync();
+        // act
+        await hostBuilder.RunMiruAsync();
             
-            SomeTask.Executed.ShouldBeTrue();
-        }
+        SomeTask.Executed.ShouldBeTrue();
+    }
         
-        public class ScheduledTaskConfig : IScheduledTaskConfiguration
+    public class ScheduledTaskConfig : IScheduledTaskConfiguration
+    {
+        public void Configure(IServiceCollectionQuartzConfigurator configurator)
         {
-            public void Configure(IServiceCollectionQuartzConfigurator configurator)
-            {
-                configurator.ScheduleJob<SomeTask>(
-                    trigger => trigger
-                        .StartNow()
-                        .WithSimpleSchedule(x => x.WithRepeatCount(0))
-                );
-            }
+            configurator.ScheduleJob<SomeTask>(
+                trigger => trigger
+                    .StartNow()
+                    .WithSimpleSchedule(x => x.WithRepeatCount(0))
+            );
+        }
+    }
+
+    public class SomeTask : IScheduledTask
+    {
+        private readonly IHostApplicationLifetime _lifetime;
+            
+        public static bool Executed { get; set; }
+
+        public SomeTask(IHostApplicationLifetime lifetime)
+        {
+            _lifetime = lifetime;
         }
 
-        public class SomeTask : IScheduledTask
+        public Task ExecuteAsync()
         {
-            private readonly IHostApplicationLifetime _lifetime;
-            
-            public static bool Executed { get; set; }
-
-            public SomeTask(IHostApplicationLifetime lifetime)
-            {
-                _lifetime = lifetime;
-            }
-
-            public Task ExecuteAsync()
-            {
-                Executed = true;
+            Executed = true;
                 
-                _lifetime.ApplicationStarted.Register(_lifetime.StopApplication);
+            _lifetime.ApplicationStarted.Register(_lifetime.StopApplication);
                 
-                return Task.CompletedTask;
-            }
+            return Task.CompletedTask;
         }
     }
 }

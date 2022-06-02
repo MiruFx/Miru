@@ -1,6 +1,5 @@
-namespace Miru.Domain
+namespace Miru.Domain;
+
+public interface IDomainEvent
 {
-    public interface IDomainEvent
-    {
-    }
 }

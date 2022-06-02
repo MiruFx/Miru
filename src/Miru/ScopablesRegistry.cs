@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Miru.Scopables;
 
 namespace Miru;
@@ -26,6 +28,8 @@ public static class ScopablesRegistry
     public static IServiceCollection AddScopables<TAssemblyOf>(
         this IServiceCollection services)
     {
+        services.TryAddScoped<IInterceptor, ScopableInterceptor>();
+            
         return services.Scan(scan => scan
             .FromAssemblies(typeof(TAssemblyOf).Assembly)
             .AddClasses(classes => classes.AssignableTo(typeof(IScopableQuery)))

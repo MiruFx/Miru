@@ -4,6 +4,7 @@ using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -23,106 +24,121 @@ using Miru.Userfy;
 using Playground.Config;
 using Playground.Database;
 using Playground.Domain;
+using StackExchange.Exceptional;
 
-namespace Playground
+namespace Playground;
+
+public class Startup
 {
-    public class Startup
+    public void ConfigureServices(IServiceCollection services)
     {
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddMiru<Startup>()
+        services.AddMiru<Startup>()
 
-                .AddMiruHtml<HtmlConfig>()
+            .AddMiruHtml<HtmlConfig>()
                 
-                .AddDefaultPipeline<Startup>()
+            .AddDefaultPipeline<Startup>()
 
-                .AddGlobalization(defaultCulture: "en-GB", "de-DE", "en-US", "pt-BR", "pt-PT")
+            .AddGlobalization(defaultCulture: "en-GB", "de-DE", "en-US", "pt-BR", "pt-PT")
 
-                .AddEfCoreSqlite<PlaygroundDbContext>()
+            .AddEfCoreSqlite<PlaygroundDbContext>()
 
-                // user register, login, logout
-                .AddUserfy<User, PlaygroundDbContext>(
-                    cookie: cfg =>
-                    {
-                        cfg.Cookie.Name = App.Name;
-                        cfg.Cookie.HttpOnly = true;
-                        cfg.ExpireTimeSpan = TimeSpan.FromHours(2);
-                        cfg.LoginPath = "/Accounts/Login";
-                    },
-                    identity: cfg =>
-                    {
-                        cfg.SignIn.RequireConfirmedAccount = false;
-                        cfg.SignIn.RequireConfirmedEmail = false;
-                        cfg.SignIn.RequireConfirmedPhoneNumber = false;
-
-                        cfg.Password.RequiredLength = 3;
-                        cfg.Password.RequireUppercase = false;
-                        cfg.Password.RequireNonAlphanumeric = false;
-                        cfg.Password.RequireLowercase = false;
-
-                        cfg.User.RequireUniqueEmail = true;
-                    })
-                .AddAuthorizationRules<AuthorizationRulesConfig>()
-                .AddBelongsToUser()
-
-                .AddMailing(_ =>
+            // user register, login, logout
+            .AddUserfy<User, PlaygroundDbContext>(
+                cookie: cfg =>
                 {
-                    _.EmailDefaults(email => email.From("noreply@skeleton.com", "Skeleton"));
-                })
-                .AddSmtpSender()
-
-                .AddQueuing(_ =>
+                    cfg.Cookie.Name = App.Name;
+                    cfg.Cookie.HttpOnly = true;
+                    cfg.ExpireTimeSpan = TimeSpan.FromHours(2);
+                    cfg.LoginPath = "/Accounts/Login";
+                },
+                identity: cfg =>
                 {
-                    _.UseLiteDb();
+                    cfg.SignIn.RequireConfirmedAccount = false;
+                    cfg.SignIn.RequireConfirmedEmail = false;
+                    cfg.SignIn.RequireConfirmedPhoneNumber = false;
+
+                    cfg.Password.RequiredLength = 3;
+                    cfg.Password.RequireUppercase = false;
+                    cfg.Password.RequireNonAlphanumeric = false;
+                    cfg.Password.RequireLowercase = false;
+
+                    cfg.User.RequireUniqueEmail = true;
                 })
-                .AddHangfireServer()
+            .AddAuthorizationRules<AuthorizationRulesConfig>()
+            .AddBelongsToUser()
 
-                .AddTaskScheduling<ScheduledTaskConfig>();
+            .AddMailing(_ =>
+            {
+                _.EmailDefaults(email => email.From("noreply@skeleton.com", "Skeleton"));
+            })
+            .AddSmtpSender()
 
-            services
-                .AddFabrication<PlaygroundFabricator>();
-            
-            services.AddSession();
-            services.AddDistributedMemoryCache();
-            services.AddMemoryCache();
+            .AddQueuing(_ =>
+            {
+                _.UseLiteDb();
+            })
+            .AddHangfireServer()
 
-            // your app services
-        }
+            .AddTaskScheduling<ScheduledTaskConfig>();
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        services
+            .AddFabrication<PlaygroundFabricator>();
+        
+        services.AddExceptional(settings =>
         {
-            // The Middlewares here are configured in order of executation
-            // Here, they are organized for Miru defaults. Changing the order might break some functionality 
+        });
+        services.AddMvcCore(options => { options.Filters.Add(typeof(ExceptionalExceptionFilter), -9000); });
 
-            if (env.IsDevelopmentOrTest())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
-                app.UseHttpsRedirection();
-            }
-            
-            app.UseStaticFiles();
+        services.AddSession();
+        services.AddDistributedMemoryCache();
+        services.AddMemoryCache();
 
-            app.UseRequestLocalization();
-            
-            app.UseRequestLogging();
-            app.UseStatusCodePagesWithReExecute("/Error/{0}");
-            app.UseExceptionLogging();
+        // your app services
+    }
 
-            app.UseHangfireDashboard();
-            app.UseRouting();
-            app.UseSession();
-            app.UseAuthentication();
-            
-            app.UseEndpoints(e =>
-            {
-                e.MapDefaultControllerRoute();
-                e.MapRazorPages();
-            });
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        // The Middlewares here are configured in order of executation
+        // Here, they are organized for Miru defaults. Changing the order might break some functionality 
+
+        app.UseExceptional();
+        
+        if (env.IsDevelopmentOrTest())
+        {
+            // app.UseDeveloperExceptionPage();
         }
+        else
+        {
+            app.UseExceptionHandler("/Error");
+            app.UseHsts();
+            app.UseHttpsRedirection();
+        }
+            
+        app.UseStaticFiles();
+
+        app.UseRequestLocalization();
+            
+        app.UseRequestLogging();
+        app.UseStatusCodePagesWithReExecute("/Error/{0}");
+        app.UseExceptionLogging();
+
+        app.UseHangfireDashboard();
+        app.UseRouting();
+        app.UseSession();
+        app.UseAuthentication();
+            
+        app.UseEndpoints(e =>
+        {
+            e.MapDefaultControllerRoute();
+            e.MapRazorPages();
+        });
+    }
+}
+
+public class ExceptionalExceptionFilter : IExceptionFilter
+{
+    public void OnException(ExceptionContext context)
+    {
+        context.Exception.Log(context.HttpContext);
     }
 }

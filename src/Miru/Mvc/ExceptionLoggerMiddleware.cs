@@ -2,28 +2,27 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Miru.Mvc
+namespace Miru.Mvc;
+
+public class ExceptionLoggerMiddleware
 {
-    public class ExceptionLoggerMiddleware
+    private readonly RequestDelegate _next;
+
+    public ExceptionLoggerMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
+        _next = next;
+    }
 
-        public ExceptionLoggerMiddleware(RequestDelegate next)
+    public async Task InvokeAsync(HttpContext context)
+    {
+        try
         {
-            _next = next;
+            await _next(context);
         }
-
-        public async Task InvokeAsync(HttpContext context)
+        catch (Exception exception)
         {
-            try
-            {
-                await _next(context);
-            }
-            catch (Exception exception)
-            {
-                App.Framework.Error(exception, "Exception thrown in the application");
-                throw;
-            }
+            App.Framework.Error(exception, "Exception thrown in the application");
+            throw;
         }
     }
 }

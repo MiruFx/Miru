@@ -30,7 +30,7 @@ public class TableTagHelperTest : TagHelperTest
         var output = await ProcessTagAsync(tag, "miru-table");
             
         // arrange
-        output.HtmlShouldContain("<table id=\"team-list\" class=\"table\">");
+        output.HtmlShouldContain("<table id=\"team-list-table\" class=\"table\">");
         output.HtmlShouldContain("</table>");
     }
         
@@ -51,7 +51,7 @@ public class TableTagHelperTest : TagHelperTest
         var output = await ProcessTagAsync(tag, "miru-table");
             
         // arrange
-        output.HtmlShouldContain("<table id=\"team-list\" class=\"table\">");
+        output.HtmlShouldContain("<table id=\"team-list-table\" class=\"table\">");
         output.HtmlShouldContain("</table>");
     }
         
@@ -96,15 +96,13 @@ public class TableTagHelperTest : TagHelperTest
                 new() {Id = 2, Name = "Samsung"}
             }
         };
-        var tag = CreateTag(new TableTagHelper());
-
-        tag.Model = model;
+        var tag = CreateTagWithModel(new TableTagHelper(), model);
         
         // act
         var output = await ProcessTagAsync(tag, "miru-table");
             
         // arrange
-        output.HtmlShouldContain("<table id=\"team-list\" class=\"table\">");
+        output.HtmlShouldContain("<table class=\"table\">");
         output.HtmlShouldContain("</table>");
     }
 }
