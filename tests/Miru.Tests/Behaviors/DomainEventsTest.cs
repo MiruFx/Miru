@@ -84,39 +84,6 @@ public class DomainEventsTest
         // assert
         post.ShouldPublishEvent<PostCreated>();
     }
-    
-    [Test]
-    [Ignore("it is working but not finding the handler in this test")]
-    public void Should_process_enqueue_event()
-    {
-        // arrange
-        var post = new Post("Original post");
-            
-        // act
-        post.Archive();
-        _.Save(post);
-        
-        // assert
-        var processed = Execute.Until(() => PostArchived.Processed, TimeSpan.FromSeconds(2));
-        processed.ShouldBeTrue();
-        
-        var saved = _.App.WithScope(s => s.Get<FooDbContext>().Posts.First());
-        saved.Title.ShouldBe("Original post - Archived");
-        _.EnqueuedCount().ShouldBe(0);
-    }
-
-    [Test]
-    public void Should_enqueue_event()
-    {
-        // arrange
-        var post = new Post("Original post");
-            
-        // act
-        post.Archive();
-        
-        // assert
-        post.EnqueueEvents.ShouldCount(1);
-    }
 }
 
 public class Post : EntityEventable
@@ -133,17 +100,9 @@ public class Post : EntityEventable
     }
 
     public string Title { get; set; }
-
-    public void Archive()
-    {
-        EnqueueEvent(new PostArchived
-        {
-            Title = Title
-        });
-    }
 }
 
-public class PostCreated : IDomainEvent, INotification
+public class PostCreated : IDomainEvent
 {
     public Post Post { get; }
 

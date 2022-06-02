@@ -11,12 +11,10 @@ namespace Miru.Behaviors.DomainEvents;
 public class DomainEventsInterceptor : SaveChangesInterceptor
 {
     private readonly IMediator _mediator;
-    private readonly Jobs _jobs;
 
-    public DomainEventsInterceptor(IMediator mediator, Jobs jobs)
+    public DomainEventsInterceptor(IMediator mediator)
     {
         _mediator = mediator;
-        _jobs = jobs;
     }
 
     public override async ValueTask<int> SavedChangesAsync(
@@ -36,14 +34,9 @@ public class DomainEventsInterceptor : SaveChangesInterceptor
         
         foreach (var entity in entitiesSaved)
         {
-            while (entity.DomainEvents.TryTake(out IDomainEvent domainEvent))
+            while (entity.DomainEvents.TryTake(out var domainEvent))
             {
                 await _mediator.Publish(domainEvent, ct);
-            }
-                
-            while (entity.EnqueueEvents.TryTake(out IDomainEvent domainEvent))
-            {
-                _jobs.PerformLater(domainEvent);
             }
         }
             

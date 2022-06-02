@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Miru.Domain;
@@ -12,18 +13,18 @@ public abstract class EntityEventable : Entity
     public IProducerConsumerCollection<IDomainEvent> DomainEvents => _domainEvents;
 
     [NotMapped]
-    private readonly ConcurrentQueue<IDomainEvent> _enqueueEvents = new();
-
-    [NotMapped]
-    public IProducerConsumerCollection<IDomainEvent> EnqueueEvents => _enqueueEvents;
-
-    protected void PublishEvent(IDomainEvent @event)
-    {
-        _domainEvents.Enqueue(@event);
-    }
+    private readonly ConcurrentQueue<Func<IEnqueuedEvent>> _enqueueEvents = new();
     
-    protected void EnqueueEvent(IDomainEvent @event)
+    [NotMapped]
+    public IProducerConsumerCollection<Func<IEnqueuedEvent>> EnqueueEvents => _enqueueEvents;
+
+    protected void PublishEvent(IDomainEvent domainEvent)
     {
-        _enqueueEvents.Enqueue(@event);
+        _domainEvents.Enqueue(domainEvent);
+
+        if (domainEvent is IEnqueuedEvent enqueuedEvent)
+        {
+            _enqueueEvents.Enqueue(() => enqueuedEvent);
+        }
     }
 }

@@ -1,5 +1,7 @@
+using MediatR;
+
 namespace Miru.Domain;
 
-public interface IDomainEvent
+public interface IDomainEvent : INotification
 {
 }

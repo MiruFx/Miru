@@ -1,5 +1,5 @@
-using System.Threading;
 using Hangfire;
+using MediatR;
 
 namespace Miru.Queuing;
 
@@ -14,6 +14,13 @@ public class Jobs
 
     public void PerformLater<TJob>(TJob job)
     {
-        _backgroundJobClient.Enqueue<JobFor<TJob>>(m => m.Execute(job, CancellationToken.None));
+        if (job is not INotification)
+        {
+            _backgroundJobClient.Enqueue<JobFor<TJob>>(m => m.Execute(job, default));
+        }
+        else
+        {
+            _backgroundJobClient.Enqueue<NotificationFor<TJob>>(m => m.Execute(job, default));
+        }
     }
 }

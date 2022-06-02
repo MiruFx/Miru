@@ -35,6 +35,7 @@ internal class Build
         { "Miru.Sqlite", true },
         { "Miru.Postgres", true },
         { "Miru.MySql", true },
+        { "Miru.Redis", true },
             
         { "Miru.Storage.Ftp", true },
             
