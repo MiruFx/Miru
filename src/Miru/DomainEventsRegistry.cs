@@ -5,7 +5,7 @@ using Miru.Queuing;
 
 namespace Miru;
 
-public static class MiruRegistry
+public static class DomainEventsRegistry
 {
     public static IServiceCollection AddDomainEvents(this IServiceCollection services)
     {

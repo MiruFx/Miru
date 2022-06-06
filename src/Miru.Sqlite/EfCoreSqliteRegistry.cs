@@ -14,18 +14,28 @@ public static class EfCoreSqliteRegistry
 {
     public static IServiceCollection AddEfCoreSqlite<TDbContext>(
         this IServiceCollection services,
-        Action<IServiceProvider, DbContextOptionsBuilder> optionsAction = null) 
+        Action<IServiceProvider, DbContextOptionsBuilder> optionsAction = null,
+        string connectionString = null) 
         where TDbContext : DbContext
     {
         services.AddEfCoreServices<TDbContext>();
             
         services.AddDbContext<TDbContext>((sp, options) =>
         {
-            var dbConfig = sp.GetService<DatabaseOptions>();
-                
-            options.UseSqlite(dbConfig.ConnectionString);
+            if (connectionString == null)
+            {
+                var dbConfig = sp.GetService<DatabaseOptions>();
 
-            if (sp.GetService<IHostEnvironment>().IsDevelopmentOrTest())
+                options.UseSqlite(dbConfig.ConnectionString);
+            }
+            else
+            {
+                options.UseSqlite(connectionString);
+            }
+
+            var environment = sp.GetService<IHostEnvironment>();
+            
+            if (environment != null && sp.GetService<IHostEnvironment>().IsDevelopmentOrTest())
             {
                 options.EnableSensitiveDataLogging();
             }

@@ -11,7 +11,7 @@ using Miru.Databases;
 using Miru.Domain;
 using Miru.Fabrication;
 using Miru.Pipeline;
-using Miru.Queuing;
+using Miru.Sqlite;
 using Miru.Tests.Databases.EntityFramework;
 
 namespace Miru.Tests.Behaviors;
@@ -20,7 +20,6 @@ public class DomainEventsTest
 {
     private TestFixture _;
     private BackgroundJobServer _server;
-    private Jobs _jobs;
 
     [OneTimeSetUp]
     public void SetupFixture()
@@ -30,7 +29,7 @@ public class DomainEventsTest
             .AddFeatureTesting()
             .AddFabrication()
             .AddSingleton<TestFixture, TestFixture>()
-            .AddEfCoreInMemory<FooDbContext>()
+            .AddEfCoreSqlite<FooDbContext>(connectionString: "DataSource={{ db_dir }}DomainEventTest.db")
             .AddTransient<IDatabaseCleaner, InMemoryDatabaseCleaner>()
             .AddDefaultPipeline<DomainEventsTest>()
             .AddQueuing((sp, cfg) => cfg.UseMemoryStorage())
@@ -43,8 +42,6 @@ public class DomainEventsTest
             .GetService<TestFixture>();    
         
         _server = _.Get<BackgroundJobServer>();
-
-        _jobs = _.Get<Jobs>();
     }
 
     [OneTimeTearDown]
@@ -57,6 +54,10 @@ public class DomainEventsTest
     public void Setup()
     {
         _.ClearDatabase();
+        
+        using var scope = _.WithScope();
+        var db = scope.Get<FooDbContext>();
+        db.Database.EnsureCreated();
     }
 
     [Test]
@@ -84,6 +85,23 @@ public class DomainEventsTest
         // assert
         post.ShouldPublishEvent<PostCreated>();
     }
+    
+    [Test]
+    public async Task Should_process_enqueued_event()
+    {
+        // arrange
+        var post = new Post("Original post");
+            
+        // act
+        await _.SaveAsync(post);
+        
+        // assert
+        post.EnqueueEvents.ShouldBeEmpty();
+        
+        Execute.Until(() => PostArchive.Processed, TimeSpan.FromSeconds(2));
+        
+        _.EnqueuedCount().ShouldBe(0);
+    }
 }
 
 public class Post : EntityEventable
@@ -100,9 +118,10 @@ public class Post : EntityEventable
     }
 
     public string Title { get; set; }
+    public bool Archived { get; set; }
 }
 
-public class PostCreated : IDomainEvent
+public class PostCreated : IDomainEvent, IEnqueuedEvent
 {
     public Post Post { get; }
 
@@ -110,6 +129,19 @@ public class PostCreated : IDomainEvent
     {
         Post = post;
     }
+
+    public INotification GetJob()
+    {
+        return new PostCreatedJob
+        {
+            PostId = Post.Id
+        };
+    }
+}
+
+public class PostCreatedJob : INotification
+{
+    public long PostId { get; set; }
 }
 
 public class PostSetTitle : INotificationHandler<PostCreated>
@@ -148,13 +180,11 @@ public class FooDbContext : DbContext
     }
 }
 
-public class PostArchived : IMiruJob, IDomainEvent
+public class PostArchive
 {
     public static bool Processed { get; set; }
 
-    public string Title { get; set; }
-        
-    public class Handler : IRequestHandler<PostArchived>
+    public class Handler : INotificationHandler<PostCreatedJob>
     {
         private readonly FooDbContext _db;
 
@@ -163,17 +193,11 @@ public class PostArchived : IMiruJob, IDomainEvent
             _db = db;
         }
 
-        public async Task<Unit> Handle(PostArchived request, CancellationToken ct)
+        public async Task Handle(PostCreatedJob notification, CancellationToken ct)
         {
             Processed = true;
 
-            var post = _db.Posts.Single();
-
-            post.Title = $"{post.Title} - Archived";
-
-            await _db.SaveChangesAsync(ct);
-                
-            return await Unit.Task;
+            await Task.CompletedTask;
         }
     }
 }

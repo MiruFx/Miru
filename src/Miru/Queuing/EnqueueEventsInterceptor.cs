@@ -16,13 +16,16 @@ public class EnqueueEventsInterceptor : DbTransactionInterceptor
         _jobs = jobs;
     }
 
+    public override void TransactionCommitted(DbTransaction transaction, TransactionEndEventData eventData)
+    {
+        base.TransactionCommitted(transaction, eventData);
+    }
+
     public override async Task TransactionCommittedAsync(
         DbTransaction transaction,
         TransactionEndEventData eventData,
         CancellationToken cancellationToken = new())
     {
-        await Task.CompletedTask;
-        
         var entitiesSaved = eventData.Context?.ChangeTracker.Entries<EntityEventable>()
             .Select(po => po.Entity)
             .Where(po => po.EnqueueEvents.Any())
@@ -40,5 +43,7 @@ public class EnqueueEventsInterceptor : DbTransactionInterceptor
                 _jobs.PerformLater(enqueuedEvent().GetJob());
             }
         }
+        
+        await Task.CompletedTask;
     }
 }

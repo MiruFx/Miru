@@ -3,11 +3,11 @@ using Hangfire;
 using Hangfire.LiteDB;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Miru.Consolables;
 using Miru.Core;
+using Miru.Queuing;
 using Miru.Storages;
 
-namespace Miru.Queuing;
+namespace Miru;
 
 public static class QueueingRegistry
 {

@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace Miru.Databases
+namespace Miru.Databases;
+
+public interface IDataAccess
 {
-    public interface IDataAccess
-    {
-        Task SaveAsync(object[] entities);
-    }
+    Task SaveAsync(object[] entities);
 }
