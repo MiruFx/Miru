@@ -32,7 +32,7 @@ public static class HtmlConfigurationExtensions
         config.Forms.Always.BuildBy<FormBuilder>();
 
         config.Forms
-            .If(m => m.Accessor.OwnerType.IsRequestQuery())
+            .If(m => m.Accessor.OwnerType?.IsRequestQuery() ?? false)
             .ModifyWith(m => m.CurrentTag.Attr("method", "get"));
 
         // Editors

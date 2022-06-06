@@ -63,7 +63,7 @@ public class HtmlConfiguration : HtmlConventionRegistry
         Forms.Always.BuildBy<FormBuilder>();
 
         Forms
-            .If(m => m.Accessor.OwnerType.IsRequestQuery())
+            .If(m => m.Accessor.OwnerType?.IsRequestQuery() ?? false)
             .ModifyWith(m => m.CurrentTag.Attr("method", "get"));
 
         // Editors
