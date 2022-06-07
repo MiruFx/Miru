@@ -19,6 +19,7 @@ public class QueueingTest
     public void Setup()
     {
         _sp = new ServiceCollection()
+            .AddMiruApp()
             .AddQueuing((sp, cfg) => cfg.UseMemoryStorage())
             .AddMediatR(typeof(QueueingTest).Assembly)
             .AddScoped<SomeService>()

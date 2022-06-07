@@ -7,16 +7,16 @@ namespace Miru.Queuing;
 
 public class JobFor<TRequest>
 {
-    private readonly IMediator _mediator;
+    private readonly IMiruApp _app;
 
-    public JobFor(IMediator mediator)
+    public JobFor(IMiruApp app)
     {
-        _mediator = mediator;
+        _app = app;
     }
 
     [DisplayName("{0}")]
     public async Task Execute(TRequest request, CancellationToken ct)
     {
-        await _mediator.Send(request, ct);
+        await _app.ScopedSendAsync(request as IRequest, ct);
     }
 }

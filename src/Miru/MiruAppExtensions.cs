@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Miru.Core;
@@ -11,7 +12,10 @@ namespace Miru;
 
 public static class MiruAppExtensions
 {
-    public static async Task<TResult> SendAsync<TResult>(this IMiruApp app, IRequest<TResult> message)
+    public static async Task<TResult> ScopedSendAsync<TResult>(
+        this IMiruApp app, 
+        IRequest<TResult> message,
+        CancellationToken ct)
     {
         using var scope = app.WithScope();
         
@@ -19,7 +23,26 @@ public static class MiruAppExtensions
                 
         try
         {
-            return await mediator.Send(message);
+            return await mediator.Send(message, ct);
+        }
+        catch (AggregateException e)
+        {
+            throw e.InnerException ?? e;
+        }
+    }
+    
+    public static async Task ScopedPublishAsync<TNotification>(
+        this IMiruApp app, 
+        TNotification message,
+        CancellationToken ct)
+    {
+        using var scope = app.WithScope();
+        
+        var mediator = scope.Get<IMediator>();
+                
+        try
+        {
+            await mediator.Publish(message, ct);
         }
         catch (AggregateException e)
         {
@@ -27,7 +50,10 @@ public static class MiruAppExtensions
         }
     }
         
-    public static TResult SendSync<TResult>(this IMiruApp app, IRequest<TResult> message)
+    public static TResult ScopedSendSync<TResult>(
+        this IMiruApp app, 
+        IRequest<TResult> message,
+        CancellationToken ct)
     {
         using var scope = app.WithScope();
             
@@ -35,7 +61,7 @@ public static class MiruAppExtensions
                 
         try
         {
-            return mediator.Send(message).Result;
+            return mediator.Send(message, ct).GetAwaiter().GetResult();
         }
         catch (AggregateException e)
         {

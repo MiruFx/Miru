@@ -7,16 +7,16 @@ namespace Miru.Queuing;
 
 public class NotificationFor<TRequest>
 {
-    private readonly IMediator _mediator;
+    private readonly IMiruApp _app;
 
-    public NotificationFor(IMediator mediator)
+    public NotificationFor(IMiruApp app)
     {
-        _mediator = mediator;
+        _app = app;
     }
 
     [DisplayName("{0}")]
     public async Task Execute(TRequest request, CancellationToken ct)
     {
-        await _mediator.Publish(request, ct);
+        await _app.ScopedPublishAsync(request, ct);
     }
 }

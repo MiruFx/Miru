@@ -32,12 +32,12 @@ public static class TestFixtureExtensions
         
     public static async Task<TResult> SendAsync<TResult>(this ITestFixture fixture, IRequest<TResult> message)
     {
-        return await fixture.App.SendAsync(message);
+        return await fixture.App.ScopedSendAsync(message, default);
     }
         
     public static TResult SendSync<TResult>(this ITestFixture fixture, IRequest<TResult> message)
     {
-        return fixture.App.SendSync(message);
+        return fixture.App.ScopedSendSync(message, default);
     }
         
     public static void Save(this ITestFixture fixture, params object[] entities)

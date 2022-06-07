@@ -2,35 +2,34 @@
 using System.Threading.Tasks;
 using Miru.Consolables;
 
-namespace Miru.Databases.Migrations
+namespace Miru.Databases.Migrations;
+
+// #consolable
+public class DbRollbackConsolable : Consolable
 {
-    // #consolable
-    public class DbRollbackConsolable : Consolable
+    public DbRollbackConsolable()
+        : base("db.rollback", "Rollback database schema")
     {
-        public DbRollbackConsolable()
-            : base("db.rollback", "Rollback database schema")
+        Add(new Option("--steps"));
+    }
+
+    public class ConsolableHandler : IConsolableHandler
+    {
+        public int Steps { get; set; } = 1;
+
+        private readonly IDatabaseMigrator _databaseMigrator;
+
+        public ConsolableHandler(IDatabaseMigrator databaseMigrator)
         {
-            Add(new Option("--steps"));
+            _databaseMigrator = databaseMigrator;
         }
 
-        public class ConsolableHandler : IConsolableHandler
+        public Task Execute()
         {
-            public int Steps { get; set; } = 1;
+            _databaseMigrator.DowngradeSchema(Steps);
 
-            private readonly IDatabaseMigrator _databaseMigrator;
-
-            public ConsolableHandler(IDatabaseMigrator databaseMigrator)
-            {
-                _databaseMigrator = databaseMigrator;
-            }
-
-            public Task Execute()
-            {
-                _databaseMigrator.DowngradeSchema(Steps);
-
-                return Task.CompletedTask;
-            }
+            return Task.CompletedTask;
         }
     }
-    // #consolable
 }
+// #consolable

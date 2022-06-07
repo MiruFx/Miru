@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Miru;
 using Miru.Fabrication;
 using Miru.Foundation.Hosting;
 using Miru.Queuing;

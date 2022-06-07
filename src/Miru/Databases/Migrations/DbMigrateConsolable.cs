@@ -1,30 +1,29 @@
 ﻿using System.Threading.Tasks;
 using Miru.Consolables;
 
-namespace Miru.Databases.Migrations
+namespace Miru.Databases.Migrations;
+
+public class DbMigrateConsolable : Consolable
 {
-    public class DbMigrateConsolable : Consolable
+    public DbMigrateConsolable()
+        : base("db.migrate", "Update database schema")
     {
-        public DbMigrateConsolable()
-            : base("db.migrate", "Update database schema")
+    }
+
+    public class ConsolableHandler : IConsolableHandler
+    {
+        private readonly IDatabaseMigrator _databaseMigrator;
+            
+        public ConsolableHandler(IDatabaseMigrator databaseMigrator)
         {
+            _databaseMigrator = databaseMigrator;
         }
 
-        public class ConsolableHandler : IConsolableHandler
+        public Task Execute()
         {
-            private readonly IDatabaseMigrator _databaseMigrator;
-            
-            public ConsolableHandler(IDatabaseMigrator databaseMigrator)
-            {
-                _databaseMigrator = databaseMigrator;
-            }
+            _databaseMigrator.UpdateSchema();
 
-            public Task Execute()
-            {
-                _databaseMigrator.UpdateSchema();
-
-                return Task.CompletedTask;
-            }
+            return Task.CompletedTask;
         }
     }
 }
