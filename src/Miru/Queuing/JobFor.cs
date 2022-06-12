@@ -17,6 +17,6 @@ public class JobFor<TRequest>
     [DisplayName("{0}")]
     public async Task Execute(TRequest request, CancellationToken ct)
     {
-        await _app.ScopedSendAsync(request as IRequest, ct);
+        await _app.ScopedSendAsync(request as IBaseRequest, ct);
     }
 }

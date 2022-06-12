@@ -109,6 +109,29 @@
                         i++;
                     }
                     
+                    <h4>Dictionary</h4>
+                    
+                    <miru-table for="NewProducts">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Model</th>
+                            </tr>
+                        </thead>
+                        <tbody class="align-text-bottom">
+                            @foreach (var product in Model.NewProducts)
+                            {
+                                @foreach (var model in product.Value.Models)
+                                {
+                                    <tr>
+                                        <td>@product.Value.Name</td>
+                                        <td><miru-input for="NewProducts[product.Key].Models[model.Key].Name"/></td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </miru-table>
+                    
                      <miru-submit value="Save"/>
 
                 </miru-form>

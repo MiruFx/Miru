@@ -1,12 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Miru.Core;
 
 namespace Miru;
 
@@ -24,6 +19,25 @@ public static class MiruAppExtensions
         try
         {
             return await mediator.Send(message, ct);
+        }
+        catch (AggregateException e)
+        {
+            throw e.InnerException ?? e;
+        }
+    }
+    
+    public static async Task ScopedSendAsync(
+        this IMiruApp app, 
+        IBaseRequest message,
+        CancellationToken ct)
+    {
+        using var scope = app.WithScope();
+        
+        var mediator = scope.Get<IMediator>();
+                
+        try
+        {
+            await mediator.Send(message, ct);
         }
         catch (AggregateException e)
         {

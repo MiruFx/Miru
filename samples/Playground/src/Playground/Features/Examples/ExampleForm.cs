@@ -42,6 +42,8 @@ namespace Playground.Features.Examples
             [Checkbox]
             public IEnumerable<Newsletters> NewsletterOptions { get; set; }
 
+            public Dictionary<long, ProductItem> NewProducts { get; set; } = new();
+
             public List<ProductItem> Products { get; set; } = new();
             public SelectLookups Companies { get; set; }
         }
@@ -57,6 +59,12 @@ namespace Playground.Features.Examples
         {
             public string Name { get; set; }
             public int Quantity { get; set; }
+            public Dictionary<long, ProductModel> Models { get; set; }
+        }
+        
+        public class ProductModel
+        {
+            public string Name { get; set; }
         }
         
         public class Result
@@ -71,6 +79,28 @@ namespace Playground.Features.Examples
             {
                 return Task.FromResult(new Command()
                 {
+                    NewProducts = new()
+                    {
+                        [123] = new ProductItem
+                        {
+                            Name = "iPhone",
+                            Models = new()
+                            {
+                                [111] = new ProductModel() { Name = "5S"},
+                                [222] = new ProductModel() { Name = "13X"}
+                            }
+                        },
+                        [456] = new ProductItem
+                        {
+                            Name = "Galaxy",
+                            Models = new()
+                            {
+                                [333] = new ProductModel() { Name = "G33"},
+                                [444] = new ProductModel() { Name = "G44"}
+                            }
+                        },
+                    },
+                    
                     Countries = new Dictionary<string, string>
                     {
                         { "br", "Brazil" },
@@ -107,15 +137,15 @@ namespace Playground.Features.Examples
             }
         }
 
-        public class Validation : AbstractValidator<Command>
-        {
-            public Validation()
-            {
-                RuleFor(x => x.Address).SetValidator(new AddressValidator());
-                
-                RuleForEach(x => x.Products).SetValidator(new ProductItemValidator());
-            }
-        }
+        // public class Validation : AbstractValidator<Command>
+        // {
+        //     public Validation()
+        //     {
+        //         RuleFor(x => x.Address).SetValidator(new AddressValidator());
+        //         
+        //         RuleForEach(x => x.Products).SetValidator(new ProductItemValidator());
+        //     }
+        // }
         
         public class AddressValidator : AbstractValidator<Address>
         {
