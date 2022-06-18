@@ -23,6 +23,8 @@ wwwroot/
 /temp
 appSettings.*.yml
 
+BenchmarkDotNet.Artifacts
+
 # User-specific files
 *.suo
 *.user
