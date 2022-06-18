@@ -21,6 +21,20 @@ public static class PageableExtensions
         pageable.Pages = pages;
         pageable.CountTotal = totalCount;
     }
+    
+    public static void Paginate(this IPageable pageable)
+    {
+        var page = pageable.Page > 0 
+            ? pageable.Page 
+            : 1;
+            
+        var pageSize = pageable.PageSize > 0 
+            ? pageable.PageSize 
+            : PaginationConfig.DefaultPageSize;
+            
+        pageable.Page = page;
+        pageable.PageSize = pageSize;
+    }
 
     public static int Skip(this IPageable pageable)
     {

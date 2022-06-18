@@ -22,17 +22,17 @@ public abstract class CustomFabricator<TModel, TFabricatorFor> : ICustomFabricat
         Faker = support.Faker;
     }
         
-    protected void WithDefault(Action<TModel, Faker> action)
+    public void WithDefault(Action<TModel, Faker> action)
     {
         _withDefault = action;
     }
     
-    protected void WithDefault(Action<TModel> action)
+    public void WithDefault(Action<TModel> action)
     {
         _withDefault = (x, f) => action(x);
     }
         
-    protected void FinishWith(Action<TModel, Faker> action)
+    public void FinishWith(Action<TModel, Faker> action)
     {
         _finishWith = action;
     }

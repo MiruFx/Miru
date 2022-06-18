@@ -13,7 +13,7 @@
               @foreach (var status in EnumerationList.OrderStatus.GetAll())
               {
                   <li>
-                    <a class="dropdown-item" href="@(Url.Build(Model).With(m => m.OrderStatus, status.Value))">
+                    <a class="dropdown-item" href="@(Url.Build(Model).With(m => m.OrderStatus, status))">
                         @status.Name
                     </a>
                   </li>
@@ -30,7 +30,7 @@
               @foreach (var status in EnumerationList.PaymentStatus.GetAll())
               {
                   <li>
-                    <a class="dropdown-item" href="@(Url.Build(Model).With(m => m.PaymentStatus, status.Value))">
+                    <a class="dropdown-item" href="@(Url.Build(Model).With(m => m.PaymentStatus, status))">
                         @status.Name
                     </a>
                   </li>

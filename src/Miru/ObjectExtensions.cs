@@ -44,7 +44,11 @@ public static class ObjectExtensions
         if (value == null)
             return ret;
 
+        if (value is int number)
+            return number;
+        
         int.TryParse(value.ToString(), out ret);
+        
         return ret;
     }
         
@@ -56,7 +60,7 @@ public static class ObjectExtensions
             .GetCustomAttribute<TAttribute>();
     }
         
-    public static void With<TInstance>(this TInstance instance, Action<TInstance> action)
+    public static void With2<TInstance>(this TInstance instance, Action<TInstance> action)
     {
         if (instance != null)
             action(instance);

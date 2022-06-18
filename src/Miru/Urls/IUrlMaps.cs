@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Routing;
 
-namespace Miru.Urls
+namespace Miru.Urls;
+
+public interface IUrlMaps
 {
-    public interface IUrlMaps
-    {
-        string UrlFor<TInput>(TInput request, RouteValueDictionary queryString) where TInput : class;
-    }
+    string UrlFor<TInput>(TInput request, RouteValueDictionary queryString) where TInput : class;
 }

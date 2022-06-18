@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -81,5 +82,5 @@ public static class EnumerableExtensions
     }
     
     public static IEnumerable<(T item, int index)> Indexed<T>(this IEnumerable<T> self)       
-        => self.Select((item, index) => (item, index)); 
+        => self.Select((item, index) => (item, index));
 }

@@ -21,6 +21,7 @@
         <PackageReference Include="Scriban" Version="5.4.4" />
         <PackageReference Include="Scrutor" Version="4.1.0" />
         <PackageReference Include="Humanizer.Core" Version="2.14.1" />
+        <PackageReference Include="FastExpressionCompiler" Version="3.3.2" />
 
         <!-- Data -->
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />

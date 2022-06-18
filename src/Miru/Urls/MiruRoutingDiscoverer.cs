@@ -7,74 +7,73 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Miru.Core;
 
-namespace Miru.Urls
+namespace Miru.Urls;
+
+public class MiruRoutingDiscoverer : IApplicationModelConvention
 {
-    public class MiruRoutingDiscoverer : IApplicationModelConvention
+    private readonly Dictionary<string, ModelToUrlMap> _mappings;
+
+    public Dictionary<string, ModelToUrlMap> Mappings => _mappings;
+        
+    public MiruRoutingDiscoverer(Dictionary<string, ModelToUrlMap> mappings)
     {
-        private readonly Dictionary<string, ModelToUrlMap> _mappings;
+        _mappings = mappings;
+    }
 
-        public Dictionary<string, ModelToUrlMap> Mappings => _mappings;
+    private AttributeRouteModel GetRouteModel(IList<SelectorModel> selectors) => selectors
+        .Where(x => x.AttributeRouteModel != null)
+        .Select(x => x.AttributeRouteModel)
+        .FirstOrDefault();
         
-        public MiruRoutingDiscoverer(Dictionary<string, ModelToUrlMap> mappings)
+    public void Apply(ApplicationModel application)
+    {
+        foreach (var controller in application.Controllers)
         {
-            _mappings = mappings;
-        }
+            // is considered Miru's Controller only if it's inside a feature
+            if (controller.ControllerType.IsNested == false)
+                continue;
 
-        private AttributeRouteModel GetRouteModel(IList<SelectorModel> selectors) => selectors
-            .Where(x => x.AttributeRouteModel != null)
-            .Select(x => x.AttributeRouteModel)
-            .FirstOrDefault();
-        
-        public void Apply(ApplicationModel application)
-        {
-            foreach (var controller in application.Controllers)
+            var controllerRoute = GetRouteModel(controller.Selectors);
+                
+            if (controllerRoute == null)
             {
-                // is considered Miru's Controller only if it's inside a feature
-                if (controller.ControllerType.IsNested == false)
-                    continue;
+                var routeAttribute = new RouteAttribute(controller.ControllerName);
 
-                var controllerRoute = GetRouteModel(controller.Selectors);
+                controller.Selectors[0].AttributeRouteModel = new AttributeRouteModel(routeAttribute);
+            }
                 
-                if (controllerRoute == null)
-                {
-                    var routeAttribute = new RouteAttribute(controller.ControllerName);
+            foreach (var controllerAction in controller.Actions)
+            {
+                var route = GetRouteModel(controllerAction.Selectors);
 
-                    controller.Selectors[0].AttributeRouteModel = new AttributeRouteModel(routeAttribute);
+                if (route == null)
+                {
+                    var routeAttribute = new RouteAttribute(controllerAction.ActionName.IfThen("Index", string.Empty));
+                    
+                    route = new AttributeRouteModel(routeAttribute);
+
+                    controllerAction.Selectors[0].AttributeRouteModel = route;
                 }
-                
-                foreach (var controllerAction in controller.Actions)
+                    
+                var oneParam = controllerAction.Parameters.FirstOrDefault();
+                    
+                if (oneParam != null && 
+                    oneParam.ParameterInfo.ParameterType.GetTypeInfo().IsClass && 
+                    oneParam.ParameterInfo.ParameterType != typeof(string))
                 {
-                    var route = GetRouteModel(controllerAction.Selectors);
+                    route.Name = oneParam.ParameterInfo.ParameterType.ToString();
 
-                    if (route == null)
+                    var map = new ModelToUrlMap
                     {
-                        var routeAttribute = new RouteAttribute(controllerAction.ActionName.IfThen("Index", string.Empty));
-                    
-                        route = new AttributeRouteModel(routeAttribute);
-
-                        controllerAction.Selectors[0].AttributeRouteModel = route;
-                    }
-                    
-                    var oneParam = controllerAction.Parameters.FirstOrDefault();
-                    
-                    if (oneParam != null && 
-                        oneParam.ParameterInfo.ParameterType.GetTypeInfo().IsClass && 
-                        oneParam.ParameterInfo.ParameterType != typeof(string))
-                    {
-                        route.Name = oneParam.ParameterInfo.ParameterType.ToString();
-
-                        var map = new ModelToUrlMap
-                        {
-                            Method = controllerAction.Attributes.OfType<HttpPostAttribute>().Any() ? HttpMethod.Post : HttpMethod.Get,
-                            ActionName = controllerAction.ActionName,
-                            ControllerName = controller.ControllerName
-                        };
+                        Method = controllerAction.Attributes.OfType<HttpPostAttribute>().Any() ? HttpMethod.Post : HttpMethod.Get,
+                        ActionName = controllerAction.ActionName,
+                        ControllerName = controller.ControllerName
+                    };
                         
-                        _mappings[oneParam.ParameterInfo.ParameterType.ToString()] = map;
+                    _mappings[oneParam.ParameterInfo.ParameterType.ToString()] = map;
 
-                        // if (oneParam.ParameterInfo.ParameterType.DeclaringType != null)
-                        //     _mappings[oneParam.ParameterInfo.ParameterType.DeclaringType] = map;
-                    }
+                    // if (oneParam.ParameterInfo.ParameterType.DeclaringType != null)
+                    //     _mappings[oneParam.ParameterInfo.ParameterType.DeclaringType] = map;
                 }
             }
         }

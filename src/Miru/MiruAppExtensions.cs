@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Miru.Queuing;
 
 namespace Miru;
 
@@ -100,5 +101,16 @@ public static class MiruAppExtensions
         using var scope = app.Get<ScopedServices>();
 
         return func(scope);
+    }
+    
+    public static async Task EnqueueAsync<TJob>(this IMiruApp app, IRequest<TJob> job)
+    {
+        using var scope = app.WithScope();
+        
+        var jobs = scope.Get<Jobs>();
+                
+        jobs.PerformLater(job);
+
+        await Task.CompletedTask;
     }
 }
