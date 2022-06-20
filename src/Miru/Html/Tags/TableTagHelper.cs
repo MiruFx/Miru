@@ -11,20 +11,21 @@ public class TableTagHelper : MiruForTagHelper
 {
     protected override string Category => nameof(HtmlConfiguration.Tables);
 
+    public override bool NeedsId => true;
+
+    public override string GetId()
+    {
+        if (For != null) 
+            return $"{ElementNaming.Id(For.Metadata.ContainerType ?? For.ModelExplorer.Container.ModelType)}-table";
+
+        return null;
+    }
+
     public override void BeforeHtmlTagGeneration(MiruTagBuilder builder)
     {
         if (builder.Model is IEnumerable list && list.GetEnumerator().MoveNext() == false)
         {
             builder.SuppressOutput = true;
-        }
-    }
-
-    public override void AfterHtmlTagGeneration(MiruTagBuilder builder, HtmlTag htmlTag)
-    {
-        // TODO: id can be set in the Convention or in the MiruTagBuilder
-        if (builder.Source == ModelSource.For)
-        {
-            htmlTag.Id($"{ElementNaming.Id(For.Metadata.ContainerType ?? For.ModelExplorer.Container.ModelType)}-table");
         }
     }
 }

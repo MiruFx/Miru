@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Corpo.Skeleton.Features.Teams;
 using Miru.Html;
 using Miru.Html.Tags;
 

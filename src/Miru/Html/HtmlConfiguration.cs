@@ -105,7 +105,7 @@ public class HtmlConfiguration : HtmlConventionRegistry
             .ModifyTag(tag => tag.Text(string.Empty));
 
         // Display Labels
-        DisplayLabels.Always.BuildBy<DefaultDisplayLabelBuilder>();
+        DisplayLabels.Always.BuildBy<DefaultDisplayLabelBuilder>(); 
             
         DisplayLabels.ModifyForAttribute<DisplayAttribute>((t, a) => t.Text(a.Name));
             

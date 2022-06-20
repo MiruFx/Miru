@@ -40,6 +40,14 @@ public abstract class MiruForTagHelper : MiruTagHelper
     public virtual void AfterSetHtmlContent(MiruTagBuilder builder, HtmlTag htmlTag)
     {
     }
+
+    public virtual bool NeedsName => false;
+    
+    public virtual bool NeedsId => false;
+    
+    public virtual string GetId() => GetHashCode().ToString();
+    
+    public virtual string GetName() => GetHashCode().ToString();
     
     public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
     {
@@ -54,22 +62,24 @@ public abstract class MiruForTagHelper : MiruTagHelper
         }
         
         var library = RequestServices.GetRequiredService<HtmlConventionLibrary>();
-
+        
         var additionalServices = new object[]
         {
             For?.ModelExplorer,
             ViewContext,
             new ElementName(For?.Name)
         };
-
+        
         // TODO: can be cached? Use HtmlGeneration? If HtmlGenerator does not give same result then
         // move this code to HtmlGenerator
+        
         object ServiceLocator(Type t) => additionalServices.FirstOrDefault(t.IsInstanceOfType) ?? RequestServices.GetService(t);
-
+        
         var tagGenerator = new TagGenerator(library.TagLibrary, new ActiveProfile(), ServiceLocator);
-
+        
         var htmlTag = tagGenerator.Build(builder.ElementRequest, Category);
-            
+
+        // append view's tag's html content into the htmltag
         builder.ChildContent = await output.GetChildContentAsync();
             
         if (builder.ChildContent.IsEmptyOrWhiteSpace == false)
@@ -80,6 +90,7 @@ public abstract class MiruForTagHelper : MiruTagHelper
 
         htmlTag.MergeAttributes(output.Attributes);
 
+        // handle css classes
         if (AddClass.NotEmpty() && SetClass.IsEmpty())
         {
             htmlTag.AddClasses(AddClass);
@@ -91,8 +102,27 @@ public abstract class MiruForTagHelper : MiruTagHelper
 
         var topTag = htmlTag.RenderFromTop();
             
+        // sets id and name
+        if (NeedsId && htmlTag.HasAttr("id") == false)
+        {
+            var id = GetId();
+            
+            if (id.IsNotEmpty())
+                htmlTag.Id(id);
+        }
+
+        if (NeedsName && htmlTag.HasAttr("name") == false)
+        {
+            var name = GetName();
+            
+            if (name.IsNotEmpty())
+                htmlTag.Name(name);
+        }
+        
+        // event
         AfterHtmlTagGeneration(builder, htmlTag);
         
+        // handles child content
         if (builder.ChildContent.IsEmptyOrWhiteSpace == false)
         {
             builder.ChildContent.Clear();
@@ -113,6 +143,7 @@ public abstract class MiruForTagHelper : MiruTagHelper
             output.PreElement.SetHtmlContent(topTag.ToString());
         }
 
+        // event
         AfterSetHtmlContent(builder, htmlTag);
     }
 }

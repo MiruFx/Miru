@@ -109,7 +109,7 @@ public static class MiruAppExtensions
         
         var jobs = scope.Get<Jobs>();
                 
-        jobs.PerformLater(job);
+        jobs.Enqueue(job);
 
         await Task.CompletedTask;
     }

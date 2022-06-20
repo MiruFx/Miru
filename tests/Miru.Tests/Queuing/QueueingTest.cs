@@ -47,7 +47,7 @@ public class QueueingTest
             CustomerId = 123
         };
             
-        _jobs.PerformLater(job);
+        _jobs.Enqueue(job);
             
         Execute.Until(() => CustomerNew.Processed, TimeSpan.FromSeconds(1));
 
@@ -59,7 +59,7 @@ public class QueueingTest
     {
         var job = new ScopedJob();
             
-        _jobs.PerformLater(job);
+        _jobs.Enqueue(job);
             
         Execute.Until(() => ScopedJob.Processed, TimeSpan.FromSeconds(1));
 

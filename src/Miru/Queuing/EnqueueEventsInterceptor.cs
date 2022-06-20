@@ -40,7 +40,7 @@ public class EnqueueEventsInterceptor : DbTransactionInterceptor
         {
             while (entity.EnqueueEvents.TryTake(out var enqueuedEvent))
             {
-                _jobs.PerformLater(enqueuedEvent().GetJob());
+                _jobs.Enqueue(enqueuedEvent().GetJob());
             }
         }
         

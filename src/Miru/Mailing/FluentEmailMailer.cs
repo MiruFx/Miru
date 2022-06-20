@@ -120,7 +120,7 @@ namespace Miru.Mailing
         
         private void Enqueue(Email fluentMail)
         {
-            _jobs.PerformLater(new EmailJob(fluentMail));
+            _jobs.Enqueue(new EmailJob(fluentMail));
 
             _logger.LogDebug(
                 $"Enqueued email '{fluentMail.Subject}' to {fluentMail.ToAddresses.Select(m => m.EmailAddress).Join(",")}");

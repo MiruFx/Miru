@@ -28,7 +28,7 @@ public class ElementNaming
     {
         return $"{type.FeatureName().ToKebabCase()}-form";
     }
-
+    
     public string Display(Type type)
     {
         return type.FeatureName().ToKebabCase();

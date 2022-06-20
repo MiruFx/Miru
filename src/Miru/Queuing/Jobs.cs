@@ -12,7 +12,7 @@ public class Jobs
         _backgroundJobClient = backgroundJobClient;
     }
 
-    public void PerformLater<TJob>(TJob job)
+    public void Enqueue<TJob>(TJob job)
     {
         if (job is not INotification)
         {
