@@ -1,0 +1,16 @@
+@model JobNew.Command
+
+<h4 class="my-3">New Job</h4>
+
+<miru-form method="post" for="@Model">
+
+    <miru-summary class="my-3"/>
+
+    <div class="my-4">
+        <miru-label for="Name" />
+        <miru-input for="Name" />
+    </div>
+
+    <miru-submit value="Submit"/>
+
+</miru-form>

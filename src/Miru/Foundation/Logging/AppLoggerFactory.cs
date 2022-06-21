@@ -1,20 +1,19 @@
 using System;
 using Serilog;
 
-namespace Miru.Foundation.Logging
+namespace Miru.Foundation.Logging;
+
+public class AppLoggerFactory
 {
-    public class AppLoggerFactory
+    private readonly Func<ILogger> _func;
+
+    public AppLoggerFactory(Func<ILogger> func)
     {
-        private readonly Func<ILogger> _func;
+        _func = func;
+    }
 
-        public AppLoggerFactory(Func<ILogger> func)
-        {
-            _func = func;
-        }
-
-        public ILogger GetLogger()
-        {
-            return _func();
-        }
+    public ILogger GetLogger()
+    {
+        return _func();
     }
 }

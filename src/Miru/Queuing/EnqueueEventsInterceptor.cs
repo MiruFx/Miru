@@ -16,11 +16,6 @@ public class EnqueueEventsInterceptor : DbTransactionInterceptor
         _jobs = jobs;
     }
 
-    public override void TransactionCommitted(DbTransaction transaction, TransactionEndEventData eventData)
-    {
-        base.TransactionCommitted(transaction, eventData);
-    }
-
     public override async Task TransactionCommittedAsync(
         DbTransaction transaction,
         TransactionEndEventData eventData,
@@ -40,6 +35,10 @@ public class EnqueueEventsInterceptor : DbTransactionInterceptor
         {
             while (entity.EnqueueEvents.TryTake(out var enqueuedEvent))
             {
+                var job = enqueuedEvent().GetJob();
+                
+                App.Framework.Information("Enqueueing {job} from {entity}", job, entity);
+                
                 _jobs.Enqueue(enqueuedEvent().GetJob());
             }
         }

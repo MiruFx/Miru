@@ -36,14 +36,7 @@ public static class MiruAppExtensions
         
         var mediator = scope.Get<IMediator>();
                 
-        try
-        {
-            await mediator.Send(message, ct);
-        }
-        catch (AggregateException e)
-        {
-            throw e.InnerException ?? e;
-        }
+        await mediator.Send(message, ct);
     }
     
     public static async Task ScopedPublishAsync<TNotification>(
@@ -103,7 +96,7 @@ public static class MiruAppExtensions
         return func(scope);
     }
     
-    public static async Task EnqueueAsync<TJob>(this IMiruApp app, IRequest<TJob> job)
+    public static async Task EnqueueAsync<TJob>(this IMiruApp app, TJob job) where TJob : IBaseRequest
     {
         using var scope = app.WithScope();
         

@@ -1,6 +1,9 @@
 using System;
 using System.Linq;
 using Hangfire;
+using Hangfire.Console;
+using Hangfire.Console.Extensions;
+using Hangfire.Console.Extensions.Serilog;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
@@ -12,6 +15,7 @@ using Miru;
 using Miru.Behaviors.BelongsToUser;
 using Miru.Fabrication;
 using Miru.Foundation.Hosting;
+using Miru.Foundation.Logging;
 using Miru.Globalization;
 using Miru.Mailing;
 using Miru.Mvc;
@@ -19,6 +23,7 @@ using Miru.Pipeline;
 using Miru.Queuing;
 using Miru.Scheduling;
 using Miru.Scopables;
+using Miru.Security;
 using Miru.Sqlite;
 using Miru.Userfy;
 using Playground.Config;
@@ -73,11 +78,15 @@ public class Startup
             })
             .AddSmtpSender()
 
+            .AddScoped<IQueueAuthorizer, DefaultQueueAuthorizer>()
             .AddQueuing(_ =>
             {
                 _.UseLiteDb();
+                
+                _.Configuration.UseConsole();
             })
             .AddHangfireServer()
+            .AddHangfireConsole()
 
             .AddTaskScheduling<ScheduledTaskConfig>();
 
@@ -122,11 +131,12 @@ public class Startup
         app.UseStatusCodePagesWithReExecute("/Error/{0}");
         app.UseExceptionLogging();
 
-        app.UseHangfireDashboard();
         app.UseRouting();
         app.UseSession();
         app.UseAuthentication();
             
+        app.UseQueueDashboard();
+        
         app.UseEndpoints(e =>
         {
             e.MapDefaultControllerRoute();

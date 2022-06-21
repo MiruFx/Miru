@@ -16,11 +16,15 @@ public class Jobs
     {
         if (job is not INotification)
         {
-            _backgroundJobClient.Enqueue<JobFor<TJob>>(m => m.Execute(job, default));
+            App.Framework.Information("Enqueueing Job for {job}", job);
+            
+            _backgroundJobClient.Enqueue<JobFor<TJob>>(m => m.Execute(job, default, null));
         }
         else
         {
-            _backgroundJobClient.Enqueue<NotificationFor<TJob>>(m => m.Execute(job, default));
+            App.Framework.Information("Enqueueing Notification {job}", job);
+            
+            _backgroundJobClient.Enqueue<NotificationFor<TJob>>(m => m.Execute(job, default, null));
         }
     }
 }

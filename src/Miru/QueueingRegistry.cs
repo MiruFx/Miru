@@ -1,9 +1,12 @@
 using System;
 using Hangfire;
+using Hangfire.Console.Extensions;
+using Hangfire.Console.Extensions.Serilog;
 using Hangfire.LiteDB;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Miru.Core;
+using Miru.Foundation.Logging;
 using Miru.Queuing;
 using Miru.Storages;
 
@@ -92,5 +95,18 @@ public static class QueueingRegistry
         queueOptions.ConnectionString = dbPath;
 
         builder.Configuration.UseLiteDbStorage(queueOptions.ConnectionString);
+    }
+    
+    public static IServiceCollection AddHangfireConsole(
+        this IServiceCollection services)
+    {
+        return services.AddHangfireServer()
+            .AddHangfireConsoleExtensions()
+            .AddSerilogConfig(x =>
+            {
+                // x.Hangfire()
+                x.Enrich.WithHangfireContext();
+                x.WriteTo.Hangfire();
+            });
     }
 }
