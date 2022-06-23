@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using AV.Enumeration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Domain;
@@ -607,7 +608,7 @@ public class RouteValueDictionaryGeneratorTest
         
         // assert
         dic.ShouldCount(1);
-        dic["ProductStatus"].ShouldBe(ProductStatus.OutOfStock.Value);
+        dic["ProductStatus"].ShouldBe(ProductStatus.OutOfStock.Value.ToString());
     }
     
     // [Test]
@@ -663,12 +664,12 @@ public class RouteValueDictionaryGeneratorTest
         }
     }
     
-    public class ProductStatus : Enumeration<ProductStatus, string>
+    public class ProductStatus : Enumeration
     {
-        public static ProductStatus Active = new("A", "Active");
-        public static ProductStatus OutOfStock = new("O", "Out Of Stock");
+        public static ProductStatus Active = new(1, "Active");
+        public static ProductStatus OutOfStock = new(2, "Out Of Stock");
                 
-        public ProductStatus(string value, string name) : base(value, name)
+        public ProductStatus(int value, string name) : base(value, name)
         {
         }
     }
@@ -708,7 +709,7 @@ public class RouteValueDictionaryGeneratorTest
             public OrderStatus OrderStatus { get; set; }
         }
         
-        public class OrderStatus : Enumeration<OrderStatus>
+        public class OrderStatus : Enumeration
         {
             public static OrderStatus Paid = new(1, "Paid");
             public static OrderStatus Delivered = new(2, "Delivered");

@@ -1,15 +1,10 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Miru.Behaviors.BelongsToUser;
-using Miru.Behaviors.TimeStamp;
 using Miru.Config;
-using Miru.Consolables;
 using Miru.Core;
 using Miru.Foundation;
 using Miru.Foundation.Logging;
-using Miru.Html;
 using Miru.Makers;
 using Miru.Mvc;
 using Miru.Scopables;
@@ -17,6 +12,7 @@ using Miru.Storages;
 using Miru.Urls;
 using Serilog.Events;
 using Vereyon.Web;
+using AV.Enumeration.ModelBinder;
 
 namespace Miru;
 
@@ -34,7 +30,8 @@ public static class MiruServiceCollectionExtensions
             config.ConfigureService(services);
         }
 
-        services.AddMiruMvc(opt => opt.UseEnumerationModelBinding());
+        // services.AddMiruMvc(opt => opt.UseEnumerationModelBinding());
+        services.AddMiruMvc(opt => opt.ModelBinderProviders.Insert(0, new EnumerationQueryStringModelBinderProvider()));
             
         services.AddSingleton(
             configFinder.Find<ObjectResultConfiguration>() as ObjectResultConfiguration ?? new DefaultObjectResultConfig());

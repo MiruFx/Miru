@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AV.Enumeration;
 using Miru.Domain;
 
 namespace Miru.Mvc;
@@ -22,8 +23,20 @@ public static class EnumerableExtensions
         return lookups;
     }
         
-    public static SelectLookups ToSelectLookups<T, TValue>(
-        this IEnumerable<Enumeration<T, TValue>> list) where T : Enumeration<T, TValue> where TValue : IComparable
+    // public static SelectLookups ToSelectLookups<T, TValue>(
+    //     this IEnumerable<Enumeration<T, TValue>> list) where T : Enumeration<T, TValue> where TValue : IComparable
+    // {
+    //     var lookups = new SelectLookups();
+    //
+    //     foreach (var item in list)
+    //     {
+    //         lookups.Add(new Lookup(item.Value, item.Name));
+    //     }
+    //
+    //     return lookups;
+    // }
+           
+    public static SelectLookups ToSelectLookups(this IEnumerable<Enumeration> list)
     {
         var lookups = new SelectLookups();
 

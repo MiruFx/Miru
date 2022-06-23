@@ -1,13 +1,12 @@
 using System.CommandLine;
 
-namespace Miru.Cli
+namespace Miru.Cli;
+
+public class RunAtCommand : Command
 {
-    public class RunAtCommand : Command
+    public RunAtCommand(string commandName) : base(commandName)
     {
-        public RunAtCommand(string commandName) : base(commandName)
-        {
-            AddArgument(new Argument<string>("executable") { Arity = ArgumentArity.ExactlyOne });
-            AddArgument(new Argument<string[]>("args") { Arity = ArgumentArity.ZeroOrMore });
-        }
+        AddArgument(new Argument<string>("executable") { Arity = ArgumentArity.ExactlyOne });
+        AddArgument(new Argument<string[]>("args") { Arity = ArgumentArity.ZeroOrMore });
     }
 }

@@ -186,4 +186,10 @@ public static class ShouldlyExtensions
     {
         return !left.Except(right).Union(right.Except(left)).Any();
     }
+    
+    public static void DateShouldBe(this DateTime? current, DateTime expected) =>
+        current!.Value.Date.ShouldBe(expected.Date);
+    
+    public static void DateShouldBe(this DateTime? current, DateTime? expected) =>
+        current!.Value.Date.ShouldBe(expected.GetValueOrDefault().Date);
 }

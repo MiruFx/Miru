@@ -6,7 +6,6 @@ using Miru.Foundation.Logging;
 using Miru.Mailing;
 using Miru.Pipeline;
 using Miru.Scopables;
-using Miru.Scoping;
 using Miru.Security;
 using Miru.Validation;
 
@@ -27,7 +26,6 @@ public static class PipelineRegistry
         this IServiceCollection services, 
         Action<PipelineBuilder> builder = null) 
     {
-        // services.AddMediatR(typeof(TAssemblyOfType), typeof(EmailJob));
         services.AddMediatR(cfg =>
         {
             cfg.AsScoped();
@@ -39,27 +37,7 @@ public static class PipelineRegistry
             
         services.AddValidators<TAssemblyOfType>();
         services.AddAuthorizersInAssemblyOf<TAssemblyOfType>();
-        services.AddScopes<TAssemblyOfType>();
             
-        return services;
-    }
-        
-    public static IServiceCollection AddScopes<TAssemblyOfType>(this IServiceCollection services)
-    {
-        services.AddScoped<MiruViewData>();
-            
-        services.Scan(scan => scan
-            .FromAssemblies(typeof(TAssemblyOfType).Assembly)
-            .AddClasses(classes => classes.AssignableTo(typeof(IScopeFor<>)))
-            .AsImplementedInterfaces()
-            .WithScopedLifetime());
-            
-        services.Scan(scan => scan
-            .FromAssemblies(typeof(TAssemblyOfType).Assembly)
-            .AddClasses(classes => classes.AssignableTo(typeof(IScope)))
-            .AsSelf()
-            .WithScopedLifetime());
-
         return services;
     }
         
@@ -77,7 +55,6 @@ public static class PipelineRegistry
             _.UseBehavior(typeof(CurrentAttributesBehavior<,>));
                 
             _.UseBehavior(typeof(AuthorizationBehavior<,>));
-            _.UseBehavior(typeof(ScopeBehavior<,>));
         });
     }
 }

@@ -32,15 +32,17 @@ namespace Miru
             return yaml;
         }
         
-        public static void MeasureToConsole(this object current, Action action)
+        public static void MeasureToConsole(this object current, Action action, string taskName = "Task")
         {
+            Console.WriteLine($"{taskName} started");
+        
             var timer = new Stopwatch();
             timer.Start();
 
             action();
             
             timer.Stop();
-            Console.WriteLine($"Executed in {timer.ElapsedMilliseconds} ms");
+            Console.WriteLine($"{taskName} executed in {timer.ElapsedMilliseconds} ms");
         }
         
         public static T DumpToConsole<T>(this T value, string prefix = null)

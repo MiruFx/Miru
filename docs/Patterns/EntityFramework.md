@@ -7,6 +7,8 @@ byXorfail
 
 dbsets only for aggregate roots
 
+Entity: properties, constructor, methods
+
 -->
 
 # Entity Framework Patterns

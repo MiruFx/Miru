@@ -18,4 +18,6 @@ public static class DateTimeExtensions
     public static DateTime OfNextMonth(this int day) => day.OfThisMonth().AddMonths(1);
         
     public static DateTime OfPreviousMonth(this int day) => day.OfThisMonth().AddMonths(-1);
+    
+    public static DateTime OfMonthsAgo(this int day, int months) => day.OfThisMonth().AddMonths(-months);
 }

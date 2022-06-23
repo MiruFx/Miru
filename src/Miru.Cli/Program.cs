@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.CommandLine;
-using System.CommandLine.Invocation;
 using System.CommandLine.NamingConventionBinder;
 using System.CommandLine.Parsing;
 using System.IO;
 using System.Threading.Tasks;
 using Baseline;
-using Miru.Cli.Process;
 using Miru.Core;
+using Miru.Core.Process;
 
 namespace Miru.Cli;
 
@@ -90,9 +89,9 @@ public class Program
 
         var solution = result.Solution;
 
-        var exec = OS.IsWindows ? 
-            OS.WhereOrWhich(runOptions.Executable) :
-            runOptions.Executable;
+        var exec = OS.IsWindows 
+            ? OS.WhereOrWhich(runOptions.Executable) 
+            : runOptions.Executable;
 
         var processRunner = new MiruProcessRunner(options.Verbose, string.Empty);
 

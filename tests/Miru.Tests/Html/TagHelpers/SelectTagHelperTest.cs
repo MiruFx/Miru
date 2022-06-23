@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AV.Enumeration;
 using Miru.Domain;
 using Miru.Html.Tags;
 using Miru.Mvc;
@@ -55,10 +56,10 @@ public class SelectTagHelperTest : TagHelperTest
         public Statuses Status { get; set; }
         
         // lookups
-        public SelectLookups StatusLookups => Statuses.GetAll().ToSelectLookups();
+        public SelectLookups StatusLookups => Enumeration.GetAll<Statuses>().ToSelectLookups();
     }
 
-    public class Statuses : Enumeration<Statuses>
+    public class Statuses : Enumeration
     {
         public static readonly Statuses Pending = new(1, nameof(Pending));
         public static readonly Statuses Finished = new(2, nameof(Finished));

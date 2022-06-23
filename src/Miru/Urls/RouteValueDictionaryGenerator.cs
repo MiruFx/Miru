@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Reflection;
+using AV.Enumeration;
 using Baseline.Reflection;
 using Microsoft.AspNetCore.Routing;
 using Miru.Domain;
@@ -107,22 +108,35 @@ public class RouteValueDictionaryGenerator
                 {
                     value = dateTime.ToShortDateString();
                 }
-                else if (property.Property.PropertyType.ImplementsGenericOf(typeof(Enumeration<>)))
+                else if (value is Enumeration enumeration)
                 {
-                    value = typeof(Enumeration<>)
-                        .MakeGenericType(property.Property.PropertyType)
-                        .GetProperty("Value")?
-                        .GetValue(value);
+                    value = enumeration.Value;
                 }
-                else if (property.Property.PropertyType.ImplementsGenericOf(typeof(Enumeration<,>)))
-                {
-                    value = typeof(Enumeration<,>)
-                        .MakeGenericType(
-                            property.Property.PropertyType,
-                            property.Property.PropertyType.BaseType?.GetGenericArguments()[1])
-                        .GetProperty("Value")?
-                        .GetValue(value);
-                }
+                // else if (property.Property.PropertyType.ImplementsGenericOf(typeof(Enumeration<,>)))
+                // {
+                //     value = typeof(Enumeration<,>)
+                //         .MakeGenericType(
+                //             property.Property.PropertyType,
+                //             property.Property.PropertyType.BaseType?.GetGenericArguments()[1])
+                //         .GetProperty("Value")?
+                //         .GetValue(value);
+                // }
+                // else if (property.Property.PropertyType.ImplementsGenericOf(typeof(Enumeration<>)))
+                // {
+                //     value = typeof(Enumeration<>)
+                //         .MakeGenericType(property.Property.PropertyType)
+                //         .GetProperty("Value")?
+                //         .GetValue(value);
+                // }
+                // else if (property.Property.PropertyType.ImplementsGenericOf(typeof(Enumeration<,>)))
+                // {
+                //     value = typeof(Enumeration<,>)
+                //         .MakeGenericType(
+                //             property.Property.PropertyType,
+                //             property.Property.PropertyType.BaseType?.GetGenericArguments()[1])
+                //         .GetProperty("Value")?
+                //         .GetValue(value);
+                // }
                 
                 dictionary[property.Name] = value.ToString();
             }

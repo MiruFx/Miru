@@ -1,14 +1,13 @@
 using System;
 using System.CommandLine;
-using System.CommandLine.Invocation;
 using System.CommandLine.NamingConventionBinder;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Baseline;
-using Miru.Cli.Process;
 using Miru.Core;
-using IConsole = Miru.Cli.Process.IConsole;
+using Miru.Core.Process;
+using IConsole = Miru.Core.Process.IConsole;
 
 namespace Miru.Cli;
 

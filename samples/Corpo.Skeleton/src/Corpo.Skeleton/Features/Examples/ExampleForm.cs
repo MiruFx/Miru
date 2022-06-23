@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using AV.Enumeration;
 using Miru.Domain;
 using Miru.Html;
 
@@ -13,7 +14,7 @@ public class ExampleForm
     public class Command : IRequest<Command>
     {   
         // lookups
-        public SelectLookups CreditCards => CreditCardBrands.GetAll().ToSelectLookups();
+        public SelectLookups CreditCards => Enumeration.GetAll<CreditCardBrands>().ToSelectLookups();
         public SelectLookups Countries { get; set; }
 
         // inputs
@@ -80,7 +81,7 @@ public class ExampleForm
         public async Task<Command> Form(Command command) => await SendAsync(command);
     }
         
-    public class CreditCardBrands : Enumeration<CreditCardBrands>
+    public class CreditCardBrands : Enumeration
     {
         public static CreditCardBrands Visa = new(1, "Visa");
         public static CreditCardBrands MasterCardBrands = new(2, "MasterCard");

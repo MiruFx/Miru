@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using AV.Enumeration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -35,7 +36,7 @@ namespace Miru.Databases.EntityFramework
         }
         
         public static ModelBuilder PropertiesEnumeration<TEnumeration, TType>(this ModelBuilder modelBuilder) 
-            where TEnumeration : Enumeration<TEnumeration, TType> 
+            where TEnumeration : Enumeration
             where TType : IComparable
         {
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
@@ -49,7 +50,7 @@ namespace Miru.Databases.EntityFramework
                     modelBuilder
                         .Entity(entityType.Name)
                         .Property<TEnumeration>(property.Name)
-                        .HasConversion(v => v.Value, v => Enumeration<TEnumeration, TType>.FromValue(v));
+                        .HasConversion(v => v.Value, v => Enumeration.FromValue<TEnumeration>(v));
                 }
             }
 
