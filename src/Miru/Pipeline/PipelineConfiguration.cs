@@ -1,6 +1,5 @@
-namespace Miru.Pipeline
+namespace Miru.Pipeline;
+
+public abstract class PipelineConfiguration
 {
-    public abstract class PipelineConfiguration
-    {
-    }
 }
