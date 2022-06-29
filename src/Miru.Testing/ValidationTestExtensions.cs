@@ -1,7 +1,7 @@
 using System;
 using System.Linq.Expressions;
+using Baseline.Reflection;
 using FluentValidation;
-using FluentValidation.Internal;
 using FluentValidation.TestHelper;
 
 namespace Miru.Testing;
@@ -14,7 +14,7 @@ public static class ValidationTestExtensions
         TProperty value)
     {
         // TODO: move to some appropriate class, like reflection
-        new MemberAccessor<TRequest, TProperty>(expression, true).Set(model, value);
+        ReflectionHelper.GetProperty(expression).SetValue(model, value);
     }
         
     public static IValidator<TRequest> FindValidatorFor<TRequest>(this ScopedServices scope)

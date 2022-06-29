@@ -10,7 +10,7 @@ public class DbRollbackConsolable : Consolable
     public DbRollbackConsolable()
         : base("db.rollback", "Rollback database schema")
     {
-        Add(new Option("--steps"));
+        Add(new Option<int>("--steps"));
     }
 
     public class ConsolableHandler : IConsolableHandler

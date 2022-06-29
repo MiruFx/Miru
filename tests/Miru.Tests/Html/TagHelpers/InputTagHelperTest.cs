@@ -103,7 +103,7 @@ public class InputTagHelperTest : TagHelperTest
         html.HtmlShouldBe(
             "<input type=\"radio\" value=\"M\" name=\"Size\" id=\"Size\">");
     }
-        
+
     public class Command
     {
         [Radio]

@@ -3,39 +3,38 @@ using System.Threading.Tasks;
 using Miru.Consolables;
 using Miru.Core;
 
-namespace Miru.Makers
+namespace Miru.Makers;
+
+public class MakeConsolableConsolable : Consolable
 {
-    public class MakeConsolableConsolable : Consolable
+    public MakeConsolableConsolable() :
+        base("make.consolable", "Make a Consolable")
     {
-        public MakeConsolableConsolable() :
-            base("make.consolable", "Make a Consolable")
+        Add(new Argument<string>("name"));
+    }
+
+    public class ConsolableHandler : IConsolableHandler
+    {
+        private readonly MiruSolution _solution;
+            
+        public string Name { get; set; }
+            
+        public ConsolableHandler(MiruSolution solution)
         {
-            Add(new Argument<string>("name"));
+            _solution = solution;
         }
-
-        public class ConsolableHandler : IConsolableHandler
+    
+        public async Task Execute()
         {
-            private readonly MiruSolution _solution;
+            var make = new Maker(_solution);
             
-            public string Name { get; set; }
-            
-            public ConsolableHandler(MiruSolution solution)
-            {
-                _solution = solution;
-            }
+            Console2.BreakLine();
     
-            public async Task Execute()
-            {
-                var make = new Maker(_solution);
+            make.Consolable(Name);
             
-                Console2.BreakLine();
-    
-                make.Consolable(Name);
-            
-                Console2.BreakLine();
+            Console2.BreakLine();
 
-                await Task.CompletedTask;
-            }
+            await Task.CompletedTask;
         }
     }
 }

@@ -3,69 +3,72 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Miru.Domain;
 
-namespace Miru.Databases.EntityFramework
+namespace Miru.Databases.EntityFramework;
+
+public class EntityFrameworkDataAccess : IDataAccess
 {
-    public class EntityFrameworkDataAccess : IDataAccess
+    private readonly DbContext _db;
+
+    public EntityFrameworkDataAccess(DbContext db)
     {
-        private readonly DbContext _db;
+        _db = db;
+    }
 
-        public EntityFrameworkDataAccess(DbContext db)
+    public void Persist(object[] entities)
+    {
+        using (var tx = _db.Database.BeginTransaction())
         {
-            _db = db;
-        }
-
-        public void Persist(object[] entities)
-        {
-            using (var tx = _db.Database.BeginTransaction())
-            {
-                AddOrUpdateEntities(entities);
-
-                _db.SaveChanges();
-                
-                tx.Commit();
-            }
-        }
-
-        public async Task SaveAsync(object[] entities)
-        {
-            await using var tx = await _db.Database.BeginTransactionAsync();
-
             AddOrUpdateEntities(entities);
+
+            _db.SaveChanges();
+                
+            tx.Commit();
+        }
+    }
+
+    public async Task SaveAsync(object[] entities)
+    {
+        App.Framework.Debug("Saving {EntitiesCount}", entities.Length);
+        
+        await using var tx = await _db.Database.BeginTransactionAsync();
+
+        AddOrUpdateEntities(entities);
             
-            await _db.SaveChangesAsync();
+        await _db.SaveChangesAsync();
                 
-            await tx.CommitAsync();
-        }
+        await tx.CommitAsync();
+    }
 
-        private void AddOrUpdateEntities(object[] entities)
+    private void AddOrUpdateEntities(object[] entities)
+    {
+        foreach (var entity in entities)
         {
-            foreach (var entity in entities)
+            if (entity is IEnumerable collectionOfEntities)
+                foreach (var castEntity in collectionOfEntities)
+                    Save(castEntity);
+            else
+                Save(entity);
+        }
+    }
+
+    private void Save(object entity)
+    {
+        if (entity is IEntity castEntity)
+        {
+            App.Framework.Debug("Test is saving {Entity}", entity);
+            
+            if (castEntity.IsNew())
             {
-                if (entity is IEnumerable collectionOfEntities)
-                    foreach (var castEntity in collectionOfEntities)
-                        Save(castEntity);
-                else
-                    Save(entity);
+                _db.Add(entity);
             }
-        }
-
-        private void Save(object entity)
-        {
-            if (entity is IEntity castEntity)
+            else
             {
-                if (castEntity.IsNew())
-                {
-                    _db.Add(entity);
-                }
-                else
-                {
-                    var entry = _db.Entry(entity);
+                var entry = _db.Entry(entity);
                 
-                    if (entry.State == EntityState.Detached)
-                        _db.Attach(entity);
+                if (entry.State == EntityState.Detached)
+                    _db.Attach(entity);
                 
-                    entry.State = EntityState.Modified;
-                }
+                entry.State = EntityState.Modified;
             }
         }
     }

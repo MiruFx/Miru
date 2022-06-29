@@ -2,16 +2,13 @@ using System;
 using Alba;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Miru.Foundation.Hosting;
 using Miru.Urls;
-using NUnit.Framework;
-using Shouldly;
 
 namespace Miru.Tests.Urls
 {
     public class MiruControllerRoutingDiscoverTest : IDisposable
     {
-        private readonly SystemUnderTest _system = new SystemUnderTest(
+        private readonly AlbaHost _system = new AlbaHost(
             new MiruTestWebHost(MiruHost.CreateMiruHost()).GetConfiguredHostBuilder());
             
         private UrlLookup UrlLookup => _system.Services.GetService<UrlLookup>();

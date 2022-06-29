@@ -9,7 +9,7 @@ namespace Miru.Tests.Urls
 {
     public class RouteTest : IDisposable
     {
-        private readonly SystemUnderTest _system = new SystemUnderTest(new MiruTestWebHost(MiruHost.CreateMiruHost()).GetConfiguredHostBuilder());
+        private readonly AlbaHost _system = new AlbaHost(new MiruTestWebHost(MiruHost.CreateMiruHost()).GetConfiguredHostBuilder());
         private UrlLookup UrlLookup => _system.Services.GetService<UrlLookup>();
 
         public void Dispose() => _system?.Dispose();
@@ -65,7 +65,7 @@ namespace Miru.Tests.Urls
                     .ToUrl(UrlLookup.For<OrdersCancel.Command>())
                     .Accepts("text/javascript");
 
-                _.SetRequestHeader("X-Requested-With", "XMLHttpRequest");
+                _.WithRequestHeader("X-Requested-With", "XMLHttpRequest");
 
                 _.ContentTypeShouldBe("text/javascript");
 

@@ -16,8 +16,4 @@
         <ProjectReference Include="..\Miru.Core\Miru.Core.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Baseline" Version="3.2.2" />
-    </ItemGroup>
-
 </Project>

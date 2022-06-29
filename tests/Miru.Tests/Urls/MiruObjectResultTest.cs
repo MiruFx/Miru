@@ -12,7 +12,7 @@ namespace Miru.Tests.Urls;
 
 public class MiruObjectResultTest : IDisposable
 {
-    private readonly Alba.SystemUnderTest _system = new SystemUnderTest(
+    private readonly AlbaHost _system = new AlbaHost(
         new MiruTestWebHost(MiruHost.CreateMiruHost()).GetConfiguredHostBuilder());
         
     private UrlLookup UrlLookup => _system.Services.GetService<UrlLookup>();
@@ -61,7 +61,7 @@ public class MiruObjectResultTest : IDisposable
                 OrderName = "Order 1"
             };
 
-            _.SetRequestHeader("X-Requested-With", "XMLHttpRequest");
+            _.WithRequestHeader("X-Requested-With", "XMLHttpRequest");
                 
             _.Post
                 .FormData(request)

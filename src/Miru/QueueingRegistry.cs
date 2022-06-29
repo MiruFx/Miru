@@ -1,4 +1,6 @@
 using System;
+using System.Threading.Tasks;
+using Baseline;
 using Hangfire;
 using Hangfire.Console.Extensions;
 using Hangfire.Console.Extensions.Serilog;
@@ -25,15 +27,12 @@ public static class QueueingRegistry
             configuration
                 .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                 .UseSimpleAssemblyNameTypeSerializer()
-                .UseRecommendedSerializerSettings()
-                .UseActivator(sp.GetService<MiruJobActivator>());
+                .UseRecommendedSerializerSettings();
                 
             var builder = new QueuingBuilder(sp, configuration, services);
                 
             queuingBuilder.Invoke(builder);
         });
-            
-        services.AddTransient<MiruJobActivator>();
             
         services.AddTransient(sp => new BackgroundJobServer(
             new BackgroundJobServerOptions(),
@@ -55,13 +54,10 @@ public static class QueueingRegistry
             configuration
                 .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                 .UseSimpleAssemblyNameTypeSerializer()
-                .UseRecommendedSerializerSettings()
-                .UseActivator(sp.GetService<MiruJobActivator>());
+                .UseRecommendedSerializerSettings();
                 
             overrides?.Invoke(sp, configuration);
         });
-
-        services.AddTransient<MiruJobActivator>();
             
         services.AddTransient(sp => new BackgroundJobServer(
             new BackgroundJobServerOptions(),
@@ -100,11 +96,10 @@ public static class QueueingRegistry
     public static IServiceCollection AddHangfireConsole(
         this IServiceCollection services)
     {
-        return services.AddHangfireServer()
+        return services
             .AddHangfireConsoleExtensions()
             .AddSerilogConfig(x =>
             {
-                // x.Hangfire()
                 x.Enrich.WithHangfireContext();
                 x.WriteTo.Hangfire();
             });
