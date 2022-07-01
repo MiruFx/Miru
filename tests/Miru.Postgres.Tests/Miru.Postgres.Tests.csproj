@@ -15,7 +15,6 @@ Has to be .Sdk.Web to allow unit test asp.net components correctly
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
     <PackageReference Include="Alba" Version="6.1.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +23,7 @@ Has to be .Sdk.Web to allow unit test asp.net components correctly
     <ProjectReference Include="..\..\src\Miru.Postgres\Miru.Postgres.csproj" />
     <ProjectReference Include="..\..\src\Miru.Testing\Miru.Testing.csproj" />
     <ProjectReference Include="..\..\src\Miru.Core\Miru.Core.csproj" />
+    <ProjectReference Include="..\Miru.Tests\Miru.Tests.csproj" />
   </ItemGroup>
 
   <ItemGroup>

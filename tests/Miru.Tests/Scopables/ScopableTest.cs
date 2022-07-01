@@ -30,7 +30,7 @@ public class ScopableTest
             {
                 _.UseBehavior(typeof(CurrentAttributesBehavior<,>));
             })
-            .AddMiruTestFixture()
+            .AddMiruCoreTesting()
             
             .AddCurrentAttributes<Current, CurrentScope>()
             

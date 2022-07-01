@@ -15,7 +15,7 @@ public class HtmlGeneratorTest
     {
         _ = new ServiceCollection()
             .AddMiruHtml()
-            .AddMiruTestFixture()
+            .AddMiruCoreTesting()
             .BuildServiceProvider()
             .GetRequiredService<ITestFixture>();
 

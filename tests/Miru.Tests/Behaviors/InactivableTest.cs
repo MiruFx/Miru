@@ -22,7 +22,7 @@ namespace Miru.Tests.Behaviors
             _ = new ServiceCollection()
                 .AddMiruApp()
                 .AddFeatureTesting()
-                .AddMiruTestFixture()
+                .AddMiruCoreTesting()
                 .AddEfCoreInMemory<FooDbContext>()
                 .AddDatabaseCleaner<InMemoryDatabaseCleaner>()
                 

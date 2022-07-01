@@ -13,51 +13,39 @@ using Miru.Fabrication;
 using Miru.Pipeline;
 using Miru.Sqlite;
 using Miru.Tests.Databases.EntityFramework;
+using Miru.Tests.Scheduling;
 
 namespace Miru.Tests.Behaviors;
 
-public class DomainEventsTest
+public class DomainEventsTest : MiruCoreTesting
 {
-    private TestFixture _;
-    private BackgroundJobServer _server;
+    public override IServiceCollection ConfigureServices(IServiceCollection services)
+    {
+        return services
+            .AddEfCoreSqlite<FooDbContext>(connectionString: "DataSource={{ db_dir }}DomainEventTest.db")
+            .AddDatabaseCleaner<SqliteDatabaseCleaner>()
+            .AddDefaultPipeline<DomainEventsTest>()
+            .AddInMemoryQueueing()
+            .AddTransient(sp => new BackgroundJobServer(sp.GetService<JobStorage>()))
+
+            // being tested
+            .AddDomainEvents();
+    }
 
     [OneTimeSetUp]
-    public void SetupFixture()
+    public void OneTimeSetup()
     {
-        _ = new ServiceCollection()
-            .AddMiruApp()
-            .AddFeatureTesting()
-            .AddFabrication()
-            .AddSingleton<TestFixture, TestFixture>()
-            .AddEfCoreSqlite<FooDbContext>(connectionString: "DataSource={{ db_dir }}DomainEventTest.db")
-            .AddTransient<IDatabaseCleaner, InMemoryDatabaseCleaner>()
-            .AddDefaultPipeline<DomainEventsTest>()
-            .AddQueuing((sp, cfg) => cfg.UseMemoryStorage())
-            .AddMediatR(typeof(DomainEventsTest).Assembly)
-                
-            // being tested
-            .AddDomainEvents()
-                
-            .BuildServiceProvider()
-            .GetService<TestFixture>();    
-        
-        _server = _.Get<BackgroundJobServer>();
-    }
-
-    [OneTimeTearDown]
-    public void TearDown()
-    {
-        _server.Dispose();
-    }
-
-    [SetUp]
-    public void Setup()
-    {
-        _.ClearDatabase();
+        var server = _.Get<BackgroundJobServer>();
         
         using var scope = _.WithScope();
         var db = scope.Get<FooDbContext>();
         db.Database.EnsureCreated();
+    }
+    
+    [SetUp]
+    public void Setup()
+    {
+        _.ClearDatabase();
     }
 
     [Test]

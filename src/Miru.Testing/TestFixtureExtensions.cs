@@ -266,7 +266,7 @@ public static class TestFixtureExtensions
         {
             using var scope = fixture.App.WithScope();
 
-            scope.Get<IQueueCleaner>().Clear();
+            scope.Get<IQueueCleaner>().ClearAsync().GetAwaiter().GetResult();
         });
 
         return fixture;

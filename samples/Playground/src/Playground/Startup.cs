@@ -40,7 +40,7 @@ public class Startup
         services.AddMiru<Startup>()
 
             .AddMiruHtml<HtmlConfig>()
-                
+
             .AddDefaultPipeline<Startup>()
 
             .AddGlobalization(defaultCulture: "en-GB", "de-DE", "en-US", "pt-BR", "pt-PT")
@@ -78,17 +78,15 @@ public class Startup
             })
             .AddSmtpSender()
 
+            // TODO: one line call .AddLiteDbQueueing() with DefaultQueueAuthorizer set by default
             .AddScoped<IQueueAuthorizer, DefaultQueueAuthorizer>()
             .AddQueuing(_ =>
             {
                 _.UseLiteDb();
-                
-                _.Configuration.UseConsole();
             })
             .AddHangfireServer()
-            .AddHangfireConsole()
 
-            .AddTaskScheduling<ScheduledTaskConfig>();
+            .AddScheduledJob<ScheduledJobConfig>();
 
         services
             .AddFabrication<PlaygroundFabricator>();

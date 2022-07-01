@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 
-namespace Miru.Queuing
+namespace Miru.Queuing;
+
+public interface IQueueCleaner
 {
-    public interface IQueueCleaner
-    {
-        Task Clear();
-    }
+    Task ClearAsync();
 }

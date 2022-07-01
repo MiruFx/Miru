@@ -43,10 +43,10 @@ public class MailingTest
                         options.AppUrl = "http://www.contoso.com";
                         options.TemplatePath = new SolutionFinder().FromCurrentDir().Solution.AppTestsDir;
                     })
-                    .AddMiruTestFixture()
+                    .AddMiruCoreTesting()
                     .AddSenderMemory()
                     .AddSingleton<MiruSolution, MiruTestSolution>()
-                    .AddQueuing((sp, cfg) => cfg.UseMemoryStorage())
+                    .AddQueuing(x => x.Configuration.UseMemoryStorage())
                     .AddMediatR(typeof(MailingTest).Assembly);
             });
             

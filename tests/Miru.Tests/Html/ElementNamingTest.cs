@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using Miru.Domain;
 using Miru.Html;
+using Miru.Tests.Html.TagHelpers;
 
 namespace Miru.Tests.Html;
 
-public class ElementNamingTest
+public class ElementNamingTest : TagHelperTest
 {
     private readonly ElementNaming _naming;
 
@@ -39,6 +40,9 @@ public class ElementNamingTest
     {
         _naming.Id(new AccountLogin.Command()).ShouldStartWith("account-login");
         _naming.Id(new ProductList.Query()).ShouldStartWith("product-list");
+        
+        _naming.Id(new ProductEdit.Command { Id = 2 }).ShouldBe("product-edit_2");
+        _naming.Id(new ProductShow.Query { Id = 10 }).ShouldBe("product-show_10");
     }
         
     [Test]
@@ -50,20 +54,22 @@ public class ElementNamingTest
         _naming.Id(new BoxProduct { Id = 556677 }).ShouldBe("box-product_556677");
     }
     
-    // [Test]
-    // public void Id_for_a_list_property()
-    // {
-    //     var list = new ProductList.Result
-    //     {
-    //         InactiveProducts = new List<Product>()
-    //         {
-    //             new() { Id = 1 },
-    //             new() { Id = 2 },
-    //         }
-    //     };
-    //     
-    //     _naming.Id(list.InactiveProducts).ShouldBe("category_10");
-    // }
+    [Test]
+    public void Id_for_model_expression()
+    {
+        var result = new ProductList.Result
+        {
+            InactiveProducts = new()
+            {
+                new() { AuxiliarProductId = 10 },
+                new() { AuxiliarProductId = 11 },
+            }
+        };
+        
+        _naming
+            .Id(MakeExpression(result, x => x.InactiveProducts[1].AuxiliarProductId))
+            .ShouldBe("auxiliar-product-id_11");
+    }
     
     public class AccountLogin
     {
@@ -76,6 +82,22 @@ public class ElementNamingTest
         }
     }
 
+    public class ProductEdit
+    {
+        public class Command
+        {
+            public long Id { get; set; }
+        }
+    }
+    
+    public class ProductShow
+    {
+        public class Query
+        {
+            public long Id { get; set; }
+        }
+    }
+    
     public class ProductList
     {
         public class Query
@@ -95,6 +117,7 @@ public class ElementNamingTest
     public class Product : IEntity
     {
         public long Id { get; set; }
+        public long AuxiliarProductId { get; set; }
     }
     
     public class BoxProduct : IEntity

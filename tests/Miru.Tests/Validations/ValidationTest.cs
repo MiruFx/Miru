@@ -21,7 +21,7 @@ public class ValidationTest
     {
         _sp = new ServiceCollection()
             .AddMiruApp()
-            .AddMiruTestFixture()
+            .AddMiruCoreTesting()
             .AddFabrication()
             .AddValidators<ValidationTest>()
             .BuildServiceProvider();

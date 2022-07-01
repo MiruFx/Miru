@@ -11,6 +11,7 @@ using Miru.Databases.Migrations;
 using Miru.Fabrication;
 using Miru.Settings;
 using Miru.Testing;
+using Miru.Tests;
 using Miru.Userfy;
 using NUnit.Framework;
 using Shouldly;
@@ -27,7 +28,7 @@ public class PostgresTest
         _ = new ServiceCollection()
             .AddMiruApp()
             .AddFeatureTesting()
-            .AddMiruTestFixture()
+            .AddMiruCoreTesting()
             .AddFabrication()
 
             // postgres

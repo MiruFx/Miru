@@ -25,7 +25,7 @@ namespace Miru.Tests.Behaviors
                 .AddMiruApp()
                 .AddFeatureTesting()
                 .AddFabrication()
-                .AddMiruTestFixture()
+                .AddMiruCoreTesting()
                 .AddEfCoreInMemory<FooDbContext>()
                 .AddDatabaseCleaner<InMemoryDatabaseCleaner>()
                 .AddTestingUserSession<User>()

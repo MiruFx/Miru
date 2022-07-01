@@ -5,6 +5,8 @@ using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using HtmlTags.Reflection;
 using Humanizer;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Miru.Core;
 using Miru.Domain;
 
@@ -48,12 +50,34 @@ public class ElementNaming
     {
         return Id(IdFromExpression(expression));
     }
+    
+    public string Id(ModelExpression modelExpression)
+    {
+        if (modelExpression.Metadata.MetadataKind == ModelMetadataKind.Property)
+        {
+            var propertyName = modelExpression.ModelExplorer.Metadata.Name;
+            var id = modelExpression.Model;
+            var elementId = $"{propertyName.ToKebabCase()}_{id}";
+        
+            return elementId;
+        }
+
+        return Id(modelExpression.Model);
+    }
         
     public string Id<TModel>(TModel model)
     {
         if (model is IHasId identifiable)
         {
             return $"{model.GetType().Name.ToKebabCase()}_{identifiable.Id}";
+        }
+
+        var idProperty = model.GetType().GetProperty("Id");
+        
+        if (idProperty != null)
+        {
+            var id = idProperty.GetValue(model);
+            return $"{model.GetType().FeatureName().ToKebabCase()}_{id}";;
         }
 
         if (model is IEnumerable)

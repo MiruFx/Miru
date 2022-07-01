@@ -43,7 +43,10 @@ namespace Miru.Foundation.Logging
                     configBuilder.Config(loggerConfiguration);
                 }
 
-                loggerConfiguration.ReadFrom.Configuration(sp.GetService<IConfiguration>());
+                var configuration = sp.GetService<IConfiguration>();
+                
+                if (configuration != null)
+                    loggerConfiguration.ReadFrom.Configuration(configuration);
                 
                 var logger = loggerConfiguration.CreateLogger();
         

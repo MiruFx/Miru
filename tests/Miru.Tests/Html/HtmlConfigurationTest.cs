@@ -15,7 +15,7 @@ public class HtmlConfigurationTest
     {
         _ = new ServiceCollection()
             .AddMiruHtml(new HtmlConfiguration())
-            .AddMiruTestFixture()
+            .AddMiruCoreTesting()
             .BuildServiceProvider()
             .GetRequiredService<ITestFixture>();
 

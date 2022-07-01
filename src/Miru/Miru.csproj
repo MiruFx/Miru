@@ -13,9 +13,6 @@
         <!-- Core -->
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
         <PackageReference Include="NetEscapades.Configuration.Yaml" Version="2.2.0" />
-        <PackageReference Include="Quartz" Version="3.4.0" />
-        <PackageReference Include="Quartz.AspNetCore" Version="3.4.0" />
-        <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.4.0" />
         <PackageReference Include="YamlDotNet" Version="11.2.1" />
         <PackageReference Include="Scrutor" Version="4.2.0" />
         <PackageReference Include="AV.Enumeration" Version="1.5.4" />
@@ -52,7 +49,6 @@
         <!-- Queuing -->
         <PackageReference Include="Hangfire.Core" Version="1.7.30" />
         <PackageReference Include="Hangfire.AspNetCore" Version="1.7.30" />
-        <PackageReference Include="Hangfire.LiteDB" Version="0.4.1" />
         <PackageReference Include="Hangfire.Console" Version="1.4.2" />
         <PackageReference Include="Hangfire.Console.Extensions.Serilog" Version="1.0.2" />
 

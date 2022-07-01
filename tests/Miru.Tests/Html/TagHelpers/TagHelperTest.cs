@@ -218,7 +218,7 @@ public class TagHelperTest
         return new ModelExpression(propertyName, modelExplorer);
     }
         
-    protected ModelExpression MakeExpression<TModel, TProperty>(
+    public ModelExpression MakeExpression<TModel, TProperty>(
         TModel model, 
         Expression<Func<TModel, TProperty>> expression)
     {

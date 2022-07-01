@@ -6,6 +6,7 @@
 
     <ItemGroup>
         <PackageReference Include="Hangfire.Core" Version="1.7.30" />
+        <PackageReference Include="Hangfire.LiteDB" Version="0.4.1" />
 
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.6" />
         <PackageReference Include="Hangfire.Storage.SQLite" Version="0.3.2" />

@@ -18,12 +18,12 @@ public class QueueingTest
     [OneTimeSetUp]
     public void Setup()
     {
-        _sp = new ServiceCollection()
+        _sp = new ServiceCollection()   
             .AddMiruApp()
-            .AddQueuing((sp, cfg) => cfg.UseMemoryStorage())
+            .AddQueuing(x => x.Configuration.UseMemoryStorage())
             .AddMediatR(typeof(QueueingTest).Assembly)
             .AddScoped<SomeService>()
-            .AddMiruTestFixture()
+            .AddMiruCoreTesting()
             .BuildServiceProvider();
 
         _ = _sp.GetService<ITestFixture>();

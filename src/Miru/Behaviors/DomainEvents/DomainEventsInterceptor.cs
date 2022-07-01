@@ -36,6 +36,8 @@ public class DomainEventsInterceptor : SaveChangesInterceptor
         {
             while (entity.DomainEvents.TryTake(out var domainEvent))
             {
+                App.Framework.Information("Publishing domain event {Event}", domainEvent);
+                
                 await _mediator.Publish(domainEvent, ct);
             }
         }

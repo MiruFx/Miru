@@ -4,7 +4,7 @@ namespace Miru.Queuing
 {
     public class NullQueueCleaner : IQueueCleaner
     {
-        public Task Clear()
+        public Task ClearAsync()
         {
             return Task.CompletedTask;
         }

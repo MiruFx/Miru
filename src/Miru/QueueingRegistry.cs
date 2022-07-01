@@ -1,16 +1,12 @@
 using System;
-using System.Threading.Tasks;
-using Baseline;
 using Hangfire;
+using Hangfire.Console;
 using Hangfire.Console.Extensions;
 using Hangfire.Console.Extensions.Serilog;
-using Hangfire.LiteDB;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Miru.Core;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Miru.Foundation.Logging;
 using Miru.Queuing;
-using Miru.Storages;
 
 namespace Miru;
 
@@ -20,88 +16,42 @@ public static class QueueingRegistry
         this IServiceCollection services,
         Action<QueuingBuilder> queuingBuilder)
     {
-        services.AddSingleton<QueueingOptions>();
-            
-        services.AddHangfire((sp, configuration) =>
-        {
-            configuration
-                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-                .UseSimpleAssemblyNameTypeSerializer()
-                .UseRecommendedSerializerSettings();
+        services
+            .AddHangfire((sp, configuration) =>
+            {
+                configuration
+                    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                    .UseSimpleAssemblyNameTypeSerializer()
+                    .UseRecommendedSerializerSettings();
                 
-            var builder = new QueuingBuilder(sp, configuration, services);
+                var builder = new QueuingBuilder(sp, configuration, services);
+
+                configuration.UseConsole();
                 
-            queuingBuilder.Invoke(builder);
-        });
-            
-        services.AddTransient(sp => new BackgroundJobServer(
-            new BackgroundJobServerOptions(),
-            sp.GetService<JobStorage>()));
-
-        services.AddConsolable<QueueRunConsolable>();
-            
-        services.AddQueueCleaner<NullQueueCleaner>();
-            
-        return services.AddSingleton<Jobs>();
-    }
-
-    public static IServiceCollection AddQueuing(
-        this IServiceCollection services, 
-        Action<IServiceProvider, IGlobalConfiguration> overrides = null)
-    {
-        services.AddHangfire((sp, configuration) =>
-        {
-            configuration
-                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-                .UseSimpleAssemblyNameTypeSerializer()
-                .UseRecommendedSerializerSettings();
-                
-            overrides?.Invoke(sp, configuration);
-        });
-            
-        services.AddTransient(sp => new BackgroundJobServer(
-            new BackgroundJobServerOptions(),
-            sp.GetService<JobStorage>()));
-
-        services.AddSingleton<Jobs>();
-
-        services.AddConsolable<QueueRunConsolable>();
-            
-        return services;
-    }
+                queuingBuilder?.Invoke(builder);
+            });
         
-    public static IServiceCollection AddQueueCleaner<TQueueCleaner>(this IServiceCollection services)
-        where TQueueCleaner : class, IQueueCleaner
-    {
-        services.ReplaceTransient<IQueueCleaner, TQueueCleaner>();
-            
-        return services;
-    }
-        
-    public static void UseLiteDb(this QueuingBuilder builder)
-    {
-        var storage = builder.ServiceProvider.GetRequiredService<LocalDiskStorage>();
-        var env = builder.ServiceProvider.GetRequiredService<IHostEnvironment>();
-        var queueOptions = builder.ServiceProvider.GetRequiredService<QueueingOptions>();
+        services.TryAddSingleton<QueueingOptions>();
+        services.TryAddSingleton<Jobs>();
 
-        var dbPath = storage.StorageDir / "db" / $"Queue_{env.EnvironmentName}.db";
-
-        dbPath.Dir().EnsureDirExist();
-            
-        queueOptions.ConnectionString = dbPath;
-
-        builder.Configuration.UseLiteDbStorage(queueOptions.ConnectionString);
-    }
-    
-    public static IServiceCollection AddHangfireConsole(
-        this IServiceCollection services)
-    {
-        return services
+        services
+            .AddConsolable<QueueRunConsolable>()
+            .AddQueueCleaner<NullQueueCleaner>()
             .AddHangfireConsoleExtensions()
             .AddSerilogConfig(x =>
             {
                 x.Enrich.WithHangfireContext();
                 x.WriteTo.Hangfire();
             });
+        
+        return services;
+    }
+
+    public static IServiceCollection AddQueueCleaner<TQueueCleaner>(this IServiceCollection services)
+        where TQueueCleaner : class, IQueueCleaner
+    {
+        services.ReplaceTransient<IQueueCleaner, TQueueCleaner>();
+            
+        return services;
     }
 }

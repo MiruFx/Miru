@@ -17,7 +17,7 @@ public class NumericValidatorTest
     {
         _ = new ServiceCollection()
             .AddMiruApp()
-            .AddMiruTestFixture()
+            .AddMiruCoreTesting()
             .AddFabrication()
             .AddValidators<ValidationTest>()
             .BuildServiceProvider()
