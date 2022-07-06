@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MediatR;
 using Vereyon.Web;
 
 namespace Miru;
@@ -16,7 +17,7 @@ public class FeatureResult
     public object Model { get; set; }
 
     public Type Type => Model.GetType();
-
+    
     public void AddMessage(FlashMessageType type, string message)
     {
         Messages.Add(type, message);

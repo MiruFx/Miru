@@ -22,8 +22,7 @@ public class MailingTest
 
     public MailingTest()
     {
-        _host = new MiruTestWebHost(MiruHost.CreateMiruHost(), 
-            services =>
+        _host = new MiruTestWebHost(MiruHost.CreateMiruHost(), services =>
             {
                 services
                     .AddTestStorage()

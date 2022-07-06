@@ -26,7 +26,16 @@ public static class QueueingRegistry
                 
                 var builder = new QueuingBuilder(sp, configuration, services);
 
-                configuration.UseConsole();
+                // .UseConsole registers routes into hangfire dashboard statically
+                // So in automated tests, when queue is registered in different ServiceProvider
+                // instances, UseConsole unfairly throws InvalidOperationException
+                try
+                {
+                    configuration.UseConsole();
+                }
+                catch (InvalidOperationException)
+                {
+                }
                 
                 queuingBuilder?.Invoke(builder);
             });

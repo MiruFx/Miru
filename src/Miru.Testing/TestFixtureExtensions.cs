@@ -13,6 +13,7 @@ using Miru.Databases;
 using Miru.Databases.Migrations;
 using Miru.Domain;
 using Miru.Fabrication;
+using Miru.Mailing;
 using Miru.Queuing;
 using Miru.Storages;
 using Miru.Userfy;

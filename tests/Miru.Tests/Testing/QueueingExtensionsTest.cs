@@ -1,53 +1,32 @@
-using System;
 using Hangfire;
-using Hangfire.LiteDB;
 using Hangfire.MemoryStorage;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Queuing;
-using Miru.Sqlite;
-using Miru.Storages;
 using Miru.Tests.Queuing;
 
 namespace Miru.Tests.Testing;
 
-public class QueueingExtensionsTest
+public class QueueingExtensionsTest : MiruCoreTesting
 {
-    private ServiceProvider _sp;
-    private BackgroundJobServer _server;
     private Jobs _jobs;
-    private ITestFixture _;
 
-    [OneTimeSetUp]
-    public void Setup()
+    public override IServiceCollection ConfigureServices(IServiceCollection services)
     {
-        _sp = new ServiceCollection()
-            .AddMiruApp()
-            .AddMiruSolution(new MiruTestSolution())
-            .AddStorage()
-            .AddTestStorage()
-            .AddQueuing(x => x.UseLiteDb())
+        return services
+            .AddQueuing(x => x.Configuration.UseMemoryStorage())
+            .AddPipeline<QueueingTest>()
             .AddHangfireServer()
-            .AddMediatR(typeof(QueueingTest).Assembly)
-            .AddScoped<SomeService>()
-            .AddMiruCoreTesting()
-            .BuildServiceProvider();
-
-        _ = _sp.GetService<ITestFixture>();
-
-        // _server = _sp.GetService<BackgroundJobServer>();
-
-        _jobs = _sp.GetService<Jobs>();
+            .AddSingleton<BackgroundJobServer>();
     }
-
-    [OneTimeTearDown]
-    public void TearDown()
+    
+    [OneTimeSetUp]
+    public void OneTimeSetup()
     {
-        // _server.Dispose();
+        _jobs = _.Get<Jobs>();
     }
-        
+
     [Test]
-    public void Should_process_job()
+    public void Should_return_a_enqueued_job()
     {
         // arrange
         var job = new OrderCreated

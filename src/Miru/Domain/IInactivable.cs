@@ -1,7 +1,6 @@
-namespace Miru.Domain
+namespace Miru.Domain;
+
+public interface IInactivable
 {
-    public interface IInactivable
-    {
-        bool IsInactive { get; set; }
-    }
+    bool IsInactive { get; set; }
 }

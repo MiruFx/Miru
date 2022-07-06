@@ -18,6 +18,8 @@ public static class RedisRegistry
         });
         
         services.AddScoped<IQueueAuthorizer, TAuthorizer>();
+
+        services.AddQueueCleaner<RedisQueueCleaner>();
         
         services.AddSingleton(sp =>
         {

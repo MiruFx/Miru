@@ -5,6 +5,7 @@ using Hangfire.MemoryStorage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Miru.Databases;
+using Miru.Mailing;
 using Miru.Queuing;
 using Miru.Storages;
 using Miru.Urls;

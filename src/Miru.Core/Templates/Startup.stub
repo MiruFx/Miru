@@ -62,7 +62,7 @@ public class Startup : MiruStartup
             // SenderFileStorage saves emails at /storage/temp/emails
             // for sending emails throught smtp, use SmtpSender instead of FileStorageSender:
             // .AddSmtpSender()
-            .AddFileStorageSender()
+            // .AddFileStorageSender()
 
             .AddQueuing(_ =>
             {

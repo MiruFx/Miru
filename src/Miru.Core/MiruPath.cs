@@ -32,7 +32,7 @@ public struct MiruPath
         
     public static implicit operator string(MiruPath path) => path.ToString();
         
-    public static implicit operator MiruPath(string path) => new MiruPath(path);
+    public static implicit operator MiruPath(string path) => new(path);
 
     public override string ToString() => _path;
 }
