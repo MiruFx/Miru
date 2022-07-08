@@ -3,7 +3,7 @@ using Miru.Html.Tags;
 
 namespace Miru.Tests.Html.TagHelpers;
 
-public class MiruForTagHelperTest : TagHelperTest
+public class MiruForTagHelperTest : MiruTagTesting
 {
     [Test]
     public async Task Should_append_class_attribute()

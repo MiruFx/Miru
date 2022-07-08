@@ -5,7 +5,7 @@ using Miru.Tests.Html.TagHelpers;
 
 namespace Miru.Tests.Html;
 
-public class ElementNamingTest : TagHelperTest
+public class ElementNamingTest : MiruTagTesting
 {
     private readonly ElementNaming _naming;
 

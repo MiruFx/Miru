@@ -3,7 +3,7 @@ using Miru.Html.Tags;
 
 namespace Miru.Tests.Html.TagHelpers;
 
-public class InputHiddenTagHelperTest : TagHelperTest
+public class InputHiddenTagHelperTest : MiruTagTesting
 {
     [Test]
     public async Task Should_render_input_hidden_for_model()

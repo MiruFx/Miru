@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -9,24 +8,21 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Html;
 using Miru.Html.Tags;
-using Miru.Testing;
 using Miru.Urls;
-using NUnit.Framework;
 
 namespace Miru.Tests.Html.TagHelpers;
 
-public class TagHelperTest
+public class MiruTagTesting : MiruCoreTesting
 {
-    protected IServiceProvider ServiceProvider { get; set; }
+    private IServiceProvider _sp;
     
     protected virtual void HtmlConfiguration(HtmlConfiguration htmlConfig)
     {
     }
-    
-    [OneTimeSetUp]
-    public void OneTimeSetup()
+
+    public override IServiceCollection ConfigureServices(IServiceCollection services)
     {
-        var services = new ServiceCollection()
+        return services 
             .AddMiruHtml(HtmlConfiguration)
             .AddOptions()
             .ReplaceTransient<IAntiforgeryAccessor, TestingAntiForgeryAccessor>()
@@ -41,15 +37,18 @@ public class TagHelperTest
             {
                 x.Base = "https://mirufx.github.io";
             });
-                
-        ServiceProvider = services.BuildServiceProvider();
     }
 
-    protected TTag CreateTagWithFor<TTag, TModel>(
-        TTag tag,
-        TModel model) where TTag : MiruForTagHelper, new()
+    [OneTimeSetUp]
+    public void OneTimeSetup()
     {
-        tag.RequestServices = ServiceProvider;
+        _sp = _.Get<IServiceProvider>();
+    }
+
+    protected TTag CreateTagWithFor<TTag, TModel>(TTag tag, TModel model) 
+        where TTag : MiruForTagHelper, new()
+    {
+        tag.RequestServices = _sp;
 
         tag.For = MakeExpression(model);
 
@@ -61,7 +60,7 @@ public class TagHelperTest
         TModel model, 
         Expression<Func<TModel, TProperty>> expression = null) where TTag : MiruForTagHelper, new()
     {
-        tag.RequestServices = ServiceProvider;
+        tag.RequestServices = _sp;
 
         tag.For = MakeExpression(model, expression);
 
@@ -72,7 +71,7 @@ public class TagHelperTest
         where TTag : MiruTagHelper, 
         new()
     {
-        tag.RequestServices = ServiceProvider;
+        tag.RequestServices = _sp;
 
         return tag;
     }
@@ -81,7 +80,7 @@ public class TagHelperTest
         where TTag : MiruForTagHelper, 
         new()
     {
-        tag.RequestServices = ServiceProvider;
+        tag.RequestServices = _sp;
         tag.Model = model;
         return tag;
     }
@@ -203,9 +202,9 @@ public class TagHelperTest
     {
         var containerType = viewModel.GetType();
 
-        var m3 = ServiceProvider.GetService<ModelExpressionProvider>();
+        var m3 = _.Get<ModelExpressionProvider>();
             
-        var compositeMetadataDetailsProvider = ServiceProvider.GetService<ICompositeMetadataDetailsProvider>();
+        var compositeMetadataDetailsProvider = _.Get<ICompositeMetadataDetailsProvider>();
         var metadataProvider = new DefaultModelMetadataProvider(compositeMetadataDetailsProvider);
 
         var containerMetadata = metadataProvider.GetMetadataForType(containerType);
@@ -222,9 +221,9 @@ public class TagHelperTest
         TModel model, 
         Expression<Func<TModel, TProperty>> expression)
     {
-        var modelExpressionProvider = ServiceProvider.GetService<ModelExpressionProvider>();
+        var modelExpressionProvider = _.Get<ModelExpressionProvider>();
                 
-        var compositeMetadataDetailsProvider = ServiceProvider.GetService<ICompositeMetadataDetailsProvider>();
+        var compositeMetadataDetailsProvider = _.Get<ICompositeMetadataDetailsProvider>();
         var metadataProvider = new DefaultModelMetadataProvider(compositeMetadataDetailsProvider);
 
         var viewDataDictionary = new ViewDataDictionary<TModel>(metadataProvider, new ModelStateDictionary())
@@ -237,9 +236,9 @@ public class TagHelperTest
         
     protected ModelExpression MakeExpression<TModel>(TModel model)
     {
-        var modelExpressionProvider = ServiceProvider.GetService<ModelExpressionProvider>();
+        var modelExpressionProvider = _.Get<ModelExpressionProvider>();
                 
-        var compositeMetadataDetailsProvider = ServiceProvider.GetService<ICompositeMetadataDetailsProvider>();
+        var compositeMetadataDetailsProvider = _.Get<ICompositeMetadataDetailsProvider>();
         var metadataProvider = new DefaultModelMetadataProvider(compositeMetadataDetailsProvider);
 
         var viewDataDictionary = new ViewDataDictionary<TModel>(metadataProvider, new ModelStateDictionary())

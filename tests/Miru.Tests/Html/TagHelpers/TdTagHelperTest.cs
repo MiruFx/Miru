@@ -1,13 +1,9 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Corpo.Skeleton.Features.Teams;
 using Miru.Html.Tags;
-using NUnit.Framework;
-using Shouldly;
 
 namespace Miru.Tests.Html.TagHelpers;
 
-public class TdTagHelperTest : TagHelperTest
+public class TdTagHelperTest : MiruTagTesting
 {
     private TeamList.Result _model;
 
@@ -68,11 +64,7 @@ public class TdTagHelperTest : TagHelperTest
     public async Task Should_add_attributes_from_conventions()
     {
         // arrange
-        var tag = new TdTagHelper
-        {
-            For = MakeExpression(_model, m => m.Items[0].Id),
-            RequestServices = ServiceProvider
-        };
+        var tag = CreateTagWithFor(new TdTagHelper(), _model, m => m.Items[0].Id);
 
         // act
         var output = await ProcessTagAsync(tag, "miru-td");
@@ -80,6 +72,41 @@ public class TdTagHelperTest : TagHelperTest
         // assert
         output.TagName.ShouldBeNull();
         output.PreElement.GetContent().ShouldBe("<td><span id=\"Items[0].Id\">1</span></td>");
+    }
+    
+    [Test]
+    public async Task If_property_is_empty_list_then_it_should_render_child_content()
+    {
+        // arrange
+        var model = new TeamList.Result
+        {
+            Items = new List<TeamList.Item>
+            {
+                new() {Id = 1, Name = "iPhone", Groups = new()},
+            }
+        }; 
+        var tag = CreateTagWithFor(new TdTagHelper(), model, m => m.Items[0].Groups);
+
+        // act
+        var output = await ProcessTagAsync(tag, "miru-td");
+            
+        // assert
+        output.TagName.ShouldBeNull();
+        output.PreElement.GetContent().ShouldBe("<td><span id=\"Items[0].Groups\"></span></td>");
+    }
+    
+    [Test]
+    public async Task Should_render_empty_td()
+    {
+        // arrange
+        var tag = CreateTag(new TdTagHelper());
+
+        // act
+        var output = await ProcessTagAsync(tag, "miru-td");
+            
+        // assert
+        output.TagName.ShouldBeNull();
+        output.PreElement.GetContent().ShouldBe("<td></td>");
     }
 
     public class TeamList
@@ -96,6 +123,12 @@ public class TdTagHelperTest : TagHelperTest
         public class Item
         {
             public long Id { get; set; }
+            public string Name { get; set; }
+            public List<Group> Groups { get; set; } = new();
+        }
+
+        public class Group
+        {
             public string Name { get; set; }
         }
     }

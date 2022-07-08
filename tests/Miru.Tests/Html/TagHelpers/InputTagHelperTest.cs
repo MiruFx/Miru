@@ -4,7 +4,7 @@ using Miru.Html.Tags;
 
 namespace Miru.Tests.Html.TagHelpers;
 
-public class InputTagHelperTest : TagHelperTest
+public class InputTagHelperTest : MiruTagTesting
 {
     [Test]
     public async Task When_input_is_radio_and_property_enum_should_set_selected_if_model_is_equal_radio_value()

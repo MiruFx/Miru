@@ -2,7 +2,7 @@ using Miru.Html.Tags;
 
 namespace Miru.Tests.Html.TagHelpers;
 
-public class FormTagHelperTest : TagHelperTest
+public class FormTagHelperTest : MiruTagTesting
 {
     [Test]
     public async Task If_method_is_get_should_not_add_summary_hidden_and_anti_forgery_inputs()

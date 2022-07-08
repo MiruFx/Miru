@@ -3,7 +3,7 @@ using Miru.Html.Tags;
 
 namespace Miru.Tests.Html.TagHelpers;
 
-public class ThTagHelperTest : TagHelperTest
+public class ThTagHelperTest : MiruTagTesting
 {
     [Test]
     public async Task Should_create_header_for_model_property()

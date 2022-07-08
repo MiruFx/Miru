@@ -8,7 +8,7 @@ using Playground.Features.Examples;
 
 namespace Miru.Tests.Html.TagHelpers;
 
-public class SelectTagHelperTest : TagHelperTest
+public class SelectTagHelperTest : MiruTagTesting
 {
     [Test]
     public async Task Can_create_select_for_a_lookup_from_dictionary()

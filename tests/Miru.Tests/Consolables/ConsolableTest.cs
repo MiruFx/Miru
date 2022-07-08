@@ -22,20 +22,27 @@ namespace Miru.Tests.Consolables
     {
         private TextWriter _defaultConsoleWriter;
         private StringWriter _outWriter;
+        private TextWriter _defaultConsoleError;
+        private StringWriter _errorWriter;
 
         [SetUp]
         public void Setup()
         {
             _defaultConsoleWriter = Console.Out;
+            _defaultConsoleError = Console.Error;
+            
             _outWriter = new StringWriter();
+            _errorWriter = new StringWriter();
             
             Console.SetOut(_outWriter);
+            Console.SetError(_errorWriter);
         }
 
         [TearDown]
         public void Teardown()
         {
             Console.SetOut(_defaultConsoleWriter);
+            Console.SetError(_defaultConsoleError);
         }
 
         [Test]
@@ -119,6 +126,27 @@ namespace Miru.Tests.Consolables
             sp.GetServices<Consolable>()
                 .Any(x => x is ExampleConsolable)
                 .ShouldBeTrue();
+        }
+        
+        [Test]
+        public async Task Should_not_throw_exception_when_option_is_not_defined()
+        {
+            // arrange
+            var host = MiruHost.CreateMiruHost("miru", "config.show", "--Serilog:MinimumLevel:Override:Miru=Debug")
+                .ConfigureServices(services =>
+                {
+                    services
+                        .AddMiruCliHost()
+                        .AddConsolable<ConfigShowConsolable>();
+                });
+                
+            // act
+            await host.RunMiruAsync();
+            
+            // assert
+            var errorOutput = _errorWriter.ToString();
+            
+            errorOutput.ShouldNotContain("Unrecognized command or argument");
         }
 
         public interface IDependency

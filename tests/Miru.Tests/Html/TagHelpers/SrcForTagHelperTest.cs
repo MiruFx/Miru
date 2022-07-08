@@ -2,7 +2,7 @@ using Miru.Html.Tags;
 
 namespace Miru.Tests.Html.TagHelpers;
 
-public class SrcForTagHelperTest : TagHelperTest
+public class SrcForTagHelperTest : MiruTagTesting
 {
     [Test]
     public async Task Should_add_src_attr_for_a_feature_url()

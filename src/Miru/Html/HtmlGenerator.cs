@@ -105,9 +105,13 @@ public class HtmlGenerator
         
     public HtmlTag TagFor(MiruTagBuilder builder, string category)
     {
-        // TODO: why this commented line generates different results for DisplayTagHelperTest
-        // return GeneratorFor(builder.ModelExpression.Model).TagFor(builder.ElementRequest, category);
-        return TagFor(builder.ModelExpression, category);
+        if (builder.ModelExpression != null)
+            return TagFor(builder.ModelExpression, category);
+        
+        if (builder.Model != null)
+            return TagFor(builder.Model, category);
+        
+        return HtmlTag.Empty();
     }
         
     public HtmlTag TagFor(ModelExpression @for, string category)

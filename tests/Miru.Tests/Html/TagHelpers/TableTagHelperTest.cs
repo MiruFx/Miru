@@ -4,7 +4,7 @@ using Miru.Html.Tags;
 
 namespace Miru.Tests.Html.TagHelpers;
 
-public class TableTagHelperTest : TagHelperTest
+public class TableTagHelperTest : MiruTagTesting
 {
     protected override void HtmlConfiguration(HtmlConfiguration htmlConfig)
     {

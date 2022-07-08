@@ -11,17 +11,17 @@ namespace Miru.Tests.Foundation.Bootstrap
         {
             var cfg = new ArgsConfiguration(new [] { "miru", "migrate:up" });
             
-            cfg.RunCli.ShouldBeTrue();
+            cfg.IsRunningCli.ShouldBeTrue();
             cfg.CliArgs.ShouldBe(new[] { "migrate:up" });
             
             new ArgsConfiguration(new [] { "miru" })
-                .RunCli.ShouldBeTrue();
+                .IsRunningCli.ShouldBeTrue();
             
             new ArgsConfiguration(new [] { "other", "miru" })
-                .RunCli.ShouldBeFalse();
+                .IsRunningCli.ShouldBeFalse();
 
             new ArgsConfiguration(new string[] { })
-                .RunCli.ShouldBeFalse();
+                .IsRunningCli.ShouldBeFalse();
         }
         
         [Test]

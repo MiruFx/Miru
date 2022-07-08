@@ -2,17 +2,14 @@ using Miru.Html.Tags;
 
 namespace Miru.Tests.Html.TagHelpers;
 
-public class LinkForTagHelperTest : TagHelperTest
+public class LinkForTagHelperTest : MiruTagTesting
 {
     [Test]
     public async Task Should_build_link_for_a_request()
     {
         // arrange
-        var tag = new LinkForTagHelper
-        {
-            For = MakeExpression(new PostShow.Query { Id = 1 }),
-            RequestServices = ServiceProvider
-        };
+        var model = new PostShow.Query { Id = 1 };
+        var tag = CreateTag(new LinkForTagHelper() { For = model });
         
         // act
         var output = await ProcessTagAsync(tag, "a");

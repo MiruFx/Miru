@@ -2,18 +2,14 @@ using Miru.Html.Tags;
 
 namespace Miru.Tests.Html.TagHelpers;
 
-public class LabelTagHelperTest : TagHelperTest
+public class LabelTagHelperTest : MiruTagTesting
 {
     [Test]
     public async Task Should_render_label()
     {
         // arrange
         var command = new Command();
-        var tag = new LabelTagHelper
-        {
-            For = MakeExpression(command, m => m.Name),
-            RequestServices = ServiceProvider
-        };
+        var tag = CreateTagWithFor(new LabelTagHelper(), command, m => m.Name);
         
         // act
         var output = await ProcessTagAsync(tag, "miru-label");
@@ -28,10 +24,7 @@ public class LabelTagHelperTest : TagHelperTest
     {
         // arrange
         var command = new Command();
-        var tag = CreateTag(new LabelTagHelper
-        {
-            For = MakeExpression(command, m => m.Name),
-        });
+        var tag = CreateTagWithFor(new LabelTagHelper(), command, m => m.Name);
         
         // act
         var output = await ProcessTagAsync(tag, "miru-label", "Customer Name");

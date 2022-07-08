@@ -4,7 +4,7 @@ using Miru.Html.Tags;
 
 namespace Miru.Tests.Html.TagHelpers;
 
-public class CheckboxTest  : TagHelperTest
+public class CheckboxTest  : MiruTagTesting
 {
     [Test]
     public async Task Render_checkbox_for_boolean_false()
@@ -35,7 +35,7 @@ public class CheckboxTest  : TagHelperTest
     }
         
     [Test]
-    public async Task  Can_override_default_attributes()
+    public async Task Can_override_default_attributes()
     {
         // arrange
         var model = new Command { Remember = false };

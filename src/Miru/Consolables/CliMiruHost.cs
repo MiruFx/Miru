@@ -40,6 +40,8 @@ public class CliMiruHost : ICliMiruHost
         rootCommand.AddGlobalOption(
             new Option<string>("--environment", "Executes command in the specified environment").WithAlias("--e"));
 
+        rootCommand.TreatUnmatchedTokensAsErrors = false;
+        
         foreach (var consolable in _consolable)
         {
             rootCommand.AddCommand(consolable);

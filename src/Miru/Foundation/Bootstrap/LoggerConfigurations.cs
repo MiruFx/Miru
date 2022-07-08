@@ -20,7 +20,7 @@ namespace Miru.Foundation.Bootstrap
             .MinimumLevel.Debug()
             .WriteTo.Console(outputTemplate: SimpleOutputTemplate);
         
-        public static ILogger GetLogger(ArgsConfiguration argsConfig) => argsConfig.RunCli ? ForCli() : ForWeb();
+        public static ILogger GetLogger(ArgsConfiguration argsConfig) => argsConfig.IsRunningCli ? ForCli() : ForWeb();
         
         public static ILogger ForCli() => new LoggerConfiguration()
                 .MinimumLevel.Debug()

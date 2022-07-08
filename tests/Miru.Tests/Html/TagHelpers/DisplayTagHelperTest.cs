@@ -4,7 +4,7 @@ using Miru.Html.Tags;
 
 namespace Miru.Tests.Html.TagHelpers;
 
-public class DisplayTagHelperTest : TagHelperTest
+public class DisplayTagHelperTest : MiruTagTesting
 {
     [Test]
     public async Task When_property_is_null_should_render_empty_span()

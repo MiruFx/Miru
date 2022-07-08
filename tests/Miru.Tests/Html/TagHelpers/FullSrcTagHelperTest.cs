@@ -2,17 +2,16 @@ using Miru.Html.Tags;
 
 namespace Miru.Tests.Html.TagHelpers;
 
-public class FullSrcTagHelperTest : TagHelperTest
+public class FullSrcTagHelperTest : MiruTagTesting
 {
     [Test]
     public async Task Should_return_full_src_with_url_base()
     {
         // arrange
-        var tag = new FullSrcTagHelper
+        var tag = CreateTag(new FullSrcTagHelper
         {
             FullSrc = "/public/logos/miru.png",
-            RequestServices = ServiceProvider
-        };
+        });
         
         // act
         var output = await ProcessTagAsync(tag, "a");
