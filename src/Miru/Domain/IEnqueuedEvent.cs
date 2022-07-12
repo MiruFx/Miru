@@ -4,5 +4,5 @@ namespace Miru.Domain;
 
 public interface IEnqueuedEvent
 {
-    INotification GetJob();
+    INotification GetNotification();
 }

@@ -1,10 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Miru.Foundation.Hosting
+namespace Miru.Foundation.Hosting;
+
+public interface IMiruHost
 {
-    public interface IMiruHost
-    {
-        Task RunAsync(CancellationToken token = default);
-    }
+    Task RunAsync(CancellationToken token = default);
 }

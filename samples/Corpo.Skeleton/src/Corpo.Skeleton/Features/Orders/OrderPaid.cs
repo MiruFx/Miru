@@ -5,15 +5,16 @@ namespace Corpo.Skeleton.Features.Orders;
 // #job
 public class OrderPaid
 {
-    public class Request : IMiruJob
+    public class Request : MiruJob<Request>
     {
+        public override string Id => null;
     }
         
-    public class Handler : IRequestHandler<Request>
+    public class Handler : JobHandler<Request>
     {
-        public Task<Unit> Handle(Request request, CancellationToken cancellationToken)
+        public override Task Handle(Request request, CancellationToken ct)
         {
-            return Unit.Task;
+            return Task.CompletedTask;
         }
     }
 }

@@ -118,7 +118,7 @@ public class PostCreated : IDomainEvent, IEnqueuedEvent
         Post = post;
     }
 
-    public INotification GetJob()
+    public INotification GetNotification()
     {
         return new PostCreatedJob
         {

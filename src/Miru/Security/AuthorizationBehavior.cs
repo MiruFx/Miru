@@ -3,34 +3,34 @@ using System.Threading.Tasks;
 using MediatR;
 using Miru.Queuing;
 
-namespace Miru.Security
+namespace Miru.Security;
+
+public class AuthorizationBehavior<TRequest, TResponse> : 
+    IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
 {
-    public class AuthorizationBehavior<TRequest, TResponse> : 
-        IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
+    private readonly IAuthorizationRules _rules;
+
+    public AuthorizationBehavior(IAuthorizationRules rules)
     {
-        private readonly IAuthorizationRules _rules;
+        _rules = rules;
+    }
 
-        public AuthorizationBehavior(IAuthorizationRules rules)
-        {
-            _rules = rules;
-        }
-
-        public async Task<TResponse> Handle(
-            TRequest request, 
-            CancellationToken cancellationToken, 
-            RequestHandlerDelegate<TResponse> next)
-        {
-            var featureInfo = new FeatureInfo(typeof(TRequest));
+    public async Task<TResponse> Handle(
+        TRequest request, 
+        CancellationToken cancellationToken, 
+        RequestHandlerDelegate<TResponse> next)
+    {
+        var featureInfo = new FeatureInfo(typeof(TRequest));
             
-            if (featureInfo.Implements<IMiruJob>())
-                return await next();
+        // always ignore requests made inside the queues
+        if (request is IQueueable)
+            return await next();
             
-            var result = await _rules.Evaluate(request, featureInfo);
+        var result = await _rules.Evaluate(request, featureInfo);
                 
-            if (result.IsAuthorized)
-                return await next();
+        if (result.IsAuthorized)
+            return await next();
 
-            throw new UnauthorizedException(result.FailureMessage);
-        }
+        throw new UnauthorizedException(result.FailureMessage);
     }
 }

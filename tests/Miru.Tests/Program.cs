@@ -73,8 +73,6 @@ public class BenchmarkUrl
                     .AddMiruActionResult()
                     .AddMiruNestedControllers();
 
-                services.AddSingleton<IUrlMaps, StubUrlMaps>();
-
                 services.AddMiruUrls(x =>
                 {
                     x.Base = "https://mirufx.github.io";

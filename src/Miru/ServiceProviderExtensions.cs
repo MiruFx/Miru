@@ -4,24 +4,25 @@ using System.Collections.Immutable;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Miru
+namespace Miru;
+
+public static class ServiceProviderExtensions
 {
-    public static class ServiceProviderExtensions
+    public static TType Get<TType>(this IServiceProvider sp) => sp.GetService<TType>();
+    
+    public static IEnumerable<Type> GetRegisteredServices<TForType>(this IServiceProvider sp)
     {
-        public static IEnumerable<Type> GetRegisteredServices<TForType>(this IServiceProvider sp)
-        {
-            return sp.GetService<IServiceCollection>()
-                .Where(_ => _.ServiceType == typeof(TForType))
-                .Select(_ => _.ImplementationType)
-                .ToImmutableList();
-        }
+        return sp.GetService<IServiceCollection>()
+            .Where(_ => _.ServiceType == typeof(TForType))
+            .Select(_ => _.ImplementationType)
+            .ToImmutableList();
+    }
         
-        public static IEnumerable<Type> GetRegisteredServices<TForType>(this IMiruApp app)
-        {
-            return app.Get<IServiceCollection>()
-                .Where(_ => _.ServiceType == typeof(TForType))
-                .Select(_ => _.ImplementationType)
-                .ToImmutableList();
-        }
+    public static IEnumerable<Type> GetRegisteredServices<TForType>(this IMiruApp app)
+    {
+        return app.Get<IServiceCollection>()
+            .Where(_ => _.ServiceType == typeof(TForType))
+            .Select(_ => _.ImplementationType)
+            .ToImmutableList();
     }
 }

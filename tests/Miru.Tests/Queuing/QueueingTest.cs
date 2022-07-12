@@ -74,7 +74,7 @@ public class QueueingTest : MiruCoreTesting
     {
     }
 
-    public class CustomerNew : IMiruJob
+    public class CustomerNew : MiruJob<CustomerNew>
     {
         // job info
         public long CustomerId { get; set; }
@@ -82,24 +82,28 @@ public class QueueingTest : MiruCoreTesting
         // for the test
         public static bool Processed { get; set; }
 
-        public class Handler : IRequestHandler<CustomerNew>
+        public class Handler : IRequestHandler<CustomerNew, CustomerNew>
         {
-            public Task<Unit> Handle(CustomerNew request, CancellationToken cancellationToken)
+            public Task<CustomerNew> Handle(CustomerNew request, CancellationToken cancellationToken)
             {
                 request.CustomerId.ShouldBe(123);
 
                 Processed = true;
 
-                return Unit.Task;
+                return Task.FromResult(request);
             }
         }
+
+        public override string Id => CustomerId.ToString();
     }
 
-    public class ScopedJob : IMiruJob
+    public class ScopedJob : MiruJob<ScopedJob>
     {
+        public override string Id => null;
+
         public static bool Processed { get; set; }
         
-        public class ScopedHandler : JobHandler<ScopedJob>
+        public class ScopedHandler : IRequestHandler<ScopedJob, ScopedJob>
         {
             private readonly IServiceProvider _serviceProvider;
 
@@ -107,8 +111,8 @@ public class QueueingTest : MiruCoreTesting
             {
                 _serviceProvider = serviceProvider;
             }
-
-            protected override void Handle(ScopedJob request)
+            
+            public async Task<ScopedJob> Handle(ScopedJob request, CancellationToken cancellationToken)
             {
                 var service1 = _serviceProvider.GetService<SomeService>();
                 var service2 = _serviceProvider.GetService<SomeService>();
@@ -116,6 +120,8 @@ public class QueueingTest : MiruCoreTesting
                 service1.ShouldBe(service2);
 
                 Processed = true;
+
+                return await Task.FromResult(request);
             }
         }
     }

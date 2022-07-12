@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
+using System.Reflection;
 using AV.Enumeration;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Domain;
@@ -11,37 +15,41 @@ using Miru.Urls;
 
 namespace Miru.Tests.Urls;
 
-// [Ignore("WIP")]
-public class UrlTest : IDisposable
+public class UrlTest : MiruCoreTesting
 {
-    private MiruTestWebHost _host;
+    private UrlLookup _url;
 
-    private UrlLookup2 _url;
-
-    public void Dispose() => _host?.Dispose();
+    public override IServiceCollection ConfigureServices(IServiceCollection services)
+    {
+        var listener = new DiagnosticListener("Microsoft.AspNetCore");
+        
+        return services
+            .AddMvcCore()
+            .AddMiruActionResult()
+            .AddControllersAsServices()
+            .AddMiruNestedControllerUnder<UrlTest>()
+            .Services
+            .AddSingleton(listener)
+            .AddSingleton<DiagnosticSource>(listener)
+            .AddMiruUrls(x =>
+            {
+                x.Base = "https://mirufx.github.io";
+            })
+            .AddControllersWithViews()
+            .AddApplicationPart(typeof(UrlTest).Assembly)
+            .Services
+            //
+            .AddLogging();
+    }
 
     [OneTimeSetUp]
     public void Setup()
     {
-        _host = new(MiruHost.CreateMiruHost(), 
-            services =>
-            {
-                services
-                    .AddMvcCore()
-                    .AddMiruActionResult()
-                    .AddMiruNestedControllers();
-                    
-                services.AddMiruUrls2(x =>
-                {
-                    x.Base = "https://mirufx.github.io";
-                });
-                
-                services.AddControllersWithViews();
-            });
-
-        _url = _host.Services.GetService<UrlLookup2>();
+        _.Get<UrlMapsScanner>().Scan();
+        
+        _url = _.Get<UrlLookup>();
     }
-    
+
     [Test]
     public void Url_for_a_type()
     {
@@ -434,7 +442,7 @@ public class UrlTest : IDisposable
     public void When_building_full_url_ignore_last_bar()
     {
         // arrange
-        _host.Services.GetService<UrlOptions>().Base = "https://mirufx.github.io/";
+        // _.Get<UrlOptions>().Base = "https://mirufx.github.io/";
         
         var request = new ProductsEdit.Command
         {

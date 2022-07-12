@@ -1,6 +1,5 @@
-namespace Miru
+namespace Miru;
+
+public interface IPartialResult
 {
-    public interface IPartialResult
-    {
-    }
 }

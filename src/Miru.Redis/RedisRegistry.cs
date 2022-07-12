@@ -1,3 +1,4 @@
+using System;
 using Hangfire;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,12 +10,16 @@ namespace Miru.Redis;
 
 public static class RedisRegistry
 {
-    public static IServiceCollection AddRedisQueueing<TAuthorizer>(this IServiceCollection services)
+    public static IServiceCollection AddRedisQueueing<TAuthorizer>(
+        this IServiceCollection services,
+        Action<QueuingBuilder> queuingBuilder = null)
         where TAuthorizer : class, IQueueAuthorizer
     {
         services.AddQueuing(x =>
         {
             x.UseRedis();
+            
+            queuingBuilder?.Invoke(x);
         });
         
         services.AddScoped<IQueueAuthorizer, TAuthorizer>();

@@ -33,7 +33,7 @@ public class AccountRegisterTest : OneCaseFeatureTest
     [Test]
     public void Should_queue_email_to_user()
     {
-        var job = _.EnqueuedJob<EmailJob>();
+        var job = _.EnqueuedFor<EmailJob>();
         
         job.Email.ToAddresses.ShouldContain(m => m.EmailAddress == _command.Email);
         job.Email.Body.ShouldContain("Welcome To Playground");

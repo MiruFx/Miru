@@ -1,81 +1,73 @@
-using System.CommandLine.Invocation;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Miru.Consolables;
-using Miru.Foundation.Hosting;
-using NUnit.Framework;
-using Shouldly;
 
-namespace Miru.Tests.Hosting
+namespace Miru.Tests.Hosting;
+
+public class HostBuilderExtensionsTest
 {
-    public class HostBuilderExtensionsTest
+    [Test]
+    public async Task Should_run_miru_cli_host()
     {
-        [Test]
-        public async Task Should_run_miru_cli_host()
-        {
-            // arrange
-            var hostBuilder = MiruHost
-                .CreateMiruHost("miru", "test.assert")
-                .ConfigureServices(services =>
-                {
-                    services
-                        .AddConsolable<TestAssertConsolable>()
-                        .AddSingleton(services);
-                });
-
-            // act
-            await hostBuilder.RunMiruAsync();
-            
-            // assert
-            TestAssertConsolable.Executed.ShouldBeTrue();
-        }
-        
-        [Test]
-        public async Task Should_run_web_host()
-        {
-            // arrange
-            // TODO: automatic port
-            var hostBuilder = MiruHost
-                .CreateMiruHost()
-                .ConfigureWebHostDefaults(m => m.UseStartup<Startup>().UseKestrelAnyLocalPort());
-
-            // act
-            await hostBuilder.RunMiruAsync();
-            
-            Startup.Executed.ShouldBeTrue();
-        }
-
-        public class TestAssertConsolable : Consolable
-        {
-            public TestAssertConsolable() : base("test.assert")
+        // arrange
+        var hostBuilder = MiruHost
+            .CreateMiruHost("miru", "test.assert")
+            .ConfigureServices(services =>
             {
-            }
-            
-            public static bool Executed { get; private set; }
-            
-            public class ConsolableHandler : IConsolableHandler
-            {
-                public Task Execute()
-                {
-                    Executed = true;
-                    return Task.CompletedTask;
-                }
-            }
-        }
-        
-        public class Startup
-        {
-            public static bool Executed { get; private set; }
+                services
+                    .AddConsolable<TestAssertConsolable>()
+                    .AddSingleton(services);
+            });
 
-            public void Configure(IApplicationBuilder app, IHostApplicationLifetime lifetime)
+        // act
+        await hostBuilder.RunMiruAsync();
+            
+        // assert
+        TestAssertConsolable.Executed.ShouldBeTrue();
+    }
+        
+    [Test]
+    public async Task Should_run_web_host()
+    {
+        // arrange
+        var hostBuilder = MiruHost
+            .CreateMiruHost()
+            .ConfigureWebHostDefaults(m => m.UseStartup<Startup>().UseKestrelAnyLocalPort());
+
+        // act
+        await hostBuilder.RunMiruAsync();
+            
+        Startup.Executed.ShouldBeTrue();
+    }
+
+    public class TestAssertConsolable : Consolable
+    {
+        public TestAssertConsolable() : base("test.assert")
+        {
+        }
+            
+        public static bool Executed { get; private set; }
+            
+        public class ConsolableHandler : IConsolableHandler
+        {
+            public Task Execute()
             {
                 Executed = true;
-
-                lifetime.ApplicationStarted.Register(lifetime.StopApplication);
-            } 
+                return Task.CompletedTask;
+            }
         }
+    }
+        
+    public class Startup
+    {
+        public static bool Executed { get; private set; }
+
+        public void Configure(IApplicationBuilder app, IHostApplicationLifetime lifetime)
+        {
+            Executed = true;
+
+            lifetime.ApplicationStarted.Register(lifetime.StopApplication);
+        } 
     }
 }

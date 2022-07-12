@@ -38,11 +38,12 @@ public class QueueingExtensionsTest : MiruCoreTesting
         _jobs.Enqueue(job);
             
         // assert
-        _.EnqueuedJob<OrderCreated>().OrderId.ShouldBe(123);
+        _.EnqueuedFor<OrderCreated>().OrderId.ShouldBe(123);
     }
 
-    public class OrderCreated : IMiruJob
+    public class OrderCreated : MiruJob<OrderCreated>
     {
         public long OrderId { get; set; }
+        public override string Id => OrderId.ToString();
     }
 }

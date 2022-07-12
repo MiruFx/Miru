@@ -21,7 +21,6 @@ public static class ServiceCollectionExtensions
     {
         services
             .AddSenderMemory()
-            .AddSingleton<IUrlMaps, StubUrlMaps>()
             .AddTestStorage();
             
         return services;

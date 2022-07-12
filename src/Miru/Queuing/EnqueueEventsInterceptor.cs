@@ -35,11 +35,11 @@ public class EnqueueEventsInterceptor : DbTransactionInterceptor
         {
             while (entity.EnqueueEvents.TryTake(out var enqueuedEvent))
             {
-                var job = enqueuedEvent().GetJob();
+                var job = enqueuedEvent().GetNotification();
                 
                 App.Framework.Information("Enqueueing {job} from {entity}", job, entity);
                 
-                _jobs.Enqueue(enqueuedEvent().GetJob());
+                _jobs.Enqueue(enqueuedEvent().GetNotification());
             }
         }
         

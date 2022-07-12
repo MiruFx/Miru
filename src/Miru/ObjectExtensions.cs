@@ -39,17 +39,13 @@ public static class ObjectExtensions
         
     public static int ToInt(this object value)
     {
-        int ret = 0;
-
         if (value == null)
-            return ret;
+            return default;
 
         if (value is int number)
             return number;
         
-        int.TryParse(value.ToString(), out ret);
-        
-        return ret;
+        return Convert.ToInt32(value);
     }
         
     public static TAttribute GetAttribute<TAttribute>(this object instance) 

@@ -7,47 +7,48 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Miru.Foundation.Hosting
+namespace Miru.Foundation.Hosting;
+
+public class WebMiruHost : IMiruHost
 {
-    public class WebMiruHost : IMiruHost
+    private readonly IHost _host;
+
+    public WebMiruHost(IHost host)
     {
-        private readonly IHost _host;
-        private readonly ILogger<IMiruHost> _logger;
+        _host = host;
+    }
 
-        public WebMiruHost(IHost host, ILogger<IMiruHost> logger)
+    public async Task RunAsync(CancellationToken token = default)
+    {
+        try
         {
-            _host = host;
-            _logger = logger;
-        }
+            await _host.StartAsync(token);
 
-        public async Task RunAsync(CancellationToken token = default)
-        {
-            try
-            {
-                await _host.StartAsync(token);
-
-                DumpListeningAddresses();
+            DumpListeningAddresses();
                 
-                await _host.WaitForShutdownAsync(token);
-            }
-            finally
-            {
-                if (_host is IAsyncDisposable asyncDisposable)
-                    await asyncDisposable.DisposeAsync();
-                else
-                    _host.Dispose();
-            }
+            await _host.WaitForShutdownAsync(token);
         }
-
-        private void DumpListeningAddresses()
+        finally
         {
-            var addresses = _host.Services.GetService<IServer>()?.Features.Get<IServerAddressesFeature>()?.Addresses;
+            if (_host is IAsyncDisposable asyncDisposable)
+                await asyncDisposable.DisposeAsync();
+            else
+                _host.Dispose();
+        }
+    }
+
+    private void DumpListeningAddresses()
+    {
+        var addresses = _host.Services
+            .GetService<IServer>()?
+            .Features
+            .Get<IServerAddressesFeature>()?
+            .Addresses;
             
-            if (addresses != null)
-            {
-                _logger.LogCritical($"\tApp running at: {addresses.Join(", ")} ");
-                _logger.LogCritical(string.Empty);
-            }
+        if (addresses != null)
+        {
+            App.Framework.Fatal("\tApp running at: {Addresses}", addresses.Join(", "));
+            App.Framework.Fatal("");
         }
     }
 }

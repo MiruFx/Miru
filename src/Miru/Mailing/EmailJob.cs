@@ -2,40 +2,41 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.Extensions.Logging;
 using Miru.Queuing;
 
-namespace Miru.Mailing
+namespace Miru.Mailing;
+
+public class EmailJob : MiruJob<EmailJob>
 {
-    public class EmailJob : IMiruJob
-    {
-        public Email Email { get; }
+    public Email Email { get; }
+
+    public override string Id => Email.Subject;
         
-        public EmailJob(Email email)
+    public EmailJob(Email email)
+    {
+        Email = email;
+    }
+
+    public class Handler : IRequestHandler<EmailJob, EmailJob>
+    {
+        private readonly FluentEmail.Core.Interfaces.ISender _sender;
+
+        public Handler(FluentEmail.Core.Interfaces.ISender sender)
         {
-            Email = email;
+            _sender = sender;
         }
 
-        public class Handler : IRequestHandler<EmailJob>
+        public async Task<EmailJob> Handle(EmailJob request, CancellationToken cancellationToken)
         {
-            private readonly FluentEmail.Core.Interfaces.ISender _sender;
-            private readonly ILogger<Handler> _logger;
-
-            public Handler(FluentEmail.Core.Interfaces.ISender sender, ILogger<Handler> logger)
-            {
-                _sender = sender;
-                _logger = logger;
-            }
-
-            public async Task<Unit> Handle(EmailJob request, CancellationToken cancellationToken)
-            {
-                var response = await _sender.SendAsync(new FluentEmail.Core.Email { Data = request.Email });
+            var response = await _sender.SendAsync(new FluentEmail.Core.Email { Data = request.Email });
             
-                if (response.Successful)
-                    _logger.LogDebug($"Email '{request.Email.Subject}' sent to {request.Email.ToAddresses.Select(m => m.EmailAddress).Join(",")}");
+            if (response.Successful)
+                App.Framework.Information(
+                    "Email {Subject} sent to {ToAddresses}", 
+                    request.Email.Subject,
+                    request.Email.ToAddresses.Select(m => m.EmailAddress).Join(","));
 
-                return Unit.Value;
-            }
+            return request;
         }
     }
 }

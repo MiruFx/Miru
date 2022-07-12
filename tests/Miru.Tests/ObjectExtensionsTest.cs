@@ -1,13 +1,16 @@
 using System.Collections.Generic;
-using Miru.Core;
-using NUnit.Framework;
-// using Shoppers.Domain;
-using Shouldly;
 
 namespace Miru.Tests;
 
 public class ObjectExtensionsTest
 {
+    [Test]
+    public void Should_convert_object_to_int()
+    {
+        25.00m.ToInt().ShouldBe(25);
+        "25".ToInt().ShouldBe(25);
+    }
+    
     public class Yml
     {
         [SetUp]

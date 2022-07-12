@@ -1,12 +1,11 @@
-using System;
 using Miru.Consolables;
 
 namespace Corpo.Skeleton.Consolables;
 
 // #consolable
-public class HiConsolable : Consolable
+public class AppHelloConsolable : Consolable
 {
-    public HiConsolable() : base("hi", "Renders hi")
+    public AppHelloConsolable() : base("app.hello", "Renders Hello")
     {
     }
 
@@ -14,7 +13,7 @@ public class HiConsolable : Consolable
     {
         public Task Execute()
         {
-            Console.WriteLine("Hi!");
+            Console.WriteLine("Hello!");
 
             return Task.CompletedTask;
         }

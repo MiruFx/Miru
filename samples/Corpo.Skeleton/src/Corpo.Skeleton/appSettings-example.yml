@@ -46,5 +46,4 @@ Serilog:
 #      Microsoft.AspNetCore: Information
 #      Microsoft.EntityFrameworkCore.Database.Command: Information # Show SQL
 #      Microsoft.Hosting: Information
-#      Quartz: Information
 #      Hangfire: Information

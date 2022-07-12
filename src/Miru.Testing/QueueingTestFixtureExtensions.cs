@@ -31,16 +31,17 @@ namespace Miru.Testing
                 .Count;
         }
 
-        public static bool EnqueuedOneJobFor<TJob>(this ITestFixture fixture) where TJob : IMiruJob
+        public static bool AnyEnqueuedFor<TQueueable>(this ITestFixture fixture) 
+            where TQueueable : IQueueable
         {
             return fixture.Get<JobStorage>()
                 .GetMonitoringApi()
                 .EnqueuedJobs("default", 0, 1000)
                 .Select(result => result.Value)
-                .Count(enqueueJob => enqueueJob.Job.Args[0].GetType() == typeof(TJob)) == 1;
+                .Count(enqueueJob => enqueueJob.Job.Args[0].GetType() == typeof(TQueueable)) == 1;
         }
         
-        public static TJob EnqueuedJob<TJob>(this ITestFixture fixture)
+        public static TJob EnqueuedFor<TJob>(this ITestFixture fixture)
         {
             var entry = fixture.Get<JobStorage>()
                 .GetMonitoringApi()
@@ -54,7 +55,7 @@ namespace Miru.Testing
             return (TJob) entry.Job.Args[0];
         }
         
-        public static IEnumerable<TJob> EnqueuedJobs<TJob>(this ITestFixture fixture) where TJob : IMiruJob =>
+        public static IEnumerable<TJob> AllEnqueuedFor<TJob>(this ITestFixture fixture) where TJob : IQueueable =>
             fixture.Get<JobStorage>()
                 .GetMonitoringApi()
                 .EnqueuedJobs("default", 0, 1000)
@@ -65,7 +66,7 @@ namespace Miru.Testing
         
         public static Email EnqueuedEmail(this ITestFixture fixture)
         {
-            var job = fixture.EnqueuedJob<EmailJob>();
+            var job = fixture.EnqueuedFor<EmailJob>();
 
             if (job == null)
                 throw new MiruException("There is no EmailJob queued");
@@ -74,6 +75,6 @@ namespace Miru.Testing
         }
         
         public static IEnumerable<Email> EnqueuedEmails(this ITestFixture fixture) =>
-            fixture.EnqueuedJobs<EmailJob>().Select(x => x.Email);
+            fixture.AllEnqueuedFor<EmailJob>().Select(x => x.Email);
     }
 }

@@ -10,6 +10,8 @@ public class ArgsConfiguration
     public bool Verbose { get; private set; }
         
     public bool IsRunningCli { get; }
+    
+    public bool IsRunningWebApp => IsRunningCli == false;
         
     public string[] CliArgs { get; } = { };
         
