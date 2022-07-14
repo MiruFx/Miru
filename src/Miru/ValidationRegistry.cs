@@ -9,6 +9,8 @@ public static class ValidationRegistry
 {
     public static IServiceCollection AddValidators<TAssemblyOfType>(this IServiceCollection services)
     {
+        // ValidatorOptions.Global.PropertyNameResolver
+        
         ValidatorOptions.Global.DisplayNameResolver = (_, memberInfo, _) => 
             memberInfo.GetCustomAttribute<DisplayAttribute>()?.GetName();
             

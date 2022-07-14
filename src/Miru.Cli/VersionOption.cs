@@ -51,7 +51,7 @@ public class MiruVersionOption : Option<bool>
         };
     }
 
-    public override string? Description
+    public override string Description
     {
         get => _description ??= "Show version information";
         set => _description = value;

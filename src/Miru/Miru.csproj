@@ -19,8 +19,8 @@
         <PackageReference Include="AV.Enumeration.ModelBinder" Version="1.5.4" />
 
         <!-- Data -->
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.6" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.7" />
         <PackageReference Include="FluentMigrator" Version="3.3.2" />
         <PackageReference Include="FluentMigrator.Runner" Version="3.3.2" />
         <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="6.14.2" />
@@ -53,8 +53,8 @@
         <PackageReference Include="Hangfire.Console.Extensions.Serilog" Version="1.0.2" />
 
         <!-- Userfy -->
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.6" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.6" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.7" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.7" />
 
         <!-- MiniProfiler -->
         <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
