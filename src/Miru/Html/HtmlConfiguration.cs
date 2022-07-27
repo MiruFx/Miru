@@ -93,7 +93,14 @@ public class HtmlConfiguration : HtmlConventionRegistry
         // Displays
         Displays
             .IfPropertyNameEnds("Date")
-            .ModifyWith(m => m.CurrentTag.Text(m.Value<DateTime>().ToString("dd/MM/yyyy")));
+            .ModifyWith(m =>
+            {
+                var value = m.RawValue;
+                if (value is DateTime dateTime)
+                {
+                    m.CurrentTag.Text(dateTime.ToString("dd/MM/yyyy"));
+                }
+            });
             
         Displays
             .IfPropertyIs<decimal>()
