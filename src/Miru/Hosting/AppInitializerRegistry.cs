@@ -15,7 +15,7 @@ public static class AppInitializerRegistry
     
     public static IServiceCollection AddInitializer(this IServiceCollection services, Type initializerType)
     {
-        services.TryAddSingleton<AppInitializerRunner>();
+        services.TryAddTransient<AppInitializerRunner>();
 
         return services.AddTransient(typeof(IAppInitializer), initializerType);
     }

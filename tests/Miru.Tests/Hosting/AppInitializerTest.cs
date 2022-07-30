@@ -86,6 +86,52 @@ public class AppInitializerTest
             Initializer1.Executed.ShouldBeTrue();
             Initializer2.Executed.ShouldBeTrue();
         }
+        
+        [Test]
+        public async Task Should_run_initializers_when_invoking_test()
+        {
+            // arrange
+            var hostBuilder = MiruHost
+                .CreateMiruHost("miru", "test.assert")
+                .ConfigureServices(services =>
+                {
+                    services
+                        .AddInitializer<Initializer1>()
+                        .AddInitializer<Initializer2>()
+                        .AddConsolable<TestAssertConsolable>()
+                        .AddSingleton(services);
+                });
+
+            // act
+            await hostBuilder.RunMiruAsync();
+            
+            // assert
+            TestAssertConsolable.Executed.ShouldBeTrue();
+            Initializer1.Executed.ShouldBeTrue();
+            Initializer2.Executed.ShouldBeTrue();
+        }
+        
+        [Test]
+        public async Task Should_run_initializers_with_scoped_dependencies()
+        {
+            // arrange
+            var hostBuilder = MiruHost
+                .CreateMiruHost("miru", "test.assert")
+                .ConfigureServices(services =>
+                {
+                    services
+                        .AddInitializer<InitializerWithScopedDependency>()
+                        .AddScoped<ScopedService>()
+                        .AddConsolable<TestAssertConsolable>()
+                        .AddSingleton(services);
+                });
+
+            // act
+            await hostBuilder.RunMiruAsync();
+            
+            // assert
+            ScopedService.Executed.ShouldBeTrue();
+        }
     }
     
     public class Initializer1 : IAppInitializer
@@ -109,6 +155,28 @@ public class AppInitializerTest
             Thread.Sleep(1.Seconds());
             Executed = true;
             await Task.CompletedTask;
+        }
+    }
+
+    public class InitializerWithScopedDependency : IAppInitializer
+    {
+        public InitializerWithScopedDependency(ScopedService scopedService)
+        {
+        }
+
+        public async Task InitializeAsync()
+        {
+            await Task.CompletedTask;
+        }
+    }
+    
+    public class ScopedService
+    {
+        public static bool Executed;
+
+        public ScopedService()
+        {
+            Executed = true;
         }
     }
     
