@@ -10,7 +10,7 @@ public static class HostBuilderExtensions
     {
         var host = hostBuilder.Build();
 
-        await RunAppInitializers(host);
+        await host.RunAppInitializers();
 
         var miruRunner = host.Services.GetRequiredService<MiruRunner>();
         
@@ -22,7 +22,7 @@ public static class HostBuilderExtensions
         return hostBuilder.Build().Services.GetService<IMiruApp>();
     }
     
-    private static async Task RunAppInitializers(IHost host)
+    public static async Task RunAppInitializers(this IHost host)
     {
         using var scope = host.Services.Get<IMiruApp>().WithScope();
 

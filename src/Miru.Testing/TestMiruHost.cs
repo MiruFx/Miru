@@ -87,12 +87,8 @@ public class TestMiruHost
         var sp = host.Services;
             
         App =  sp.GetService<IMiruApp>();
-        
-        // TODO: Should use same mechanism as WebHost and CliHost
-        var appInitializerRunner = host.Services.Get<AppInitializerRunner>();
 
-        if (appInitializerRunner is not null)
-            appInitializerRunner.RunAsync().GetAwaiter().GetResult();
+        host.RunAppInitializers().GetAwaiter().GetResult();
 
         ExecuteBeforeSuite();
 
