@@ -3,6 +3,7 @@ using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Running;
 using Microsoft.Extensions.DependencyInjection;
+using Miru.Hosting;
 using Miru.Mvc;
 using Miru.Tests.Urls;
 using Miru.Urls;

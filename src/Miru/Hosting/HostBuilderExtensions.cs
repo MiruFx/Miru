@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Miru.Foundation.Hosting;
+namespace Miru.Hosting;
 
 public static class HostBuilderExtensions
 {
@@ -10,8 +10,13 @@ public static class HostBuilderExtensions
     {
         var host = hostBuilder.Build();
 
-        var miruRunner = host.Services.GetRequiredService<MiruRunner>();
+        var appInitializerRunner = host.Services.Get<AppInitializerRunner>();
 
+        if (appInitializerRunner is not null)
+            await appInitializerRunner.RunAsync();
+
+        var miruRunner = host.Services.GetRequiredService<MiruRunner>();
+        
         await miruRunner.RunAsync();
     }
 

@@ -1,6 +1,7 @@
 using System;
 using Hangfire;
 using Microsoft.Extensions.DependencyInjection;
+using Miru.Hosting;
 using Miru.Queuing;
 using Miru.Scheduling;
 using Miru.Security;

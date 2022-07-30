@@ -4,6 +4,7 @@ using Hangfire.MemoryStorage;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Foundation.Logging;
+using Miru.Hosting;
 using Miru.Mailing;
 using Miru.Queuing;
 using Miru.Storages;

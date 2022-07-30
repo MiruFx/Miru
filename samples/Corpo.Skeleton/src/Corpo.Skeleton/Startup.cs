@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Miru.Behaviors.BelongsToUser;
 using Miru.Behaviors.TimeStamp;
-using Miru.Foundation.Hosting;
+using Miru.Hosting;
 using Miru.Queuing;
 using Miru.Sqlite;
 

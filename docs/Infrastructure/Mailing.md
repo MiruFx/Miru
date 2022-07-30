@@ -17,6 +17,9 @@ Template
 Sending
   TODO: smtp driver
   TODO: storage driver
+Send Now Or Queue?
+  Consider the business requirements
+    
 TODO: Testing
   
 

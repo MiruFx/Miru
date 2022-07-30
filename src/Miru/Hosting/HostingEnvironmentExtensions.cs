@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Hosting;
 
-namespace Miru.Foundation.Hosting;
+namespace Miru.Hosting;
 
 public static class HostingEnvironmentExtensions
 {

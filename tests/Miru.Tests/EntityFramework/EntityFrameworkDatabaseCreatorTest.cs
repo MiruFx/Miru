@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Miru.Databases;
 using Miru.Databases.EntityFramework;
-using Miru.Foundation.Hosting;
+using Miru.Hosting;
 using Miru.Settings;
 using Miru.SqlServer;
 using NUnit.Framework;

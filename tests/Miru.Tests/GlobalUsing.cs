@@ -6,4 +6,3 @@ global using NUnit.Framework;
 global using Shouldly;
 global using Microsoft.Extensions.Hosting;
 global using Miru.Core;
-global using Miru.Foundation.Hosting;

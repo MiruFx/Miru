@@ -3,7 +3,7 @@ using System.Net.Http;
 using Alba;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Miru.Foundation.Hosting;
+using Miru.Hosting;
 using Miru.Urls;
 using NUnit.Framework;
 using Shouldly;

@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Foundation.Bootstrap;
-using Miru.Foundation.Hosting;
+using Miru.Hosting;
 
 namespace Miru.Consolables;
 

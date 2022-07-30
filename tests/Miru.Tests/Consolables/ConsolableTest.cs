@@ -9,7 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Miru.Config;
 using Miru.Consolables;
 using Miru.Core;
-using Miru.Foundation.Hosting;
+using Miru.Hosting;
 using Miru.Makers;
 using Miru.Testing;
 using NUnit.Framework;

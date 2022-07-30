@@ -1,7 +1,7 @@
 using System;
 using Alba;
 using Microsoft.Extensions.DependencyInjection;
-using Miru.Foundation.Hosting;
+using Miru.Hosting;
 using Miru.Urls;
 using NUnit.Framework;
 

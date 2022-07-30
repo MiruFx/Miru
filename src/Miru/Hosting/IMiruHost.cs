@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Miru.Foundation.Hosting;
+namespace Miru.Hosting;
 
 public interface IMiruHost
 {

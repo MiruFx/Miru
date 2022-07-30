@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Miru.Foundation;
-using Miru.Foundation.Hosting;
+using Miru.Hosting;
 using Miru.Storages;
 using Miru.Userfy;
 using Serilog;
@@ -72,8 +72,6 @@ public class TestMiruHost
                     
             services.AddSingleton<Faker, Faker>();
 
-            // services.ReplaceSingleton<ILogger>(sp => TestLoggerConfigurations.ForTests(sp.GetService<Storage>()));
-                    
             services.AddRange(servicesFromTestConfig);
 
             // test engine stuff

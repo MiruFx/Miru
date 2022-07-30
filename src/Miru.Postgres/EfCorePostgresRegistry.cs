@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Miru.Databases.EntityFramework;
 using Miru.Databases.Migrations;
-using Miru.Foundation.Hosting;
+using Miru.Hosting;
 using Miru.Settings;
 
 namespace Miru.Postgres;

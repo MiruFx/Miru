@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Consolables;
-using Miru.Foundation.Hosting;
+using Miru.Hosting;
 
 namespace Miru;
 

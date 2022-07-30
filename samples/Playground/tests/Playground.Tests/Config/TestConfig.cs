@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Miru;
 using Miru.Fabrication;
-using Miru.Foundation.Hosting;
+using Miru.Hosting;
 using Miru.Queuing;
 using Miru.Sqlite;
 using Miru.Testing;

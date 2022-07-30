@@ -1,4 +1,4 @@
-using Miru.Foundation.Hosting;
+using Miru.Hosting;
 
 namespace {{ Solution.Name }};
 

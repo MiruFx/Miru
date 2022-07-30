@@ -12,6 +12,7 @@ public class InputTagHelper : MiruForTagHelper
 
     public override void AfterHtmlTagGeneration(MiruTagBuilder builder, HtmlTag htmlTag)
     {
+        // TODO: if is radio and bool, work with value/checked
         if (htmlTag.Attr("type").Equals("radio"))
         {
             if (htmlTag.HasAttr("value"))

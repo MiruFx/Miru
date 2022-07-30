@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Core;
-using Miru.Foundation.Hosting;
+using Miru.Hosting;
 
 namespace Miru;
 

@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Miru.Foundation.Hosting;
+using Miru.Hosting;
 
 namespace Playground
 {

@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Miru.Core;
 using Miru.Foundation.Bootstrap;
 
-namespace Miru.Foundation.Hosting;
+namespace Miru.Hosting;
 
 public class MiruRunner
 {

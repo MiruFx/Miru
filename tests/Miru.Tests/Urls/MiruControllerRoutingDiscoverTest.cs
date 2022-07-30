@@ -2,6 +2,7 @@ using System;
 using Alba;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Miru.Hosting;
 using Miru.Urls;
 
 namespace Miru.Tests.Urls

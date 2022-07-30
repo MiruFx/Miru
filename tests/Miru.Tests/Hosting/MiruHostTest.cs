@@ -1,4 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
+using Miru.Hosting;
 using Miru.Settings;
 
 namespace Miru.Tests.Hosting;

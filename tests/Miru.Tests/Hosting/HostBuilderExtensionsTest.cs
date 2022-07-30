@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Consolables;
+using Miru.Hosting;
 
 namespace Miru.Tests.Hosting;
 

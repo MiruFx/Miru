@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Miru.Core;
-using Miru.Foundation.Hosting;
+using Miru.Hosting;
 using Miru.Mvc;
 using Miru.Urls;
 
