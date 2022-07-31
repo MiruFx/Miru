@@ -3,7 +3,7 @@ using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Core;
 using Miru.Foundation.Logging;
-using Miru.Userfy;
+using Miru.Hosting;
 using Serilog;
 
 namespace Miru;

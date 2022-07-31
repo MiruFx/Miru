@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using Miru.Core;
 using Miru.Hosting;
 
 namespace Miru;
@@ -45,9 +44,9 @@ public class MiruApp : IMiruApp
 
     public async Task RunAsync()
     {
-        var miruRunner = Get<MiruRunner>();
+        var miruHost = Get<IMiruHost>();
         
-        await miruRunner.RunAsync();
+        await miruHost.RunAsync();
     }
 
     public void Dispose()

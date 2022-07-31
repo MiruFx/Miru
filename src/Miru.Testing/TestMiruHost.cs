@@ -1,5 +1,7 @@
 using System;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using Baseline;
 using Bogus;
 using Microsoft.AspNetCore.Builder;
@@ -13,7 +15,7 @@ using Serilog;
 
 namespace Miru.Testing;
 
-public class TestMiruHost
+public class TestMiruHost : IMiruHost
 {
     internal static IMiruApp App { get; set; }
 
@@ -33,7 +35,7 @@ public class TestMiruHost
         return App;
     }
 
-    public static IHostBuilder CreateMiruHost<TStartup>() where TStartup : class
+    public static IHostBuilder CreateWebMiruHost<TStartup>() where TStartup : class
     {
         return MiruHost.CreateMiruWebHost<TStartup>()
             .ConfigureWebHost(host =>
@@ -80,6 +82,8 @@ public class TestMiruHost
             services.AddSingleton(_testRunConfig);
                 
             servicesSetup?.Invoke(services);
+
+            services.AddSingleton<IMiruHost>(sp => this);
         });
             
         var host = builder.Build();
@@ -93,5 +97,10 @@ public class TestMiruHost
         ExecuteBeforeSuite();
 
         return App;
+    }
+
+    public async Task RunAsync(CancellationToken token = default)
+    {
+        await Task.CompletedTask;
     }
 }

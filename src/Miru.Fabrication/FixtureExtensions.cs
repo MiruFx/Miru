@@ -3,6 +3,7 @@ using AutoFixture;
 using AV.Enumeration;
 using Baseline.Dates;
 using Bogus;
+using Microsoft.AspNetCore.Http;
 using Miru.Domain;
 using Miru.Fabrication.FixtureConventions;
 using Miru.Userfy;
@@ -52,6 +53,8 @@ public static class FixtureExtensions
                 
             // Dates
             // _.IfPropertyTypeIs<DateTimeOffset>().Use(f => f.Date.FutureOffset().Time);
+            
+            _.IfPropertyTypeIs<IFormFile>().Ignore();
         });
             
         return fixture;

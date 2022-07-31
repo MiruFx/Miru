@@ -50,8 +50,6 @@ public static class MiruServiceCollectionExtensions
         services.AddFlashMessage();
         services.AddMiruUrls();
 
-        services.AddMiruCliHost();
-
         services.AddConsolables<TStartup>();
             
         services.AddConsolable<ConfigShowConsolable>();

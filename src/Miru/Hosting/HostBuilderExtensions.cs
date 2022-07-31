@@ -6,15 +6,17 @@ namespace Miru.Hosting;
 
 public static class HostBuilderExtensions
 {
-    public static async Task RunMiruAsync(this IHostBuilder hostBuilder)
+    public static async Task<IMiruHost> RunMiruAsync(this IHostBuilder hostBuilder)
     {
         var host = hostBuilder.Build();
 
+        var miruHost = host.Services.GetRequiredService<IMiruHost>();
+        
         await host.RunAppInitializers();
 
-        var miruRunner = host.Services.GetRequiredService<MiruRunner>();
-        
-        await miruRunner.RunAsync();
+        await miruHost.RunAsync();
+
+        return miruHost;
     }
 
     public static IMiruApp BuildApp(this IHostBuilder hostBuilder)

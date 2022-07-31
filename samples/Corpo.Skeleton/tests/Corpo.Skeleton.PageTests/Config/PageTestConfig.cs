@@ -32,5 +32,5 @@ public class PageTestsConfig : ITestConfig
     }
         
     public IHostBuilder GetHostBuilder() => 
-        TestMiruHost.CreateMiruHost<Startup>();
+        TestMiruHost.CreateWebMiruHost<Startup>();
 }

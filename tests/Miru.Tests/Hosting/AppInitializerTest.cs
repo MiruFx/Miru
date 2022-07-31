@@ -1,15 +1,19 @@
-using System;
+using System.Collections.Generic;
 using System.Threading;
 using FluentMigrator.Runner;
 using Humanizer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Consolables;
+using Miru.Domain;
 using Miru.Hosting;
 
 namespace Miru.Tests.Hosting;
 
+[TestFixture]
 public class AppInitializerTest
 {
     public class Execution
@@ -121,7 +125,7 @@ public class AppInitializerTest
                 {
                     services
                         .AddInitializer<InitializerWithScopedDependency>()
-                        .AddScoped<ScopedService>()
+                        .AddEfCoreInMemory<FooDbContext>()
                         .AddConsolable<TestAssertConsolable>()
                         .AddSingleton(services);
                 });
@@ -130,7 +134,7 @@ public class AppInitializerTest
             await hostBuilder.RunMiruAsync();
             
             // assert
-            ScopedService.Executed.ShouldBeTrue();
+            InitializerWithScopedDependency.Executed.ShouldBeTrue();
         }
     }
     
@@ -160,23 +164,43 @@ public class AppInitializerTest
 
     public class InitializerWithScopedDependency : IAppInitializer
     {
-        public InitializerWithScopedDependency(ScopedService scopedService)
+        public static bool Executed;
+        
+        private readonly FooDbContext _db;
+
+        public InitializerWithScopedDependency(FooDbContext db)
         {
+            _db = db;
         }
 
         public async Task InitializeAsync()
         {
-            await Task.CompletedTask;
+            await _db.Posts.FirstOrDefaultAsync();
+            
+            Executed = true;
         }
     }
     
-    public class ScopedService
+    public class Post : Entity
     {
-        public static bool Executed;
-
-        public ScopedService()
+    }
+    
+    public class FooDbContext : DbContext
+    {
+        private readonly IEnumerable<IInterceptor> _interceptors;
+        
+        public FooDbContext(
+            DbContextOptions options, 
+            IEnumerable<IInterceptor> interceptors) : base(options)
         {
-            Executed = true;
+            _interceptors = interceptors;
+        }
+    
+        public DbSet<Post> Posts { get; set; }
+        
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.AddInterceptors(_interceptors);
         }
     }
     

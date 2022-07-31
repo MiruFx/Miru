@@ -41,9 +41,4 @@ public static class ServiceTaskExtensions
             
         return services;
     }
-        
-    public static IServiceCollection AddMiruCliHost(this IServiceCollection services)
-    {
-        return services.AddSingleton<ICliMiruHost, CliMiruHost>();
-    }
 }

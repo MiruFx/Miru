@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Miru.Consolables;
 using Miru.Core;
 using Miru.Foundation.Bootstrap;
 using Miru.Foundation.Logging;
@@ -77,16 +78,15 @@ public static class MiruHost
             .ConfigureServices((host, services) =>
             {
                 var argsConfig = new ArgsConfiguration(args);
-
-                // Host
+                
                 services.AddServiceCollection();
                 services.AddSingleton(argsConfig);
-                services.AddSingleton<MiruRunner>();
-                services.AddSingleton<IMiruHost, WebMiruHost>();
-                services.AddSingleton<IMiruHost>(sp => sp.GetService<ICliMiruHost>());
-                    
-                // Consolables
-                services.AddMiruCliHost();
+                
+                // Miru Host
+                if (argsConfig.IsRunningWebApp)
+                    services.AddSingleton<IMiruHost, WebMiruHost>();
+                else
+                    services.AddSingleton<IMiruHost, CliMiruHost>();
 
                 // AppConfig
                 services.Configure<DatabaseOptions>(host.Configuration.GetSection("Database"));
