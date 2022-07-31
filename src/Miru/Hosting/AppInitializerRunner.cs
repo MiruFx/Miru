@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FluentMigrator.Runner;
 
 namespace Miru.Hosting;
 
@@ -14,6 +15,8 @@ public class AppInitializerRunner
 
     public async Task RunAsync()
     {
+        var sw = new StopWatch();
+        
         await Parallel.ForEachAsync(
             _initializers, 
             new ParallelOptions { MaxDegreeOfParallelism = 1 }, 
@@ -21,5 +24,7 @@ public class AppInitializerRunner
             {
                 await initializer.InitializeAsync();
             });
+        
+        App.Framework.Debug("AppInitializers ran in {ElapsedTime} ms", sw.ElapsedTime()); 
     }
 }

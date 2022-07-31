@@ -45,7 +45,7 @@ public class UrlTest : MiruCoreTesting
     [OneTimeSetUp]
     public void Setup()
     {
-        _.Get<UrlMapsScanner>().Scan();
+        // _.Get<UrlMapsScanner>().Scan();
         
         _url = _.Get<UrlLookup>();
     }
