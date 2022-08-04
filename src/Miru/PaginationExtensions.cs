@@ -82,8 +82,11 @@ namespace Miru
             IPageable pageable,
             CancellationToken ct = default)
         {
-            var total = queryable.Count();
+            var total = await queryable.CountAsync(ct);
 
+            // TODO: doing the query first calculating pagesize and current page
+            // execute Count as Future
+            // then after fill other properties
             pageable.Paginate(total);
 
             var result = await queryable

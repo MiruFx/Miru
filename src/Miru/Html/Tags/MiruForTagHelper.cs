@@ -122,6 +122,8 @@ public abstract class MiruForTagHelper : MiruTagHelper
         // event
         AfterHtmlTagGeneration(builder, htmlTag);
         
+        WrapContentWithLinkIfTagIsLinkable(htmlTag);
+        
         // handles child content
         if (builder.ChildContent.IsEmptyOrWhiteSpace == false)
         {
@@ -145,5 +147,37 @@ public abstract class MiruForTagHelper : MiruTagHelper
 
         // event
         AfterSetHtmlContent(builder, htmlTag);
+    }
+
+    private void WrapContentWithLinkIfTagIsLinkable(HtmlTag htmlTag)
+    {
+        if (this is ILinkableTagHelper linkableTagHelper && linkableTagHelper.LinkFor is not null)
+        {
+            var url = UrlLookup.For(linkableTagHelper.LinkFor);
+
+            var linkTag = new HtmlTag("a")
+                .Attr("href", url)
+                .Attr("class", linkableTagHelper.LinkClass);
+
+            // replace html content with link + content
+            if (htmlTag.Text().IsNotEmpty())
+            {
+                // replace text
+                linkTag.Text(htmlTag.Text());
+                htmlTag.Text(string.Empty);
+                htmlTag.InsertFirst(linkTag);
+            }
+            else if (htmlTag.Children.Count > 0)
+            {
+                // replace children
+                var spanTag = htmlTag.Children.FirstOrDefault(x => x.TagName() == "span");
+                if (spanTag is not null)
+                {
+                    linkTag.Text(spanTag.Text());
+                    spanTag.Text(string.Empty);
+                    spanTag.InsertFirst(linkTag);
+                }
+            }
+        }
     }
 }

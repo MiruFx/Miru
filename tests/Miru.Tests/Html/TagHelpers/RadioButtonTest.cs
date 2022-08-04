@@ -16,10 +16,12 @@ public class RadioButtonTest
             var tag = CreateTagWithFor(new InputTagHelper(), model, m => m.IsActive);
                 
             // act
-            var html = await ProcessTagAsync(tag, "miru-input", new { value = "False" });
+            var html1 = await ProcessTagAsync(tag, "miru-input", new { value = "False" });
+            var html2 = await ProcessTagAsync(tag, "miru-input", new { value = "false" });
                 
             // assert
-            html.HtmlShouldBe("<input type=\"radio\" value=\"False\" name=\"IsActive\" id=\"IsActive\" checked=\"checked\">");
+            html1.HtmlShouldBe("<input type=\"radio\" value=\"False\" name=\"IsActive\" id=\"IsActive\" checked=\"checked\">");
+            html2.HtmlShouldBe("<input type=\"radio\" value=\"false\" name=\"IsActive\" id=\"IsActive\" checked=\"checked\">");
         }
             
         [Test]
@@ -44,10 +46,12 @@ public class RadioButtonTest
             var tag = CreateTagWithFor(new InputTagHelper(), model, m => m.IsActive);
                 
             // act
-            var html = await ProcessTagAsync(tag, "miru-input", new { value = "True" });
+            var html1 = await ProcessTagAsync(tag, "miru-input", new { value = "True" });
+            var html2 = await ProcessTagAsync(tag, "miru-input", new { value = "true" });
                 
             // assert
-            html.HtmlShouldBe("<input type=\"radio\" value=\"True\" name=\"IsActive\" id=\"IsActive\" checked=\"checked\">");
+            html1.HtmlShouldBe("<input type=\"radio\" value=\"True\" name=\"IsActive\" id=\"IsActive\" checked=\"checked\">");
+            html2.HtmlShouldBe("<input type=\"radio\" value=\"true\" name=\"IsActive\" id=\"IsActive\" checked=\"checked\">");
         }
         
         [Test]
@@ -71,7 +75,7 @@ public class RadioButtonTest
         public Interest Interest { get; set; }
         
         [Radio]
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
     }
         
     public enum Interest

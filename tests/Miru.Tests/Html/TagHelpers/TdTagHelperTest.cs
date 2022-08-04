@@ -108,11 +108,31 @@ public class TdTagHelperTest : MiruTagTesting
         output.TagName.ShouldBeNull();
         output.PreElement.GetContent().ShouldBe("<td></td>");
     }
+    
+    [Test]
+    public async Task If_tag_has_link_attr_then_should_wrap_link_text_into_link_tag()
+    {
+        // arrange
+        var linkToFeature = new TeamList.Query { Id = 99 };
+        var tag = CreateTagWithFor(
+            new TdTagHelper { LinkFor = linkToFeature, LinkClass = "text-secondary"}, 
+            _model, 
+            m => m.Items[0].Id);
+
+        // act
+        var output = await ProcessTagAsync(tag, "miru-td");
+            
+        // assert
+        output.TagName.ShouldBeNull();
+        output.PreElement.GetContent().ShouldBe(
+            "<td><span id=\"Items[0].Id\"><a href=\"/TeamList?Id=99\" class=\"text-secondary\">1</a></span></td>");
+    }
 
     public class TeamList
     {
         public class Query
         {
+            public long Id { get; set; }
         }
 
         public class Result

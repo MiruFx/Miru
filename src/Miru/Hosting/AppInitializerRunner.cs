@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentMigrator.Runner;
 
 namespace Miru.Hosting;
 
-public class AppInitializerRunner
+public class AppInitializerRunner : IAppInitializerRunner
 {
     private readonly IEnumerable<IAppInitializer> _initializers;
 
@@ -15,16 +16,16 @@ public class AppInitializerRunner
 
     public async Task RunAsync()
     {
-        var sw = new StopWatch();
-        
-        await Parallel.ForEachAsync(
-            _initializers, 
-            new ParallelOptions { MaxDegreeOfParallelism = 1 }, 
-            async (initializer, _) =>
+        foreach (var appInitializer in _initializers)
+        {
+            var thread = new Thread(() => appInitializer.InitializeAsync().GetAwaiter().GetResult())
             {
-                await initializer.InitializeAsync();
-            });
-        
-        App.Framework.Debug("AppInitializers ran in {ElapsedTime} ms", sw.ElapsedTime()); 
+                IsBackground = true
+            };
+            
+            thread.Start();
+        }
+
+        await Task.CompletedTask;
     }
 }

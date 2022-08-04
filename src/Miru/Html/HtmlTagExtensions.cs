@@ -1,4 +1,5 @@
 ﻿using System.Web;
+using Baseline;
 using HtmlTags;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -7,6 +8,12 @@ namespace Miru.Html;
 
 public static class HtmlTagExtensions
 {
+    public static bool IsContentEmpty(this HtmlTag tag) => 
+        tag.HasContent() == false;
+    
+    public static bool HasContent(this HtmlTag tag) => 
+        tag.Text().IsNotEmpty() || tag.Children.Count > 0;
+    
     public static string Name(this HtmlTag tag)
     {
         return tag.Attr("name");

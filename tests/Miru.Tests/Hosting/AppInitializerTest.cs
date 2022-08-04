@@ -34,6 +34,7 @@ public class AppInitializerTest
 
             // act
             await initializersRunner.RunAsync();
+            Thread.Sleep(500);
 
             // assert
             var duration = stopWatch.ElapsedTime();
@@ -61,6 +62,7 @@ public class AppInitializerTest
 
             // act
             await hostBuilder.RunMiruAsync();
+            Thread.Sleep(500);
             
             Startup.Executed.ShouldBeTrue();
             Initializer1.Executed.ShouldBeTrue();
@@ -84,6 +86,7 @@ public class AppInitializerTest
 
             // act
             await hostBuilder.RunMiruAsync();
+            Thread.Sleep(500);
             
             // assert
             TestAssertConsolable.Executed.ShouldBeTrue();
@@ -108,6 +111,7 @@ public class AppInitializerTest
 
             // act
             await hostBuilder.RunMiruAsync();
+            Thread.Sleep(500);
             
             // assert
             TestAssertConsolable.Executed.ShouldBeTrue();
@@ -134,7 +138,9 @@ public class AppInitializerTest
             await hostBuilder.RunMiruAsync();
             
             // assert
-            InitializerWithScopedDependency.Executed.ShouldBeTrue();
+            Execute
+                .Until(() => InitializerWithScopedDependency.Executed, 5.Seconds())
+                .ShouldBeTrue();
         }
     }
     
@@ -144,7 +150,7 @@ public class AppInitializerTest
             
         public async Task InitializeAsync()
         {
-            Thread.Sleep(1.Seconds());
+            Thread.Sleep(200);
             Executed = true;
             await Task.CompletedTask;
         }
@@ -156,7 +162,7 @@ public class AppInitializerTest
             
         public async Task InitializeAsync()
         {
-            Thread.Sleep(1.Seconds());
+            Thread.Sleep(200);
             Executed = true;
             await Task.CompletedTask;
         }
@@ -166,16 +172,17 @@ public class AppInitializerTest
     {
         public static bool Executed;
         
-        private readonly FooDbContext _db;
+        // private readonly FooDbContext _db;
 
-        public InitializerWithScopedDependency(FooDbContext db)
-        {
-            _db = db;
-        }
+        // public InitializerWithScopedDependency(FooDbContext db)
+        // {
+        //     _db = db;
+        // }
 
         public async Task InitializeAsync()
         {
-            await _db.Posts.FirstOrDefaultAsync();
+            // if (_db is { })
+            //     await _db.Posts.FirstOrDefaultAsync();
             
             Executed = true;
         }

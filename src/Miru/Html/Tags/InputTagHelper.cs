@@ -17,8 +17,11 @@ public class InputTagHelper : MiruForTagHelper
         {
             if (htmlTag.HasAttr("value"))
             {
-                if (For.Model != null &&
-                    htmlTag.Value().Equals(For.Model.ToString()))
+                if (For.Model is bool boolValue && boolValue.IsEqual(htmlTag.Value()))
+                {
+                    htmlTag.Checked();
+                }
+                else if (For.Model != null && htmlTag.Value().Equals(For.Model.ToString()))
                 {
                     htmlTag.Checked();
                 }

@@ -48,6 +48,25 @@ public class DisplayTagHelperTest : MiruTagTesting
         html.HtmlShouldBe("<span id=\"Category\">Filmes</span>");
     }
     
+    [Test]
+    public async Task If_tag_has_link_attr_then_should_wrap_link_text_into_link_tag()
+    {
+        // arrange
+        var model = new Command { Category = Categories.Movie };
+        var linkToFeature = new Query { Id = 99 };
+        var tag = CreateTagWithFor(
+            new DisplayTagHelper { LinkFor = linkToFeature, LinkClass = "text-success"}, 
+            model, 
+            m => m.Category);
+            
+        // act
+        var html = await ProcessTagAsync(tag, "miru-display");
+            
+        // assert
+        html.HtmlShouldBe(
+            "<span id=\"Category\"><a href=\"/DisplayTagHelperTest?Id=99\" class=\"text-success\">Filmes</a></span>");
+    }
+    
     public class Command
     {
         public DateTime? CreatedAt { get; set; }
@@ -55,6 +74,11 @@ public class DisplayTagHelperTest : MiruTagTesting
         public Categories Category { get; set; }
     }
 
+    public class Query
+    {
+        public long Id { get; set; }
+    }
+    
     public enum Categories
     {
         [Display(Name = "Livros")]

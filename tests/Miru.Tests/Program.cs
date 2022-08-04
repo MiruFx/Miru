@@ -5,6 +5,7 @@ using BenchmarkDotNet.Running;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Hosting;
 using Miru.Mvc;
+using Miru.Tests.Html.TagHelpers;
 using Miru.Tests.Urls;
 using Miru.Urls;
 
@@ -12,7 +13,18 @@ namespace Miru.Tests;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
+    {
+        await new BenchmarkTagHelper().Boolean();
+        
+        BenchmarkRunner.Run<BenchmarkTagHelper>(
+            DefaultConfig.Instance
+                .WithOptions(ConfigOptions.DisableOptimizationsValidator));
+
+        // new BenchmarkTagHelper().Url2();
+    }
+
+    private static void UrlGeneration()
     {
         var generator = new RouteValueDictionaryGenerator(new UrlOptions());
         
@@ -109,5 +121,25 @@ public class BenchmarkUrl
             .Without(m => m.Size, UrlTest.ProductsList.Size.Large)
             .ToString()
             .ShouldBe("/Products/List?Size%5B0%5D=Small&Page=3");
+    }
+}
+
+[MemoryDiagnoser]
+[RankColumn, AllStatisticsColumn]
+public class BenchmarkTagHelper : MiruTagTesting
+{
+    private readonly RadioButtonTest.Boolean _test;
+
+    public BenchmarkTagHelper()
+    {
+        _test = new RadioButtonTest.Boolean();
+        _test.SetupMiruCoreTesting();
+        _test.OneTimeSetup();
+    }
+
+    [Benchmark]
+    public async Task Boolean()
+    {
+        await _test.If_input_is_for_true_and_property_is_true_then_input_should_be_checked();
     }
 }

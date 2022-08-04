@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Miru.Html;
 using Miru.Mvc;
 
 namespace Playground.Features.Forms;
@@ -15,12 +16,16 @@ public class FormModel
     }
 
     public class Command : IRequest<Command>
-    {   
-        // lookups
-
+    {
         // inputs
         [Display(Name = "Your Name")]
         public string Name { get; set; }
+        
+        [Radio]
+        [Display(Name = "Are you local?")]
+        public bool? IsLocal { get; set; }
+        
+        // lookups
     }
 
     public class Handler : 
@@ -29,7 +34,7 @@ public class FormModel
     {
         public Task<Command> Handle(Query request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(new Command());
+            return Task.FromResult(new Command() { IsLocal = true });
         }
             
         public Task<Command> Handle(Command request, CancellationToken cancellationToken)
