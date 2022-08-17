@@ -5,6 +5,7 @@ using BenchmarkDotNet.Running;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Hosting;
 using Miru.Mvc;
+using Miru.Tests.Benchmarks;
 using Miru.Tests.Html.TagHelpers;
 using Miru.Tests.Urls;
 using Miru.Urls;
@@ -13,11 +14,11 @@ namespace Miru.Tests;
 
 public class Program
 {
-    public static async Task Main(string[] args)
+    public static void Main(string[] args)
     {
-        await new BenchmarkTagHelper().Boolean();
+        // await new BenchmarkTagHelper().Boolean();
         
-        BenchmarkRunner.Run<BenchmarkTagHelper>(
+        BenchmarkRunner.Run<DisplayTagBenchmark>(
             DefaultConfig.Instance
                 .WithOptions(ConfigOptions.DisableOptimizationsValidator));
 

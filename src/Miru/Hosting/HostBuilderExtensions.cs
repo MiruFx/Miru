@@ -28,7 +28,7 @@ public static class HostBuilderExtensions
     {
         using var scope = host.Services.Get<IMiruApp>().WithScope();
 
-        var appInitializerRunner = scope.Get<AppInitializerRunner>();
+        var appInitializerRunner = scope.Get<HostInitializedRunner>();
 
         if (appInitializerRunner is not null)
         {

@@ -74,14 +74,4 @@ public static class HtmlConfigExtensions
 
         return html;
     }
-    
-    public static HtmlConfiguration AddMiruTables(this HtmlConfiguration html)
-    {
-        html.Forms.Always.ModifyTag(tag =>
-        {
-            tag.Attr("data-controller", "form");
-        });
-
-        return html;
-    }
 }

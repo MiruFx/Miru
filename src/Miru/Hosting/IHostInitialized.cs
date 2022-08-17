@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace Miru.Hosting;
 
-public interface IAppInitializer
+public interface IHostInitialized
 {
     Task InitializeAsync();
 }

@@ -28,6 +28,7 @@ public class ElementNaming
         
     public string Form(Type type)
     {
+        // TODO: use HtmlConventions.
         return $"{type.FeatureName().ToKebabCase()}-form";
     }
     

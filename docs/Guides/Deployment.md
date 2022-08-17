@@ -10,8 +10,9 @@ miru config.show -e Environment
 * Run Database migration
 * Run Database seed
 * Run Storage link
+* Consider make a first request to warm up
 
-## Production
+## Configuring Production
 
 ### Data Protection
 

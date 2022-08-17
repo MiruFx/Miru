@@ -12,16 +12,16 @@ public class TransactionBehavior<TRequest, TResponse> :
     private readonly DbContext _db;
     private readonly ILogger<TransactionBehavior<TRequest, TResponse>> _logger;
 
-    public TransactionBehavior(DbContext db, ILogger<TransactionBehavior<TRequest, TResponse>> logger)
+    public TransactionBehavior(DbContext db)
     {
         _db = db;
-        _logger = logger;
     }
 
     public async Task<TResponse> Handle(TRequest message, CancellationToken ct, RequestHandlerDelegate<TResponse> next)
     {
         await using var transaction = await _db.Database.BeginTransactionAsync(ct);
             
+        
         _logger.LogDebug($"Started transaction #{transaction.GetHashCode()}");
 
         try

@@ -23,11 +23,11 @@ public class AppInitializerTest
         {
             // arrange
             var sp = new ServiceCollection()
-                .AddInitializer<Initializer1>()
-                .AddInitializer<Initializer2>()
+                .AddHostInitialized<Initializer1>()
+                .AddHostInitialized<Initializer2>()
                 .BuildServiceProvider();
             
-            var initializersRunner = sp.Get<AppInitializerRunner>();
+            var initializersRunner = sp.Get<HostInitializedRunner>();
 
             var stopWatch = new StopWatch();
             stopWatch.Start();
@@ -56,8 +56,8 @@ public class AppInitializerTest
                 .ConfigureWebHostDefaults(m => m.UseStartup<Startup>().UseKestrelAnyLocalPort())
                 .ConfigureServices(x =>
                 {
-                    x.AddInitializer<Initializer1>();
-                    x.AddInitializer<Initializer2>();
+                    x.AddHostInitialized<Initializer1>();
+                    x.AddHostInitialized<Initializer2>();
                 });
 
             // act
@@ -78,8 +78,8 @@ public class AppInitializerTest
                 .ConfigureServices(services =>
                 {
                     services
-                        .AddInitializer<Initializer1>()
-                        .AddInitializer<Initializer2>()
+                        .AddHostInitialized<Initializer1>()
+                        .AddHostInitialized<Initializer2>()
                         .AddConsolable<TestAssertConsolable>()
                         .AddSingleton(services);
                 });
@@ -103,8 +103,8 @@ public class AppInitializerTest
                 .ConfigureServices(services =>
                 {
                     services
-                        .AddInitializer<Initializer1>()
-                        .AddInitializer<Initializer2>()
+                        .AddHostInitialized<Initializer1>()
+                        .AddHostInitialized<Initializer2>()
                         .AddConsolable<TestAssertConsolable>()
                         .AddSingleton(services);
                 });
@@ -128,7 +128,7 @@ public class AppInitializerTest
                 .ConfigureServices(services =>
                 {
                     services
-                        .AddInitializer<InitializerWithScopedDependency>()
+                        .AddHostInitialized<InitializerWithScopedDependency>()
                         .AddEfCoreInMemory<FooDbContext>()
                         .AddConsolable<TestAssertConsolable>()
                         .AddSingleton(services);
@@ -144,7 +144,7 @@ public class AppInitializerTest
         }
     }
     
-    public class Initializer1 : IAppInitializer
+    public class Initializer1 : IHostInitialized
     {
         public static bool Executed;
             
@@ -156,7 +156,7 @@ public class AppInitializerTest
         }
     }
         
-    public class Initializer2 : IAppInitializer
+    public class Initializer2 : IHostInitialized
     {
         public static bool Executed;
             
@@ -168,7 +168,7 @@ public class AppInitializerTest
         }
     }
 
-    public class InitializerWithScopedDependency : IAppInitializer
+    public class InitializerWithScopedDependency : IHostInitialized
     {
         public static bool Executed;
         
@@ -185,6 +185,7 @@ public class AppInitializerTest
             //     await _db.Posts.FirstOrDefaultAsync();
             
             Executed = true;
+            await Task.CompletedTask;
         }
     }
     
