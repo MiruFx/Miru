@@ -11,7 +11,7 @@
     <ItemGroup>
         <PackageReference Include="Hangfire.Core" Version="1.7.30" />
 
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.6" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
         <PackageReference Include="Hangfire.SqlServer" Version="1.7.30" />
     </ItemGroup>
 
