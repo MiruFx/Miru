@@ -35,6 +35,9 @@ Using Storages
 Many Storages
     IFedexStorage
 
+Name Conventions
+    fullPath -> a file/directory complete path in the storage (e.g. C:\storage\avatar-12.png)
+    
 -->
 
 [[toc]]

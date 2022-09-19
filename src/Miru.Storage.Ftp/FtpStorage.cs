@@ -7,69 +7,80 @@ using Miru.Core;
 using Miru.Storages;
 using Miru.Storages.Ftp;
 
-namespace Miru.Storage.Ftp
+namespace Miru.Storage.Ftp;
+
+public class FtpStorage : IStorage
 {
-    public class FtpStorage : IStorage
+    private readonly FtpClient _client;
+
+    public FtpStorage(FtpOptions ftpOptions)
     {
-        private readonly FtpClient _client;
-
-        public FtpStorage(FtpOptions ftpOptions)
+        _client = new FtpClient(ftpOptions.FtpServer)
         {
-            _client = new FtpClient(ftpOptions.FtpServer)
-            {
-                Credentials = new NetworkCredential(ftpOptions.FtpUser, ftpOptions.FtpPassword),
-                Port = ftpOptions.FtpPort,
-            };
-        }
+            Credentials = new NetworkCredential(ftpOptions.FtpUser, ftpOptions.FtpPassword),
+            Port = ftpOptions.FtpPort,
+        };
+    }
 
-        public MiruPath StorageDir => A.Path;
+    public virtual MiruPath StorageDir => A.Path;
 
-        public MiruPath App => StorageDir / "app";
+    public virtual MiruPath App => StorageDir / "app";
 
-        public MiruPath Assets => throw new NotImplementedException("Ftp storage does not support Assets");
+    public MiruPath Assets => throw new NotImplementedException("FtpStorage does not support Assets");
         
-        public MiruPath Misc => throw new NotImplementedException("Ftp storage does not support Misc");
-
-        public async Task PutAsync(MiruPath remotePath, MiruPath sourcePath)
-        {
-            await EnsureClientIsConnectedAsync();
+    public async Task PutAsync(MiruPath remotePath, MiruPath sourcePath)
+    {
+        await EnsureClientIsConnectedAsync();
             
-            await _client.UploadFileAsync(sourcePath, App / remotePath, FtpRemoteExists.Overwrite, createRemoteDir: true);
-        }
+        var path = App / remotePath;
+        
+        Miru.App.Log.Debug(
+            "FtpStorage is saving from source path {SourcePath} to {RemotePath}",
+            sourcePath,
+            path);
+        
+        await _client.UploadFileAsync(sourcePath, App / remotePath, FtpRemoteExists.Overwrite, createRemoteDir: true);
+    }
 
-        public async Task PutAsync(MiruPath remotePath, Stream stream)
-        {
-            await EnsureClientIsConnectedAsync();
+    public async Task PutAsync(MiruPath remotePath, Stream stream)
+    {
+        await EnsureClientIsConnectedAsync();
 
-            Miru.App.Log.Information($"FtpStorage: Saving stream into {App / remotePath}");
+        var path = App / remotePath;
+        
+        Miru.App.Log.Debug(
+            "FtpStorage is saving stream sized {StreamSize} into {RemotePath}",
+            stream.Length,
+            path);
             
-            await _client.UploadAsync(stream, App / remotePath, FtpRemoteExists.Overwrite, createRemoteDir: true);
-        }
+        await _client.UploadAsync(stream, path, FtpRemoteExists.Overwrite, createRemoteDir: true);
+    }
 
-        public async Task<Stream> GetAsync(MiruPath remotePath)
-        {
-            await EnsureClientIsConnectedAsync();
+    public async Task<Stream> GetAsync(MiruPath remotePath)
+    {
+        await EnsureClientIsConnectedAsync();
             
-            Miru.App.Log.Information($"FtpStorage: Reading stream from {App / remotePath}");
+        Miru.App.Log.Debug(
+            "FtpStorage is getting stream from {RemotePath}",
+            remotePath);
+        
+        var stream = new MemoryStream();
+            
+        await _client.DownloadAsync(stream, App / remotePath);
+            
+        return stream;
+    }
 
-            var stream = new MemoryStream();
+    public async Task<bool> FileExistsAsync(MiruPath remote)
+    {
+        await EnsureClientIsConnectedAsync();
             
-            await _client.DownloadAsync(stream, App / remotePath);
-            
-            return stream;
-        }
+        return await _client.FileExistsAsync(App / remote);
+    }
 
-        public async Task<bool> FileExistsAsync(MiruPath remote)
-        {
-            await EnsureClientIsConnectedAsync();
-            
-            return await _client.FileExistsAsync(App / remote);
-        }
-
-        private async Task EnsureClientIsConnectedAsync()
-        {
-            if (_client.IsConnected == false) 
-                await _client.ConnectAsync();
-        }
+    private async Task EnsureClientIsConnectedAsync()
+    {
+        if (_client.IsConnected == false) 
+            await _client.ConnectAsync();
     }
 }

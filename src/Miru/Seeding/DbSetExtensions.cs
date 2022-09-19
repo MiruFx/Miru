@@ -9,7 +9,7 @@ namespace Miru.Seeding;
 
 public static class DbSetExtensions
 {
-    public static void SeedBy<TEntity>(
+    public static TEntity SeedBy<TEntity>(
         this DbSet<TEntity> set, 
         Expression<Func<TEntity, object>> seedBy, 
         Action<TEntity> setEntityAction) where TEntity : class, new()
@@ -37,10 +37,12 @@ public static class DbSetExtensions
         if (fetchedEntity == null)
         {
             set.Add(entity);
+            return entity;
         }
         else
         {
             setEntityAction(fetchedEntity);
+            return fetchedEntity;
         }
     }
 

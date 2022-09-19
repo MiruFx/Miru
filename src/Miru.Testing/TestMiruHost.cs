@@ -4,14 +4,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Baseline;
 using Bogus;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Miru.Foundation;
 using Miru.Hosting;
-using Miru.Storages;
-using Miru.Userfy;
-using Serilog;
 
 namespace Miru.Testing;
 
