@@ -37,7 +37,7 @@ public class EnqueueEventsInterceptor : DbTransactionInterceptor
             {
                 var job = enqueuedEvent().GetNotification();
                 
-                App.Framework.Information("Enqueueing {job} from {entity}", job, entity);
+                App.Framework.Information("Enqueueing {Job} from {Entity}", job, entity);
                 
                 _jobs.Enqueue(enqueuedEvent().GetNotification());
             }

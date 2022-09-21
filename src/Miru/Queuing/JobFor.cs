@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
+using Hangfire;
 using Hangfire.Console;
 using Hangfire.Server;
 using MediatR;
@@ -17,9 +18,14 @@ public class JobFor<TRequest>
     }
 
     [DisplayName("{0}")]
-    public async Task Execute(TRequest request, CancellationToken ct, PerformContext performContext)
+    [Queue("{3}")]
+    public async Task Execute(
+        TRequest request, 
+        CancellationToken ct, 
+        PerformContext performContext, 
+        string queueName)
     {
-        App.Framework.Information("Creating scope and processing Job {request}", request);
+        App.Framework.Information("Creating scope and processing Job {Request}", request);
         
         await _app.ScopedSendAsync(request as IBaseRequest, ct);
     }

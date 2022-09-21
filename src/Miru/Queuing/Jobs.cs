@@ -1,3 +1,4 @@
+using System;
 using Hangfire;
 using MediatR;
 
@@ -12,19 +13,44 @@ public class Jobs
         _backgroundJobClient = backgroundJobClient;
     }
 
-    public void Enqueue<TJob>(TJob job)
+    public void Enqueue<TJob>(
+        TJob job, 
+        TimeSpan? startIn = null,
+        string queueName = "default")
     {
-        if (job is not INotification)
+        if (startIn is not null)
         {
-            App.Framework.Information("Enqueueing Job for {job}", job);
+            if (job is not INotification)
+            {
+                App.Framework.Information("Enqueueing Job for {Job}", job);
             
-            _backgroundJobClient.Enqueue<JobFor<TJob>>(m => m.Execute(job, default, null));
+                _backgroundJobClient.Schedule<JobFor<TJob>>(
+                    m => m.Execute(job, default, null, queueName), 
+                    startIn.GetValueOrDefault());
+            }
+            else
+            {
+                App.Framework.Information("Enqueueing Notification {Job}", job);
+                
+                _backgroundJobClient.Schedule<NotificationFor<TJob>>(
+                    m => m.Execute(job, default, null), 
+                    startIn.GetValueOrDefault());
+            }
         }
         else
         {
-            App.Framework.Information("Enqueueing Notification {job}", job);
+            if (job is not INotification)
+            {
+                App.Framework.Information("Enqueueing Job for {Job}", job);
             
-            _backgroundJobClient.Enqueue<NotificationFor<TJob>>(m => m.Execute(job, default, null));
+                _backgroundJobClient.Enqueue<JobFor<TJob>>(m => m.Execute(job, default, null, queueName));
+            }
+            else
+            {
+                App.Framework.Information("Enqueueing Notification {Job}", job);
+            
+                _backgroundJobClient.Enqueue<NotificationFor<TJob>>(m => m.Execute(job, default, null));
+            }
         }
     }
 }

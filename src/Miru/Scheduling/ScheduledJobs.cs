@@ -25,7 +25,7 @@ public class ScheduledJobs
             queueName = _options.QueueName;
 
         var jobId = GetJobId<TJob>(suffix);
-
+        
         RecurringJob.AddOrUpdate<TJob>(jobId, x => x.ExecuteAsync(), cron, timeZone, queueName);
     }
 
