@@ -12,7 +12,8 @@ public static class DbSetExtensions
     public static TEntity SeedBy<TEntity>(
         this DbSet<TEntity> set, 
         Expression<Func<TEntity, object>> seedBy, 
-        Action<TEntity> setEntityAction) where TEntity : class, new()
+        Action<TEntity> setEntityAction,
+        Func<DbSet<TEntity>, IQueryable<TEntity>> queryFunc = null) where TEntity : class, new()
     {
         var entity = new TEntity();
 
@@ -32,7 +33,10 @@ public static class DbSetExtensions
 
         var predicate = Expression.Lambda<Func<TEntity, bool>>(matchExpression, parameter);
 
-        var fetchedEntity = set.SingleOrDefault(predicate);
+        // var fetchedEntity = set.SingleOrDefault(predicate);
+        TEntity fetchedEntity = queryFunc == null
+            ? set.SingleOrDefault(predicate)
+            : queryFunc(set).SingleOrDefault(predicate);
         
         if (fetchedEntity == null)
         {

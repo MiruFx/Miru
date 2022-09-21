@@ -134,6 +134,16 @@ public static class QueryableExtensions
         
     public static async Task<TEntity> ByIdOrFailAsync<TEntity>(
         this IQueryable<TEntity> queryable, 
+        long? id,
+        CancellationToken ct) where TEntity : IEntity
+    {
+        return await queryable.FirstOrDefaultAsync(e => e.Id == id, ct) 
+               ?? 
+               throw new NotFoundException($"{typeof(TEntity).Name} with Id #{id} could not be found");
+    }
+    
+    public static async Task<TEntity> ByIdOrFailAsync<TEntity>(
+        this IQueryable<TEntity> queryable, 
         long id, 
         string exceptionMessage,
         CancellationToken ct) where TEntity : IEntity

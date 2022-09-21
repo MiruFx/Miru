@@ -11,23 +11,23 @@ namespace Miru.Storage.Ftp;
 
 public class FtpStorage : IStorage
 {
-    private readonly FtpClient _client;
-
-    public FtpStorage(FtpOptions ftpOptions)
-    {
-        _client = new FtpClient(ftpOptions.FtpServer)
-        {
-            Credentials = new NetworkCredential(ftpOptions.FtpUser, ftpOptions.FtpPassword),
-            Port = ftpOptions.FtpPort,
-        };
-    }
+    public FtpClient Client { get; }
 
     public virtual MiruPath StorageDir => A.Path;
 
     public virtual MiruPath App => StorageDir / "app";
 
     public MiruPath Assets => throw new NotImplementedException("FtpStorage does not support Assets");
-        
+    
+    public FtpStorage(FtpOptions ftpOptions)
+    {
+        Client = new FtpClient(ftpOptions.FtpServer)
+        {
+            Credentials = new NetworkCredential(ftpOptions.FtpUser, ftpOptions.FtpPassword),
+            Port = ftpOptions.FtpPort,
+        };
+    }
+
     public async Task PutAsync(MiruPath remotePath, MiruPath sourcePath)
     {
         await EnsureClientIsConnectedAsync();
@@ -39,7 +39,7 @@ public class FtpStorage : IStorage
             sourcePath,
             path);
         
-        await _client.UploadFileAsync(sourcePath, App / remotePath, FtpRemoteExists.Overwrite, createRemoteDir: true);
+        await Client.UploadFileAsync(sourcePath, App / remotePath, FtpRemoteExists.Overwrite, createRemoteDir: true);
     }
 
     public async Task PutAsync(MiruPath remotePath, Stream stream)
@@ -53,7 +53,7 @@ public class FtpStorage : IStorage
             stream.Length,
             path);
             
-        await _client.UploadAsync(stream, path, FtpRemoteExists.Overwrite, createRemoteDir: true);
+        await Client.UploadAsync(stream, path, FtpRemoteExists.Overwrite, createRemoteDir: true);
     }
 
     public async Task<Stream> GetAsync(MiruPath remotePath)
@@ -66,7 +66,7 @@ public class FtpStorage : IStorage
         
         var stream = new MemoryStream();
             
-        await _client.DownloadAsync(stream, App / remotePath);
+        await Client.DownloadAsync(stream, App / remotePath);
             
         return stream;
     }
@@ -75,12 +75,12 @@ public class FtpStorage : IStorage
     {
         await EnsureClientIsConnectedAsync();
             
-        return await _client.FileExistsAsync(App / remote);
+        return await Client.FileExistsAsync(App / remote);
     }
 
     private async Task EnsureClientIsConnectedAsync()
     {
-        if (_client.IsConnected == false) 
-            await _client.ConnectAsync();
+        if (Client.IsConnected == false) 
+            await Client.ConnectAsync();
     }
 }
