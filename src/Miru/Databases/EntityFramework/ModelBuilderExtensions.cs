@@ -35,9 +35,8 @@ namespace Miru.Databases.EntityFramework
             return modelBuilder;
         }
         
-        public static ModelBuilder PropertiesEnumeration<TEnumeration, TType>(this ModelBuilder modelBuilder) 
+        public static ModelBuilder PropertiesEnumeration<TEnumeration>(this ModelBuilder modelBuilder) 
             where TEnumeration : Enumeration
-            where TType : IComparable
         {
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
@@ -50,7 +49,7 @@ namespace Miru.Databases.EntityFramework
                     modelBuilder
                         .Entity(entityType.Name)
                         .Property<TEnumeration>(property.Name)
-                        .HasConversion(v => v.Value, v => Enumeration.FromValue<TEnumeration>(v));
+                        .HasConversion(v => (int?) v.Value, v => v.HasValue ? Enumeration.FromValue<TEnumeration>(v.Value) : null);
                 }
             }
 

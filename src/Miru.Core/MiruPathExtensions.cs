@@ -50,4 +50,7 @@ public static class MiruPathExtensions
     
     public static string FileName(this MiruPath miruPath) => 
         Path.GetFileName(miruPath);
+    
+    public static string FileNameWithoutExtension(this MiruPath miruPath) => 
+        Path.GetFileNameWithoutExtension(miruPath);
 }

@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentFTP;
 using Miru.Core;
@@ -78,6 +81,15 @@ public class FtpStorage : IStorage
         return await Client.FileExistsAsync(App / remote);
     }
 
+    public async Task<List<MiruPath>> GetFilesAsync(MiruPath path, CancellationToken ct = default)
+    {
+        await EnsureClientIsConnectedAsync();
+        
+        var files = await Client.GetNameListingAsync(path, ct);
+
+        return files.Select(x => new MiruPath(x)).ToList();
+    }
+    
     private async Task EnsureClientIsConnectedAsync()
     {
         if (Client.IsConnected == false) 

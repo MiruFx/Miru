@@ -69,4 +69,6 @@ public static class ObjectExtensions
 
         return property.GetValue(@this, null);
     }
+    
+    public static bool NotEquals<T>(this T current, T other) => current.Equals(other) == false;
 }

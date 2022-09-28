@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AV.Enumeration;
 using Miru.Domain;
@@ -50,15 +51,40 @@ public class SelectTagHelperTest : MiruTagTesting
         html.HtmlShouldBe(
             "<select name=\"Status\" id=\"Status\"><option value=\"1\">Pending</option><option value=\"2\" selected=\"selected\">Finished</option></select>");
     }
+    
+    [Test]
+    public async Task Should_create_select_for_enum_lookup()
+    {
+        // arrange
+        var model = new Command { City = Cities.Berlin };
+        var tag = CreateTagWithFor(new SelectTagHelper(), model, m => m.City);
+        tag.Lookup = MakeExpression(model.CitiesLookup);
+            
+        // act
+        var html = await ProcessTagAsync(tag, "miru-select");
+    
+        // assert
+        html.HtmlShouldBe(
+            @"<select name=""City"" id=""City""><option value=""0"">Krakow</option><option value=""1"">Dublin</option><option value=""2"" selected=""selected"">Berlin</option></select>");
+    }
 
     public class Command
     {
         public Statuses Status { get; set; }
+        public Cities City { get; set; }
         
         // lookups
         public SelectLookups StatusLookups => Enumeration.GetAll<Statuses>().ToSelectLookups();
+        public SelectLookups CitiesLookup => Enum.GetValues<Cities>().ToSelectLookups();
     }
 
+    public enum Cities
+    {
+        Krakow,
+        Dublin,
+        Berlin
+    }
+    
     public class Statuses : Enumeration
     {
         public static readonly Statuses Pending = new(1, nameof(Pending));

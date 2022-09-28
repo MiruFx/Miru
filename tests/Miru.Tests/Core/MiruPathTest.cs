@@ -45,10 +45,10 @@ public class MiruPathTest
     }
     
     // [Test]
-    // public void If_second_path_is_slash_when_combining_should_ignore_second_path()
+    // public void If_alt_separator_then_all_combination_should_use_alt_separator()
     // {
-    //     (new MiruPath("/bin") / "/")
+    //     (new MiruPath("src", altSeparator: true) / "Shoppers.Tests" / "bin")
     //         .ToString()
-    //         .ShouldBe("/bin");
+    //         .ShouldBe("src/Shoppers.Tests/bin");
     // }
 }

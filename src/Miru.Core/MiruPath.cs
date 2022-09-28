@@ -9,30 +9,38 @@ public struct MiruPath
 {
     public static MiruPath CurrentPath => AppContext.BaseDirectory;
         
-    public static readonly string DirectorySeparatorChar = Path.DirectorySeparatorChar.ToString();
-
     private static readonly string This = ".";
         
-    private readonly string _path;
+    private string PathString { get; }
+    private bool AltSeparator { get; }
 
-    public MiruPath(string path)
+    public MiruPath(string path, bool altSeparator = false)
     {
-        _path = path;
+        PathString = path;
+        AltSeparator = altSeparator;
     }
 
     public static MiruPath operator /(MiruPath a, MiruPath b)
     {
-        if (b.ToString().Equals(This))
-            return a + DirectorySeparatorChar;
+        if (b.PathString.Equals(This))
+            return a + Path.DirectorySeparatorChar;
             
         return Path.Combine(a, b);
     }
 
-    public static MiruPath operator /(MiruPath a, object b) => a / b.ToString();
+    public static MiruPath operator /(MiruPath a, object b)
+    {
+        if (b is string @string)
+            return a / @string;
         
-    public static implicit operator string(MiruPath path) => path.ToString();
+        return a / b.ToString();   
+    }
+        
+    public static implicit operator string(MiruPath path) => path.PathString;
         
     public static implicit operator MiruPath(string path) => new(path);
 
-    public override string ToString() => _path;
+    public override string ToString() => AltSeparator == false 
+        ? PathString 
+        : PathString.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
 }

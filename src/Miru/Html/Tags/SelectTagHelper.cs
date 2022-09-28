@@ -65,6 +65,10 @@ public class SelectTagHelper : MiruForTagHelper
                 {
                     selectTag.SelectByValue(For.Model.GetPropertyValue("Value"));
                 }
+                else if (For.Model is Enum @enum)
+                {
+                    selectTag.SelectByValue(@enum.ToInt());
+                }
                 else
                 {
                     selectTag.SelectByValue(For.Model);

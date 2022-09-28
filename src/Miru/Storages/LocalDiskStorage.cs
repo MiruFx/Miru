@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Miru.Core;
 
@@ -57,5 +60,13 @@ public class LocalDiskStorage : IStorage
     public async Task<bool> FileExistsAsync(MiruPath remote)
     {
         return await Task.FromResult(File.Exists(App / remote));
+    }
+
+    public async Task<List<MiruPath>> GetFilesAsync(MiruPath path, CancellationToken ct = default)
+    {
+        return await Task.FromResult(Directory
+            .GetFiles(path, "*.*")
+            .Select(x => new MiruPath(x))
+            .ToList());
     }
 }
