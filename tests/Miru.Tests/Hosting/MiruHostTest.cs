@@ -6,6 +6,7 @@ using Miru.Settings;
 
 namespace Miru.Tests.Hosting;
 
+[TestFixture]
 public class MiruHostTest
 {
     public class HostTypes
