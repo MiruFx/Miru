@@ -8,7 +8,7 @@ namespace Miru.Cli;
 public class MiruVersionOption : Option<bool>
 {
     private readonly CommandLineBuilder _builder;
-    private string? _description;
+    private string _description;
 
     public MiruVersionOption(CommandLineBuilder builder) : base("--version")
     {
@@ -57,7 +57,7 @@ public class MiruVersionOption : Option<bool>
         set => _description = value;
     }
 
-    public override bool Equals(object? obj)
+    public override bool Equals(object obj)
     {
         return obj is MiruVersionOption;
     }

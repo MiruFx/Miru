@@ -3,6 +3,7 @@ using Hangfire;
 using Hangfire.Redis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Miru.Queuing;
 using Miru.Security;
 using StackExchange.Redis;
@@ -26,6 +27,8 @@ public static class RedisRegistry
         services.AddScoped<IQueueAuthorizer, TAuthorizer>();
 
         services.AddQueueCleaner<RedisQueueCleaner>();
+
+        services.AddSingleton(sp => sp.GetRequiredService<IOptions<QueueingOptions>>().Value);
         
         services.AddSingleton(sp =>
         {
@@ -39,18 +42,6 @@ public static class RedisRegistry
         return services;
     }
     
-    public static IServiceCollection AddRedis(this IServiceCollection services)
-    {
-        services.AddSingleton(sp =>
-        {
-            var configuration = sp.GetService<IConfiguration>();
-
-            return ConnectionMultiplexer.Connect(configuration.GetValue<string>("Queueing:ConnectionString"));
-        });
-        
-        return services;
-    }
-    
     public static void UseRedis(this QueuingBuilder builder)
     {
         var sp = builder.ServiceProvider;
@@ -60,7 +51,8 @@ public static class RedisRegistry
         
         builder.Configuration.UseRedisStorage(redisConnection, new RedisStorageOptions
         {
-            Prefix = queueingOptions.Prefix
+            // hangfire key will be => {prefix}:job:*
+            Prefix = $"{queueingOptions.Prefix}:"
         });
     }
 }

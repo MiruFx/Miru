@@ -46,7 +46,7 @@ public class ScheduledJobIntegratedTest
         {
             jobs.Add<SomeTask>(Cron.Monthly(15));
 
-            RecurringJob.Trigger("SomeTask");
+            RecurringJob.TriggerJob("SomeTask");
         }
     }
 

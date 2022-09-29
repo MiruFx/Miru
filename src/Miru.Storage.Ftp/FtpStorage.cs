@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,14 +14,10 @@ public class FtpStorage : IStorage
 {
     public FtpClient Client { get; }
 
-    public virtual MiruPath StorageDir => A.Path;
-    public MiruPath Path { get; }
-    public MiruPath Root { get; }
-
-    public virtual MiruPath App => StorageDir / "app";
-
-    public MiruPath Assets => throw new NotImplementedException("FtpStorage does not support Assets");
+    public MiruPath Path => Root;
     
+    public MiruPath Root { get; protected set; }
+
     public FtpStorage(FtpOptions ftpOptions)
     {
         Client = new FtpClient(ftpOptions.Host)
@@ -30,47 +25,53 @@ public class FtpStorage : IStorage
             Credentials = new NetworkCredential(ftpOptions.User, ftpOptions.Password),
             Port = ftpOptions.Port,
         };
+        
+        Root = ftpOptions.Root;
     }
 
     public async Task PutAsync(MiruPath remotePath, MiruPath sourcePath)
     {
         await EnsureClientIsConnectedAsync();
             
-        var path = App / remotePath;
+        var path = Path / remotePath;
         
         Miru.App.Log.Debug(
             "FtpStorage is saving from source path {SourcePath} to {RemotePath}",
             sourcePath,
             path);
         
-        await Client.UploadFileAsync(sourcePath, App / remotePath, FtpRemoteExists.Overwrite, createRemoteDir: true);
+        Client.UploadFile(sourcePath, Path / remotePath, FtpRemoteExists.Overwrite, createRemoteDir: true);
+
+        await Task.CompletedTask;
     }
 
     public async Task PutAsync(MiruPath remotePath, Stream stream)
     {
         await EnsureClientIsConnectedAsync();
 
-        var path = App / remotePath;
+        var path = Path / remotePath;
         
-        Miru.App.Log.Debug(
+        App.Log.Debug(
             "FtpStorage is saving stream sized {StreamSize} into {RemotePath}",
             stream.Length,
             path);
             
-        await Client.UploadAsync(stream, path, FtpRemoteExists.Overwrite, createRemoteDir: true);
+        Client.UploadStream(stream, path, FtpRemoteExists.Overwrite, createRemoteDir: true);
+        
+        await Task.CompletedTask;
     }
 
     public async Task<Stream> GetAsync(MiruPath remotePath)
     {
         await EnsureClientIsConnectedAsync();
             
-        Miru.App.Log.Debug(
+        App.Log.Debug(
             "FtpStorage is getting stream from {RemotePath}",
             remotePath);
         
         var stream = new MemoryStream();
             
-        await Client.DownloadAsync(stream, App / remotePath);
+        Client.DownloadStream(stream, Path / remotePath);
             
         return stream;
     }
@@ -79,14 +80,14 @@ public class FtpStorage : IStorage
     {
         await EnsureClientIsConnectedAsync();
             
-        return await Client.FileExistsAsync(App / remote);
+        return Client.FileExists(Path / remote);
     }
 
     public async Task<List<MiruPath>> GetFilesAsync(MiruPath path, CancellationToken ct = default)
     {
         await EnsureClientIsConnectedAsync();
         
-        var files = await Client.GetNameListingAsync(path, ct);
+        var files = Client.GetNameListing(path);
 
         return files.Select(x => new MiruPath(x)).ToList();
     }
@@ -94,6 +95,8 @@ public class FtpStorage : IStorage
     private async Task EnsureClientIsConnectedAsync()
     {
         if (Client.IsConnected == false) 
-            await Client.ConnectAsync();
+            Client.Connect();
+
+        await Task.CompletedTask;
     }
 }
