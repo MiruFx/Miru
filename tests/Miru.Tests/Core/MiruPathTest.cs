@@ -25,7 +25,7 @@ public class MiruPathTest
     {
         (MiruPath.CurrentPath / "src" / "Shoppers.Tests" / ".")
             .ToString()
-            .ShouldBe(Path.Combine(MiruPath.CurrentPath, "src", "Shoppers.Tests") + Path.DirectorySeparatorChar);
+            .ShouldBe(Path.Combine(MiruPath.CurrentPath, "src", "Shoppers.Tests"));
     }
         
     [Test]
@@ -37,18 +37,26 @@ public class MiruPathTest
     }
     
     [Test]
+    public void Should_combine_static_a_path_with_other_path()
+    {
+        (A.Path / "assets" / "favicon.png")
+            .ToString()
+            .ShouldBe(Path.Combine("assets", "favicon.png"));
+    }
+    
+    [Test]
     public void If_first_path_is_slash_when_combining_should_ignore_first_path()
     {
         (new MiruPath("/") / "bin")
             .ToString()
-            .ShouldBe("/bin");
+            .ShouldBe("bin");
     }
     
-    // [Test]
-    // public void If_alt_separator_then_all_combination_should_use_alt_separator()
-    // {
-    //     (new MiruPath("src", altSeparator: true) / "Shoppers.Tests" / "bin")
-    //         .ToString()
-    //         .ShouldBe("src/Shoppers.Tests/bin");
-    // }
+    [Test]
+    public void If_alt_separator_then_all_combination_should_use_alt_separator()
+    {
+        (new MiruPath("src", altSeparator: true) / "Shoppers.Tests" / "bin")
+            .ToString()
+            .ShouldBe("src/Shoppers.Tests/bin");
+    }
 }

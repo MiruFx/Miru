@@ -1,10 +1,11 @@
-namespace Miru.Storages.Ftp
+using Miru.Core;
+
+namespace Miru.Storage.Ftp;
+
+public class FtpOptions : ServerOptions
 {
-    public class FtpOptions
+    public FtpOptions()
     {
-        public string FtpServer { get; set; }
-        public string FtpUser { get; set; }
-        public string FtpPassword { get; set; }
-        public int FtpPort { get; set; } = 21;
+        Port = 21;
     }
 }

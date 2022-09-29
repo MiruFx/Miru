@@ -117,7 +117,8 @@ public static class TestFixtureExtensions
         }
     }
 
-    public static IStorage Storage(this ITestFixture fixture) => fixture.Get<IStorage>();
+    public static IAppStorage AppStorage(this ITestFixture fixture) => 
+        fixture.Get<IAppStorage>();
         
     private static void ThrowExceptionIfNotEntities(object[] entities)
     {

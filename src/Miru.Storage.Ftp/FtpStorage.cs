@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using FluentFTP;
 using Miru.Core;
 using Miru.Storages;
-using Miru.Storages.Ftp;
 
 namespace Miru.Storage.Ftp;
 
@@ -17,6 +16,8 @@ public class FtpStorage : IStorage
     public FtpClient Client { get; }
 
     public virtual MiruPath StorageDir => A.Path;
+    public MiruPath Path { get; }
+    public MiruPath Root { get; }
 
     public virtual MiruPath App => StorageDir / "app";
 
@@ -24,10 +25,10 @@ public class FtpStorage : IStorage
     
     public FtpStorage(FtpOptions ftpOptions)
     {
-        Client = new FtpClient(ftpOptions.FtpServer)
+        Client = new FtpClient(ftpOptions.Host)
         {
-            Credentials = new NetworkCredential(ftpOptions.FtpUser, ftpOptions.FtpPassword),
-            Port = ftpOptions.FtpPort,
+            Credentials = new NetworkCredential(ftpOptions.User, ftpOptions.Password),
+            Port = ftpOptions.Port,
         };
     }
 

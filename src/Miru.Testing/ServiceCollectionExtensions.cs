@@ -21,7 +21,7 @@ public static class ServiceCollectionExtensions
     {
         services
             .AddSenderMemory()
-            .AddTestStorage();
+            .AddAppTestStorage();
             
         return services;
     }

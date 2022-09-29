@@ -7,26 +7,23 @@ using Miru.Core;
 
 namespace Miru.Storages;
 
-public class LocalDiskStorage : IStorage
+public abstract class LocalDiskStorage : IStorage
 {
+    public MiruPath Root { get; protected set; }
+
+    public MiruPath StorageDir { get; }
+
+    public MiruPath Path => Root;
+
     public LocalDiskStorage(MiruSolution solution)
     {
-        _solution = solution;
-            
-        StorageDir = _solution.StorageDir;
+        StorageDir = solution.StorageDir;
+        Root = StorageDir;
     }
-        
-    private readonly MiruSolution _solution;
-
-    public MiruPath StorageDir { get; protected set; }
-
-    public virtual MiruPath App => StorageDir / "app"; 
-        
-    public virtual MiruPath Assets => _solution.StorageDir / "assets"; 
-        
+    
     public async Task PutAsync(MiruPath remote, MiruPath source)
     {
-        var fullRemoteDir = App / remote;
+        var fullRemoteDir = Path / remote;
             
         fullRemoteDir.Dir().EnsureDirExist();
             
@@ -37,7 +34,7 @@ public class LocalDiskStorage : IStorage
 
     public async Task PutAsync(MiruPath remote, Stream stream)
     {
-        var fullRemoteDir = App / remote;
+        var fullRemoteDir = Path / remote;
             
         Files.DeleteIfExists(fullRemoteDir);
             
@@ -54,12 +51,12 @@ public class LocalDiskStorage : IStorage
 
     public async Task<Stream> GetAsync(MiruPath remote)
     {
-        return await Task.FromResult(File.OpenRead(App / remote));
+        return await Task.FromResult(File.OpenRead(Path / remote));
     }
 
     public async Task<bool> FileExistsAsync(MiruPath remote)
     {
-        return await Task.FromResult(File.Exists(App / remote));
+        return await Task.FromResult(File.Exists(Path / remote));
     }
 
     public async Task<List<MiruPath>> GetFilesAsync(MiruPath path, CancellationToken ct = default)

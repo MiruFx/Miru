@@ -26,7 +26,7 @@ public class MailingTest
         _host = new MiruTestWebHost(MiruHost.CreateMiruHost(), services =>
             {
                 services
-                    .AddTestStorage()
+                    .AddAppTestStorage()
                     .AddMiruMvc()
                     .AddMiruUrls()
                     .AddLogging()
@@ -106,10 +106,10 @@ public class MailingTest
         // arrange
         var user = new User { Email = "bill@gates.com", Name = "Bill Gates" };
         
-        (_.Storage().App / "attachment.txt").MakeFake();
+        (_.AppStorage().Path / "attachment.txt").MakeFake();
             
         // act
-        await _mailer.SendNowAsync(new EmailWithAttachment(user, _.Storage()));
+        await _mailer.SendNowAsync(new EmailWithAttachment(user, _.AppStorage()));
             
         // assert
         var emailSent = _emailsSent.Last();

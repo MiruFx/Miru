@@ -42,23 +42,23 @@ public static class StorageExtensions
         
         return new SaveResult
         {
-            FizeSize = (storage.App / fullPath).FileSize(),
+            FizeSize = (storage.Path / fullPath).FileSize(),
             RelativePath = fullPath
         };
     }
     
     public static async Task DeleteAsync(this IStorage storage, MiruPath remotePath)
     {
-        var fullRemotePath = storage.App / remotePath;
+        var fullRemotePath = storage.Path / remotePath;
             
         File.Delete(fullRemotePath);
 
         await Task.CompletedTask;
     }
     
-    public static MiruPath Temp(this IStorage storage)
+    public static MiruPath Temp(this IAppStorage storage)
     {
-        return storage.StorageDir / "temp";
+        return storage.Root / "temp";
     }
     
     public static bool FileExists(this IStorage storage, MiruPath path) =>
@@ -66,7 +66,7 @@ public static class StorageExtensions
     
     public static MiruPath RelativePath(this IStorage storage, MiruPath fullPath)
     {
-        return Path.GetRelativePath(storage.App, fullPath);
+        return Path.GetRelativePath(storage.Path, fullPath);
     }
 }
 

@@ -64,10 +64,7 @@ public class Startup : MiruStartup
             // .AddSmtpSender()
             // .AddFileStorageSender()
 
-            .AddQueuing(_ =>
-            {
-                _.UseLiteDb();
-            })
+            .AddLiteDbQueueing()
             .AddHangfireServer();
             
         services.AddSession();

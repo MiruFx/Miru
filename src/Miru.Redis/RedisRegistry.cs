@@ -1,5 +1,6 @@
 using System;
 using Hangfire;
+using Hangfire.Redis;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Queuing;
@@ -55,7 +56,11 @@ public static class RedisRegistry
         var sp = builder.ServiceProvider;
             
         var redisConnection = sp.GetRequiredService<ConnectionMultiplexer>();
+        var queueingOptions = sp.GetRequiredService<QueueingOptions>();
         
-        builder.Configuration.UseRedisStorage(redisConnection);
+        builder.Configuration.UseRedisStorage(redisConnection, new RedisStorageOptions
+        {
+            Prefix = queueingOptions.Prefix
+        });
     }
 }

@@ -19,7 +19,7 @@ public static class QueueingRegistry
         
         services.AddScoped<IQueueAuthorizer, DefaultQueueAuthorizer>();
 
-        services.AddStorage();
+        services.AddStorage<DbStorage>();
 
         services.AddQueueCleaner<LiteDbQueueCleaner>();
         
@@ -28,12 +28,11 @@ public static class QueueingRegistry
     
     public static void UseLiteDb(this QueuingBuilder builder)
     {
-        var storage = builder.ServiceProvider.GetRequiredService<LocalDiskStorage>();
+        var storage = builder.ServiceProvider.GetRequiredService<DbStorage>();
         var env = builder.ServiceProvider.GetService<IHostEnvironment>();
         var queueOptions = builder.ServiceProvider.GetRequiredService<QueueingOptions>();
 
-        var dbPath = 
-            storage.StorageDir / "db" / $"Queue_{env?.EnvironmentName ?? "All"}.db";
+        var dbPath = storage.Path / $"Queue_{env?.EnvironmentName ?? "All"}.db";
 
         dbPath.Dir().EnsureDirExist();
             

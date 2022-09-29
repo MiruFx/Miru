@@ -1,37 +1,41 @@
 using Microsoft.Extensions.DependencyInjection;
-using Miru.Core;
 using Miru.Storages;
-using Miru.Testing;
-using NUnit.Framework;
-using Shouldly;
 
 namespace Miru.Tests.Storages;
 
-public class TestStorageTest
+public class AppStorageTest
 {
     private ServiceProvider _sp;
-    private MiruSolution _solution;
     private IAppStorage _storage;
+    private MiruSolution _solution;
 
     [OneTimeSetUp]
     public void Setup()
     {
-        _solution = new MiruSolution(A.Path / "MyApp");
-                
+        _solution = new MiruSolution(A.Path / "Musicfy");
+            
         _sp = new ServiceCollection()
             .AddMiruSolution(_solution)
             
             // class under test
-            .AddAppTestStorage()
+            .AddStorages()
             
             .BuildServiceProvider();
 
+        _ = _sp.GetService<ITestFixture>();
+
         _storage = _sp.GetRequiredService<IAppStorage>();
     }
-
+   
     [Test]
-    public void App_path_should_be_storage_test()
+    public void Temp_dir_inside_storage()
     {
-        _storage.Path.ShouldBe(_solution.StorageDir / "tests" / "app");
+        _storage.Temp().ShouldBe(A.Path / "Musicfy" / "storage" / "app" / "temp");
+    }
+        
+    [Test]
+    public void App_dir_inside_storage()
+    {
+        _storage.Path.ShouldBe(A.Path / "Musicfy" / "storage" / "app");
     }
 }

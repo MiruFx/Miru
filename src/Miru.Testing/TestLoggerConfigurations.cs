@@ -10,12 +10,12 @@ public static class TestLoggerConfigurations
     public static ILogger ForTests(IStorage storage) => new LoggerConfiguration()
         .MinimumLevel.Debug()
         .WriteToTestConsole()
-        .WriteTo.File(storage.App / "temp" / "logs" / "FeatureTest.txt", outputTemplate: LoggerConfigurations.TimestampOutputTemplate)
+        .WriteTo.File(storage.Path / "temp" / "logs" / "FeatureTest.txt", outputTemplate: LoggerConfigurations.TimestampOutputTemplate)
         .CreateLogger();
 
     public static ILogger ForPageTest(IStorage storage)
     {
-        var pageTestLog = storage.App / "temp" / "logs" / "PageTest.txt";
+        var pageTestLog = storage.Path / "temp" / "logs" / "PageTest.txt";
 
         var loggerConfiguration = new LoggerConfiguration()
             .MinimumLevel.Debug()

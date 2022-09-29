@@ -58,7 +58,7 @@ public static class MiruServiceCollectionExtensions
         services.AddMakers();
             
         services.AddSingleton<IJsonConverter, JsonConverter>();
-        services.AddStorage();
+        services.AddStorages();
         services.AddConsolable<StorageLinkConsolable>();
 
         services.AddSingleton<ISessionStore, HttpSessionStore>();
