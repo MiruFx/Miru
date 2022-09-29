@@ -20,13 +20,13 @@ public class MiruPathTest
             .ShouldBe(Path.Combine("1000", "2000"));
     }
                 
-    [Test]
-    public void Can_add_a_separator_in_the_end()
-    {
-        (A.Path / "src" / "Shoppers.Tests" / ".")
-            .ToString()
-            .ShouldBe(Path.Combine("src", "Shoppers.Tests"));
-    }
+    // [Test]
+    // public void Can_add_a_separator_in_the_end()
+    // {
+    //     (A.Path / "src" / "Shoppers.Tests" / ".")
+    //         .ToString()
+    //         .ShouldBe(Path.Combine("src", "Shoppers.Tests"));
+    // }
         
     [Test]
     public void Can_create_combining_dir()
@@ -44,19 +44,19 @@ public class MiruPathTest
             .ShouldBe(Path.Combine("assets", "favicon.png"));
     }
     
-    [Test]
-    public void If_first_path_is_slash_when_combining_should_ignore_first_path()
-    {
-        (new MiruPath("/") / "bin")
-            .ToString()
-            .ShouldBe("bin");
-    }
+    // [Test]
+    // public void If_first_path_is_slash_when_combining_should_ignore_first_path()
+    // {
+    //     (new MiruPath("/") / "bin")
+    //         .ToString()
+    //         .ShouldBe("bin");
+    // }
     
-    [Test]
-    public void If_alt_separator_then_all_combination_should_use_alt_separator()
-    {
-        (new MiruPath("src", altSeparator: true) / "Shoppers.Tests" / "bin")
-            .ToString()
-            .ShouldBe("src/Shoppers.Tests/bin");
-    }
+    // [Test]
+    // public void If_alt_separator_then_all_combination_should_use_alt_separator()
+    // {
+    //     (new MiruPath("src", altSeparator: true) / "Shoppers.Tests" / "bin")
+    //         .ToString()
+    //         .ShouldBe("src/Shoppers.Tests/bin");
+    // }
 }
