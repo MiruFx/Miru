@@ -62,7 +62,7 @@ public abstract class LocalDiskStorage : IStorage
     public async Task<List<MiruPath>> GetFilesAsync(MiruPath path, CancellationToken ct = default)
     {
         return await Task.FromResult(Directory
-            .GetFiles(path, "*.*")
+            .GetFiles(Path / path, "*.*")
             .Select(x => new MiruPath(x))
             .ToList());
     }

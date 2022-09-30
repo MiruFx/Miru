@@ -64,10 +64,8 @@ public static class StorageExtensions
     public static bool FileExists(this IStorage storage, MiruPath path) =>
         storage.FileExistsAsync(path).GetAwaiter().GetResult();
     
-    public static MiruPath RelativePath(this IStorage storage, MiruPath fullPath)
-    {
-        return Path.GetRelativePath(storage.Path, fullPath);
-    }
+    public static MiruPath RelativePath(this IStorage storage, MiruPath fullPath) => 
+        Path.GetRelativePath(storage.Path, fullPath);
 }
 
 public class SaveResult
