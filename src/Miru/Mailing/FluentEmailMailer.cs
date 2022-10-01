@@ -44,6 +44,8 @@ namespace Miru.Mailing
             {
                 Data = deliverableEmail
             });
+            
+            // TODO: close streams
         }
         
         /// <summary>

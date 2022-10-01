@@ -26,6 +26,11 @@ public class MemorySender : ISender
                 email.Data.ToAddresses.Select(x => x.EmailAddress).Join(","),
                 email.Data.Subject);
         
+        foreach (var att in email.Data.Attachments)
+        {
+            att.Data.Close();
+        }
+        
         return new SendResponse();
     }
 
