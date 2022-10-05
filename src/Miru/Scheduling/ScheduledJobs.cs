@@ -1,5 +1,7 @@
 using System;
 using Hangfire;
+using MediatR;
+using Miru.Queuing;
 
 namespace Miru.Scheduling;
 
@@ -28,7 +30,36 @@ public class ScheduledJobs
         
         RecurringJob.AddOrUpdate<TJob>(jobId, x => x.ExecuteAsync(), cron, timeZone, queueName);
     }
+    
+    public void Add<TRequest>(
+        TRequest request,
+        string cron, 
+        TimeZoneInfo timeZone = null,
+        string queueName = null,
+        string suffix = null) where TRequest : IBaseRequest
+    {
+        if (timeZone == null)
+            timeZone = TimeZoneInfo.Local;
 
+        if (string.IsNullOrEmpty(queueName))
+            queueName = _options.QueueName;
+
+        var jobId = GetJobId(request, suffix);
+        
+        RecurringJob.AddOrUpdate<JobFor<TRequest>>(jobId, m => m.Execute(request, default, null, queueName), cron, timeZone, queueName);
+        // RecurringJob.AddOrUpdate<JobFor<TJob>>(jobId, x => x.ExecuteAsync(), cron, timeZone, queueName);
+    }
+
+    private string GetJobId<TRequest>(TRequest request, string jobIdSuffix) 
+        where TRequest : IBaseRequest
+    {
+        var jobName = request.GetType().Name;
+
+        return jobIdSuffix.NotEmpty()
+            ? $"{jobName}-{jobIdSuffix}"
+            : jobName;
+    }
+    
     private string GetJobId<TJob>(string jobIdSuffix) where TJob : IScheduledJob
     {
         var jobName = typeof(TJob).Name;

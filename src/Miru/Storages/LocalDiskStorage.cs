@@ -59,7 +59,7 @@ public abstract class LocalDiskStorage : IStorage
         return await Task.FromResult(File.Exists(Path / remote));
     }
 
-    public async Task<List<MiruPath>> GetFilesAsync(MiruPath path, CancellationToken ct = default)
+    public async Task<List<MiruPath>> ListFilesAsync(MiruPath path, CancellationToken ct = default)
     {
         return await Task.FromResult(Directory
             .GetFiles(Path / path, "*.*")

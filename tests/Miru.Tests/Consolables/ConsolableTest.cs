@@ -1,19 +1,10 @@
 using System;
 using System.CommandLine;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Baseline;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Miru.Config;
 using Miru.Consolables;
-using Miru.Core;
 using Miru.Hosting;
-using Miru.Makers;
-using Miru.Testing;
-using NUnit.Framework;
-using Shouldly;
 using StringWriter = System.IO.StringWriter;
 
 namespace Miru.Tests.Consolables;

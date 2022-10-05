@@ -8,8 +8,6 @@ namespace Miru.Storages;
 
 public interface IStorage
 {
-    // MiruPath StorageDir { get; }
-        
     MiruPath Path { get; }
 
     MiruPath Root { get; }
@@ -22,5 +20,5 @@ public interface IStorage
         
     Task<bool> FileExistsAsync(MiruPath remote);
 
-    Task<List<MiruPath>> GetFilesAsync(MiruPath path, CancellationToken ct = default);
+    Task<List<MiruPath>> ListFilesAsync(MiruPath path, CancellationToken ct = default);
 }

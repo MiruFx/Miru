@@ -83,7 +83,7 @@ public class FtpStorage : IStorage
         return Client.FileExists(Path / remote);
     }
 
-    public async Task<List<MiruPath>> GetFilesAsync(MiruPath path, CancellationToken ct = default)
+    public async Task<List<MiruPath>> ListFilesAsync(MiruPath path, CancellationToken ct = default)
     {
         await EnsureClientIsConnectedAsync();
         

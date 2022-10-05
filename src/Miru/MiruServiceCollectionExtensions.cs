@@ -76,6 +76,15 @@ public static class MiruServiceCollectionExtensions
             .AddTransient<ScopedServices, ScopedServices>();
     }
         
+    public static IServiceCollection AddMiruApp<TAssemblyOfType>(this IServiceCollection services)
+    {
+        App.Assembly = typeof(TAssemblyOfType).Assembly;
+        
+        return services
+            .AddSingleton<IMiruApp>(sp => new MiruApp(sp))
+            .AddTransient<ScopedServices, ScopedServices>();
+    }
+
     public static IServiceCollection AddMiruSolution(
         this IServiceCollection services,
         MiruSolution solution)

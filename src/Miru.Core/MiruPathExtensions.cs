@@ -53,4 +53,7 @@ public static class MiruPathExtensions
     
     public static string FileNameWithoutExtension(this MiruPath miruPath) => 
         Path.GetFileNameWithoutExtension(miruPath);
+    
+    public static bool IsFileExtension(this MiruPath miruPath, string extensionWithoutDot) => 
+        Path.GetExtension(miruPath).CaseCmp($".{extensionWithoutDot}");
 }

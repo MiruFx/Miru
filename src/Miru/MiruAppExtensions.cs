@@ -11,7 +11,7 @@ public static class MiruAppExtensions
     public static async Task<TResult> ScopedSendAsync<TResult>(
         this IMiruApp app, 
         IRequest<TResult> message,
-        CancellationToken ct)
+        CancellationToken ct = default)
     {
         using var scope = app.WithScope();
         
@@ -30,7 +30,7 @@ public static class MiruAppExtensions
     public static async Task ScopedSendAsync(
         this IMiruApp app, 
         IBaseRequest message,
-        CancellationToken ct)
+        CancellationToken ct = default)
     {
         using var scope = app.WithScope();
         
@@ -105,5 +105,18 @@ public static class MiruAppExtensions
         jobs.Enqueue(job);
 
         await Task.CompletedTask;
+    }
+    
+    public static void Enqueue<TJob>(
+        this IMiruApp app, 
+        TJob job, 
+        TimeSpan? startIn = null,
+        string queue = "default") where TJob : IBaseRequest
+    {
+        using var scope = app.WithScope();
+        
+        var jobs = scope.Get<Jobs>();
+                
+        jobs.Enqueue(job, startIn: startIn, queue);
     }
 }

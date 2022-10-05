@@ -1,11 +1,16 @@
 using System;
 using System.Collections.Generic;
 
-namespace Miru.Mvc
+namespace Miru.Mvc;
+
+public class SelectLookups : List<Lookup>
 {
-    public class SelectLookups : List<Lookup>
+    public static SelectLookups FromEnum<TEnum>() where TEnum : struct, Enum =>
+        Enum.GetValues<TEnum>().ToSelectLookups();
+
+    public SelectLookups AddFirst(object id, string text)
     {
-        public static SelectLookups FromEnum<TEnum>() where TEnum : struct, Enum =>
-            Enum.GetValues<TEnum>().ToSelectLookups();
+        Insert(0, new Lookup(id, text));
+        return this;
     }
 }
