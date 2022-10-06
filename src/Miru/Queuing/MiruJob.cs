@@ -1,10 +1,20 @@
 using MediatR;
+using Miru.Pipeline;
 
 namespace Miru.Queuing;
 
-public abstract class MiruJob<TJob> : IRequest<TJob>, IQueueable
+public interface IMiruJob : IInvokable, IQueueable
 {
-    public abstract string Id { get; }
+}
 
-    public override string ToString() => this.Title();
+public abstract class MiruJob<TJob> : IRequest<TJob>, IMiruJob
+{
+    private readonly FeatureInfo _featureInfo;
+    
+    public override string ToString() => _featureInfo.GetTitle();
+
+    protected MiruJob()
+    {
+        _featureInfo = new FeatureInfo(this);
+    }
 }

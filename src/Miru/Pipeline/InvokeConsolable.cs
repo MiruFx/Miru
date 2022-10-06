@@ -43,7 +43,7 @@ public class InvokeConsolable : Consolable
 
             var instance = Activator.CreateInstance(type);
 
-            if (instance is IBaseRequest request)
+            if (instance is IInvokable request)
             {
                 await _app.ScopedSendAsync(request);
 
@@ -52,7 +52,7 @@ public class InvokeConsolable : Consolable
                 return;
             }
 
-            Console2.RedLine($"Type {Name}.Command is not a IRequest or IBaseRequest");
+            Console2.RedLine($"Type {Name}.Command is not a IInvokable");
         }
     }
 }

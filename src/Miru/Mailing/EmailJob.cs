@@ -10,7 +10,7 @@ public class EmailJob : MiruJob<EmailJob>
 {
     public Email Email { get; }
 
-    public override string Id => Email.Subject;
+    public string Id => Email.Subject;
         
     public EmailJob(Email email)
     {

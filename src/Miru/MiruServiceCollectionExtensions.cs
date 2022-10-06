@@ -13,6 +13,7 @@ using Miru.Urls;
 using Serilog.Events;
 using Vereyon.Web;
 using AV.Enumeration.ModelBinder;
+using Miru.Pipeline;
 
 namespace Miru;
 
@@ -54,6 +55,7 @@ public static class MiruServiceCollectionExtensions
             
         services.AddConsolable<ConfigShowConsolable>();
         services.AddConsolable<ConfigServicesConsolable>();
+        services.AddConsolable<InvokeConsolable>();
 
         services.AddMakers();
             

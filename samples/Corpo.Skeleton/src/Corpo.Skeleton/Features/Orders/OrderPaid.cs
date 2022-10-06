@@ -7,7 +7,6 @@ public class OrderPaid
 {
     public class Request : MiruJob<Request>
     {
-        public override string Id => null;
     }
         
     public class Handler : JobHandler<Request>

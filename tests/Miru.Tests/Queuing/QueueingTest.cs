@@ -93,14 +93,10 @@ public class QueueingTest : MiruCoreTesting
                 return Task.FromResult(request);
             }
         }
-
-        public override string Id => CustomerId.ToString();
     }
 
     public class ScopedJob : MiruJob<ScopedJob>
     {
-        public override string Id => null;
-
         public static bool Processed { get; set; }
         
         public class ScopedHandler : IRequestHandler<ScopedJob, ScopedJob>

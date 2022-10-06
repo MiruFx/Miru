@@ -4,6 +4,7 @@ using Hangfire;
 using MediatR;
 using Miru.Hosting;
 using Miru.Pipeline;
+using Miru.Queuing;
 using Miru.Scheduling;
 using Miru.Sqlite;
 
@@ -83,7 +84,7 @@ public class ScheduledInvocableTest
     {
         public static bool Executed { get; set; }
 
-        public class Command : IRequest<Command>
+        public class Command : MiruJob<Command>
         {
         }
 

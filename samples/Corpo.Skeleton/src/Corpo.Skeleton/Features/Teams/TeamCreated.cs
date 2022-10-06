@@ -6,7 +6,6 @@ public class TeamCreated
 {
     public class Job : MiruJob<Job>
     {
-        public override string Id => null;
     }
 
     public class Handler : JobHandler<Job>

@@ -6,7 +6,6 @@ public class {{ input.Name }}{{ input.Action }}
 {
     public class Job : MiruJob<Job>
     {
-        public override string Id => null;
     }
 
     public class Handler : JobHandler<Job>

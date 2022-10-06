@@ -8,7 +8,6 @@ public class OrderPlaced
     public class Request : MiruJob<Request>
     {
         public long OrderId { get; set; }
-        public override string Id => OrderId.ToString();
     }
     // #jobrequest
         

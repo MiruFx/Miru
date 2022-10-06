@@ -4,7 +4,12 @@ namespace Miru.Queuing;
 
 public abstract class MiruNotification : INotification, IQueueable
 {
-    public abstract string Id { get; }
+    private readonly FeatureInfo _featureInfo;
+    
+    public override string ToString() => _featureInfo.GetTitle();
 
-    public override string ToString() => this.Title();
+    protected MiruNotification()
+    {
+        _featureInfo = new FeatureInfo(this);
+    }
 }

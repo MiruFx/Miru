@@ -36,7 +36,7 @@ public class ScheduledJobs
         string cron, 
         TimeZoneInfo timeZone = null,
         string queueName = null,
-        string suffix = null) where TRequest : IBaseRequest
+        string suffix = null) where TRequest : IMiruJob
     {
         if (timeZone == null)
             timeZone = TimeZoneInfo.Local;
@@ -46,12 +46,12 @@ public class ScheduledJobs
 
         var jobId = GetJobId(request, suffix);
         
-        RecurringJob.AddOrUpdate<JobFor<TRequest>>(jobId, m => m.Execute(request, default, null, queueName), cron, timeZone, queueName);
-        // RecurringJob.AddOrUpdate<JobFor<TJob>>(jobId, x => x.ExecuteAsync(), cron, timeZone, queueName);
+        RecurringJob.AddOrUpdate<JobFor<TRequest>>(
+            jobId, m => m.Execute(request, default, null, queueName), cron, timeZone, queueName);
     }
 
     private string GetJobId<TRequest>(TRequest request, string jobIdSuffix) 
-        where TRequest : IBaseRequest
+        where TRequest : IMiruJob
     {
         var jobName = request.GetType().Name;
 

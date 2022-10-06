@@ -17,24 +17,23 @@ public class MiruNotificationTest : MiruCoreTesting
         var notification = orderPlaced.GetNotification();
 
         // assert
-        notification.ToString().ShouldBe("OrderPlaced?Id=2");
+        notification.ToString().ShouldBe("OrderPlaced?OrderId=2");
     }
+}
 
-    public class OrderPlaced : IDomainEvent, IEnqueuedEvent
-    {
-        public Order Order { get; init; }
+public class OrderPlaced : IDomainEvent, IEnqueuedEvent
+{
+    public Order Order { get; init; }
 
-        public INotification GetNotification() => 
-            new Event { OrderId = Order.Id };
+    public INotification GetNotification() => 
+        new Event { OrderId = Order.Id };
         
-        public class Event : MiruNotification
-        {
-            public long OrderId { get; init; }
-            public override string Id => OrderId.ToString();
-        }
-    }
-
-    public class Order : Entity
+    public class Event : MiruNotification
     {
+        public long OrderId { get; init; }
     }
+}
+
+public class Order : Entity
+{
 }

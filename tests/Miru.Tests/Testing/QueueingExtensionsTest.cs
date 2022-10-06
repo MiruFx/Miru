@@ -44,6 +44,5 @@ public class QueueingExtensionsTest : MiruCoreTesting
     public class OrderCreated : MiruJob<OrderCreated>
     {
         public long OrderId { get; set; }
-        public override string Id => OrderId.ToString();
     }
 }

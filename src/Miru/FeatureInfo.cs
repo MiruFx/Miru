@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Miru;
 
@@ -32,9 +34,48 @@ public class FeatureInfo
     {
         return Type.Implements<T>() || Type.ReflectedType!.Implements<T>();
     }
-}
+    
+    public string GetIdsQueryString()
+    {
+        var propertyValues = new Dictionary<string, object>();
+        
+        var properties = Instance.GetType().GetProperties();
 
-public static class FeatureInfoExtensions
-{
-    public static FeatureInfo ToFeatureInfo<T>(this T model) => new FeatureInfo(model);
+        foreach (var property in properties)
+        {
+            if (property.Name.EndsWith("Id") && property.PropertyType == typeof(long))
+            {
+                propertyValues[property.Name] = property.GetValue(Instance);
+            }
+        }
+
+        return propertyValues.Select(x => $"{x.Key}={x.Value}").Join("&");
+    }
+    
+    public string GetIdsProperties()
+    {
+        var propertyValues = new Dictionary<string, object>();
+        
+        var properties = Instance.GetType().GetProperties();
+
+        foreach (var property in properties)
+        {
+            if (property.Name.EndsWith("Id") && property.PropertyType == typeof(long))
+            {
+                propertyValues[property.Name] = property.GetValue(Instance);
+            }
+        }
+
+        return propertyValues.Select(x => $"{x.Key}: {x.Value}").Join(", ");
+    }
+    
+    public string GetTitle()
+    {
+        var reflectedType = Type.ReflectedType;
+    
+        if (reflectedType is not null)
+            return $"{reflectedType.Name}?{GetIdsQueryString()}";
+            
+        return $"{Type.Name}?{GetIdsQueryString()}";
+    }
 }
