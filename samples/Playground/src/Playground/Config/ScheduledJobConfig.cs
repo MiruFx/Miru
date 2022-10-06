@@ -8,6 +8,6 @@ public class ScheduledJobConfig : IScheduledJobConfig
 {
     public void Configure(ScheduledJobs jobs)
     {
-        jobs.Add<DispatchSubscriptionOrdersTask>(Cron.Daily(hour: 11));
+        jobs.Add(new DispatchSubscriptionOrdersTask.Command(), Cron.Daily(hour: 11));
     }
 }

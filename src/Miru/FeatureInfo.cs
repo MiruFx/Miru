@@ -71,11 +71,18 @@ public class FeatureInfo
     
     public string GetTitle()
     {
+        var name = GetName();
+        
+        return $"{name}?{GetIdsQueryString()}";
+    }
+    
+    public string GetName()
+    {
         var reflectedType = Type.ReflectedType;
     
         if (reflectedType is not null)
-            return $"{reflectedType.Name}?{GetIdsQueryString()}";
+            return reflectedType.Name;
             
-        return $"{Type.Name}?{GetIdsQueryString()}";
+        return Type.Name;
     }
 }

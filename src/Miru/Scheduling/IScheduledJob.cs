@@ -1,8 +1,7 @@
-using System.Threading.Tasks;
+using Miru.Pipeline;
 
 namespace Miru.Scheduling;
 
-public interface IScheduledJob
+public interface IScheduledJob : IInvokable
 {
-    Task ExecuteAsync();
 }

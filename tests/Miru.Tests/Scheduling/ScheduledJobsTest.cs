@@ -1,6 +1,8 @@
+using System.Threading;
 using Hangfire;
 using Hangfire.Storage;
 using Microsoft.Extensions.DependencyInjection;
+using Miru.Queuing;
 using Miru.Scheduling;
 using Miru.Sqlite;
 
@@ -36,7 +38,7 @@ public class ScheduledJobsTest : MiruCoreTesting
     public void Should_add_a_scheduled_job()
     {
         // act
-        _jobs.Add<SomeTask>(Cron.Daily(15));
+        _jobs.Add(new SomeTask.Command(), Cron.Daily(15));
         
         // assert
         var allJobs = _.Get<JobStorage>().GetConnection().GetRecurringJobs();
@@ -49,7 +51,7 @@ public class ScheduledJobsTest : MiruCoreTesting
     public void Should_add_a_scheduled_job_with_suffix()
     {
         // act
-        _jobs.Add<SomeTask>(Cron.Daily(15), suffix: "15th");
+        _jobs.Add(new SomeTask.Command(), Cron.Daily(15), suffix: "15th");
         
         // assert
         var allJobs = _.Get<JobStorage>().GetConnection().GetRecurringJobs();
@@ -65,11 +67,18 @@ public class ScheduledJobsTest : MiruCoreTesting
         }
     }
     
-    public class SomeTask : IScheduledJob
+    public class SomeTask
     {
-        public Task ExecuteAsync()
+        public class Command : MiruJob<Command>, IScheduledJob
         {
-            return Task.CompletedTask;
+        }
+
+        public class Handler : JobHandler<Command>
+        {
+            public override async Task Handle(Command request, CancellationToken ct)
+            {
+                await Task.CompletedTask;
+            }
         }
     }
 }

@@ -74,9 +74,9 @@ public class ScheduledInvocableTest
     {
         public void Configure(ScheduledJobs jobs)
         {
-            jobs.Add(new OrderDeliveryTracking.Command(), Cron.Hourly());
+            var jobId = jobs.Add(new OrderDeliveryTracking.Command(), Cron.Hourly());
             
-            RecurringJob.TriggerJob("OrderDeliveryTrackingJob");
+            RecurringJob.TriggerJob(jobId);
         }
     }
 
@@ -84,7 +84,7 @@ public class ScheduledInvocableTest
     {
         public static bool Executed { get; set; }
 
-        public class Command : MiruJob<Command>
+        public class Command : MiruJob<Command>, IScheduledJob
         {
         }
 

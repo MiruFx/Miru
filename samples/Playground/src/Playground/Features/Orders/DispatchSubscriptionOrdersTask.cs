@@ -1,24 +1,22 @@
+using System.Threading;
 using System.Threading.Tasks;
+using Miru.Queuing;
 using Miru.Scheduling;
 using Playground.Database;
 
 namespace Playground.Features.Orders;
 
-public class DispatchSubscriptionOrdersTask : IScheduledJob, IConsolableTask
+public class DispatchSubscriptionOrdersTask
 {
-    private readonly PlaygroundDbContext _db;
-
-    public DispatchSubscriptionOrdersTask(PlaygroundDbContext db)
+    public class Command : MiruJob<Command>, IScheduledJob
     {
-        _db = db;
     }
 
-    public Task ExecuteAsync()
+    public class Handler : JobHandler<Command>
     {
-        return Task.CompletedTask;
+        public override async Task Handle(Command request, CancellationToken ct)
+        {
+            await Task.CompletedTask;
+        }
     }
-}
-
-public interface IConsolableTask
-{
 }

@@ -14,29 +14,12 @@ public class ScheduledJobs
         _options = options;
     }
 
-    public void Add<TJob>(
-        string cron, 
-        TimeZoneInfo timeZone = null,
-        string queueName = null,
-        string suffix = null) where TJob : IScheduledJob
-    {
-        if (timeZone == null)
-            timeZone = TimeZoneInfo.Local;
-
-        if (string.IsNullOrEmpty(queueName))
-            queueName = _options.QueueName;
-
-        var jobId = GetJobId<TJob>(suffix);
-        
-        RecurringJob.AddOrUpdate<TJob>(jobId, x => x.ExecuteAsync(), cron, timeZone, queueName);
-    }
-    
-    public void Add<TRequest>(
+    public string Add<TRequest>(
         TRequest request,
         string cron, 
         TimeZoneInfo timeZone = null,
         string queueName = null,
-        string suffix = null) where TRequest : IMiruJob
+        string suffix = null) where TRequest : IScheduledJob
     {
         if (timeZone == null)
             timeZone = TimeZoneInfo.Local;
@@ -48,21 +31,16 @@ public class ScheduledJobs
         
         RecurringJob.AddOrUpdate<JobFor<TRequest>>(
             jobId, m => m.Execute(request, default, null, queueName), cron, timeZone, queueName);
+
+        return jobId;
     }
 
     private string GetJobId<TRequest>(TRequest request, string jobIdSuffix) 
-        where TRequest : IMiruJob
+        where TRequest : IScheduledJob
     {
-        var jobName = request.GetType().Name;
-
-        return jobIdSuffix.NotEmpty()
-            ? $"{jobName}-{jobIdSuffix}"
-            : jobName;
-    }
-    
-    private string GetJobId<TJob>(string jobIdSuffix) where TJob : IScheduledJob
-    {
-        var jobName = typeof(TJob).Name;
+        var featureInfo = new FeatureInfo(request);
+        
+        var jobName = featureInfo.GetName();
 
         return jobIdSuffix.NotEmpty()
             ? $"{jobName}-{jobIdSuffix}"
