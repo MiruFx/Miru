@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using AV.Enumeration;
+using Ardalis.SmartEnum;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Domain;
@@ -15,7 +15,7 @@ public class LookupsTest
     {
         // arrange
         // act
-        var lookups = Enumeration.GetAll<OrderStatus>().ToSelectLookups();
+        var lookups = OrderStatus.List.ToSelectLookups();
             
         // assert
         lookups.ShouldCount(5);
@@ -137,7 +137,7 @@ public class LookupsTest
         Mgmt = 3
     }
         
-    public class OrderStatus : Enumeration
+    public class OrderStatus : SmartEnum<OrderStatus>
     {
         public static OrderStatus Created = new(1, "Created");
         public static OrderStatus PendingPayment = new(2, "Pending Payment");
@@ -145,7 +145,7 @@ public class LookupsTest
         public static OrderStatus Shipped = new(4, "Shipped");
         public static OrderStatus Received = new(5, "Received");
             
-        public OrderStatus(int value, string name) : base(value, name)
+        public OrderStatus(int value, string name) : base(name, value)
         {
         }
     }

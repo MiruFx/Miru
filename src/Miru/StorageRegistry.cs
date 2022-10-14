@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
-using Miru.Consolables;
 using Miru.Html;
+using Miru.Storages;
 
-namespace Miru.Storages;
+namespace Miru;
 
 public static class StorageRegistry
 {

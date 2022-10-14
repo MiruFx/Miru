@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using AV.Enumeration;
+using Ardalis.SmartEnum;
 using Baseline;
 using HtmlTags;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -61,7 +61,7 @@ public class SelectTagHelper : MiruForTagHelper
             if (For.Model != null)
             {
                 // if (For.Model.GetType().ImplementsGenericOf(typeof(Enumeration<>)))
-                if (For.Model is Enumeration)
+                if (For.Model is ISmartEnum)
                 {
                     selectTag.SelectByValue(For.Model.GetPropertyValue("Value"));
                 }

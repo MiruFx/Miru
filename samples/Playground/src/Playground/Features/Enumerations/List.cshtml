@@ -1,4 +1,3 @@
-@using AV.Enumeration
 @model EnumerationList.Query
 
 <h3>Enumerations</h3>
@@ -11,7 +10,7 @@
             <i>@(Model.OrderStatus?.Name ?? "All")</i>
           </a>
           <ul class="dropdown-menu" aria-labelledby="order-status-filter">
-              @foreach (var status in Enumeration.GetAll<EnumerationList.OrderStatus>())
+              @foreach (var status in EnumerationList.OrderStatus.List)
               {
                   <li>
                     <a class="dropdown-item" href="@(Url.Build(Model).With(m => m.OrderStatus, status))">
@@ -28,7 +27,7 @@
             <i>@(Model.PaymentStatus?.Name ?? "All")</i>
           </a>
           <ul class="dropdown-menu" aria-labelledby="payment-status-filter">
-              @foreach (var status in Enumeration.GetAll<EnumerationList.PaymentStatus>())
+              @foreach (var status in EnumerationList.PaymentStatus.List)
               {
                   <li>
                     <a class="dropdown-item" href="@(Url.Build(Model).With(m => m.PaymentStatus, status))">

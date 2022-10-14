@@ -80,10 +80,7 @@ public class Startup
 
             // TODO: one line call .AddLiteDbQueueing() with DefaultQueueAuthorizer set by default
             .AddScoped<IQueueAuthorizer, DefaultQueueAuthorizer>()
-            .AddQueuing(_ =>
-            {
-                _.UseLiteDb();
-            })
+            .AddLiteDbQueueing()
             .AddHangfireServer()
 
             .AddScheduledJob<ScheduledJobConfig>();

@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Hangfire;
+using Hangfire.Storage;
 using MediatR;
 using Miru.Queuing;
 
@@ -8,10 +11,13 @@ namespace Miru.Scheduling;
 public class ScheduledJobs
 {
     private readonly ScheduledJobOptions _options;
+    private readonly JobStorage _jobStorage;
+    private readonly Dictionary<string, IScheduledJob> _jobsAdded = new();
 
-    public ScheduledJobs(ScheduledJobOptions options)
+    public ScheduledJobs(ScheduledJobOptions options, JobStorage jobStorage)
     {
         _options = options;
+        _jobStorage = jobStorage;
     }
 
     public string Add<TRequest>(
@@ -32,6 +38,8 @@ public class ScheduledJobs
         RecurringJob.AddOrUpdate<JobFor<TRequest>>(
             jobId, m => m.Execute(request, default, null, queueName), cron, timeZone, queueName);
 
+        _jobsAdded[jobId] = request;
+        
         return jobId;
     }
 
@@ -46,4 +54,16 @@ public class ScheduledJobs
             ? $"{jobName}-{jobIdSuffix}"
             : jobName;
     }
+
+    public void DeleteAllObsolete()
+    {
+        var allJobs = _jobStorage.GetConnection().GetRecurringJobs().ToList();
+        
+        foreach (var job in allJobs)
+            if (_jobsAdded.ContainsKey(job.Id) == false)
+                RecurringJob.RemoveIfExists(job.Id);
+    }
+    
+    public IEnumerable<RecurringJobDto> GetAll() =>
+        _jobStorage.GetConnection().GetRecurringJobs().ToList();
 }

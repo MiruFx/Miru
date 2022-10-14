@@ -7,19 +7,21 @@ namespace Miru.Scheduling;
 public class ScheduledJobHostedService : IHostedService
 {
     private readonly IScheduledJobConfig _config;
-    private readonly ScheduledJobs _jobs;
+    private readonly ScheduledJobs _scheduledJobs;
 
     public ScheduledJobHostedService(
         IScheduledJobConfig config, 
-        ScheduledJobs jobs)
+        ScheduledJobs scheduledJobs)
     {
         _config = config;
-        _jobs = jobs;
+        _scheduledJobs = scheduledJobs;
     }
 
     public async Task StartAsync(CancellationToken ct)
     {
-        _config.Configure(_jobs);
+        _config.Configure(_scheduledJobs);
+
+        _scheduledJobs.DeleteAllObsolete();
 
         await Task.CompletedTask;
     }

@@ -1,5 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-using Miru.Consolables;
 using Miru.Core;
 
 namespace Miru.Makers;

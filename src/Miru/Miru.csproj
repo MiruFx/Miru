@@ -15,8 +15,8 @@
         <PackageReference Include="NetEscapades.Configuration.Yaml" Version="2.2.0" />
         <PackageReference Include="YamlDotNet" Version="12.0.1" />
         <PackageReference Include="Scrutor" Version="4.2.0" />
-        <PackageReference Include="AV.Enumeration" Version="1.5.4" />
-        <PackageReference Include="AV.Enumeration.ModelBinder" Version="1.5.4" />
+        <PackageReference Include="Ardalis.SmartEnum" Version="2.1.0" />
+        <PackageReference Include="Ardalis.SmartEnum.EFCore" Version="2.1.0" />
 
         <!-- Data -->
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />

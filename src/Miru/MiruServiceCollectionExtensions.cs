@@ -12,7 +12,6 @@ using Miru.Storages;
 using Miru.Urls;
 using Serilog.Events;
 using Vereyon.Web;
-using AV.Enumeration.ModelBinder;
 using Miru.Pipeline;
 
 namespace Miru;
@@ -32,7 +31,8 @@ public static class MiruServiceCollectionExtensions
         }
 
         // services.AddMiruMvc(opt => opt.UseEnumerationModelBinding());
-        services.AddMiruMvc(opt => opt.ModelBinderProviders.Insert(0, new EnumerationQueryStringModelBinderProvider()));
+        // services.AddMiruMvc(opt => opt.ModelBinderProviders.Insert(0, new EnumerationQueryStringModelBinderProvider()));
+        services.AddMiruMvc(opt => opt.ModelBinderProviders.Insert(0, new SmartEnumBinderProvider()));
             
         services.AddSingleton(
             configFinder.Find<ObjectResultConfiguration>() as ObjectResultConfiguration ?? new DefaultObjectResultConfig());

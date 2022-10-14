@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using Ardalis.SmartEnum;
 using AutoFixture;
-using AV.Enumeration;
 using Baseline.Dates;
 using Bogus;
 using Microsoft.AspNetCore.Http;
@@ -25,7 +25,7 @@ public static class FixtureExtensions
             // Ignore types
             _.IfPropertyImplementsEnumerableOf<IEntity>().Ignore();
 
-            _.IfPropertyImplements(typeof(Enumeration)).Ignore();
+            _.IfPropertyImplements(typeof(ISmartEnum)).Ignore();
             // _.IfPropertyImplements(typeof(Enumeration<>)).Ignore();
             _.IfPropertyImplements<IEnumerable<ILookupable>>().Ignore();
                 

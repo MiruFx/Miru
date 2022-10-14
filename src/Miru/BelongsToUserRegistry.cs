@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
+using Miru.Behaviors.BelongsToUser;
 
-namespace Miru.Behaviors.BelongsToUser;
+namespace Miru;
 
 public static class BelongsToUserServiceCollectionExtensions
 {

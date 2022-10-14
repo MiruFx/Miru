@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using AV.Enumeration;
-using Miru.Domain;
+using Ardalis.SmartEnum;
 using Miru.Html.Tags;
 using Miru.Mvc;
-using NUnit.Framework;
 using Playground.Features.Examples;
 
 namespace Miru.Tests.Html.TagHelpers;
@@ -74,7 +72,7 @@ public class SelectTagHelperTest : MiruTagTesting
         public Cities City { get; set; }
         
         // lookups
-        public SelectLookups StatusLookups => Enumeration.GetAll<Statuses>().ToSelectLookups();
+        public SelectLookups StatusLookups => Statuses.List.ToSelectLookups();
         public SelectLookups CitiesLookup => Enum.GetValues<Cities>().ToSelectLookups();
     }
 
@@ -85,12 +83,12 @@ public class SelectTagHelperTest : MiruTagTesting
         Berlin
     }
     
-    public class Statuses : Enumeration
+    public class Statuses : SmartEnum<Statuses>
     {
         public static readonly Statuses Pending = new(1, nameof(Pending));
         public static readonly Statuses Finished = new(2, nameof(Finished));
         
-        public Statuses(int value, string name) : base(value, name)
+        public Statuses(int value, string name) : base(name, value)
         {
         }
     }

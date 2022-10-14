@@ -39,7 +39,7 @@ public static class EfCoreSqliteRegistry
             {
                 options.EnableSensitiveDataLogging();
             }
-                
+            
             if (optionsAction != null)
                 optionsAction.Invoke(sp, options);
         });

@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Miru.Domain;
 using Z.EntityFramework.Plus;
 
-namespace Miru.Behaviors.Inactivable;
+namespace Miru;
 
 public static class InactivableRegistry
 {

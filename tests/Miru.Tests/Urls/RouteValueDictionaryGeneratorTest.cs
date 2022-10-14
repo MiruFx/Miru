@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using AV.Enumeration;
+using Ardalis.SmartEnum;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using Miru.Domain;
 using Miru.Mvc;
 using Miru.Pagination;
 using Miru.Urls;
@@ -664,12 +661,12 @@ public class RouteValueDictionaryGeneratorTest
         }
     }
     
-    public class ProductStatus : Enumeration
+    public class ProductStatus : SmartEnum<ProductStatus>
     {
         public static ProductStatus Active = new(1, "Active");
         public static ProductStatus OutOfStock = new(2, "Out Of Stock");
                 
-        public ProductStatus(int value, string name) : base(value, name)
+        public ProductStatus(int value, string name) : base(name, value)
         {
         }
     }
@@ -709,12 +706,12 @@ public class RouteValueDictionaryGeneratorTest
             public OrderStatus OrderStatus { get; set; }
         }
         
-        public class OrderStatus : Enumeration
+        public class OrderStatus : SmartEnum<OrderStatus>
         {
             public static OrderStatus Paid = new(1, "Paid");
             public static OrderStatus Delivered = new(2, "Delivered");
                 
-            public OrderStatus(int value, string name) : base(value, name)
+            public OrderStatus(int value, string name) : base(name, value)
             {
             }
         }

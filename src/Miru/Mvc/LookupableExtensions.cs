@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AV.Enumeration;
-using Miru.Domain;
+using Ardalis.SmartEnum;
 
 namespace Miru.Mvc;
 
@@ -18,31 +17,6 @@ public static class EnumerableExtensions
         foreach (var item in list)
         {
             lookups.Add(new Lookup(idFunc(item), descriptionFunc(item)));
-        }
-
-        return lookups;
-    }
-        
-    // public static SelectLookups ToSelectLookups<T, TValue>(
-    //     this IEnumerable<Enumeration<T, TValue>> list) where T : Enumeration<T, TValue> where TValue : IComparable
-    // {
-    //     var lookups = new SelectLookups();
-    //
-    //     foreach (var item in list)
-    //     {
-    //         lookups.Add(new Lookup(item.Value, item.Name));
-    //     }
-    //
-    //     return lookups;
-    // }
-           
-    public static SelectLookups ToSelectLookups(this IEnumerable<Enumeration> list)
-    {
-        var lookups = new SelectLookups();
-
-        foreach (var item in list)
-        {
-            lookups.Add(new Lookup(item.Value, item.Name));
         }
 
         return lookups;
@@ -67,6 +41,19 @@ public static class EnumerableExtensions
         foreach (var item in dictionary.OrderBy(x => x.Value))
         {
             lookups.Add(new Lookup(item.Key, item.Value));
+        }
+
+        return lookups;
+    }
+    
+    public static SelectLookups ToSelectLookups<TSmartEnum>(this IReadOnlyCollection<TSmartEnum> enumValues)
+        where TSmartEnum : SmartEnum<TSmartEnum>
+    {
+        var lookups = new SelectLookups();
+
+        foreach (var item in enumValues.OrderBy(x => x.Value))
+        {
+            lookups.Add(new Lookup(item.Value, item.Name));
         }
 
         return lookups;

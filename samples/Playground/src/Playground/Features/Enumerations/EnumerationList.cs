@@ -1,22 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using AV.Enumeration;
+using Ardalis.SmartEnum;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Miru;
 using Miru.Domain;
 using Miru.Mvc;
-using Miru.Pagination;
 using Playground.Database;
 
 namespace Playground.Features.Enumerations;
 
 public class EnumerationList
 {
-    public class OrderStatus : Enumeration
+    public class OrderStatus : SmartEnum<OrderStatus>
     {
         public static OrderStatus Created = new(1, "Created");
         public static OrderStatus PendingPayment = new(2, "Pending Payment");
@@ -24,19 +21,19 @@ public class EnumerationList
         public static OrderStatus Shipped = new(4, "Shipped");
         public static OrderStatus Received = new(5, "Received");
             
-        public OrderStatus(int value, string name) : base(value, name)
+        public OrderStatus(int value, string name) : base(name, value)
         {
         }
     }
         
-    public class PaymentStatus : Enumeration
+    public class PaymentStatus : SmartEnum<PaymentStatus>
     {
         public static PaymentStatus Pending = new(1, "Pending");
         public static PaymentStatus Paid = new(2, "Pending Payment");
         public static PaymentStatus Refused = new(3, "Refused");
         public static PaymentStatus Refund = new(4, "Refund");
 
-        public PaymentStatus(int value, string name) : base(value, name)
+        public PaymentStatus(int value, string name) : base(name, value)
         {
         }
     }
@@ -73,8 +70,8 @@ public class EnumerationList
             var query = _fab.MakeMany<Order>(200, p =>
             {
                 p.Id = _fab.Faker.Random.Int(1, 200);
-                p.OrderStatus = _fab.Faker.PickRandom(Enumeration.GetAll<OrderStatus>());
-                p.PaymentStatus = _fab.Faker.PickRandom(Enumeration.GetAll<PaymentStatus>());
+                p.OrderStatus = _fab.Faker.PickRandom(OrderStatus.List.ToList());
+                p.PaymentStatus = _fab.Faker.PickRandom(PaymentStatus.List.ToList());
             });
 
             if (request.OrderStatus != null)

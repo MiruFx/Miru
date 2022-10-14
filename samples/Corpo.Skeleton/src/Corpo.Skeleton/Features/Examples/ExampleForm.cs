@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using AV.Enumeration;
-using Miru.Domain;
+using Ardalis.SmartEnum;
 using Miru.Html;
 
 namespace Corpo.Skeleton.Features.Examples;
@@ -14,7 +13,7 @@ public class ExampleForm
     public class Command : IRequest<Command>
     {   
         // lookups
-        public SelectLookups CreditCards => Enumeration.GetAll<CreditCardBrands>().ToSelectLookups();
+        public SelectLookups CreditCards => CreditCardBrands.List.ToSelectLookups();
         public SelectLookups Countries { get; set; }
 
         // inputs
@@ -81,12 +80,12 @@ public class ExampleForm
         public async Task<Command> Form(Command command) => await SendAsync(command);
     }
         
-    public class CreditCardBrands : Enumeration
+    public class CreditCardBrands : SmartEnum<CreditCardBrands>
     {
         public static CreditCardBrands Visa = new(1, "Visa");
         public static CreditCardBrands MasterCardBrands = new(2, "MasterCard");
 
-        public CreditCardBrands(int value, string name) : base(value, name)
+        public CreditCardBrands(int value, string name) : base(name, value)
         {
         }
     }

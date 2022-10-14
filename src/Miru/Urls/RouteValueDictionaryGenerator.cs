@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Reflection;
-using AV.Enumeration;
+using Ardalis.SmartEnum;
 using Baseline.Reflection;
 using Microsoft.AspNetCore.Routing;
-using Miru.Domain;
 
 namespace Miru.Urls;
 
@@ -108,10 +107,10 @@ public class RouteValueDictionaryGenerator
                 {
                     value = dateTime.ToShortDateString();
                 }
-                else if (value is Enumeration enumeration)
-                {
-                    value = enumeration.Value;
-                }
+                // else if (value is ISmartEnum enumeration)
+                // {
+                //     value = (int) value;
+                // }
                 // else if (property.Property.PropertyType.ImplementsGenericOf(typeof(Enumeration<,>)))
                 // {
                 //     value = typeof(Enumeration<,>)
@@ -121,13 +120,13 @@ public class RouteValueDictionaryGenerator
                 //         .GetProperty("Value")?
                 //         .GetValue(value);
                 // }
-                // else if (property.Property.PropertyType.ImplementsGenericOf(typeof(Enumeration<>)))
-                // {
-                //     value = typeof(Enumeration<>)
-                //         .MakeGenericType(property.Property.PropertyType)
-                //         .GetProperty("Value")?
-                //         .GetValue(value);
-                // }
+                else if (property.Property.PropertyType.ImplementsGenericOf(typeof(SmartEnum<>)))
+                {
+                    value = typeof(SmartEnum<>)
+                        .MakeGenericType(property.Property.PropertyType)
+                        .GetProperty("Value")?
+                        .GetValue(value);
+                }
                 // else if (property.Property.PropertyType.ImplementsGenericOf(typeof(Enumeration<,>)))
                 // {
                 //     value = typeof(Enumeration<,>)
