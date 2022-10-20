@@ -1,9 +1,12 @@
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
-using Miru.Behaviors.Inactivable;
-using Miru.Databases.EntityFramework;
 using Miru.Domain;
+using Miru.Fabrication;
 using Miru.Tests.Databases.EntityFramework;
+using Miru.Userfy;
 using Z.EntityFramework.Plus;
 
 namespace Miru.Tests.Behaviors;
@@ -15,7 +18,20 @@ public class InactivableTest : MiruCoreTesting
         return services
             .AddEfCoreInMemory<FooDbContext>()
             .AddDatabaseCleaner<InMemoryDatabaseCleaner>()
+            .AddFabrication()
 
+            .AddUserfy<User, IdentityRole<long>, FooDbContext>(
+                identity: cfg =>
+                {
+                    cfg.Password.RequiredLength = 3;
+                    cfg.Password.RequireUppercase = false;
+                    cfg.Password.RequireNonAlphanumeric = false;
+                    cfg.Password.RequireLowercase = false;
+            
+                    cfg.User.RequireUniqueEmail = true;
+                })
+            .AddTestingUserSession<User>()
+            
             // being tested
             .AddInactivable();
     }
@@ -24,6 +40,7 @@ public class InactivableTest : MiruCoreTesting
     public void Setup()
     {
         _.ClearDatabase();
+        _.ClearFabricator();
     }
 
     [Test]
@@ -87,15 +104,58 @@ public class InactivableTest : MiruCoreTesting
         post.IsActive().ShouldBeTrue();
     }
 
+    [Test]
+    public async Task If_user_is_active_then_should_login()
+    {
+        // arrange
+        var user = await _.MakeUserAsync<User>(password: "123456");
+       
+        user.IsInactive = false;
+       
+        _.Save(user);
+       
+        // act
+        var result = await _.Get<IUserLogin<User>>().LoginAsync(user.Email, "123456");
+           
+        // assert
+        result.Succeeded.ShouldBeTrue();
+    }
+    
+    [Test]
+    public async Task If_user_is_inactive_then_should_not_login()
+    {
+        // arrange
+        var user = await _.MakeUserAsync<User>(password: "123456");
+        
+        user.Inactivate();
+        
+        _.Save(user);
+        
+        // act
+        var result = _.App.WithScope(s => s.Get<IUserLogin<User>>().LoginAsync(user.Email, "123456").Result);
+            
+        // assert
+        result.Succeeded.ShouldBeFalse();
+    }
+    
     public class Post : Entity, IInactivable
     {
         public string Title { get; set; }
         public bool IsInactive { get; set; }
     }
 
-    public class FooDbContext : MiruDbContext
+    public class User : UserfyUser, IInactivable
     {
-        public FooDbContext(IMiruApp app) : base(app)
+        public string Name { get; set; }
+        public bool IsInactive { get; set; }
+        public override string Display => Name;
+    }
+    
+    public class FooDbContext : UserfyDbContext<User>
+    {
+        public FooDbContext(
+            DbContextOptions options,
+            IEnumerable<IInterceptor> interceptors) : base(options, interceptors)
         {
         }
         

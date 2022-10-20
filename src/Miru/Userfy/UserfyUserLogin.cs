@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Miru.Domain;
 
 namespace Miru.Userfy;
 

@@ -7,4 +7,7 @@ public static class InactivableExtensions
 
     public static void ActivateOrInactivate(this IInactivable inactivable) => 
         inactivable.IsInactive = !inactivable.IsInactive;
+
+    public static void Inactivate(this IInactivable inactivable) =>
+        inactivable.IsInactive = true;
 }

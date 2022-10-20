@@ -40,6 +40,7 @@ namespace Miru.Tests.Behaviors
         public void Setup()
         {
             _.ClearDatabase();
+            _.Logout();
         }
 
         [Test]

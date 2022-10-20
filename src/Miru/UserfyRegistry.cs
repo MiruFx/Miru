@@ -61,6 +61,7 @@ public static class UserfyRegistry
             services.ConfigureApplicationCookie(cookie);
 
         services.AddAuthorization();
+        services.AddLogging();
             
         // in case of asp.net identity UI
         services.AddRazorPages();

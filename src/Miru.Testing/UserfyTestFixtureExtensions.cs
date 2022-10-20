@@ -24,6 +24,7 @@ namespace Miru.Testing
             var user = scope.Get<Fabricator>().Make(customizations);
 
             user.UserName = user.Email;
+            user.NormalizedUserName = user.NormalizedEmail;
             
             await userManager.CreateAsync(user, password);
 

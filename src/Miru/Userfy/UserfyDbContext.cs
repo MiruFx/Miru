@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using SmartEnum.EFCore;
+using Z.EntityFramework.Plus;
 
 namespace Miru.Userfy;
 
@@ -38,6 +39,8 @@ public abstract class UserfyDbContext<TUser, TRole> : IdentityDbContext<TUser, T
         : base(options)
     {
         Interceptors = interceptors;
+        
+        QueryFilterManager.InitilizeGlobalFilter(this);
     }
         
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -50,8 +53,5 @@ public abstract class UserfyDbContext<TUser, TRole> : IdentityDbContext<TUser, T
         base.OnModelCreating(builder);
 
         builder.UseIdentity<TUser, TRole>();
-        
-        // TODO: use EfCore Conventions
-        builder.ConfigureSmartEnum();
     }
 }
