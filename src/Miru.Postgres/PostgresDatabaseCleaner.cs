@@ -25,7 +25,9 @@ public class PostgresDatabaseCleaner : IDatabaseCleaner
     public async Task ClearAsync()
     {
         await using var conn = new NpgsqlConnection(_databaseOptions.ConnectionString);
-            
+
+        await conn.OpenAsync();
+        
         await Respawner.CreateAsync(conn, new RespawnerOptions()
         {
             DbAdapter = DbAdapter.Postgres,

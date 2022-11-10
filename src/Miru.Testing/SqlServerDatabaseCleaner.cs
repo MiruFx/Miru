@@ -30,9 +30,5 @@ public class SqlServerDatabaseCleaner : IDatabaseCleaner
             },
             SchemasToExclude = new string[] { }
         });
-
-        // await respawner.ResetAsync();
-        
-        // await respawner.R(_dbOptions.ConnectionString);
     }
 }
