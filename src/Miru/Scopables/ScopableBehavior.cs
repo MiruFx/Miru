@@ -18,7 +18,7 @@ public class ScopableBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest,
         _filters = filters;
     }
     
-    public async Task<TResponse> Handle(TRequest request, CancellationToken ct, RequestHandlerDelegate<TResponse> next)
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken ct)
     {
         foreach (var queryFilter in _filters)
         {

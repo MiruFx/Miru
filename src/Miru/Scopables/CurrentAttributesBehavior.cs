@@ -14,7 +14,7 @@ public class CurrentAttributesBehavior<TRequest, TResponse> :
         _currentScope = currentScope;
     }
 
-    public async Task<TResponse> Handle(TRequest request, CancellationToken ct, RequestHandlerDelegate<TResponse> next)
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken ct)
     {
         await _currentScope.BeforeAsync(request, ct);
 

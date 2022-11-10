@@ -13,7 +13,7 @@
     <PackageTags>miru asp.net .net fullstack framework</PackageTags>
 
     <Authors>Joao Carlos Clementoni</Authors>
-    <Copyright>Copyright (c) 2020 Joao Carlos Clementoni</Copyright>
+    <Copyright>Copyright (c) 2020-2022 Joao Carlos Clementoni</Copyright>
 
     <PackageOutputPath>..\..\packages</PackageOutputPath>
     <IncludeSymbols>true</IncludeSymbols>
@@ -35,8 +35,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <LangVersion>preview</LangVersion>
+    <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
 
 </Project>

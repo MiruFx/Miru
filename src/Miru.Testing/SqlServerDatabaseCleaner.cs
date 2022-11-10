@@ -5,13 +5,20 @@ using Miru.Settings;
 using Respawn;
 using Respawn.Graph;
 
-namespace Miru.Testing
-{
-    public class SqlServerDatabaseCleaner : IDatabaseCleaner
-    {
-        private readonly DatabaseOptions _dbOptions;
+namespace Miru.Testing;
 
-        private static readonly Checkpoint Checkpoint = new Checkpoint
+public class SqlServerDatabaseCleaner : IDatabaseCleaner
+{
+    private readonly DatabaseOptions _dbOptions;
+
+    public SqlServerDatabaseCleaner(IOptions<DatabaseOptions> appSettings)
+    {
+        _dbOptions = appSettings.Value;
+    }
+
+    public async Task ClearAsync()
+    {
+        await Respawner.CreateAsync(_dbOptions.ConnectionString, new RespawnerOptions()
         {
             TablesToIgnore = new[]
             {
@@ -22,16 +29,10 @@ namespace Miru.Testing
                 new Table("VersionInfo")
             },
             SchemasToExclude = new string[] { }
-        };
+        });
 
-        public SqlServerDatabaseCleaner(IOptions<DatabaseOptions> appSettings)
-        {
-            _dbOptions = appSettings.Value;
-        }
-
-        public async Task ClearAsync()
-        {
-            await Checkpoint.Reset(_dbOptions.ConnectionString);
-        }
+        // await respawner.ResetAsync();
+        
+        // await respawner.R(_dbOptions.ConnectionString);
     }
 }

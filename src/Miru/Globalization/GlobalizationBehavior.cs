@@ -17,7 +17,7 @@ public class GlobalizationBehavior<TRequest, TResponse> :
         _options = options.Value;
     }
 
-    public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         CultureInfo.CurrentCulture = _options.DefaultRequestCulture.Culture;
         CultureInfo.CurrentUICulture = _options.DefaultRequestCulture.UICulture;

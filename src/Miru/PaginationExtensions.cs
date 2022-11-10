@@ -99,6 +99,45 @@ namespace Miru
             return result;
         }
         
+        // TODO: EfCore Plus doesn't support Future query with PostgreSql
+        // public async static Task<List<TModel>> ToPaginateAsync2<TModel>(
+        //     this IQueryable<TModel> queryable, 
+        //     IPageable pageable,
+        //     CancellationToken ct = default)
+        // {
+        //     var totalCount = queryable.DeferredCount().FutureValue();
+        //
+        //     var page = pageable.Page > 0 
+        //         ? pageable.Page 
+        //         : 1;
+        //         
+        //     var pageSize = pageable.PageSize > 0 
+        //         ? pageable.PageSize 
+        //         : PaginationConfig.DefaultPageSize;
+        //
+        //     // var result = await queryable
+        //     //     .Skip(pageable.Skip())
+        //     //     .Take(pageable.PageSize)
+        //     //     .ToListAsync(ct);
+        //
+        //     var skip = (page - 1) * pageSize;
+        //         
+        //     var result = await queryable
+        //         .Skip(skip)
+        //         .Take(pageable.PageSize)
+        //         .Future()
+        //         .ToListAsync(ct);
+        //     
+        //     var pages = (int) Math.Ceiling((double) totalCount / pageSize);
+        //
+        //     pageable.Page = page;
+        //     pageable.Pages = pages;
+        //     pageable.CountTotal = totalCount;
+        //     pageable.CountShowing = result.Count;
+        //         
+        //     return result;
+        // }
+        
         public static bool HasPagination<T>(this IPageable<T> pageable)
         {
             return pageable.Pages > 1;

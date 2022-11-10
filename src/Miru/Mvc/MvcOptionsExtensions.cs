@@ -43,16 +43,16 @@ public static class MvcOptionsExtensions
         return mvcCoreBuilder;
     }
         
-    // public static void UseEnumerationModelBinding(this MvcOptions opts)
-    // {
-    //     var binderToFind = opts.ModelBinderProviders
-    //         .FirstOrDefault(x => x.GetType() == typeof(SimpleTypeModelBinderProvider));
-    //
-    //     if (binderToFind == null) 
-    //         return;
-    //
-    //     var index = opts.ModelBinderProviders.IndexOf(binderToFind);
-    //         
-    //     opts.ModelBinderProviders.Insert(index, new EnumerationModelBinderProvider());
-    // }
+    public static void UseEnumerationModelBinding(this MvcOptions opts)
+    {
+        var binderToFind = opts.ModelBinderProviders
+            .FirstOrDefault(x => x.GetType() == typeof(SimpleTypeModelBinderProvider));
+    
+        if (binderToFind == null) 
+            return;
+    
+        var index = opts.ModelBinderProviders.IndexOf(binderToFind);
+            
+        opts.ModelBinderProviders.Insert(index, new SmartEnumBinderProvider());
+    }
 }

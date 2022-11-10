@@ -24,7 +24,7 @@ public class ValidationBehavior<TRequest, TResponse> :
         _serviceProvider = serviceProvider;
     }
         
-    public async Task<TResponse> Handle(TRequest request, CancellationToken ct, RequestHandlerDelegate<TResponse> next)
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken ct)
     {
         var validator = _serviceProvider.GetService<IValidator<TRequest>>();
             

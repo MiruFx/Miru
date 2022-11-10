@@ -15,7 +15,7 @@ public class TransactionBehavior<TRequest, TResponse> :
         _db = db;
     }
 
-    public async Task<TResponse> Handle(TRequest message, CancellationToken ct, RequestHandlerDelegate<TResponse> next)
+    public async Task<TResponse> Handle(TRequest message, RequestHandlerDelegate<TResponse> next, CancellationToken ct)
     {
         await using var transaction = await _db.Database.BeginTransactionAsync(ct);
             
