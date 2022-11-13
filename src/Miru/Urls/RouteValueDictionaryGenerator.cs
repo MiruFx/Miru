@@ -89,43 +89,34 @@ public class RouteValueDictionaryGenerator
             }
             else
             {
-                var (value, isModifier) = GetValue(property, rawValue, modifiers);
+                var (originalValue, isModifier) = GetValue(property, rawValue, modifiers);
 
-                if (ShouldIgnoreValue(property, value, modifiers))
+                if (ShouldIgnoreValue(property, originalValue, modifiers))
                     continue;
 
                 if (isModifier == false)
                 {
-                    if (value is null)
+                    if (originalValue is null)
                         continue;
                     
-                    if (value.Equals(property.Property.PropertyType.GetDefaultValue()))
+                    if (originalValue.Equals(property.Property.PropertyType.GetDefaultValue()))
                         continue;
                 }
+
+                string value;
                 
-                if (value is DateTime dateTime)
+                if (originalValue is DateTime dateTime)
                 {
                     value = dateTime.ToShortDateString();
                 }
-                // else if (value is ISmartEnum enumeration)
-                // {
-                //     value = (int) value;
-                // }
-                // else if (property.Property.PropertyType.ImplementsGenericOf(typeof(Enumeration<,>)))
-                // {
-                //     value = typeof(Enumeration<,>)
-                //         .MakeGenericType(
-                //             property.Property.PropertyType,
-                //             property.Property.PropertyType.BaseType?.GetGenericArguments()[1])
-                //         .GetProperty("Value")?
-                //         .GetValue(value);
-                // }
-                else if (property.Property.PropertyType.ImplementsGenericOf(typeof(SmartEnum<>)))
+                else if (originalValue is ISmartEnum)
                 {
+                    // at the moment we support only SmartEnum<int, TEnum>
                     value = typeof(SmartEnum<>)
                         .MakeGenericType(property.Property.PropertyType)
                         .GetProperty("Value")?
-                        .GetValue(value);
+                        .GetValue(originalValue)?
+                        .ToString();
                 }
                 // else if (property.Property.PropertyType.ImplementsGenericOf(typeof(Enumeration<,>)))
                 // {
@@ -136,8 +127,22 @@ public class RouteValueDictionaryGenerator
                 //         .GetProperty("Value")?
                 //         .GetValue(value);
                 // }
+                else
+                {
+                    value = originalValue.ToString();
+                }
                 
-                dictionary[property.Name] = value.ToString();
+                // else if (property.Property.PropertyType.ImplementsGenericOf(typeof(Enumeration<,>)))
+                // {
+                //     value = typeof(Enumeration<,>)
+                //         .MakeGenericType(
+                //             property.Property.PropertyType,
+                //             property.Property.PropertyType.BaseType?.GetGenericArguments()[1])
+                //         .GetProperty("Value")?
+                //         .GetValue(value);
+                // }
+                
+                dictionary[property.Name] = value;
             }
         }
 

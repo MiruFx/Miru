@@ -32,7 +32,7 @@ public class LookupsTest
     {
         // arrange
         // act
-        var lookups = SelectLookups.FromEnum<UserTypes>();
+        var lookups = SelectLookups.ForEnum<UserTypes>();
             
         // assert
         lookups.ShouldCount(3);
@@ -49,7 +49,7 @@ public class LookupsTest
     {
         // arrange
         // act
-        var lookups = SelectLookups.FromEnum<UserTypes>();
+        var lookups = SelectLookups.ForEnum<UserTypes>();
             
         // assert
         lookups.ShouldCount(3);

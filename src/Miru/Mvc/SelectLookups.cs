@@ -5,7 +5,7 @@ namespace Miru.Mvc;
 
 public class SelectLookups : List<Lookup>
 {
-    public static SelectLookups FromEnum<TEnum>() where TEnum : struct, Enum =>
+    public static SelectLookups ForEnum<TEnum>() where TEnum : struct, Enum =>
         Enum.GetValues<TEnum>().ToSelectLookups();
 
     public SelectLookups AddFirst(object id, string text)
