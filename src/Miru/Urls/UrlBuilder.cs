@@ -40,16 +40,24 @@ public class UrlBuilder<TInput> where TInput : class
     }
 
     public UrlBuilder<TInput> With<TProperty>(
-        Expression<Func<TInput, TProperty>> property,
-        object value)
+        string propertyName,
+        TProperty value)
     {
-        _withProperties.AddOrUpdate(ReflectionHelper.GetProperty(property).Name, value);
+        _withProperties.AddOrUpdate(propertyName, value);
         return this;
     }
+
+    public UrlBuilder<TInput> With<TProperty>(
+        Expression<Func<TInput, TProperty>> property,
+        object value) =>
+            With(ReflectionHelper.GetProperty(property).Name, value);
         
-    public UrlBuilder<TInput> Without<TProperty>(Expression<Func<TInput, TProperty>> property)
+    public UrlBuilder<TInput> Without<TProperty>(Expression<Func<TInput, TProperty>> property) =>
+        Without(ReflectionHelper.GetProperty(property).Name);
+
+    public UrlBuilder<TInput> Without(string propertyName)
     {
-        _withoutProperties.Add(ReflectionHelper.GetProperty(property).Name);
+        _withoutProperties.Add(propertyName);
         return this;
     }
 

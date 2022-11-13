@@ -18,7 +18,7 @@ public class SqlServerDatabaseCleaner : IDatabaseCleaner
 
     public async Task ClearAsync()
     {
-        await Respawner.CreateAsync(_dbOptions.ConnectionString, new RespawnerOptions()
+        var cleaner = await Respawner.CreateAsync(_dbOptions.ConnectionString, new RespawnerOptions()
         {
             TablesToIgnore = new[]
             {
@@ -30,5 +30,7 @@ public class SqlServerDatabaseCleaner : IDatabaseCleaner
             },
             SchemasToExclude = new string[] { }
         });
+
+        await cleaner.ResetAsync(_dbOptions.ConnectionString);
     }
 }

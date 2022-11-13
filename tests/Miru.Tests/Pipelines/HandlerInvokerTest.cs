@@ -4,9 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Miru.Hosting;
 using Miru.Urls;
 
-namespace Miru.Tests.Urls;
+namespace Miru.Tests.Pipelines;
 
-public class MiruObjectResultTest : IDisposable
+public class HandlerInvokerTest : IDisposable
 {
     private readonly AlbaHost _system = new AlbaHost(
         new MiruTestWebHost(MiruHost.CreateMiruHost()).GetConfiguredHostBuilder());
@@ -21,7 +21,7 @@ public class MiruObjectResultTest : IDisposable
         _system.Scenario(_ =>
         {
             _.Get
-                .Url(UrlLookup.For(new OrdersCancel.Query {Id = 1}))
+                .Url(UrlLookup.For(new OrderPlace.Query { OrderId = 1 }))
                 .Accepts("application/xml, text/xml");
         
             _.StatusCodeShouldBeOk();
@@ -37,7 +37,7 @@ public class MiruObjectResultTest : IDisposable
         _system.Scenario(_ =>
         {
             _.Get
-                .Url(UrlLookup.For(new OrdersCancel.Query {Id = 1}))
+                .Url(UrlLookup.For(new OrderPlace.Query { OrderId = 1 }))
                 .Accepts("text/html");
 
             _.StatusCodeShouldBeOk();
@@ -51,17 +51,17 @@ public class MiruObjectResultTest : IDisposable
     {
         _system.Scenario(_ =>
         {
-            var request = new OrdersCancel.Command()
+            var request = new OrderPlace.Command()
             {
                 OrderId = 1,
-                OrderName = "Order 1"
+                CreditCardNumber = "1234-5678"
             };
 
             _.WithRequestHeader("X-Requested-With", "XMLHttpRequest");
                 
             _.Post
                 .FormData(request)
-                .ToUrl(UrlLookup.For<OrdersCancel.Command>())
+                .ToUrl(UrlLookup.For<OrderPlace.Command>())
                 .Accepts("text/javascript");
 
             _.StatusCodeShouldBeOk();
@@ -76,7 +76,7 @@ public class MiruObjectResultTest : IDisposable
         _system.Scenario(_ =>
         {
             _.Get
-                .Url(UrlLookup.For(new OrdersCancel.Query {Id = 1}))
+                .Url(UrlLookup.For(new OrderPlace.Query { OrderId = 1 }))
                 .Accepts("application/json");
 
             _.StatusCodeShouldBeOk();

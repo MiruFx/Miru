@@ -28,7 +28,7 @@ public class PostgresDatabaseCleaner : IDatabaseCleaner
 
         await conn.OpenAsync();
         
-        await Respawner.CreateAsync(conn, new RespawnerOptions()
+        var cleaner = await Respawner.CreateAsync(conn, new RespawnerOptions()
         {
             DbAdapter = DbAdapter.Postgres,
             TablesToIgnore = _databaseCleanerOptions
@@ -37,5 +37,7 @@ public class PostgresDatabaseCleaner : IDatabaseCleaner
                 .ToArray(),
             SchemasToExclude = new string[] { }
         });
+        
+        await cleaner.ResetAsync(conn);
     }
 }
