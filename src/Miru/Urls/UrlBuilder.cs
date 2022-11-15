@@ -15,6 +15,7 @@ public class UrlBuilder<TInput> where TInput : class
     private readonly List<KeyValuePair<string, object>> _withoutPropertyAndValues = new();
     private readonly IUrlMaps _urlMaps;
     private readonly UrlOptions _urlOptions;
+    private bool _acceptCommand;
 
     public UrlBuilder(
         TInput request, 
@@ -30,7 +31,13 @@ public class UrlBuilder<TInput> where TInput : class
     {
         return input.ToString();
     }
-        
+
+    public UrlBuilder<TInput> AcceptCommand()
+    {
+        _acceptCommand = true;
+        return this;
+    }
+
     public UrlBuilder<TInput> With<TProperty>(
         Expression<Func<TInput, TProperty>> property,
         TProperty value)
@@ -82,7 +89,7 @@ Also, check if there is a [Route] with constraints for the parameters. Maybe the
 ");
 
         // TODO: Configurable
-        if (Request.GetType().IsRequestCommand())
+        if (_acceptCommand == false && Request.GetType().IsRequestCommand())
         {
             var questionMarkPos = path.IndexOf('?');
                 

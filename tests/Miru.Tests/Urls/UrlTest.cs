@@ -492,10 +492,10 @@ public class UrlTest : MiruCoreTesting
     }
     
     [Test]
-    public void Build_query_string_for_enumeration_of_from_string()
+    public void Build_query_string_with_string_property_name_and_for_enumeration_of_from_string()
     {
         _url.Build(new ProductsList.Query())
-            .With(x => x.ProductStatus, "2")
+            .With("ProductStatus", "2")
             .ToString()
             .ShouldBe($"/Products/List?ProductStatus={ProductsList.ProductStatus.OutOfStock.Value}");
     }
