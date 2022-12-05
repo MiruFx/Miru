@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Miru.Html.Tags;
-using Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Testing.Html;
 
 namespace Miru.Tests.Html.HtmlConfigs;
 
@@ -33,7 +33,7 @@ public class InputTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, attributes: new { name = "Interests[2].InterestFields[1].Name" });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input name=""Interests[2].InterestFields[1].Name"" id=""Interests_2__InterestFields_1__Name"" type=""text"" value=""Genre"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input name=""Interests[2].InterestFields[1].Name"" id=""Interests_2__InterestFields_1__Name"" type=""text"" value=""Genre"" />");
     }
     
     public class Command

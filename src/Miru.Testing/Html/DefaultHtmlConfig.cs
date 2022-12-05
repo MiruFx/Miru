@@ -1,6 +1,6 @@
 using Miru.Html.HtmlConfigs;
 
-namespace Miru.Tests.Html.HtmlConfigs.Helpers;
+namespace Miru.Testing.Html;
 
 public class DefaultHtmlConfig : HtmlConventions
 {

@@ -1,5 +1,5 @@
 using Miru.Html.Tags;
-using Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Testing.Html;
 
 namespace Miru.Tests.Html.HtmlConfigs;
 
@@ -16,7 +16,7 @@ public class BootstrapHtmlConventionsTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-validation2");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<div id=""CustomerName-validation"" data-for=""CustomerName"" hidden=""hidden""></div>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<div id=""CustomerName-validation"" data-for=""CustomerName"" hidden=""hidden""></div>");
     }
     
     [Test]
@@ -30,7 +30,7 @@ public class BootstrapHtmlConventionsTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-validation2");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<div id=""CustomerName-validation"" data-for=""CustomerName"" hidden=""hidden""></div>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<div id=""CustomerName-validation"" data-for=""CustomerName"" hidden=""hidden""></div>");
     }
     
     public class Command

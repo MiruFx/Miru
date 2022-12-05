@@ -1,6 +1,6 @@
 using Miru.Html;
 
-namespace Miru.Tests.Html.HtmlConfigs.Helpers;
+namespace Miru.Testing.Html;
 
 public class TestingAntiForgeryAccessor : IAntiforgeryAccessor
 {

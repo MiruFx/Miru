@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Miru.Html.Tags;
-using Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Testing.Html;
 
 namespace Miru.Tests.Html.HtmlConfigs;
 
@@ -31,7 +31,7 @@ public class TableCellTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-td");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, "<td><span>iPhone</span></td>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, "<td><span>iPhone</span></td>");
     }
         
     // [Test]
@@ -57,7 +57,7 @@ public class TableCellTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-td", content: "Hi");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, "<td>Hi</td>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, "<td>Hi</td>");
     }
         
     [Test]
@@ -70,7 +70,7 @@ public class TableCellTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-td");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, "<td><span>1</span></td>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, "<td><span>1</span></td>");
     }
     
     [Test]
@@ -90,7 +90,7 @@ public class TableCellTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-td");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, "<td></td>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, "<td></td>");
     }
     
     [Test]
@@ -103,7 +103,7 @@ public class TableCellTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-td");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, "<td><span></span></td>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, "<td><span></span></td>");
     }
     
     public class TeamList

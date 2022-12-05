@@ -11,7 +11,7 @@ namespace Miru.Html.Tags;
 
 public static class DefaultExceptionResultConfigExtensions
 {
-    public static void MiruTurboFormSummary2(this ExceptionResultConfiguration config)
+    public static void MiruTurboFormSummary(this ExceptionResultConfiguration config)
     {
         config.When(m => 
             m.Request.IsPost() &&

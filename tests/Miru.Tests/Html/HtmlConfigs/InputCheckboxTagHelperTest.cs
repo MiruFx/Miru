@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Miru.Html;
 using Miru.Html.Tags;
-using Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Testing.Html;
 
 namespace Miru.Tests.Html.HtmlConfigs;
 
@@ -18,7 +18,7 @@ public class InputCheckboxTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2", new { type = "checkbox" });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, "<input type=\"checkbox\" name=\"Remember\" id=\"Remember\" value=\"true\" /><input name=\"Remember\" type=\"hidden\" value=\"false\" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, "<input type=\"checkbox\" name=\"Remember\" id=\"Remember\" value=\"true\" /><input name=\"Remember\" type=\"hidden\" value=\"false\" />");
     }
         
     [Test]
@@ -32,7 +32,7 @@ public class InputCheckboxTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2", new { type = "checkbox" });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, "<input type=\"checkbox\" name=\"Remember\" id=\"Remember\" value=\"true\" checked=\"checked\" /><input name=\"Remember\" type=\"hidden\" value=\"false\" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, "<input type=\"checkbox\" name=\"Remember\" id=\"Remember\" value=\"true\" checked=\"checked\" /><input name=\"Remember\" type=\"hidden\" value=\"false\" />");
     }
         
     [Test]
@@ -46,7 +46,7 @@ public class InputCheckboxTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2", new { type = "checkbox", @checked = "checked" });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input type=""checkbox"" checked=""checked"" name=""Remember"" id=""Remember"" value=""true"" /><input name=""Remember"" type=""hidden"" value=""false"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input type=""checkbox"" checked=""checked"" name=""Remember"" id=""Remember"" value=""true"" /><input name=""Remember"" type=""hidden"" value=""false"" />");
     }
  
     [Test]
@@ -61,7 +61,7 @@ public class InputCheckboxTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2", new { value = Newsletters.Partners });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input value=""Partners"" name=""NewsletterOptions"" id=""NewsletterOptions"" type=""checkbox"" checked=""checked"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input value=""Partners"" name=""NewsletterOptions"" id=""NewsletterOptions"" type=""checkbox"" checked=""checked"" />");
     }
     
     [Test]
@@ -76,7 +76,7 @@ public class InputCheckboxTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2", new { value = Newsletters.News });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input value=""News"" name=""NewsletterOptions"" id=""NewsletterOptions"" type=""checkbox"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input value=""News"" name=""NewsletterOptions"" id=""NewsletterOptions"" type=""checkbox"" />");
     }
         
     // [Test]

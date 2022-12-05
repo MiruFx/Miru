@@ -1,5 +1,5 @@
 using Miru.Html.Tags;
-using Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Testing.Html;
 
 namespace Miru.Tests.Html.HtmlConfigs;
 
@@ -16,7 +16,7 @@ public class DisplayLabelTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-display-label2");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<span>Name</span>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<span>Name</span>");
     }
     
     // [Test]

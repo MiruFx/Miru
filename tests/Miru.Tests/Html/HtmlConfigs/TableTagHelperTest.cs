@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Miru.Html.Tags;
-using Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Testing.Html;
 
 namespace Miru.Tests.Html.HtmlConfigs;
 
@@ -24,7 +24,7 @@ public class TableTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-table2");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<table></table>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<table></table>");
     }
         
     [Test]
@@ -44,7 +44,7 @@ public class TableTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-table2");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<table></table>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<table></table>");
     }
         
     [Test]
@@ -61,7 +61,7 @@ public class TableTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-table2");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, string.Empty);
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, string.Empty);
     }
     
     [Test]
@@ -74,7 +74,7 @@ public class TableTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-table2");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<table></table>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<table></table>");
     }
     
     public class TeamList

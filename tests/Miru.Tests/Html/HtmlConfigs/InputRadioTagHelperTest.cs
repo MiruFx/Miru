@@ -1,6 +1,6 @@
 using Miru.Html;
 using Miru.Html.Tags;
-using Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Testing.Html;
 
 namespace Miru.Tests.Html.HtmlConfigs;
 
@@ -17,7 +17,7 @@ public class InputRadioTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2", new { type="radio", value = Relationships.Married });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input type=""radio"" value=""Married"" name=""Relationship"" id=""Relationship"" checked=""checked"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input type=""radio"" value=""Married"" name=""Relationship"" id=""Relationship"" checked=""checked"" />");
     }
     
     [Test]
@@ -31,7 +31,7 @@ public class InputRadioTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2", new { type="radio", value = "2" });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input type=""radio"" value=""2"" name=""Relationship"" id=""Relationship"" checked=""checked"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input type=""radio"" value=""2"" name=""Relationship"" id=""Relationship"" checked=""checked"" />");
     }
     
     [Test]
@@ -45,7 +45,7 @@ public class InputRadioTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2", new { type="radio", value = Relationships.Divorced });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input type=""radio"" value=""Divorced"" name=""Relationship"" id=""Relationship"" />");       
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input type=""radio"" value=""Divorced"" name=""Relationship"" id=""Relationship"" />");       
     }
     
     [Test]
@@ -59,7 +59,7 @@ public class InputRadioTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2", new { type="radio", value = "M" });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input type=""radio"" value=""M"" name=""Size"" id=""Size"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input type=""radio"" value=""M"" name=""Size"" id=""Size"" />");
     }
     
     [Test]
@@ -73,7 +73,7 @@ public class InputRadioTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2", new { type="radio", value = "false" });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input type=""radio"" value=""false"" name=""Active"" id=""Active"" checked=""checked"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input type=""radio"" value=""false"" name=""Active"" id=""Active"" checked=""checked"" />");
     }
 
     [Test]
@@ -87,7 +87,7 @@ public class InputRadioTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2", new { type="radio", value = "false" });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input type=""radio"" value=""false"" name=""Active"" id=""Active"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input type=""radio"" value=""false"" name=""Active"" id=""Active"" />");
     }
 
     public class Command

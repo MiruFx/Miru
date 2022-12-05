@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
+using NUnit.Framework;
 
-namespace Miru.Tests.Html.HtmlConfigs.Helpers;
+namespace Miru.Testing.Html;
 
 public abstract class MiruCoreTesting
 {

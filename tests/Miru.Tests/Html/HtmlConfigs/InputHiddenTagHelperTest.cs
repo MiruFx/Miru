@@ -1,5 +1,5 @@
 using Miru.Html.Tags;
-using Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Testing.Html;
 
 namespace Miru.Tests.Html.HtmlConfigs;
 
@@ -16,7 +16,7 @@ public class InputHiddenTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input name=""PersonId"" id=""PersonId"" type=""hidden"" value=""12"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input name=""PersonId"" id=""PersonId"" type=""hidden"" value=""12"" />");
     }
     
     [Test]
@@ -30,7 +30,7 @@ public class InputHiddenTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2", new { type = "hidden" });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input type=""hidden"" name=""PersonId"" id=""PersonId"" value=""12"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input type=""hidden"" name=""PersonId"" id=""PersonId"" value=""12"" />");
     }
     
     [Test]
@@ -44,7 +44,7 @@ public class InputHiddenTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2", new { type = "hidden" });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input type=""hidden"" name=""Name"" id=""Name"" value=""iPhone"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input type=""hidden"" name=""Name"" id=""Name"" value=""iPhone"" />");
     }
     
     [Test]
@@ -58,7 +58,7 @@ public class InputHiddenTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2", new { type = "hidden" });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @$"<input type=""hidden"" name=""Status"" id=""Status"" value=""{Statuses.Inactive.Value}"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @$"<input type=""hidden"" name=""Status"" id=""Status"" value=""{Statuses.Inactive.Value}"" />");
     }
     
     // [Test]

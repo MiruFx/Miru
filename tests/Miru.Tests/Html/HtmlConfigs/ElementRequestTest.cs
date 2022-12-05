@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Miru.Html;
 using Miru.Html.HtmlConfigs;
 using Miru.Html.Tags;
-using Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Testing.Html;
 
 namespace Miru.Tests.Html.HtmlConfigs;
 

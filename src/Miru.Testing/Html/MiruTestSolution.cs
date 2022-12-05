@@ -1,4 +1,6 @@
-namespace Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Core;
+
+namespace Miru.Testing.Html;
 
 public class MiruTestSolution : MiruSolution
 {

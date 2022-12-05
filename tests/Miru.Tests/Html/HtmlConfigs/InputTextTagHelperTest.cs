@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Miru.Html.Tags;
-using Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Testing.Html;
 
 namespace Miru.Tests.Html.HtmlConfigs;
 
@@ -17,7 +17,7 @@ public class InputTextTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input name=""Name"" id=""Name"" type=""text"" value=""John"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input name=""Name"" id=""Name"" type=""text"" value=""John"" />");
     }
     
     [Test]
@@ -31,7 +31,7 @@ public class InputTextTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input name=""Age"" id=""Age"" type=""text"" value=""88"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input name=""Age"" id=""Age"" type=""text"" value=""88"" />");
     }
     
     [Test]
@@ -60,7 +60,7 @@ public class InputTextTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input name=""Interests[2].Attributes[1].Name"" id=""Interests_2__Attributes_1__Name"" type=""text"" value=""Genre"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input name=""Interests[2].Attributes[1].Name"" id=""Interests_2__Attributes_1__Name"" type=""text"" value=""Genre"" />");
     }
     
     [Test]
@@ -74,7 +74,7 @@ public class InputTextTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2", new { name = "CustomerAge" });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input name=""CustomerAge"" id=""CustomerAge"" type=""text"" value=""88"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input name=""CustomerAge"" id=""CustomerAge"" type=""text"" value=""88"" />");
     }
 
     [Test]
@@ -88,7 +88,7 @@ public class InputTextTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input name=""Name"" id=""Name"" type=""text"" value=""Paul"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input name=""Name"" id=""Name"" type=""text"" value=""Paul"" />");
     }
 
     public class Command

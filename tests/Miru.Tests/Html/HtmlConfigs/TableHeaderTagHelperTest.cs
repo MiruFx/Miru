@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Miru.Html.HtmlConfigs;
 using Miru.Html.HtmlConfigs.Core;
 using Miru.Html.Tags;
-using Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Testing.Html;
 
 namespace Miru.Tests.Html.HtmlConfigs;
 
@@ -31,7 +31,7 @@ public class TableHeaderTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-th");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, "<th class=\"text-muted\">Name</th>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, "<th class=\"text-muted\">Name</th>");
     }
     
     [Test]
@@ -52,7 +52,7 @@ public class TableHeaderTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-th", content: "Product Name");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, "<th class=\"text-muted\">Product Name</th>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, "<th class=\"text-muted\">Product Name</th>");
     }
     
     [Test]
@@ -65,7 +65,7 @@ public class TableHeaderTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-th");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, "<th class=\"text-muted\"></th>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, "<th class=\"text-muted\"></th>");
     }
     
     [Test]
@@ -78,7 +78,7 @@ public class TableHeaderTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-th", new { @class = "pe-5" });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, "<th class=\"text-muted pe-5\"></th>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, "<th class=\"text-muted pe-5\"></th>");
     }
     
     [Test]
@@ -91,7 +91,7 @@ public class TableHeaderTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-th", new { @set_class = "fw-bold" });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, "<th class=\"fw-bold\"></th>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, "<th class=\"fw-bold\"></th>");
     }
 
     public class Result

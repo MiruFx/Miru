@@ -2,8 +2,9 @@ using System.IO;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.DependencyInjection;
+using Shouldly;
 
-namespace Miru.Tests.Html.HtmlConfigs.Helpers;
+namespace Miru.Testing.Html;
 
 [ShouldlyMethods]
 public static class Extensions

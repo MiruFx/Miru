@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Miru.Html.Tags;
-using Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Testing.Html;
 
 namespace Miru.Tests.Html.HtmlConfigs;
 
@@ -17,7 +17,7 @@ public class InputFileTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input name=""File"" id=""File"" type=""file"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input name=""File"" id=""File"" type=""file"" />");
     }
    
     public class Command

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Miru.Html.Tags;
-using Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Testing.Html;
 
 namespace Miru.Tests.Html.HtmlConfigs;
 
@@ -17,7 +17,7 @@ public class DisplayTagHelperTest : MiruTagTesting
         var html = ProcessTag(tag, "miru-display2");
 
         // assert
-        Helpers.Extensions.HtmlShouldBe(html, "<span>iPhone</span>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(html, "<span>iPhone</span>");
     }
 
     [Test]
@@ -31,7 +31,7 @@ public class DisplayTagHelperTest : MiruTagTesting
         var html = ProcessTag(tag, "miru-display2");
 
         // assert
-        Helpers.Extensions.HtmlShouldBe(html, "<span>44</span>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(html, "<span>44</span>");
     }
     
     [Test]
@@ -45,7 +45,7 @@ public class DisplayTagHelperTest : MiruTagTesting
         var html = ProcessTag(tag, "miru-display2");
 
         // assert
-        Helpers.Extensions.HtmlShouldBe(html, "<span>Inactive</span>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(html, "<span>Inactive</span>");
     }
     
     [Test]
@@ -59,7 +59,7 @@ public class DisplayTagHelperTest : MiruTagTesting
         var html = ProcessTag(tag, "miru-display2");
 
         // assert
-        Helpers.Extensions.HtmlShouldBe(html, "<span>Akitv</span>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(html, "<span>Akitv</span>");
     }
     
     public class Result

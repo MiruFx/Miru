@@ -1,5 +1,5 @@
 using Miru.Html.Tags;
-using Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Testing.Html;
 
 namespace Miru.Tests.Html.HtmlConfigs;
 
@@ -16,7 +16,7 @@ public class LabelTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-label2");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<label for=""Name"">Name</label>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<label for=""Name"">Name</label>");
     }
     
     [Test]
@@ -31,7 +31,7 @@ public class LabelTagHelperTest : MiruTagTesting
             
         // assert
         // in production, asp.net will set the html's content
-        Helpers.Extensions.HtmlShouldBe(output, @"<label for=""Name""></label>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<label for=""Name""></label>");
     }
     
     // [Test]

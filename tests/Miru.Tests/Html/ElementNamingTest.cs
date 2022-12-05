@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Miru.Domain;
 using Miru.Html;
-using Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Testing.Html;
 
 namespace Miru.Tests.Html;
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Miru.Html.Tags;
 using Miru.Mvc;
-using Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Testing.Html;
 
 namespace Miru.Tests.Html.HtmlConfigs;
 
@@ -30,7 +30,7 @@ public class SelectTagHelperTest : MiruTagTesting
         var html = ProcessTag(tag, "miru-select2");
 
         // assert
-        Helpers.Extensions.HtmlShouldBe(html, "<select name=\"Country\" id=\"Country\"><option value=\"br\">Brazil</option><option value=\"de\" selected=\"selected\">Germany</option></select>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(html, "<select name=\"Country\" id=\"Country\"><option value=\"br\">Brazil</option><option value=\"de\" selected=\"selected\">Germany</option></select>");
     }
     
     [Test]
@@ -56,7 +56,7 @@ public class SelectTagHelperTest : MiruTagTesting
         var html = ProcessTag(tag, "miru-select2", new { empty_option = string.Empty});
 
         // assert
-        Helpers.Extensions.HtmlShouldBe(html, "<select name=\"Country\" id=\"Country\"><option></option><option value=\"br\">Brazil</option><option value=\"de\" selected=\"selected\">Germany</option></select>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(html, "<select name=\"Country\" id=\"Country\"><option></option><option value=\"br\">Brazil</option><option value=\"de\" selected=\"selected\">Germany</option></select>");
     }
    
     [Test]
@@ -74,7 +74,7 @@ public class SelectTagHelperTest : MiruTagTesting
         var html = ProcessTag(tag, "miru-select2");
     
         // assert
-        Helpers.Extensions.HtmlShouldBe(html, "<select name=\"Status\" id=\"Status\"><option value=\"1\">Pending</option><option value=\"2\" selected=\"selected\">Finished</option></select>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(html, "<select name=\"Status\" id=\"Status\"><option value=\"1\">Pending</option><option value=\"2\" selected=\"selected\">Finished</option></select>");
     }
     
     public class Command

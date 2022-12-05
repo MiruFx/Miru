@@ -1,5 +1,5 @@
 using Miru.Html.Tags;
-using Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Testing.Html;
 
 namespace Miru.Tests.Html.HtmlConfigs;
 
@@ -15,7 +15,7 @@ public class FormTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-form");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<form id=""post-new-form"" action=""/PostNew"" method=""post""><input name=""FormFieldName"" type=""hidden"" value=""RequestToken"" /></form>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<form id=""post-new-form"" action=""/PostNew"" method=""post""><input name=""FormFieldName"" type=""hidden"" value=""RequestToken"" /></form>");
     }
     
     [Test]
@@ -28,7 +28,7 @@ public class FormTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-form", new { method = "get" });
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, "<form method=\"get\" id=\"post-new-form\" action=\"/PostNew\"></form>");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, "<form method=\"get\" id=\"post-new-form\" action=\"/PostNew\"></form>");
     }
     
     public class PostNew

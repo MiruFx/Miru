@@ -1,5 +1,5 @@
 using Miru.Html.Tags;
-using Miru.Tests.Html.HtmlConfigs.Helpers;
+using Miru.Testing.Html;
 
 namespace Miru.Tests.Html.HtmlConfigs;
 
@@ -16,7 +16,7 @@ public class InputPasswordTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input name=""Password"" id=""Password"" type=""password"" value=""123"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input name=""Password"" id=""Password"" type=""password"" value=""123"" />");
     }
     
     [Test]
@@ -30,7 +30,7 @@ public class InputPasswordTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-input2");
             
         // assert
-        Helpers.Extensions.HtmlShouldBe(output, @"<input name=""ConfirmPassword"" id=""ConfirmPassword"" type=""password"" value=""456"" />");
+        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<input name=""ConfirmPassword"" id=""ConfirmPassword"" type=""password"" value=""456"" />");
     }
     
     public class Command
