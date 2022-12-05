@@ -14,7 +14,8 @@ public static class HtmlConfigRegistry
             .AddSingleton<ElementNaming>()
             .AddSingleton<TagModifier>()
             .AddSingleton<TagServices>()
-            .AddSingleton<TagHelperModifier>();
+            .AddSingleton<TagHelperModifier>()
+            .AddTransient<IAntiforgeryAccessor, AntiForgeryAccessor>();
         
         return services.AddSingleton(htmlConventions);
     }
