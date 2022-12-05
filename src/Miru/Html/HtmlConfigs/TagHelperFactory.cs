@@ -26,7 +26,7 @@ public class TagHelperModifier
         TModel model,
         Expression<Func<TModel, TProperty>> expression,
         Action<TagHelperOutput> action = null)
-        where TMiruTag : MiruTagHelper, new()
+        where TMiruTag : MiruForTagHelper, new()
     {
         tag.Model = model;
         tag.ExFor = ReflectionHelper.GetAccessor(expression);
@@ -37,7 +37,7 @@ public class TagHelperModifier
     public string Modify<TMiruTag>(
         TMiruTag tag,
         Action<TagHelperOutput> action = null) 
-            where TMiruTag : MiruTagHelper, new()
+            where TMiruTag : MiruForTagHelper, new()
     {
         tag.RequestServices = _sp;
         

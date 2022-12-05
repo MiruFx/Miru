@@ -6,7 +6,7 @@ using Miru.Urls;
 namespace Miru.Html.Tags;
 
 [HtmlTargetElement("*", Attributes = "full-src")]
-public class FullSrcTagHelper : MiruTagHelper
+public class FullSrcTagHelper : MiruForTagHelper
 {
     [HtmlAttributeName("full-src")]
     public string FullSrc { get; set; }

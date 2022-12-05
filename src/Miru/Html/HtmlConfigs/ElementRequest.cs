@@ -28,7 +28,7 @@ public struct ElementRequest
         TModel model,
         Expression<Func<TModel, TProperty>> expression,
         Action<TagHelperOutput> action = null)
-        where TMiruTag : MiruTagHelper, new()
+        where TMiruTag : MiruForTagHelper, new()
     {
         var tagModifier = RequestServices.GetService<TagHelperModifier>();
 
@@ -40,7 +40,7 @@ public struct ElementRequest
     
     public object Get(Type type) => RequestServices.GetService(type);
     
-    public static ElementRequest Create(MiruTagHelper tagHelper)
+    public static ElementRequest Create(MiruForTagHelper tagHelper)
     {
         var model = tagHelper.Model ?? tagHelper.ViewContext?.ViewData.Model;
         

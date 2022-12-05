@@ -10,7 +10,7 @@ namespace Miru.Html.Tags;
 [HtmlTargetElement("miru-select", Attributes = "x")]
 [HtmlTargetElement("miru-select", Attributes = "for")]
 [HtmlTargetElement("miru-select", Attributes = "model")]
-public class SelectTagHelper : MiruTagHelper
+public class SelectTagHelper : MiruForTagHelper
 {
     private const string SelectedAttr = $" selected=\"selected\"";
     

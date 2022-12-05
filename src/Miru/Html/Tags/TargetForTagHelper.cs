@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 namespace Miru.Html.Tags;
 
 [HtmlTargetElement("*", Attributes = "target-for")]
-public class TargetForTagHelper : MiruTagHelper
+public class TargetForTagHelper : MiruForTagHelper
 {
     [HtmlAttributeName("target-for")]
     public ModelExpression TargetFor { get; set; }

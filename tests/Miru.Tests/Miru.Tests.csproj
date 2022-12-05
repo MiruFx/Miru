@@ -38,6 +38,5 @@ Has to be .Sdk.Web to allow unit test asp.net components correctly
 
   <ItemGroup>
     <Folder Include="Html\HtmlConfigs\Helpers" />
-    <Folder Include="Html\HtmlConfigs\Hotwired" />
   </ItemGroup>
 </Project>

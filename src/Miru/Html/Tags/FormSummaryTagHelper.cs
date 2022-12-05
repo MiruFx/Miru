@@ -4,7 +4,7 @@ using Miru.Html.HtmlConfigs;
 namespace Miru.Html.Tags;
 
 [HtmlTargetElement("miru-summary")]
-public class FormSummaryTagHelper : MiruTagHelper
+public class FormSummaryTagHelper : MiruForTagHelper
 {
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {

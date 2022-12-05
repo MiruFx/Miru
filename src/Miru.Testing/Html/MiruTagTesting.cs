@@ -68,7 +68,7 @@ public abstract class MiruTagTesting : MiruCoreTesting
     }
 
     protected TTag CreateTagWithFor<TTag, TModel>(TTag tag, TModel model) 
-        where TTag : MiruTagHelper, new()
+        where TTag : MiruForTagHelper, new()
     {
         tag.For = MakeExpression(model);
 
@@ -78,14 +78,14 @@ public abstract class MiruTagTesting : MiruCoreTesting
     public TTag CreateTagWithFor<TTag, TModel, TProperty>(
         TTag tag,
         TModel model, 
-        Expression<Func<TModel, TProperty>> expression = null) where TTag : MiruTagHelper
+        Expression<Func<TModel, TProperty>> expression = null) where TTag : MiruForTagHelper
     {
         tag.For = GetModelExpression(model, expression);
 
         return tag;
     }
     
-    protected TTag Tag<TTag>() where TTag : MiruTagHelper, new()
+    protected TTag Tag<TTag>() where TTag : MiruForTagHelper, new()
     {
         return new TTag 
         { 
@@ -93,13 +93,13 @@ public abstract class MiruTagTesting : MiruCoreTesting
         };
     }
     
-    protected TTag Tag<TTag>(TTag tag) where TTag : MiruTagHelper, new()
+    protected TTag Tag<TTag>(TTag tag) where TTag : MiruForTagHelper, new()
     {
         tag.RequestServices = _.App.Get<IServiceProvider>();
         return tag;
     }
     
-    protected TTag TagWithModel<TTag>(object model) where TTag : MiruTagHelper, new()
+    protected TTag TagWithModel<TTag>(object model) where TTag : MiruForTagHelper, new()
     {
         return new TTag 
         { 
@@ -111,7 +111,7 @@ public abstract class MiruTagTesting : MiruCoreTesting
     protected TTag TagWithXFor<TModel, TProperty, TTag>(
         TTag tag,
         TModel model, 
-        Expression<Func<TModel, TProperty>> expression) where TTag : MiruTagHelper, new()
+        Expression<Func<TModel, TProperty>> expression) where TTag : MiruForTagHelper, new()
     {
         return new TTag 
         { 
@@ -128,7 +128,7 @@ public abstract class MiruTagTesting : MiruCoreTesting
         TTag tag,
         TModel model, 
         Expression<Func<TModel, TProperty>> expression) 
-            where TTag : MiruTagHelper, new()
+            where TTag : MiruForTagHelper, new()
     {
         tag.For = GetModelExpression(model, expression);
         tag.ViewContext = new ViewContext

@@ -1,37 +1,14 @@
-using System;
 using Baseline.Reflection;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.Extensions.DependencyInjection;
-using Miru.Html.HtmlConfigs.Core;
 
 namespace Miru.Html.Tags;
 
-public abstract class MiruTagHelper : TagHelper
+public abstract class MiruForTagHelper : MiruTagHelper
 {
     public const string ForAttributeName = "for";
     public const string ModelAttributeName = "model";
     
-    private IServiceProvider _requestServices;
-        
-    [ViewContext]
-    [HtmlAttributeNotBound]
-    public ViewContext ViewContext { get; set; }
-
-    [HtmlAttributeNotBound]
-    public ElementNaming ElementNaming => RequestServices.GetService<ElementNaming>();
-    
-    [HtmlAttributeNotBound]
-    public TagModifier TagModifier => RequestServices.GetService<TagModifier>();
-        
-    [HtmlAttributeNotBound]
-    public IServiceProvider RequestServices
-    {
-        get => _requestServices ?? ViewContext.HttpContext.RequestServices;
-        set => _requestServices = value;
-    }
-
     [HtmlAttributeName(ForAttributeName)]
     public ModelExpression For { get; set; }
 

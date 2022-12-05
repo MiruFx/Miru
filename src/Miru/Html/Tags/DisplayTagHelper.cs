@@ -6,7 +6,7 @@ namespace Miru.Html.Tags;
 [HtmlTargetElement("miru-display", Attributes = "x")]
 [HtmlTargetElement("miru-display", Attributes = "for")]
 [HtmlTargetElement("miru-display", Attributes = "model")]
-public class DisplayTagHelper : MiruTagHelper
+public class DisplayTagHelper : MiruForTagHelper
 {
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {

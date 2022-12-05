@@ -8,7 +8,7 @@ using Miru.Urls;
 namespace Miru.Html.Tags;
 
 [HtmlTargetElement("*", Attributes = "src-for")]
-public class SrcForTagHelper : MiruTagHelper
+public class SrcForTagHelper : MiruForTagHelper
 {
     [HtmlAttributeName("src-for")]
     public object For { get; set; }

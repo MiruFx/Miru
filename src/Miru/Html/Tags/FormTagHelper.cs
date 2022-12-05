@@ -8,7 +8,7 @@ namespace Miru.Html.Tags;
 [HtmlTargetElement("miru-form")]
 [HtmlTargetElement("miru-form", Attributes = "for")]
 [HtmlTargetElement("miru-form", Attributes = "model")]
-public class FormTagHelper : MiruTagHelper
+public class FormTagHelper : MiruForTagHelper
 {
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {

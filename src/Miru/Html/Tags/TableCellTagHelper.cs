@@ -6,7 +6,7 @@ namespace Miru.Html.Tags;
 [HtmlTargetElement("miru-td")]
 [HtmlTargetElement("miru-td", Attributes = "for")]
 [HtmlTargetElement("miru-td", Attributes = "model")]
-public class TableCellTagHelper : MiruTagHelper
+public class TableCellTagHelper : MiruForTagHelper
 {
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {

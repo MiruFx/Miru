@@ -4,7 +4,7 @@ using Miru.Html.HtmlConfigs;
 namespace Miru.Html.Tags;
 
 [HtmlTargetElement("miru-table", Attributes = "add-class")]
-public class AddClassTagHelper : MiruTagHelper
+public class AddClassTagHelper : MiruForTagHelper
 {
     [HtmlAttributeName("add-class")]
     public string AddClass { get; set; }

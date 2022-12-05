@@ -8,7 +8,7 @@ namespace Miru.Html.Tags;
 [HtmlTargetElement("miru-table")]
 [HtmlTargetElement("miru-table", Attributes = "for")]
 [HtmlTargetElement("miru-table", Attributes = "model")]
-public class TableTagHelper : MiruTagHelper
+public class TableTagHelper : MiruForTagHelper
 {
     [HtmlAttributeName("add-class")]
     public string AddClass { get; set; }

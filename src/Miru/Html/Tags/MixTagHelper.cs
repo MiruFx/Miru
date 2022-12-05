@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Miru.Html.Tags
 {
     [HtmlTargetElement("script", Attributes = "mix-src", TagStructure = TagStructure.NormalOrSelfClosing)]
-    public class MixScriptTagHelper : MiruTagHelper
+    public class MixScriptTagHelper : MiruForTagHelper
     {
         [HtmlAttributeName("mix-src")]
         public string Src { get; set; }
@@ -17,7 +17,7 @@ namespace Miru.Html.Tags
     }
     
     [HtmlTargetElement("link", Attributes = "mix-href", TagStructure = TagStructure.NormalOrSelfClosing)]
-    public class MixLinkTagHelper : MiruTagHelper
+    public class MixLinkTagHelper : MiruForTagHelper
     {
         [HtmlAttributeName("mix-href")]
         public string Href { get; set; }
