@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Miru.Domain;
 using Miru.Html;
-using Miru.Tests.Html.TagHelpers;
+using Miru.Tests.Html.HtmlConfigs.Helpers;
 
 namespace Miru.Tests.Html;
 
@@ -53,24 +53,7 @@ public class ElementNamingTest : MiruTagTesting
         _naming.Id(new Product { Id = 999333 }).ShouldBe("product_999333");
         _naming.Id(new BoxProduct { Id = 556677 }).ShouldBe("box-product_556677");
     }
-    
-    [Test]
-    public void Id_for_model_expression()
-    {
-        var result = new ProductList.Result
-        {
-            InactiveProducts = new()
-            {
-                new() { AuxiliarProductId = 10 },
-                new() { AuxiliarProductId = 11 },
-            }
-        };
-        
-        _naming
-            .Id(MakeExpression(result, x => x.InactiveProducts[1].AuxiliarProductId))
-            .ShouldBe("auxiliar-product-id_11");
-    }
-    
+
     public class AccountLogin
     {
         public class Command

@@ -1,31 +1,19 @@
-using System;
-using System.Threading.Tasks;
-using Baseline;
-using HtmlTags;
-using HtmlTags.Conventions.Elements;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Miru.Html.HtmlConfigs;
 
 namespace Miru.Html.Tags;
 
-[HtmlTargetElement("miru-display", Attributes = ForAttributeName)]
-public class DisplayTagHelper : MiruForTagHelper, ILinkableTagHelper
+[HtmlTargetElement("miru-display", Attributes = "x")]
+[HtmlTargetElement("miru-display", Attributes = "for")]
+[HtmlTargetElement("miru-display", Attributes = "model")]
+public class DisplayTagHelper : MiruTagHelper
 {
-    [HtmlAttributeName("link-for")]
-    public object LinkFor { get; set; }
-    
-    [HtmlAttributeName("link-class")]
-    public string LinkClass { get; set; }
-    
-    protected override string Category => ElementConstants.Display;
-
-    public override void AfterHtmlTagGeneration(MiruTagBuilder builder, HtmlTag htmlTag)
+    public override void Process(TagHelperContext context, TagHelperOutput output)
     {
-        if (builder.ChildContent.IsEmptyOrWhiteSpace)
-        {
-            if (For.Model is Enum @enum)
-            {
-                htmlTag.Text(@enum.DisplayName());
-            }
-        }
+        // configure tag
+        output.TagName = HtmlAttr.Span;
+        output.TagMode = TagMode.StartTagAndEndTag;
+
+        TagModifier.ModifyDisplayFor(ElementRequest.Create(this), output);
     }
 }

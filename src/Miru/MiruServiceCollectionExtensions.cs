@@ -40,8 +40,6 @@ public static class MiruServiceCollectionExtensions
         services.AddSingleton(
             configFinder.Find<ExceptionResultConfiguration>() as ExceptionResultConfiguration ?? new DefaultExceptionResultConfig());
 
-        services.AddMiruHtml();
-        
         // default logging level for app is Information
         services.AddSerilogConfig(config =>
         {

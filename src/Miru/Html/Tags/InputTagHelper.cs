@@ -1,64 +1,18 @@
-using System.Collections;
-using HtmlTags;
-using HtmlTags.Conventions.Elements;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Miru.Html.HtmlConfigs;
 
 namespace Miru.Html.Tags;
 
-[HtmlTargetElement("miru-input", Attributes = "for", TagStructure = TagStructure.NormalOrSelfClosing)]
-public class InputTagHelper : MiruForTagHelper
+[HtmlTargetElement("miru-input", Attributes = "x")]
+[HtmlTargetElement("miru-input", Attributes = "for")]
+[HtmlTargetElement("miru-input", Attributes = "model")]
+public class InputTagHelper : MiruTagHelper
 {
-    protected override string Category => ElementConstants.Editor;
-
-    public override void AfterHtmlTagGeneration(MiruTagBuilder builder, HtmlTag htmlTag)
+    public override void Process(TagHelperContext context, TagHelperOutput output)
     {
-        // TODO: if is radio and bool, work with value/checked
-        if (htmlTag.Attr("type").Equals("radio"))
-        {
-            if (htmlTag.HasAttr("value"))
-            {
-                if (For.Model is bool boolValue && boolValue.IsEqual(htmlTag.Value()))
-                {
-                    htmlTag.Checked();
-                }
-                else if (For.Model != null && htmlTag.Value().Equals(For.Model.ToString()))
-                {
-                    htmlTag.Checked();
-                }
-            }
-        }
-            
-        if (htmlTag.Attr("type").Equals("checkbox"))
-        {
-            if (htmlTag.HasAttr("value"))
-            {
-                if (For.Model.GetType().IsArray)
-                {
-                    var list = For.Model as IEnumerable;
-                        
-                    foreach (var item in list)
-                    {
-                        if (item.ToString()!.Equals(htmlTag.Value()))
-                        {
-                            htmlTag.Checked();
-                        }
-                    }
-                }
+        output.TagName = HtmlAttr.Input;
+        output.TagMode = TagMode.SelfClosing;
 
-                if (htmlTag.Value().Equals(For.Model.ToString()!.ToLower()))
-                {
-                    htmlTag.Checked();
-                }
-            }
-            else
-            {
-                htmlTag.Value("true");
-            }
-                
-            if (For.Model is true)
-            {
-                htmlTag.Checked();
-            }
-        }
+        TagModifier.InputFor(ElementRequest.Create(this), output);
     }
 }

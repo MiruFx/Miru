@@ -1,53 +1,47 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Baseline;
-using HtmlTags;
-using HtmlTags.Conventions.Elements;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.Extensions.DependencyInjection;
-using Miru.Core;
+using Miru.Html.HtmlConfigs;
 using Miru.Urls;
 
 namespace Miru.Html.Tags;
 
 [HtmlTargetElement("miru-form")]
-public class FormTagHelper : MiruForTagHelper
+[HtmlTargetElement("miru-form", Attributes = "for")]
+[HtmlTargetElement("miru-form", Attributes = "model")]
+public class FormTagHelper : MiruTagHelper
 {
-    protected override string Category => nameof(HtmlConfiguration.Forms);
-
-    public override void AfterHtmlTagGeneration(MiruTagBuilder builder, HtmlTag htmlTag)
+    public override void Process(TagHelperContext context, TagHelperOutput output)
     {
-        if (htmlTag.HasAttr("action") == false)
-        {
-            var url =  UrlLookup.For(builder.Model);
+        output.TagName = HtmlAttr.Form;
+        output.TagMode = TagMode.StartTagAndEndTag;
 
-            if (url.IsNotEmpty())
+        var req = ElementRequest.Create(this);
+        
+        TagModifier.ModifyFormFor(req, output);
+        
+        // TODO: move to conventions
+        if (req.Value is not null)
+        {
+            if (output.Attributes.ContainsName(HtmlAttr.Action) == false)
             {
-                htmlTag.Attr("action", url);
+                var url = RequestServices.Get<UrlLookup>().For(req.Value);
+                if (url is not null)
+                    output.Attributes.SetAttribute(HtmlAttr.Action, url);
             }
         }
-            
-        if (htmlTag.HasAttr("method") == false || htmlTag.Attr("method").CaseCmp("get") == false) 
+
+        if (output.Attributes.ContainsName("method") == false)
+            output.Attributes.SetAttribute("method", "post");
+        
+        if (output.Attributes.GetValue("method") == "post")
         {
-            var antiForgeryAccessor = RequestServices.GetRequiredService<IAntiforgeryAccessor>();
-
-            if (antiForgeryAccessor.HasToken)
-            {
-                var input = new HtmlTag("input")
-                    .Attr("type", "hidden")
-                    .Name(antiForgeryAccessor.FormFieldName)
-                    .Value(antiForgeryAccessor.RequestToken);
-                
-                htmlTag.Append(input);
-            }
+            var antiforgeryAccessor = RequestServices.Get<IAntiforgeryAccessor>();
+            var antiforgeryTag = new TagBuilder("input");
+            antiforgeryTag.Attributes.Add("type", "hidden");
+            antiforgeryTag.Attributes.Add("name", antiforgeryAccessor.FormFieldName);
+            antiforgeryTag.Attributes.Add("value", antiforgeryAccessor.RequestToken);
+            antiforgeryTag.TagRenderMode = TagRenderMode.SelfClosing;
+            output.PostContent.AppendHtml(antiforgeryTag);
         }
-    }
-
-    public override void AfterSetHtmlContent(MiruTagBuilder builder, HtmlTag htmlTag)
-    {
-        builder.Output.PostElement.AppendHtml("</form>");
     }
 }

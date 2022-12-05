@@ -35,4 +35,8 @@ Has to be .Sdk.Web to allow unit test asp.net components correctly
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Html\HtmlConfigs\Hotwired" />
+  </ItemGroup>
 </Project>

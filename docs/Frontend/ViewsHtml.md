@@ -1,7 +1,7 @@
 <!-- 
 Introduction
   razor view with loads of facilities
-  htmltags, conventions, taghelpers
+  htmlconventions, taghelpers
 Views
   Location
     located in /features
@@ -11,7 +11,7 @@ ViewModel
 
 Html (Split into Html.md)
 
-  intro: htmltags 
+  intro: htmlconventions 
 
   Html Conventions (config)
     HtmlConfig

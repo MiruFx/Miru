@@ -1,12 +1,8 @@
 using System.Collections.Generic;
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Configs;
-using BenchmarkDotNet.Running;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Hosting;
 using Miru.Mvc;
-using Miru.Tests.Benchmarks;
-using Miru.Tests.Html.TagHelpers;
 using Miru.Tests.Urls;
 using Miru.Urls;
 
@@ -18,9 +14,9 @@ public class Program
     {
         // await new BenchmarkTagHelper().Boolean();
         
-        BenchmarkRunner.Run<DisplayTagBenchmark>(
-            DefaultConfig.Instance
-                .WithOptions(ConfigOptions.DisableOptimizationsValidator));
+        // BenchmarkRunner.Run<DisplayTagBenchmark>(
+        //     DefaultConfig.Instance
+        //         .WithOptions(ConfigOptions.DisableOptimizationsValidator));
 
         // new BenchmarkTagHelper().Url2();
     }
@@ -124,23 +120,23 @@ public class BenchmarkUrl
             .ShouldBe("/Products/List?Size%5B0%5D=Small&Page=3");
     }
 }
-
-[MemoryDiagnoser]
-[RankColumn, AllStatisticsColumn]
-public class BenchmarkTagHelper : MiruTagTesting
-{
-    private readonly RadioButtonTest.Boolean _test;
-
-    public BenchmarkTagHelper()
-    {
-        _test = new RadioButtonTest.Boolean();
-        _test.SetupMiruCoreTesting();
-        _test.OneTimeSetup();
-    }
-
-    [Benchmark]
-    public async Task Boolean()
-    {
-        await _test.If_input_is_for_true_and_property_is_true_then_input_should_be_checked();
-    }
-}
+//
+// [MemoryDiagnoser]
+// [RankColumn, AllStatisticsColumn]
+// public class BenchmarkTagHelper : MiruTagTesting
+// {
+//     private readonly RadioButtonTest.Boolean _test;
+//
+//     public BenchmarkTagHelper()
+//     {
+//         _test = new RadioButtonTest.Boolean();
+//         _test.SetupMiruCoreTesting();
+//         _test.OneTimeSetup();
+//     }
+//
+//     [Benchmark]
+//     public async Task Boolean()
+//     {
+//         await _test.If_input_is_for_true_and_property_is_true_then_input_should_be_checked();
+//     }
+// }

@@ -1,6 +1,5 @@
 using System;
 using System.Linq.Expressions;
-using HtmlTags.Reflection;
 using Miru.Fabrication.FixtureConventions;
 
 namespace Miru.Fabrication
@@ -11,7 +10,7 @@ namespace Miru.Fabrication
             this ConventionExpression conventionExpression, 
             Expression<Func<TClass, TProperty>> property)
         {
-            var accessor = property.ToAccessor();
+            var accessor = Baseline.Reflection.ReflectionHelper.GetAccessor(property);
             
             return conventionExpression.IfProperty(p => p.DeclaringType == accessor.OwnerType && 
                                                         p.PropertyType == accessor.PropertyType);

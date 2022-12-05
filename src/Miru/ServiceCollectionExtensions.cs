@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
-using HtmlTags.Conventions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Routing;
@@ -68,8 +66,6 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton<AssetsMap>();
 
-        services.AddSingleton<IActionResultExecutor<HtmlTagResult>, ContentResultExecutor>();
-                
         return services;
     }
 

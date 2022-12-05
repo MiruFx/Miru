@@ -1,19 +1,15 @@
 using FluentMigrator;
 using Miru.Behaviors.TimeStamp;
+using Miru.Databases.Migrations;
 using Miru.Databases.Migrations.FluentMigrator;
 
 namespace {{ Solution.Name }}.Database.Migrations;
  
 [Migration({{ input.Version }})]
-public class {{ input.Name }} : Migration
+public class {{ input.Name }} : UpOnlyMigration
 {
     public override void Up()
     {
         Alter.Table("{{ input.Table }}").AddColumn("{{ input.Column }}").AsString();
-    }
-
-    public override void Down()
-    {
-        Delete.Column("{{ input.Column }}").FromTable("{{ input.Table }}");
     }
 }

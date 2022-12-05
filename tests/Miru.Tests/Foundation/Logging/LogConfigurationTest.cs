@@ -1,33 +1,66 @@
+using System;
+using System.IO;
+using System.Text;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Miru.Core;
 using Miru.Foundation.Logging;
-using NUnit.Framework;
 using Serilog;
-using Shouldly;
 
-namespace Miru.Tests.Foundation.Logging
+namespace Miru.Tests.Foundation.Logging;
+
+public class LogConfigurationTest
 {
-    public class LogConfigurationTest
+    [Test]
+    public void Can_accumulate_overwriting_serilog_configuration()
     {
-        [Test]
-        public void Can_accumulate_overwriting_serilog_configuration()
+        var output = ReadingConsoleOutput(() =>
         {
-            var output = Console2.ReadingConsoleOutput(() =>
-            {
-                var sp = new HostBuilder()
-                    .ConfigureSerilog(config => config.WriteTo.Console().MinimumLevel.Fatal())
-                    .ConfigureSerilog(config => config.MinimumLevel.Debug())
-                    .Build()
-                    .Services;
+            var sp = new HostBuilder()
+                .ConfigureSerilog(config => config.WriteTo.Console().MinimumLevel.Fatal())
+                .ConfigureSerilog(config => config.MinimumLevel.Debug())
+                .Build()
+                .Services;
 
-                sp.GetService<ILogger<LogConfigurationTest>>().LogDebug("Debug!");
-                sp.GetService<ILogger<LogConfigurationTest>>().LogInformation("Information!");
-            });
+            sp.GetService<ILogger<LogConfigurationTest>>().LogDebug("Debug!");
+            sp.GetService<ILogger<LogConfigurationTest>>().LogInformation("Information!");
+        });
             
-            output.ShouldContain("Debug!");
-            output.ShouldContain("Information!");
+        output.ShouldContain("Debug!");
+        output.ShouldContain("Information!");
+    }
+    
+    public static string ReadingConsoleOutput(Action action)
+    {
+        var defaultWriter = Console.Out;
+        var writer = new StringWriter();
+            
+        Console.SetOut(writer);
+            
+        action();
+            
+        var output = writer.ToString();
+        Console.SetOut(defaultWriter);
+
+        return output;
+    }
+    
+    public class StringWriter : TextWriter
+    {
+        private readonly StringBuilder _content = new StringBuilder();
+
+        public override void Write(char value)
+        {
+            _content.Append(value);
         }
+
+        public override void Write(string value)
+        {
+            _content.Append(value);
+        }
+
+        public override string ToString() => _content.ToString();
+
+        public override Encoding Encoding => Encoding.Unicode;
     }
 }
+    

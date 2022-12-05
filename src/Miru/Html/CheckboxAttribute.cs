@@ -1,8 +1,7 @@
 using System;
 
-namespace Miru.Html
+namespace Miru.Html;
+
+public class CheckboxAttribute : Attribute
 {
-    public class CheckboxAttribute : Attribute
-    {
-    }
 }

@@ -18,7 +18,7 @@ public class Startup : MiruStartup
     {
         services.AddMiru<Startup>()
 
-            .AddMiruHtml<HtmlConfig>()
+            // .AddMiruHtml<HtmlConfig>()
             
             .AddDefaultPipeline<Startup>()
             

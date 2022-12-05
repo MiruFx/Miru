@@ -1,31 +1,35 @@
 using System.Collections;
-using HtmlTags;
+using Baseline;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using Miru.Html.HtmlConfigs;
 
 namespace Miru.Html.Tags;
 
-[HtmlTargetElement("miru-table", Attributes = ForAttributeName)]
-[HtmlTargetElement("miru-table", Attributes = "model")]
 [HtmlTargetElement("miru-table")]
-public class TableTagHelper : MiruForTagHelper
+[HtmlTargetElement("miru-table", Attributes = "for")]
+[HtmlTargetElement("miru-table", Attributes = "model")]
+public class TableTagHelper : MiruTagHelper
 {
-    protected override string Category => nameof(HtmlConfiguration.Tables);
-
-    public override bool NeedsId => true;
-
-    public override string GetId()
+    [HtmlAttributeName("add-class")]
+    public string AddClass { get; set; }
+    
+    public override void Process(TagHelperContext context, TagHelperOutput output)
     {
-        if (For != null) 
-            return $"{ElementNaming.Id(For.Metadata.ContainerType ?? For.ModelExplorer.Container.ModelType)}-table";
-
-        return null;
-    }
-
-    public override void BeforeHtmlTagGeneration(MiruTagBuilder builder)
-    {
-        if (builder.Model is IEnumerable list && list.GetEnumerator().MoveNext() == false)
+        var req = ElementRequest.Create(this);
+        
+        if (req.Value is IEnumerable list && list.GetEnumerator().MoveNext() == false)
         {
-            builder.SuppressOutput = true;
+            output.SuppressOutput();
+        }
+        else
+        {
+            output.TagName = HtmlAttr.Table;
+            output.TagMode = TagMode.StartTagAndEndTag;
+
+            TagModifier.ModifyTableFor(req, output);
+            
+            if (AddClass.IsNotEmpty())
+                output.Attributes.Append(HtmlAttr.Class, AddClass);
         }
     }
 }

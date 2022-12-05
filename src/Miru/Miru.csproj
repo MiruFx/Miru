@@ -36,7 +36,6 @@
         <PackageReference Include="MimeTypeMapOfficial" Version="1.0.17" />
         
         <!-- View -->
-        <PackageReference Include="HtmlTags" Version="8.1.1" />
         <PackageReference Include="Vereyon.Web.FlashMessage" Version="3.0.0" />
 
         <!-- Logging -->

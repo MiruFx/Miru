@@ -3,8 +3,7 @@ using System.Collections;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
-using HtmlTags.Reflection;
-using Humanizer;
+using Baseline.Reflection;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Miru.Core;
@@ -108,8 +107,7 @@ public class ElementNaming
         
     private string IdFromExpression<TModel, TProperty>(Expression<Func<TModel, TProperty>> property)
     {
-        return property
-            .ToAccessor()
+        return ReflectionHelper.GetAccessor(property)
             .PropertyNames
             .Aggregate((x, y) => string.Format(IsCollectionIndexer(y) ? "{0}{1}" : "{0}.{1}", x, y));
     }
