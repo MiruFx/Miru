@@ -18,9 +18,9 @@
         <PackageReference Include="Ardalis.SmartEnum.EFCore" Version="2.1.0" />
 
         <!-- Data -->
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.11" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.11" />
-        <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="6.16.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0" />
+        <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="7.18.0" />
         <PackageReference Include="FluentMigrator" Version="3.3.2" />
         <PackageReference Include="FluentMigrator.Runner" Version="3.3.2" />
 
@@ -51,8 +51,8 @@
         <PackageReference Include="Hangfire.Console.Extensions.Serilog" Version="1.0.2" />
 
         <!-- Userfy -->
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.11" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.11" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.0" />
 
         <!-- MiniProfiler -->
         <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />

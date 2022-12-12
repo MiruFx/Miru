@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Miru.Html;
 using Miru.Mvc;
 
 namespace Miru;
@@ -63,8 +62,6 @@ public static class ServiceCollectionExtensions
         });
             
         services.AddHttpContextAccessor();
-
-        services.AddSingleton<AssetsMap>();
 
         return services;
     }
