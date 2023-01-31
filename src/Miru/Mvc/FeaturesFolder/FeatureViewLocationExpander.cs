@@ -3,52 +3,38 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Razor;
 
-namespace Miru.Mvc.FeaturesFolder;
-
-public class FeatureViewLocationExpander : IViewLocationExpander
+namespace Miru.Mvc.FeaturesFolder
 {
-    private readonly string _placeholder;
-
-    public FeatureViewLocationExpander(FeatureFolderOptions options)
+    public class FeatureViewLocationExpander : IViewLocationExpander
     {
-        _placeholder = options.FeatureNamePlaceholder;
-    }
+        private readonly string _placeholder;
 
-    public void PopulateValues(ViewLocationExpanderContext context)
-    {
-        // see: https://stackoverflow.com/questions/36802661/what-is-iviewlocationexpander-populatevalues-for-in-asp-net-core-mvc
-        context.Values["action_displayname"] = context.ActionContext.ActionDescriptor.DisplayName;
-    }
-
-    public IEnumerable<string> ExpandViewLocations(ViewLocationExpanderContext context, IEnumerable<string> viewLocations)
-    {
-        if (context == null)
-            throw new ArgumentNullException(nameof(context));
-
-        if (viewLocations == null)
-            throw new ArgumentNullException(nameof(viewLocations));
-
-        var controllerDescriptor = context.ActionContext.ActionDescriptor as ControllerActionDescriptor;
-        
-        var featureName = GetFeatureName(controllerDescriptor, context);
-
-        foreach (var location in viewLocations)
+        public FeatureViewLocationExpander(FeatureFolderOptions options)
         {
-            yield return location.Replace(_placeholder, featureName);
+            _placeholder = options.FeatureNamePlaceholder;
         }
-    }
 
-    private string GetFeatureName(
-        ControllerActionDescriptor controllerDescriptor,
-        ViewLocationExpanderContext context)
-    {
-        if (controllerDescriptor is null)
+        public void PopulateValues(ViewLocationExpanderContext context)
         {
-            var endpoint = context.ActionContext.ActionDescriptor.Properties[0];
-
-            return "Orders";
+            // see: https://stackoverflow.com/questions/36802661/what-is-iviewlocationexpander-populatevalues-for-in-asp-net-core-mvc
+            context.Values["action_displayname"] = context.ActionContext.ActionDescriptor.DisplayName;
         }
-        
-        return controllerDescriptor?.Properties["feature"] as string;
+
+        public IEnumerable<string> ExpandViewLocations(ViewLocationExpanderContext context, IEnumerable<string> viewLocations)
+        {
+            if(context == null)
+                throw new ArgumentNullException(nameof(context));
+
+            if(viewLocations == null)
+                throw new ArgumentNullException(nameof(viewLocations));
+
+            var controllerDescriptor = context.ActionContext.ActionDescriptor as ControllerActionDescriptor;
+            var featureName = controllerDescriptor?.Properties["feature"] as string;
+
+            foreach (var location in viewLocations)
+            {
+                yield return location.Replace(_placeholder, featureName);
+            }
+        }
     }
 }

@@ -23,14 +23,14 @@
                     
                     <div class="my-4">
                         <miru-label for="CreditCard" value="CreditCards"/>
-                        <miru-select for="CreditCard" lookup="CreditCards" />
+                        <miru-select for="CreditCard" lookup="@Model.CreditCards" />
                     </div>
                        
                     <h5>Select for Dictionary</h5>
                     
                     <div class="my-4">
                         <miru-label for="CompanyId" />
-                        <miru-select for="CompanyId" lookup="Companies" />
+                        <miru-select for="CompanyId" lookup="@Model.Companies" />
                     </div>
                     
                     <h5>Radios for Enum property</h5>
@@ -79,7 +79,7 @@
                                         
                     <div class="my-4 has-validation">
                         <miru-label for="Address.Country" />
-                        <miru-select for="Address.Country" lookup="Countries" empty-option />
+                        <miru-select for="Address.Country" lookup="@Model.Countries" empty-option />
                         <miru-validation for="Address.Country" />
                     </div>
                     

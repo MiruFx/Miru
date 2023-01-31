@@ -17,6 +17,7 @@ using Miru.Fabrication;
 using Miru.Foundation.Logging;
 using Miru.Globalization;
 using Miru.Hosting;
+using Miru.Html.HtmlConfigs;
 using Miru.Mailing;
 using Miru.Mvc;
 using Miru.Pipeline;
@@ -39,8 +40,8 @@ public class Startup
     {
         services.AddMiru<Startup>()
 
-            // .AddMiruHtml<HtmlConfig>()
-
+            .AddHtmlConventions<HtmlConfig>()
+            
             .AddDefaultPipeline<Startup>()
 
             .AddGlobalization(defaultCulture: "en-GB", "de-DE", "en-US", "pt-BR", "pt-PT")
