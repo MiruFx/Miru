@@ -85,6 +85,26 @@ public static class PaginationExtensions
     {
         pageable.Paginate();
 
+        var query = queryable
+            .Skip(pageable.Skip())
+            .Take(pageable.PageSize);
+
+        var result = await query.ToListAsync(ct);
+        var count = await queryable.CountAsync(ct);
+        
+        pageable.Paginate(count);
+        pageable.CountShowing = result.Count;
+            
+        return result;
+    }
+            
+    public static async Task<List<TModel>> ToFuturePaginateAsync<TModel>(
+        this IQueryable<TModel> queryable, 
+        IPageable pageable,
+        CancellationToken ct = default)
+    {
+        pageable.Paginate();
+
         var futureResult = queryable
             .Skip(pageable.Skip())
             .Take(pageable.PageSize)
