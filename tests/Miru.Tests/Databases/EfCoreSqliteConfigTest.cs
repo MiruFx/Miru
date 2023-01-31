@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Miru.Databases;
 using Miru.Databases.Migrations;
 using Miru.Databases.Migrations.FluentMigrator;
-using Miru.Settings;
 using NUnit.Framework;
 using Shouldly;
 

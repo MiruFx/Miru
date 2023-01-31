@@ -1,0 +1,20 @@
+{
+  "devDependencies": {
+    "@popperjs/core": "^2.11.6",
+    "esbuild": "0.16.11",
+    "esbuild-sass-plugin": "^2.4.4"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.1",
+    "@hotwired/stimulus-webpack-helpers": "^1.0.1",
+    "@hotwired/turbo": "^7.2.4",
+    "bootstrap": "^5.2.3"
+  },
+  "scripts": {
+    "dev": "node esbuild.js --sourcemaps",
+    "watch": "node esbuild.js --watch",
+    "production": "node esbuild.js --production"
+  },
+  "license": "UNLICENSED",
+  "private": true
+}

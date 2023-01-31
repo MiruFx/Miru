@@ -187,4 +187,10 @@ public static class QueryableExtensions
     /// </summary>
     public static TEntity LastById<TEntity>(this IQueryable<TEntity> entity) where TEntity : class, IEntity =>
         entity.OrderByDescending(x => x.Id).Take(1).Single();
+    
+    public static IQueryable<TEntity> WhereId<TEntity>(this IQueryable<TEntity> queryable, long id) 
+        where TEntity : IEntity
+    {
+        return queryable.Where(x => x.Id == id);
+    }
 }

@@ -24,7 +24,13 @@ public class FormTagHelper : MiruForTagHelper
         {
             if (output.Attributes.ContainsName(HtmlAttr.Action) == false)
             {
-                var url = RequestServices.Get<UrlLookup>().For(req.Value);
+                var urlBuilder = RequestServices.Get<UrlLookup>().Build(req.Value);
+                
+                if (Model != null)
+                    urlBuilder.AcceptCommand();
+
+                var url = urlBuilder.ToString();
+                
                 if (url is not null)
                     output.Attributes.SetAttribute(HtmlAttr.Action, url);
             }

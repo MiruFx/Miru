@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <GenerateProgramFile>false</GenerateProgramFile>
+  </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.3.0" />
+        <PackageReference Include="Hangfire.MemoryStorage" Version="1.7.0" />
+        <PackageReference Include="BenchmarkDotNet" Version="0.13.2" />
+
+        <ProjectReference Include="..\..\..\..\src\Miru.Testing\Miru.Testing.csproj" />
+        <ProjectReference Include="..\..\..\..\src\Miru.Fabrication\Miru.Fabrication.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\MiruNext\MiruNext.csproj" />
+    </ItemGroup>
+
+</Project>

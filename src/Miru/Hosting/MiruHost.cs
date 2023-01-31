@@ -7,11 +7,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Miru.Consolables;
 using Miru.Core;
+using Miru.Databases;
 using Miru.Foundation.Bootstrap;
 using Miru.Foundation.Logging;
 using Miru.Mailing;
 using Miru.Queuing;
-using Miru.Settings;
 using Miru.Urls;
 using Serilog;
 using Serilog.Events;
@@ -120,6 +120,27 @@ public static class MiruHost
         App.Solution = solution;
         App.Assembly = Assembly.GetEntryAssembly();
 
+        builder.ConfigureServices(services =>
+        {
+            services.AddMiruSolution(solution);
+        });
+            
+        return builder;
+    }
+    
+    public static IWebHostBuilder UseMiruSolution(this IWebHostBuilder builder)
+    {
+        // if can't find solution, maybe it is running from compiled binaries
+        var solution = 
+            new SolutionFinder().FromCurrentDir().Solution ?? 
+            new UnknownSolution();
+
+        App.Name = solution.Name;
+        App.Solution = solution;
+        App.Assembly = Assembly.GetEntryAssembly();
+
+        builder.UseContentRoot(solution.AppDir);
+        
         builder.ConfigureServices(services =>
         {
             services.AddMiruSolution(solution);

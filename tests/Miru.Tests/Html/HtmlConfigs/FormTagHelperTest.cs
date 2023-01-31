@@ -15,7 +15,20 @@ public class FormTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-form");
             
         // assert
-        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<form id=""post-new-form"" action=""/PostNew"" method=""post""><input name=""FormFieldName"" type=""hidden"" value=""RequestToken"" /></form>");
+        output.HtmlShouldBe(@"<form id=""post-new-form"" action=""/PostNew"" method=""post""><input name=""FormFieldName"" type=""hidden"" value=""RequestToken"" /></form>");
+    }
+    
+    [Test]
+    public void Should_build_query_string_for_command_when_set_by_model()
+    {
+        // arrange
+        var tag = TagWithModel<FormTagHelper>(new PostNew.Command { Title = "HelloWorld"});
+        
+        // act
+        var output = ProcessTag(tag, "miru-form");
+            
+        // assert
+        output.HtmlShouldBe(@"<form id=""post-new-form"" action=""/PostNew?Title=HelloWorld"" method=""post""><input name=""FormFieldName"" type=""hidden"" value=""RequestToken"" /></form>");
     }
     
     [Test]
@@ -28,7 +41,7 @@ public class FormTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-form", new { method = "get" });
             
         // assert
-        Miru.Testing.Html.Extensions.HtmlShouldBe(output, "<form method=\"get\" id=\"post-new-form\" action=\"/PostNew\"></form>");
+        output.HtmlShouldBe("<form method=\"get\" id=\"post-new-form\" action=\"/PostNew\"></form>");
     }
     
     public class PostNew

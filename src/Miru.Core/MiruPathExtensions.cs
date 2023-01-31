@@ -12,25 +12,30 @@ public static class MiruPathExtensions
         
     public static string Relative(this MiruPath current, string path) => Path.GetRelativePath(current, path);
         
-    public static void DeleteIfExists(this MiruPath miruPath) => Core.Files.DeleteIfExists(miruPath.ToString());
+    public static void DeleteFileIfExists(this MiruPath miruPath) => Core.Files.DeleteIfExists(miruPath.ToString());
     
     public static void DeleteDir(this MiruPath miruPath) => Directories.DeleteIfExists(miruPath);
 
-    public static bool Exists2(this MiruPath miruPath) =>
-        Directory.Exists(miruPath) || File.Exists(miruPath);
+    public static bool DirExists(this MiruPath miruPath) =>
+        Directory.Exists(miruPath);
 
-    public static bool DontExistOrEmpty(this MiruPath miruPath) =>
-        miruPath.Exists2() == false || miruPath.FileInfo().Length == 0;
+    public static bool FileDoesNotExistOrEmpty(this MiruPath miruPath) =>
+        miruPath.FileExists() == false || miruPath.FileInfo().Length == 0;
 
-    public static void DeleteFileIfEmpty(this MiruPath miruPath)
+    public static MiruPath DeleteFileIfEmpty(this MiruPath miruPath)
     {
-        if (miruPath.Exists2() && miruPath.FileInfo().Length == 0)
-            miruPath.DeleteIfExists();
+        if (miruPath.FileExists() && miruPath.FileInfo().Length == 0)
+            miruPath.DeleteFileIfExists();
+
+        return miruPath;
     }
 
-    public static void EnsureDirExist(this MiruPath miruPath) =>
+    public static MiruPath EnsureDirExist(this MiruPath miruPath)
+    {
         Directories.CreateIfNotExists(miruPath);
-        
+        return miruPath;
+    }
+
     public static FileInfo FileInfo(this MiruPath miruPath) => new FileInfo(miruPath);
     
     public static bool DirContains(this MiruPath miruPath, string searchPattern) =>

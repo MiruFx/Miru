@@ -22,24 +22,13 @@ public static class MiruServiceCollectionExtensions
         this IServiceCollection services,
         Action<MvcOptions> mvcOptions = null)
     {
-        var configFinder = new ConfigFinder<TStartup>();
-            
-        // scan for configs
-        foreach (var config in configFinder.CreateInstanceOfAllConfigs())
-        {
-            config.ConfigureService(services);
-        }
-
         // services.AddMiruMvc(opt => opt.UseEnumerationModelBinding());
         // services.AddMiruMvc(opt => opt.ModelBinderProviders.Insert(0, new EnumerationQueryStringModelBinderProvider()));
         services.AddMiruMvc(opt => opt.ModelBinderProviders.Insert(0, new SmartEnumBinderProvider()));
-            
-        services.AddSingleton(
-            configFinder.Find<ObjectResultConfiguration>() as ObjectResultConfiguration ?? new DefaultObjectResultConfig());
-            
-        services.AddSingleton(
-            configFinder.Find<ExceptionResultConfiguration>() as ExceptionResultConfiguration ?? new DefaultExceptionResultConfig());
 
+        services.AddSingleton<ObjectResultConfiguration, DefaultObjectResultConfig>();
+        services.AddSingleton<ExceptionResultConfiguration, DefaultExceptionResultConfig>();
+       
         // default logging level for app is Information
         services.AddSerilogConfig(config =>
         {
@@ -89,6 +78,8 @@ public static class MiruServiceCollectionExtensions
         this IServiceCollection services,
         MiruSolution solution)
     {
+        App.Solution = solution;
+        
         return services.ReplaceSingleton(solution);
     }
     

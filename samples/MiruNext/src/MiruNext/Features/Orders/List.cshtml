@@ -1,0 +1,26 @@
+
+@model MiruNext.Features.Orders.OrderList.Result
+
+<h3>Orders</h3>
+
+<div class="my-3">
+    Page @Model.Page, Status: @Model.Status?.Name
+</div>
+
+<miru-table x="For(x => x.Orders)">
+    <thead>
+        <tr>
+            <miru-th x="For(x => x.Orders[0].Id)" />
+            <miru-th x="For(x => x.Orders[0].CreatedAt)" />
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var (_, i) in Model.Orders.Indexed())
+        {
+            <tr>
+                <miru-td x="For(x => x.Orders[i].Id)" />
+                <miru-td x="For(x => x.Orders[i].CreatedAt)" />
+            </tr>
+        }
+    </tbody>
+</miru-table>

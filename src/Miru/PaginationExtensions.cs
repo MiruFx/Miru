@@ -7,175 +7,137 @@ using Miru.Domain;
 using Miru.Mvc;
 using Miru.Pagination;
 using Miru.Urls;
+using Z.EntityFramework.Plus;
 
-namespace Miru
+namespace Miru;
+
+public static class PaginationExtensions
 {
-    public static class PaginationExtensions
+    public static Pager Pager(this IPageable pageable) =>
+        pageable.Pager(PaginationConfig.DefaultPagerSize);
+
+    public static Pager Pager(this IPageable pageable, int maxPagesToDisplay)
     {
-        public static Pager Pager(this IPageable pageable) =>
-            pageable.Pager(PaginationConfig.DefaultPagerSize);
+        var firstPageToDisplay = 1;
+        var lastPageToDisplay = pageable.Pages;
 
-        public static Pager Pager(this IPageable pageable, int maxPagesToDisplay)
+        if (maxPagesToDisplay > 0 && pageable.Pages > maxPagesToDisplay)
         {
-            var firstPageToDisplay = 1;
-            var lastPageToDisplay = pageable.Pages;
+            firstPageToDisplay = pageable.Page - maxPagesToDisplay / 2;
 
-            if (maxPagesToDisplay > 0 && pageable.Pages > maxPagesToDisplay)
+            if (firstPageToDisplay < 1)
             {
-                firstPageToDisplay = pageable.Page - maxPagesToDisplay / 2;
-
-                if (firstPageToDisplay < 1)
-                {
-                    firstPageToDisplay = 1;
-                }
-
-                var pageNumbersToDisplay = maxPagesToDisplay;
-                
-                lastPageToDisplay = firstPageToDisplay + pageNumbersToDisplay - 1;
-
-                if (lastPageToDisplay > pageable.Pages)
-                {
-                    lastPageToDisplay = pageable.Pages;
-                }
+                firstPageToDisplay = 1;
             }
-            
-            return new Pager
+
+            var pageNumbersToDisplay = maxPagesToDisplay;
+                
+            lastPageToDisplay = firstPageToDisplay + pageNumbersToDisplay - 1;
+
+            if (lastPageToDisplay > pageable.Pages)
             {
-                Pages = Enumerable.Range(firstPageToDisplay, lastPageToDisplay - firstPageToDisplay + 1)
-            };
+                lastPageToDisplay = pageable.Pages;
+            }
         }
-        
-        public static IReadOnlyList<TModel> ToPaginate<TModel>(this IEnumerable<TModel> queryable, IPageable pageable)
+            
+        return new Pager
         {
-            var count = queryable.Count();
+            Pages = Enumerable.Range(firstPageToDisplay, lastPageToDisplay - firstPageToDisplay + 1)
+        };
+    }
+        
+    public static IReadOnlyList<TModel> ToPaginate<TModel>(this IEnumerable<TModel> queryable, IPageable pageable)
+    {
+        var count = queryable.Count();
            
-            pageable.Paginate(count);
+        pageable.Paginate(count);
 
-            var result = queryable
-                .Skip(pageable.Skip())
-                .Take(pageable.PageSize)
-                .ToList();
+        var result = queryable
+            .Skip(pageable.Skip())
+            .Take(pageable.PageSize)
+            .ToList();
 
-            pageable.CountShowing = result.Count;
+        pageable.CountShowing = result.Count;
             
-            return result;
-        }
+        return result;
+    }
         
-        public static IReadOnlyList<TModel> ToPaginate<TModel>(this IQueryable<TModel> queryable, IPageable pageable)
-        {
-            var count = queryable.Count();
+    public static IReadOnlyList<TModel> ToPaginate<TModel>(this IQueryable<TModel> queryable, IPageable pageable)
+    {
+        var count = queryable.Count();
            
-            pageable.Paginate(count);
+        pageable.Paginate(count);
 
-            var result = queryable
-                .Skip(pageable.Skip())
-                .Take(pageable.PageSize)
-                .ToList();
+        var result = queryable
+            .Skip(pageable.Skip())
+            .Take(pageable.PageSize)
+            .ToList();
 
-            pageable.CountShowing = result.Count;
+        pageable.CountShowing = result.Count;
             
-            return result;
-        }
+        return result;
+    }
         
-        public static async Task<List<TModel>> ToPaginateAsync<TModel>(
-            this IQueryable<TModel> queryable, 
-            IPageable pageable,
-            CancellationToken ct = default)
-        {
-            var total = await queryable.CountAsync(ct);
+    public static async Task<List<TModel>> ToPaginateAsync<TModel>(
+        this IQueryable<TModel> queryable, 
+        IPageable pageable,
+        CancellationToken ct = default)
+    {
+        pageable.Paginate();
 
-            // TODO: doing the query first calculating pagesize and current page
-            // execute Count as Future
-            // then after fill other properties
-            pageable.Paginate(total);
+        var futureResult = queryable
+            .Skip(pageable.Skip())
+            .Take(pageable.PageSize)
+            .Future();
 
-            var result = await queryable
-                .Skip(pageable.Skip())
-                .Take(pageable.PageSize)
-                .ToListAsync(ct);
+        var futureCount = queryable.DeferredCount().FutureValue();
 
-            pageable.CountShowing = result.Count;
+        var result = await futureResult.ToListAsync(ct);
+        var count = futureCount.Value;
+        
+        pageable.Paginate(count);
+        pageable.CountShowing = result.Count;
             
-            return result;
-        }
+        return result;
+    }
         
-        // TODO: EfCore Plus doesn't support Future query with PostgreSql
-        // public async static Task<List<TModel>> ToPaginateAsync2<TModel>(
-        //     this IQueryable<TModel> queryable, 
-        //     IPageable pageable,
-        //     CancellationToken ct = default)
-        // {
-        //     var totalCount = queryable.DeferredCount().FutureValue();
-        //
-        //     var page = pageable.Page > 0 
-        //         ? pageable.Page 
-        //         : 1;
-        //         
-        //     var pageSize = pageable.PageSize > 0 
-        //         ? pageable.PageSize 
-        //         : PaginationConfig.DefaultPageSize;
-        //
-        //     // var result = await queryable
-        //     //     .Skip(pageable.Skip())
-        //     //     .Take(pageable.PageSize)
-        //     //     .ToListAsync(ct);
-        //
-        //     var skip = (page - 1) * pageSize;
-        //         
-        //     var result = await queryable
-        //         .Skip(skip)
-        //         .Take(pageable.PageSize)
-        //         .Future()
-        //         .ToListAsync(ct);
-        //     
-        //     var pages = (int) Math.Ceiling((double) totalCount / pageSize);
-        //
-        //     pageable.Page = page;
-        //     pageable.Pages = pages;
-        //     pageable.CountTotal = totalCount;
-        //     pageable.CountShowing = result.Count;
-        //         
-        //     return result;
-        // }
+    public static bool HasPagination<T>(this IPageable<T> pageable)
+    {
+        return pageable.Pages > 1;
+    }
         
-        public static bool HasPagination<T>(this IPageable<T> pageable)
-        {
-            return pageable.Pages > 1;
-        }
+    public static bool HasPreviousPage<T>(this IPageable<T> pageable)
+    {
+        return pageable.Results.Any() && pageable.Page > 1;
+    }
         
-        public static bool HasPreviousPage<T>(this IPageable<T> pageable)
-        {
-            return pageable.Results.Any() && pageable.Page > 1;
-        }
-        
-        public static bool HasNextPage<T>(this IPageable<T> pageable)
-        {
-            return pageable.Results.Any() && pageable.Page < pageable.Pages;
-        }
+    public static bool HasNextPage<T>(this IPageable<T> pageable)
+    {
+        return pageable.Results.Any() && pageable.Page < pageable.Pages;
+    }
 
-        public static UrlBuilder<T> PreviousPage<T>(this UrlBuilder<T> builder) where T : class, IPageable
-        {
-            return builder.With(x => x.Page, builder.Request.Page - 1);
-        }
+    public static UrlBuilder<T> PreviousPage<T>(this UrlBuilder<T> builder) where T : class, IPageable
+    {
+        return builder.With(x => x.Page, builder.Request.Page - 1);
+    }
         
-        public static UrlBuilder<T> NextPage<T>(this UrlBuilder<T> builder) where T : class, IPageable
-        {
-            return builder.With(x => x.Page, builder.Request.Page + 1);
-        }
+    public static UrlBuilder<T> NextPage<T>(this UrlBuilder<T> builder) where T : class, IPageable
+    {
+        return builder.With(x => x.Page, builder.Request.Page + 1);
+    }
         
-        public static UrlBuilder<T> FirstPage<T>(this UrlBuilder<T> builder) where T : class, IPageable
-        {
-            return builder.With(x => x.Page, 1);
-        }
+    public static UrlBuilder<T> FirstPage<T>(this UrlBuilder<T> builder) where T : class, IPageable
+    {
+        return builder.With(x => x.Page, 1);
+    }
         
-        public static UrlBuilder<T> LastPage<T>(this UrlBuilder<T> builder) where T : class, IPageable
-        {
-            return builder.With(x => x.Page, builder.Request.Pages);
-        }
+    public static UrlBuilder<T> LastPage<T>(this UrlBuilder<T> builder) where T : class, IPageable
+    {
+        return builder.With(x => x.Page, builder.Request.Pages);
+    }
         
-        public static UrlBuilder<T> Page<T>(this UrlBuilder<T> builder, int page) where T : class, IPageable
-        {
-            return builder.With(x => x.Page, page);
-        }
+    public static UrlBuilder<T> Page<T>(this UrlBuilder<T> builder, int page) where T : class, IPageable
+    {
+        return builder.With(x => x.Page, page);
     }
 }

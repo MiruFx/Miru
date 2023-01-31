@@ -17,7 +17,7 @@ using Miru.Tests.Scheduling;
 
 namespace Miru.Tests.Behaviors;
 
-public class DomainEventsTest : MiruCoreTesting
+public class DomainEventsTest : MiruCoreTest
 {
     public override IServiceCollection ConfigureServices(IServiceCollection services)
     {

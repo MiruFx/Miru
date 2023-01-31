@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Miru.Core;
 using Miru.Databases;
 using Miru.Databases.EntityFramework;
-using Miru.Settings;
 
 namespace Miru;
 
@@ -30,7 +29,7 @@ public static class EntityFrameworkRegistry
                 settings.ConnectionString = 
                     settings.ConnectionString?.Replace("{{ db_dir }}", dbDir);
                 
-                Directories.CreateIfNotExists(dbDir);   
+                dbDir.EnsureDirExist();
             }
         });
 

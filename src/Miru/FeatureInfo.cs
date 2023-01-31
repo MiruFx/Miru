@@ -6,13 +6,15 @@ namespace Miru;
 
 public class FeatureInfo
 {
+    private const string FeatureNamespace = ".Features.";
+    
+    public Type Type { get; }
+    public object Instance { get; }
+
     public static FeatureInfo For<TRequest>(TRequest request)
     {
         return new FeatureInfo(request.GetType());
     }
-        
-    public Type Type { get; }
-    public object Instance { get; }
 
     public FeatureInfo(Type type)
     {
@@ -22,12 +24,23 @@ public class FeatureInfo
         
     public FeatureInfo(object instance) : this(instance.GetType())
     {
+        // TODO: cache in a hashtable <type, featureinfo>
         Instance = instance;
     }
 
     public bool IsIn(string folder, string featureFolder = ".Features.")
     {
         return Type.Namespace.Contains($"{featureFolder}{folder}");
+    }
+
+    public string FeatureGroup => GetFeatureGroup(Type.Namespace);
+    
+    public static string GetFeatureGroup(string nameSpace)
+    {
+        var featuresIndexOf = nameSpace.IndexOf(FeatureNamespace, StringComparison.InvariantCulture);
+        var featureOfLength = FeatureNamespace.Length;
+        
+        return nameSpace.Substring(featuresIndexOf + featureOfLength);
     }
 
     public bool Implements<T>()

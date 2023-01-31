@@ -2,7 +2,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Config;
-using Miru.Settings;
 
 namespace Miru.Databases.EntityFramework
 {

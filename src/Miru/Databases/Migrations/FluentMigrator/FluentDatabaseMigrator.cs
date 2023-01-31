@@ -1,66 +1,60 @@
 ﻿using System;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Exceptions;
-using Microsoft.Extensions.Logging;
 
-namespace Miru.Databases.Migrations.FluentMigrator
+namespace Miru.Databases.Migrations.FluentMigrator;
+
+public class FluentDatabaseMigrator : IDatabaseMigrator
 {
-    public class FluentDatabaseMigrator : IDatabaseMigrator
+    private readonly IMigrationRunner _migrationRunner;
+
+    public FluentDatabaseMigrator(IMigrationRunner migrationRunner)
     {
-        private readonly IMigrationRunner _migrationRunner;
-        private readonly ILogger<FluentDatabaseMigrator> _logger;
+        _migrationRunner = migrationRunner;
+    }
 
-        public FluentDatabaseMigrator(
-            IMigrationRunner migrationRunner, 
-            ILogger<FluentDatabaseMigrator> logger)
+    public void UpdateSchema()
+    {
+        App.Framework.Information("Updating database schema");
+            
+        Execute(m => m.MigrateUp());
+            
+        App.Framework.Information("Database schema updated");
+    }
+
+    public void DowngradeSchema(int steps = 1)
+    {
+        App.Framework.Information("Downgrading database schema");
+            
+        Execute(m => m.Rollback(steps));
+            
+        App.Framework.Information("Database downgraded");
+    }
+
+    public void RecreateSchema()
+    {
+        App.Framework.Information("Recreating database schema");
+            
+        App.Framework.Information("Downgrading");
+            
+        Execute(m => m.MigrateDown(0));
+            
+        App.Framework.Information("Upgrading");
+            
+        Execute(m => m.MigrateUp());
+            
+        App.Framework.Information("Database schema recreated");
+    }
+
+    private void Execute(Action<IMigrationRunner> action)
+    {
+        try
         {
-            _migrationRunner = migrationRunner;
-            _logger = logger;
+            action(_migrationRunner);
         }
-
-        public void UpdateSchema()
+        catch (MissingMigrationsException)
         {
-            _logger.LogInformation("Updating database schema");
-            
-            Execute(m => m.MigrateUp());
-            
-            _logger.LogInformation("Database schema updated");
-        }
-
-        public void DowngradeSchema(int steps = 1)
-        {
-            _logger.LogInformation("Downgrading database schema");
-            
-            Execute(m => m.Rollback(steps));
-            
-            _logger.LogInformation("Database downgraded");
-        }
-
-        public void RecreateSchema()
-        {
-            _logger.LogInformation("Recreating database schema");
-            
-            _logger.LogInformation("Downgrading");
-            
-            Execute(m => m.MigrateDown(0));
-            
-            _logger.LogInformation("Upgrading");
-            
-            Execute(m => m.MigrateUp());
-            
-            _logger.LogInformation("Database schema recreated");
-        }
-
-        private void Execute(Action<IMigrationRunner> action)
-        {
-            try
-            {
-                action(_migrationRunner);
-            }
-            catch (MissingMigrationsException)
-            {
-                _logger.LogInformation("No migrations found");
-            }
+            App.Framework.Information("No Migrations were found in your application");
         }
     }
 }

@@ -39,6 +39,14 @@ public class FeatureInfoTest
             .GetTitle()
             .ShouldBe("ShipmentDelivered?ShipmentId=456&OrderId=789");
     }
+    
+    [Test]
+    public void Should_return_feature_group()
+    {
+        FeatureInfo
+            .GetFeatureGroup(typeof(Playground.Features.Orders.OrderPurge).Namespace)
+            .ShouldBe("Orders");
+    }
 }
 
 public class OrderPurge : IBaseRequest

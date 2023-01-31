@@ -6,7 +6,7 @@ using Miru.Tests.Queuing;
 
 namespace Miru.Tests.Testing;
 
-public class QueueingExtensionsTest : MiruCoreTesting
+public class QueueingExtensionsTest : MiruCoreTest
 {
     private Jobs _jobs;
 

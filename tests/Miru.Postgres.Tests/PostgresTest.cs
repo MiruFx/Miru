@@ -9,7 +9,6 @@ using Miru.Core;
 using Miru.Databases;
 using Miru.Databases.Migrations;
 using Miru.Fabrication;
-using Miru.Settings;
 using Miru.Testing;
 using Miru.Tests;
 using Miru.Userfy;

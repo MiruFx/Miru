@@ -11,7 +11,7 @@ using Z.EntityFramework.Plus;
 
 namespace Miru.Tests.Behaviors;
 
-public class InactivableTest : MiruCoreTesting
+public class InactivableTest : MiruCoreTest
 {
     public override IServiceCollection ConfigureServices(IServiceCollection services)
     {

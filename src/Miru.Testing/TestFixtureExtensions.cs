@@ -146,7 +146,7 @@ public static class TestFixtureExtensions
     {
         using var scope = fixture.App.WithScope();
             
-        var db = scope.Get<TDbContext>();
+        using var db = scope.Get<TDbContext>();
                 
         func(db);
     }
@@ -157,20 +157,20 @@ public static class TestFixtureExtensions
     {
         using var scope = fixture.App.WithScope();
             
-        var db = scope.Get<TDbContext>();
+        using var db = scope.Get<TDbContext>();
                 
         return func(db);
     }
-        
-    public static void ExecDb<TDbContext>(
+            
+    public static TReturn FetchDb<TDbContext, TReturn>(
         this ITestFixture fixture, 
-        Action<TDbContext> action)
+        Func<TDbContext, TReturn> func) where TDbContext : DbContext
     {
         using var scope = fixture.App.WithScope();
             
-        var db = scope.Get<TDbContext>();
+        using var db = scope.Get<TDbContext>();
                 
-        action(db);
+        return func(db);
     }
         
     public static void LoginAs<TUser>(this ITestFixture fixture, TUser user) where TUser : UserfyUser

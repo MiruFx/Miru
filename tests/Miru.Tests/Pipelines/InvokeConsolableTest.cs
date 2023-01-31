@@ -61,7 +61,7 @@ public class InvokableConsolableTest
     public async Task Should_run_invokable_parsing_args_to_create_command_instance()
     {
         // arrange
-        var host = MiruHost.CreateMiruHost("miru", "invoke", "OrderArchive", "--order-id", "123", "--archive-type", "Temporarily").ConfigureServices(x => x
+        var host = MiruHost.CreateMiruHost("miru", "invoke", "OrderArchive", "--orderId", "123", "--archiveType", "Temporarily").ConfigureServices(x => x
             .AddMiruApp<InvokableConsolableTest>()
             .AddConsolables<ConfigShowConsolable>()
             .AddPipeline<InvokableConsolableTest>());
@@ -77,12 +77,12 @@ public class InvokableConsolableTest
 
     public class OrderArchive
     {
-        public class Command : RootCommand, IRequest<Command>, IInvokable
+        public class Command : Invokable, IRequest<Command>
         {
             public Command()
             {
-                Add(new Option<long>("--order-id"));
-                Add(new Option<ArchiveType>("--archive-type"));
+                Add(new Option<long>("--orderId"));
+                Add(new Option<ArchiveType>("--archiveType"));
             }
 
             public long OrderId { get; set; }

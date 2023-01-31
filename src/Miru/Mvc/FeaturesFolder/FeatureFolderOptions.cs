@@ -13,7 +13,7 @@ namespace Miru.Mvc.FeaturesFolder
             FeatureFolderName = "Features";
             DeriveFeatureFolderName = null;
             FeatureNamePlaceholder = "{Feature}";
-            DefaultViewLocation = @"\Features\{0}\{1}.cshtml";
+            DefaultViewLocation = @"/Features/{0}/{1}.cshtml";
         }
 
         /// <summary>

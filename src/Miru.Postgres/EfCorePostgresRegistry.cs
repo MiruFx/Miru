@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Miru.Databases;
 using Miru.Databases.EntityFramework;
 using Miru.Databases.Migrations;
 using Miru.Hosting;
-using Miru.Settings;
 
 namespace Miru.Postgres;
 

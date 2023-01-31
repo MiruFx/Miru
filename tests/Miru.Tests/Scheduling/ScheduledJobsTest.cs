@@ -8,7 +8,7 @@ using Miru.Sqlite;
 
 namespace Miru.Tests.Scheduling;
 
-public class ScheduledJobsTest : MiruCoreTesting
+public class ScheduledJobsTest : MiruCoreTest
 {
     private ScheduledJobs _jobs;
 

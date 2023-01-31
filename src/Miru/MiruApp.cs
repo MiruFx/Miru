@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 using Miru.Hosting;
 
 namespace Miru;
@@ -51,6 +49,6 @@ public class MiruApp : IMiruApp
 
     public void Dispose()
     {
-        // TODO: dispose hosts?
+        (_serviceProvider as IDisposable).Dispose();
     }
 }

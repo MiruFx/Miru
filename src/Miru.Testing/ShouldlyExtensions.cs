@@ -167,6 +167,12 @@ public static class ShouldlyExtensions
         File.Exists(fileName).ShouldBeFalse($"File {fileName} should NOT exist but it does");
     }
 
+    public static void ShouldBeEmpty(this MiruPath fileName)
+    {
+        fileName.ShouldExist();
+        fileName.FileSize().ShouldBe(0);    
+    }
+
     public static void ShouldBeSameAs<T>(this T source, T other) where T : class, IComparableWith<T>
     {
         if (source.IsSameAs(other) == false)

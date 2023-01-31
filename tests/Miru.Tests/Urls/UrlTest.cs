@@ -11,7 +11,7 @@ using Miru.Urls;
 
 namespace Miru.Tests.Urls;
 
-public class UrlTest : MiruCoreTesting
+public class UrlTest : MiruCoreTest
 {
     private UrlLookup _url;
 

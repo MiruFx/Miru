@@ -4,7 +4,7 @@ using Miru.Queuing;
 
 namespace Miru.Tests.Queuing;
 
-public class MiruNotificationTest : MiruCoreTesting
+public class MiruNotificationTest : MiruCoreTest
 {
     [Test]
     public void Should_return_notification_name()

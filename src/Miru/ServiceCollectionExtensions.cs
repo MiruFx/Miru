@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Miru.Mvc;
+using Miru.Mvc.FeaturesFolder;
 
 namespace Miru;
 

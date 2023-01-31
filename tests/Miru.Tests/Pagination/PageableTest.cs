@@ -53,11 +53,11 @@ public class PageableTest
         query.Results = list.ToPaginate(query).ToList();
             
         // act & assert
-        query.Pager(7).Pages.ShouldBe(new[] { 2, 3, 4, 5, 6, 7, 8 });
-        query.Pager(5).Pages.ShouldBe(new[] { 3, 4, 5, 6, 7 });
-        query.Pager(3).Pages.ShouldBe(new[] { 4, 5, 6 });
-        query.Pager(1).Pages.ShouldBe(new[] { 5 });
-        query.Pager(20).Pages.ShouldBe(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+        query.Pager(7).Pages.ShouldBe(2, 3, 4, 5, 6, 7, 8);
+        query.Pager(5).Pages.ShouldBe(3, 4, 5, 6, 7);
+        query.Pager(3).Pages.ShouldBe(4, 5, 6);
+        query.Pager(1).Pages.ShouldBe(5);
+        query.Pager(20).Pages.ShouldBe(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
     }
     
     [Test]

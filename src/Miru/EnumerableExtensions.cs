@@ -58,7 +58,12 @@ public static class EnumerableExtensions
 
     public static TList ById<TList>(this IEnumerable<TList> list, long id) where TList : IEntity
     {
-        return list.FirstOrDefault(e => e.Id == id);
+        var item = list.FirstOrDefault(e => e.Id == id);
+
+        if (item is null)
+            throw new NotFoundException($"Could not find item with id #{id}");
+
+        return item;
     }
         
     public static TList By<TList>(this IEnumerable<TList> list, TList by)

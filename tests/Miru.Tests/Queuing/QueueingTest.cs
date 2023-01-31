@@ -10,7 +10,7 @@ using Miru.Queuing;
 namespace Miru.Tests.Queuing;
 
 [Ignore("WIP")]
-public class QueueingTest : MiruCoreTesting
+public class QueueingTest : MiruCoreTest
 {
     private BackgroundJobServer _server;
     private Jobs _jobs;

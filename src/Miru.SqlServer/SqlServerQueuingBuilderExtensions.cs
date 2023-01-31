@@ -1,7 +1,7 @@
 using Hangfire;
 using Microsoft.Extensions.DependencyInjection;
+using Miru.Databases;
 using Miru.Queuing;
-using Miru.Settings;
 
 namespace Miru.SqlServer
 {

@@ -1,11 +1,10 @@
-namespace Miru.Databases.Migrations
+namespace Miru.Databases.Migrations;
+
+public interface IDatabaseMigrator
 {
-    public interface IDatabaseMigrator
-    {
-        void UpdateSchema();
+    void UpdateSchema();
         
-        void DowngradeSchema(int steps = 1);
+    void DowngradeSchema(int steps = 1);
         
-        void RecreateSchema();
-    }
+    void RecreateSchema();
 }

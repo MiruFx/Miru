@@ -3,10 +3,11 @@ using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using Miru.Databases;
 using Miru.Databases.EntityFramework;
 using Miru.Databases.Migrations;
 using Miru.Hosting;
-using Miru.Settings;
 
 namespace Miru.Sqlite;
 
@@ -24,7 +25,7 @@ public static class EfCoreSqliteRegistry
         {
             if (connectionString == null)
             {
-                var dbConfig = sp.GetService<DatabaseOptions>();
+                var dbConfig = sp.GetService<IOptions<DatabaseOptions>>().Value;
 
                 options.UseSqlite(dbConfig.ConnectionString);
             }

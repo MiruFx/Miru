@@ -1,6 +1,4 @@
-﻿using System;
-using System.Reflection;
-using Miru.Core;
+﻿using System.Reflection;
 using Serilog;
 
 namespace Miru;

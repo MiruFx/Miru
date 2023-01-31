@@ -11,10 +11,10 @@ public static class MakersRegistry
             // TODO: automatically scan for Miru's Consolable inside Makers namespace
             .AddConsolable<MakeAppSettingsConsolable>()
             .AddConsolable<MakeEntityConsolable>()
-            .AddConsolable<MakeScaffoldConsolable>()
-            .AddConsolable<MakeQueryListConsolable>()
-            .AddConsolable<MakeQueryShowConsolable>()
-            .AddConsolable<MakeCommandConsolable>()
+            // .AddConsolable<MakeScaffoldConsolable>()
+            // .AddConsolable<MakeQueryListConsolable>()
+            // .AddConsolable<MakeQueryShowConsolable>()
+            // .AddConsolable<MakeCommandConsolable>()
             .AddConsolable<MakeMailableConsolable>()
             .AddConsolable<MakeConsolableConsolable>()
             .AddConsolable<MakeMigrationConsolable>();

@@ -18,17 +18,17 @@
         <PackageReference Include="Ardalis.SmartEnum.EFCore" Version="2.1.0" />
 
         <!-- Data -->
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0" />
-        <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="7.18.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.1" />
+        <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="7.18.1" />
         <PackageReference Include="FluentMigrator" Version="3.3.2" />
         <PackageReference Include="FluentMigrator.Runner" Version="3.3.2" />
 
         <!-- Features -->
-        <PackageReference Include="MediatR" Version="11.0.0" />
+        <PackageReference Include="MediatR" Version="11.1.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-        <PackageReference Include="FluentValidation" Version="11.2.2" />
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.2.2" />
+        <PackageReference Include="FluentValidation" Version="11.4.0" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.4.0" />
 
         <!-- Email -->
         <PackageReference Include="FluentEmail.Core" Version="3.0.2" />
@@ -41,8 +41,7 @@
         <!-- Logging -->
         <PackageReference Include="Serilog" Version="2.12.0" />
         <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
-        <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
-        <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
+        <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
 
         <!-- Queuing -->
         <PackageReference Include="Hangfire.Core" Version="1.7.31" />
@@ -51,8 +50,8 @@
         <PackageReference Include="Hangfire.Console.Extensions.Serilog" Version="1.0.2" />
 
         <!-- Userfy -->
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.0" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.1" />
 
         <!-- MiniProfiler -->
         <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.2.22" />
@@ -66,6 +65,10 @@
 
     <ItemGroup>
         <EmbeddedResource Include="**/*.stub" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Settings" />
     </ItemGroup>
 
 </Project>

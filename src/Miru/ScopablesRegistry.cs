@@ -28,7 +28,7 @@ public static class ScopablesRegistry
     public static IServiceCollection AddScopables<TAssemblyOf>(
         this IServiceCollection services)
     {
-        services.TryAddScoped<IInterceptor, ScopableInterceptor>();
+        services.AddTransient<IInterceptor, ScopableInterceptor>();
             
         return services.Scan(scan => scan
             .FromAssemblies(typeof(TAssemblyOf).Assembly)
@@ -37,4 +37,19 @@ public static class ScopablesRegistry
             .AsImplementedInterfaces()
             .WithScopedLifetime());
     }
+    
+    
+    // public static IServiceCollection AddScopables2<TAssemblyOf>(
+    //     this IServiceCollection services)
+    // {
+    //     services.AddTransient<IInterceptor, ScopableInterceptor2>();
+    //         
+    //     return services.Scan(scan => scan
+    //         .FromAssemblies(typeof(TAssemblyOf).Assembly)
+    //         .AddClasses(classes => classes.AssignableTo(typeof(IScopableQuery)))
+    //         .AddClasses(classes => classes.AssignableTo(typeof(IScopableSaving)))
+    //         .AsImplementedInterfaces()
+    //         .WithScopedLifetime());
+    // }
+
 }

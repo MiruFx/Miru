@@ -5,7 +5,6 @@ using Microsoft.Extensions.Hosting;
 using Miru.Databases;
 using Miru.Databases.EntityFramework;
 using Miru.Hosting;
-using Miru.Settings;
 using Miru.SqlServer;
 using NUnit.Framework;
 

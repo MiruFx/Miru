@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Consolables;
+using Miru.Databases;
 using Miru.Hosting;
-using Miru.Settings;
 
 namespace Miru.Tests.Hosting;
 

@@ -6,15 +6,9 @@
   </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
-        <PackageReference Include="NUnit3TestAdapter" Version="4.3.0" />
-        <PackageReference Include="Hangfire.MemoryStorage" Version="1.7.0" />
-
-        <!-- 
-        Supportreon uses Miru's source code directly.
-        This references would be the same as:
-        <PackageReference Include="Miru" Version="LAST_MIRU_VERSION" />
-        -->
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.1" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.3.1" />
+        
         <ProjectReference Include="..\..\..\..\src\Miru.Testing\Miru.Testing.csproj" />
         <ProjectReference Include="..\..\..\..\src\Miru.Fabrication\Miru.Fabrication.csproj" />
     </ItemGroup>

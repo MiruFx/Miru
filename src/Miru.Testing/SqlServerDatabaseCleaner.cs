@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Miru.Databases;
-using Miru.Settings;
 using Respawn;
 using Respawn.Graph;
 
