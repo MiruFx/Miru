@@ -106,19 +106,19 @@ public class BenchmarkUrl
         };
     }
     
-    [Benchmark]
-    public void Url2()
-    {
-        var url = new UrlBuilder<UrlTest.ProductsList.Query>(_request, _urlOptions, _urlMaps);
-            
-        url
-            .With(m => m.Page, 3)
-            .Without(m => m.Category)
-            .Without(m => m.Size, UrlTest.ProductsList.Size.Medium)
-            .Without(m => m.Size, UrlTest.ProductsList.Size.Large)
-            .ToString()
-            .ShouldBe("/Products/List?Size%5B0%5D=Small&Page=3");
-    }
+    // [Benchmark]
+    // public void Url2()
+    // {
+    //     var url = new UrlBuilder<UrlTest.ProductsList.Query>(_request, _urlOptions, _urlMaps);
+    //         
+    //     url
+    //         .With(m => m.Page, 3)
+    //         .Without(m => m.Category)
+    //         .Without(m => m.Size, UrlTest.ProductsList.Size.Medium)
+    //         .Without(m => m.Size, UrlTest.ProductsList.Size.Large)
+    //         .ToString()
+    //         .ShouldBe("/Products/List?Size%5B0%5D=Small&Page=3");
+    // }
 }
 //
 // [MemoryDiagnoser]

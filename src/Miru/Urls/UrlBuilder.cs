@@ -14,17 +14,20 @@ public class UrlBuilder<TInput> where TInput : class
     private readonly List<string> _withoutProperties = new();
     private readonly List<KeyValuePair<string, object>> _withoutPropertyAndValues = new();
     private readonly IUrlMaps _urlMaps;
+    private readonly UrlPrefix _urlPrefix;
     private readonly UrlOptions _urlOptions;
     private bool _acceptCommand;
 
     public UrlBuilder(
         TInput request, 
         UrlOptions urlOptions,
-        IUrlMaps urlMaps)
+        IUrlMaps urlMaps,
+        UrlPrefix urlPrefix)
     {
         Request = request;
         _urlOptions = urlOptions;
         _urlMaps = urlMaps;
+        _urlPrefix = urlPrefix;
     }
 
     public static implicit operator string(UrlBuilder<TInput> input)
@@ -98,7 +101,10 @@ Also, check if there is a [Route] with constraints for the parameters. Maybe the
                 return path.Substring(0, questionMarkPos);
             }
         }
-            
+
+        if (_urlPrefix.Prefix.IsNotEmpty())
+            return $"/{_urlPrefix.Prefix}{path}";
+        
         return path;
     }
 

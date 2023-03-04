@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace Miru.Urls;
 
@@ -28,7 +25,8 @@ public static class UrlServiceCollectionExtensions
             return factory.GetUrlHelper(actionContext);
         });
             
-        services.AddSingleton<UrlLookup>();
+        services.AddScoped<UrlLookup>();
+        services.AddScoped<UrlPrefix>();
             
         services.AddSingleton<IUrlMaps, DefaultUrlMaps>();
             

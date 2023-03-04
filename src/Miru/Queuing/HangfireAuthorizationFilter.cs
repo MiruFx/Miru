@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Hangfire.Dashboard;
-using Microsoft.Extensions.DependencyInjection;
 using Miru.Security;
 
 namespace Miru.Queuing;
