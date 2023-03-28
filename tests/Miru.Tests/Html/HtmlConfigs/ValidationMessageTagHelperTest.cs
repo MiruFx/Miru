@@ -16,7 +16,7 @@ public class ValidationMessageTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-validation2");
             
         // assert
-        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<div id=""CustomerName-validation"" data-for=""CustomerName"" hidden=""hidden""></div>");
+        output.HtmlShouldBe(@"<div id=""CustomerName-validation"" data-for=""CustomerName"" hidden=""hidden""></div>");
     }
     
     [Test]
@@ -30,7 +30,7 @@ public class ValidationMessageTagHelperTest : MiruTagTesting
         var output = ProcessTag(tag, "miru-validation2");
             
         // assert
-        Miru.Testing.Html.Extensions.HtmlShouldBe(output, @"<div id=""CustomerName-validation"" data-for=""CustomerName"" hidden=""hidden""></div>");
+        output.HtmlShouldBe(@"<div id=""CustomerName-validation"" data-for=""CustomerName"" hidden=""hidden""></div>");
     }
     
     public class Command

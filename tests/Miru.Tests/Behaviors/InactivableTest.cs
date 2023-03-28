@@ -118,7 +118,7 @@ public class InactivableTest : MiruCoreTest
         var result = await _.Get<IUserLogin<User>>().LoginAsync(user.Email, "123456");
            
         // assert
-        result.Succeeded.ShouldBeTrue();
+        result.Result.Succeeded.ShouldBeTrue();
     }
     
     [Test]
@@ -135,7 +135,7 @@ public class InactivableTest : MiruCoreTest
         var result = _.App.WithScope(s => s.Get<IUserLogin<User>>().LoginAsync(user.Email, "123456").Result);
             
         // assert
-        result.Succeeded.ShouldBeFalse();
+        result.Result.Succeeded.ShouldBeFalse();
     }
     
     public class Post : Entity, IInactivable

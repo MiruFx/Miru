@@ -25,8 +25,7 @@ public static class UrlServiceCollectionExtensions
             return factory.GetUrlHelper(actionContext);
         });
             
-        services.AddScoped<UrlLookup>();
-        services.AddScoped<UrlPrefix>();
+        services.AddSingleton<UrlLookup>();
             
         services.AddSingleton<IUrlMaps, DefaultUrlMaps>();
             

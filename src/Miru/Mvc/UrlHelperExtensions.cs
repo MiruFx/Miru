@@ -22,9 +22,8 @@ public static class UrlHelperExtensions
         var urlOptions = urlHelper.ActionContext.HttpContext.RequestServices.GetRequiredService<UrlOptions>();
 
         var urlMaps = urlHelper.ActionContext.HttpContext.RequestServices.GetService<IUrlMaps>();
-        var urlPrefix = urlHelper.ActionContext.HttpContext.RequestServices.GetService<UrlPrefix>();
             
-        return new UrlBuilder<TRequest>(request, urlOptions, urlMaps, urlPrefix);
+        return new UrlBuilder<TRequest>(request, urlOptions, urlMaps);
     }
         
     public static string Full<TRequest>(this IUrlHelper urlHelper) where TRequest : class, new()

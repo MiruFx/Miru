@@ -36,6 +36,7 @@ public abstract class LocalDiskStorage : IStorage
     {
         var fullRemoteDir = Path / remote;
             
+        // TODO: Parameter replaceIfExists
         Files.DeleteIfExists(fullRemoteDir);
             
         fullRemoteDir.Dir().EnsureDirExist();

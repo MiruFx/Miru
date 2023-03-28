@@ -59,12 +59,12 @@ public class AccountLogin
 
             var result = await _userLogin.LoginAsync(request.Email, request.Password, request.RememberMe);
 
-            if (result.Succeeded)
+            if (result.Result.Succeeded)
             {
                 return new Result
                 {
                     RedirectTo = request.ReturnUrl,
-                    SignInResult = result
+                    SignInResult = result.Result
                 };
             }
                 

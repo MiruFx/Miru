@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using Miru.Domain;
 
 namespace Miru.Userfy;
 
@@ -15,7 +14,7 @@ public class UserfyUserLogin<TUser> : IUserLogin<TUser> where TUser : UserfyUser
         _userSession = userSession;
     }
 
-    public async Task<SignInResult> LoginAsync(string userName, string password, bool remember = false)
+    public async Task<LoginResult<TUser>> LoginAsync(string userName, string password, bool remember = false)
     {
         var user = await _userManager.FindByEmailAsync(userName);
 
@@ -26,10 +25,17 @@ public class UserfyUserLogin<TUser> : IUserLogin<TUser> where TUser : UserfyUser
                 password, 
                 remember);
                 
-            return result;
+            return new LoginResult<TUser>
+            {
+                User = user,
+                Result = result
+            };
         }
 
-        return SignInResult.Failed;
+        return new LoginResult<TUser>
+        {
+            Result = SignInResult.Failed
+        };
     }
 
     public async Task LogoutAsync()

@@ -1,11 +1,10 @@
-using Miru.Config;
+using Microsoft.AspNetCore.Http;
 
-namespace Miru.Urls
+namespace Miru.Urls;
+
+public class UrlOptions
 {
-    public class UrlOptions
-    {
-        public QueryStringConfig QueryStrings { get; } = new QueryStringConfig();
+    public QueryStringConfig QueryStrings { get; } = new();
         
-        public string Base { get; set; }
-    }
+    public string Base { get; set; }
 }

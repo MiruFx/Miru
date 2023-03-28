@@ -39,11 +39,11 @@ public class UrlTest : MiruCoreTest
     }
 
     [OneTimeSetUp]
-    public void Setup()
+    public void FixtureSetup()
     {
         // _.Get<UrlMapsScanner>().Scan();
         
-        _url = _.WithScope().Get<UrlLookup>();
+        _url = _.Get<UrlLookup>();
     }
 
     [Test]
@@ -517,29 +517,6 @@ public class UrlTest : MiruCoreTest
             .ShouldBe($"/Products/List?OrderStatus={ProductsList.OrderStatus.Paid.Value}");            
     }
     
-    [Test]
-    public void Build_url_with_global_scoped_prefix_condition()
-    {
-        var request = new ProductsList.Query
-        {
-            OrderStatus = ProductsList.OrderStatus.Delivered,
-        };
-    
-        using var scope = _.WithScope();
-
-        scope.Get<UrlPrefix>().Prefix = "Amazon";
-            
-        var scopedUrl = scope.Get<UrlLookup>();
-        
-        scopedUrl.For(request)
-            .ShouldBe($"/Amazon/Products/List?OrderStatus={ProductsList.OrderStatus.Delivered.Value}");
-        
-        scopedUrl.Build(new ProductsList.Query())
-            .With(x => x.OrderStatus, ProductsList.OrderStatus.Paid)
-            .ToString()
-            .ShouldBe($"/Amazon/Products/List?OrderStatus={ProductsList.OrderStatus.Paid.Value}");            
-    }
-
     public class NotMapped
     {
     }

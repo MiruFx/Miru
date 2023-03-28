@@ -10,96 +10,95 @@ using Miru.Userfy;
 using Playground.Domain;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
-namespace Playground.Features.Accounts
+namespace Playground.Features.Accounts;
+
+public class AccountLogin
 {
-    public class AccountLogin
+    public class Query : IRequest<Command>
     {
-        public class Query : IRequest<Command>
-        {
-            public string ReturnUrl { get; set; }
-        }
+        public string ReturnUrl { get; set; }
+    }
         
-        public class Command : IRequest<Result>
-        {
-            public string Email { get; set; }
-            public string Password { get; set; }
-            public bool RememberMe { get; set; }
+    public class Command : IRequest<Result>
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public bool RememberMe { get; set; }
             
-            public string ReturnUrl { get; set; }
-        }
+        public string ReturnUrl { get; set; }
+    }
 
-        public class Result : IRedirect
-        {
-            public SignInResult SignInResult { get; set; }
-            public object RedirectTo { get; set; }
-        }
+    public class Result : IRedirect
+    {
+        public SignInResult SignInResult { get; set; }
+        public object RedirectTo { get; set; }
+    }
         
-        public class Handler :
-            IRequestHandler<Query, Command>,
-            IRequestHandler<Command, Result>
+    public class Handler :
+        IRequestHandler<Query, Command>,
+        IRequestHandler<Command, Result>
+    {
+        private readonly IUserLogin<User> _userLogin;
+        private readonly IUserSession<User> _userSession;
+
+        public Handler(IUserLogin<User> userLogin, IUserSession<User> userSession)
         {
-            private readonly IUserLogin<User> _userLogin;
-            private readonly IUserSession<User> _userSession;
+            _userLogin = userLogin;
+            _userSession = userSession;
+        }
 
-            public Handler(IUserLogin<User> userLogin, IUserSession<User> userSession)
-            {
-                _userLogin = userLogin;
-                _userSession = userSession;
-            }
+        public async Task<Command> Handle(Query request, CancellationToken ct)
+        {
+            // TODO: get from UserfyOptions
+            request.ReturnUrl ??= "/";
 
-            public async Task<Command> Handle(Query request, CancellationToken ct)
-            {
-                // TODO: get from UserfyOptions
-                request.ReturnUrl ??= "/";
-
-                // Clear the existing external cookie to ensure a clean login process
-                await _userSession.LogoutAsync();
+            // Clear the existing external cookie to ensure a clean login process
+            await _userSession.LogoutAsync();
                 
-                return new Command
+            return new Command
+            {
+                ReturnUrl = request.ReturnUrl,
+                RememberMe = true
+            };
+        }
+
+        public async Task<Result> Handle(Command request, CancellationToken ct)
+        {
+            // TODO: get from UserfyOptions
+            request.ReturnUrl ??= "/";
+
+            var result = await _userLogin.LoginAsync(request.Email, request.Password, request.RememberMe);
+
+            if (result.Result.Succeeded)
+            {
+                return new Result
                 {
-                    ReturnUrl = request.ReturnUrl,
-                    RememberMe = true
+                    RedirectTo = request.ReturnUrl,
+                    SignInResult = result.Result
                 };
             }
-
-            public async Task<Result> Handle(Command request, CancellationToken ct)
-            {
-                // TODO: get from UserfyOptions
-                request.ReturnUrl ??= "/";
-
-                var result = await _userLogin.LoginAsync(request.Email, request.Password, request.RememberMe);
-
-                if (result.Succeeded)
-                {
-                    return new Result
-                    {
-                        RedirectTo = request.ReturnUrl,
-                        SignInResult = result
-                    };
-                }
                 
-                // TODO: get message from UserfyOptions
-                throw new DomainException("User and password not found");
-            }
+            // TODO: get message from UserfyOptions
+            throw new DomainException("User and password not found");
         }
+    }
 
-        public class Validator : AbstractValidator<Command>
+    public class Validator : AbstractValidator<Command>
+    {
+        public Validator()
         {
-            public Validator()
-            {
-                RuleFor(x => x.Email).NotEmpty().EmailAddress();
+            RuleFor(x => x.Email).NotEmpty().EmailAddress();
                 
-                RuleFor(x => x.Password).NotEmpty();
-            }
+            RuleFor(x => x.Password).NotEmpty();
         }
+    }
         
-        public class AccountsController : MiruController
-        {
-            [HttpGet("/Accounts/Login")]
-            public async Task<Command> Login(Query request) => await SendAsync(request);
+    public class AccountsController : MiruController
+    {
+        [HttpGet("/Accounts/Login")]
+        public async Task<Command> Login(Query request) => await SendAsync(request);
             
-            [HttpPost("/Accounts/Login")]
-            public async Task<Result> Login(Command request) => await SendAsync(request);
-        }
+        [HttpPost("/Accounts/Login")]
+        public async Task<Result> Login(Command request) => await SendAsync(request);
     }
 }

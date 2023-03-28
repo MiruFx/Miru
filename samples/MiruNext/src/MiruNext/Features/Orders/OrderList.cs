@@ -26,7 +26,13 @@ public class OrderList
                 Orders = new[]
                 {
                     new Order { Id = 1, CreatedAt = 1.OfPreviousMonth() }, 
-                    new Order { Id = 2, CreatedAt = 5.OfPreviousMonth() }
+                    new Order { Id = 2, CreatedAt = 5.OfPreviousMonth() },
+                    new Order { Id = 3, CreatedAt = 5.OfPreviousMonth() },
+                    new Order { Id = 4, CreatedAt = 5.OfPreviousMonth() },
+                    new Order { Id = 5, CreatedAt = 5.OfPreviousMonth() },
+                    new Order { Id = 6, CreatedAt = 5.OfPreviousMonth() },
+                    new Order { Id = 8, CreatedAt = 5.OfPreviousMonth() },
+                    new Order { Id = 9, CreatedAt = 5.OfPreviousMonth() },
                 },
                 Page = request.Page,
                 Status = request.Status
