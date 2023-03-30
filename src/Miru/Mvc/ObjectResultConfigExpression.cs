@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -23,7 +22,7 @@ Register one in your Startup.cs");
         };
     }
 
-    internal Func<ObjectResultContext, Task> RespondWith { get; set; }
+    public Func<ObjectResultContext, Task> RespondWith { get; set; }
 
     public Func<ObjectResultContext, bool> When { get; set; }
 }

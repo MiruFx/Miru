@@ -1,11 +1,10 @@
-using System;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Miru.Mvc;
 
 public class ExceptionResultExpression
 {
-    internal Func<ExceptionResultContext, IActionResult> RespondWith { get; set; }
+    public Func<ExceptionResultContext, IActionResult> RespondWith { get; set; }
 
     public Func<ExceptionResultContext, bool> When { get; set; }
 
