@@ -1,15 +1,13 @@
-using Microsoft.AspNetCore.Mvc;
-
 namespace Miru.Security;
 
 public class UnauthorizedException : Exception
 {
-    public ActionResult ActionResult { get; }
+    public object FeatureResult { get; }
 
     public UnauthorizedException(
         string message = null, 
-        ActionResult actionResult = null) : base(message)
+        object featureResult = null) : base(message)
     {
-        ActionResult = actionResult;
+        FeatureResult = featureResult;
     }
 }
