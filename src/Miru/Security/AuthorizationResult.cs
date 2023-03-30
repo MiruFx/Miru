@@ -6,15 +6,20 @@ public class AuthorizationResult
     
     public bool IsAuthorized { get; }
     public string FailureMessage { get; }
+    public object FeatureResult { get; }
 
     public AuthorizationResult()
     {
     }
         
-    private AuthorizationResult(bool isAuthorized, string failureMessage)
+    public AuthorizationResult(
+        bool isAuthorized, 
+        string failureMessage, 
+        object featureResult = null)
     {
         IsAuthorized = isAuthorized;
         FailureMessage = failureMessage;
+        FeatureResult = featureResult;
     }
         
     public static AuthorizationResult Fail()
@@ -22,9 +27,9 @@ public class AuthorizationResult
         return new AuthorizationResult(false, null);
     }
 
-    public static AuthorizationResult Fail(string failureMessage)
+    public static AuthorizationResult Fail(string failureMessage, object featureResult = null)
     {
-        return new AuthorizationResult(false, failureMessage);
+        return new AuthorizationResult(false, failureMessage, featureResult);
     }
 
     public static AuthorizationResult Succeed() => SuccessResult;
