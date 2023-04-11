@@ -6,9 +6,9 @@ namespace MiruNext.Tests;
 
 public static class Extensions
 {
-    public static TReturn Db<TReturn>(this ITestFixture fixture, Func<MiruNextDbContext, TReturn> func) => 
+    public static TReturn Db<TReturn>(this ITestFixture fixture, Func<AppDbContext, TReturn> func) => 
         fixture.WithDb(func);
 
-    public static MiruNextFabricator Fab(this ITestFixture fixture) => 
-        fixture.Get<MiruNextFabricator>();
+    public static AppFabricator Fab(this ITestFixture fixture) => 
+        fixture.Get<AppFabricator>();
 }

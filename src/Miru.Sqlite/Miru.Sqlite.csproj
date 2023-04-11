@@ -5,11 +5,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Hangfire.Core" Version="1.7.31" />
+        <PackageReference Include="Hangfire.Core" Version="1.7.34" />
         <PackageReference Include="Hangfire.LiteDB" Version="0.4.1" />
 
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.1" />
-        <PackageReference Include="Hangfire.Storage.SQLite" Version="0.3.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.4" />
+        <PackageReference Include="Hangfire.Storage.SQLite" Version="0.3.3" />
     </ItemGroup>
 
     <ItemGroup>

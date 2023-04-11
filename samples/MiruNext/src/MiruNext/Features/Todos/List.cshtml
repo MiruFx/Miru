@@ -1,0 +1,25 @@
+@model MiruNext.Features.Todos.TodoList.Result
+
+<h3>Todos</h3>
+
+<div class="my-3">
+    @* <a for="@(new TodoEdit)">Add</a> *@
+</div>
+
+<miru-table x="For(x => x.Todos)">
+    <thead>
+        <tr>
+            <miru-th x="For(x => x.Todos[0].Id)" />
+            <miru-th x="For(x => x.Todos[0].Name)" />
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var (_, i) in Model.Todos.Indexed())
+        {
+            <tr>
+                <miru-td x="For(x => x.Todos[i].Id)" />
+                <miru-td x="For(x => x.Todos[i].Name)" />
+            </tr>
+        }
+    </tbody>
+</miru-table>

@@ -3,9 +3,9 @@ using Miru.Fabrication.FixtureConventions;
 
 namespace MiruNext.Database;
 
-public class MiruNextFabricator : Fabricator
+public class AppFabricator : Fabricator
 {
-    public MiruNextFabricator(FabSupport context) : base(context)
+    public AppFabricator(FabSupport context) : base(context)
     {
         Fixture.AddConvention(cfg =>
         {

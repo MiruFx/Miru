@@ -1,6 +1,7 @@
 using System;
 using Hangfire;
 using Hangfire.Redis;
+using Hangfire.Redis.StackExchange;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

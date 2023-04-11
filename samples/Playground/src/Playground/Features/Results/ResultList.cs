@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,11 @@ namespace Playground.Features.Results
         }
 
         public class Handler :
-            RequestHandler<Query, Result>
+            IRequestHandler<Query, Result>
         {
-            protected override Result Handle(Query request)
+            public async Task<Result> Handle(Query request, CancellationToken ct)
             {
-                return new Result();
+                return await Task.FromResult(new Result());
             }
         }
 

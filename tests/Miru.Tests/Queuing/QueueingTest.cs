@@ -31,7 +31,7 @@ public class QueueingTest : MiruCoreTest
     }
 
     [OneTimeSetUp]
-    public void OneTimeSetup()
+    public void SetupOnce()
     {
         _server = _.Get<BackgroundJobServer>();
         _jobs = _.Get<Jobs>();

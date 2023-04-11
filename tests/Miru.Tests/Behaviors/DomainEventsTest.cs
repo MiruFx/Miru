@@ -33,7 +33,7 @@ public class DomainEventsTest : MiruCoreTest
     }
 
     [OneTimeSetUp]
-    public void OneTimeSetup()
+    public void SetupOnce()
     {
         var server = _.Get<BackgroundJobServer>();
         

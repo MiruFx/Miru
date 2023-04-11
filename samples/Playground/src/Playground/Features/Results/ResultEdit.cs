@@ -25,21 +25,21 @@ namespace Playground.Features.Results
         }
 
         public class Handler :
-            RequestHandler<Command, FeatureResult>,
+            IRequestHandler<Command, FeatureResult>,
             IRequestHandler<Query, Command>
         {
-            public Task<Command> Handle(Query request, CancellationToken cancellationToken)
+            public Task<Command> Handle(Query request, CancellationToken ct)
             {
                 return Task.FromResult(new Command());
             }
 
-            protected override FeatureResult Handle(Command request)
+            public async Task<FeatureResult> Handle(Command request, CancellationToken ct)
             {
-                return new FeatureResult<ResultList>()
+                return await Task.FromResult(new FeatureResult<ResultList>()
                     .Success("Success message")
                     .Alert("Alert message")
                     .Info("Info message")
-                    .Danger("danger message");
+                    .Danger("danger message"));
             }
         }
 

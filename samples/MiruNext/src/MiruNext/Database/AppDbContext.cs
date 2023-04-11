@@ -6,15 +6,13 @@ using MiruNext.Domain;
 
 namespace MiruNext.Database;
 
-public class MiruNextDbContext : UserfyDbContext<User>
+public class AppDbContext : UserfyDbContext<User>
 {
-    public MiruNextDbContext(
+    public AppDbContext(
         DbContextOptions options,
         IEnumerable<IInterceptor> interceptors) : base(options, interceptors)
     {
     }
         
-    // Your entities
-    // public DbSet<>  { get; set; } 
-        
+    public DbSet<Todo> Todos { get; set; }
 }

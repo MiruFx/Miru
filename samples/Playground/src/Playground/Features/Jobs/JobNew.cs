@@ -62,7 +62,7 @@ public class JobNew
         public string Name { get; set; }
     }
     
-    public class JobHandler : RequestHandler<NameNewJob>
+    public class JobHandler : IRequestHandler<NameNewJob>
     {
         private readonly ILogger<JobHandler> _logger;
         private readonly PlaygroundDbContext _db;
@@ -73,13 +73,15 @@ public class JobNew
             _db = db;
         }
 
-        protected override void Handle(NameNewJob request)
+        public async Task<Unit> Handle(NameNewJob request, CancellationToken cancellationToken)
         {
             _db.Users.ToList();
             
             _logger.LogInformation("From ILogger {Name}", request.Name);
             
             App.Log.Information("Name is {Name}", request.Name);
+
+            return await Unit.Task;
         }
     }
 }

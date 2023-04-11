@@ -20,7 +20,7 @@ public class QueueingExtensionsTest : MiruCoreTest
     }
     
     [OneTimeSetUp]
-    public void OneTimeSetup()
+    public void SetupOnce()
     {
         _jobs = _.Get<Jobs>();
     }

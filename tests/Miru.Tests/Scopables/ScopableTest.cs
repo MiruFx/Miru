@@ -95,7 +95,7 @@ public class ScopableTest
     {
     }
 
-    public class Handler : RequestHandler<Command, Result>
+    public class Handler : IRequestHandler<Command, Result>
     {
         private readonly Current _current;
 
@@ -104,11 +104,11 @@ public class ScopableTest
             _current = current;
         }
 
-        protected override Result Handle(Command request)
+        public async Task<Result> Handle(Command request, CancellationToken ct)
         {
             _current.Processed.ShouldBeTrue();
             
-            return new Result();
+            return await Task.FromResult(new Result());
         }
     }
 }

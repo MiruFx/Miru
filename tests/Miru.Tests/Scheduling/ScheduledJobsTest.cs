@@ -21,7 +21,7 @@ public class ScheduledJobsTest : MiruCoreTest
     }
 
     [OneTimeSetUp]
-    public void OneTimeSetup()
+    public void SetupOnce()
     {
         _jobs = _.Get<ScheduledJobs>();
     }
