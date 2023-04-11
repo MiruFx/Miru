@@ -19,10 +19,10 @@ jobs:
       with:
         fetch-depth: 0
         
-    - name: Setup .NET 6
+    - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: "7.0.101"
+        dotnet-version: "7.0.202"
 
     - name: Build & Test
       run: ./build test-ci
@@ -37,10 +37,10 @@ jobs:
         with:
           fetch-depth: 0
   
-      - name: Setup .NET 6
+      - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: "7.0.101"
+          dotnet-version: "7.0.202"
 
       - name: Setup Firefox
         uses: browser-actions/setup-firefox@latest
