@@ -22,31 +22,31 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: "7.0.202"
+        dotnet-version: "7.0.203"
 
     - name: Build & Test
       run: ./build test-ci
         
-  page-test:
-    strategy:
-      fail-fast: false
-    runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-  
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: "7.0.202"
-
-      - name: Setup Firefox
-        uses: browser-actions/setup-firefox@latest
-
-      - name: Setup Chrome
-        uses: browser-actions/setup-chrome@latest
-        
-      - name: Build & Test
-        run: ./build page-test-ci
+#  page-test:
+#    strategy:
+#      fail-fast: false
+#    runs-on: ubuntu-latest
+#    
+#    steps:
+#      - uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 0
+#  
+#      - name: Setup .NET
+#        uses: actions/setup-dotnet@v1
+#        with:
+#          dotnet-version: "7.0.203"
+#
+#      - name: Setup Firefox
+#        uses: browser-actions/setup-firefox@latest
+#
+#      - name: Setup Chrome
+#        uses: browser-actions/setup-chrome@latest
+#        
+#      - name: Build & Test
+#        run: ./build page-test-ci

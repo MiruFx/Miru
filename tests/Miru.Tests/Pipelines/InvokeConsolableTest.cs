@@ -1,5 +1,4 @@
 using System;
-using System.CommandLine;
 using System.IO;
 using System.Threading;
 using MediatR;
@@ -41,10 +40,11 @@ public class InvokableConsolableTest
     public async Task Should_run_invokable_without_args()
     {
         // arrange
-        var host = MiruHost.CreateMiruHost("miru", "invoke", "OrderExport").ConfigureServices(x => x
-            .AddMiruApp<InvokableConsolableTest>()
-            .AddConsolables<ConfigShowConsolable>()
-            .AddPipeline<InvokableConsolableTest>());
+        var host = MiruHost.CreateMiruHost("miru", "invoke", "OrderExport")
+            .ConfigureServices(x => x
+                .AddMiruApp<InvokableConsolableTest>()
+                .AddConsolables<ConfigShowConsolable>()
+                .AddPipeline<InvokableConsolableTest>());
                 
         // act
         await host.RunMiruAsync();
@@ -61,10 +61,12 @@ public class InvokableConsolableTest
     public async Task Should_run_invokable_parsing_args_to_create_command_instance()
     {
         // arrange
-        var host = MiruHost.CreateMiruHost("miru", "invoke", "OrderArchive", "--orderId", "123", "--archiveType", "Temporarily").ConfigureServices(x => x
-            .AddMiruApp<InvokableConsolableTest>()
-            .AddConsolables<ConfigShowConsolable>()
-            .AddPipeline<InvokableConsolableTest>());
+        var host = MiruHost.CreateMiruHost(
+                "miru", "invoke", "OrderArchive", "--OrderId", "123", "--ArchiveType", "Temporarily", "-e", "Production")
+            .ConfigureServices(x => x
+                .AddMiruApp<InvokableConsolableTest>()
+                .AddConsolables<ConfigShowConsolable>()
+                .AddPipeline<InvokableConsolableTest>());
                 
         // act
         await host.RunMiruAsync();
@@ -77,18 +79,12 @@ public class InvokableConsolableTest
 
     public class OrderArchive
     {
-        public class Command : Invokable, IRequest<Command>
+        public class Command : IRequest<Command>, IInvokable
         {
-            public Command()
-            {
-                Add(new Option<long>("--orderId"));
-                Add(new Option<ArchiveType>("--archiveType"));
-            }
-
             public long OrderId { get; set; }
             public ArchiveType ArchiveType { get; set; }
         }
-            
+        
         public class Handler : IRequestHandler<Command, Command>
         {
             public async Task<Command> Handle(Command request, CancellationToken cancellationToken)

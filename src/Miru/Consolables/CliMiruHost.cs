@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.NamingConventionBinder;
 using System.CommandLine.Parsing;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 using Miru.Foundation.Bootstrap;
 using Miru.Hosting;
 
@@ -72,7 +70,7 @@ public class CliMiruHost : ICliMiruHost
         }
     }
 
-    private static RootCommand CreateRootCommand()
+    public static RootCommand CreateRootCommand()
     {
         var rootCommand = new RootCommand
         {
