@@ -55,6 +55,19 @@ public class Program
                     RunAtAsync(options, runOptions, s => s.AppPageTestsDir))
             },
                 
+            new RunAtCommand("build")
+            {
+                Handler = CommandHandler.Create(async (MiruCliOptions options, RunOptions runOptions) =>
+                {
+                    await RunProcessAsync(
+                        "dotnet", 
+                        new[] { "build" },
+                        FindSolution(new MiruCliOptions()).Solution.AppDir);
+                        
+                    return RunAtAsync(options, runOptions, s => s.AppDir);
+                })
+            },
+                
             new WatchCommand("watch", m => m.AppDir)
         };
 
@@ -88,21 +101,30 @@ public class Program
         }
 
         var solution = result.Solution;
+        var workingDirectory = directory(solution);
 
-        var exec = OS.IsWindows 
-            ? OS.WhereOrWhich(runOptions.Executable) 
-            : runOptions.Executable;
+        await RunProcessAsync(runOptions.Executable, runOptions.MiruArgs, workingDirectory);
+    }
 
-        var processRunner = new MiruProcessRunner(options.Verbose, string.Empty);
+    private async Task RunProcessAsync(
+        string executable, 
+        IEnumerable<string> args, 
+        MiruPath workingDirectory)
+    {
+        var exec = OS.IsWindows
+            ? OS.WhereOrWhich(executable)
+            : executable;
 
-        await processRunner.RunAsync(new ProcessSpec()
+        var processRunner = new MiruProcessRunner(true, string.Empty);
+
+        await processRunner.RunAsync(new ProcessSpec
         {
             Executable = exec,
-            Arguments = runOptions.Args,
-            WorkingDirectory = directory(solution)
+            Arguments = args,
+            WorkingDirectory = workingDirectory
         });
     }
-        
+
     public async Task RunMiruAsync(
         MiruCliOptions options,
         RunMiruOptions runMiruOptions)
