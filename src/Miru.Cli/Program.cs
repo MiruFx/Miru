@@ -55,7 +55,7 @@ public class Program
                     RunAtAsync(options, runOptions, s => s.AppPageTestsDir))
             },
                 
-            new RunAtCommand("build")
+            new BuildRunAtCommand("build")
             {
                 Handler = CommandHandler.Create(async (MiruCliOptions options, RunOptions runOptions) =>
                 {
@@ -63,7 +63,10 @@ public class Program
                         "dotnet", 
                         new[] { "build" },
                         FindSolution(new MiruCliOptions()).Solution.AppDir);
-                        
+
+                    runOptions.MiruArgs = runOptions.MiruArgs[1..];
+                    runOptions.Executable = "miru";
+                    
                     return RunAtAsync(options, runOptions, s => s.AppDir);
                 })
             },
