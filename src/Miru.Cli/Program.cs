@@ -4,6 +4,7 @@ using System.CommandLine;
 using System.CommandLine.NamingConventionBinder;
 using System.CommandLine.Parsing;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Baseline;
 using Miru.Core;
@@ -57,14 +58,17 @@ public class Program
                 
             new BuildRunAtCommand("build")
             {
-                Handler = CommandHandler.Create(async (MiruCliOptions options, RunOptions runOptions) =>
+                Handler = CommandHandler.Create((MiruCliOptions options, RunOptions runOptions) =>
                 {
-                    await RunProcessAsync(
+                    var ret = RunProcessAsync(
                         "dotnet", 
                         new[] { "build" },
-                        FindSolution(new MiruCliOptions()).Solution.AppDir);
+                        FindSolution(new MiruCliOptions()).Solution.AppDir).GetAwaiter().GetResult();
 
-                    runOptions.MiruArgs = runOptions.MiruArgs[1..];
+                    if (ret > 0)
+                        return Task.CompletedTask;
+                    
+                    runOptions.Args = new[] { runOptions.Executable }.Concat(runOptions.Args).ToArray();
                     runOptions.Executable = "miru";
                     
                     return RunAtAsync(options, runOptions, s => s.AppDir);
@@ -109,7 +113,7 @@ public class Program
         await RunProcessAsync(runOptions.Executable, runOptions.MiruArgs, workingDirectory);
     }
 
-    private async Task RunProcessAsync(
+    private async Task<int> RunProcessAsync(
         string executable, 
         IEnumerable<string> args, 
         MiruPath workingDirectory)
@@ -120,7 +124,7 @@ public class Program
 
         var processRunner = new MiruProcessRunner(true, string.Empty);
 
-        await processRunner.RunAsync(new ProcessSpec
+        return await processRunner.RunAsync(new ProcessSpec
         {
             Executable = exec,
             Arguments = args,
