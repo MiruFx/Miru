@@ -68,8 +68,10 @@ public class Program
                     if (ret > 0)
                         return Task.CompletedTask;
                     
-                    runOptions.Args = new[] { runOptions.Executable }.Concat(runOptions.Args).ToArray();
+                    runOptions.MiruArgs = new[] { runOptions.Executable }.Concat(runOptions.Args).ToArray();
                     runOptions.Executable = "miru";
+                    
+                    Console2.WhiteLine($"Executing {runOptions.Executable} {runOptions.MiruArgs.Join(" ")}");
                     
                     return RunAtAsync(options, runOptions, s => s.AppDir);
                 })
