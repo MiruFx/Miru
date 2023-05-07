@@ -475,6 +475,24 @@ public class UrlTest : MiruCoreTest
     }
     
     [Test]
+    public void Build_query_string_for_date_only()
+    {
+        var currentCulture = CultureInfo.CurrentCulture;
+    
+        CultureInfo.CurrentCulture = new CultureInfo("pt-BR");
+        
+        var request = new ProductsList.Query
+        {
+            SoldAfter = new DateOnly(2011, 8, 31),
+        };
+    
+        _url.For(request)
+            .ShouldBe("/Products/List?SoldAfter=2011-08-31");
+    
+        CultureInfo.CurrentCulture = currentCulture;
+    }
+    
+    [Test]
     public void Build_query_string_for_enumeration_of_t()
     {
         var request = new ProductsList.Query
@@ -562,6 +580,7 @@ public class UrlTest : MiruCoreTest
                 
             public IEnumerable<string> Categories { get; set; } = new List<string>() {"Phone", "Laptop"};
             public DateTime SoldBefore { get; set; }
+            public DateOnly SoldAfter { get; set; }
             public ProductStatus ProductStatus { get; set; }
             public OrderStatus OrderStatus { get; set; }
         }

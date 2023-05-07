@@ -19,7 +19,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.Fabrication", "src\Mir
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Misc", "_Misc", "{48637FD2-C267-46AF-B1AB-934BE1EE20FD}"
 ProjectSection(SolutionItems) = preProject
-	nuget.config = nuget.config
 	Directory.Build.props = Directory.Build.props
 	.github\workflows\ci.yml = .github\workflows\ci.yml
 	.github\workflows\release.yml = .github\workflows\release.yml

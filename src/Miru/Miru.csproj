@@ -67,8 +67,4 @@
         <EmbeddedResource Include="**/*.stub" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Settings" />
-    </ItemGroup>
-
 </Project>

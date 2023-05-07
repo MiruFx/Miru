@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -108,6 +107,10 @@ public class RouteValueDictionaryGenerator
                 if (originalValue is DateTime dateTime)
                 {
                     value = dateTime.ToShortDateString();
+                }
+                else if (originalValue is DateOnly dateOnly)
+                {
+                    value = dateOnly.ToYearMonthDay();
                 }
                 else if (originalValue is ISmartEnum)
                 {
