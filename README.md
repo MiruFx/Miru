@@ -29,14 +29,6 @@ It's <a href="https://github.com/MiruFx/Miru" target="_blank">open-source</a> wi
 
 The best way is going through the [Documentation](https://mirufx.github.io/Introduction/GettingStarted.html)
 
-## Samples
-
-Another way to learn about Miru is checking the Samples' source code:
-
-* [Mong](https://github.com/mirufx/miru/tree/master/samples/Mong)
-* [SelfImprov](https://github.com/mirufx/miru/tree/master/samples/SelfImprov)
-* [Supportreon](https://github.com/MiruFx/Supportreon)
-
 ## How To Build
 
 To build Miru's source code is required: .NET 5, node.js, and npm.

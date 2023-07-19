@@ -8,8 +8,11 @@ public static class HotwiredHtmlConventionsExtensions
     {
         html.Forms.Always
             .AppendAttr(HtmlAttr.DataController, HtmlAttr.Form)
-            .Modify((tag, req) => 
-                tag.Attributes.SetAttribute(HtmlAttr.DataFormSummary, req.Naming.FormSummaryId(req.Value)));
+            .Modify((tag, req) =>
+            {
+                if (tag.Attributes.ContainsName(HtmlAttr.DataFormSummary) == false)
+                    tag.Attributes.SetAttribute(HtmlAttr.DataFormSummary, req.Naming.FormSummaryId(req.Value));
+            });
 
         html.FormSummaries.Always
             .SetAttr(HtmlAttr.Hidden, HtmlAttr.Hidden)

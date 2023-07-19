@@ -11,7 +11,7 @@
     "bootstrap": "^5.2.3"
   },
   "scripts": {
-    "dev": "node esbuild.js --sourcemaps",
+    "dev": "node esbuild.js",
     "watch": "node esbuild.js --watch",
     "production": "node esbuild.js --production"
   },

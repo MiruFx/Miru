@@ -41,19 +41,19 @@ public class Program
             new RunAtCommand("app") 
             {
                 Handler = CommandHandler.Create((MiruCliOptions options, RunOptions runOptions) => 
-                    RunAtAsync(options, runOptions, s => s.AppDir))
+                    RunAtAsync(options, runOptions, s => s.AppDir, runOptions.Args))
             },
                 
             new RunAtCommand("test") 
             {
                 Handler = CommandHandler.Create((MiruCliOptions options, RunOptions runOptions) => 
-                    RunAtAsync(options, runOptions, s => s.AppTestsDir))
+                    RunAtAsync(options, runOptions, s => s.AppTestsDir, runOptions.Args))
             },
                 
             new RunAtCommand("pagetest")
             {
                 Handler = CommandHandler.Create((MiruCliOptions options, RunOptions runOptions) => 
-                    RunAtAsync(options, runOptions, s => s.AppPageTestsDir))
+                    RunAtAsync(options, runOptions, s => s.AppPageTestsDir, runOptions.Args))
             },
                 
             new BuildRunAtCommand("build")
@@ -73,7 +73,7 @@ public class Program
                     
                     Console2.WhiteLine($"Executing {runOptions.Executable} {runOptions.MiruArgs.Join(" ")}");
                     
-                    return RunAtAsync(options, runOptions, s => s.AppDir);
+                    return RunAtAsync(options, runOptions, s => s.AppDir, runOptions.MiruArgs);
                 })
             },
                 
@@ -99,7 +99,8 @@ public class Program
     public async Task RunAtAsync(
         MiruCliOptions options,
         RunOptions runOptions,
-        Func<MiruSolution, MiruPath> directory)
+        Func<MiruSolution, MiruPath> directory,
+        string[] args)
     {
         var result = FindSolution(options);
             
@@ -112,7 +113,7 @@ public class Program
         var solution = result.Solution;
         var workingDirectory = directory(solution);
 
-        await RunProcessAsync(runOptions.Executable, runOptions.MiruArgs, workingDirectory);
+        await RunProcessAsync(runOptions.Executable, args, workingDirectory);
     }
 
     private async Task<int> RunProcessAsync(
