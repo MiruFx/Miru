@@ -92,7 +92,7 @@ public static class QueryableExtensions
             found = await queryable.SingleOrDefaultAsync(predicate, cancellationToken);
             
         if (found == null)
-            throw new NotFoundException(exceptionMessage.Or($"Query could not find any result retrieving {typeof(TSource).Name}"));
+            throw new NotFoundException(exceptionMessage.IfEmpty($"Query could not find any result retrieving {typeof(TSource).Name}"));
 
         return found;
     }
@@ -145,7 +145,7 @@ public static class QueryableExtensions
         CancellationToken ct) where TEntity : IEntity
     {
         return await queryable.FirstOrDefaultAsync(e => e.Id == id, cancellationToken: ct) ?? 
-               throw new NotFoundException(exceptionMessage.Or($"{typeof(TEntity).Name} with Id #{id} could not be found"));
+               throw new NotFoundException(exceptionMessage.IfEmpty($"{typeof(TEntity).Name} with Id #{id} could not be found"));
     }
         
     public static async Task<bool> NoneAsync<TSource>(

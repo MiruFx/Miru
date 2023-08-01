@@ -564,7 +564,7 @@ public class UrlTest : MiruCoreTest
             public string Category { get; set; }
             public int MaxPrice { get; set; }
             public bool OnSales { get; set; }
-            public string Title => Category.Or("All Categories");
+            public string Title => Category.IfEmpty("All Categories");
                 
             public int Page { get; set; }
             public int PageSize { get; set; }

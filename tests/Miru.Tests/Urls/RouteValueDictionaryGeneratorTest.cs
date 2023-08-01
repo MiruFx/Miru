@@ -686,7 +686,7 @@ public class RouteValueDictionaryGeneratorTest
             public string Category { get; set; }
             public int MaxPrice { get; set; }
             public bool OnSales { get; set; }
-            public string TitleReadOnly => Category.Or("All Categories");
+            public string TitleReadOnly => Category.IfEmpty("All Categories");
                 
             public int Page { get; set; }
             public int PageSize { get; set; }

@@ -9,9 +9,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Hangfire.Core" Version="1.7.34" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
-        <PackageReference Include="Hangfire.SqlServer" Version="1.7.34" />
+        <PackageReference Include="Hangfire.SqlServer" Version="1.8.4" />
     </ItemGroup>
 
 </Project>

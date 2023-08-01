@@ -19,6 +19,8 @@ public class ObjectResultBehavior : IGlobalPostProcessor
         IReadOnlyCollection<ValidationFailure> failures,
         CancellationToken ct)
     {
+        await Task.CompletedTask;
+        
         if (ctx.Request.CanAccept("text/html"))
         {
         }

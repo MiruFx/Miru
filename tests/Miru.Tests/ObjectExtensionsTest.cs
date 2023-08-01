@@ -70,38 +70,4 @@ public class ObjectExtensionsTest
             model.ToYml().DumpToConsole().ShouldNotContain("CategoryId");
         }
     }
-        
-    public class Or
-    {
-        [Test]
-        public void If_object_is_not_null_should_return_its_value()
-        {
-            new Customer { Name = "Frank" }.Name.Or("No Name").ShouldBe("Frank");
-                
-            new Customer { Rank = 10 }.Rank.Or("No Rank").ShouldBe("10");
-        }
-            
-        [Test]
-        public void If_object_is_null_should_return_or_value()
-        {
-            new Customer().Name.Or("No Name").ShouldBe("No Name");
-                
-            new Customer().Rank.Or("No Rank").ShouldBe("No Rank");
-        }
-            
-        [Test]
-        public void If_object_is_string_and_empty_should_return_or_value()
-        {
-            "".Or("No Name").ShouldBe("No Name");
-            ((string) null).Or("No Name").ShouldBe("No Name");
-        }
-
-        public class Customer
-        {
-            public string Name { get; set; }
-            public long? Rank { get; set; }
-            
-            public int Ignore { get; set; }
-        }
-    }
 }

@@ -1,24 +1,9 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace Miru;
 
 public static class ObjectExtensions
 {
-    /// <summary>
-    /// If current variable is null or default(T), return the other value
-    /// </summary>
-    public static string Or<T>(this T value, string valueIfNullOrEmpty)
-    {
-        if (value is string valueString && string.IsNullOrEmpty(valueString))
-            return valueIfNullOrEmpty;
-                
-        if (value == null || value.Equals(default(T)))
-            return valueIfNullOrEmpty;
-
-        return value.ToString();
-    }
-        
     public static long ToLong(this object value)
     {
         long ret = 0;

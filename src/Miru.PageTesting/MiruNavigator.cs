@@ -20,7 +20,7 @@ public abstract class MiruNavigator : IDisposable
 
     private static readonly Func<PageExceptionContext, Exception> DefaultExceptionFunc = context =>
     {
-        var exceptionMessage = context.FailureMessage.Or(context.OriginalException.Message);
+        var exceptionMessage = context.FailureMessage.IfEmpty(context.OriginalException.Message);
 
         throw new PageTestException(exceptionMessage, context.OriginalException);
     };
@@ -144,7 +144,7 @@ public abstract class MiruNavigator : IDisposable
         }
         catch (WebDriverTimeoutException ex)
         {
-            throw new ElementNotFoundException(failureMessage.Or($"Unable to find any element {by}"), ex);
+            throw new ElementNotFoundException(failureMessage.IfEmpty($"Unable to find any element {by}"), ex);
         }
     }
         
@@ -168,10 +168,10 @@ public abstract class MiruNavigator : IDisposable
         }
         catch (WebDriverTimeoutException ex)
         {
-            throw new ElementNotFoundException(failureMessage.Or($"Unable to find any element {by}"), ex);
+            throw new ElementNotFoundException(failureMessage.IfEmpty($"Unable to find any element {by}"), ex);
         }
             
-        throw new ElementNotFoundException(failureMessage.Or($"Unable to find any element {by}"));
+        throw new ElementNotFoundException(failureMessage.IfEmpty($"Unable to find any element {by}"));
     }
         
     public void Input(By by, string value)

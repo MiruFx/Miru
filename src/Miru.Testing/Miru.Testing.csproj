@@ -17,12 +17,13 @@
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnitLite" Version="3.13.3" />
-    <PackageReference Include="Hangfire.MemoryStorage" Version="1.7.0" />
+    <PackageReference Include="Hangfire.MemoryStorage" Version="1.8.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="7.0.9" />
     <PackageReference Include="NSubstitute" Version="5.0.0" />
     <PackageReference Include="Respawn" Version="6.1.0" />
     <PackageReference Include="Shouldly" Version="4.2.1" />
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
   </ItemGroup>
 
 </Project>

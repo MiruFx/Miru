@@ -42,7 +42,7 @@ namespace Miru.PageTesting
             
             navigator.ConfigureExceptions(context =>
             {
-                var exceptionMessage = $@"{context.FailureMessage.Or(context.OriginalException.Message)}
+                var exceptionMessage = $@"{context.FailureMessage.IfEmpty(context.OriginalException.Message)}
 
 The url was: 
 {Url}
