@@ -8,8 +8,8 @@
         <PackageReference Include="Hangfire.Core" Version="1.7.34" />
         <PackageReference Include="Hangfire.LiteDB" Version="0.4.1" />
 
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.4" />
-        <PackageReference Include="Hangfire.Storage.SQLite" Version="0.3.3" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.9" />
+        <PackageReference Include="Hangfire.Storage.SQLite" Version="0.3.4" />
     </ItemGroup>
 
     <ItemGroup>

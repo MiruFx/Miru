@@ -12,7 +12,7 @@
         <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
 
-        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="112.0.5615.4900" />
+        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="115.0.5790.10200" />
     </ItemGroup>
 
     <ItemGroup>
