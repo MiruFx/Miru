@@ -145,7 +145,8 @@ public class PostSetTitle : INotificationHandler<PostCreated>
     {
         notification.Post.Title = "Yeah! This will be the title";
 
-        await _db.SaveChangesAsync(ct);
+        await Task.CompletedTask;
+        // await _db.SaveChangesAsync(ct);
     }
 }
 

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Miru.Domain;
-using Miru.Queuing;
 
 namespace Miru.Behaviors.DomainEvents;
 
@@ -31,6 +30,8 @@ public class DomainEventsInterceptor : SaveChangesInterceptor
         {
             return result;
         }
+
+        var anyEventPublished = false;
         
         foreach (var entity in entitiesSaved)
         {
@@ -39,9 +40,16 @@ public class DomainEventsInterceptor : SaveChangesInterceptor
                 App.Framework.Information("Publishing domain event {Event}", domainEvent);
                 
                 await _mediator.Publish(domainEvent, ct);
+
+                anyEventPublished = true;
             }
         }
-            
+
+        if (anyEventPublished)
+        {
+            await eventData.Context?.SaveChangesAsync(ct)!;
+        }
+        
         return result;
     }
 }
