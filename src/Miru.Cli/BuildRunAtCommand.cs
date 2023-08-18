@@ -6,6 +6,8 @@ public class BuildRunAtCommand : Command
 {
     public BuildRunAtCommand(string commandName) : base(commandName)
     {
+        AddAlias("b");
+        
         AddArgument(new Argument<string>("executable") { Arity = ArgumentArity.ExactlyOne });
         AddArgument(new Argument<string[]>("args") { Arity = ArgumentArity.ZeroOrMore });
     }
