@@ -10,7 +10,8 @@ public static class StorageRegistry
     {
         return services
             .AddAppStorage<DefaultAppStorage>()
-            .AddAssetsStorage<AssetsStorage>();
+            .AddAssetsStorage<AssetsStorage>()
+            .AddSingleton<ITempStorage, DefaultTempStorage>();
     }
     
     public static IServiceCollection AddAssetsStorage<TStorage>(this IServiceCollection services)

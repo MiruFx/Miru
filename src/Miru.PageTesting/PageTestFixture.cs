@@ -18,7 +18,7 @@ namespace Miru.PageTesting
         private readonly UrlLookup _urlLookup;
         private readonly PageTestingConfig _config;
         private readonly WebDriver _driver;
-        private readonly IStorage _storage;
+        private readonly ITempStorage _storage;
         private readonly PageBody _browser;
 
         public PageTestFixture(
@@ -26,7 +26,7 @@ namespace Miru.PageTesting
             UrlLookup urlLookup,
             PageTestingConfig config, 
             WebDriver driver,
-            IStorage storage, 
+            ITempStorage storage, 
             PageBody browser,
             MiruNavigator navigator) : base(navigator)
         {
@@ -120,7 +120,7 @@ The Page's html has been saved to:
 
         public string Screenshot(string suffix)
         {
-            var file = _storage.Path / "temp" / "screenshots" / $"{TestContext.CurrentContext.Test.MethodName}-{suffix}.png";
+            var file = _storage.Path / "screenshots" / $"{TestContext.CurrentContext.Test.MethodName}-{suffix}.png";
              
             file.Dir().EnsureDirExist();
             
@@ -131,7 +131,7 @@ The Page's html has been saved to:
 
         private string SaveHtml()
         {
-            var file = _storage.Path / "temp" / "htmls" / $"{TestContext.CurrentContext.Test.MethodName}-Failure.html";
+            var file = _storage.Path / "htmls" / $"{TestContext.CurrentContext.Test.MethodName}-Failure.html";
              
             file.Dir().EnsureDirExist();
             
