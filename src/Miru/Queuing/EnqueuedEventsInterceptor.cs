@@ -7,11 +7,11 @@ using Miru.Domain;
 
 namespace Miru.Queuing;
 
-public class EnqueueEventsInterceptor : DbTransactionInterceptor
+public class EnqueuedEventsInterceptor : DbTransactionInterceptor
 {
     private readonly Jobs _jobs;
 
-    public EnqueueEventsInterceptor(Jobs jobs)
+    public EnqueuedEventsInterceptor(Jobs jobs)
     {
         _jobs = jobs;
     }

@@ -108,7 +108,7 @@ public static class ShouldlyExtensions
         left.ShouldMatchOrderedIds(right.ToArray());
     }
 
-    public static void ShouldBe<T>(this IEnumerable<T> actual, params T[] expected) 
+    public static void ItemsShouldBe<T>(this IEnumerable<T> actual, params T[] expected) 
     {
         var actualList = actual.ToList();
             

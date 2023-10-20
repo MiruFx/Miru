@@ -6,15 +6,13 @@ public static class ObjectExtensions
 {
     public static long ToLong(this object value)
     {
-        long ret = 0;
-
         if (value == null)
-        {
-            return ret;
-        }
+            return default;
 
-        long.TryParse(value.ToString(), out ret);
-        return ret;
+        if (value is long number)
+            return number;
+        
+        return Convert.ToInt64(value);;
     }
         
     public static int ToInt(this Enum value)
@@ -33,20 +31,15 @@ public static class ObjectExtensions
         return Convert.ToInt32(value);
     }
         
-    public static TAttribute GetAttribute<TAttribute>(this object instance) 
-        where TAttribute : Attribute
-    {
-        return instance
-            .GetType()
-            .GetCustomAttribute<TAttribute>();
-    }
+    // public static TAttribute GetAttribute<TAttribute>(this object instance) 
+    //     where TAttribute : Attribute
+    // {
+    //     return instance
+    //         .GetType()
+    //         .GetCustomAttribute<TAttribute>();
+    // }
         
-    public static void With2<TInstance>(this TInstance instance, Action<TInstance> action)
-    {
-        if (instance != null)
-            action(instance);
-    }
-    
+    // TODO: move to another class, not any object extension
     public static object GetPropertyValue<T>(this T @this, string propertyName)
     {
         Type type = @this.GetType();
@@ -55,5 +48,6 @@ public static class ObjectExtensions
         return property.GetValue(@this, null);
     }
     
-    public static bool NotEquals<T>(this T current, T other) => current.Equals(other) == false;
+    public static bool NotEquals<T>(this T current, T other) => 
+        current.Equals(other) == false;
 }

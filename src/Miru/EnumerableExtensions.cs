@@ -86,6 +86,13 @@ public static class EnumerableExtensions
         return enumerable.At(3);
     }
     
-    public static IEnumerable<(T item, int index)> Indexed<T>(this IEnumerable<T> self)       
-        => self.Select((item, index) => (item, index));
+    public static T Fifth<T>(this IEnumerable<T> enumerable)
+    {
+        return enumerable.At(4);
+    }
+    
+    public static IEnumerable<(T item, int index)> Indexed<T>(this IEnumerable<T> self, int startAt = 0)
+    {
+        return self.Select((item, index) => (item, index + startAt));
+    }
 }

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Miru.Urls;
 
@@ -55,7 +56,13 @@ internal class PropertyHelper
     public PropertyHelper(PropertyInfo property)
     {
         Property = property ?? throw new ArgumentNullException(nameof(property));
-        Name = property.Name;
+
+        var attrs = property.GetCustomAttributes<FromQueryAttribute>();
+        
+        if (attrs.Any())
+            Name = attrs.First()!.Name;
+        else
+            Name = property.Name;
     }
 
     /// <summary>

@@ -96,13 +96,24 @@ public static class MiruAppExtensions
         return func(scope);
     }
     
-    public static async Task EnqueueAsync<TJob>(this IMiruApp app, TJob job) where TJob : IBaseRequest
+    // public static async Task EnqueueAsync<TJob>(this IMiruApp app, TJob job) where TJob : IBaseRequest
+    // {
+    //     using var scope = app.WithScope();
+    //     
+    //     var jobs = scope.Get<Jobs>();
+    //             
+    //     jobs.Enqueue(job);
+    //
+    //     await Task.CompletedTask;
+    // }
+    
+    public static async Task EnqueueAsync<TJob>(
+        this IMiruApp app, 
+        TJob job, 
+        TimeSpan? startIn = null,
+        string queue = "default") where TJob : IBaseRequest
     {
-        using var scope = app.WithScope();
-        
-        var jobs = scope.Get<Jobs>();
-                
-        jobs.Enqueue(job);
+        app.Enqueue(job, startIn, queue);
 
         await Task.CompletedTask;
     }

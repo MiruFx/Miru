@@ -17,4 +17,7 @@ public static class IdentityErrorExtensions
         if (result.Succeeded == false)
             result.Errors.ThrowDomainException();
     }
+    
+    public static bool IsEmailTaken(this IdentityResult result) => 
+        result.Errors.Any(x => x.Code == "DuplicateUserName");
 }

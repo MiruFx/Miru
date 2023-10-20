@@ -193,4 +193,18 @@ public static class QueryableExtensions
     {
         return queryable.Where(x => x.Id == id);
     }
+
+    public static IQueryable<TEntity> WhereIds<TEntity>(
+        this IQueryable<TEntity> queryable,
+        IEnumerable<long> ids) where TEntity : IEntity
+    {
+        return queryable.Where(x => ids.Contains(x.Id));
+    }
+    
+    public static Task<List<long>> ToIdsListAsync<TEntity>(
+        this IQueryable<TEntity> queryable, CancellationToken ct = default) 
+        where TEntity : IEntity
+    {
+        return queryable.Select(x => x.Id).ToListAsync(ct);
+    }
 }

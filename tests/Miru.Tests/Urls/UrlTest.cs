@@ -535,6 +535,13 @@ public class UrlTest : MiruCoreTest
             .ShouldBe($"/Products/List?OrderStatus={ProductsList.OrderStatus.Paid.Value}");            
     }
     
+    [Test]
+    public void If_property_has_attribute_from_query_then_should_build_url_with_attribute_name()
+    {
+        _url.For(new ProductsList.Query { PartnerId = 100 })
+            .ShouldBe($"/Products/List?pid=100");
+    }
+    
     public class NotMapped
     {
     }
@@ -565,6 +572,9 @@ public class UrlTest : MiruCoreTest
             public int MaxPrice { get; set; }
             public bool OnSales { get; set; }
             public string Title => Category.IfEmpty("All Categories");
+            
+            [FromQuery(Name = "pid")]
+            public int PartnerId { get; set; }
                 
             public int Page { get; set; }
             public int PageSize { get; set; }
