@@ -1,6 +1,5 @@
-﻿namespace Miru.Domain
+﻿namespace Miru.Domain;
+
+public interface IEntity : IHasId
 {
-    public interface IEntity : IHasId
-    {
-    }
 }

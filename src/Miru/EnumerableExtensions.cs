@@ -56,16 +56,6 @@ public static class EnumerableExtensions
         return !source.Any(predicate);
     }
 
-    public static TList ById<TList>(this IEnumerable<TList> list, long id) where TList : IEntity
-    {
-        var item = list.FirstOrDefault(e => e.Id == id);
-
-        if (item is null)
-            throw new NotFoundException($"Could not find item with id #{id}");
-
-        return item;
-    }
-        
     public static TList By<TList>(this IEnumerable<TList> list, TList by)
     {
         return list.FirstOrDefault(e => e.Equals(by));
