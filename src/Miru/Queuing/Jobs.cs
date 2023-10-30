@@ -16,7 +16,7 @@ public class Jobs
     public void Enqueue<TJob>(
         TJob job, 
         TimeSpan? startIn = null,
-        string queueName = "default")
+        string queue = "default")
     {
         if (startIn is not null)
         {
@@ -25,7 +25,7 @@ public class Jobs
                 App.Framework.Information("Enqueueing Job for {Job}", job);
             
                 _backgroundJobClient.Schedule<JobFor<TJob>>(
-                    m => m.Execute(job, default, null, queueName), 
+                    m => m.Execute(job, default, null, queue), 
                     startIn.GetValueOrDefault());
             }
             else
@@ -43,7 +43,7 @@ public class Jobs
             {
                 App.Framework.Information("Enqueueing Job for {Job}", job);
             
-                _backgroundJobClient.Enqueue<JobFor<TJob>>(m => m.Execute(job, default, null, queueName));
+                _backgroundJobClient.Enqueue<JobFor<TJob>>(m => m.Execute(job, default, null, queue));
             }
             else
             {

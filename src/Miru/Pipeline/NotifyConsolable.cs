@@ -1,15 +1,15 @@
-using System.Collections.Generic;
 using System.CommandLine;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Miru.Consolables;
 using Miru.Foundation.Bootstrap;
 
 namespace Miru.Pipeline;
 
-public class InvokeConsolable : Consolable
+public class NotifyConsolable : Consolable
 {
-    public InvokeConsolable() : base("invoke", "Invokes a command")
+    public NotifyConsolable() : base("notify", "Notify an event enqueueing it")
     {
         Add(new Argument<string>("name"));
     }
@@ -29,33 +29,33 @@ public class InvokeConsolable : Consolable
                 
         public async Task Execute()
         {
-            var type = SearchTypeByInvokableName(Name);
+            var type = SearchTypeByNotificationName(Name);
 
             if (type is null)
             {
-                Console2.RedLine($"Type {Name}.Command not found in assembly {App.Assembly.FullName}");
+                Console2.RedLine($"Type {Name}.Notification not found in assembly {App.Assembly.FullName}");
                 return;
             }
 
-            var invokableRequest = BuildInvokableRequest(type, _argsConfig.CliArgs[2..]);
+            var invokableRequest = BuildNotificationRequest(type, _argsConfig.CliArgs[2..]);
 
-            if (invokableRequest is IInvokable request)
+            if (invokableRequest is INotification notification)
             {
-                await _app.ScopedSendAsync(request);
+                await _app.ScopedPublishAsync(notification, default);
 
                 Console2.GreenLine("Done");
 
                 return;
             }
 
-            Console2.RedLine($"Type {Name}.Command is not a IInvokable");
+            Console2.RedLine($"Type {Name}.Notification is not a INotification");
         }
 
         /// <summary>
         /// Not very proud of this method but is very handy
         /// Builds a yml string and use YamlDotNet to create an instance of type
         /// </summary>
-        private object BuildInvokableRequest(Type type, string[] cliArgs)
+        private object BuildNotificationRequest(Type type, string[] cliArgs)
         {
             var rootCommand = CliMiruHost.CreateRootCommand();
             var parseResult = rootCommand.Parse(cliArgs);
@@ -72,12 +72,12 @@ public class InvokeConsolable : Consolable
             return new YamlDotNet.Serialization.Deserializer().Deserialize(yml, type);
         }
 
-        private Type SearchTypeByInvokableName(string invokableName)
+        private Type SearchTypeByNotificationName(string invokableName)
         {
             return App.Assembly
                 .ExportedTypes
                 .SingleOrDefault(x => 
-                    x.Name == "Command" 
+                    x.Name == "Notification" 
                     && x.DeclaringType != null 
                     && x.DeclaringType.Name == invokableName);
         }
