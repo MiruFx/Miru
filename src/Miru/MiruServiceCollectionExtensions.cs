@@ -43,6 +43,7 @@ public static class MiruServiceCollectionExtensions
         services.AddConsolable<ConfigShowConsolable>();
         services.AddConsolable<ConfigServicesConsolable>();
         services.AddConsolable<InvokeConsolable>();
+        services.AddConsolable<NotifyConsolable>();
 
         services.AddMakers();
             
