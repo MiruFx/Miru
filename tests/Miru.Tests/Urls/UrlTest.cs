@@ -189,6 +189,38 @@ public class UrlTest : MiruCoreTest
         _url.For(request)
             .ShouldBe("/Products/List/Shoes?Page=2&PageSize=100");
     }
+    
+    [Test]
+    public void Should_ignore_select_lookup_properties()
+    {
+        var request = new PaymentList.Query()
+        {
+            PayerId = 100
+        };
+        
+        _url.For(request).ShouldBe("/payments?PayerId=100");
+    }
+    
+    [Test]
+    public void Should_build_with_only_one_property_ignoring_other()
+    {
+        var request = new ProductsList.Query
+        {
+            CategoryId = 123, 
+            Category = "Apple",
+            OnSales = true
+        };
+        
+        _url.Build(request)
+            .WithOnly(m => m.Category, "Samsung")
+            .ToString()
+            .ShouldBe("/Products/List/Samsung");
+            
+        // properties' values should remain as before
+        request.CategoryId.ShouldBe(123);
+        request.Category.ShouldBe("Apple");
+        request.OnSales.ShouldBeTrue();
+    }
         
     [Test]
     public void When_paging_and_using_modifier_should_erase_paging_counters()
@@ -541,7 +573,7 @@ public class UrlTest : MiruCoreTest
         _url.For(new ProductsList.Query { PartnerId = 100 })
             .ShouldBe($"/Products/List?pid=100");
     }
-    
+
     public class NotMapped
     {
     }
@@ -663,6 +695,21 @@ public class UrlTest : MiruCoreTest
                 
             [HttpPost("/Products/Edit/{Id}")]
             public Result Edit(Command request) => new Result();
+        }
+    }
+
+    public class PaymentList
+    {
+        public class Query
+        {
+            public long PayerId { get; set; }
+            public SelectLookups States { get; set; } = new[] { "MG", "MT", "DF" }.ToSelectLookups();
+        }
+        
+        public class PaymentController : MiruController
+        {
+            [HttpGet("/payments")]
+            public Query Edit(Query request) => request;
         }
     }
 }

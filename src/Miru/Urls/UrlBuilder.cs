@@ -11,6 +11,7 @@ public class UrlBuilder<TInput> where TInput : class
     public TInput Request { get; }
         
     private readonly Dictionary<string, object> _withProperties = new();
+    private readonly Dictionary<string, object> _withOnlyProperties = new();
     private readonly List<string> _withoutProperties = new();
     private readonly List<KeyValuePair<string, object>> _withoutPropertyAndValues = new();
     private readonly IUrlMaps _urlMaps;
@@ -43,6 +44,22 @@ public class UrlBuilder<TInput> where TInput : class
         TProperty value)
     {
         _withProperties.AddOrUpdate(ReflectionHelper.GetProperty(property).Name, value);
+        return this;
+    }
+    
+    public UrlBuilder<TInput> WithOnly<TProperty>(
+        Expression<Func<TInput, TProperty>> property,
+        TProperty value)
+    {
+        _withOnlyProperties.AddOrUpdate(ReflectionHelper.GetProperty(property).Name, value);
+        return this;
+    }
+ 
+    public UrlBuilder<TInput> WithOnly<TProperty>(
+        string propertyName,
+        TProperty value)
+    {
+        _withOnlyProperties.AddOrUpdate(propertyName, value);
         return this;
     }
 
@@ -113,7 +130,8 @@ Also, check if there is a [Route] with constraints for the parameters. Maybe the
         var modifiers = new UrlBuilderModifiers(
             _withProperties,
             _withoutProperties,
-            _withoutPropertyAndValues);
+            _withoutPropertyAndValues,
+            _withOnlyProperties);
 
         return new RouteValueDictionaryGenerator(_urlOptions)
             .Generate(Request, modifiers);

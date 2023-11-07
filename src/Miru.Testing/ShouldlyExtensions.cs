@@ -28,6 +28,9 @@ public static class ShouldlyExtensions
     public static void DateShouldBe(this DateTime current, DateTime expected) =>
         current.Date.ShouldBe(expected.Date);
     
+    /// <summary>
+    /// Compares two decimal values ignoring 0.01 difference
+    /// </summary>
     public static void ShouldBeAprox(this decimal current, decimal value) => 
         current.ShouldBe(value, 0.01m);
 

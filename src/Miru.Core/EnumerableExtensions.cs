@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using Miru.Domain;
 
-namespace Miru;
+namespace Miru.Core;
 
 public static class EnumerableExtensions
 {
-    public static T SingleOrFail<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate, string exceptionMessage)
-    {
-        return enumerable.SingleOrDefault(predicate) ?? throw new NotFoundException(exceptionMessage);
-    }
-        
     public static IEnumerable<T> ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
     {
         foreach (var item in enumerable)
@@ -36,6 +28,14 @@ public static class EnumerableExtensions
     {
         return enumerable
             .Aggregate(string.Empty, (current, item) => current + action(item));
+    }
+
+    /// <summary>
+    /// Shortcut for enumerable.ElementAt(index);
+    /// </summary>
+    public static T At<T>(this IEnumerable<T> enumerable, int index)
+    {
+        return enumerable.ElementAt(index);
     }
 
     public static bool None<TSource>(this IEnumerable<TSource> source)
@@ -77,4 +77,26 @@ public static class EnumerableExtensions
     {
         return self.Select((item, index) => (item, index + startAt));
     }
+    
+    // TODO: uncomment when remove Baseline
+    // public static string Join(this string[] values, string separator) => 
+    //     string.Join(separator, values);
+    //
+    // public static string Join(this IEnumerable<string> values, string separator) => 
+    //     values.ToArray().Join(separator);
+    
+    // public static void AddRange<T>(this IList<T> list, IEnumerable<T> items)
+    // {
+    //     if (list is List<T> listT)
+    //     {
+    //         listT.AddRange(items);
+    //     }
+    //     else
+    //     {
+    //         foreach (T item in items)
+    //         {
+    //             list.Add(item);
+    //         }
+    //     }
+    // }
 }

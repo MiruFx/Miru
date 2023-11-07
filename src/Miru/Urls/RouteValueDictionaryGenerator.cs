@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Reflection;
 using Ardalis.SmartEnum;
 using Baseline.Reflection;
 using Microsoft.AspNetCore.Routing;
+using Miru.Mvc;
 
 namespace Miru.Urls;
 
@@ -46,6 +48,12 @@ public class RouteValueDictionaryGenerator
             if (ShouldFilterPropertyValue(property, rawValue, ignoreFilters))
                 continue;
 
+            if (hasModifiers && modifiers.WithOnly.Any())
+            {
+                if (modifiers.WithOnly.ContainsKey(property.Name) == false)
+                    continue;
+            }
+
             if (property.IsEnumerable && rawValue is IEnumerable list and not string)
             {
                 var i = 0;
@@ -56,7 +64,7 @@ public class RouteValueDictionaryGenerator
                     
                     // var value = GetValue(property, item, modifiers);
                     var value = item;
-
+            
                     if (ShouldIgnoreValue(property, value, modifiers))
                         continue;
                     
@@ -69,7 +77,7 @@ public class RouteValueDictionaryGenerator
                             break;
                         }
                     }
-
+            
                     if (addItem)
                     {
                         dictionary[$"{property.Name}[{i}]"] = item;
@@ -82,7 +90,7 @@ public class RouteValueDictionaryGenerator
                 {
                     dictionary[$"{property.Name}[{i}]"] = customValue;
                     i++;
-
+            
                     modifiers.With.Remove(property.Name);
                 }
             }
@@ -149,14 +157,24 @@ public class RouteValueDictionaryGenerator
             }
         }
 
-        foreach (var with in modifiers.With)
+        if (modifiers.WithOnly.None())
         {
-            if (dictionary.ContainsKey(with.Key) == false)
+            foreach (var with in modifiers.With)
             {
-                dictionary.Add(with.Key, with.Value);
+                if (dictionary.ContainsKey(with.Key) == false)
+                {
+                    dictionary.Add(with.Key, with.Value);
+                }
             }
         }
-        
+        else
+        {
+            foreach (var with in modifiers.WithOnly)
+            {
+                dictionary[with.Key] = with.Value;
+            }
+        }
+
         return dictionary;
     }
 
@@ -203,6 +221,9 @@ public class RouteValueDictionaryGenerator
             return true;
             
         if (property.Property.PropertyType.IsGenericOf(typeof(IReadOnlyCollection<>)))
+            return true;
+        
+        if (property.Property.PropertyType == typeof(SelectLookups))
             return true;
         
         if (property.Property.HasAttribute<UrlIgnore>())
