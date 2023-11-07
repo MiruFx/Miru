@@ -1,9 +1,7 @@
 using System;
 using System.Linq;
 using System.Text;
-using AutoFixture;
 using AutoFixture.Kernel;
-using Bogus;
 
 namespace Miru.Fabrication.FixtureConventions
 {

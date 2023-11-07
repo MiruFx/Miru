@@ -1,0 +1,13 @@
+global using Microsoft.Extensions.DependencyInjection;
+global using System;
+global using Baseline;
+global using Miru.Core;
+global using Miru;
+global using Miru.Domain;
+global using System.Threading;
+global using System.Threading.Tasks;
+global using System.Collections.Generic;
+global using AutoFixture;
+global using Bogus;
+global using System.Linq.Expressions;
+global using Miru.Fabrication.FixtureConventions;

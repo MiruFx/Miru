@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using AutoFixture;
-using Bogus;
-
 namespace Miru.Fabrication;
 
 public abstract class CustomFabricator<TModel, TFabricatorFor> : ICustomFabricator<TModel> 

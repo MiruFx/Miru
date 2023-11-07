@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.Extensions.DependencyInjection;
+using Miru.Core;
 using Miru.Html;
 using Miru.Html.HtmlConfigs;
 using Miru.Html.HtmlConfigs.Core;

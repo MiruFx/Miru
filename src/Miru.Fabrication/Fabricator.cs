@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using AutoFixture;
-using Bogus;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Fabrication.FixtureConventions;
 

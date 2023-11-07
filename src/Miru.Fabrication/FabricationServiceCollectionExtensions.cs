@@ -1,63 +1,56 @@
-using System;
-using AutoFixture;
-using Bogus;
-using Microsoft.Extensions.DependencyInjection;
-using Miru.Fabrication.FixtureConventions;
+namespace Miru.Fabrication;
 
-namespace Miru.Fabrication
+public static class FabricationServiceCollectionExtensions
 {
-    public static class FabricationServiceCollectionExtensions
+    public static IServiceCollection AddFabrication<TFabricator>(
+        this IServiceCollection services,
+        Action<ConventionExpression> conventions = null) 
+        where TFabricator : Fabricator
     {
-        public static IServiceCollection AddFabrication<TFabricator>(
-            this IServiceCollection services,
-            Action<ConventionExpression> conventions = null) 
-            where TFabricator : Fabricator
-        {
-            services.Scan(scan => scan
-                .FromAssemblies(typeof(TFabricator).Assembly)
-                .AddClasses(classes => classes.AssignableTo(typeof(ICustomFabricator<>)))
-                .AsImplementedInterfaces()
-                .As<ICustomFabricator>()
-                .WithSingletonLifetime());
+        services.Scan(scan => scan
+            .FromAssemblies(typeof(TFabricator).Assembly)
+            .AddClasses(classes => classes.AssignableTo(typeof(ICustomFabricator<>)))
+            .AsImplementedInterfaces()
+            .As<ICustomFabricator>()
+            .WithSingletonLifetime());
             
-            services.AddFabrication(conventions);
+        services.AddFabrication(conventions);
             
-            services.AddSingleton<TFabricator>();
-            services.ReplaceSingleton<Fabricator>(sp => sp.GetRequiredService<TFabricator>());
+        services.AddSingleton<TFabricator>();
+        services.ReplaceSingleton<Fabricator>(sp => sp.GetRequiredService<TFabricator>());
             
-            return services;
-        }
+        return services;
+    }
         
-        public static IServiceCollection AddFabrication(
-            this IServiceCollection services,
-            Action<ConventionExpression> conventions = null)
+    public static IServiceCollection AddFabrication(
+        this IServiceCollection services,
+        Action<ConventionExpression> conventions = null)
+    {
+        services.AddSingleton<Faker>();
+            
+        services.AddSingleton<FabricatedSession, FabricatedSession>();
+            
+        services.AddSingleton(sp =>
         {
-            services.AddSingleton<Faker>();
-            
-            services.AddSingleton<FabricatedSession, FabricatedSession>();
-            
-            services.AddSingleton(sp =>
-            {
-                var fixture = new Fixture();
-                var faker = sp.GetService<Faker>();
-                var session = sp.GetService<FabricatedSession>();
+            var fixture = new Fixture();
+            var faker = sp.GetService<Faker>();
+            var session = sp.GetService<FabricatedSession>();
 
-                fixture.AddDefaultMiruConvention(faker);
+            fixture.AddDefaultMiruConvention(faker);
                 
-                if (conventions != null) 
-                    fixture.AddConvention(faker, conventions);
+            if (conventions != null) 
+                fixture.AddConvention(faker, conventions);
                 
-                // TODO: better name for this builder
-                fixture.Customizations.Add(new FabricationSpecimenBuilder(fixture, session));
+            // TODO: better name for this builder
+            fixture.Customizations.Add(new FabricationSpecimenBuilder(fixture, session));
 
-                return fixture;
-            });
+            return fixture;
+        });
 
-            services.AddSingleton<FabSupport>();
+        services.AddSingleton<FabSupport>();
             
-            services.AddSingleton<Fabricator>();
+        services.AddSingleton<Fabricator>();
 
-            return services;
-        }
+        return services;
     }
 }

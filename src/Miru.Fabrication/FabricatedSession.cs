@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using Baseline;
-
 namespace Miru.Fabrication;
 
 public class FabricatedSession
 {
-    private readonly Dictionary<Type, object> _singletons = new Dictionary<Type, object>();
-    private readonly List<object> _fabricated = new List<object>();
+    private readonly Dictionary<Type, object> _singletons = new();
+    private readonly List<object> _fabricated = new();
         
     public object GetSingleton(Type type)
     {
