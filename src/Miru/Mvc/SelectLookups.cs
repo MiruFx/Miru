@@ -31,7 +31,7 @@ public static class SelectLookupsExtensions
         return selectLookups;
     }
     
-    public static SelectLookups ToSelectLookups<T>(this T[] items)
+    public static SelectLookups ToSelectLookups(this string[] items)
     {
         var selectLookups = new SelectLookups();
 
