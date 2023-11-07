@@ -1,9 +1,0 @@
-@model PasswordForgot.Command
-
-<markdown>
-Hello!
-
-A password reset has been requested for your account.
-
-Reset by <a href="@Url.Full(new PasswordReset.Query { Code = Model.Code })">clicking here</a>
-</markdown>

@@ -5,3 +5,5 @@ global using Miru.Testing;
 global using NUnit.Framework;
 global using Shouldly;
 global using Miru.PageTesting;
+global using Miru;
+global using Miru.Core;

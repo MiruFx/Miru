@@ -1,6 +1,4 @@
 @using Microsoft.Extensions.Hosting
-@using Playground.Features.Accounts
-@using Playground.Features.Accounts.Passwords
 @inject IHostEnvironment _environment
 
 <!doctype html>
@@ -34,9 +32,9 @@
 
         @if (CurrentUser.IsAnonymous)
         {
-            <a class="btn btn-outline-primary" for="@(new AccountLogin())">
-                Login
-            </a>
+            @* <a class="btn btn-outline-primary" for="@(new AccountLogin())"> *@
+            @*     Login *@
+            @* </a> *@
         }
         else
         {
@@ -48,17 +46,17 @@
                         <i class="fas fa-user"></i> @CurrentUser.Display
                     </a>
 
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li>
-                            <a class="dropdown-item text-dark" for="@(new PasswordEdit())">Change Password</a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <a for="@(new AccountLogout())" class="dropdown-item text-dark" data-turbo-method="post">Logout</a>
-                        </li>
-                    </ul>
+                    @* <ul class="dropdown-menu" aria-labelledby="navbarDropdown"> *@
+                    @*     <li> *@
+                    @*         <a class="dropdown-item text-dark" for="@(new PasswordEdit())">Change Password</a> *@
+                    @*     </li> *@
+                    @*     <li> *@
+                    @*         <hr class="dropdown-divider"> *@
+                    @*     </li> *@
+                    @*     <li> *@
+                    @*         <a for="@(new AccountLogout())" class="dropdown-item text-dark" data-turbo-method="post">Logout</a> *@
+                    @*     </li> *@
+                    @* </ul> *@
 
                 </li>
             </ul>

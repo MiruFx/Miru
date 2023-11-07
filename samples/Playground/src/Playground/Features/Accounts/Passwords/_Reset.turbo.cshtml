@@ -1,9 +1,0 @@
-@model PasswordReset.Result
-
-<turbo-stream action="replace" target="@Naming.Form(Model)">
-    <template>
-        <div class="alert alert-success">
-            Your password has been reset. Please <a for="new AccountLogin()">click here to log in</a>.
-        </div>
-    </template>
-</turbo-stream>

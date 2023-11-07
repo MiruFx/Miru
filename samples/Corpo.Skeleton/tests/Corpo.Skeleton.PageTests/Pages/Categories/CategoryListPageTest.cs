@@ -1,5 +1,4 @@
 using Corpo.Skeleton.Features.Categories;
-using Miru;
 
 namespace Corpo.Skeleton.PageTests.Pages.Categories;
 
