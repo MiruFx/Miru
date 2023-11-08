@@ -9,7 +9,7 @@ using Miru.Queuing;
 
 namespace Miru.Tests.Queuing;
 
-[Ignore("WIP")]
+// [Ignore("WIP")]
 public class QueueingTest : MiruCoreTest
 {
     private BackgroundJobServer _server;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Miru.Mailing;
 
 namespace Miru;
 
@@ -54,11 +55,19 @@ public class FeatureInfo
         
         var properties = Instance.GetType().GetProperties();
 
-        foreach (var property in properties)
+        if (Instance is EmailJob emailJob)
         {
-            if (property.Name.EndsWith("Id") && property.PropertyType == typeof(long))
+            propertyValues.Add("Subject", emailJob.Email.Subject);
+            propertyValues.Add("To", emailJob.Email.ToAddresses.Join(","));
+        }
+        else
+        {
+            foreach (var property in properties)
             {
-                propertyValues[property.Name] = property.GetValue(Instance);
+                if (property.Name.EndsWith("Id") && property.PropertyType == typeof(long))
+                {
+                    propertyValues[property.Name] = property.GetValue(Instance);
+                }
             }
         }
 
@@ -85,8 +94,13 @@ public class FeatureInfo
     public string GetTitle()
     {
         var name = GetName();
+
+        var queryString = GetIdsQueryString();
+
+        if (string.IsNullOrEmpty(queryString))
+            return name;
         
-        return $"{name}?{GetIdsQueryString()}";
+        return $"{name}?{queryString}";
     }
     
     public string GetName()

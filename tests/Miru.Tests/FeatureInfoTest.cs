@@ -38,6 +38,10 @@ public class FeatureInfoTest
         new FeatureInfo(new ShipmentDelivered { ShipmentId = 456, OrderId = 789 })
             .GetTitle()
             .ShouldBe("ShipmentDelivered?ShipmentId=456&OrderId=789");
+        
+        new FeatureInfo(new OrderClean())
+            .GetTitle()
+            .ShouldBe("OrderClean");
     }
     
     [Test]
@@ -47,6 +51,10 @@ public class FeatureInfoTest
             .GetFeatureGroup(typeof(Playground.Features.Orders.OrderPurge).Namespace)
             .ShouldBe("Orders");
     }
+}
+
+public class OrderClean : IBaseRequest
+{
 }
 
 public class OrderPurge : IBaseRequest
