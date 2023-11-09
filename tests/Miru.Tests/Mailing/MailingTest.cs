@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Miru.Foundation.Logging;
 using Miru.Hosting;
 using Miru.Mailing;
-using Miru.Queuing;
 using Miru.Storages;
 using Miru.Urls;
 
@@ -140,7 +139,7 @@ public class MailingTest
     //     lastEmail.Subject.ShouldBe("Abbey Road");
     //     lastEmail.Body.ShouldContain("Lets go?");
     // }
-        
+    
     [Test]
     public async Task When_sending_email_should_throw_exception_if_email_from_is_not_set()
     {

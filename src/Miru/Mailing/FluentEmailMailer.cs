@@ -118,7 +118,7 @@ public class FluentEmailMailer : IMailer
         
     private void Enqueue(Email fluentMail)
     {
-        _jobs.Enqueue(new EmailJob(fluentMail));
+        _jobs.Enqueue(new EmailJob(fluentMail), queue: _options.QueueName);
 
         _logger.LogDebug(
             $"Enqueued email '{fluentMail.Subject}' to {fluentMail.ToAddresses.Select(m => m.EmailAddress).Join(",")}");

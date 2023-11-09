@@ -55,14 +55,16 @@ namespace Miru.Testing
             return (TJob) entry.Job.Args[0];
         }
         
-        public static IEnumerable<TJob> AllEnqueuedFor<TJob>(this ITestFixture fixture) where TJob : IQueueable =>
-            fixture.Get<JobStorage>()
-                .GetMonitoringApi()
-                .EnqueuedJobs("default", 0, 1000)
-                .Select(result => result.Value)
-                .Where(enqueueJob => enqueueJob.Job.Args[0].GetType() == typeof(TJob))
-                .Select(enqueueJob => (TJob) enqueueJob.Job.Args[0])
-                .ToList();
+        public static IEnumerable<TJob> AllEnqueuedFor<TJob>(
+            this ITestFixture fixture,
+            string queue = "default") where TJob : IQueueable =>
+                fixture.Get<JobStorage>()
+                    .GetMonitoringApi()
+                    .EnqueuedJobs(queue, 0, 1000)
+                    .Select(result => result.Value)
+                    .Where(enqueueJob => enqueueJob.Job.Args[0].GetType() == typeof(TJob))
+                    .Select(enqueueJob => (TJob) enqueueJob.Job.Args[0])
+                    .ToList();
         
         public static Email EnqueuedEmail(this ITestFixture fixture)
         {
@@ -74,7 +76,11 @@ namespace Miru.Testing
             return job.Email;
         }
         
-        public static IEnumerable<Email> EnqueuedEmails(this ITestFixture fixture) =>
-            fixture.AllEnqueuedFor<EmailJob>().Select(x => x.Email);
+        public static IEnumerable<Email> EnqueuedEmails(
+            this ITestFixture fixture, 
+            string queue = "default") =>
+                fixture
+                    .AllEnqueuedFor<EmailJob>(queue: queue)
+                    .Select(x => x.Email);
     }
 }
