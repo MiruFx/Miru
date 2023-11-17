@@ -77,7 +77,7 @@ public static class EnumerableExtensions
     {
         return self.Select((item, index) => (item, index + startAt));
     }
-    
+
     // TODO: uncomment when remove Baseline
     // public static string Join(this string[] values, string separator) => 
     //     string.Join(separator, values);

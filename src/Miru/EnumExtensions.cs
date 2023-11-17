@@ -44,4 +44,11 @@ public static class EnumExtensions
             .First()
             .GetCustomAttribute<TAttribute>();
     }
+        
+    public static IEnumerable<T> GetFlags<T>(this T flags) where T : Enum
+    {
+        foreach (Enum value in Enum.GetValues(flags.GetType()))
+            if (flags.HasFlag(value))
+                yield return (T) value;
+    }
 }

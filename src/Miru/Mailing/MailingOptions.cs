@@ -9,7 +9,7 @@ public class MailingOptions
     public string AppUrl { get; set; }
     public SmtpOptions Smtp { get; set; } = new();
     public string TemplatePath { get; set; }
-    public string QueueName { get; set; }
+    public string QueueName { get; set; } = "default";
     
     public void EmailDefaults(Action<Email> defaultMail)
     {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Miru.Mailing;
 
 namespace Miru;
@@ -111,5 +112,20 @@ public class FeatureInfo
             return reflectedType.Name;
             
         return Type.Name;
+    }
+    
+    /// <summary>
+    /// It looks into inspected class and also the parent for the TAttribute
+    /// </summary>
+    public static TAttribute GetFeatureAttribute<TAttribute>(object request) where TAttribute : Attribute
+    {
+        var attribute = request.GetType().GetAttribute<TAttribute>();
+
+        if (attribute != null)
+        {
+            return attribute;
+        }
+
+        return request.GetType().ReflectedType?.GetCustomAttribute<TAttribute>();
     }
 }
