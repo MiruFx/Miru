@@ -13,7 +13,7 @@ public class LogConfigurationTest
     [Test]
     public void Can_accumulate_overwriting_serilog_configuration()
     {
-        var output = ReadingConsoleOutput(() =>
+        var output = TestHelper.ReadingConsoleOutput(() =>
         {
             var sp = new HostBuilder()
                 .ConfigureSerilog(config => config.WriteTo.Console().MinimumLevel.Fatal())
@@ -27,40 +27,6 @@ public class LogConfigurationTest
             
         output.ShouldContain("Debug!");
         output.ShouldContain("Information!");
-    }
-    
-    public static string ReadingConsoleOutput(Action action)
-    {
-        var defaultWriter = Console.Out;
-        var writer = new StringWriter();
-            
-        Console.SetOut(writer);
-            
-        action();
-            
-        var output = writer.ToString();
-        Console.SetOut(defaultWriter);
-
-        return output;
-    }
-    
-    public class StringWriter : TextWriter
-    {
-        private readonly StringBuilder _content = new StringBuilder();
-
-        public override void Write(char value)
-        {
-            _content.Append(value);
-        }
-
-        public override void Write(string value)
-        {
-            _content.Append(value);
-        }
-
-        public override string ToString() => _content.ToString();
-
-        public override Encoding Encoding => Encoding.Unicode;
     }
 }
     

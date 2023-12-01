@@ -38,7 +38,7 @@ public static class MailingRegistry
             return new SmtpSender(new SmtpClient(smtpOptions.Host, smtpOptions.Port)
             {
                 EnableSsl = smtpOptions.Ssl,
-                Credentials = new NetworkCredential(smtpOptions.UserName, smtpOptions.Password)
+                Credentials = new NetworkCredential(smtpOptions.User, smtpOptions.Password)
             });
         });
 

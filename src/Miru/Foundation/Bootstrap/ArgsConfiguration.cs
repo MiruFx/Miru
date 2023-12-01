@@ -6,13 +6,11 @@ namespace Miru.Foundation.Bootstrap;
 public class ArgsConfiguration
 {
     public string Environment { get; private set; }
-        
     public bool Verbose { get; private set; }
-        
+    public bool MiruLogInformation { get; private set; }
+    public bool SqlLogInformation { get; private set; }
     public bool IsRunningCli { get; }
-    
     public bool IsRunningWebApp => IsRunningCli == false;
-        
     public string[] CliArgs { get; } = { };
         
     public ArgsConfiguration(string[] args)
@@ -45,6 +43,18 @@ public class ArgsConfiguration
             if (args[i].CaseCmp("--verbose"))
             {
                 Verbose = true;
+                continue;
+            }
+
+            if (args[i].CaseCmp("--log"))
+            {
+                MiruLogInformation = true;
+                continue;
+            }
+
+            if (args[i].CaseCmp("--sql"))
+            {
+                SqlLogInformation = true;
                 continue;
             }
 

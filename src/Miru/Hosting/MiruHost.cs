@@ -88,6 +88,17 @@ public static class MiruHost
                 else
                     services.AddSingleton<IMiruHost, CliMiruHost>();
 
+                // Logging
+                if (argsConfig.MiruLogInformation)
+                    services.AddSerilogConfig(x =>
+                        x.MinimumLevel.Override("Miru", LogEventLevel.Information));
+                
+                if (argsConfig.SqlLogInformation)
+                    services.AddSerilogConfig(x =>
+                        x.MinimumLevel.Override(
+                            "Microsoft.EntityFrameworkCore.Database.Command", 
+                            LogEventLevel.Information));
+                
                 // AppConfig
                 services.Configure<DatabaseOptions>(host.Configuration.GetSection("Database"));
                 services.Configure<MailingOptions>(host.Configuration.GetSection("Mailing"));

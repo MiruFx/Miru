@@ -1,50 +1,47 @@
-using System;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Extensions.Logging;
 
-namespace Miru.Foundation.Logging
+namespace Miru.Foundation.Logging;
+
+public static class HostBuilderExtensions
 {
-    public static class HostBuilderExtensions
+    public static IHostBuilder ConfigureSerilog(this IHostBuilder builder, Action<LoggerConfiguration> config)
     {
-        public static IHostBuilder ConfigureSerilog(this IHostBuilder builder, Action<LoggerConfiguration> config)
+        builder.ConfigureServices(services =>
         {
-            builder.ConfigureServices(services =>
+            services.AddSingleton<ILoggerConfigurationBuilder>(new LoggerConfigurationBuilder(config));
+                
+            services.TryAddSingleton(sp =>
             {
-                services.AddSingleton<ILoggerConfigurationBuilder>(new LoggerConfigurationBuilder(config));
-                
-                services.TryAddSingleton(sp =>
+                var loggerConfiguration = new LoggerConfiguration();
+            
+                var configBuilders = sp.GetServices<ILoggerConfigurationBuilder>();
+            
+                foreach (var configBuilder in configBuilders)
                 {
-                    var loggerConfiguration = new LoggerConfiguration();
-            
-                    var configBuilders = sp.GetServices<ILoggerConfigurationBuilder>();
-            
-                    foreach (var configBuilder in configBuilders)
-                    {
-                        configBuilder.Config(loggerConfiguration);
-                    }
+                    configBuilder.Config(loggerConfiguration);
+                }
                     
-                    var logger = loggerConfiguration.CreateLogger();
+                var logger = loggerConfiguration.CreateLogger();
             
-                    return new RegisteredLogger(logger);
-                });   
+                return new RegisteredLogger(logger);
+            });   
                 
-                services.ReplaceSingleton<ILoggerFactory>(sp =>
-                {
-                    var logger = sp.GetRequiredService<RegisteredLogger>().Logger;
+            services.ReplaceSingleton<ILoggerFactory>(sp =>
+            {
+                var logger = sp.GetRequiredService<RegisteredLogger>().Logger;
                     
-                    Log.Logger = logger;
+                Log.Logger = logger;
 
-                    var factory = new SerilogLoggerFactory(logger, true);
+                var factory = new SerilogLoggerFactory(logger, true);
 
-                    return factory;
-                });
+                return factory;
             });
+        });
             
-            return builder;
-        }
+        return builder;
     }
 }

@@ -99,7 +99,7 @@ public class MiruHostTest
             sp.Get<DatabaseOptions>().ConnectionString.ShouldBe("DataSource={{ db_dir }}App_dev.db");
         }
     }
-    
+
     public class TestAssertConsolable : Consolable
     {
         public TestAssertConsolable() : base("test.assert")
