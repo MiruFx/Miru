@@ -23,34 +23,34 @@ namespace Miru.Testing
 {
     public static class QueueingTestFixtureExtensions
     {
-        public static int EnqueuedCount(this ITestFixture fixture)
+        public static int EnqueuedCount(this ITestFixture fixture, string queue = "default")
         {
             return fixture.Get<JobStorage>()
                 .GetMonitoringApi()
-                .EnqueuedJobs("default", 0, 1000)
+                .EnqueuedJobs(queue, 0, 1000)
                 .Count;
         }
 
-        public static bool AnyEnqueuedFor<TQueueable>(this ITestFixture fixture) 
+        public static bool AnyEnqueuedFor<TQueueable>(this ITestFixture fixture, string queue = "default") 
             where TQueueable : IQueueable
         {
             return fixture.Get<JobStorage>()
                 .GetMonitoringApi()
-                .EnqueuedJobs("default", 0, 1000)
+                .EnqueuedJobs(queue, 0, 1000)
                 .Select(result => result.Value)
                 .Count(enqueueJob => enqueueJob.Job.Args[0].GetType() == typeof(TQueueable)) == 1;
         }
         
-        public static TJob EnqueuedFor<TJob>(this ITestFixture fixture)
+        public static TJob EnqueuedFor<TJob>(this ITestFixture fixture, string queue = "default")
         {
             var entry = fixture.Get<JobStorage>()
                 .GetMonitoringApi()
-                .EnqueuedJobs("default", 0, 1000)
+                .EnqueuedJobs(queue, 0, 1000)
                 .Select(result => result.Value)
                 .FirstOrDefault(enqueueJob => enqueueJob.Job.Args[0].GetType() == typeof(TJob));
             
             if (entry == null)
-                throw new ShouldAssertException($"No job queued found of type {typeof(TJob).FullName}");
+                throw new ShouldAssertException($"No job of type {typeof(TJob).FullName} found at queue '{queue}'");
 
             return (TJob) entry.Job.Args[0];
         }
@@ -65,22 +65,5 @@ namespace Miru.Testing
                     .Where(enqueueJob => enqueueJob.Job.Args[0].GetType() == typeof(TJob))
                     .Select(enqueueJob => (TJob) enqueueJob.Job.Args[0])
                     .ToList();
-        
-        public static Email EnqueuedEmail(this ITestFixture fixture)
-        {
-            var job = fixture.EnqueuedFor<EmailJob>();
-
-            if (job == null)
-                throw new MiruException("There is no EmailJob queued");
-            
-            return job.Email;
-        }
-        
-        public static IEnumerable<Email> EnqueuedEmails(
-            this ITestFixture fixture, 
-            string queue = "default") =>
-                fixture
-                    .AllEnqueuedFor<EmailJob>(queue: queue)
-                    .Select(x => x.Email);
     }
 }

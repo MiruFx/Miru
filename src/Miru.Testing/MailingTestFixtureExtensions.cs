@@ -11,6 +11,24 @@ namespace Miru.Testing;
 [ShouldlyMethods]
 public static class MailingTestFixtureExtensions
 {
+    public static Email EnqueuedEmail(this ITestFixture fixture)
+    {
+        var mailingQueue = fixture.Get<MailingOptions>().QueueName;
+        var job = fixture.EnqueuedFor<EmailJob>(mailingQueue);
+
+        if (job == null)
+            throw new MiruException($"There is no EmailJob in the '{mailingQueue}' queue");
+            
+        return job.Email;
+    }
+        
+    public static IEnumerable<Email> EnqueuedEmails(
+        this ITestFixture fixture, 
+        string queue = "default") =>
+        fixture
+            .AllEnqueuedFor<EmailJob>(queue: queue)
+            .Select(x => x.Email);
+    
     public static async Task SendEmailNowAsync<TMail>(this ITestFixture fixture, TMail mail) 
         where TMail : Mailable
     {
