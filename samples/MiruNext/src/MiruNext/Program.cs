@@ -5,15 +5,16 @@ using MiruNext.Domain;
 using MiruNext.Framework;
 
 var builder = WebApplication.CreateBuilder();
-
-builder.Services
-    .AddMiruNext<Program, HtmlConfig>()
-    .AddEfCoreSqlite<AppDbContext>();
-
 builder.WebHost.UseUrls("http://localhost:5010");
+
+// services
+builder.Services
+    .AddMiruNext<HtmlConfig>()
+    .AddEfCoreSqlite<AppDbContext>();
 
 var app = builder.Build();
 
+// middlewares
 app.UseStaticFiles();
 app.UseFastEndpoints(cfg => cfg.Endpoints.Configurator = ep =>
 {

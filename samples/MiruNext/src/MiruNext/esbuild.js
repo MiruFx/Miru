@@ -8,7 +8,7 @@ esbuild.build({
     outdir: "wwwroot",
     bundle: true,
     minify: production,
-    watch: watch,
+    // watch: watch,
     metafile: true,
     plugins: [sass.sassPlugin()],
     logLevel: 'info',

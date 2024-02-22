@@ -1,0 +1,33 @@
+﻿@inject IServiceProvider ServiceProvider
+
+<LayoutView Layout="Layout">
+    @ChildContent
+</LayoutView>
+
+@code {
+    
+    [Parameter, EditorRequired]
+    public Type Layout { get; set; }
+
+    [Parameter] 
+    public required RenderFragment ChildContent { get; set; }
+
+    // private IHttpContextAccessor _accessor;
+
+    // protected override void OnParametersSet()
+    // {
+    //     // determine layout
+    //     _accessor = (IHttpContextAccessor)ServiceProvider.GetService(typeof(IHttpContextAccessor));
+    //     
+    //     if (_accessor != null)
+    //     {
+    //         var context = _accessor.HttpContext;
+    //
+    //         // override layout if it's a htmx request that isn't a boosted navigation
+    //         // if (context != null && context.Request.IsHtmx() && !context.Request.IsHtmxBoosted())
+    //         // {
+    //         //     Layout = typeof(EmptyLayout);
+    //         // }
+    //     }
+    // }
+}

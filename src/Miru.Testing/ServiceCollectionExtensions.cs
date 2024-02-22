@@ -26,7 +26,7 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection Mock<TService>(this IServiceCollection services) where TService : class
+    public static IServiceCollection AddMock<TService>(this IServiceCollection services) where TService : class
     {
         services.ReplaceSingleton(Substitute.For<TService>());
         return services;

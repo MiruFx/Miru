@@ -75,7 +75,9 @@ public class Fabricator
         }
         else
         {
-            allMade = customFactory != null ? customFactory.MakeMany(count) : Fixture.CreateMany<T>(count); 
+            allMade = customFactory != null 
+                ? customFactory.MakeMany(count) 
+                : Fixture.CreateMany<T>(count); 
         }
             
         foreach (var oneMade in allMade)

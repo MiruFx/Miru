@@ -30,7 +30,7 @@ public static class FixtureExtensions
                 
             // Potential additions to AutoFaker
                 
-            _.IfPropertyNameIs("Name").Use(f => f.Name.FirstName());
+            _.IfPropertyNameIs("Name").Use(f => f.Person.FirstName);
                 
             // Userfy
             _.IfPropertyNameStarts("Password").Use("123456");

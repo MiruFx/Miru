@@ -124,7 +124,7 @@ The Page's html has been saved to:
              
             file.Dir().EnsureDirExist();
             
-            _driver.GetScreenshot().SaveAsFile(file, ScreenshotImageFormat.Png);
+            _driver.GetScreenshot().SaveAsFile(file);
 
             return file;
         }

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <GenerateProgramFile>false</GenerateProgramFile>
     </PropertyGroup>
 
@@ -12,7 +12,7 @@
         <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
         
-        <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.33.0" />
+        <PackageReference Include="Selenium.WebDriver.GeckoDriver" Version="0.34.0" />
     </ItemGroup>
     
     <ItemGroup>

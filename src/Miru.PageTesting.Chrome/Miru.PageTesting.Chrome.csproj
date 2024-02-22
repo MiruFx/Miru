@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="115.0.5790.10200" />
+        <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="121.0.6167.8500" />
     </ItemGroup>
 
     <ItemGroup>

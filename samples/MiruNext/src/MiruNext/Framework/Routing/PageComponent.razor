@@ -1,0 +1,42 @@
+@using System.Collections.Concurrent
+@using System.Reflection
+@using MiruNext.Framework.Validation
+@using MiruNext.Framework.Views
+
+<CascadingValue Value="@PageState">
+    @if (Layout != null)
+    {
+        <LayoutView Layout="Layout">
+            <DynamicComponent Type="ComponentType" Parameters="ComponentParameters" />
+        </LayoutView>
+    }
+    else
+    {
+        <DynamicComponent Type="ComponentType" Parameters="ComponentParameters" />
+    }
+</CascadingValue>
+
+@code {
+    [Parameter, EditorRequired]
+    public Type ComponentType { get; set; }
+
+    [Parameter, EditorRequired]
+    public Dictionary<string, object?> ComponentParameters { get; set; }
+
+    [Parameter]
+    public List<ValidationError> Errors { get; set; } = new();
+
+    private PageState PageState { get; set; } = new();
+
+    private static readonly ConcurrentDictionary<Type, Type?> _layoutAttributeCache = new();
+
+    private Type? Layout = null;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await Task.CompletedTask;
+        
+        PageState.Errors = Errors;
+        Layout = ComponentType.GetCustomAttribute<LayoutAttribute>()?.LayoutType;
+    }
+}

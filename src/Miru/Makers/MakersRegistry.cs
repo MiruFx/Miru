@@ -1,6 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
-using Miru.Core;
-
 namespace Miru.Makers;
 
 public static class MakersRegistry

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
@@ -11,47 +11,47 @@
     <ItemGroup>
 
         <!-- Core -->
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
         <PackageReference Include="NetEscapades.Configuration.Yaml" Version="3.1.0" />
         <PackageReference Include="Scrutor" Version="4.2.2" />
-        <PackageReference Include="Ardalis.SmartEnum" Version="7.0.0" />
-        <PackageReference Include="Ardalis.SmartEnum.EFCore" Version="7.0.0" />
+        <PackageReference Include="Ardalis.SmartEnum" Version="8.0.0" />
+        <PackageReference Include="Ardalis.SmartEnum.EFCore" Version="8.0.0" />
 
         <!-- Data -->
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.9" />
-        <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="7.22.4" />
-        <PackageReference Include="FluentMigrator" Version="3.3.2" />
-        <PackageReference Include="FluentMigrator.Runner" Version="3.3.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.1" />
+        <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="8.102.0" />
+        <PackageReference Include="FluentMigrator" Version="5.0.0" />
+        <PackageReference Include="FluentMigrator.Runner" Version="5.0.0" />
 
         <!-- Features -->
         <PackageReference Include="MediatR" Version="11.1.0" />
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-        <PackageReference Include="FluentValidation" Version="11.6.0" />
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.6.0" />
+        <PackageReference Include="FluentValidation" Version="11.9.0" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
+
+        <!-- View -->
+        <PackageReference Include="Vereyon.Web.FlashMessage" Version="3.0.0" />
 
         <!-- Email -->
         <PackageReference Include="FluentEmail.Core" Version="3.0.2" />
         <PackageReference Include="FluentEmail.Smtp" Version="3.0.2" />
         <PackageReference Include="MimeTypeMapOfficial" Version="1.0.17" />
-        
-        <!-- View -->
-        <PackageReference Include="Vereyon.Web.FlashMessage" Version="3.0.0" />
 
         <!-- Logging -->
-        <PackageReference Include="Serilog" Version="3.0.1" />
-        <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
-        <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+        <PackageReference Include="Serilog" Version="3.1.1" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
+        <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
 
         <!-- Queuing -->
-        <PackageReference Include="Hangfire.Core" Version="1.8.4" />
-        <PackageReference Include="Hangfire.AspNetCore" Version="1.8.4" />
-        <PackageReference Include="Hangfire.Console" Version="1.4.2" />
-        <PackageReference Include="Hangfire.Console.Extensions.Serilog" Version="1.0.2" />
+        <PackageReference Include="Hangfire.Core" Version="1.8.9" />
+        <PackageReference Include="Hangfire.AspNetCore" Version="1.8.9" />
+        <PackageReference Include="Hangfire.Console" Version="1.4.3" />
+        <PackageReference Include="Hangfire.Console.Extensions.Serilog" Version="2.0.0" />
 
         <!-- Userfy -->
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.9" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.9" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.1" />
 
         <!-- MiniProfiler -->
         <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.3.8" />

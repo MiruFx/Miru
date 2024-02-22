@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Hangfire;
 using Hangfire.Storage;
-using MediatR;
 using Miru.Queuing;
 
 namespace Miru.Scheduling;
@@ -37,6 +35,12 @@ public class ScheduledJobs
         
         RecurringJob.AddOrUpdate<JobFor<TRequest>>(
             jobId, m => m.Execute(request, default, null, queueName), cron, timeZone, queueName);
+
+        // RecurringJob.AddOrUpdate<JobFor<TRequest>>(
+        //     jobId,
+        //     queueName,
+        //     m => m.Execute(request, default, null, queueName),
+        //     cron);
 
         _jobsAdded[jobId] = request;
         

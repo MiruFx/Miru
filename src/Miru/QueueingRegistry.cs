@@ -1,9 +1,6 @@
-using System;
 using Hangfire;
-using Hangfire.Console;
 using Hangfire.Console.Extensions;
 using Hangfire.Console.Extensions.Serilog;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Miru.Foundation.Logging;
 using Miru.Queuing;
@@ -31,7 +28,7 @@ public static class QueueingRegistry
                 // instances, UseConsole unfairly throws InvalidOperationException
                 try
                 {
-                    configuration.UseConsole();
+                    configuration.UseColouredConsoleLogProvider();
                 }
                 catch (InvalidOperationException)
                 {

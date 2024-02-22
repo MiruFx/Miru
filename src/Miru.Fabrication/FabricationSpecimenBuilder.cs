@@ -1,7 +1,6 @@
 using System.Reflection;
 using AutoFixture.Kernel;
 
-
 namespace Miru.Fabrication;
 
 public class FabricationSpecimenBuilder : ISpecimenBuilder

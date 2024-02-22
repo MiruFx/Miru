@@ -1,8 +1,6 @@
 using System.CommandLine;
-using System.Threading.Tasks;
 using Humanizer;
 using Miru.Consolables;
-using Miru.Core;
 
 namespace Miru.Makers;
 

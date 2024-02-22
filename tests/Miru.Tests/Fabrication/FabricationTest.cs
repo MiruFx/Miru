@@ -330,6 +330,16 @@ public class FabricationTest
         
         faker.Locale.ShouldBe("de");
     }
+    
+    [Test]
+    [Ignore("Not implemented yet")]
+    public void Should_many_with_different_names()
+    {
+        var customer = _fabricator.MakeMany<Customer>(3);
+        
+        customer.Second().Name.ShouldNotBe(customer.First().Name);
+        customer.Third().Name.ShouldNotBe(customer.First().Name);
+    }
         
     [Test]
     [Ignore("Not implemented yet")]
@@ -419,6 +429,7 @@ public class FabricationTest
 
     public class Customer
     {
+        public string Name { get; set; }
         public bool IsActive { get; set; }
         public Address Address { get; set; }
             
