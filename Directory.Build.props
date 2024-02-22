@@ -10,10 +10,10 @@
     
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>miru asp.net .net fullstack framework</PackageTags>
+    <PackageTags>miru asp.net .net .net-core .net8 dotnet8 efcore8 fullstack framework</PackageTags>
 
     <Authors>Joao Carlos Clementoni</Authors>
-    <Copyright>Copyright (c) 2020-2023 Joao Carlos Clementoni</Copyright>
+    <Copyright>Copyright (c) 2020-2024 Joao Carlos Clementoni</Copyright>
 
     <PackageOutputPath>..\..\packages</PackageOutputPath>
     <IncludeSymbols>true</IncludeSymbols>
@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
 </Project>
