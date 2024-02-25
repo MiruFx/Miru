@@ -109,7 +109,7 @@ public class Post : EntityEventable
     public bool Archived { get; set; }
 }
 
-public class PostCreated : IDomainEvent, IEnqueuedEvent
+public class PostCreated : IDomainEvent, IIntegratedEvent
 {
     public Post Post { get; }
 
@@ -118,7 +118,7 @@ public class PostCreated : IDomainEvent, IEnqueuedEvent
         Post = post;
     }
 
-    public INotification GetNotification()
+    public INotification GetEvent()
     {
         return new PostCreatedJob
         {

@@ -59,7 +59,7 @@ public class NotifyConsolableTest
 
     public class OrderCreated
     {
-        public class Notification : MiruNotification
+        public class Notification : IntegratedEvent2
         {
             public long OrderId { get; set; }
         }

@@ -11,6 +11,6 @@ public static class DomainEventsRegistry
     {
         return services
             .AddTransient<IInterceptor, DomainEventsInterceptor>()
-            .AddTransient<IInterceptor, EnqueuedEventsInterceptor>();
+            .AddTransient<IInterceptor, IntegratedEventsInterceptor>();
     }
 }

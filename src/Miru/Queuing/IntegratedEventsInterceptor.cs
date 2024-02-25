@@ -1,21 +1,12 @@
 using System.Data.Common;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Miru.Domain;
 
 namespace Miru.Queuing;
 
-public class EnqueuedEventsInterceptor : DbTransactionInterceptor
+public class IntegratedEventsInterceptor(Jobs jobs) : DbTransactionInterceptor
 {
-    private readonly Jobs _jobs;
-
-    public EnqueuedEventsInterceptor(Jobs jobs)
-    {
-        _jobs = jobs;
-    }
-
     public override async Task TransactionCommittedAsync(
         DbTransaction transaction,
         TransactionEndEventData eventData,
@@ -35,11 +26,11 @@ public class EnqueuedEventsInterceptor : DbTransactionInterceptor
         {
             while (entity.EnqueueEvents.TryTake(out var enqueuedEvent))
             {
-                var job = enqueuedEvent().GetNotification();
+                var job = enqueuedEvent().GetEvent();
                 
                 App.Framework.Information("Enqueueing {Job} from {Entity}", job, entity);
                 
-                _jobs.Enqueue(enqueuedEvent().GetNotification());
+                jobs.Enqueue(enqueuedEvent().GetEvent());
             }
         }
         

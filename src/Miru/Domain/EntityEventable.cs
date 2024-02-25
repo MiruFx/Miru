@@ -13,16 +13,16 @@ public abstract class EntityEventable : Entity
     public IProducerConsumerCollection<IDomainEvent> DomainEvents => _domainEvents;
 
     [NotMapped]
-    private readonly ConcurrentQueue<Func<IEnqueuedEvent>> _enqueueEvents = new();
+    private readonly ConcurrentQueue<Func<IIntegratedEvent>> _enqueueEvents = new();
     
     [NotMapped]
-    public IProducerConsumerCollection<Func<IEnqueuedEvent>> EnqueueEvents => _enqueueEvents;
+    public IProducerConsumerCollection<Func<IIntegratedEvent>> EnqueueEvents => _enqueueEvents;
 
     protected void PublishEvent(IDomainEvent domainEvent)
     {
         _domainEvents.Enqueue(domainEvent);
 
-        if (domainEvent is IEnqueuedEvent enqueuedEvent)
+        if (domainEvent is IIntegratedEvent enqueuedEvent)
         {
             _enqueueEvents.Enqueue(() => enqueuedEvent);
         }

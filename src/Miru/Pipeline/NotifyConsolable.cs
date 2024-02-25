@@ -1,6 +1,5 @@
 using System.CommandLine;
 using System.Linq;
-using System.Threading.Tasks;
 using MediatR;
 using Miru.Consolables;
 using Miru.Foundation.Bootstrap;
