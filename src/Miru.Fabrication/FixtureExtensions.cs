@@ -3,6 +3,7 @@ using Baseline.Dates;
 using Microsoft.AspNetCore.Http;
 using Miru.Domain;
 using Miru.Fabrication.FixtureConventions;
+using Miru.Mvc;
 using Miru.Userfy;
 
 namespace Miru.Fabrication;
@@ -15,43 +16,45 @@ public static class FixtureExtensions
     {
         fixture.OmitRecursion();
             
-        fixture.AddConvention(faker, _ =>
+        fixture.AddConvention(faker, x =>
         {
-            _.AddEntityFramework();
+            x.AddEntityFramework();
 
             // Ignore types
-            _.IfPropertyImplementsEnumerableOf<IEntity>().Ignore();
+            x.IfPropertyImplementsEnumerableOf<IEntity>().Ignore();
 
-            _.IfPropertyImplements(typeof(ISmartEnum)).Ignore();
+            x.IfPropertyImplements(typeof(ISmartEnum)).Ignore();
             // _.IfPropertyImplements(typeof(Enumeration<>)).Ignore();
-            _.IfPropertyImplements<IEnumerable<ILookupable>>().Ignore();
+            x.IfPropertyImplements<IEnumerable<ILookupable>>().Ignore();
+            x.IfPropertyTypeIs<SelectLookups>().Ignore();
+            x.IfPropertyTypeIs<IFormFile>().Ignore();
+            
+            x.AddAutoFaker();
                 
-            _.AddAutoFaker();
-                
+            // default values for types
+            x.IfPropertyTypeIs<bool>().Use(_ => false);
+            
             // Potential additions to AutoFaker
-                
-            _.IfPropertyNameIs("Name").Use(f => f.Person.FirstName);
+            x.IfPropertyNameIs("Name").Use(f => f.Person.FirstName);
                 
             // Userfy
-            _.IfPropertyNameStarts("Password").Use("123456");
-            _.IfPropertyNameIs(HashedPassword).Use(() => Hash.Create("123456"));
+            x.IfPropertyNameStarts("Password").Use("123456");
+            x.IfPropertyNameIs(HashedPassword).Use(() => Hash.Create("123456"));
 
-            _.IfPropertyNameIs(nameof(IRecoverable.ResetPasswordToken)).Ignore();
-            _.IfPropertyNameIs(nameof(IRecoverable.ResetPasswordSentAt)).Ignore();
+            x.IfPropertyNameIs(nameof(IRecoverable.ResetPasswordToken)).Ignore();
+            x.IfPropertyNameIs(nameof(IRecoverable.ResetPasswordSentAt)).Ignore();
                 
-            _.IfPropertyNameIs(nameof(IConfirmable.ConfirmationToken)).Use(() => null);
-            _.IfPropertyNameIs(nameof(IConfirmable.ConfirmationSentAt)).Use(() => null);
-            _.IfPropertyNameIs(nameof(IConfirmable.ConfirmedAt)).Use(() => 5.Minutes().Ago());
+            x.IfPropertyNameIs(nameof(IConfirmable.ConfirmationToken)).Use(() => null);
+            x.IfPropertyNameIs(nameof(IConfirmable.ConfirmationSentAt)).Use(() => null);
+            x.IfPropertyNameIs(nameof(IConfirmable.ConfirmedAt)).Use(() => 5.Minutes().Ago());
                 
-            _.IfPropertyNameIs(nameof(ICanBeAdmin.IsAdmin)).Use(() => false);
+            x.IfPropertyNameIs(nameof(ICanBeAdmin.IsAdmin)).Use(() => false);
                 
             // CreditCard
-            _.IfPropertyNameIs("CreditCard").Use(f => f.Finance.CreditCardNumber());
+            x.IfPropertyNameIs("CreditCard").Use(f => f.Finance.CreditCardNumber());
                 
             // Dates
             // _.IfPropertyTypeIs<DateTimeOffset>().Use(f => f.Date.FutureOffset().Time);
-            
-            _.IfPropertyTypeIs<IFormFile>().Ignore();
         });
             
         return fixture;

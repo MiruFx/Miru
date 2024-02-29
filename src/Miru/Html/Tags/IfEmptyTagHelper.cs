@@ -7,13 +7,17 @@ namespace Miru.Html.Tags;
 public class IfEmptyTagHelper : TagHelper
 {
     [HtmlAttributeName("miru-if-empty")]
-    public IEnumerable Model { get; set; }
+    public object Instance { get; set; }
 
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
-        if (Model.GetEnumerator().MoveNext())
-        {
+        if (Instance is IEnumerable enumerable && enumerable.GetEnumerator().MoveNext())
             output.SuppressOutput();
-        }
+        
+        // else if (Instance == null) 
+        //     output.SuppressOutput();
+        
+        else if (Instance != null && Instance.Equals(Instance.GetType().GetDefault()) == false) 
+            output.SuppressOutput();
     }
 }
