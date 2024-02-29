@@ -33,6 +33,7 @@ public static class MiruServiceCollectionExtensions
         services.AddSerilogConfig(config =>
         {
             config.MinimumLevel.Override(typeof(TStartup).Assembly.GetName().Name, LogEventLevel.Information);
+            config.MinimumLevel.Override("Hangfire", LogEventLevel.Error);
         });
                 
         services.AddFlashMessage();

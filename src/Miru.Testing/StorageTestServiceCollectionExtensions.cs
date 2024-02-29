@@ -22,11 +22,29 @@ public static class StorageTestServiceCollectionExtensions
         return services.AddAppStorage<AppTestStorage>();
     }
     
+    public static FormFile FormFile2(
+        this ITestFixture fixture, 
+        string fileName, 
+        string fileContent,
+        string contentType = null)
+    {
+        var path = fixture.AppStorage().Temp() / fileName;
+        
+        if (contentType is null)
+            contentType = MimeTypes.MimeTypeMap.GetMimeType(path.FileExtension());
+
+        path.Dir().EnsureDirExist();
+        
+        File.WriteAllText(path, fileContent);
+
+        return fixture.FormFile(path, contentType);
+    }
+    
     public static FormFile FormFile(this ITestFixture fixture, MiruPath path, string contentType)
     {
         var stream = File.OpenRead(path);
             
-        var file = new FormFile(stream, 0, stream.Length, null, System.IO.Path.GetFileName(path))
+        var file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(path))
         {
             Headers = new HeaderDictionary(),
             ContentType = contentType

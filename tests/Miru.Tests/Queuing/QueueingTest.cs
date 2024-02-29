@@ -25,7 +25,7 @@ public class QueueingTest : MiruCoreTest
             .AddSingleton<BackgroundJobServer>()
             .AddSerilogConfig(x =>
             {
-                x.MinimumLevel.Information();
+                x.MinimumLevel.Fatal();
                 x.WriteToTestConsole();
             });
     }

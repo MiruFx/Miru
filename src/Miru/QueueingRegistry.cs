@@ -26,13 +26,15 @@ public static class QueueingRegistry
                 // .UseConsole registers routes into hangfire dashboard statically
                 // So in automated tests, when queue is registered in different ServiceProvider
                 // instances, UseConsole unfairly throws InvalidOperationException
-                try
-                {
-                    configuration.UseColouredConsoleLogProvider();
-                }
-                catch (InvalidOperationException)
-                {
-                }
+                // try
+                // {
+                //     configuration
+                //         .UseSerilogLogProvider()
+                //         .UseColouredConsoleLogProvider();
+                // }
+                // catch (InvalidOperationException)
+                // {
+                // }
                 
                 queuingBuilder?.Invoke(builder);
             });
