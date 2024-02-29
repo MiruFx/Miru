@@ -72,8 +72,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.Postgres.Tests", "test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miru.Redis", "src\Miru.Redis\Miru.Redis.csproj", "{6C5D7514-60BF-4842-AABE-4BF618F05FFF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MiruNext", "MiruNext", "{AA7CF007-C9C2-456F-9B0B-A0C7F4C12EAC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

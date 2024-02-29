@@ -55,4 +55,24 @@ public static class MailingTestFixtureExtensions
             .Any(x => x.Filename == name && x.ContentType == contentType)
             .ShouldBeTrue($"Should contain attachment named '{name}' with content type '{contentType}'");
     }
+        
+    public static ITestFixture ClearEmails(this ITestFixture fixture)
+    {
+        using var scope = fixture.App.WithScope();
+
+        scope.Get<MemorySender>().Clear();
+
+        return fixture;
+    }
+    
+    public static void ShouldContainAddress(
+        this IList<FluentEmail.Core.Models.Address> addresses, 
+        FluentEmail.Core.Models.Address address) =>
+        addresses.ShouldContain(m => m.Name == address.Name && m.EmailAddress == address.EmailAddress);
+    
+    
+    public static void ShouldBe(this FluentEmail.Core.Models.Address address, string emailAddress)
+    {
+        address.EmailAddress.ShouldBe(emailAddress);
+    }
 }

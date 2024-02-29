@@ -13,45 +13,64 @@ public static class TestFixtureHostExtensions
 {
     public static TestFixture StartServer(this TestFixture fixture)
     {
-        MiruTest.Log.Measure(nameof(StartServer), () =>
+        var pageTestingOptions = fixture.Get<PageTestingConfig>();
+
+        var host = fixture.Get<IHost>();
+
+        try
         {
+            host.Start();
+        }
+        catch (Exception exception)
+        {
+            throw new MiruPageTestException(
+                "Could not start host for the App. Check the Inner Exception and your Program.cs/Startup.cs configurations",
+                exception.InnerException ?? exception);
+        }
 
-            var pageTestingOptions = fixture.Get<PageTestingConfig>();
+        if (pageTestingOptions.StartLocalServer)
+        {
+            var server = fixture.Get<IServer>();
 
-            var host = fixture.Get<IHost>();
+            var addresses = server.Features.Get<IServerAddressesFeature>().Addresses;
 
-            try
-            {
-                host.Start();
-            }
-            catch (Exception exception)
-            {
+            if (addresses.Count == 0)
                 throw new MiruPageTestException(
-                    "Could not start host for the App. Check the Inner Exception and your Program.cs/Startup.cs configurations",
-                    exception.InnerException ?? exception);
-            }
+                    "The App's Server has no http addresses associated to it. Maybe the App is already running in another process?");
 
-            if (pageTestingOptions.StartLocalServer)
-            {
-                var server = fixture.Get<IServer>();
+            var address = addresses.First();
 
-                var addresses = server.Features.Get<IServerAddressesFeature>().Addresses;
+            pageTestingOptions.BaseUrl = address;
 
-                if (addresses.Count == 0)
-                    throw new MiruPageTestException(
-                        "The App's Server has no http addresses associated to it. Maybe the App is already running in another process?");
-
-                var address = addresses.First();
-
-                pageTestingOptions.BaseUrl = address;
-
-                fixture.SendRequestToServer(address);
-            }
-        });
+            fixture.SendRequestToServer(address);
+        }
         
         return fixture;
     }
 
+    public static TestFixture StartServer2(this TestFixture fixture)
+    {
+        var host = fixture.Get<IHost>();
+        
+        host.Start();
+        
+        var server = fixture.Get<IServer>();
+
+        var addresses = server.Features.Get<IServerAddressesFeature>().Addresses;
+
+        if (addresses.Count == 0)
+            throw new MiruException(
+                "The App's Server has no http addresses associated to it. Maybe the App is already running in another process?");
+
+        var address = addresses.First();
+
+        // ApiBaseUrl = address;
+
+        // fixture.SendRequestToServer(address);
+        
+        return fixture;
+    }
+    
     public static ILogger Log(this TestFixture fixture)
     {
         return fixture.Get<ILogger>();

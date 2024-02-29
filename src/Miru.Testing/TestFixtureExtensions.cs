@@ -18,6 +18,7 @@ using Miru.Queuing;
 using Miru.Storages;
 using Miru.Userfy;
 using Serilog;
+using Shouldly;
 
 namespace Miru.Testing;
 
@@ -26,11 +27,21 @@ namespace Miru.Testing;
 /// </summary>
 public static class TestFixtureExtensions
 {
+    public static void AppClock(this ITestFixture fixture, DateTime dateTime) => 
+        App.Now = () => dateTime;
+    
     public static ScopedServices WithScope(this ITestFixture fixture)
     {
         return fixture.Get<IMiruApp>().WithScope();
     }
-        
+    
+    public static async Task ShouldThrowExceptionAsync<TException>(
+        this ITestFixture fixture, IBaseRequest message) where TException : Exception
+    {
+        await Should.ThrowAsync<TException>(async () =>
+            await fixture.App.ScopedSendAsync(message, default));
+    }
+
     public static async Task<TResult> SendAsync<TResult>(this ITestFixture fixture, IRequest<TResult> message)
     {
         return await fixture.App.ScopedSendAsync(message, default);
@@ -267,11 +278,11 @@ public static class TestFixtureExtensions
         
     public static ITestFixture StopServer(this ITestFixture fixture)
     {
-        MiruTest.Log.Measure(nameof(StopServer), () =>
-        {
+        // MiruTest.Log.Measure(nameof(StopServer), () =>
+        // {
             fixture.Get<IHost>().StopAsync().GetAwaiter().GetResult();
             fixture.Get<IHost>().Dispose();
-        });
+        // });
             
         return fixture;
     }
@@ -314,4 +325,7 @@ public static class TestFixtureExtensions
         
         logger.Information($"{taskName} executed in {timer.ElapsedMilliseconds} ms");
     }
+        
+    public static void FeatureResultShouldBe<TResult>(this FeatureResult featureResult) =>
+        featureResult.Model.ShouldBeOfType<TResult>();
 }

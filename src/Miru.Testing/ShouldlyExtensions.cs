@@ -144,22 +144,6 @@ public static class ShouldlyExtensions
         }
     }
         
-    public static void ShouldContain(this MiruPath fileName, params string[] lines)
-    {
-        var file = File.ReadAllText(fileName);
-
-        try
-        {
-            lines.Each(line => file.ShouldContain(line));
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("==== Full file's content: ====");
-            Console.WriteLine(file);
-            throw;
-        }
-    }
-        
     public static void ShouldExist(this MiruPath fileName)
     {
         File.Exists(fileName).ShouldBeTrue($"File {fileName} should exist but it doesn't");
@@ -182,15 +166,6 @@ public static class ShouldlyExtensions
             throw new ShouldAssertException("The two IComparableWith objects are not the same");
     }
 
-    public static MiruPath MakeFake(this MiruPath path)
-    {
-        path.Dir().EnsureDirExist();
-        
-        File.WriteAllText(path, new Faker().Lorem.Sentence());
-
-        return path;
-    }
-    
     private static bool ScrambledEquals<T>(IEnumerable<T> left, IEnumerable<T> right)
     {
         return !left.Except(right).Union(right.Except(left)).Any();
