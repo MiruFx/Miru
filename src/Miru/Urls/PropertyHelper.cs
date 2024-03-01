@@ -7,9 +7,11 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Mvc;
 using Miru.Urls;
 
 [assembly: MetadataUpdateHandler(typeof(PropertyHelper.MetadataUpdateHandler))]
@@ -54,7 +56,10 @@ internal sealed class PropertyHelper
     public PropertyHelper(PropertyInfo property)
     {
         Property = property ?? throw new ArgumentNullException(nameof(property));
-        Name = property.Name;
+        
+        var attr = property.GetCustomAttribute<FromQueryAttribute>();
+
+        Name = attr?.Name ?? property.Name;
     }
 
     /// <summary>
