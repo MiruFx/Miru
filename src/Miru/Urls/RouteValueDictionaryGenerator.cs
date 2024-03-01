@@ -54,7 +54,7 @@ public class RouteValueDictionaryGenerator
                     continue;
             }
 
-            if (property.IsEnumerable && rawValue is IEnumerable list and not string)
+            if (rawValue is IEnumerable list and not string)
             {
                 var i = 0;
                 

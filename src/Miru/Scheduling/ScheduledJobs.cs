@@ -33,8 +33,10 @@ public class ScheduledJobs
 
         var jobId = GetJobId(request, suffix);
         
+#pragma warning disable CS0618 // Type or member is obsolete
         RecurringJob.AddOrUpdate<JobFor<TRequest>>(
             jobId, m => m.Execute(request, default, null, queueName), cron, timeZone, queueName);
+#pragma warning restore CS0618 // Type or member is obsolete
 
         // RecurringJob.AddOrUpdate<JobFor<TRequest>>(
         //     jobId,

@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="StackExchange.Exceptional.AspNetCore" Version="2.2.32" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\src\Miru\Miru.csproj" />
     <ProjectReference Include="..\..\..\..\src\Miru.Sqlite\Miru.Sqlite.csproj" />
 
@@ -21,19 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="Features\Accounts\Login.cshtml" />
-    <_ContentIncludedByDefault Remove="Features\Accounts\Passwords\Edit.cshtml" />
-    <_ContentIncludedByDefault Remove="Features\Accounts\Passwords\Forgot.cshtml" />
-    <_ContentIncludedByDefault Remove="Features\Accounts\Passwords\Reset.cshtml" />
-    <_ContentIncludedByDefault Remove="Features\Accounts\Passwords\_Edit.mail.cshtml" />
-    <_ContentIncludedByDefault Remove="Features\Accounts\Passwords\_Edit.turbo.cshtml" />
-    <_ContentIncludedByDefault Remove="Features\Accounts\Passwords\_Forgot.mail.cshtml" />
-    <_ContentIncludedByDefault Remove="Features\Accounts\Passwords\_Forgot.turbo.cshtml" />
-    <_ContentIncludedByDefault Remove="Features\Accounts\Passwords\_Reset.mail.cshtml" />
-    <_ContentIncludedByDefault Remove="Features\Accounts\Passwords\_Reset.turbo.cshtml" />
-    <_ContentIncludedByDefault Remove="Features\Accounts\Register.cshtml" />
-    <_ContentIncludedByDefault Remove="Features\Accounts\_Register.turbo.cshtml" />
-    <_ContentIncludedByDefault Remove="Features\Accounts\_Registered.mail.cshtml" />
+    <_ContentIncludedByDefault Remove="Features\Errors\New.cshtml" />
   </ItemGroup>
-  
+
 </Project>

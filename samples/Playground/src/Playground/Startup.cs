@@ -1,36 +1,20 @@
 using System;
-using System.Linq;
 using Hangfire;
-using Hangfire.Console;
-using Hangfire.Console.Extensions;
-using Hangfire.Console.Extensions.Serilog;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Miru;
-using Miru.Behaviors.BelongsToUser;
 using Miru.Fabrication;
-using Miru.Foundation.Logging;
-using Miru.Globalization;
 using Miru.Hosting;
 using Miru.Html.HtmlConfigs;
 using Miru.Mailing;
 using Miru.Mvc;
-using Miru.Pipeline;
 using Miru.Queuing;
-using Miru.Scheduling;
-using Miru.Scopables;
 using Miru.Security;
 using Miru.Sqlite;
-using Miru.Userfy;
 using Playground.Config;
 using Playground.Database;
 using Playground.Domain;
-using StackExchange.Exceptional;
 
 namespace Playground;
 
@@ -89,11 +73,6 @@ public class Startup
         services
             .AddFabrication<PlaygroundFabricator>();
         
-        services.AddExceptional(settings =>
-        {
-        });
-        services.AddMvcCore(options => { options.Filters.Add(typeof(ExceptionalExceptionFilter), -9000); });
-
         services.AddSession();
         services.AddDistributedMemoryCache();
         services.AddMemoryCache();
@@ -106,8 +85,6 @@ public class Startup
         // The Middlewares here are configured in order of executation
         // Here, they are organized for Miru defaults. Changing the order might break some functionality 
 
-        app.UseExceptional();
-        
         if (env.IsDevelopmentOrTest())
         {
             // app.UseDeveloperExceptionPage();
@@ -138,13 +115,5 @@ public class Startup
             e.MapDefaultControllerRoute();
             e.MapRazorPages();
         });
-    }
-}
-
-public class ExceptionalExceptionFilter : IExceptionFilter
-{
-    public void OnException(ExceptionContext context)
-    {
-        context.Exception.Log(context.HttpContext);
     }
 }
