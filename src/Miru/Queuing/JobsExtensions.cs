@@ -12,4 +12,13 @@ public static class JobsExtensions
     {
         jobs.Enqueue(job, startIn: startIn, queue);
     }
+    
+    public static async Task EnqueueAsync<TJob>(
+        this Jobs jobs, 
+        TJob job) where TJob : IBaseRequest
+    {
+        jobs.Enqueue(job);
+        
+        await Task.CompletedTask;
+    }
 }

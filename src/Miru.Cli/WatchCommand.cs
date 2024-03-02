@@ -61,6 +61,12 @@ public class WatchCommand : Command, IDisposable
         var solutionFinder = new SolutionFinder(new FileSystem());            
         var solution = solutionFinder.FromDir(Directory.GetCurrentDirectory());
             
+        if (solution.FoundSolution == false)
+        {
+            Console2.RedLine($"There is no Miru's Solution at {solution.LookedAt}");
+            return;
+        }
+        
         var processRunner = new ProcessRunner(_reporter);
             
         // FIXME: npm and dotnet path finder: 

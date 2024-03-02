@@ -96,6 +96,15 @@ public static class MiruAppExtensions
         return func(scope);
     }
     
+    public static void WithScope<TService1, TService2>(
+        this IMiruApp app, 
+        Action<TService1, TService2> action)
+    {
+        using var scope = app.Get<ScopedServices>();
+        
+        action(scope.Get<TService1>(), scope.Get<TService2>());
+    }
+
     // public static async Task EnqueueAsync<TJob>(this IMiruApp app, TJob job) where TJob : IBaseRequest
     // {
     //     using var scope = app.WithScope();

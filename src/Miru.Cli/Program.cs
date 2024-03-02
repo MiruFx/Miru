@@ -33,8 +33,8 @@ public class Program
         
         var rootCommand = new RootCommand
         {
-            new Option<bool>(new[] { "--verbose"}),
-            new Option<string>(new[] { "--project", "-p"}),
+            new Option<bool>(["--verbose"]),
+            new Option<string>(["--project", "-p"]),
                 
             new NewCommand("new"),
                 
