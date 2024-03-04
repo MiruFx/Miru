@@ -1,4 +1,5 @@
 using Hangfire;
+using Hangfire.Console;
 using Hangfire.Console.Extensions;
 using Hangfire.Console.Extensions.Serilog;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -17,7 +18,7 @@ public static class QueueingRegistry
             .AddHangfire((sp, configuration) =>
             {
                 configuration
-                    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                    // .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                     .UseSimpleAssemblyNameTypeSerializer()
                     .UseRecommendedSerializerSettings();
                 
@@ -26,15 +27,14 @@ public static class QueueingRegistry
                 // .UseConsole registers routes into hangfire dashboard statically
                 // So in automated tests, when queue is registered in different ServiceProvider
                 // instances, UseConsole unfairly throws InvalidOperationException
-                // try
-                // {
-                //     configuration
-                //         .UseSerilogLogProvider()
-                //         .UseColouredConsoleLogProvider();
-                // }
-                // catch (InvalidOperationException)
-                // {
-                // }
+                try
+                {
+                    configuration.UseConsole();
+                    configuration.UseColouredConsoleLogProvider();
+                }
+                catch (InvalidOperationException)
+                {
+                }
                 
                 queuingBuilder?.Invoke(builder);
             });
