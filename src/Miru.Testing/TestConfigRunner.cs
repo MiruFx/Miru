@@ -1,4 +1,3 @@
-using System;
 using Baseline;
 using Microsoft.Extensions.Logging;
 

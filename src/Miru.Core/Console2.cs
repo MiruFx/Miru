@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics;
+using Baseline;
 
 namespace Miru.Core;
 
@@ -80,5 +82,28 @@ public class Console2
     public static void BreakLine()
     {
         Console.WriteLine();
+    }
+    
+    public static void Measure(Action action, string taskName = "Task")
+    {
+        Console.WriteLine($"{taskName} started");
+        
+        var timer = new Stopwatch();
+        timer.Start();
+
+        action();
+            
+        timer.Stop();
+        Console.WriteLine($"{taskName} executed in {timer.ElapsedMilliseconds} ms");
+    }
+    
+    public static T Dump<T>(T value, string prefix = null)
+    {
+        if (prefix.IsNotEmpty()) 
+            Console.Write(prefix);
+                
+        Console.WriteLine($"{value.GetType().GetName()}: {Environment.NewLine}{Yml.Dump(value)}");
+            
+        return value;
     }
 }

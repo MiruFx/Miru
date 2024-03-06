@@ -8,8 +8,9 @@ public class TeamListTest : FeatureTest
     public async Task Can_list_teams()
     {
         // arrange
-        var teams = _.MakeManySaving<Team>();
-            
+        var teams = _.MakeMany<Team>();
+        await _.SaveAsync(teams);
+        
         // act
         var result = await _.SendAsync(new TeamList.Query());
             

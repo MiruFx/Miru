@@ -1,10 +1,5 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FluentEmail.Core.Models;
-using Miru.Core;
 using Miru.Mailing;
-using Shouldly;
 
 namespace Miru.Testing;
 

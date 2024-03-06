@@ -1,6 +1,4 @@
-using System;
 using System.IO;
-using NUnit.Framework;
 using Serilog.Core;
 using Serilog.Events;
 using Serilog.Formatting.Display;

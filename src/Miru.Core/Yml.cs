@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Baseline;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.TypeInspectors;
 
 namespace Miru.Core;
 
-public class YmlConfig
+public static class Yml
 {
     public static List<Func<IPropertyDescriptor, bool>> PropertyFilters = new();
     
@@ -18,7 +19,7 @@ public class YmlConfig
                 DefaultValuesHandling.OmitNull |
                 DefaultValuesHandling.OmitEmptyCollections |
                 DefaultValuesHandling.OmitDefaults)
-            .WithTypeInspector(inspector => new YmlExtensions.FilterPropertiesInspector(inspector))
+            .WithTypeInspector(inspector => new Yml.FilterPropertiesInspector(inspector))
             .Build();
     });
     
@@ -26,18 +27,28 @@ public class YmlConfig
     {
         return new DeserializerBuilder()
             .IgnoreFields()
-            .WithTypeInspector(inspector => new YmlExtensions.FilterPropertiesInspector(inspector))
+            .WithTypeInspector(inspector => new Yml.FilterPropertiesInspector(inspector))
             .Build();
     });
-}
 
-public static class YmlExtensions
-{
-    public static string ToYml<T>(this T value) => 
-        YmlConfig.Serializer.Value.Serialize(value);
+    public static string Dump<T>(T value)
+    {
+        if (value == null)
+            return "null";
 
-    public static T FromYml<T>(this string content) =>
-        YmlConfig.Deserializer.Value.Deserialize<T>(content);
+        var yaml = ToYml(value);
+
+        if (yaml.StartsWith("{}") || yaml.IsEmpty())
+            return "Empty";
+
+        return yaml;
+    }
+
+    public static string ToYml<T>(T value) => 
+        Serializer.Value.Serialize(value);
+
+    public static T FromYml<T>(string content) =>
+        Deserializer.Value.Deserialize<T>(content);
         
     public class FilterPropertiesInspector : TypeInspectorSkeleton
     {
@@ -54,7 +65,7 @@ public static class YmlExtensions
                 .Where(p => !p.Name.ContainsNoCase("password"))
                 .Where(p => !(p.Name.ContainsNoCase("body") && type.FullName.Equals("Miru.Mailing.Email")));
 
-            foreach (var filter in YmlConfig.PropertyFilters)
+            foreach (var filter in PropertyFilters)
                 properties = properties.Where(filter);
 
             return properties;

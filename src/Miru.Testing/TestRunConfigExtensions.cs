@@ -1,5 +1,3 @@
-using System;
-
 namespace Miru.Testing;
 
 public static class TestRunConfigExtensions

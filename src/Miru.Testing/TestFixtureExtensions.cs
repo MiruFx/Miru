@@ -1,13 +1,8 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using FluentEmail.Core.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Miru.Databases;
 using Miru.Databases.Migrations;
@@ -18,7 +13,6 @@ using Miru.Queuing;
 using Miru.Storages;
 using Miru.Userfy;
 using Serilog;
-using Shouldly;
 
 namespace Miru.Testing;
 

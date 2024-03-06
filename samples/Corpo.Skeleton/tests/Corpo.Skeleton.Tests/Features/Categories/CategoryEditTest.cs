@@ -8,7 +8,9 @@ public class CategoryEditTest : FeatureTest
     public async Task Can_edit_category()
     {
         // arrange
-        var category = _.MakeSaving<Category>();
+        var category = _.Make<Category>();
+        await _.SaveAsync(category);
+        
         var command = _.Make<CategoryEdit.Command>(m => m.Id = category.Id);
 
         // act

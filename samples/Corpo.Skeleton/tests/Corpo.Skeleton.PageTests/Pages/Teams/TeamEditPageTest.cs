@@ -7,8 +7,9 @@ public class TeamEditPageTest : PageTest
     [Test]
     public void Can_edit_team()
     {
-        var team = _.MakeSaving<Team>();
-            
+        var team = _.Make<Team>();
+        _.Save(team);
+        
         _.Visit(new TeamEdit.Query { Id = team.Id });
 
         _.Form<TeamEdit.Command>((f, command) =>

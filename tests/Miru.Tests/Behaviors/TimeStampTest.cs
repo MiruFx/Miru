@@ -63,11 +63,12 @@ namespace Miru.Tests.Behaviors
         public void Should_update_current_timestamp_for_existing_entity()
         {
             // arrange
-            var post = _.MakeSaving<Post>(x =>
+            var post = _.Make<Post>(x =>
             {
                 x.CreatedAt = 1.Days().Ago();
                 x.UpdatedAt = 1.Days().Ago();
             });
+            _.Save(post);
             
             // act
             _.Save(post);
@@ -78,24 +79,6 @@ namespace Miru.Tests.Behaviors
             saved.UpdatedAt.ShouldBeSecondsAgo();
         }
         
-        [Test]
-        public void Time_stamp_example()
-        {
-            // arrange
-            var post = new Post();
-            
-            // act
-            _.Save(post);
-            
-            // assert
-            post.DumpToConsole();
-            
-            // Post: 
-            //  CreatedAt: 2021-12-29T15:45:44.8259326+01:00
-            //  UpdatedAt: 2021-12-29T15:45:44.8261866+01:00
-            //  Id: 1
-        }
-
         public class Post : Entity, ITimeStamped
         {
             public string Title { get; set; }

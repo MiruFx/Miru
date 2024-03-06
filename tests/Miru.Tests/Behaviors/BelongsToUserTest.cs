@@ -47,10 +47,13 @@ public class BelongsToUserTest
     public void Should_set_current_user()
     {
         // arrange
-        var user = _.MakeSavingLoginAs<User>();
+        var user = _.Make<User>();
+        _.Save(user);
+        _.LoginAs(user);
             
         // act
-        var post = _.MakeSaving<Post>(x => x.User = null);
+        var post = _.Make<Post>(x => x.User = null);
+        _.Save(post);
             
         // assert
         var saved = _.App.WithScope(s => s.Get<FooDbContext>().Posts.First());
@@ -65,11 +68,12 @@ public class BelongsToUserTest
         // no current user
 
         // act
-        var post = _.MakeSaving<Post>(x =>
+        var post = _.Make<Post>(x =>
         {
             x.User = null;
             x.UserId = 10;
         });
+        _.Save(post);
             
         // assert
         var saved = _.App.WithScope(s => s.Get<FooDbContext>().Posts.AsNoFilter().First());
@@ -84,7 +88,8 @@ public class BelongsToUserTest
         // no current user
             
         // act
-        var post = _.MakeSaving<Post>();
+        var post = _.Make<Post>();
+        _.Save(post);
             
         // assert
         var saved = _.App.WithScope(s => s.Get<FooDbContext>().Posts.AsNoFilter().First());
@@ -120,11 +125,16 @@ public class BelongsToUserTest
     {
         // arrange
         // act
-        Should.Throw<UnauthorizedException>(() => _.MakeSaving<Post>(x =>
+        Should.Throw<UnauthorizedException>(() =>
         {
-            x.User = null;
-            x.UserId = 0;
-        }));
+            var post = _.Make<Post>(x =>
+            {
+                x.User = null;
+                x.UserId = 0;
+            });
+            
+            _.Save(post);
+        });
             
         // assert
         _.App.WithScope(s => s.Get<FooDbContext>().Posts.Count().ShouldBe(0));

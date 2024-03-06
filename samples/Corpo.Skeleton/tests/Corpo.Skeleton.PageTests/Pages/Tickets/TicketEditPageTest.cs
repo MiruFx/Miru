@@ -12,8 +12,9 @@ public class TicketEditPageTest : PageTest
     public void Can_edit_ticket()
     {
         // arrange
-        var ticket = _.MakeSaving<Ticket>();
-            
+        var ticket = _.Make<Ticket>();
+        _.Save(ticket);
+        
         _.Visit(new TicketEdit.Query { Id = ticket.Id });
 
         // act

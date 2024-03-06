@@ -31,14 +31,6 @@ public static class ObjectExtensions
         return Convert.ToInt32(value);
     }
         
-    // public static TAttribute GetAttribute<TAttribute>(this object instance) 
-    //     where TAttribute : Attribute
-    // {
-    //     return instance
-    //         .GetType()
-    //         .GetCustomAttribute<TAttribute>();
-    // }
-        
     // TODO: move to another class, not any object extension
     public static object GetPropertyValue<T>(this T @this, string propertyName)
     {

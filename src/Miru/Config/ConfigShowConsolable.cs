@@ -53,7 +53,7 @@ public class ConfigShowConsolable : Consolable
             Console.WriteLine();
 
             Console2.YellowLine("Host:");
-            Console2.Line(_hostEnvironment.ToYml());
+            Console2.Line(Yml.ToYml(_hostEnvironment));
 
             Console2.YellowLine("All Configurations: ");
             Console.WriteLine(GetDebugView(_configuration as IConfigurationRoot));

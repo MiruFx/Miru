@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Miru.Behaviors.BelongsToUser;
 using Miru.Behaviors.TimeStamp;
+using Miru.Currentable;
 using Miru.Hosting;
 using Miru.Queuing;
 using Miru.Sqlite;
@@ -22,7 +23,7 @@ public class Startup : MiruStartup
             
             .AddDefaultPipeline<Startup>()
             
-            .AddCurrentAttributes<Current, CurrentAttributes>()
+            .AddCurrent<Current, CurrentHandler>()
                 
             .AddEfCoreSqlite<AppDbContext>()
 

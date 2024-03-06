@@ -8,7 +8,9 @@ public class TeamEditTest : FeatureTest
     public async Task Can_edit_team()
     {
         // arrange
-        var team = _.MakeSaving<Team>();
+        var team = _.Make<Team>();
+        await _.SaveAsync(team);
+        
         var command = _.Make<TeamEdit.Command>(m => m.Id = team.Id);
 
         // act

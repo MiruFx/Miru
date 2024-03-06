@@ -1,5 +1,3 @@
-using NUnit.Framework;
-
 namespace Miru.Testing
 {
     public abstract class AuthorizationTest : OneCaseFeatureTest

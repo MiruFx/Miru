@@ -1,8 +1,6 @@
-using System;
 using FluentEmail.Core.Interfaces;
 using Hangfire;
 using Hangfire.MemoryStorage;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Miru.Databases;
 using Miru.Mailing;

@@ -21,10 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using NUnit.Common;
 using NUnit.Framework.Api;
 using NUnit.Framework.Interfaces;

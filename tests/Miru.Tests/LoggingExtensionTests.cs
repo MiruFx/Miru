@@ -9,14 +9,14 @@ public class LoggingExtensionTests
     public void Should_inspect_empty_objects()
     {
         var model = new ProductList.Result();
-        model.Inspect().ShouldBe(@"Empty");
+        Yml.Dump(model).ShouldBe(@"Empty");
     }
         
     [Test]
     public void Should_inspect_null_objects()
     {
         ProductList.Result model = null;
-        model.Inspect().ShouldBe("null");
+        Yml.Dump(model).ShouldBe("null");
     }
         
     [Test]
@@ -30,7 +30,7 @@ public class LoggingExtensionTests
             OnSales = true
         };
 
-        var output = model.Inspect();
+        var output = Yml.Dump(model);
 
         output.ShouldContain("Title: This is the title");
         output.ShouldContain("CategoryId: 123");
@@ -47,7 +47,7 @@ public class LoggingExtensionTests
             Password = "VeryBigPassword#Blink@182"
         };
 
-        var output = model.Inspect().DumpToConsole();
+        var output = Yml.Dump(model);
 
         output.ShouldContain("Email: user@user.com");
         output.ShouldNotContain("Password");
@@ -62,7 +62,7 @@ public class LoggingExtensionTests
             Subject = "Hello"
         });
 
-        var output = model.Inspect().DumpToConsole();
+        var output = Yml.Dump(model);
 
         output.ShouldContain("Subject: Hello");
         output.ShouldNotContain("Body");

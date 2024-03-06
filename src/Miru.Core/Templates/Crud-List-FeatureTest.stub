@@ -8,8 +8,9 @@ public class {{ input.Name }}{{ input.Action }}Test : FeatureTest
     public async Task Can_{{ string.downcase input.Action }}_{{ string.downcase input.In }}()
     {
         // arrange
-        var {{ string.downcase input.In }} = _.MakeManySaving<{{ input.Name }}>();
-            
+        var {{ string.downcase input.In }} = _.MakeMany<{{ input.Name }}>();
+        await _.SaveAsync({{ string.downcase input.In }});
+        
         // act
         var result = await _.SendAsync(new {{ input.Name }}{{ input.Action }}.Query());
             

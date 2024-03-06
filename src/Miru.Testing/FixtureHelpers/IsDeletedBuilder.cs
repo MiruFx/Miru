@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using AutoFixture.Kernel;
+﻿using AutoFixture.Kernel;
 
 namespace Miru.Testing.FixtureHelpers
 {

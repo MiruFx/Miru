@@ -19,7 +19,7 @@ namespace Miru.Core.Makers
             m.Directory();
             Console.WriteLine();
             
-            var map = Maker.ReadEmbedded("_New.yml").FromYml<Dictionary<string, string>>();
+            var map = Yml.FromYml<Dictionary<string, string>>(Maker.ReadEmbedded("_New.yml"));
 
             foreach (var (key, stub) in map)
             {

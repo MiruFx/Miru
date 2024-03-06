@@ -8,7 +8,8 @@ public class CategoryShowTest : FeatureTest
     public async Task Can_show_categories()
     {
         // arrange
-        var category = _.MakeSaving<Category>();
+        var category = _.Make<Category>();
+        await _.SaveAsync(category);
             
         // act
         var response = await _.SendAsync(new CategoryShow.Query { Id = category.Id });

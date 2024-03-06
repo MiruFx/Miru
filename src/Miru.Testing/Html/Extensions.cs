@@ -1,8 +1,6 @@
 using System.IO;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.Extensions.DependencyInjection;
-using Shouldly;
 
 namespace Miru.Testing.Html;
 

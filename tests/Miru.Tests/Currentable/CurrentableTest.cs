@@ -1,38 +1,27 @@
-using System;
 using System.Threading;
-using System.Threading.Tasks;
-using Hangfire;
-using Hangfire.MemoryStorage;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Miru.Pipeline;
-using Miru.Queuing;
-using Miru.Scopables;
-using Miru.Security;
-using Miru.Testing;
-using Miru.Tests.Queuing;
-using Miru.Userfy;
-using NUnit.Framework;
-using Shouldly;
+using Miru.Currentable;
 
-namespace Miru.Tests.Scopables;
+namespace Miru.Tests.Currentable;
 
-public class ScopableTest
+// TODO: tests for default current
+public class CurrentableTest
 {
-    private ITestFixture _;
+    private ITestFixture _fix;
 
     [OneTimeSetUp]
     public void Setup()
     {
-        _ = new ServiceCollection()
+        _fix = new ServiceCollection()
             .AddMiruApp()
-            .AddPipeline<ScopableTest>(_ =>
+            .AddPipeline<CurrentableTest>(_ =>
             {
-                _.UseBehavior(typeof(CurrentAttributesBehavior<,>));
+                _.UseBehavior(typeof(CurrentBehavior<,>));
             })
             .AddMiruCoreTesting()
             
-            .AddCurrentAttributes<Current, CurrentScope>()
+            .AddCurrent<Current, CurrentHandler>()
             
             .BuildServiceProvider()
 
@@ -43,7 +32,7 @@ public class ScopableTest
     public void Should_process_current_scope()
     {
         // arrange
-        using var sp = _.WithScope();
+        using var sp = _fix.WithScope();
         
         // act
         sp.Get<IMediator>().Send(new Command());
@@ -70,20 +59,13 @@ public class ScopableTest
         public bool Processed { get; set; }
     }
 
-    public class CurrentScope : ICurrentAttributes
+    public class CurrentHandler(Current current) : ICurrentHandler
     {
-        private readonly Current _current;
-
-        public CurrentScope(Current current)
-        {
-            _current = current;
-        }
-
-        public async Task BeforeAsync<TRequest>(TRequest request, CancellationToken ct)
+        public async Task Handle<TRequest>(TRequest request, CancellationToken ct)
         {
             await Task.CompletedTask;
             
-            _current.Processed = true;
+            current.Processed = true;
         }
     }
 
@@ -95,18 +77,11 @@ public class ScopableTest
     {
     }
 
-    public class Handler : IRequestHandler<Command, Result>
+    public class Handler(Current current) : IRequestHandler<Command, Result>
     {
-        private readonly Current _current;
-
-        public Handler(Current current)
-        {
-            _current = current;
-        }
-
         public async Task<Result> Handle(Command request, CancellationToken ct)
         {
-            _current.Processed.ShouldBeTrue();
+            current.Processed.ShouldBeTrue();
             
             return await Task.FromResult(new Result());
         }

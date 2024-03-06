@@ -1,8 +1,10 @@
 ﻿using System;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Miru.Currentable;
 using Miru.Databases.EntityFramework;
 using Miru.Foundation.Logging;
+using Miru.Globalization;
 using Miru.Mailing;
 using Miru.Pipeline;
 using Miru.Scopables;
@@ -45,16 +47,25 @@ public static class PipelineRegistry
     {
         return services.AddPipeline<TAssemblyOfType>(_ =>
         {
+            _.UseBehavior(typeof(GlobalizationBehavior<,>));
             _.UseBehavior(typeof(LogBehavior<,>));
-            _.UseBehavior(typeof(DumpRequestBehavior<,>));
                 
             // should stop the pipeline if request is invalid
             _.UseBehavior(typeof(ValidationBehavior<,>));
                 
             _.UseBehavior(typeof(TransactionBehavior<,>));
-            _.UseBehavior(typeof(CurrentAttributesBehavior<,>));
+            _.UseBehavior(typeof(CurrentBehavior<,>));
                 
             _.UseBehavior(typeof(AuthorizationBehavior<,>));
         });
+        
+        // x.UseBehavior(typeof(GlobalizationBehavior<,>));
+        // x.UseBehavior(typeof(LogBehavior<,>));
+        // x.UseBehavior(typeof(ExceptionalBehavior<,>));
+        // x.UseBehavior(typeof(Framework.TransactionBehavior<,>));
+        // x.UseBehavior(typeof(CurrentBehavior<,>));
+        // x.UseBehavior(typeof(ScopableBehavior<,>));
+        // x.UseBehavior(typeof(ValidationBehavior<,>));
+        // x.UseBehavior(typeof(AuthorizationBehavior<,>));
     }
 }

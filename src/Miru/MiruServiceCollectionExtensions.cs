@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Miru.Config;
 using Miru.Core;
+using Miru.Currentable;
 using Miru.Foundation;
 using Miru.Foundation.Logging;
 using Miru.Makers;
@@ -55,7 +56,7 @@ public static class MiruServiceCollectionExtensions
         services.AddSingleton<ISessionStore, HttpSessionStore>();
             
         // default scope
-        services.AddCurrentAttributes<DefaultCurrent, DefaultCurrentAttributes>();
+        services.AddCurrent<DefaultCurrent, DefaultCurrentAttributes>();
 
         return services;
     }

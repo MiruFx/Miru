@@ -59,7 +59,7 @@ public class SolutionStubExport : StubExport
     
     private void SaveMapForNewSolution()
     {
-        File.WriteAllText(Params.StubDir / "_New.yml", NewSolutionFiles.ToYml());
+        File.WriteAllText(Params.StubDir / "_New.yml", Yml.ToYml(NewSolutionFiles));
             
         NewSolutionFiles.Clear();
             

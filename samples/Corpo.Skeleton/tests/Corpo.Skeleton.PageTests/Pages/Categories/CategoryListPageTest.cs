@@ -7,8 +7,9 @@ public class CategoryListPageTest : PageTest
     [Test]
     public void Can_list_categories()
     {
-        var categories = _.MakeManySaving<Category>();
-            
+        var categories = _.MakeMany<Category>();
+        _.Save(categories);
+        
         _.Visit<CategoryList>();
             
         _.ShouldHaveText("Category");

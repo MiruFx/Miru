@@ -47,7 +47,9 @@ namespace Miru.Tests.Behaviors
         public void Should_set_current_user_for_new_entity()
         {
             // arrange
-            var user = _.MakeSavingLoginAs<User>();
+            var user = _.Make<User>();
+            _.Save(user);
+            _.LoginAs(user);
             
             var post = new Post {Title = "Hello"};
             
@@ -66,14 +68,18 @@ namespace Miru.Tests.Behaviors
         public void Should_update_current_user_for_existing_entity()
         {
             // arrange
-            var otherUser = _.MakeSaving<User>();
-            var currentUser = _.MakeSaving<User>();
+            var otherUser = _.Make<User>();
+            var currentUser = _.Make<User>();
             
-            var post = _.MakeSaving<Post>(x =>
+            _.Save(otherUser, currentUser);
+            
+            var post = _.Make<Post>(x =>
             {
                 x.CreatedById = otherUser.Id;
                 x.UpdatedById = otherUser.Id;
             });
+            
+            _.Save(post);
             
             _.LoginAs(currentUser);
             
@@ -105,13 +111,15 @@ namespace Miru.Tests.Behaviors
         public void Nullable_update_current_user_for_existing_entity()
         {
             // arrange
-            var otherUser = _.MakeSaving<User>();
+            var otherUser = _.Make<User>();
+            _.Save(otherUser);
             
-            var category = _.MakeSaving<Category>(x =>
+            var category = _.Make<Category>(x =>
             {
                 x.CreatedById = otherUser.Id;
                 x.UpdatedById = otherUser.Id;
             });
+            _.Save(category);
             
             // act
             _.Save(category);

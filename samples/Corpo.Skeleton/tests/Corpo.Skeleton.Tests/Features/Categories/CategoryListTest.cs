@@ -8,7 +8,8 @@ public class CategoryListTest : FeatureTest
     public async Task Can_list_categories()
     {
         // arrange
-        var categories = _.MakeManySaving<Category>();
+        var categories = _.MakeMany<Category>(2);
+        await _.SaveAsync(categories);
             
         // act
         var result = await _.SendAsync(new CategoryList.Query());

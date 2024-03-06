@@ -1,5 +1,4 @@
 using FluentEmail.Core.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
 using Miru.Mailing;
 
 namespace Miru.Testing

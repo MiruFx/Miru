@@ -1,4 +1,3 @@
-using Miru.Core;
 using Miru.Storages;
 
 namespace Miru.Testing;

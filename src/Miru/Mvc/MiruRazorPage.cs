@@ -1,9 +1,7 @@
-using System;
 using System.Linq.Expressions;
 using Baseline.Reflection;
-using Microsoft.Extensions.DependencyInjection;
+using Miru.Currentable;
 using Miru.Html;
-using Miru.Scopables;
 using Miru.Userfy;
 
 namespace Miru.Mvc;
@@ -31,9 +29,9 @@ public abstract class MiruRazorPage<TModel, TCurrent> : MiruRazorPage<TModel>
     {
         get 
         {
-            var currentScope = ViewContext.HttpContext.RequestServices.GetRequiredService<ICurrentAttributes>();
+            var currentScope = ViewContext.HttpContext.RequestServices.GetRequiredService<ICurrentHandler>();
 
-            currentScope.BeforeAsync(Instance, default).GetAwaiter().GetResult();
+            currentScope.Handle(Instance, default).GetAwaiter().GetResult();
             
             return ViewContext.HttpContext.RequestServices.GetService<TCurrent>();
         }    

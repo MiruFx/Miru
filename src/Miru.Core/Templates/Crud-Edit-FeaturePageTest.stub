@@ -7,8 +7,9 @@ public class {{ input.Name }}{{ input.Action }}PageTest : PageTest
     [Test]
     public void Can_{{ string.downcase input.Action }}_{{ string.downcase input.Name }}()
     {
-        var {{ string.downcase input.Name }} = _.MakeSaving<{{ input.Name }}>();
-            
+        var {{ string.downcase input.Name }} = _.Make<{{ input.Name }}>();
+        _.Save({{ string.downcase input.Name }});
+        
         _.Visit(new {{ input.Name }}{{ input.Action }}.Query { Id = {{ string.downcase input.Name }}.Id });
 
         _.Form<{{ input.Name }}{{ input.Action }}.Command>((f, command) =>
