@@ -50,18 +50,16 @@ public static class Yml
     public static T FromYml<T>(string content) =>
         Deserializer.Value.Deserialize<T>(content);
         
-    public class FilterPropertiesInspector : TypeInspectorSkeleton
+    public class FilterPropertiesInspector(ITypeInspector innerTypeDescriptor) : TypeInspectorSkeleton
     {
-        private readonly ITypeInspector _innerTypeDescriptor;
+        public override string GetEnumName(Type enumType, string name) => 
+            innerTypeDescriptor.GetEnumName(enumType, name);
 
-        public FilterPropertiesInspector(ITypeInspector innerTypeDescriptor)
-        {
-            _innerTypeDescriptor = innerTypeDescriptor;
-        }
+        public override string GetEnumValue(object enumValue) => innerTypeDescriptor.GetEnumValue(enumValue);
 
         public override IEnumerable<IPropertyDescriptor> GetProperties(Type type, object container)
         {
-            var properties = _innerTypeDescriptor.GetProperties(type, container)
+            var properties = innerTypeDescriptor.GetProperties(type, container)
                 .Where(p => !p.Name.ContainsNoCase("password"))
                 .Where(p => !(p.Name.ContainsNoCase("body") && type.FullName.Equals("Miru.Mailing.Email")));
 

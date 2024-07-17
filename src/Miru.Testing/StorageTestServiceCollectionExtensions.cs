@@ -158,11 +158,11 @@ public static class StorageTestServiceCollectionExtensions
         }
     }
     
-    public static MiruPath MakeFake(this MiruPath path)
+    public static MiruPath MakeFake(this MiruPath path, int letters = 16)
     {
         path.Dir().EnsureDirExist();
         
-        File.WriteAllText(path, new Faker().Lorem.Sentence());
+        File.WriteAllText(path, new Faker().Lorem.Letter(letters));
         
         return path;
     }

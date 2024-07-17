@@ -62,22 +62,14 @@ public class JobNew
         public string Name { get; set; }
     }
     
-    public class JobHandler : IRequestHandler<NameNewJob>
+    public class JobHandler(ILogger<JobHandler> logger, PlaygroundDbContext db)
+        : IRequestHandler<NameNewJob>
     {
-        private readonly ILogger<JobHandler> _logger;
-        private readonly PlaygroundDbContext _db;
-
-        public JobHandler(ILogger<JobHandler> logger, PlaygroundDbContext db)
-        {
-            _logger = logger;
-            _db = db;
-        }
-
         public async Task<Unit> Handle(NameNewJob request, CancellationToken cancellationToken)
         {
-            _db.Users.ToList();
+            db.Users.ToList();
             
-            _logger.LogInformation("From ILogger {Name}", request.Name);
+            logger.LogInformation("From ILogger {Name}", request.Name);
             
             App.Log.Information("Name is {Name}", request.Name);
 
