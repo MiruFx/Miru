@@ -65,7 +65,7 @@ public class JobNew
     public class JobHandler(ILogger<JobHandler> logger, PlaygroundDbContext db)
         : IRequestHandler<NameNewJob>
     {
-        public async Task<Unit> Handle(NameNewJob request, CancellationToken cancellationToken)
+        public async Task Handle(NameNewJob request, CancellationToken cancellationToken)
         {
             db.Users.ToList();
             
@@ -73,7 +73,7 @@ public class JobNew
             
             App.Log.Information("Name is {Name}", request.Name);
 
-            return await Unit.Task;
+            await Task.CompletedTask;
         }
     }
 }

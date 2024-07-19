@@ -47,7 +47,7 @@ public class MailingLater
                     .AddSenderMemory()
                     .AddSingleton<MiruSolution, MiruTestSolution>()
                     .AddQueuing(x => x.Configuration.UseMemoryStorage())
-                    .AddMediatR(typeof(MailingTest).Assembly);
+                    .AddMediatR(x => x.RegisterServicesFromAssemblyContaining<MailingTest>());
             });
             
         _sp = _host.Services;

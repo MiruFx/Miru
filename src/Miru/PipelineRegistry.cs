@@ -17,7 +17,9 @@ public static class PipelineRegistry
 {
     public static IServiceCollection AddHandlers<TAssemblyOfType>(this IServiceCollection services) 
     {
-        services.AddMediatR(typeof(TAssemblyOfType));
+        // services.AddMediatR(typeof(TAssemblyOfType));
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<TAssemblyOfType>());
+        
         services.AddValidators<TAssemblyOfType>();
         services.AddAuthorizersInAssemblyOf<TAssemblyOfType>();
             
@@ -28,11 +30,17 @@ public static class PipelineRegistry
         this IServiceCollection services, 
         Action<PipelineBuilder> builder = null) 
     {
+        // services.AddMediatR(cfg =>
+        // {
+        //     cfg.AsScoped();
+        // }, typeof(TAssemblyOfType), typeof(EmailJob));
+            
         services.AddMediatR(cfg =>
         {
-            cfg.AsScoped();
-                
-        }, typeof(TAssemblyOfType), typeof(EmailJob));
+            cfg.RegisterServicesFromAssemblyContaining<TAssemblyOfType>();
+            cfg.RegisterServicesFromAssemblyContaining<EmailJob>();
+            cfg.Lifetime = ServiceLifetime.Scoped;
+        });
             
         var pipeline = new PipelineBuilder(services);
         builder?.Invoke(pipeline);
