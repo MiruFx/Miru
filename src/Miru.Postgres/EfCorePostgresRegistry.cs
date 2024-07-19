@@ -42,7 +42,7 @@ public static class EfCorePostgresRegistry
                 optionsAction.Invoke(sp, options);
         });
 
-        services.AddMigrator<TDbContext>(mb => mb.AddPostgres92());
+        services.AddMigrator<TDbContext>(mb => mb.AddPostgres11_0());
             
         return services;
     }
