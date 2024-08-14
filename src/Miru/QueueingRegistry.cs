@@ -44,6 +44,7 @@ public static class QueueingRegistry
 
         services
             .AddConsolable<QueueRunConsolable>()
+            .AddConsolable<QueueClearConsolable>()
             .AddQueueCleaner<NullQueueCleaner>()
             .AddHangfireConsoleExtensions()
             .AddSerilogConfig(x =>

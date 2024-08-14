@@ -201,7 +201,7 @@ public static class QueryableExtensions
         return queryable.Where(x => ids.Contains(x.Id));
     }
     
-    public static Task<List<long>> ToIdsListAsync<TEntity>(
+    public static Task<List<long>> ToIdsAsync<TEntity>(
         this IQueryable<TEntity> queryable, CancellationToken ct = default) 
         where TEntity : IEntity
     {
