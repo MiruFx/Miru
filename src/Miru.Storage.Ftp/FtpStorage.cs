@@ -10,24 +10,17 @@ using Miru.Storages;
 
 namespace Miru.Storage.Ftp;
 
-public class FtpStorage : IStorage
+public class FtpStorage(FtpOptions ftpOptions) : IStorage
 {
-    public FtpClient Client { get; }
+    public FtpClient Client { get; } = new(ftpOptions.Host)
+    {
+        Credentials = new NetworkCredential(ftpOptions.User, ftpOptions.Password),
+        Port = ftpOptions.Port,
+    };
 
     public MiruPath Path => Root;
     
-    public MiruPath Root { get; protected set; }
-
-    public FtpStorage(FtpOptions ftpOptions)
-    {
-        Client = new FtpClient(ftpOptions.Host)
-        {
-            Credentials = new NetworkCredential(ftpOptions.User, ftpOptions.Password),
-            Port = ftpOptions.Port,
-        };
-        
-        Root = ftpOptions.Root;
-    }
+    public MiruPath Root { get; protected set; } = ftpOptions.Root;
 
     public async Task PutAsync(MiruPath remotePath, MiruPath sourcePath)
     {

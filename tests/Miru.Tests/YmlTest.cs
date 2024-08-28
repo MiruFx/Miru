@@ -60,4 +60,15 @@ public class YmlTest
 
         Yml.Dump(model).ShouldNotContain("CategoryId");
     }
+    
+    [Test]
+    public void Can_deserialize_objects_with_smart_enum()
+    {
+        var model = new ProductList.Query
+        {
+            CategoryId = 123,
+        };
+
+        Yml.Dump(model).ShouldNotContain("CategoryId");
+    }
 }

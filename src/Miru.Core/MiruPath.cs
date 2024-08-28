@@ -5,20 +5,13 @@ using System.IO;
 namespace Miru.Core;
 
 [DebuggerStepThrough]
-public struct MiruPath
+public readonly struct MiruPath(string path)
 {
     public static MiruPath CurrentPath => AppContext.BaseDirectory;
         
     public static readonly string DirectorySeparatorChar = Path.DirectorySeparatorChar.ToString();
 
     private static readonly string This = ".";
-        
-    private readonly string _path;
-
-    public MiruPath(string path)
-    {
-        _path = path;
-    }
 
     public static MiruPath operator /(MiruPath a, MiruPath b)
     {
@@ -34,5 +27,5 @@ public struct MiruPath
         
     public static implicit operator MiruPath(string path) => new(path);
 
-    public override string ToString() => _path;
+    public override string ToString() => path;
 }
