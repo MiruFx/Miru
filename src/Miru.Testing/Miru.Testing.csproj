@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <EnableSourceLink>true</EnableSourceLink>
@@ -15,14 +15,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="4.1.0" />
-    <PackageReference Include="NUnitLite" Version="4.1.0" />
+    <PackageReference Include="NUnit" Version="4.3.2" />
+    <PackageReference Include="NUnitLite" Version="4.3.2" />
     <PackageReference Include="Hangfire.MemoryStorage" Version="1.8.1.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.7" />
-    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="8.0.7" />
-    <PackageReference Include="NSubstitute" Version="5.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="9.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="9.0.3" />
+    <PackageReference Include="NSubstitute" Version="5.3.0" />
     <PackageReference Include="Respawn" Version="6.2.1" />
-    <PackageReference Include="Shouldly" Version="4.2.1" />
+    <PackageReference Include="Shouldly" Version="4.3.0" />
     <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1" />
   </ItemGroup>
 

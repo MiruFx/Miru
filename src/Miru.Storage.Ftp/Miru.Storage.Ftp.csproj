@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentFTP" Version="50.1.0" />
+        <PackageReference Include="FluentFTP" Version="52.1.0" />
     </ItemGroup>
 
     <ItemGroup>

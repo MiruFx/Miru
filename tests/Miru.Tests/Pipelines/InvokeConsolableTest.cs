@@ -97,6 +97,26 @@ public class InvokableConsolableTest
             
         output.ShouldContain(ProductUpdate.ProductStatus.OutOfStock.Name);
     }
+    
+    [Test]
+    public async Task Should_run_invokable_parsing_args_of_array_type_by_comma()
+    {
+        // arrange
+        var host = MiruHost.CreateMiruHost(
+                "miru", "invoke", "ProductUpdate", "--Ids", "[10,11,12,13]")
+            .ConfigureServices(x => x
+                .AddMiruApp<InvokableConsolableTest>()
+                .AddConsolables<ConfigShowConsolable>()
+                .AddPipeline<InvokableConsolableTest>());
+                
+        // act
+        await host.RunMiruAsync();
+            
+        // assert
+        var output = _outWriter.ToString();
+            
+        output.ShouldContain("10,11,12,13");
+    }
 
     public class OrderArchive
     {
@@ -143,6 +163,7 @@ public class InvokableConsolableTest
         public class Command : IRequest<Command>, IInvokable
         {
             public int CategoryId { get; set; }
+            public long[] Ids { get; set; }
             public string Category { get; set; }
             public ProductStatus ProductStatus { get; set; }
         }
@@ -161,7 +182,11 @@ public class InvokableConsolableTest
         {
             public async Task<Command> Handle(Command request, CancellationToken cancellationToken)
             {
-                Console.WriteLine($"{request.ProductStatus} {request.ProductStatus.Name}");
+                if (request.ProductStatus is not null)
+                    Console.WriteLine($"{request.ProductStatus} {request.ProductStatus.Name}");
+                
+                Console.WriteLine(request.Ids.Join(","));
+                
                 return await Task.FromResult(request);
             }
         }
