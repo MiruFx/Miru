@@ -1,12 +1,8 @@
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Miru.Databases;
-using Miru.Databases.EntityFramework;
 using Miru.Hosting;
 using Miru.SqlServer;
-using NUnit.Framework;
 
 namespace Miru.Tests.EntityFramework
 {

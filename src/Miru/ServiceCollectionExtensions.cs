@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -53,15 +54,20 @@ public static class ServiceCollectionExtensions
 
         services.AddAntiforgery(options =>
         {
-            options.HeaderName = "X-CSRF-Token";
+            options.Cookie.Name = "csrf-token";
+            options.HeaderName = "x-csrf-token";
         });
-            
-        services.Configure<RouteOptions>(options =>
+
+        services.AddSession(x =>
         {
-            // options.LowercaseUrls = true;
-            // options.LowercaseQueryStrings = true;
+            x.Cookie.Name = "app-session";
+            x.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+            x.Cookie.IsEssential = true;
         });
-            
+
+        services.Configure<CookieTempDataProviderOptions>(options => 
+            options.Cookie.Name = "app-temp");
+        
         services.AddHttpContextAccessor();
 
         return services;

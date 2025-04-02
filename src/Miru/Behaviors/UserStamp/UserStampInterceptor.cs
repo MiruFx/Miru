@@ -8,40 +8,35 @@ using Miru.Userfy;
 
 namespace Miru.Behaviors.UserStamp;
 
-public class UserStampInterceptor : SaveChangesInterceptor
+public class UserStampInterceptor(ICurrentUser currentUser) : SaveChangesInterceptor
 {
-    private readonly ICurrentUser _currentUser;
-
-    public UserStampInterceptor(ICurrentUser currentUser)
-    {
-        _currentUser = currentUser;
-    }
-
     public override ValueTask<InterceptionResult<int>> SavingChangesAsync(
         DbContextEventData @event, 
         InterceptionResult<int> result,
         CancellationToken cancellationToken = default)
     {
-        StampUsers(@event);
+        if (@event.Context is null) 
+            return new ValueTask<InterceptionResult<int>>(result);
+        
+        HandleStamped(@event);
+        HandleCanBeStamped(@event);
 
-        NullableStampUsers(@event);
-            
         return new ValueTask<InterceptionResult<int>>(result);
     }
 
-    private void StampUsers(DbContextEventData @event)
+    private void HandleStamped(DbContextEventData @event)
     {
-        var entitiesBeingCreated = @event.Context.ChangeTracker.Entries<IUserStamped>()
+        var entitiesBeingCreated = @event.Context!.ChangeTracker.Entries<IUserStamped>()
             .Where(p => p.State == EntityState.Added)
             .Select(p => p.Entity);
 
         foreach (var entityBeingCreated in entitiesBeingCreated)
         {
             if (entityBeingCreated.CreatedById == default)
-                entityBeingCreated.CreatedById = _currentUser.Id;
+                entityBeingCreated.CreatedById = currentUser.Id;
 
             if (entityBeingCreated.UpdatedById == default)
-                entityBeingCreated.UpdatedById = _currentUser.Id;
+                entityBeingCreated.UpdatedById = currentUser.Id;
         }
 
         var entitiesBeingUpdated = @event.Context.ChangeTracker.Entries<IUserStamped>()
@@ -50,33 +45,39 @@ public class UserStampInterceptor : SaveChangesInterceptor
 
         foreach (var entityBeingUpdated in entitiesBeingUpdated)
         {
-            entityBeingUpdated.UpdatedById = _currentUser.Id;
+            entityBeingUpdated.UpdatedById = currentUser.Id;
         }
     }
         
-    private void NullableStampUsers(DbContextEventData @event)
+    private void HandleCanBeStamped(DbContextEventData @event)
     {
-        var entitiesBeingCreated = @event.Context.ChangeTracker.Entries<IUserStamped<long?>>()
-            .Where(p => p.State == EntityState.Added)
-            .Select(p => p.Entity);
-
-        foreach (var entityBeingCreated in entitiesBeingCreated)
+        if (currentUser.IsAuthenticated)
         {
-            if (entityBeingCreated.CreatedById.HasValue == false && _currentUser.IsAuthenticated)
-                entityBeingCreated.CreatedById = _currentUser.Id;
+            var entitiesBeingCreated = @event.Context!.ChangeTracker.Entries<ICanBeUserStamped>()
+                .Where(p => p.State == EntityState.Added)
+                .Select(p => p.Entity);
 
-            if (entityBeingCreated.UpdatedById.HasValue == false  && _currentUser.IsAuthenticated)
-                entityBeingCreated.UpdatedById = _currentUser.Id;
+            foreach (var entityBeingCreated in entitiesBeingCreated)
+            {
+                if (entityBeingCreated.CreatedById.HasValue == false)
+                    entityBeingCreated.CreatedById = currentUser.Id;
+
+                if (entityBeingCreated.UpdatedById.HasValue == false)
+                    entityBeingCreated.UpdatedById = currentUser.Id;
+            }
         }
 
-        var entitiesBeingUpdated = @event.Context.ChangeTracker.Entries<IUserStamped<long?>>()
+        var entitiesBeingUpdated = @event.Context!.ChangeTracker.Entries<ICanBeUserStamped>()
             .Where(p => p.State == EntityState.Modified)
             .Select(p => p.Entity);
 
         foreach (var entityBeingUpdated in entitiesBeingUpdated)
         {
-            entityBeingUpdated.UpdatedById = _currentUser.IsAuthenticated 
-                ?_currentUser.Id
+            // if we're updating entity and there is not user authenticated, 
+            // the default behavior will be to set the UpdatedById to null, as 
+            // unknown user has updated the entity
+            entityBeingUpdated.UpdatedById = currentUser.IsAuthenticated 
+                ? currentUser.Id
                 : null;
         }
     }

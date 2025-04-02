@@ -2,6 +2,7 @@ using System.Linq.Expressions;
 using Baseline.Reflection;
 using Miru.Currentable;
 using Miru.Html;
+using Miru.Urls;
 using Miru.Userfy;
 
 namespace Miru.Mvc;
@@ -9,6 +10,14 @@ namespace Miru.Mvc;
 public abstract class MiruRazorPage<TModel> : Microsoft.AspNetCore.Mvc.Razor.RazorPage<TModel> 
     where TModel : class
 {
+    // TODO: move to miru?
+    public string UrlFor<T>(T request) where T : class
+    {
+        var url = ViewContext.HttpContext.RequestServices.GetRequiredService<UrlLookup>();
+                
+        return url.For(request);
+    }
+    
     public ICurrentUser CurrentUser => 
         ViewContext.HttpContext.RequestServices.GetService<ICurrentUser>();
         
@@ -17,6 +26,8 @@ public abstract class MiruRazorPage<TModel> : Microsoft.AspNetCore.Mvc.Razor.Raz
     
     public Accessor For(Expression<Func<TModel, object>> expression) => 
         ReflectionHelper.GetAccessor(expression);
+    
+    public string CurrentUrl => $"{Context.Request.Path}{Context.Request.QueryString}";
 }
 
 public abstract class MiruRazorPage<TModel, TCurrent> : MiruRazorPage<TModel> 
